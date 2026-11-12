@@ -6,6 +6,8 @@
 > Prevention (CDC) and the American Immunization Registry Association (AIRA).
 > Its content is under active review and will change.
 
+**Read the draft:** <https://immregistries.github.io/cdc-hl7-v2-guide-r2/>
+
 The guide is published as a website: a navigable tree of short, focused
 sections ("cards"), followed by the message conformance profiles, segments,
 data types, and value sets. Each card has a permanent link and can be commented
@@ -42,7 +44,7 @@ See [docs/architecture.md](docs/architecture.md) and the
 | `data/` | Key terms, glossary, references, and change history |
 | `quality/` | Quality-check settings, reviewer findings, and decisions on findings |
 | `site/` | Theme and web assets (joint CDC/AIRA presentation) |
-| `tools/` | Conversion, checks, and (to come) site and document builders |
+| `tools/` | Conversion, checks, the site builder, and (to come) the document builder |
 | `tests/` | Tests for the tools |
 | `docs/` | How the guide is built |
 
@@ -59,6 +61,9 @@ python tools/convert_narrative.py
 # Anyone: run the quality checks on the committed cards
 python tools/check_cards.py          # writes output/quality/report.md
 
+# Anyone: build the website (open output/site/index.html)
+python tools/build_site.py
+
 # Tests
 python -m unittest discover -s tests
 ```
@@ -70,7 +75,8 @@ python -m unittest discover -s tests
 | Narrative cards | Converted from the 4 Nov 2026 draft: 357 cards, 595 conformance statements |
 | Quality checks | First set (structure, conformance language, figures, references) |
 | Structured chapter (IGAMT) | Next |
-| Website and card comments | Planned |
+| Website | Published from `main` on every push |
+| Card comments (InteropHub) | Planned |
 | Example messages | Planned |
 | Ballot document (Word/PDF) | Planned |
 

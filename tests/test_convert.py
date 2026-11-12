@@ -94,7 +94,8 @@ class ConverterTest(unittest.TestCase):
 
     def convert(self, variant=0):
         path = self.tmp / f"draft{variant}.docx"
-        make_doc(path, variant)
+        if not path.exists():  # saving again would change the file's timestamp and hash
+            make_doc(path, variant)
         convert_narrative.main(["--docx", str(path), "--cards", str(self.cards), "--data", str(self.data),
                                 "--report", str(self.tmp / "report.md")])
         return {c.id: c for c in walk(load_tree(self.cards))}
@@ -172,6 +173,29 @@ class ChecksTest(unittest.TestCase):
     def test_actor(self):
         self.assertEqual(actor_of("When an RSP includes a patient, the IIS SHALL return it."), "IIS")
         self.assertEqual(actor_of("The same identifiers SHOULD be used."), "")
+
+
+class SiteTest(unittest.TestCase):
+    def test_minimd(self):
+        import minimd
+        self.assertEqual(minimd.render("A **b** and *c* [d](https://x.org) \\*e\\* <f> [7]", citation_href="r.html"),
+                         '<p>A <strong>b</strong> and <em>c</em> <a href="https://x.org" rel="noopener" target="_blank">d</a>'
+                         ' *e* &lt;f&gt; <a class="cite" href="r.html#ref-7">[7]</a></p>')
+        self.assertEqual(minimd.render("- one\n  - two\n- three"),
+                         "<ul><li>one<ul><li>two</li></ul></li><li>three</li></ul>")
+        self.assertIn("<td>a|b</td>", minimd.table("| H |\n|---|\n| a\\|b |"))
+
+    def test_build_site(self):
+        import build_site
+        out = Path(tempfile.mkdtemp())
+        try:
+            result = build_site.build(out)
+            self.assertGreater(result["cards"], 0)
+            for page in ("index.html", "contents/index.html", "quality/index.html", "glossary/index.html",
+                         "resources/index.html", "assets/nav.js"):
+                self.assertTrue((out / page).exists(), page)
+        finally:
+            shutil.rmtree(out)
 
 
 if __name__ == "__main__":

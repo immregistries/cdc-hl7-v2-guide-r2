@@ -1,0 +1,24 @@
+# Guide identity and publication settings (maintained by hand).
+title: HL7 Version 2.5.1 Implementation Guide for Immunization Messaging
+short_title: CDC HL7 v2 Guide (Release 2)
+release: Release 2
+status: Draft
+status_note: Draft for review. Not for implementation.
+publishers:
+  - name: Centers for Disease Control and Prevention
+    short: CDC
+  - name: American Immunization Registry Association
+    short: AIRA
+repository: https://github.com/immregistries/cdc-hl7-v2-guide-r2
+site: https://immregistries.github.io/cdc-hl7-v2-guide-r2/
+interophub_topic: https://informatics.immregistries.org/hub/es/topic/52
+intro: |
+  This is a working draft of the next national HL7 Version 2.5.1 implementation
+  guide for immunization messaging. It is organized as short sections, each
+  focused on one topic, with its conformance statements listed separately from
+  the explanatory text. Every section has a permanent link.
+
+  Quality review findings are shown alongside the text. They come from
+  automated checks and editorial review, and they are there for the authors and
+  reviewers to consider; they are not part of the guide. Use **Hide findings**
+  to read without them.

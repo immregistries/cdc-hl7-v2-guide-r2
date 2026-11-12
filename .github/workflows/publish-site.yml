@@ -1,0 +1,46 @@
+name: Publish site
+
+# Builds the website from committed content and publishes it to the gh-pages
+# branch: the current draft at /main/, with the site root redirecting there.
+# Release folders (/vX.Y.Z/, /latest/) are kept when /main/ is updated.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-site
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Tests
+        run: python -m unittest discover -s tests
+      - name: Build site
+        run: |
+          python tools/build_site.py --out output/pages/main
+          cat > output/pages/index.html <<'EOF'
+          <!doctype html><meta charset="utf-8"><title>CDC HL7 v2 Guide (Release 2)</title>
+          <script>location.replace('main/index.html' + location.hash)</script>
+          <meta http-equiv="refresh" content="0; url=main/index.html">
+          <p><a href="main/index.html">Go to the current draft</a></p>
+          EOF
+          touch output/pages/.nojekyll
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: output/pages
+          keep_files: true
+          commit_message: Publish ${{ github.sha }}

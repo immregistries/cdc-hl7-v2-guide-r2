@@ -1,0 +1,8 @@
+# Generated content is written with LF line endings; keep it that way on every
+# platform so re-running the converter produces no spurious differences.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.docx binary
