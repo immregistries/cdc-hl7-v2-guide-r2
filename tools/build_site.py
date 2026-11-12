@@ -101,8 +101,8 @@ def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id
   </main>
 </div>
 <footer class="site-footer">
-  <p><strong>{status.upper()}</strong> — {esc(guide['title'])}, {esc(guide['release'])}. A joint publication of
-  {' and '.join(esc(p['name']) for p in guide['publishers'])}. {esc(guide.get('status_note', ''))}</p>
+  <p><strong>{status.upper()}</strong> — {esc(guide['title'])}, {esc(guide['release'])}. A joint publication of the
+  {' and the '.join(esc(p['name']) for p in guide['publishers'])}. {esc(guide.get('status_note', ''))}</p>
   <p class="build">Built {esc(build['date'])} from narrative draft <code>{esc(build['source'])}</code>{esc(build['commit'])}.
   <a href="{esc(guide['repository'])}">Source on GitHub</a>.</p>
 </footer>
@@ -356,13 +356,7 @@ def build(out: Path) -> dict:
 <p class="stats">{len(cards)} sections · {total_st} conformance statements · <a href="quality/index.html">{len(findings)} quality findings</a>
 ({sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes)</p>
 </section>
-<section class="chapters"><h2>Chapters</h2><ol class="chapter-list">{''.join(chapters)}</ol></section>
-<script>
-(function(){{var h=decodeURIComponent(location.hash.slice(1));if(!h||!window.GUIDE_NAV)return;
-var ids={{}};(function w(ns){{ns.forEach(function(n){{ids[n.i]=1;if(n.c)w(n.c)}})}})(GUIDE_NAV.nodes);
-var m=h.match(/^(.+)--s\\d+$/);
-if(ids[h])location.replace(h+'/index.html');else if(m&&ids[m[1]])location.replace(m[1]+'/index.html#'+h);}})();
-</script>"""
+<section class="chapters"><h2>Chapters</h2><ol class="chapter-list">{''.join(chapters)}</ol></section>"""
     write_text(out / "index.html", shell(root="", title="Home", body=landing, guide=guide, build=build_info, page_class="home"))
 
     # ---------------------------------------------------------------- contents

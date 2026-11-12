@@ -6,6 +6,17 @@
   var current = body.getAttribute("data-card") || "";
   var nav = window.GUIDE_NAV || { nodes: [], extra: [] };
 
+  // ------------------------------------------------------------ deep links on the home page
+  // index.html#<card-id> or #<card-id>--s<n> (used by links from InteropHub and elsewhere)
+  if (body.classList.contains("home") && location.hash.length > 1) {
+    var target = decodeURIComponent(location.hash.slice(1));
+    var ids = {};
+    (function walk(ns) { ns.forEach(function (n) { ids[n.i] = 1; if (n.c) walk(n.c); }); })(nav.nodes);
+    var st = target.match(/^(.+)--s\d+$/);
+    if (ids[target]) { location.replace(target + "/index.html"); return; }
+    if (st && ids[st[1]]) { location.replace(st[1] + "/index.html#" + target); return; }
+  }
+
   function store(key, value) {
     try { if (value === undefined) return localStorage.getItem(key); localStorage.setItem(key, value); } catch (e) { return null; }
   }
