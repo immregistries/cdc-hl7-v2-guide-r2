@@ -45,6 +45,12 @@
 <p>Resubmission is not merely a retransmission of the original data; it is the result of identifying and correcting the underlying issue, regardless of where it originated, so that the IIS receives a complete and accurate submission. Resubmitting the same message without correction is not appropriate and can overload IIS systems. Because an ACK does not distinguish between sender-side and receiver-side faults, any message requiring resubmission signals that at least one system, on either or both sides, must investigate and resolve the issue before the corrected message is resent.</p></div>
 
 
+<section class="xref" aria-labelledby="xref-h"><details>
+<summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">5 fields · from the IGAMT export</span></summary>
+<p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
+conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+<div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
+<tbody><tr><th scope="row"><code>ERR-4</code><div class="mini">Severity</div></th><td><div class="u-row"><span class="u">R [1..1] ID</span> <span class="u-where">Z23 ERR_IZ01, Z31 ERR_IZ01, Z32 ERR_IZ01, Z33 ERR_IZ01, Z42 ERR_IZ01</span></div></td><td><code>HL70516_IZ01</code></td><td><span class=mini>—</span></td></tr><tr><th scope="row"><code>MSA-1</code><div class="mini">Acknowledgment Code</div></th><td><div class="u-row"><span class="u">R [1..1] ID</span> <span class="u-where">Z23 MSA_IZ01, Z31 MSA_IZ01, Z32 MSA_IZ01, Z33 MSA_IZ01, Z42 MSA_IZ01</span></div></td><td><code>HL70008_IZ01</code></td><td><span class=mini>—</span></td></tr><tr><th scope="row"><code>ERR-2</code><div class="mini">Error Location</div></th><td><div class="u-row"><span class="u">RE [0..1] ERL_IZ01</span> <span class="u-where">Z23 ERR_IZ01, Z31 ERR_IZ01, Z32 ERR_IZ01, Z33 ERR_IZ01, Z42 ERR_IZ01</span></div></td><td><span class="mini">—</span></td><td><span class=mini>—</span></td></tr><tr><th scope="row"><code>ERR-5</code><div class="mini">Application Error Code</div></th><td><div class="u-row"><span class="u">RE [0..1] CWE_IZ01</span> <span class="u-where">Z23 ERR_IZ01, Z31 ERR_IZ01, Z32 ERR_IZ01, Z33 ERR_IZ01, Z42 ERR_IZ01</span></div></td><td><code>HL70533_IZ01</code></td><td><span class=mini>—</span></td></tr><tr><th scope="row"><code>ERR-8</code><div class="mini">User Message</div></th><td><div class="u-row"><span class="u">RE [0..1] TX</span> <span class="u-where">Z23 ERR_IZ01, Z31 ERR_IZ01, Z32 ERR_IZ01, Z33 ERR_IZ01, Z42 ERR_IZ01</span></div></td><td><span class="mini">—</span></td><td><span class=mini>—</span></td></tr></tbody></table></div></details></section>
 <section class="figures" aria-label="Figures"><figure id="fig-11"><button type="button" class="fig-open" data-src="fig-11.png" data-caption="Figure 11: ERR-4 Severity Disposition"><img src="fig-11.png" alt="ERR-4 Severity Disposition" loading="lazy"></button><figcaption><strong>Figure 11.</strong> ERR-4 Severity Disposition</figcaption></figure></section>
 
 
@@ -56,7 +62,7 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 14:09 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2ff15f7.
+  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

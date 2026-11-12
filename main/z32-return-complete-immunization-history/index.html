@@ -34,9 +34,13 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../response-rsp-profiles/index.html">3.5 Response (RSP) Profiles</a> <span>›</span> <a href="../rsp-response-profiles/index.html">3.5.2 RSP Response Profiles</a></nav>
 <header class="card-head"><h1><span class="num">3.5.2.2</span> Z32 - Return Complete Immunization History</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 warning</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-igamt-z32-evaluation"><span class="sev">Warning</span> Z32 (history only) contains evaluation and forecast groups. The narrative describes Z32 as the response to a history-only query (Z34); evaluation and forecast belong to Z42. The Z32 co-constraints include an &quot;Immunization Evaluation Results&quot; group for administered and historical doses, and an &quot;Immunization Forecast Results&quot; group for the no-vaccination group. Section 4.7.7.5 also points to &quot;Chapter 7.1.4, Z32&quot; for the evaluation LOINC codes.<div class="evidence"><div class="ev-tags"><span>Conflict</span><span>Action: IGAMT</span></div><div class="ev"><span class="ev-k">Narrative</span> &quot;This response represents the primary success case for history-only queries.&quot;</div><div class="ev"><span class="ev-k">IGAMT export</span><ul><li>Z32 table 1 (RXA-20 NA, CVX 998): group Immunization Forecast Results O [0..*].</li><li>Z32 table 2 (RXA-20 CP/PA, CVX ≠ 998): group Immunization Evaluation Results S [0..*].</li></ul></div><div class="ev"><span class="ev-k">Recommendation</span> Remove the evaluation and forecast groups from Z32 (or state that Z32 may carry them) and correct the cross-reference in 4.7.7.5 to Z42.</div></div><a class="f-id" href="../quality/index.html#qf-igamt-z32-evaluation">qf-igamt-z32-evaluation</a></li></ul></details></aside>
 <div class="narrative"><p>A Z32 response indicates a successful query for a Z34 query. The IIS has identified a single, high-confidence patient match and is able to return the complete immunization history consolidated for that patient.</p>
 <p>This response represents the primary success case for history-only queries. All known administered and historical immunizations associated with the patient are included, reflecting the IIS's authoritative record at the time of the query.</p></div>
+
 
 
 
@@ -50,7 +54,7 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 14:09 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2ff15f7.
+  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

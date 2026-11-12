@@ -42,6 +42,12 @@
 <p>The "Other race" code represents a distinct selection and does not indicate multiple races by itself.</p></div>
 
 <section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="multiple-race-reporting--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">If a patient reports multiple races, each SHALL be sent as a separate repetition of PID-10.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#multiple-race-reporting--s1" title="Link to this statement">s1</a></span></li><li id="multiple-race-reporting--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL support and process multiple PID-10 repetitions.</span><span class="s-meta"><a class="s-id" href="#multiple-race-reporting--s2" title="Link to this statement">s2</a></span></li><li id="multiple-race-reporting--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">&quot;Other race&quot; (2131-1) SHALL only be sent if explicitly selected by the patient.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#multiple-race-reporting--s3" title="Link to this statement">s3</a></span></li><li id="multiple-race-reporting--s4"><span class="verb verb-may">MAY</span><span class="s-text">If no race information is provided, PID-10 MAY be omitted or populated with UNK, ASKU, or PHC1175.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#multiple-race-reporting--s4" title="Link to this statement">s4</a></span></li></ol></section>
+<section class="xref" aria-labelledby="xref-h"><details>
+<summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">1 field · from the IGAMT export</span></summary>
+<p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
+conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+<div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
+<tbody><tr><th scope="row"><code>PID-10</code><div class="mini">Race</div></th><td><div class="u-row"><span class="u">RE [0..*] CE_IZ01</span> <span class="u-where">Z22 PID_IZ01, Z22 PID_IZ01 (slice), Z22 PID_IZ03 (slice), Z31 PID_IZ01, Z32 PID_IZ01</span></div><div class="u-row"><span class="u">O [0..*] CE_IZ01</span> <span class="u-where">Z42 PID_IZ02</span></div></td><td><code>PHVS_RaceCategory_CDC_NullFlavor</code></td><td><span class=mini>—</span></td></tr></tbody></table></div></details></section>
 
 
 
@@ -53,7 +59,7 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 14:09 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2ff15f7.
+  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

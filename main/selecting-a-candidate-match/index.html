@@ -47,6 +47,7 @@
 <p>When the user selects a candidate matching record and the querying system re-queries to get a specific patient record:</p></div>
 
 <section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="selecting-a-candidate-match--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">When a candidate is selected, querying systems SHALL re-initiate a Z34 or Z44 query using all the patient identifying information returned by the IIS for the selected record.</span><span class="s-meta"><a class="s-id" href="#selecting-a-candidate-match--s1" title="Link to this statement">s1</a></span></li><li id="selecting-a-candidate-match--s2"><span class="verb verb-should">SHOULD</span><span class="s-text">Querying systems SHOULD treat candidate selection as transitory and SHALL NOT permanently associate the IIS identifier with the local patient record without explicit user awareness and control.</span><span class="s-meta"><a class="s-flag sev-warning" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#selecting-a-candidate-match--s2" title="Link to this statement">s2</a></span></li><li id="selecting-a-candidate-match--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">If an IIS identifier is retained for future querying, querying systems SHALL provide a mechanism to remove or disregard that identifier.</span><span class="s-meta"><a class="s-id" href="#selecting-a-candidate-match--s3" title="Link to this statement">s3</a></span></li></ol></section>
+
 <section class="figures" aria-label="Figures"><figure id="fig-16"><button type="button" class="fig-open" data-src="fig-16.png" data-caption="Figure 16: Selecting a Candidate Match"><img src="fig-16.png" alt="Selecting a Candidate Match" loading="lazy"></button><figcaption><strong>Figure 16.</strong> Selecting a Candidate Match</figcaption></figure></section>
 
 
@@ -58,7 +59,7 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 14:09 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2ff15f7.
+  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

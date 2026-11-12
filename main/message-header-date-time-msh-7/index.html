@@ -41,6 +41,12 @@
 <div class="narrative"><p>MSH-7 identifies when the sending system created the message. This timestamp supports operational processing, auditing, and troubleshooting, but it is not used for clinical interpretation of immunization events. Because systems operate across multiple platforms and time zones, consistent timestamp precision and offset handling are required to ensure interoperability.</p></div>
 
 <section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="message-header-date-time-msh-7--s1"><span class="verb verb-may">MAY</span><span class="s-text">Submitting systems MAY use any valid time zone offset and are not required to convert timestamps to the IIS local time zone.</span><span class="s-meta"><a class="s-id" href="#message-header-date-time-msh-7--s1" title="Link to this statement">s1</a></span></li><li id="message-header-date-time-msh-7--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">Receiving systems SHALL accept functionally equivalent timestamps expressed with different time zone offsets.</span><span class="s-meta"><a class="s-id" href="#message-header-date-time-msh-7--s2" title="Link to this statement">s2</a></span></li><li id="message-header-date-time-msh-7--s3"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">MSH-7 SHALL NOT be used for clinical interpretation, immunization evaluation, or forecasting.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#message-header-date-time-msh-7--s3" title="Link to this statement">s3</a></span></li></ol></section>
+<section class="xref" aria-labelledby="xref-h"><details>
+<summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">1 field · from the IGAMT export</span></summary>
+<p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
+conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+<div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
+<tbody><tr><th scope="row"><code>MSH-7</code><div class="mini">Date/Time Of Message</div></th><td><div class="u-row"><span class="u">R [1..1] TS_Z</span> <span class="u-where">Z22 MSH_#ConsolidatedIG_IZ01, Z23 MSH_#ConsolidatedIG_IZ01, Z34 MSH_#ConsolidatedIG_IZ01, Z44 MSH_#ConsolidatedIG_IZ01, Z31 MSH_#ConsolidatedIG_IZ01, Z32 MSH_#ConsolidatedIG_IZ01, Z33 MSH_#ConsolidatedIG_IZ01, Z42 MSH_#ConsolidatedIG_IZ01</span></div></td><td><span class="mini">—</span></td><td><span class=mini>—</span></td></tr></tbody></table></div></details></section>
 
 
 
@@ -52,7 +58,7 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 14:09 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2ff15f7.
+  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

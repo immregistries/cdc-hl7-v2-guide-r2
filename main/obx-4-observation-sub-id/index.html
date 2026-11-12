@@ -45,6 +45,12 @@
 <p>When OBX-4 is used to group observations, the shared value SHALL be unique within the set of OBX segments under a given ORC/RXA and the related OBX segments SHOULD appear sequentially. Systems (including IIS, submitting, and querying systems) SHALL support both grouped and ungrouped OBX-4 usage and SHALL interpret shared OBX-4 values as indicating in a logical association among those OBX segments within the same ORC/RXA group.</p></div>
 
 
+<section class="xref" aria-labelledby="xref-h"><details>
+<summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">1 field · from the IGAMT export</span></summary>
+<p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
+conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+<div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
+<tbody><tr><th scope="row"><code>OBX-4</code><div class="mini">Observation Sub-ID</div></th><td><div class="u-row"><span class="u">R [1..1] NM</span> <span class="u-where">Z22 OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17, Z32 OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18, Z42 OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15</span></div></td><td><span class="mini">—</span></td><td><abbr class="cs" title="Z22.ORDER: If RXA-20 is valued &#x27;CP&#x27; or &#x27;PA&#x27; and the first occurrence of RXA-9.1 is valued &#x27;00&#x27; and RXA-5.1 is valued with a CVX code from table PHVS_VISVaccines_IIS (See Appendix A) then for each vaccine information statement that was shared there SHALL be:[one OBX segment with OBX-3.1 valued &#x27;69764-9&#x27; (bar coded) and one OBX with OBX-3.1 valued &#x27;29769-7&#x27; (presentation or delivery date) associated. Both OBX shall have the same value in OBX-4] OR [one OBX segment with OBX-3.1 valued &#x27;30956-7&#x27; (vaccine type) and one OBX segment with OBX-3.1 valued &#x27;29768-9&#x27; (version date) and one OBX with OBX-3.1 valued &#x27;29769-7&#x27; (presentation or delivery date) associated. All three OBX shall have the same value in OBX-4]">IZ-24</abbr> <abbr class="cs" title="OBX_IZ01: OBX-4 (Observation Sub-ID) shall contain a positive integer.">IZ-44</abbr></td></tr></tbody></table></div></details></section>
 
 
 
@@ -56,7 +62,7 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 14:09 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2ff15f7.
+  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

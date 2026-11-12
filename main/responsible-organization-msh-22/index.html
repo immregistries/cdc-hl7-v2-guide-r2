@@ -41,6 +41,12 @@
 <p>Authorization for submitting on behalf of another organization is established through IIS onboarding policy and operational governance. The HL7 v2 message structure, through MSH-4 and MSH-22, provides the mechanism for clearly communicating the roles involved in the transaction once that authorization is in place.</p></div>
 
 
+<section class="xref" aria-labelledby="xref-h"><details>
+<summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">2 fields · from the IGAMT export</span></summary>
+<p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
+conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+<div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
+<tbody><tr><th scope="row"><code>MSH-22</code><div class="mini">Sending Responsible Organization</div></th><td><div class="u-row"><span class="u">RE [0..1] HD_IZ01</span> <span class="u-where">Z22 MSH_#ConsolidatedIG_IZ01, Z23 MSH_#ConsolidatedIG_IZ01, Z34 MSH_#ConsolidatedIG_IZ01, Z44 MSH_#ConsolidatedIG_IZ01, Z31 MSH_#ConsolidatedIG_IZ01, Z32 MSH_#ConsolidatedIG_IZ01, Z33 MSH_#ConsolidatedIG_IZ01, Z42 MSH_#ConsolidatedIG_IZ01</span></div></td><td><code>HL70300</code>, <code>HL70361</code>, <code>HL70362</code>, <code>HL70363_IZ01</code></td><td><span class=mini>—</span></td></tr><tr><th scope="row"><code>MSH-4</code><div class="mini">Sending Facility</div></th><td><div class="u-row"><span class="u">R [1..1] HD_IZ01</span> <span class="u-where">Z22 MSH_#ConsolidatedIG_IZ01, Z23 MSH_#ConsolidatedIG_IZ01, Z34 MSH_#ConsolidatedIG_IZ01, Z44 MSH_#ConsolidatedIG_IZ01, Z31 MSH_#ConsolidatedIG_IZ01, Z32 MSH_#ConsolidatedIG_IZ01, Z33 MSH_#ConsolidatedIG_IZ01, Z42 MSH_#ConsolidatedIG_IZ01</span></div></td><td><code>HL70300</code>, <code>HL70361</code>, <code>HL70362</code>, <code>HL70363_IZ01</code></td><td><span class=mini>—</span></td></tr></tbody></table></div></details></section>
 
 
 
@@ -52,7 +58,7 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 14:09 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2ff15f7.
+  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

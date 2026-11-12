@@ -53,6 +53,12 @@
 <p>The presence of an ERR segment in an ACK does not, by itself, indicate that the message was rejected; ERR segments may appear in accepted messages when the issue reported is a Warning or an informational notice.</p></div>
 
 <section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="msa-1-derivation-of-message-level-disposition--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">SHALL be returned to indicate VXU acceptance with no issues requiring correction/resubmission.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#msa-1-derivation-of-message-level-disposition--s1" title="Link to this statement">s1</a></span></li><li id="msa-1-derivation-of-message-level-disposition--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">SHALL be returned when the ERR-4 severity is &#x27;W&#x27; and there are no severity &#x27;E&#x27; error(s).</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#msa-1-derivation-of-message-level-disposition--s2" title="Link to this statement">s2</a></span></li></ol></section>
+<section class="xref" aria-labelledby="xref-h"><details>
+<summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">2 fields · from the IGAMT export</span></summary>
+<p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
+conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+<div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
+<tbody><tr><th scope="row"><code>MSA-1</code><div class="mini">Acknowledgment Code</div></th><td><div class="u-row"><span class="u">R [1..1] ID</span> <span class="u-where">Z23 MSA_IZ01, Z31 MSA_IZ01, Z32 MSA_IZ01, Z33 MSA_IZ01, Z42 MSA_IZ01</span></div></td><td><code>HL70008_IZ01</code></td><td><span class=mini>—</span></td></tr><tr><th scope="row"><code>ERR-4</code><div class="mini">Severity</div></th><td><div class="u-row"><span class="u">R [1..1] ID</span> <span class="u-where">Z23 ERR_IZ01, Z31 ERR_IZ01, Z32 ERR_IZ01, Z33 ERR_IZ01, Z42 ERR_IZ01</span></div></td><td><code>HL70516_IZ01</code></td><td><span class=mini>—</span></td></tr></tbody></table></div></details></section>
 <section class="figures" aria-label="Figures"><figure id="fig-13"><button type="button" class="fig-open" data-src="fig-13.png" data-caption="Figure 13: ERR-4 Severity to MSA-1 Disposition: AA, AE, and AR Determination"><img src="fig-13.png" alt="ERR-4 Severity to MSA-1 Disposition: AA, AE, and AR Determination" loading="lazy"></button><figcaption><strong>Figure 13.</strong> ERR-4 Severity to MSA-1 Disposition: AA, AE, and AR Determination</figcaption></figure></section>
 
 
@@ -64,7 +70,7 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 14:09 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2ff15f7.
+  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
