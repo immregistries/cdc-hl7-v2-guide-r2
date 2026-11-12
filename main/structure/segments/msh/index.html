@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MSH segment · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../../assets/tokens.css">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="model" data-root="../../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../../contents/index.html">Contents</a>
+    <a href="../../../quality/index.html">Quality review</a>
+    <a href="../../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page model-page"><nav class="crumbs" aria-label="Breadcrumb"><a href="../../../index.html">Home</a> <span>›</span> <a href="../../../structure/index.html">7 Message Infrastructure</a> <span>›</span> <a href="../../../structure/index.html#segments">Segments</a></nav>
+<p class="eyebrow">Segment</p><h1><span class="num">MSH</span> MSH Segment Adopting Fields from 2.7.1</h1>
+<p>Usage and cardinality of every MSH field in each flavor used by the message profiles. Hover over a usage to see what it means
+or, for conditional usage, its condition. Open a flavor for data types, lengths, value sets, and conformance statements.</p>
+<div class="table-wrap"><table class="model seg-matrix"><thead><tr><th>Field</th><th>Name</th><th><a href="../../../structure/segments/msh/msh-consolidatedig-iz01/index.html"><code>MSH_#ConsolidatedIG_IZ01</code></a><div class="mini">Z22, Z23, Z34, Z44, Z31, Z32, Z33, Z42</div></th></tr></thead><tbody><tr id="f1"><th scope="row"><code>MSH-1</code></th><td>Field Separator</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f2"><th scope="row"><code>MSH-2</code></th><td>Encoding Characters</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f3"><th scope="row"><code>MSH-3</code></th><td>Sending Application</td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f4"><th scope="row"><code>MSH-4</code> <span class="mini" title="Discussed in 7 section(s)">●</span></th><td>Sending Facility</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f5"><th scope="row"><code>MSH-5</code></th><td>Receiving Application</td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f6"><th scope="row"><code>MSH-6</code></th><td>Receiving Facility</td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f7"><th scope="row"><code>MSH-7</code> <span class="mini" title="Discussed in 3 section(s)">●</span></th><td>Date/Time Of Message</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f8"><th scope="row"><code>MSH-8</code></th><td>Security</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f9"><th scope="row"><code>MSH-9</code> <span class="mini" title="Discussed in 1 section(s)">●</span></th><td>Message Type</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f10"><th scope="row"><code>MSH-10</code></th><td>Message Control ID</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f11"><th scope="row"><code>MSH-11</code></th><td>Processing ID</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f12"><th scope="row"><code>MSH-12</code></th><td>Version ID</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f13"><th scope="row"><code>MSH-13</code></th><td>Sequence Number</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f14"><th scope="row"><code>MSH-14</code></th><td>Continuation Pointer</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f15"><th scope="row"><code>MSH-15</code></th><td>Accept Acknowledgment Type</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f16"><th scope="row"><code>MSH-16</code></th><td>Application Acknowledgment Type</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f17"><th scope="row"><code>MSH-17</code></th><td>Country Code</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f18"><th scope="row"><code>MSH-18</code></th><td>Character Set</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..*]</span></td></tr><tr id="f19"><th scope="row"><code>MSH-19</code></th><td>Principal Language Of Message</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f20"><th scope="row"><code>MSH-20</code></th><td>Alternate Character Set Handling Scheme</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f21"><th scope="row"><code>MSH-21</code></th><td>Message Profile Identifier</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..*]</span></td></tr><tr id="f22"><th scope="row"><code>MSH-22</code> <span class="mini" title="Discussed in 3 section(s)">●</span></th><td>Sending Responsible Organization</td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f23"><th scope="row"><code>MSH-23</code></th><td>Receiving Responsible Organization</td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f24"><th scope="row"><code>MSH-24</code></th><td>Sending Network Address</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f25"><th scope="row"><code>MSH-25</code></th><td>Receiving Network Address</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr></tbody></table></div>
+<section class="related"><h2>Fields discussed in the guide</h2><ul><li><a href="#f4"><code>MSH-4</code></a>: <a href="../../../organization-identifier-data-types/index.html">2.7.1 Organization Identifier Data Types</a>, <a href="../../../submitting-organization-msh-4-sending-facility/index.html">2.7.2 Submitting Organization (MSH-4 Sending Facility)</a>, <a href="../../../responsible-organization-msh-22/index.html">2.7.3 Responsible Organization (MSH-22)</a>, <a href="../../../use-in-query-transactions-qbp-rsp/index.html">2.7.7 Use in Query Transactions (QBP/RSP)</a>, <a href="../../../data-standardization-and-integra-cdc-core-data-elements-for-functional-standards/index.html">4.2 CDC Core Data Elements for Functional Standards</a>, <a href="../../../assigning-authority-and-identifier-namespace/index.html">4.5.1.2 Assigning Authority and Identifier Namespace</a>, <a href="../../../preserving-the-submitter-s-primary-exchange-identifier/index.html">4.5.1.4 Preserving the Submitter&#x27;s Primary Exchange Identifier</a></li><li><a href="#f7"><code>MSH-7</code></a>: <a href="../../../message-header-date-time-msh-7/index.html">2.8.1 Message Header Date/Time (MSH-7)</a>, <a href="../../../date-of-birth-pid-7/index.html">2.8.2 Date of Birth (PID-7)</a>, <a href="../../../data-type-flavors/index.html">4.1.3 Data Type Flavors</a></li><li><a href="#f9"><code>MSH-9</code></a>: <a href="../../../fixed-code-sets-stable-code-sets-anchored-to-messaging-semantics/index.html">4.3.2 Fixed Code Sets (Stable Code Sets Anchored to Messaging Semantics)</a></li><li><a href="#f22"><code>MSH-22</code></a>: <a href="../../../organization-identifier-data-types/index.html">2.7.1 Organization Identifier Data Types</a>, <a href="../../../responsible-organization-msh-22/index.html">2.7.3 Responsible Organization (MSH-22)</a>, <a href="../../../use-in-query-transactions-qbp-rsp/index.html">2.7.7 Use in Query Transactions (QBP/RSP)</a></li></ul></section>
+
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 17:39 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit c0bf22b.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../../assets/nav.js"></script>
+<script src="../../../assets/site.js"></script>
+</body>
+</html>

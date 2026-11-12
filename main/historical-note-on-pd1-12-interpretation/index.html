@@ -34,12 +34,12 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../patient-information/index.html">4.5 Patient Information</a> <span>›</span> <a href="../consent-and-privacy/index.html">4.5.6 Consent and Privacy</a></nav>
 <header class="card-head"><h1><span class="num">4.5.6.4</span> Historical Note on PD1-12 Interpretation</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-warning" aria-label="Quality review findings">
+<aside class="findings sev-warning" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 warning · 1 note</span></summary>
 <p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
 <ul><li class="finding sev-warning" id="qf-verb-in-prose-ac7e93df"><span class="sev">Warning</span> Narrative uses the conformance verb SHOULD. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>This reversal is a common source of error when updating interfaces from pre-2.5.1 HL7 versions to HL7 v2.5.1, particularly when existing mappings are reused without review. Implementers upgrading interfaces SHOULD review PD1-12 mappings and test message flows carefully to ensure their interpretatio…</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-ac7e93df">qf-verb-in-prose-ac7e93df</a></li><li class="finding sev-note" id="qf-normative-prose-3987a758"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Prior to HL7 v2.5, the meaning of &quot;Y&quot; in PD1-12 was reversed (&quot;Y&quot; meant share). HL7 v2.5.1 corrected this to align with the base HL7 definition: &quot;Y&quot; = protect data, &quot;N&quot; = do not protect. Systems maintaining older interfaces must ensure that their interpretation matches the current standard.</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-3987a758">qf-normative-prose-3987a758</a></li></ul></details></aside>
-<div class="narrative"><p>Prior to HL7 v2.5, the meaning of "Y" in PD1-12 was reversed ("Y" meant share). HL7 v2.5.1 corrected this to align with the base HL7 definition: "Y" = protect data, "N" = do not protect. Systems maintaining older interfaces must ensure that their interpretation matches the current standard.</p>
-<p>This reversal is a common source of error when updating interfaces from pre-2.5.1 HL7 versions to HL7 v2.5.1, particularly when existing mappings are reused without review. Implementers upgrading interfaces SHOULD review PD1-12 mappings and test message flows carefully to ensure their interpretation matches the current standard.</p></div>
+<div class="narrative"><p>Prior to HL7 v2.5, the meaning of "Y" in <a class="sref" href="../structure/segments/pd1/index.html#f12" title="Protection Indicator">PD1-12</a> was reversed ("Y" meant share). HL7 v2.5.1 corrected this to align with the base HL7 definition: "Y" = protect data, "N" = do not protect. Systems maintaining older interfaces must ensure that their interpretation matches the current standard.</p>
+<p>This reversal is a common source of error when updating interfaces from pre-2.5.1 HL7 versions to HL7 v2.5.1, particularly when existing mappings are reused without review. Implementers upgrading interfaces SHOULD review <a class="sref" href="../structure/segments/pd1/index.html#f12" title="Protection Indicator">PD1-12</a> mappings and test message flows carefully to ensure their interpretation matches the current standard.</p></div>
 
 
 <section class="xref" aria-labelledby="xref-h"><details>
@@ -47,7 +47,7 @@
 <p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
 conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
 <div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
-<tbody><tr><th scope="row"><code>PD1-12</code><div class="mini">Protection Indicator</div></th><td><div class="u-row"><span class="u">RE [0..1] ID</span> <span class="u-where">Z22 PD1_IZ01, Z31 PD1_IZ01, Z32 PD1_IZ01</span></div></td><td><code>HL70136_IZ01</code></td><td><span class=mini>—</span></td></tr></tbody></table></div></details></section>
+<tbody><tr><th scope="row"><a href="../structure/segments/pd1/index.html#f12"><code>PD1-12</code></a><div class="mini">Protection Indicator</div></th><td><div class="u-row"><span class="u">RE [0..1] ID</span> <span class="u-where">Z22 PD1_IZ01, Z31 PD1_IZ01, Z32 PD1_IZ01</span></div></td><td><a href="../structure/value-sets/hl70136-iz01/index.html"><code>HL70136_IZ01</code></a></td><td><span class=mini>—</span></td></tr></tbody></table></div></details></section>
 
 
 
@@ -59,7 +59,7 @@ conformance statements that test it. <a href="../quality/igamt/index.html">How t
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
+  <p class="build">Built 2026-11-12 17:39 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit c0bf22b.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

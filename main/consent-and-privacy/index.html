@@ -34,15 +34,15 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../patient-information/index.html">4.5 Patient Information</a></nav>
 <header class="card-head"><h1><span class="num">4.5.6</span> Consent and Privacy</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" aria-label="Quality review findings">
+<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
 <p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-normative-prose-06f2a1ee"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Patient consent and privacy handling in Immunization Information Systems (IIS) are governed by jurisdictional law. Each state or locality defines whether and how patient data may be included, shared, or withheld from the IIS. Systems must therefore support the ability to record and communicate a pa…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-06f2a1ee">qf-normative-prose-06f2a1ee</a></li></ul></details></aside>
 <div class="narrative"><p>Patient consent and privacy handling in Immunization Information Systems (IIS) are governed by jurisdictional law. Each state or locality defines whether and how patient data may be included, shared, or withheld from the IIS. Systems must therefore support the ability to record and communicate a patient's explicit consent preferences, while respecting that these indicators have meaning only within the receiving jurisdiction and are not automatically portable across IIS. Consent decisions are often tracked outside HL7 messages.</p>
-<p>The HL7 v2.5.1 Protection Indicator (PD1-12) field represents whether a patient or guardian has consented to share or protect their information. The field's name is counterintuitive: a "Y" value means protect (do not share), and "N" means not protected (sharing permitted).</p>
-<p>Because consent law varies, PD1-12 is used to record the explicit wishes of the patient or guardian, not to encode system or jurisdiction defaults; submitting systems should omit PD1-12 when consent status is not explicitly collected at the encounter. IIS are responsible for enforcing their own consent rules based on local authority.</p>
+<p>The HL7 v2.5.1 Protection Indicator (<a class="sref" href="../structure/segments/pd1/index.html#f12" title="Protection Indicator">PD1-12</a>) field represents whether a patient or guardian has consented to share or protect their information. The field's name is counterintuitive: a "Y" value means protect (do not share), and "N" means not protected (sharing permitted).</p>
+<p>Because consent law varies, <a class="sref" href="../structure/segments/pd1/index.html#f12" title="Protection Indicator">PD1-12</a> is used to record the explicit wishes of the patient or guardian, not to encode system or jurisdiction defaults; submitting systems should omit <a class="sref" href="../structure/segments/pd1/index.html#f12" title="Protection Indicator">PD1-12</a> when consent status is not explicitly collected at the encounter. IIS are responsible for enforcing their own consent rules based on local authority.</p>
 <p>Some jurisdictions expect submitters to suppress or flag opt-out patients at the source; others rely on the IIS to enforce opt-out rules. Consent handling may be subject to age-based rules, external consent workflows, or record-locking semantics that are not representable in an HL7 field.</p>
-<p>Consent status recorded in PD1-12 affects not only submission but also how the IIS responds to later queries for that patient; see Section 3, Response (RSP) Profiles, for how disclosure restrictions are reflected in query responses.</p></div>
+<p>Consent status recorded in <a class="sref" href="../structure/segments/pd1/index.html#f12" title="Protection Indicator">PD1-12</a> affects not only submission but also how the IIS responds to later queries for that patient; see Section 3, Response (RSP) Profiles, for how disclosure restrictions are reflected in query responses.</p></div>
 
 
 <section class="xref" aria-labelledby="xref-h"><details>
@@ -50,7 +50,7 @@
 <p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
 conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
 <div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
-<tbody><tr><th scope="row"><code>PD1-12</code><div class="mini">Protection Indicator</div></th><td><div class="u-row"><span class="u">RE [0..1] ID</span> <span class="u-where">Z22 PD1_IZ01, Z31 PD1_IZ01, Z32 PD1_IZ01</span></div></td><td><code>HL70136_IZ01</code></td><td><span class=mini>—</span></td></tr></tbody></table></div></details></section>
+<tbody><tr><th scope="row"><a href="../structure/segments/pd1/index.html#f12"><code>PD1-12</code></a><div class="mini">Protection Indicator</div></th><td><div class="u-row"><span class="u">RE [0..1] ID</span> <span class="u-where">Z22 PD1_IZ01, Z31 PD1_IZ01, Z32 PD1_IZ01</span></div></td><td><a href="../structure/value-sets/hl70136-iz01/index.html"><code>HL70136_IZ01</code></a></td><td><span class=mini>—</span></td></tr></tbody></table></div></details></section>
 
 
 
@@ -62,7 +62,7 @@ conformance statements that test it. <a href="../quality/igamt/index.html">How t
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
+  <p class="build">Built 2026-11-12 17:39 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit c0bf22b.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

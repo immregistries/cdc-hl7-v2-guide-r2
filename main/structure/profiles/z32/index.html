@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Z32 Return Complete Immunization History · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../../assets/tokens.css">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="model" data-root="../../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../../contents/index.html">Contents</a>
+    <a href="../../../quality/index.html">Quality review</a>
+    <a href="../../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page model-page"><nav class="crumbs" aria-label="Breadcrumb"><a href="../../../index.html">Home</a> <span>›</span> <a href="../../../structure/index.html">7 Message Infrastructure</a> <span>›</span> <a href="../../../structure/index.html#profiles">Message profiles</a></nav>
+<p class="eyebrow">Message profile</p>
+<h1><span class="num">Z32</span> Return Complete Immunization History</h1>
+
+<dl class="facts"><dt>Message type</dt><dd><code>RSP^K11^RSP_K11</code></dd>
+<dt>Description</dt><dd>RSP - Segment pattern response in response to QBP^Q11</dd>
+<dt>IGAMT ID</dt><dd><code>69a6e3c65a4cb90006fe8a18</code></dd></dl>
+<p><a class="button secondary" href="../../../structure/coconstraints/z32/index.html">OBX co-constraint table for Z32</a></p>
+<section><h2>Segments</h2><div class="table-wrap"><table class="model tree-table"><thead><tr><th>Segment or group</th><th>Usage</th>
+<th>Cardinality</th><th>Flavor</th><th>Description or slice condition</th></tr></thead><tbody><tr><td style="padding-left:8px"><a href="../../../structure/segments/msh/index.html"><code>MSH</code></a></td><td><abbr class="usage u-R" title="Required">R</abbr></td><td>[1..1]</td><td><a href="../../../structure/segments/msh/msh-consolidatedig-iz01/index.html"><code>MSH_#ConsolidatedIG_IZ01</code></a></td><td>MSH Segment Adopting Fields from 2.7.1</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/sft/index.html"><code>SFT</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td>[0..*]</td><td><a href="../../../structure/segments/sft/sft/index.html"><code>SFT</code></a></td><td>Software Segment</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/msa/index.html"><code>MSA</code></a></td><td><abbr class="usage u-R" title="Required">R</abbr></td><td>[1..1]</td><td><a href="../../../structure/segments/msa/msa-iz01/index.html"><code>MSA_IZ01</code></a></td><td>Message Acknowledgment</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/err/index.html"><code>ERR</code></a></td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr></td><td>[0..1]</td><td><a href="../../../structure/segments/err/err-iz01/index.html"><code>ERR_IZ01</code></a></td><td>Error</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/qak/index.html"><code>QAK</code></a></td><td><abbr class="usage u-R" title="Required">R</abbr></td><td>[1..1]</td><td><a href="../../../structure/segments/qak/qak-iz01/index.html"><code>QAK_IZ01</code></a></td><td>Query Acknowledgment</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/qpd/index.html"><code>QPD</code></a></td><td><abbr class="usage u-R" title="Required">R</abbr></td><td>[1..1]</td><td><a href="../../../structure/segments/qpd/qpd-iz01/index.html"><code>QPD_IZ01</code></a></td><td>Query Parameter Definition</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/pid/index.html"><code>PID</code></a></td><td><abbr class="usage u-R" title="Required">R</abbr></td><td>[1..1]</td><td><a href="../../../structure/segments/pid/pid-iz01/index.html"><code>PID_IZ01</code></a></td><td>Patient Identification</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/pd1/index.html"><code>PD1</code></a></td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr></td><td>[0..1]</td><td><a href="../../../structure/segments/pd1/pd1-iz01/index.html"><code>PD1_IZ01</code></a></td><td>Patient Additional Demographic</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/nk1/index.html"><code>NK1</code></a></td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr></td><td>[0..*]</td><td><a href="../../../structure/segments/nk1/nk1-iz01/index.html"><code>NK1_IZ01</code></a></td><td>Next of Kin / Associated Parties</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/pv1/index.html"><code>PV1</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td>[0..1]</td><td><a href="../../../structure/segments/pv1/pv1-iz01/index.html"><code>PV1_IZ01</code></a></td><td>Patient Visit</td></tr><tr><td style="padding-left:8px"><a href="../../../structure/segments/in1/index.html"><code>IN1</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td>[0..1]</td><td><a href="../../../structure/segments/in1/in1-iz01/index.html"><code>IN1_IZ01</code></a></td><td>Insurance</td></tr><tr class="grp"><td style="padding-left:8px"><strong>Order</strong> <span class="mini">group</span></td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr></td><td>[0..*]</td><td></td><td></td></tr><tr><td style="padding-left:26px"><a href="../../../structure/segments/orc/index.html"><code>ORC</code></a></td><td><abbr class="usage u-R" title="Required">R</abbr></td><td>[1..1]</td><td><a href="../../../structure/segments/orc/orc-iz01/index.html"><code>ORC_IZ01</code></a></td><td>Common Order</td></tr><tr><td style="padding-left:26px"><a href="../../../structure/segments/rxa/index.html"><code>RXA</code></a></td><td><abbr class="usage u-R" title="Required">R</abbr></td><td>[1..1]</td><td><a href="../../../structure/segments/rxa/rxa-iz02/index.html"><code>RXA_IZ02</code></a></td><td>Pharmacy/Treatment Administration</td></tr><tr><td style="padding-left:26px"><a href="../../../structure/segments/rxr/index.html"><code>RXR</code></a></td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr></td><td>[0..1]</td><td><a href="../../../structure/segments/rxr/rxr-iz01/index.html"><code>RXR_IZ01</code></a></td><td>Pharmacy/Treatment Route</td></tr><tr class="grp"><td style="padding-left:26px"><strong>OBSERVATION</strong> <span class="mini">group</span></td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr></td><td>[0..*]</td><td></td><td></td></tr><tr><td style="padding-left:44px"><a href="../../../structure/segments/obx/index.html"><code>OBX</code></a></td><td><abbr class="usage u-R" title="Required">R</abbr></td><td>[1..1]</td><td><a href="../../../structure/segments/obx/obx-iz02-z32/index.html"><code>OBX_IZ02 (Z32 co-constraint flavor)</code></a></td><td>Observation/Result</td></tr><tr><td style="padding-left:44px"><a href="../../../structure/segments/nte/index.html"><code>NTE</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td>[0..1]</td><td><a href="../../../structure/segments/nte/nte-iz01/index.html"><code>NTE_IZ01</code></a></td><td>Notes and Comments</td></tr></tbody></table></div></section>
+<section><h2>Message-level conformance statements</h2><div class="table-wrap"><table class="model"><thead><tr><th>ID</th><th>Strength</th><th>Statement</th></tr></thead><tbody><tr id="cs-iz-45"><td><code>IZ-45</code></td><td>SHALL</td><td>If at least one occurrence of Order.RXA-20 (Completion Status) contains one of the values in the list: [&#x27;NA&#x27;,&#x27;RE&#x27;] (Case Sensitive) then at least one occurrence of Order.ORC-3.1 (Entity Identifier) shall contain the value &#x27;9999&#x27; (Case Sensitive).</td></tr><tr id="cs-iz-67a"><td><code>IZ-67a</code></td><td>SHALL</td><td>QPD-1.1 (Identifier) shall contain the value &#x27;Z34&#x27;.</td></tr><tr id="cs-iz-59c"><td><code>IZ-59c</code></td><td>SHALL</td><td>MSH-9.3 (Message Structure) shall contain the value &#x27;RSP_K11&#x27;.</td></tr><tr id="cs-iz-59b"><td><code>IZ-59b</code></td><td>SHALL</td><td>MSH-9.2 (Trigger Event) shall contain the value &#x27;K11&#x27;.</td></tr><tr id="cs-iz-46"><td><code>IZ-46</code></td><td>SHALL</td><td>PID-1 (Set ID - PID) shall contain the value &#x27;1&#x27;.</td></tr><tr id="cs-iz-59a"><td><code>IZ-59a</code></td><td>SHALL</td><td>MSH-9.1 (Message Code) shall contain the value &#x27;RSP&#x27;.</td></tr><tr id="cs-iz-60a"><td><code>IZ-60a</code></td><td>SHALL</td><td>At least one occurrence of MSH-21.1 (Entity Identifier) shall contain the value &#x27;Z32&#x27;.</td></tr><tr id="cs-iz-67b"><td><code>IZ-67b</code></td><td>SHALL</td><td>QPD-1.2 (Text) shall contain the value &#x27;Request Immunization History&#x27;.</td></tr><tr id="cs-iz-20"><td><code>IZ-20</code></td><td>SHALL</td><td>The value of OBX-1 (Set ID-OBX) SHALL be valued sequentially starting with the value &quot;1&quot; within a message or for each group</td></tr><tr id="cs-iz-60b"><td><code>IZ-60b</code></td><td>SHALL</td><td>At least one occurrence of MSH-21.2 (Namespace ID) shall contain the value &#x27;CDCPHINVS&#x27;.</td></tr><tr id="cs-iz-67c"><td><code>IZ-67c</code></td><td>SHALL</td><td>QPD-1.3 (Name of Coding System) shall contain the value &#x27;CDCPHINVS&#x27;.</td></tr></tbody></table></div></section>
+
+<section class="related"><h2>Discussed in</h2><ul><li><a href="../../../purpose-and-scope-of-rsp-profiles/index.html"><span class="num">3.5.1</span> Purpose and Scope of RSP Profiles</a></li><li><a href="../../../z32-return-complete-immunization-history/index.html"><span class="num">3.5.2.2</span> Z32 - Return Complete Immunization History</a></li><li><a href="../../../additional-optional-evaluation-information/index.html"><span class="num">4.7.7.5</span> Additional Optional Evaluation Information</a></li></ul></section>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 17:39 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit c0bf22b.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../../assets/nav.js"></script>
+<script src="../../../assets/site.js"></script>
+</body>
+</html>

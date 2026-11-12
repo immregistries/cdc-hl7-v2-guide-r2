@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HL70357_IZ01 · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../../assets/tokens.css">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="model" data-root="../../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../../contents/index.html">Contents</a>
+    <a href="../../../quality/index.html">Quality review</a>
+    <a href="../../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page model-page"><nav class="crumbs" aria-label="Breadcrumb"><a href="../../../index.html">Home</a> <span>›</span> <a href="../../../structure/index.html">7 Message Infrastructure</a> <span>›</span> <a href="../../../structure/index.html#value-sets">Value sets</a></nav>
+<p class="eyebrow">Value set</p><h1><code>HL70357_IZ01</code> Message error condition codes</h1>
+<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-igamt-code-no-usage-bd22db81"><span class="sev">Note</span> In value set HL70357_IZ01, 1 code(s) have no usage (R/P/E): 104.<a class="f-id" href="../../../quality/index.html#qf-igamt-code-no-usage-bd22db81">qf-igamt-code-no-usage-bd22db81</a></li></ul></details></aside>
+<dl class="facts"><dt>Description</dt><dd>Message error condition codes</dd>
+<dt>Stability / extensibility</dt><dd>Dynamic / Open</dd>
+<dt>Content</dt><dd>Extensional</dd>
+
+<dt>Codes</dt><dd>14</dd></dl>
+<section><h2>Bound to</h2><ul class="cols"><li><a href="../../../structure/segments/err/err-iz01/index.html#f3">ERR_IZ01 ERR-3</a></li></ul></section>
+<section><h2>Codes</h2><div class="table-wrap"><table class="model"><thead><tr><th>Code</th><th>Display name</th><th>Code system</th><th>Usage</th><th>Comments</th></tr></thead><tbody><tr><td><code>204</code></td><td>The ID of the patient, order, etc., was not found. Used for transactions other than additions (e.g., transfer of a non-existent patient).</td><td>HL70357</td><td><abbr class="usage u-P" title="P">P</abbr></td><td class="mini">Unknown key identifier. Not recommended for use; use an application error from HL70533 (ERR-5) instead. No actor or action applies.</td></tr><tr><td><code>206</code></td><td>The transaction could not be performed at the application storage level (e.g., database locked).</td><td>HL70357</td><td><abbr class="usage u-P" title="P">P</abbr></td><td class="mini">Application record locked. Interface Analyst should resubmit the message; if the problem persists, check with the IIS that locks have been released.</td></tr><tr><td><code>205</code></td><td>The ID of the patient, order, etc., already exists. Used in response to addition transactions (e.g., Admit, New Order).</td><td>HL70357</td><td><abbr class="usage u-P" title="P">P</abbr></td><td class="mini">Duplicate key identifier. Not recommended for use; use an application error from HL70533 (ERR-5) instead. No actor or action applies.</td></tr><tr><td><code>100</code></td><td>The message segments were not in the proper order, or required segments are missing.</td><td>HL70357</td><td><abbr class="usage u-R" title="Required">R</abbr></td><td class="mini">Segment Sequence Error. Interface Analyst should review interface configuration or database contents.</td></tr><tr><td><code>203</code></td><td>The Version ID is not supported.</td><td>HL70357</td><td><abbr class="usage u-R" title="Required">R</abbr></td><td class="mini">Unsupported version id. Interface Analyst should review interface configuration.</td></tr><tr><td><code>104</code></td><td>A value exceeded the normative length, or the length the application is able to safely handle.</td><td>HL70357</td><td></td><td class="mini">Value too long. Interface Analyst should review database contents.</td></tr><tr><td><code>101</code></td><td>A required field is missing from a segment based on the defined usage in the profile.</td><td>HL70357</td><td><abbr class="usage u-P" title="P">P</abbr></td><td class="mini">Required field missing. Interface Analyst should review interface configuration or database contents.</td></tr><tr><td><code>200</code></td><td>The Message Type is not supported.</td><td>HL70357</td><td><abbr class="usage u-R" title="Required">R</abbr></td><td class="mini">Unsupported message type. Interface Analyst should review interface configuration.</td></tr><tr><td><code>103</code></td><td>A field of data type ID or IS was compared against the corresponding table, and no match was found.</td><td>HL70357</td><td><abbr class="usage u-P" title="P">P</abbr></td><td class="mini">Table value not found. Not recommended for use; use an application error from HL70533 (ERR-5) instead. No actor or action applies.</td></tr><tr><td><code>0</code></td><td>Message accepted</td><td>HL70357</td><td><abbr class="usage u-P" title="P">P</abbr></td><td class="mini"></td></tr><tr><td><code>207</code></td><td>A catchall for internal errors not explicitly covered by other codes.</td><td>HL70357</td><td><abbr class="usage u-R" title="Required">R</abbr></td><td class="mini">Application internal error, used when an application error is being reported in ERR-5. See the ERR-5 error set for the applicable actor and action.</td></tr><tr><td><code>102</code></td><td>The field contained data of the wrong data type (e.g., an NM field contained &quot;FOO&quot;).</td><td>HL70357</td><td><abbr class="usage u-P" title="P">P</abbr></td><td class="mini">Data type error. Interface Analyst should review interface configuration or database contents.</td></tr><tr><td><code>202</code></td><td>The Processing ID is not supported.</td><td>HL70357</td><td><abbr class="usage u-R" title="Required">R</abbr></td><td class="mini">Unsupported processing id. Interface Analyst should review interface configuration.</td></tr><tr><td><code>201</code></td><td>The Event Code is not supported.</td><td>HL70357</td><td><abbr class="usage u-R" title="Required">R</abbr></td><td class="mini">Unsupported event code. Interface Analyst should review interface configuration.</td></tr></tbody></table></div></section>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 17:39 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit c0bf22b.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../../assets/nav.js"></script>
+<script src="../../../assets/site.js"></script>
+</body>
+</html>

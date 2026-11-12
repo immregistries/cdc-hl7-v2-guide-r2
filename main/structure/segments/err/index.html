@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERR segment · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../../assets/tokens.css">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="model" data-root="../../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../../contents/index.html">Contents</a>
+    <a href="../../../quality/index.html">Quality review</a>
+    <a href="../../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page model-page"><nav class="crumbs" aria-label="Breadcrumb"><a href="../../../index.html">Home</a> <span>›</span> <a href="../../../structure/index.html">7 Message Infrastructure</a> <span>›</span> <a href="../../../structure/index.html#segments">Segments</a></nav>
+<p class="eyebrow">Segment</p><h1><span class="num">ERR</span> Error</h1>
+<p>Usage and cardinality of every ERR field in each flavor used by the message profiles. Hover over a usage to see what it means
+or, for conditional usage, its condition. Open a flavor for data types, lengths, value sets, and conformance statements.</p>
+<div class="table-wrap"><table class="model seg-matrix"><thead><tr><th>Field</th><th>Name</th><th><a href="../../../structure/segments/err/err-iz01/index.html"><code>ERR_IZ01</code></a><div class="mini">Z23, Z31, Z32, Z33, Z42</div></th></tr></thead><tbody><tr id="f1"><th scope="row"><code>ERR-1</code></th><td>Error Code and Location</td><td><abbr class="usage u-X" title="Not supported">X</abbr> <span class="mini">[0..0]</span></td></tr><tr id="f2"><th scope="row"><code>ERR-2</code> <span class="mini" title="Discussed in 5 section(s)">●</span></th><td>Error Location</td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f3"><th scope="row"><code>ERR-3</code></th><td>HL7 Error Code</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f4"><th scope="row"><code>ERR-4</code> <span class="mini" title="Discussed in 7 section(s)">●</span></th><td>Severity</td><td><abbr class="usage u-R" title="Required">R</abbr> <span class="mini">[1..1]</span></td></tr><tr id="f5"><th scope="row"><code>ERR-5</code> <span class="mini" title="Discussed in 6 section(s)">●</span></th><td>Application Error Code</td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f6"><th scope="row"><code>ERR-6</code> <span class="mini" title="Discussed in 1 section(s)">●</span></th><td>Application Error Parameter</td><td><abbr class="usage u-C" title="If ERR-5.1 (Identifier) contains the value &#x27;5044&#x27; (Case Sensitive).">C(R/O)</abbr> <span class="mini">[0..10]</span></td></tr><tr id="f7"><th scope="row"><code>ERR-7</code></th><td>Diagnostic Information</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f8"><th scope="row"><code>ERR-8</code> <span class="mini" title="Discussed in 3 section(s)">●</span></th><td>User Message</td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f9"><th scope="row"><code>ERR-9</code></th><td>Inform Person Indicator</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..*]</span></td></tr><tr id="f10"><th scope="row"><code>ERR-10</code></th><td>Override Type</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..1]</span></td></tr><tr id="f11"><th scope="row"><code>ERR-11</code></th><td>Override Reason Code</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..*]</span></td></tr><tr id="f12"><th scope="row"><code>ERR-12</code></th><td>Help Desk Contact Point</td><td><abbr class="usage u-O" title="Optional">O</abbr> <span class="mini">[0..*]</span></td></tr></tbody></table></div>
+<section class="related"><h2>Fields discussed in the guide</h2><ul><li><a href="#f2"><code>ERR-2</code></a>: <a href="../../../issue-level-reporting-using-err-segments/index.html">3.3.3 Issue-Level Reporting Using ERR Segments</a>, <a href="../../../err-2-error-location/index.html">3.3.3.1 ERR-2: Error Location</a>, <a href="../../../required-follow-up-actions/index.html">3.3.3.3 Required Follow-Up Actions</a>, <a href="../../../err-5-application-error-code/index.html">3.3.3.4 ERR-5: Application Error Code</a>, <a href="../../../err-8-user-message/index.html">3.3.3.6 ERR-8: User Message</a></li><li><a href="#f4"><code>ERR-4</code></a>: <a href="../../../issue-level-reporting-using-err-segments/index.html">3.3.3 Issue-Level Reporting Using ERR Segments</a>, <a href="../../../err-4-severity-code/index.html">3.3.3.2 ERR-4: Severity Code</a>, <a href="../../../required-follow-up-actions/index.html">3.3.3.3 Required Follow-Up Actions</a>, <a href="../../../err-5-application-error-code/index.html">3.3.3.4 ERR-5: Application Error Code</a>, <a href="../../../err-8-user-message/index.html">3.3.3.6 ERR-8: User Message</a>, <a href="../../../msa-1-derivation-of-message-level-disposition/index.html">3.3.4 MSA-1: Derivation of Message-Level Disposition</a>, <a href="../../../msa-1-guidance/index.html">3.3.4.1 MSA-1 Guidance</a></li><li><a href="#f5"><code>ERR-5</code></a>: <a href="../../../issue-level-reporting-using-err-segments/index.html">3.3.3 Issue-Level Reporting Using ERR Segments</a>, <a href="../../../err-2-error-location/index.html">3.3.3.1 ERR-2: Error Location</a>, <a href="../../../required-follow-up-actions/index.html">3.3.3.3 Required Follow-Up Actions</a>, <a href="../../../err-5-application-error-code/index.html">3.3.3.4 ERR-5: Application Error Code</a>, <a href="../../../optional-use-of-code-5044-patient-identifier-returned/index.html">3.3.3.5 Optional Use of Code 5044 (Patient Identifier Returned)</a>, <a href="../../../err-8-user-message/index.html">3.3.3.6 ERR-8: User Message</a></li><li><a href="#f6"><code>ERR-6</code></a>: <a href="../../../optional-use-of-code-5044-patient-identifier-returned/index.html">3.3.3.5 Optional Use of Code 5044 (Patient Identifier Returned)</a></li><li><a href="#f8"><code>ERR-8</code></a>: <a href="../../../err-2-error-location/index.html">3.3.3.1 ERR-2: Error Location</a>, <a href="../../../required-follow-up-actions/index.html">3.3.3.3 Required Follow-Up Actions</a>, <a href="../../../err-8-user-message/index.html">3.3.3.6 ERR-8: User Message</a></li></ul></section>
+
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 17:39 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit c0bf22b.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../../assets/nav.js"></script>
+<script src="../../../assets/site.js"></script>
+</body>
+</html>

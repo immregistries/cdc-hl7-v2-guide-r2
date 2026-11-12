@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XTN_IZ01 · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../../assets/tokens.css">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="model" data-root="../../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../../contents/index.html">Contents</a>
+    <a href="../../../quality/index.html">Quality review</a>
+    <a href="../../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page model-page"><nav class="crumbs" aria-label="Breadcrumb"><a href="../../../index.html">Home</a> <span>›</span> <a href="../../../structure/index.html">7 Message Infrastructure</a> <span>›</span> <a href="../../../structure/index.html#datatypes">Data types</a></nav>
+<p class="eyebrow">Data type</p><h1><code>XTN_IZ01</code> Extended Telecommunication Number</h1>
+
+<section><h2>Components</h2><div class="table-wrap"><table class="model"><thead><tr><th>Component</th><th>Name</th><th>Data type</th><th>Usage</th><th>Length</th><th>Value sets</th></tr></thead><tbody><tr id="c1"><th scope="row"><code>XTN.1</code></th><td>Telephone Number</td><td><a href="../../../structure/datatypes/st/index.html"><code>ST</code></a></td><td><abbr class="usage u-X" title="Not supported">X</abbr></td><td></td><td></td></tr><tr id="c2"><th scope="row"><code>XTN.2</code></th><td>Telecommunication Use Code</td><td><a href="../../../structure/datatypes/id/index.html"><code>ID</code></a></td><td><abbr class="usage u-R" title="Required">R</abbr></td><td></td><td><a href="../../../structure/value-sets/hl70201-iz01/index.html"><code>HL70201_IZ01</code></a> <span class="mini">(R)</span></td></tr><tr id="c3"><th scope="row"><code>XTN.3</code></th><td>Telecommunication Equipment Type</td><td><a href="../../../structure/datatypes/id/index.html"><code>ID</code></a></td><td><abbr class="usage u-RE" title="Required, may be empty">RE</abbr></td><td></td><td><a href="../../../structure/value-sets/hl70202-iz01/index.html"><code>HL70202_IZ01</code></a> <span class="mini">(R)</span></td></tr><tr id="c4"><th scope="row"><code>XTN.4</code></th><td>Email Address</td><td><a href="../../../structure/datatypes/st/index.html"><code>ST</code></a></td><td><abbr class="usage u-C" title="If XTN.2 (Telecommunication Use Code) contain the value &#x27;NET&#x27;.">C(R/X)</abbr></td><td>1..199</td><td></td></tr><tr id="c5"><th scope="row"><code>XTN.5</code></th><td>Country Code</td><td><a href="../../../structure/datatypes/nm/index.html"><code>NM</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td></td><td></td></tr><tr id="c6"><th scope="row"><code>XTN.6</code></th><td>Area/City Code</td><td><a href="../../../structure/datatypes/nm/index.html"><code>NM</code></a></td><td><abbr class="usage u-C" title="If XTN.2 (Telecommunication Use Code) does not contain the value &#x27;NET&#x27;.">C(RE/X)</abbr></td><td>3..5</td><td></td></tr><tr id="c7"><th scope="row"><code>XTN.7</code></th><td>Local Number</td><td><a href="../../../structure/datatypes/nm/index.html"><code>NM</code></a></td><td><abbr class="usage u-C" title="If XTN.2 (Telecommunication Use Code) does not contain the value &#x27;NET&#x27;.">C(R/X)</abbr></td><td>7..9</td><td></td></tr><tr id="c8"><th scope="row"><code>XTN.8</code></th><td>Extension</td><td><a href="../../../structure/datatypes/nm/index.html"><code>NM</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td></td><td></td></tr><tr id="c9"><th scope="row"><code>XTN.9</code></th><td>Any Text</td><td><a href="../../../structure/datatypes/st/index.html"><code>ST</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td></td><td></td></tr><tr id="c10"><th scope="row"><code>XTN.10</code></th><td>Extension Prefix</td><td><a href="../../../structure/datatypes/st/index.html"><code>ST</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td></td><td></td></tr><tr id="c11"><th scope="row"><code>XTN.11</code></th><td>Speed Dial Code</td><td><a href="../../../structure/datatypes/st/index.html"><code>ST</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td></td><td></td></tr><tr id="c12"><th scope="row"><code>XTN.12</code></th><td>Unformatted Telephone number</td><td><a href="../../../structure/datatypes/st/index.html"><code>ST</code></a></td><td><abbr class="usage u-O" title="Optional">O</abbr></td><td></td><td></td></tr></tbody></table></div></section>
+<section><h2>Conditional usage (predicates)</h2><div class="table-wrap"><table class="model"><thead><tr><th>Element</th><th>Condition</th><th>If true</th><th>If false</th></tr></thead><tbody><tr><td><code>XTN.XTN.4</code></td><td>If XTN.2 (Telecommunication Use Code) contain the value &#x27;NET&#x27;.</td><td>R</td><td>X</td></tr><tr><td><code>XTN.XTN.6</code></td><td>If XTN.2 (Telecommunication Use Code) does not contain the value &#x27;NET&#x27;.</td><td>RE</td><td>X</td></tr><tr><td><code>XTN.XTN.7</code></td><td>If XTN.2 (Telecommunication Use Code) does not contain the value &#x27;NET&#x27;.</td><td>R</td><td>X</td></tr></tbody></table></div></section>
+
+<section><h2>Used by</h2><p><a href="../../../structure/segments/pid/pid-iz03/index.html"><code>PID_IZ03</code></a>, <a href="../../../structure/segments/in1/in1-iz01/index.html"><code>IN1_IZ01</code></a>, <a href="../../../structure/segments/pid/pid-iz02/index.html"><code>PID_IZ02</code></a>, <a href="../../../structure/segments/orc/orc-iz02/index.html"><code>ORC_IZ02</code></a>, <a href="../../../structure/segments/err/err-iz01/index.html"><code>ERR_IZ01</code></a>, <a href="../../../structure/segments/nk1/nk1-iz01/index.html"><code>NK1_IZ01</code></a>, <a href="../../../structure/segments/orc/orc-iz01/index.html"><code>ORC_IZ01</code></a>, <a href="../../../structure/segments/qpd/qpd-iz01/index.html"><code>QPD_IZ01</code></a>, <a href="../../../structure/segments/pid/pid-iz01/index.html"><code>PID_IZ01</code></a></p></section>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 17:39 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit c0bf22b.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../../assets/nav.js"></script>
+<script src="../../../assets/site.js"></script>
+</body>
+</html>

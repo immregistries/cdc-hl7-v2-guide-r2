@@ -34,12 +34,12 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../response-rsp-profiles/index.html">3.5 Response (RSP) Profiles</a></nav>
 <header class="card-head"><h1><span class="num">3.5.1</span> Purpose and Scope of RSP Profiles</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-warning" aria-label="Quality review findings">
+<aside class="findings sev-warning" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 warning · 2 notes</span></summary>
 <p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
 <ul><li class="finding sev-warning" id="qf-verb-in-prose-bd25918d"><span class="sev">Warning</span> Narrative uses the conformance verbs SHALL, MAY. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>RSP content SHALL be consistent with the profile requested (Z34 or Z44). If a QBP message does not specify a query profile, the IIS MAY return either a Z32 or Z42 response as its default.</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-bd25918d">qf-verb-in-prose-bd25918d</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-e4de6b44"><span class="sev">Note</span> 1 requirement was written as a paragraph in the draft and is shown here as conformance statement (wording unchanged): s1.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-e4de6b44">qf-statement-from-paragraph-e4de6b44</a></li><li class="finding sev-note" id="qf-statements-mid-section-f7a2e409"><span class="sev">Note</span> In the draft, explanatory text continues after the conformance statements. Cards show statements after the narrative, so check that the order still reads well.<a class="f-id" href="../quality/index.html#qf-statements-mid-section-f7a2e409">qf-statements-mid-section-f7a2e409</a></li></ul></details></aside>
-<div class="narrative"><p>RSP profiles define the structure and conformance expectations for IIS responses to Z34 and Z44 queries.</p>
-<p>RSP content SHALL be consistent with the profile requested (Z34 or Z44). If a QBP message does not specify a query profile, the IIS MAY return either a Z32 or Z42 response as its default.</p></div>
+<div class="narrative"><p>RSP profiles define the structure and conformance expectations for IIS responses to <a class="sref" href="../structure/profiles/z34/index.html">Z34</a> and <a class="sref" href="../structure/profiles/z44/index.html">Z44</a> queries.</p>
+<p>RSP content SHALL be consistent with the profile requested (<a class="sref" href="../structure/profiles/z34/index.html">Z34</a> or <a class="sref" href="../structure/profiles/z44/index.html">Z44</a>). If a QBP message does not specify a query profile, the IIS MAY return either a <a class="sref" href="../structure/profiles/z32/index.html">Z32</a> or <a class="sref" href="../structure/profiles/z42/index.html">Z42</a> response as its default.</p></div>
 
 <section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="purpose-and-scope-of-rsp-profiles--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL respond to each valid QBP with exactly one RSP message.</span><span class="s-meta"><a class="s-id" href="#purpose-and-scope-of-rsp-profiles--s1" title="Link to this statement">s1</a></span></li></ol></section>
 
@@ -54,7 +54,7 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 17:01 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 801a1b7.
+  <p class="build">Built 2026-11-12 17:39 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit c0bf22b.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
