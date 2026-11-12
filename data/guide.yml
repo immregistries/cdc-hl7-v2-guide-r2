@@ -12,6 +12,12 @@ publishers:
 repository: https://github.com/immregistries/cdc-hl7-v2-guide-r2
 site: https://immregistries.github.io/cdc-hl7-v2-guide-r2/
 interophub_topic: https://informatics.immregistries.org/hub/es/topic/52
+# Section-level review comments, stored in InteropHub (topic 52) under one document key.
+# Turn on once the document key is registered in InteropHub (see docs/comments.md).
+comments:
+  enabled: false
+  hub: https://informatics.immregistries.org/hub
+  document: cdc-hl7-v2-guide-r2
 intro: |
   This is a working draft of the next national HL7 Version 2.5.1 implementation
   guide for immunization messaging. It is organized as short sections, each

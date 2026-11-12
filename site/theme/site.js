@@ -7,14 +7,18 @@
   var nav = window.GUIDE_NAV || { nodes: [], extra: [] };
 
   // ------------------------------------------------------------ deep links on the home page
-  // index.html#<card-id> or #<card-id>--s<n> (used by links from InteropHub and elsewhere)
+  // index.html#<card-id>, #<card-id>--s<n>, or #<page anchor> (links from InteropHub and elsewhere).
+  // The query string (e.g. ?interophub=signin) is kept so the target page can continue sign-in.
   if (body.classList.contains("home") && location.hash.length > 1) {
     var target = decodeURIComponent(location.hash.slice(1));
     var ids = {};
-    (function walk(ns) { ns.forEach(function (n) { ids[n.i] = 1; if (n.c) walk(n.c); }); })(nav.nodes);
+    (function walk(ns) { ns.forEach(function (n) { if (!n.p) ids[n.i] = 1; if (n.c) walk(n.c); }); })(nav.nodes);
+    var pages = nav.anchors || {};
     var st = target.match(/^(.+)--s\d+$/);
-    if (ids[target]) { location.replace(target + "/index.html"); return; }
-    if (st && ids[st[1]]) { location.replace(st[1] + "/index.html#" + target); return; }
+    var q = location.search;
+    if (ids[target]) { location.replace(target + "/index.html" + q); return; }
+    if (pages[target]) { location.replace(pages[target] + q); return; }
+    if (st && ids[st[1]]) { location.replace(st[1] + "/index.html" + q + "#" + target); return; }
   }
 
   function store(key, value) {

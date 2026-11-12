@@ -67,8 +67,39 @@ def esc(text) -> str:
 # =========================================================================== page shell
 
 
-def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id: str = "", page_class: str = "") -> str:
+def comments_settings(guide: dict) -> dict | None:
+    """InteropHub comment settings from data/guide.yml (comments: {enabled, hub, document}).
+    GUIDE_COMMENTS_HUB overrides the hub and enables comments (for testing against a local InteropHub,
+    e.g. http://localhost:8080/hub); "off" disables them."""
+    c = dict(guide.get("comments") or {})
+    override = os.environ.get("GUIDE_COMMENTS_HUB")
+    if override == "off":
+        return None
+    if override:
+        c["hub"], c["enabled"] = override, True
+    return c if c.get("enabled") and c.get("hub") and c.get("document") else None
+
+
+def review_html(root: str, guide: dict, review: dict | None) -> tuple[str, str]:
+    """(panel, scripts) for a page's comment panel; empty when comments are off or the page has no anchor."""
+    settings = comments_settings(guide)
+    if not settings or not review:
+        return "", ""
+    cfg = {"hub": settings["hub"], "document": settings["document"], "anchor": review["anchor"],
+           "title": review.get("title", ""), "targets": review.get("targets") or [{"i": 0, "label": "Whole page"}]}
+    data = json.dumps(cfg, ensure_ascii=False).replace("</", "<\\/")
+    panel = '<section class="comments" id="comments" aria-label="Comments"></section>' if review.get("panel", True) else ""
+    scripts = f'<script>window.GUIDE_COMMENTS={data};</script>\n<script src="{root}assets/comments.js"></script>'
+    return panel, scripts
+
+
+def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id: str = "", page_class: str = "",
+          review: dict | None = None) -> str:
     status = esc(guide.get("status", "Draft"))
+    if review is None and page_class == "home":
+        # the home page shows no panel but routes InteropHub comment links (#comment-<id>)
+        review = {"anchor": "home", "title": "Home", "panel": False}
+    panel, review_scripts = review_html(root, guide, review)
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -102,6 +133,7 @@ def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id
   </nav>
   <main id="main" tabindex="-1">
 {body}
+{panel}
   </main>
 </div>
 <footer class="site-footer">
@@ -113,6 +145,7 @@ def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="{root}assets/nav.js"></script>
 <script src="{root}assets/site.js"></script>
+{review_scripts}
 </body>
 </html>
 """
@@ -251,11 +284,11 @@ def build(out: Path) -> dict:
     for entry in out.iterdir():  # clear contents (the folder itself may be in use, e.g. by a preview server)
         shutil.rmtree(entry) if entry.is_dir() else entry.unlink()
     (out / "assets").mkdir(parents=True)
-    for name in ("tokens.css", "site.css", "site.js"):
+    for name in ("tokens.css", "site.css", "site.js", "comments.js"):
         shutil.copy2(SITE_SRC / "theme" / name, out / "assets" / name)
 
     # ---------------------------------------------------------------- chapter 7 (generated from model/)
-    st, structure_nav = None, []
+    st, structure_nav, structure_anchors = None, [], {}
     if Model.available(REPO / "model"):
         field_cards, profile_cards = defaultdict(list), defaultdict(list)
         for card_id, items in xref.items():
@@ -266,9 +299,10 @@ def build(out: Path) -> dict:
             text = c.narrative + " " + " ".join(x["text"] for x in c.statements) + " " + c.title
             for code in dict.fromkeys(re.findall(r"\b(Z\d{2})\b", text)):
                 profile_cards[code].append(c.id)
-        structure_nav, st = site_structure.build(
+        structure_nav, st, structure_anchors = site_structure.build(
             out, Model(REPO / "model"),
-            shell=lambda root, title, body: shell(root=root, title=title, body=body, guide=guide, build=build_info, page_class="model"),
+            shell=lambda root, title, body, anchor=None: shell(root=root, title=title, body=body, guide=guide, build=build_info, page_class="model",
+                                                               review={"anchor": anchor, "title": title} if anchor else None),
             findings_panel=findings_panel, field_cards=field_cards, profile_cards=profile_cards, findings=findings, by_id=by_id)
 
     # ---------------------------------------------------------------- nav data
@@ -295,7 +329,9 @@ def build(out: Path) -> dict:
         cmp_f = [f for f in findings if f["category"] in ("igamt", "igamt-export")]
         extra.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
                       "f": [sum(f["severity"] == s for f in cmp_f) for s in ("issue", "warning", "note")]})
-    nav = {"nodes": [node(r) for r in roots], "extra": extra}
+    page_anchors = {"quality": "quality/index.html", "quality-igamt": "quality/igamt/index.html",
+                    "glossary": "glossary/index.html", "resources": "resources/index.html", **structure_anchors}
+    nav = {"nodes": [node(r) for r in roots], "extra": extra, "anchors": page_anchors}
     write_text(out / "assets" / "nav.js", "window.GUIDE_NAV=" + json.dumps(nav, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
     # ---------------------------------------------------------------- card pages
@@ -363,8 +399,17 @@ def build(out: Path) -> dict:
 {children_html}
 {pager}
 </article>"""
+        targets = [{"i": 0, "label": "Whole section"}]
+        for s_ in c.statements:
+            n = int(s_["id"].rsplit("--s", 1)[-1])
+            targets.append({"i": n, "label": f"Statement s{n}: {s_['text'][:70]}" + ("…" if len(s_["text"]) > 70 else ""),
+                            "snippet": s_["text"][:500]})
+        for k, f_ in enumerate(c.meta.get("figures", []), 1):
+            label = f"Figure {f_['number']}" if f_.get("number") is not None else "Figure"
+            targets.append({"i": 900 + k, "label": f"{label}: {f_.get('caption', '')}"[:90], "snippet": f_.get("caption", "")})
         write_text(page_dir / "index.html", shell(root=root, title=f"{c.number} {c.title}", body=body, guide=guide,
-                                                  build=build_info, card_id=c.id, page_class="card-page"))
+                                                  build=build_info, card_id=c.id, page_class="card-page",
+                                                  review={"anchor": c.id, "title": f"{c.number} {c.title}", "targets": targets}))
 
     # ---------------------------------------------------------------- landing
     sev_all = Counter(f["severity"] for f in findings)
@@ -452,14 +497,17 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
 <p class="stats">{len(findings)} findings: {sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes.</p>
 <table class="rules"><thead><tr><th>Check</th><th>What it looks for</th><th>Count</th></tr></thead><tbody>{rows}</tbody></table>
 {''.join(sections)}</article>"""
-    write_text(out / "quality" / "index.html", shell(root="../", title="Quality review", body=quality, guide=guide, build=build_info))
+    write_text(out / "quality" / "index.html", shell(root="../", title="Quality review", body=quality, guide=guide, build=build_info,
+                                                     review={"anchor": "quality", "title": "Quality review"}))
     write_text(out / "quality" / "findings.csv", site_igamt.findings_csv(findings, by_id, guide.get("site", "")))
     if structure:
         model_src = read_yaml(REPO / "model" / "source.yml", {}) or {}
         page = site_igamt.comparison_page(structure, findings, by_id, "../../",
                                           {"narrative": build_info["source"], "igamt": model_src.get("export", "unknown")})
         write_text(out / "quality" / "igamt" / "index.html",
-                   shell(root="../../", title="Narrative and IGAMT comparison", body=page, guide=guide, build=build_info))
+                   shell(root="../../", title="Narrative and IGAMT comparison", body=page, guide=guide, build=build_info,
+                         review={"anchor": "quality-igamt", "title": "Narrative and IGAMT comparison",
+                                 "targets": site_igamt.review_targets(structure)}))
 
     # ---------------------------------------------------------------- glossary and resources
     gl = read_yaml(DATA_DIR / "glossary.yml", {}) or {}
@@ -471,7 +519,8 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
             parts.append(f"<dt id='{anchor}'>{esc(e['term'])}</dt><dd>{minimd.render(e['definition'])}</dd>")
         parts.append("</dl>")
     parts.append("</article>")
-    write_text(out / "glossary" / "index.html", shell(root="../", title="Glossary", body="".join(parts), guide=guide, build=build_info))
+    write_text(out / "glossary" / "index.html", shell(root="../", title="Glossary", body="".join(parts), guide=guide, build=build_info,
+                                                       review={"anchor": "glossary", "title": "Glossary and Abbreviations"}))
 
     rd = read_yaml(DATA_DIR / "references.yml", {}) or {}
     lis, current_group = [], None
@@ -483,7 +532,8 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
         title = f'<a href="{esc(r["url"])}" rel="noopener" target="_blank">{esc(r["title"])}</a>' if r.get("url") else esc(r["title"])
         lis.append(f'<li id="ref-{r["number"]}" value="{r["number"]}">{title}<p>{esc(r.get("description", ""))}</p></li>')
     resources = f"<article class='page'><h1>Resources</h1>{minimd.render(rd.get('intro', ''))}<ol class='refs'>{''.join(lis)}</ol></article>"
-    write_text(out / "resources" / "index.html", shell(root="../", title="Resources", body=resources, guide=guide, build=build_info))
+    write_text(out / "resources" / "index.html", shell(root="../", title="Resources", body=resources, guide=guide, build=build_info,
+                                                        review={"anchor": "resources", "title": "Resources"}))
 
     # ---------------------------------------------------------------- placeholders
     if st is None:

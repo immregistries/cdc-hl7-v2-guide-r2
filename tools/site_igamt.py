@@ -290,3 +290,11 @@ def findings_csv(findings: list[dict], by_id: dict, base_url: str) -> str:
                     f.get("location") or "", f["message"], ev.get("kind", ""), OWNER_LABEL.get(ev.get("owner"), ev.get("owner", "")),
                     ev.get("comment", ""), ev.get("recommendation", ""), (f.get("disposition") or {}).get("status", "")])
     return buf.getvalue()
+
+
+def review_targets(structure: dict) -> list[dict]:
+    """Comment targets on the comparison page: the page, then each reviewed finding (so CDC can respond per finding)."""
+    out = [{"i": 0, "label": "Whole page"}]
+    for n, r in enumerate([r for r in structure.get("review", []) if r.get("kind") != "confirmed"], 1):
+        out.append({"i": n, "label": f"{r['id']}: {r['title']}"[:110], "snippet": r["id"]})
+    return out

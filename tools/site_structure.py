@@ -213,10 +213,23 @@ def build(out, model: Model, *, shell, findings_panel, field_cards: dict, profil
             model_findings[_finding_page(st, loc[6:])].append(f)
     general_findings = model_findings.pop(None, [])
 
+    anchors = {}
+
+    def anchor_for(path: str) -> str:
+        parts = path.split("/")[1:]
+        if not parts:
+            return "structure"
+        kind = {"profiles": "", "segments": "seg-", "datatypes": "dt-", "value-sets": "vs-", "coconstraints": "cocon-"}[parts[0]]
+        if parts[0] == "segments" and len(parts) == 3:
+            return f"structure-flavor-{parts[2]}"[:100]
+        return f"structure-{kind}{parts[1]}"[:100]
+
     def page(path, title, body, root, items=None):
         panel = findings_panel(items or [], root, {}) if items else ""
         body = body.replace("<!--findings-->", panel)
-        write_text(out / path / "index.html", shell(root=root, title=title, body=body))
+        anchor = anchor_for(path)
+        anchors[anchor] = f"{path}/index.html"
+        write_text(out / path / "index.html", shell(root=root, title=title, body=body, anchor=anchor))
 
     def crumbs(root, *links):
         parts = [f'<a href="{root}index.html">Home</a>', f'<a href="{root}structure/index.html">7 Message Infrastructure</a>']
@@ -505,7 +518,7 @@ The <a href="{root}quality/igamt/index.html">narrative and IGAMT comparison</a> 
                       for p in profiles if any(t["profile"] == p["code"] for t in m.coconstraints)]})
     nav.append({"i": "structure-datatypes", "t": "Data types", "n": "", "p": "structure/index.html#datatypes", "f": [0, 0, 0]})
     nav.append({"i": "structure-value-sets", "t": "Value sets", "n": "", "p": "structure/index.html#value-sets", "f": [0, 0, 0]})
-    return nav, st
+    return nav, st, anchors
 
 
 def _counts(items):
