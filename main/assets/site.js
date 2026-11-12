@@ -134,6 +134,16 @@
   });
   if (box) box.addEventListener("click", function (e) { if (e.target === box) box.close(); });
 
+  // ------------------------------------------------------------ copy an example message
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest(".hl7-copy");
+    if (!b || !navigator.clipboard) return;
+    navigator.clipboard.writeText(b.getAttribute("data-text").replace(/\n/g, "\r")).then(function () {
+      b.textContent = "Copied";
+      setTimeout(function () { b.textContent = "Copy"; }, 1500);
+    });
+  });
+
   // ------------------------------------------------------------ permalink
   document.addEventListener("click", function (e) {
     var b = e.target.closest(".permalink, .s-id");

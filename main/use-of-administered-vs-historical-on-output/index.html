@@ -43,6 +43,7 @@
 <p>This guide does not define interoperable outbound semantics for the <a class="sref" href="../structure/segments/rxa/index.html#f9" title="Administration Notes">RXA-9</a> administered/historical indicator. Leaving <a class="sref" href="../structure/segments/rxa/index.html#f9" title="Administration Notes">RXA-9</a> empty on outbound RSP messages SHOULD be the preferred approach, to avoid implying cross-jurisdictional meaning. IIS that choose to populate <a class="sref" href="../structure/segments/rxa/index.html#f9" title="Administration Notes">RXA-9</a> MAY do so according to local policy, but such values are not guaranteed to carry the same interpretation in other jurisdictions.</p></div>
 
 <section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="use-of-administered-vs-historical-on-output--s1"><span class="verb verb-should-not">SHOULD NOT</span><span class="s-text">IIS SHOULD NOT differentiate between administered and historical vaccinations when returning consolidated immunization histories.</span><span class="s-meta"><a class="s-id" href="#use-of-administered-vs-historical-on-output--s1" title="Link to this statement">s1</a></span></li><li id="use-of-administered-vs-historical-on-output--s2"><span class="verb verb-should">SHOULD</span><span class="s-text">Querying systems SHOULD ignore administered/historical indicators if present.</span><span class="s-meta"><a class="s-id" href="#use-of-administered-vs-historical-on-output--s2" title="Link to this statement">s2</a></span></li><li id="use-of-administered-vs-historical-on-output--s3"><span class="verb verb-should">SHOULD</span><span class="s-text">IIS SHOULD focus outbound histories on vaccine type, date of administration, and relevant clinical attributes rather than submission context.</span><span class="s-meta"><a class="s-id" href="#use-of-administered-vs-historical-on-output--s3" title="Link to this statement">s3</a></span></li></ol></section>
+
 <section class="xref" aria-labelledby="xref-h"><details>
 <summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">1 field · from the IGAMT export</span></summary>
 <p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
@@ -61,7 +62,7 @@ conformance statements that test it. <a href="../quality/igamt/index.html">How t
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 18:20 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2c44353.
+  <p class="build">Built 2026-11-12 18:35 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit fde680d.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
