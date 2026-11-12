@@ -38,6 +38,21 @@ RULE_HELP = {
     "igamt-unused-flavor": "Segment flavors not used by any message.",
     "igamt-profile-name": "Inconsistent profile names.",
     "igamt-metadata": "Missing version and date in the export.",
+    "example-cocon": "Example observations (OBX) that the co-constraint tables do not allow, or with the wrong value type or value set.",
+    "example-cocon-missing": "Example order groups missing an observation the co-constraint tables require.",
+    "example-required": "Required fields or components that are empty in an example.",
+    "example-not-supported": "Fields or components marked X (not supported) that an example values.",
+    "example-cardinality": "Fields in an example with more repetitions than the profile allows.",
+    "example-code": "Codes in an example that are not in a closed value set bound to the field.",
+    "example-code-open": "Codes in an example that are not in an open value set bound to the field.",
+    "example-format": "Dates and times in an example that do not match the data type's format.",
+    "example-constraint": "Example segments that fail a conformance statement of their flavor.",
+    "example-structure": "Example segments the profile does not include or support, or required segments that are missing.",
+    "example-message-type": "Examples whose MSH-9 does not match their profile.",
+    "example-profile": "Examples whose MSH-21 does not name a known profile.",
+    "example-needs-input": "Examples marked Question or Need help in CDC's example list.",
+    "example-missing": "Examples requested in CDC's list that are not drafted yet.",
+    "example-section-unresolved": "Example list entries that name a sub-section the narrative does not have.",
 }
 
 

@@ -26,6 +26,7 @@ from guidecards import (  # noqa: E402
     CARDS_DIR, DATA_DIR, META, REPO, find_verbs, load_tree, norm_title, read_yaml, subject_of, walk, write_text,
 )
 import compare_structure  # noqa: E402
+import example_checks  # noqa: E402
 
 QUALITY_DIR = REPO / "quality"
 SEVERITIES = ("issue", "warning", "note")
@@ -36,7 +37,9 @@ CATEGORIES = {
     "references": "References, glossary, and links",
     "conversion": "Conversion",
     **compare_structure.CATEGORIES,
+    **example_checks.CATEGORY,
 }
+EXAMPLES_DIR = REPO / "examples"
 MODEL_DIR = REPO / "model"
 MUST_RE = re.compile(r"\b(must not|must|required to|is required|are required)\b", re.I)
 CITATION_RE = re.compile(r"\[(\d{1,2})\]")
@@ -292,6 +295,9 @@ def run_checks_full(cards_dir: Path, data_dir: Path, quality_dir: Path, model_di
 
     # ---------------------------------------------------------------- narrative vs IGAMT structure
     structure = compare_structure.run(cards, model_dir, quality_dir, f, config) if model_dir else None
+    examples = example_checks.run(cards, cards_dir.parent / "examples", model_dir, f, config) if model_dir else None
+    if structure is not None and examples is not None:
+        structure["examples"] = examples
 
     # ---------------------------------------------------------------- manual
     for m in read_yaml(quality_dir / "manual-findings.yml", []) or []:

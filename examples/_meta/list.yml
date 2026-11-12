@@ -1,0 +1,673 @@
+# CDC's example list, as imported (Notes column left out). unmatched_rows have no example yet.
+rows:
+  - row: 2
+    section: VXU Message- Field Level Components
+    item: MSH-4
+    name: Submitting Organization
+    example: Same MSH-4 and MSH-22
+    sub_section: Submitting Organization (MSH-4 Sending Facility); Responsible Organization (MSH-22)
+    status: Drafted
+  - row: 3
+    section: VXU Message- Field Level Components
+    item: MSH-4
+    name: Submitting Organization
+    example: Different MSH-4 and MSH-22
+    sub_section: Submitting Organization (MSH-4 Sending Facility); Responsible Organization (MSH-22)
+    status: Drafted
+  - row: 4
+    section: VXU Message- Field Level Components
+    item: MSH-7
+    name: Message Timestamp
+    example: UTC time zone
+    sub_section: Message Header Date/Time (MSH-7)
+    status: Drafted
+  - row: 5
+    section: VXU Message- Field Level Components
+    item: MSH-7
+    name: Message Timestamp
+    example: Non-UTC time zone
+    sub_section: Message Header Date/Time (MSH-7)
+    status: Drafted
+  - row: 6
+    section: VXU Message- Field Level Components
+    item: MSH-22
+    name: Responsible Organization
+    example: Empty MSH-22
+    sub_section: Responsible Organization (MSH-22)
+    status: Drafted
+  - row: 7
+    section: VXU Message- Field Level Components
+    item: MSH-22
+    name: Responsible Organization
+    example: Different MSH-22 from MSH-4
+    sub_section: Responsible Organization (MSH-22)
+    status: Drafted
+  - row: 8
+    section: VXU Message- Field Level Components
+    item: PID-5
+    name: Patient Name
+    example: Multiple name type repetitions
+    sub_section: Official Registry Name
+    status: Drafted
+  - row: 9
+    section: VXU Message- Field Level Components
+    item: PID-5
+    name: Patient Name
+    example: NB (newborn)
+    sub_section: Unnamed Newborns
+    status: Drafted
+  - row: 10
+    section: VXU Message- Field Level Components
+    item: PID-5
+    name: Patient Name
+    example: NB and L sent in same message
+    sub_section: Unnamed Newborns
+    status: Drafted
+  - row: 11
+    section: VXU Message- Field Level Components
+    item: PID-5
+    name: Patient Name
+    example: Preserved diacritic
+    sub_section: Special Characters
+    status: Drafted
+  - row: 12
+    section: VXU Message- Field Level Components
+    item: PID-5
+    name: Patient Name
+    example: Transliterated name (for when diacritic can't be saved)
+    sub_section: Special Characters
+    status: Drafted
+  - row: 13
+    section: VXU Message- Field Level Components
+    item: PID-7
+    name: Date of Birth
+    example: Time-offset component present
+    sub_section: Date of Birth (PID-7)
+    status: Question
+  - row: 14
+    section: VXU Message- Field Level Components
+    item: PID-10
+    name: Race
+    example: Multiple race repetitions
+    sub_section: Multiple Race Reporting
+    status: Drafted
+  - row: 15
+    section: VXU Message- Field Level Components
+    item: PID-10
+    name: Race
+    example: UNK value
+    sub_section: Unknown and Refused Values
+    status: Drafted
+  - row: 16
+    section: VXU Message- Field Level Components
+    item: PID-10
+    name: Race
+    example: MENA example
+    sub_section: OMB 2024 Directive and Forward Compatibility
+    status: Drafted
+  - row: 17
+    section: VXU Message- Field Level Components
+    item: PID-11
+    name: Address
+    example: Congregate/institutional address across two patients
+    sub_section: Congregate and Institutional Addresses
+    status: Question
+  - row: 18
+    section: VXU Message- Field Level Components
+    item: PID-11
+    name: Address
+    example: Placeholder for no fixed address
+    sub_section: Persons without a Fixed Address
+    status: Question
+  - row: 19
+    section: VXU Message- Field Level Components
+    item: PID-13
+    name: Patient Phone
+    example: Multiple phone and email repetitions
+    sub_section: General Principles
+    status: Drafted
+  - row: 20
+    section: VXU Message- Field Level Components
+    item: PID-13
+    name: Patient Phone
+    example: No phone available (empty first repetition)
+    sub_section: General Principles
+    status: Drafted
+  - row: 21
+    section: VXU Message- Field Level Components
+    item: PD1-12
+    name: Protection Indicator
+    example: Y (with annotation to explain)
+    sub_section: Protection Indicator (PD1-12) Usage
+    status: Drafted
+  - row: 22
+    section: VXU Message- Field Level Components
+    item: PD1-12
+    name: Protection Indicator
+    example: N (with annotation to explain)
+    sub_section: Protection Indicator (PD1-12) Usage
+    status: Drafted
+  - row: 23
+    section: VXU Message- Field Level Components
+    item: ORC-12
+    name: Ordering Provider
+    example: Diacritic-containing name
+    sub_section: Non-Patient Person Names
+    status: Drafted
+  - row: 24
+    section: VXU Message- Field Level Components
+    item: ORC-17
+    name: Entering organization
+    example: Same as RXA-11.4
+    sub_section: Entering (Recording) Organization (ORC-17)
+    status: Drafted
+  - row: 25
+    section: VXU Message- Field Level Components
+    item: ORC-17
+    name: Entering organization
+    example: Different from RXA-11.4  for historical vaccine
+    sub_section: Entering (Recording) Organization (ORC-17)
+    status: Drafted
+  - row: 26
+    section: VXU Message- Field Level Components
+    item: RXA-3
+    name: Date of Administration
+    example: Same time zone as administration, no time zone
+    sub_section: Date of Vaccination (RXA-3)
+    status: Question
+  - row: 27
+    section: VXU Message- Field Level Components
+    item: RXA-3
+    name: Date of Administration
+    example: No time zone
+    sub_section: Date of Vaccination (RXA-3)
+    status: Question
+  - row: 28
+    section: VXU Message- Field Level Components
+    item: RXA-5
+    name: Vaccine Administered
+    example: Various CVX code types (active, inactive, etc.)
+    sub_section: CVX Code Status and Operational Meaning
+    status: Drafted
+  - row: 29
+    section: VXU Message- Field Level Components
+    item: RXA-5
+    name: Vaccine Administered
+    example: Decomposed into 2 to 3 antigens for international combination vaccines
+    sub_section: Representation of Foreign and Non-Standard Products
+    status: Drafted
+  - row: 30
+    section: VXU Message- Field Level Components
+    item: RXA-5
+    name: Vaccine Administered
+    example: Inactive vaccine for historical record
+    sub_section: Use of Inactive and Non-US CVX Codes
+    status: Drafted
+  - row: 31
+    section: VXU Message- Field Level Components
+    item: RXA-5
+    name: Vaccine Administered
+    example: International vaccine for historical record
+    sub_section: Use of Inactive and Non-US CVX Codes
+    status: Drafted
+  - row: 32
+    section: VXU Message- Field Level Components
+    item: RXA-15
+    name: Vaccine Lot Number
+    example: Two lot numbers (diluent)
+    sub_section: Vaccines with Multiple NDCs
+    status: Question
+  - row: 33
+    section: VXU Message- Field Level Components
+    item: OBX-4
+    name: Sub-ID/Grouping
+    example: Multiple VIS-related OBX segments sharing one OBX-4 value
+    sub_section: Reporting VIS Information in HL7 v2 Messages
+    status: Drafted
+  - row: 34
+    section: VXU Message- Field Level Components
+    item: OBX-4
+    name: Sub-ID/Grouping
+    example: Multiple forecast OBX segments with different antigens grouped under one forecast group
+    sub_section: Forecast Group Structure
+    status: Drafted
+  - row: 35
+    section: VXU Message- Field Level Components
+    item: OBX-14
+    name: Observation Date/Time
+    example: Populated serology observation
+    sub_section: OBX-14 Date/Time of the Observation
+    status: Drafted
+  - row: 36
+    section: VXU Message- Field Level Components
+    item: OBX-17
+    name: Observation Method
+    example: Visit level vs. dose level funding eligibility
+    sub_section: Patient Funding Eligibility (Per Dose)
+    status: Drafted
+  - row: 40
+    section: VXU Message Scenarios
+    item: Administered
+    name: ''
+    example: |-
+      RXA-9:' 00'
+      RXA-20: 'CP', 'PA'
+    sub_section: New Vaccination Administered During an Encounter
+    status: Question
+  - row: 41
+    section: VXU Message Scenarios
+    item: Historical
+    name: ''
+    example: |-
+      RXA-9:'01'-'08'
+      RXA-20: 'CP', 'PA'
+      ORC-3: 9999
+    sub_section: Historical Vaccination Recorded
+    status: Question
+  - row: 42
+    section: VXU Message Scenarios
+    item: Refusal
+    name: ''
+    example: |-
+      RXA-3: Date
+      RXA-5: Vaccine type
+      RXA-18: Reason for refusal
+      RXA-20: RE
+      ORC-3: 9999
+      OBX Segment Group: Refusal group
+    sub_section: Required Data Elements
+    status: Need help
+  - row: 43
+    section: VXU Message Scenarios
+    item: Contraindications
+    name: ''
+    example: Outside of ORC group
+    sub_section: HL7 v2 Representation
+    status: Need help
+  - row: 44
+    section: VXU Message Scenarios
+    item: Contraindications
+    name: ''
+    example: |-
+      RXA-5: ne '998'
+      RXA-6: '999'
+      RXA-20: 'NA'
+      OBX Segment group: Contraindications/Precautions
+      OBX-14: empty
+    sub_section: HL7 v2 Representation
+    status: Need help
+  - row: 45
+    section: VXU Message Scenarios
+    item: Patient demographics only
+    name: ''
+    example: |-
+      RXA-5: 998
+      RXA-6: '999'
+      RXA-20: NA
+      ORC-3: 9999
+      OBX: patient conditions
+    sub_section: Patient Demographic Records and VXUs without Immunizations
+    status: Drafted
+  - row: 46
+    section: VXU Message Scenarios
+    item: Multiple vaccines in one message
+    name: ''
+    example: Multiple ORC groups
+    sub_section: 'Reporting Immunizations: Single vs. Mulitple Administered Vaccinations per VXU'
+    status: Drafted
+  - row: 47
+    section: VXU Message Scenarios
+    item: Documented Immunity
+    name: ''
+    example: Historical
+    sub_section: Types of Immunity Evidence
+    status: Need help
+  - row: 48
+    section: VXU Message Scenarios
+    item: Documented Immunity
+    name: ''
+    example: Serological
+    sub_section: Types of Immunity Evidence
+    status: Need help
+  - row: 49
+    section: VXU Message Scenarios
+    item: Documented Immunity
+    name: ''
+    example: Multiple observations for same disease
+    sub_section: Types of Immunity Evidence
+    status: Not sure what was envisioned
+  - row: 50
+    section: VXU Message Scenarios
+    item: Adverse event
+    name: ''
+    example: Event level
+    sub_section: Adverse Events Associated with a Specific Vaccination
+    status: Need help
+  - row: 51
+    section: VXU Message Scenarios
+    item: Adverse event
+    name: ''
+    example: Patient level
+    sub_section: Adverse Events Associated with a Specific Vaccination
+    status: Need help
+  - row: 52
+    section: VXU Message Scenarios
+    item: Patient Eligibility and Funding Source
+    name: ''
+    example: ''
+    sub_section: Patient Funding Eligibility (Per Dose); Vaccine Funding Source and Stock Models
+    status: Drafted
+  - row: 53
+    section: VXU Message Scenarios
+    item: OBX-3 / OBX-5 Question-Answer Pairing (Funding Eligibility)
+    name: ''
+    example: ''
+    sub_section: ''
+    status: Drafted
+  - row: 54
+    section: VXU Message Scenarios
+    item: VIS Reporting — Both Methods Shown Side by Side
+    name: ''
+    example: Document Type
+    sub_section: Reporting VIS Information in HL7 v2 Messages
+    status: Drafted
+  - row: 55
+    section: VXU Message Scenarios
+    item: VIS Reporting — Both Methods Shown Side by Side
+    name: ''
+    example: Vaccine Type and Dates
+    sub_section: Reporting VIS Information in HL7 v2 Messages
+    status: Drafted
+  - row: 58
+    section: ACK Messages Field Level Components
+    item: MSA-1
+    name: Application error code
+    example: AA
+    sub_section: 'MSA-1: Deriviation of Message- Level Disposition'
+    status: Drafted
+  - row: 59
+    section: ACK Messages Field Level Components
+    item: MSA-1
+    name: Application error code
+    example: AE
+    sub_section: 'MSA-1: Deriviation of Message- Level Disposition'
+    status: Drafted
+  - row: 60
+    section: ACK Messages Field Level Components
+    item: MSA-1
+    name: Application error code
+    example: AR
+    sub_section: 'MSA-1: Deriviation of Message- Level Disposition'
+    status: Drafted
+  - row: 61
+    section: ACK Messages Field Level Components
+    item: ERR-2
+    name: Error location
+    example: Clear example
+    sub_section: 'ERR-2: Error Location'
+    status: Drafted
+  - row: 62
+    section: ACK Messages Field Level Components
+    item: ERR-2
+    name: Error location
+    example: Missing segment
+    sub_section: 'ERR-2: Error Location'
+    status: Need help
+  - row: 63
+    section: ACK Messages Field Level Components
+    item: ERR-2
+    name: Error location
+    example: generic error with no location
+    sub_section: 'ERR-2: Error Location'
+    status: Need help
+  - row: 64
+    section: ACK Messages Field Level Components
+    item: ERR-4
+    name: Severity
+    example: I
+    sub_section: 'ERR-4: Severity Code; Required Follow-up Actions'
+    status: Drafted
+  - row: 65
+    section: ACK Messages Field Level Components
+    item: ERR-4
+    name: Severity
+    example: W
+    sub_section: 'ERR-4: Severity Code; Required Follow-up Actions'
+    status: Drafted
+  - row: 66
+    section: ACK Messages Field Level Components
+    item: ERR-4
+    name: Severity
+    example: E
+    sub_section: 'ERR-4: Severity Code; Required Follow-up Actions'
+    status: Drafted
+  - row: 67
+    section: ACK Messages Field Level Components
+    item: ERR-5
+    name: Application error code
+    example: ''
+    sub_section: 'ERR-5: Application Error Code'
+    status: Drafted
+  - row: 68
+    section: ACK Messages Field Level Components
+    item: ERR-8
+    name: User Message
+    example: Human readable
+    sub_section: 'ERR-8: User Message'
+    status: Drafted
+  - row: 71
+    section: RSP Message Scenarios
+    item: Z34 - Request a Complete IZ Hx
+    name: ''
+    example: MSH-22 is populated
+    sub_section: Unified Z34 and Z44 Profile Model
+    status: Drafted
+  - row: 72
+    section: RSP Message Scenarios
+    item: Z31 - List of Candidates
+    name: ''
+    example: Include less information in response than original QBP
+    sub_section: Z31 - Return a List of Candidates
+    status: Drafted
+  - row: 73
+    section: RSP Message Scenarios
+    item: Z33 - ACK No Persons
+    name: ''
+    example: Example
+    sub_section: Z33 - Return a Response with No Person Records
+    status: Drafted
+  - row: 74
+    section: RSP Message Scenarios
+    item: Z32 - Return IZ Hx
+    name: ''
+    example: History with single antigen
+    sub_section: Immunization Event with Evaluation
+    status: Drafted
+  - row: 75
+    section: RSP Message Scenarios
+    item: Z32 - Return IZ Hx
+    name: ''
+    example: History with multiple antigens
+    sub_section: Immunization Event with Evaluation
+    status: Drafted
+  - row: 76
+    section: RSP Message Scenarios
+    item: Z32 - Return IZ Hx
+    name: ''
+    example: History and Forecast
+    sub_section: Immunization Event with Evaluation
+    status: Drafted
+  - row: 77
+    section: RSP Message Scenarios
+    item: Z42 - Return Hx and Forecast
+    name: ''
+    example: Forecast
+    sub_section: Z42 - Return Evaluated Immunization History and Forecast
+    status: Drafted
+  - row: 78
+    section: RSP Message Scenarios
+    item: Z42 - Return Hx and Forecast
+    name: ''
+    example: Evaluation and Forecast
+    sub_section: Z42 - Return Evaluated Immunization History and Forecast
+    status: Drafted
+  - row: 82
+    section: Z32/Z42 Field Level Components
+    item: RXA-11.4
+    name: ''
+    example: Administering Organization
+    sub_section: Administering Organization (RXA-11)
+    status: Drafted
+  - row: 83
+    section: Z32/Z42 Field Level Components
+    item: ORC-3
+    name: ''
+    example: Filler Order Number
+    sub_section: Vaccination Record Identity and ORC-3
+    status: Drafted
+  - row: 84
+    section: Z32/Z42 Field Level Components
+    item: ORC-17
+    name: ''
+    example: Entering organization
+    sub_section: Entering (Recording) Organization (ORC-17)
+    status: Drafted
+  - row: 85
+    section: Z32/Z42 Field Level Components
+    item: PID-5
+    name: ''
+    example: Patient Name
+    sub_section: Name Consistency and Matching Expectations
+    status: Drafted
+  - row: 86
+    section: Z32/Z42 Field Level Components
+    item: PID-11
+    name: ''
+    example: Patient address
+    sub_section: Address Types
+    status: Drafted
+  - row: 90
+    section: Multi-Message Sequences
+    item: Delete + Add Pair
+    name: ''
+    example: 'Message 1: RXA-21=A'
+    sub_section: Identifying vs. Non-Identifying Vaccination Fields
+    status: Drafted
+  - row: 91
+    section: Multi-Message Sequences
+    item: Delete + Add Pair
+    name: ''
+    example: 'Message 2: RXA-21=D, same identifying fields as Message 1'
+    sub_section: Identifying vs. Non-Identifying Vaccination Fields
+    status: Drafted
+  - row: 92
+    section: Multi-Message Sequences
+    item: Delete + Add Pair
+    name: ''
+    example: 'Message 3: RXA-21=A, updated identifying fields'
+    sub_section: Identifying vs. Non-Identifying Vaccination Fields
+    status: Drafted
+  - row: 93
+    section: Multi-Message Sequences
+    item: Update
+    name: ''
+    example: 'Message 1: RXA-21=A'
+    sub_section: Modifying Non-Identifying Vaccination Fields
+    status: Drafted
+  - row: 94
+    section: Multi-Message Sequences
+    item: Update
+    name: ''
+    example: 'Message 2: RXA-21=U, change to non-identifying fields'
+    sub_section: Modifying Non-Identifying Vaccination Fields
+    status: Drafted
+  - row: 95
+    section: Multi-Message Sequences
+    item: "Candidate Matching Flow \n(Z34 → Z31 → User Selection → Re-query with SR → Z32)"
+    name: ''
+    example: 'Message 1: Z34 with patient information'
+    sub_section: Selecting a Candidate Match
+    status: Drafted
+  - row: 96
+    section: Multi-Message Sequences
+    item: "Candidate Matching Flow \n(Z34 → Z31 → User Selection → Re-query with SR → Z32)"
+    name: ''
+    example: 'Message 2: Z31 with list of candidates with similar information'
+    sub_section: Selecting a Candidate Match
+    status: Drafted
+  - row: 97
+    section: Multi-Message Sequences
+    item: "Candidate Matching Flow \n(Z34 → Z31 → User Selection → Re-query with SR → Z32)"
+    name: ''
+    example: 'Message 3: Z34 with more specific patient information (including SR)'
+    sub_section: Selecting a Candidate Match
+    status: Drafted
+  - row: 98
+    section: Multi-Message Sequences
+    item: "Candidate Matching Flow \n(Z34 → Z31 → User Selection → Re-query with SR → Z32)"
+    name: ''
+    example: 'Message 4: Z32 with immunization history for the selected patient'
+    sub_section: Selecting a Candidate Match
+    status: Drafted
+  - row: 99
+    section: Multi-Message Sequences
+    item: "Consent/Disclosure Restriction Flow \n(Z44 → Z33)"
+    name: ''
+    example: 'Message 1: Z44 requesting a patient whose information is protected'
+    sub_section: Z33 - Return a Response with No Person Records
+    status: Drafted
+  - row: 100
+    section: Multi-Message Sequences
+    item: "Consent/Disclosure Restriction Flow \n(Z44 → Z33)"
+    name: ''
+    example: 'Message 2: Z33 indicating no returnable person record'
+    sub_section: Z33 - Return a Response with No Person Records
+    status: Drafted
+  - row: 101
+    section: Multi-Message Sequences
+    item: |-
+      Correction After Rejection
+      (VXU → ACK Error → Corrected VXU)
+    name: ''
+    example: 'Message 1: VXU with incorrect information'
+    sub_section: 'ERR-4: Severity Code'
+    status: Drafted
+  - row: 102
+    section: Multi-Message Sequences
+    item: |-
+      Correction After Rejection
+      (VXU → ACK Error → Corrected VXU)
+    name: ''
+    example: 'Message 2: ACK returned with ERR-4 = "E"'
+    sub_section: 'ERR-4: Severity Code'
+    status: Drafted
+  - row: 103
+    section: Multi-Message Sequences
+    item: |-
+      Correction After Rejection
+      (VXU → ACK Error → Corrected VXU)
+    name: ''
+    example: 'Message 3: Corrected VXU resubmitted'
+    sub_section: 'ERR-4: Severity Code'
+    status: Drafted
+  - row: 104
+    section: Multi-Message Sequences
+    item: Single High-Confidence Match, Invalid Dose
+    name: ''
+    example: ''
+    sub_section: ''
+    status: ''
+  - row: 105
+    section: Multi-Message Sequences
+    item: More Than Maximum Number of Candidates Found
+    name: ''
+    example: ''
+    sub_section: Definition text of RCP-2
+    status: Drafted
+unmatched_rows:
+  - 13
+  - 17
+  - 26
+  - 27
+  - 77
+  - 78

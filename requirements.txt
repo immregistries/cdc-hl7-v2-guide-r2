@@ -2,3 +2,4 @@
 # Building from committed content needs PyYAML only.
 python-docx==1.2.0
 PyYAML==6.0.3
+openpyxl==3.1.5  # maintainers only: tools/import_examples.py

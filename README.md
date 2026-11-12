@@ -19,7 +19,7 @@ text, so reviewers can see and respond to them in context.
 ```text
 narrative draft (Word) ──► tools/convert_narrative.py ──► cards/   ┐
 IGAMT conformance export ──► tools/import_igamt.py    ──► model/      ├─► website, quality report,
-example messages         ──► (importer, coming)      ──► examples/ ┘    ballot document
+example messages         ──► tools/import_examples.py ──► examples/ ┘    ballot document
 ```
 
 - **Narrative.** For now, the narrative is maintained by CDC in Word and
@@ -41,6 +41,7 @@ See [docs/architecture.md](docs/architecture.md) and the
 | Path | Contents |
 |---|---|
 | `cards/` | The narrative as a tree of cards; [`cards/INDEX.md`](cards/INDEX.md) is the table of contents |
+| `examples/` | The example messages, one file per example, matched to sections; generated from CDC's list and the drafted samples |
 | `model/` | The IGAMT conformance export, normalized (profiles, segments, data types, value sets, constraints, co-constraints); generated, never edited |
 | `data/` | Key terms, glossary, references, and change history |
 | `quality/` | Quality-check settings, reviewer findings (including the narrative/IGAMT review), and decisions on findings |
@@ -59,6 +60,7 @@ pip install -r requirements.txt
 # Maintainers only: convert the inputs (paths in inputs.json; see inputs.example.json)
 python tools/convert_narrative.py
 python tools/import_igamt.py
+python tools/import_examples.py
 
 # Anyone: run the quality checks on the committed cards
 python tools/check_cards.py          # writes output/quality/report.md
@@ -79,7 +81,7 @@ python -m unittest discover -s tests
 | Structured chapter (IGAMT) | Chapter 7 generated: 8 profiles, segments and flavors, data types, value sets, OBX co-constraints; linked from the narrative |
 | Website | Published from `main` on every push |
 | Card comments (InteropHub) | Open on topic 52 ([how it works](docs/comments.md)) |
-| Example messages | Planned |
+| Example messages | 81 examples on 60+ sections, assembled into whole messages and checked against the IGAMT profiles ([Appendix A](https://immregistries.github.io/cdc-hl7-v2-guide-r2/main/examples/)) |
 | Ballot document (Word/PDF) | Planned |
 
 ## License

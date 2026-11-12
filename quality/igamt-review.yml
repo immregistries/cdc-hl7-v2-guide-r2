@@ -444,6 +444,26 @@
     - "ORC_IZ01 ORC-12: C [0..1] XCN_IZ01, no predicate."
   recommendation: "Add the intended predicate, or set a fixed usage."
 
+- id: qf-igamt-msh-ack-constraints
+  kind: xml-defect
+  severity: issue
+  owner: igamt
+  card: acknowledgement-ack-message-profile
+  title: "IZ-41 and IZ-42 on the shared MSH flavor apply to every message, and no message can pass both"
+  summary: >-
+    All eight profiles use one MSH flavor, MSH_#ConsolidatedIG_IZ01. It carries IZ-41 (MSH-16 SHALL be 'AL')
+    and IZ-42 (MSH-15 SHALL be 'NE') as segment-level constraints, so both apply to VXU, QBP, ACK, and RSP alike.
+    The drafted examples follow the usual pattern (VXU and QBP with MSH-15 'ER' and MSH-16 'AL'; ACK and RSP
+    with 'NE'/'NE'), and every one fails one of the two. Z22 also has its own message-level IZ-41 with slightly
+    different wording.
+  xml:
+    - "MSH_#ConsolidatedIG_IZ01: IZ-41 \"MSH-16 (Application Acknowledgment Type) shall contain the value 'AL'\"; IZ-42 \"MSH-15 (Accept Acknowledgment Type) shall contain the value 'NE'\"."
+    - "Z22 (message level): IZ-41 \"MSH-16 shall contain the value 'AL'\"."
+  recommendation: >-
+    Move the acknowledgment-type constraints to the message profiles that need them (for example, VXU and QBP:
+    MSH-16 'AL'; ACK and RSP: MSH-15 and MSH-16 'NE'), and say in the narrative which values each message uses.
+    The example checks skip IZ-41 and IZ-42 until this is fixed (quality/config.yml).
+
 # ------------------------------------------------------------------ confirmed (shown in the comparison report only)
 
 - id: qf-igamt-ok-msa1

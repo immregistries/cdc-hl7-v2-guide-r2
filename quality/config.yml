@@ -24,3 +24,8 @@ not_segments: [HTI, SPD]
 # HL7 v2.5.1 segment names: a reference to one of these that is missing from
 # every profile is a warning; other unknown three-letter prefixes are notes.
 hl7_segments: [ACC, ADD, AL1, BHS, BTS, DSC, ERR, EVN, FHS, FTS, GT1, IN1, IN2, IN3, MSA, MSH, NK1, NTE, OBR, OBX, ORC, PD1, PID, PV1, PV2, QAK, QPD, QRD, RCP, RDF, RDT, RXA, RXR, SFT, TQ1, TQ2]
+
+# Example checks (tools/example_checks.py): segment-level conformance statements not applied to the
+# examples because they are known export defects, reported once in quality/igamt-review.yml.
+# IZ-41/IZ-42 sit on the MSH flavor shared by all eight profiles (qf-igamt-msh-ack-constraints).
+example_ignore_constraints: [IZ-41, IZ-42]

@@ -1,0 +1,87 @@
+# Example IDs by source heading. Never reuse an ID.
+Address PID-11 / Placeholder for no fixed address: address-pid-11-placeholder-for-no-fixed-address
+'Administered / Administered: Completed': administered-completed
+'Administered / Administered: Partially Administered': administered-partially-administered
+Adverse event / Event level: adverse-event-event-level
+Adverse event / Patient level: adverse-event-patient-level
+Application Error Code MSA-1 / AA: application-error-code-msa-1-aa
+Application Error Code MSA-1 / AE: application-error-code-msa-1-ae
+Application Error Code MSA-1 / AR: application-error-code-msa-1-ar
+Application error code ERR-5: application-error-code-err-5
+Candidate Matching Flow (Z34 → Z31 → User Selection → Re-query with SR → Z32): candidate-matching-flow-z34-z31-user-selection-re-query
+Consent/Disclosure Restriction Flow (Z44 → Z33): consent-disclosure-restriction-flow-z44-z33
+? 'Contraindications / Contraindications: For a contraindication to a multiple vaccine types use the code ‘998’ (no vaccination administered) and contraindication'
+: contraindications-for-a-contraindication-to-a-multiple
+? 'Contraindications / Contraindications: For a contraindication to a specific vaccine specific the vaccine type and contraindication'
+: contraindications-for-a-contraindication-to-a-specific
+Correction After Rejection (VXU → ACK Error → Corrected VXU): correction-after-rejection-vxu-ack-error-corrected-vxu
+Documented Immunity / Historical: documented-immunity-historical
+Documented Immunity / Multiple observations for same disease: documented-immunity-multiple-observations-for-same
+Documented Immunity / Serological: documented-immunity-serological
+Entering organization ORC-17 / Different from RXA-11.4 for historical vaccine: entering-organization-orc-17-different-from-rxa-11-4
+Entering organization ORC-17 / Same as RXA-11.4 - Entering (Recording) Organization (ORC-17): entering-organization-orc-17-same-as-rxa-11-4-entering
+Error location ERR-2 / Clear example: error-location-err-2-clear-example
+Error location ERR-2 / Generic error with no location: error-location-err-2-generic-error-with-no-location
+Error location ERR-2 / Missing segment: error-location-err-2-missing-segment
+'Historical / Historical: Other Provider': historical-other-provider
+'Historical / Historical: Unknown Source': historical-unknown-source
+MSH-4 Submitting Org. v MSH-22 Responsible Org. / Different MSH-4 and MSH-22: msh-4-submitting-org-v-msh-22-responsible-org-different
+MSH-4 Submitting Org. v MSH-22 Responsible Org. / Same MSH-4 and MSH-22: msh-4-submitting-org-v-msh-22-responsible-org-same-msh
+Message Header Date/Time (MSH-7) / Non-UTC time zone: message-header-date-time-msh-7-non-utc-time-zone
+Message Header Date/Time (MSH-7) / UTC time zone: message-header-date-time-msh-7-utc-time-zone
+More than the maximum number of candidates found: more-than-the-maximum-number-of-candidates-found
+Multi-Message Sequences / Delete + Add Pair: multi-message-sequences-delete-add-pair
+Multi-Message Sequences / Update: multi-message-sequences-update
+Multiple vaccines in one message: multiple-vaccines-in-one-message
+OBX-3 / OBX-5 Question-Answer Pairing (Funding Eligibility) / Three-stock model: obx-3-obx-5-question-answer-pairing-funding-eligibility-2
+OBX-3 / OBX-5 Question-Answer Pairing (Funding Eligibility) / Two-stock model: obx-3-obx-5-question-answer-pairing-funding-eligibility
+Observation Date/Time OBX-14 / Populated serology observation: observation-date-time-obx-14-populated-serology
+Observation Method OBX-17 / Visit level vs. dose level funding eligibility - Patient Funding Eligibility (Per Dose): observation-method-obx-17-visit-level-vs-dose-level
+Ordering Provider ORC-12: ordering-provider-orc-12
+Patient Name PID-5 / Multiple name type repetitions: patient-name-pid-5-multiple-name-type-repetitions
+Patient Name PID-5 / NB (newborn): patient-name-pid-5-nb-newborn
+Patient Name PID-5 / NB and L sent in same message: patient-name-pid-5-nb-and-l-sent-in-same-message
+Patient Name PID-5 / Preserved diacritic: patient-name-pid-5-preserved-diacritic
+Patient Name PID-5 / Transliterated name (for when diacritic can't be saved): patient-name-pid-5-transliterated-name-for-when
+Patient Phone PID-13 / Multiple phone and email repetitions: patient-phone-pid-13-multiple-phone-and-email
+Patient Phone PID-13 / No phone available (empty first repetition): patient-phone-pid-13-no-phone-available-empty-first
+Patient demographics only: patient-demographics-only
+Protection Indicator PD1-12 / Blank (with annotation to explain): protection-indicator-pd1-12-blank-with-annotation-to
+Protection Indicator PD1-12 / N (with annotation to explain): protection-indicator-pd1-12-n-with-annotation-to-explain
+Protection Indicator PD1-12 / Y (with annotation to explain): protection-indicator-pd1-12-y-with-annotation-to-explain
+Race PID-10 / MENA example OMB 2024 Directive and Forward Compatibility: race-pid-10-mena-example-omb-2024-directive-and-forward
+Race PID-10 / Multiple race repetitions: race-pid-10-multiple-race-repetitions
+Race PID-10 / Unknown and Refused Values: race-pid-10-unknown-and-refused-values
+Refusal: refusal
+Responsible Organization (MSH-22) / Different MSH-22 and MSH-4: responsible-organization-msh-22-different-msh-22-and
+Responsible Organization (MSH-22) / Empty MSH-22: responsible-organization-msh-22-empty-msh-22
+Severity ERR-4 / E (Error): severity-err-4-e-error
+Severity ERR-4 / I (Information): severity-err-4-i-information
+Severity ERR-4 / W (Warning): severity-err-4-w-warning
+Single High-Confidence Match, Invalid Dose: single-high-confidence-match-invalid-dose
+? 'Sub-ID/Grouping OBX-4 / Multiple VIS-related OBX segments sharing one OBX-4 value - Reporting VIS Information in HL7 v2 Messages: Method 1 (preferred) – VIS Barcode Identifier'
+: sub-id-grouping-obx-4-multiple-vis-related-obx-segments
+? 'Sub-ID/Grouping OBX-4 / Multiple VIS-related OBX segments sharing one OBX-4 value - Reporting VIS Information in HL7 v2 Messages: Method 2 – CVX NOS + Dates'
+: sub-id-grouping-obx-4-multiple-vis-related-obx-segments-2
+? Sub-ID/Grouping OBX-4 / Multiple forecast OBX segments with different antigens grouped under one forecast group - Forecast Group Structure
+: sub-id-grouping-obx-4-multiple-forecast-obx-segments
+User Message ERR-8: user-message-err-8
+VXU Base Message / VXU base message: vxu-base-message
+Vaccine Administered RXA-5 / Active: vaccine-administered-rxa-5-active
+Vaccine Administered RXA-5 / Decomposed into 2 to 3 antigens for international combination vaccines: vaccine-administered-rxa-5-decomposed-into-2-to-3
+Vaccine Administered RXA-5 / Inactive: vaccine-administered-rxa-5-inactive
+Vaccine Administered RXA-5 / Inactive vaccine for historical record: vaccine-administered-rxa-5-inactive-vaccine-for
+Vaccine Administered RXA-5 / International vaccine for historical record: vaccine-administered-rxa-5-international-vaccine-for
+Vaccine Lot Number RXA-15 / Two lot numbers (diluent): vaccine-lot-number-rxa-15-two-lot-numbers-diluent
+'Z31 Response: Include less information in response than original QBP': z31-response-include-less-information-in-response-than
+Z32 - Return IZ Hx / History and Forecast: z32-return-iz-hx-history-and-forecast
+Z32 - Return IZ Hx / History with multiple antigens: z32-return-iz-hx-history-with-multiple-antigens
+Z32 - Return IZ Hx / History with single antigen: z32-return-iz-hx-history-with-single-antigen
+Z32/Z42 Field Level Components / Administering Organization RXA-11.4 populated: z32-z42-field-level-components-administering
+Z32/Z42 Field Level Components / Entering organization ORC-17 populated: z32-z42-field-level-components-entering-organization
+Z32/Z42 Field Level Components / Filler Order Number ORC-3 matches original ORC from VXU: z32-z42-field-level-components-filler-order-number-orc
+Z32/Z42 Field Level Components / Patient Name PID-5 Name Consistency and Matching Expectations: z32-z42-field-level-components-patient-name-pid-5-name
+Z32/Z42 Field Level Components / Patient address PID-11 two-letter state abbreviation used: z32-z42-field-level-components-patient-address-pid-11
+Z32/Z42 Field Level Components / Z32/Z42 base message: z32-z42-field-level-components-z32-z42-base-message
+Z33 No Persons: z33-no-persons
+'Z34 Query: MSH-22 is populated': z34-query-msh-22-is-populated

@@ -111,3 +111,25 @@ segment flavor, per data type, per value set (codes and where it is bound), and 
 tables per profile. Field references (RXA-20), profile codes (Z22), and value set IDs in the narrative
 link to these pages, and each segment page lists the sections that discuss its fields. Export
 findings appear on the page they concern. The site test fails on any broken internal link.
+
+## Example messages
+
+`tools/import_examples.py` reads CDC's example list (xlsx) and the drafted samples (docx), both kept
+local, and writes one file per example to `examples/`. Each example is matched to its row in the list
+and, through the row's sub-section, to the cards it illustrates. Corrections go in
+`examples/_meta/overrides.yml`.
+
+Most drafted examples are clips: only the segments that matter. `tools/hl7msg.py` completes each clip
+from a base message (the VXU, Z32/Z42, or ACK base in `examples/_meta/bases.yml`), so every example is
+a whole message. The site highlights the clipped segments and marks the fields that differ from the
+base.
+
+`tools/example_checks.py` checks every example against the IGAMT profiles in `model/` on each build:
+- the profile and message type;
+- segments, required and unsupported fields and components, conditional usage from the predicates,
+  and repetitions;
+- codes in bound value sets, and date and time formats;
+- segment and data type conformance statements, and the OBX co-constraints.
+
+Problems an example inherits from its base are reported once, on the base. Message-level and
+group-level conformance statements are not evaluated yet.

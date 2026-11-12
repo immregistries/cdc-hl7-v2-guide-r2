@@ -28,6 +28,7 @@ import check_cards  # noqa: E402
 import minimd  # noqa: E402
 import site_igamt  # noqa: E402
 import site_structure  # noqa: E402
+import site_examples  # noqa: E402
 from structure_index import FIELD_RE, Model  # noqa: E402
 from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
 
@@ -305,6 +306,17 @@ def build(out: Path) -> dict:
                                                                review={"anchor": anchor, "title": title} if anchor else None),
             findings_panel=findings_panel, field_cards=field_cards, profile_cards=profile_cards, findings=findings, by_id=by_id)
 
+    # ---------------------------------------------------------------- examples
+    ex_data = (structure or {}).get("examples") or {}
+    examples = ex_data.get("examples", [])
+    ex_renderer = site_examples.Renderer(Model(REPO / "model") if Model.available(REPO / "model") else None,
+                                         read_yaml(REPO / "examples" / "_meta" / "bases.yml", {}) or {},
+                                         ex_data.get("results", {}), st)
+    ex_by_card = defaultdict(list)
+    for ex in examples:
+        for cid in ex.get("cards", []):
+            ex_by_card[cid].append(ex)
+
     # ---------------------------------------------------------------- nav data
     def counts(c):
         sev = Counter(f["severity"] for f in by_card.get(c.id, []))
@@ -330,7 +342,8 @@ def build(out: Path) -> dict:
         extra.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
                       "f": [sum(f["severity"] == s for f in cmp_f) for s in ("issue", "warning", "note")]})
     page_anchors = {"quality": "quality/index.html", "quality-igamt": "quality/igamt/index.html",
-                    "glossary": "glossary/index.html", "resources": "resources/index.html", **structure_anchors}
+                    "glossary": "glossary/index.html", "resources": "resources/index.html", "examples": "examples/index.html",
+                    **structure_anchors}
     nav = {"nodes": [node(r) for r in roots], "extra": extra, "anchors": page_anchors}
     write_text(out / "assets" / "nav.js", "window.GUIDE_NAV=" + json.dumps(nav, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
@@ -351,6 +364,7 @@ def build(out: Path) -> dict:
         items = by_card.get(c.id, [])
         anchors = {s["id"]: "Statement " + s["id"].rsplit("--", 1)[-1] for s in c.statements}
         anchors.update({f["id"]: (f"Figure {f['number']}" if f.get("number") is not None else "Figure") for f in c.meta.get("figures", [])})
+        anchors.update({f"ex-{ex['id']}": "Example" for ex in ex_by_card.get(c.id, [])})
         flagged = {}
         for f in items:
             if f.get("location") in anchors and f.get("location", "").count("--"):
@@ -392,6 +406,7 @@ def build(out: Path) -> dict:
 <div class="narrative">{link(narrative)}{empty}</div>
 {glossary_html(c.meta['glossary']) if c.meta.get('glossary') else ''}
 {link(statements_html(c, flagged))}
+{ex_renderer.card_section(ex_by_card.get(c.id, []), root, by_id, c.id)}
 {site_igamt.structure_panel(xref.get(c.id, []), root, st)}
 {figures_html(c, root)}
 {tables_html(c)}
@@ -404,6 +419,8 @@ def build(out: Path) -> dict:
             n = int(s_["id"].rsplit("--s", 1)[-1])
             targets.append({"i": n, "label": f"Statement s{n}: {s_['text'][:70]}" + ("…" if len(s_["text"]) > 70 else ""),
                             "snippet": s_["text"][:500]})
+        for k, ex in enumerate(ex_by_card.get(c.id, []), 1):
+            targets.append({"i": 800 + k, "label": f"Example: {ex['title']}"[:90], "snippet": f"example {ex['id']}"})
         for k, f_ in enumerate(c.meta.get("figures", []), 1):
             label = f"Figure {f_['number']}" if f_.get("number") is not None else "Figure"
             targets.append({"i": 900 + k, "label": f"{label}: {f_.get('caption', '')}"[:90], "snippet": f_.get("caption", "")})
@@ -447,7 +464,7 @@ def build(out: Path) -> dict:
     contents = f"""<article class="page"><h1>Table of contents</h1>
 <ol class="toc">{toc(roots)}
 <li><a href="../structure/index.html"><span class="num">{len(roots) + 1}</span> Message Infrastructure</a> <span class="mini">generated from IGAMT</span></li>
-<li><a href="../examples/index.html"><span class="num">A</span> Example Messages</a> <span class="mini">coming</span></li>
+<li><a href="../examples/index.html"><span class="num">A</span> Example Messages</a> <span class="mini">{len(examples)} examples</span></li>
 <li><a href="../glossary/index.html"><span class="num">B</span> Glossary and Abbreviations</a></li>
 <li><a href="../resources/index.html"><span class="num">C</span> Resources</a></li></ol></article>"""
     write_text(out / "contents" / "index.html", shell(root="../", title="Contents", body=contents, guide=guide, build=build_info))
@@ -538,10 +555,10 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
     # ---------------------------------------------------------------- placeholders
     if st is None:
         write_text(out / "structure" / "index.html", shell(root="../", title="Message Infrastructure", guide=guide, build=build_info, body="<article class='page'><h1>Message Infrastructure</h1><p class='empty'>Generated when model/ is present.</p></article>"))
-    write_text(out / "examples" / "index.html", shell(root="../", title="Example Messages", guide=guide, build=build_info, body="""
-<article class="page"><h1><span class="num">A</span> Example Messages</h1>
-<p>Complete, validated example messages will appear on the sections they illustrate and be listed here, with the part
-of each message that a section discusses highlighted.</p><p class="empty">Coming in a later build.</p></article>"""))
+    ex_body = (ex_renderer.index_page(examples, ex_data.get("list", {}), by_id, "../") if examples else
+               "<article class='page'><h1><span class='num'>A</span> Example Messages</h1><p class='empty'>No examples yet.</p></article>")
+    write_text(out / "examples" / "index.html", shell(root="../", title="Example Messages", guide=guide, build=build_info, body=ex_body,
+                                                       review={"anchor": "examples", "title": "Example Messages"}))
 
     (out / ".nojekyll").write_text("", encoding="utf-8")
     return {"cards": len(cards), "findings": len(findings), "out": out}

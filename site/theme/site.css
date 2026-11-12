@@ -319,3 +319,28 @@ ul.cols li { break-inside: avoid; }
 .tree .c-badge.open { background: var(--guide-blue); color: #fff; }
 .tree .c-badge::before { content: "💬"; margin-right: 2px; font-weight: 400; }
 @media print { .comments { display: none; } }
+
+/* ---------------------------------------------------------------- example messages */
+.examples { margin: 24px 0; }
+.examples h2 { font-size: .95rem; text-transform: uppercase; letter-spacing: .06em; }
+.example { border: 1px solid var(--guide-border); border-radius: 8px; padding: 12px 16px; margin: 12px 0; background: var(--guide-surface); }
+.example header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.example h3 { margin: 0; font-size: 1rem; }
+.example p { font-size: .9rem; }
+.chip { display: inline-block; font-size: .7rem; font-weight: 700; border-radius: 10px; padding: 1px 8px; background: var(--guide-blue-pale); color: var(--guide-navy); }
+.chip.warn { background: #fde9c8; color: #6a3d00; }
+.ex-label { font-weight: 600; margin: 10px 0 4px; }
+.hl7-wrap { position: relative; }
+.hl7-copy { position: absolute; right: 6px; top: 6px; font-size: .72rem; border: 1px solid var(--guide-border); background: #fff; border-radius: 4px; cursor: pointer; padding: 1px 8px; color: var(--guide-blue); }
+pre.hl7 { font-family: var(--guide-mono); font-size: .78rem; line-height: 1.55; background: #f7f9fb; border: 1px solid var(--guide-border); border-radius: 6px; padding: 10px 12px; margin: 6px 0; white-space: pre-wrap; word-break: break-all; }
+pre.hl7 .seg { display: block; color: var(--guide-muted); }
+pre.hl7 .seg.clip { color: var(--guide-text); background: #fff7d6; margin: 0 -12px; padding: 0 12px; border-left: 3px solid var(--guide-amber); }
+pre.hl7 .sg { font-weight: 700; color: var(--guide-navy); }
+pre.hl7 .bar { color: #9aa8b6; }
+pre.hl7 .f.chg { background: #ffe08a; border-radius: 2px; }
+pre.hl7 .f.focus { outline: 1px solid var(--guide-blue); border-radius: 2px; }
+pre.hl7 .f:hover { background: var(--guide-blue-light); }
+.ex-check { font-size: .82rem; margin: 4px 0 8px; }
+.ex-check.ok { color: #1d6b36; }
+.ex-check.bad summary { color: var(--finding-warning); cursor: pointer; }
+.ex-check ul { margin: 4px 0; padding-left: 20px; }

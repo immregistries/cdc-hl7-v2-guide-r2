@@ -175,6 +175,46 @@ class ChecksTest(unittest.TestCase):
         self.assertEqual(actor_of("The same identifiers SHOULD be used."), "")
 
 
+class ExamplesTest(unittest.TestCase):
+    BASE = ("MSH|^~\\&|EHR|FAC|IIS|IISF|20261007073733-0500||VXU^V04^VXU_V04|1|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS|FAC|IISF\n"
+            "PID|1||X1^^^MRN^MR||Pena^Rodrigo^^^^^L||20221019|M\n"
+            "ORC|RE||X1.3^CDC-AIRA\n"
+            "RXA|0|1|20261007||94^MMRV^CVX|0.5|mL^milliliters^UCUM||00^Administered^NIP001||||||V7737HT||MSD^Merck^MVX|||CP|A\n"
+            "RXR|C38299^SUBCUTANEOUS^NCIT|RA^RIGHT ARM^HL70163\n"
+            "OBX|1|CE|64994-7^Eligibility^LN|1|V03^VFC eligible - Uninsured^HL70064||||||F")
+
+    def test_assemble(self):
+        import hl7msg
+        base = hl7msg.segments(self.BASE)
+        # a PID clip replaces the base PID and nothing else
+        segs, clip = hl7msg.assemble(base, ["PID|1||X1^^^MRN^MR||Pena^BABY^^^^^NB||20221019|M"])
+        self.assertEqual(len(segs), len(base))
+        self.assertEqual([hl7msg.seg_type(s) for s in segs], ["MSH", "PID", "ORC", "RXA", "RXR", "OBX"])
+        self.assertEqual(clip, [1])
+        self.assertEqual(hl7msg.changed_fields(segs[1], base), [5])
+        # a refusal RXA clip keeps the ORC (with ORC-3 9999) and drops the administered dose's RXR and OBX
+        segs, _ = hl7msg.assemble(base, ["RXA|0|1|20261007||107^DTAP^CVX|999||||||||||||00^Parental refusal^NIP002||RE|A"])
+        self.assertEqual([hl7msg.seg_type(s) for s in segs], ["MSH", "PID", "ORC", "RXA"])
+        self.assertTrue(hl7msg.get(segs[2], 3).startswith("9999"))
+        # segments run together on one line are split
+        self.assertEqual(len(hl7msg.segments("OBX|1|CE|a|1|x||||||F OBX|2|CE|b|1|y||||||F")), 2)
+
+    def test_checker(self):
+        from structure_index import Model
+        import example_checks
+        model_dir = REPO / "model"
+        if not Model.available(model_dir):
+            self.skipTest("model/ not present")
+        checker = example_checks.ExampleChecker(Model(model_dir), ["IZ-41", "IZ-42"])
+        profile, problems = checker.check_message(self.BASE.replace("20221019|M", "20221019-0500|M"))
+        self.assertEqual(profile, "Z22")
+        text = " ".join(t for _, t in problems)
+        self.assertIn("PID-7.1 '20221019-0500'", text)          # TS_NZ allows no offset
+        bad = self.BASE.replace("^Pena^Rodrigo", "^^Rodrigo").replace("||Pena^Rodrigo", "||^Rodrigo")
+        _, problems = checker.check_message(bad)
+        self.assertTrue(any("PID-5.1" in t for _, t in problems))  # family name is required for an 'L' name
+
+
 def broken_links(site: Path) -> list[str]:
     """Internal links (and #anchors on HTML pages) that do not resolve in a built site."""
     import re

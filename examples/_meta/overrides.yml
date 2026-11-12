@@ -1,0 +1,29 @@
+# Corrections for tools/import_examples.py, keyed by 'Heading 1 / Heading 2' (see ids.yml).
+# Per example: row (list row number; 0 = not in the list), sections (IG sub-section titles, ';'-separated),
+# cards (card IDs to show it on, used when the list's sub-section does not match a card; the mismatch is
+# still reported), base (vxu-base | rsp-base | ack-base), also (more list rows it covers), skip (true).
+examples:
+  Race PID-10 / Unknown and Refused Values: {row: 15}
+  Protection Indicator PD1-12 / Blank (with annotation to explain): {row: 0, sections: Protection Indicator (PD1-12) Usage}
+  Entering organization ORC-17 / Same as RXA-11.4 - Entering (Recording) Organization (ORC-17): {row: 24}
+  Vaccine Administered RXA-5 / Inactive: {row: 28}
+  Vaccine Administered RXA-5 / Inactive vaccine for historical record: {row: 30, cards: [cvx-code-status-and-operational-meaning]}
+  Vaccine Administered RXA-5 / International vaccine for historical record: {row: 31, cards: [cvx-code-status-and-operational-meaning]}
+  Vaccine Lot Number RXA-15 / Two lot numbers (diluent): {row: 32, cards: [unit-of-use-and-unit-of-sale-ndcs]}
+  'Historical / Historical: Unknown Source': {row: 41}
+  'Historical / Historical: Other Provider': {row: 41}
+  ? 'Contraindications / Contraindications: For a contraindication to a specific vaccine specific the vaccine type and contraindication'
+  : {row: 44}
+  ? 'Contraindications / Contraindications: For a contraindication to a multiple vaccine types use the code ‘998’ (no vaccination administered) and contraindication'
+  : {row: 43}
+  OBX-3 / OBX-5 Question-Answer Pairing (Funding Eligibility) / Two-stock model:
+    {row: 52, sections: Patient Funding Eligibility (Per Dose); Vaccine Funding Source and Stock Models}
+  OBX-3 / OBX-5 Question-Answer Pairing (Funding Eligibility) / Three-stock model:
+    {row: 53, sections: Patient Funding Eligibility (Per Dose); Vaccine Funding Source and Stock Models}
+  Z33 No Persons: {row: 73}
+  Single High-Confidence Match, Invalid Dose: {row: 104, sections: Dose Validity and Reason for Validity}
+  More than the maximum number of candidates found: {row: 105, sections: Z31 - Return a List of Candidates}
+  ? 'Sub-ID/Grouping OBX-4 / Multiple VIS-related OBX segments sharing one OBX-4 value - Reporting VIS Information in HL7 v2 Messages: Method 1 (preferred) – VIS Barcode Identifier'
+  : {row: 54, also: [33]}
+  ? 'Sub-ID/Grouping OBX-4 / Multiple VIS-related OBX segments sharing one OBX-4 value - Reporting VIS Information in HL7 v2 Messages: Method 2 – CVX NOS + Dates'
+  : {row: 55}
