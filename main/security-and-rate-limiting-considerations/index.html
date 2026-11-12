@@ -49,18 +49,19 @@
 
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../selecting-a-candidate-match/index.html"><span>Previous</span>3.4.6 Selecting a Candidate Match</a><a class="next" href="../response-rsp-profiles/index.html"><span>Next</span>3.5 Response (RSP) Profiles</a></nav>
 </article>
-
+<section class="comments" id="comments" aria-label="Comments"></section>
   </main>
 </div>
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 18:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 0faa66b.
+  <p class="build">Built 2026-11-12 18:20 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2c44353.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>
 <script src="../assets/site.js"></script>
-
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "security-and-rate-limiting-considerations", "title": "3.4.7 Security and Rate-Limiting Considerations", "targets": [{"i": 0, "label": "Whole section"}, {"i": 1, "label": "Statement s1: IIS SHOULD implement rate-limiting controls to manage query volume and…", "snippet": "IIS SHOULD implement rate-limiting controls to manage query volume and protect system availability. These limits should be configurable and proportional to expected usage patterns, allowing IIS to balance responsiveness for clinical queries with protection against excessive or inefficient access."}, {"i": 2, "label": "Statement s2: IIS SHALL log all query activity in sufficient detail to support inves…", "snippet": "IIS SHALL log all query activity in sufficient detail to support investigation, monitoring, and compliance. Logs should enable detection of unusual query volume, repeated access patterns, or other indicators of inappropriate use."}, {"i": 3, "label": "Statement s3: IIS SHOULD implement active monitoring and alerting to identify anomal…", "snippet": "IIS SHOULD implement active monitoring and alerting to identify anomalous query behavior, including sustained high-frequency querying or access patterns inconsistent with normal clinical workflows."}, {"i": 4, "label": "Statement s4: IIS SHOULD carefully consider the security properties of externally ex…", "snippet": "IIS SHOULD carefully consider the security properties of externally exposed patient identifiers. Sequential or otherwise predictable identifiers increase the risk of enumeration and misuse. IIS SHOULD use randomly generated, non-guessable identifiers for state registry IDs exposed through query responses or other external interfaces."}]};</script>
+<script src="../assets/comments.js"></script>
 </body>
 </html>

@@ -52,18 +52,19 @@
 
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../system-initiated-query-scenarios/index.html"><span>Previous</span>3.4.4.2 System-Initiated Query Scenarios</a><a class="next" href="../selecting-a-candidate-match/index.html"><span>Next</span>3.4.6 Selecting a Candidate Match</a></nav>
 </article>
-
+<section class="comments" id="comments" aria-label="Comments"></section>
   </main>
 </div>
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 18:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 0faa66b.
+  <p class="build">Built 2026-11-12 18:20 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 2c44353.
   <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>
 <script src="../assets/site.js"></script>
-
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "patient-matching-responsibilities", "title": "3.4.5 Patient Matching Responsibilities", "targets": [{"i": 0, "label": "Whole section"}, {"i": 1, "label": "Statement s1: Querying systems SHALL send all known patient demographic and identify…", "snippet": "Querying systems SHALL send all known patient demographic and identifying information available at the time of query."}, {"i": 2, "label": "Statement s2: Querying systems SHOULD send the most current patient information, eve…", "snippet": "Querying systems SHOULD send the most current patient information, even if it differs from previously submitted data."}, {"i": 3, "label": "Statement s3: When querying systems both submit VXU messages and send QBP queries, t…", "snippet": "When querying systems both submit VXU messages and send QBP queries, the same patient identifiers SHOULD be used consistently across both interactions."}, {"i": 4, "label": "Statement s4: State immunization registry identifiers (SR) SHALL be included when kn…", "snippet": "State immunization registry identifiers (SR) SHALL be included when known, such as when obtained from prior candidate match responses."}, {"i": 5, "label": "Statement s5: IIS SHALL use all patient data submitted in the query to identify the …", "snippet": "IIS SHALL use all patient data submitted in the query to identify the most likely matching record or records."}, {"i": 6, "label": "Statement s6: IIS SHOULD use probabilistic, weighted, machine learning, or other adv…", "snippet": "IIS SHOULD use probabilistic, weighted, machine learning, or other advanced matching techniques rather than relying solely on exact field matches."}, {"i": 7, "label": "Statement s7: IIS SHOULD retain and reuse patient identifiers received through prior…", "snippet": "IIS SHOULD retain and reuse patient identifiers received through prior VXU submissions when those identifiers are consistent with other key patient attributes."}, {"i": 8, "label": "Statement s8: IIS SHOULD treat strong patient identifiers (such as MRNs) as high-con…", "snippet": "IIS SHOULD treat strong patient identifiers (such as MRNs) as high-confidence match indicators while validating consistency with other demographic data."}, {"i": 9, "label": "Statement s9: IIS SHOULD document how patient identifiers are used operationally to …", "snippet": "IIS SHOULD document how patient identifiers are used operationally to support matching and performance."}]};</script>
+<script src="../assets/comments.js"></script>
 </body>
 </html>
