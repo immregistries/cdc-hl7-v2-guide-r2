@@ -1,0 +1,8 @@
+- id: storage-and-traceability-expectations--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD store submitted NDC values alongside the associated CVX representation when NDC is provided.
+- id: storage-and-traceability-expectations--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD preserve NDC information to support traceability, auditability, and reconciliation with external systems.

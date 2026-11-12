@@ -1,0 +1,1 @@
+Certain fields required in the base standard (e.g., RXA-4 End of Administration, PID-1 Set ID) have no operational meaning for immunization reporting. Maintaining them as Required dilutes the semantic value of conformance levels and introduces false errors. This guide reclassifies such fields according to actual IIS usage.

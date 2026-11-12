@@ -1,0 +1,8 @@
+- id: active-and-inactive-status--s1
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT rely on active or inactive status as a prerequisite for accepting immunization events.
+- id: active-and-inactive-status--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD treat active and inactive values as advisory rather than authoritative.

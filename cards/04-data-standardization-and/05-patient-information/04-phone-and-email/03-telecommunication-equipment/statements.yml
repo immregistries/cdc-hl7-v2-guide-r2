@@ -1,0 +1,12 @@
+- id: telecommunication-equipment-type-codes-hl70202--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL use PH for phone numbers of unknown type and CP when the number is known to be cellular.
+- id: telecommunication-equipment-type-codes-hl70202--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept either PH or CP without inferring additional meaning.
+- id: telecommunication-equipment-type-codes-hl70202--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL ignore other equipment types if present.

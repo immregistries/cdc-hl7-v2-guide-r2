@@ -1,0 +1,19 @@
+- id: types-of-immunity-evidence--s1
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY send history of disease or serological immunity evidence.
+- id: types-of-immunity-evidence--s2
+  verb: MAY
+  actor: IIS
+  text: IIS MAY store history of disease or serological immunity evidence.
+- id: types-of-immunity-evidence--s3
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject a message solely because immunity information is included.
+- id: types-of-immunity-evidence--s4
+  verb: MAY
+  verbs:
+    - MAY
+    - SHALL
+  actor: ''
+  text: If an IIS cannot store immunity information, it MAY issue an informational message but SHALL continue normal processing.

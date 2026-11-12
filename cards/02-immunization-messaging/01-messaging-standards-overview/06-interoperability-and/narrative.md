@@ -1,0 +1,3 @@
+HL7 v2 v2.5.1 is platform-agnostic and widely supported across systems and jurisdictions. When implemented according to this guide, submitting/querying systems can exchange immunization data with any IIS using the same standard, and IIS can interface with any compliant external system.
+
+While HL7 v2 emphasizes backward compatibility, this guide introduces refinements and tighter constraints compared to earlier versions. Messages that conform to older implementation guides will generally still function with newer systems, though full alignment with this guide is recommended to ensure data quality and minimize integration issues. Systems still using older versions such as HL7 v2 2.3.1 or 2.4 are strongly encouraged to migrate to v2.5.1 as soon as feasible.

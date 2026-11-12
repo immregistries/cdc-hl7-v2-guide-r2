@@ -1,0 +1,11 @@
+- id: clinical-and-operational-context--s1
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject an administered vaccination solely because VIS information is missing, incomplete, or inconsistent.
+- id: clinical-and-operational-context--s2
+  verb: SHOULD
+  verbs:
+    - SHOULD
+    - MAY
+  actor: IIS
+  text: IIS SHOULD accept and MAY store VIS information when required by jurisdictional policy, and SHOULD interpret VIS data as part of the submitted vaccination record rather than as confirmation of clinical compliance with VICP requirements.

@@ -1,0 +1,12 @@
+- id: types-of-information-carried-in-a-vxu--s1
+  verb: MAY
+  actor: ''
+  text: 'A VXU message MAY include one or more of the following immunization-related updates:'
+- id: types-of-information-carried-in-a-vxu--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept VXU messages that contain no immunization events when used for permitted demographic-only scenarios defined in this section.
+- id: types-of-information-carried-in-a-vxu--s3
+  verb: SHALL NOT
+  actor: Submitting systems
+  text: Submitting systems SHALL NOT use VXU messages as a general-purpose transport for auxiliary public health or social data unrelated to immunization events.

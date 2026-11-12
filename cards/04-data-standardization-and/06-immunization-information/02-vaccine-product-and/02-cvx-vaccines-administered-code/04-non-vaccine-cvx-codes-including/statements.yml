@@ -1,0 +1,24 @@
+- id: non-vaccine-cvx-codes-including-998-and-999--s1
+  verb: MAY
+  actor: IIS
+  text: IIS MAY support other non-vaccine CVX codes according to local policy.
+- id: non-vaccine-cvx-codes-including-998-and-999--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support CVX 998 only for the structural HL7 use cases defined in this guide.
+- id: non-vaccine-cvx-codes-including-998-and-999--s3
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT treat CVX 998 as an administered, historical, or refused vaccination in the patient's immunization history.
+- id: non-vaccine-cvx-codes-including-998-and-999--s4
+  verb: SHALL NOT
+  actor: Submitting systems
+  text: Submitting systems SHALL NOT use CVX 998 to report administered, historical, or refused vaccinations.
+- id: non-vaccine-cvx-codes-including-998-and-999--s5
+  verb: SHALL NOT
+  actor: IIS and submitting systems
+  text: IIS and submitting systems SHALL NOT use CVX 999 for immunization reporting.
+- id: non-vaccine-cvx-codes-including-998-and-999--s6
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL treat the presence of CVX 999 in RXA-5 as an error condition.

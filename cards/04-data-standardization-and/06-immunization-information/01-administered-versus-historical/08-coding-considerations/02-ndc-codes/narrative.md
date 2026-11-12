@@ -1,0 +1,1 @@
+NDC codes are primarily relevant for inventory and product traceability and are therefore associated with administered vaccinations. This subsection addresses only expectations for NDC usage in the context of historical vaccination reporting.

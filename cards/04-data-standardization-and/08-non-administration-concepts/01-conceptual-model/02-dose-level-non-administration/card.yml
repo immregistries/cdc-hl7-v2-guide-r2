@@ -1,0 +1,13 @@
+id: dose-level-non-administration
+title: Dose-Level Non-Administration
+figures:
+  - id: fig-31
+    file: fig-31.png
+    number: 31
+    caption: 'Non-Administration Concepts: Patient-Level Observations vs. Dose-Level Non-Administration'
+    alt: ''
+  - id: fig-32
+    file: fig-32.png
+    number: 32
+    caption: Distinguishing Patient-Level Conditions from Refusals
+    alt: ''

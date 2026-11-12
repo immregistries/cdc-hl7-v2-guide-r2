@@ -1,0 +1,3 @@
+Two forms of immunity information may be reported: a clinician-validated history of disease, and serological evidence demonstrating immunity to a specific pathogen. Both represent clinical determinations but differ in strength. Serology generally provides stronger evidence of immunity, while history of disease reflects a documented diagnosis accepted by the clinician or the submitting system. IIS vary in whether they store either or both.
+
+While implementation varies, documented immunity evidence is clinically important and can materially affect individual forecasting and public-health decision-making; the guide therefore encourages consistent reporting and clear documentation of how such evidence is used.

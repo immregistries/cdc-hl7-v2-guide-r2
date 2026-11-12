@@ -1,0 +1,3 @@
+The immunization ecosystem has matured into one of the most widely deployed HL7 v2 implementations still under active development. This puts IIS in a unique position: we rely on HL7 v2 structurally, but we must evolve semantics and constraints to support real-world operations, especially data quality, consistency, and testability. FHIR already incorporates many concepts that IIS evolved independently in v2; in several areas, our adaptations are more fully realized in FHIR than in the v2 segments that inspired them.
+
+Documenting these divergences transparently strengthens national consistency, simplifies onboarding, reduces unnecessary rejections, and creates a more predictable future path as we bridge to FHIR-based immunization interoperability.

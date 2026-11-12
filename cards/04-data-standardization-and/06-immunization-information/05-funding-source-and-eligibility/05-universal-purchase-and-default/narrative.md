@@ -1,0 +1,1 @@
+In **universal purchase programs**, patients may not be individually assessed for funded-program eligibility, because all routine vaccines are publicly supplied for the covered population. In these cases, eligibility and funding source may be implicit in the program design rather than explicitly captured per patient or per vaccination.

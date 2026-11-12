@@ -1,0 +1,24 @@
+# Source inputs (the CDC narrative docx, IGAMT XML export, example files) are
+# never committed. They stay on the maintainer's machine; inputs.json points to them.
+inputs.json
+inputs/
+*.docx
+*.xlsx
+*.eml
+*.zip
+sources/
+
+# Generated output
+output/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+~$*

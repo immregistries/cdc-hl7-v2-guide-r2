@@ -1,0 +1,486 @@
+/* Content guide: reading layout and comments, composed on AIRA Web. */
+
+html {
+  scroll-padding-top: 4.5rem;
+}
+
+/* AIRA Web buttons set display, which would override the hidden attribute. */
+.guide-layout [hidden] {
+  display: none !important;
+}
+
+.guide-page,
+.guide-context .aira-context-inner {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+}
+
+.guide-context .aira-context-inner {
+  padding-inline: 0;
+}
+
+.aira-global-header .aira-global-actions {
+  margin-left: auto;
+}
+
+.guide-context {
+  position: sticky;
+  top: 0;
+  z-index: var(--aira-z-sticky);
+}
+
+.guide-context .aira-context-nav {
+  width: 100%;
+}
+
+.guide-header {
+  margin-bottom: var(--aira-space-6);
+}
+
+.guide-status {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--aira-space-1);
+}
+
+.guide-status-tag {
+  font-size: 0.9375rem;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.75rem;
+}
+
+.guide-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, var(--aira-right-rail-width));
+  justify-content: space-between;
+  gap: var(--aira-space-10);
+}
+
+/* Reading text */
+
+.guide-content {
+  max-width: 48rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.guide-content section.level2 {
+  padding-bottom: var(--aira-space-8);
+  margin-bottom: var(--aira-space-8);
+  border-bottom: 1px solid var(--aira-border-subtle);
+}
+
+.guide-content h2 {
+  margin: 0 0 var(--aira-space-4);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.guide-content h3 {
+  margin: var(--aira-space-6) 0 var(--aira-space-2);
+  font-size: 1.15rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.guide-content h4 {
+  margin: var(--aira-space-4) 0 var(--aira-space-2);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.guide-content p,
+.guide-content li {
+  max-width: none;
+}
+
+.guide-content p,
+.guide-content ul,
+.guide-content ol,
+.guide-content blockquote,
+.guide-content pre,
+.guide-content .aira-table-wrap {
+  margin: 0 0 var(--aira-space-4);
+}
+
+.guide-content ul,
+.guide-content ol {
+  padding-left: var(--aira-space-6);
+}
+
+.guide-content li + li {
+  margin-top: var(--aira-space-1);
+}
+
+.guide-content blockquote {
+  padding: var(--aira-space-3) var(--aira-space-4);
+  border-left: 4px solid var(--aira-green);
+  background: var(--aira-surface-selected);
+}
+
+.guide-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.guide-content code {
+  font-family: var(--aira-font-mono);
+  font-size: 0.9em;
+}
+
+.guide-content pre {
+  overflow-x: auto;
+  padding: var(--aira-space-3);
+  border-radius: var(--aira-radius-panel);
+  background: var(--aira-surface-muted);
+  border: 1px solid var(--aira-border-subtle);
+}
+
+/* A Mermaid diagram. Before it is drawn, its text shows as code. */
+.guide-content .guide-diagram {
+  margin: var(--aira-space-6) 0 var(--aira-space-2);
+}
+
+.guide-content .guide-diagram pre.mermaid[data-processed] {
+  overflow-x: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: center;
+}
+
+.guide-content .guide-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.guide-content .aira-table {
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* Right rail */
+
+.guide-rail {
+  top: 4rem;
+  max-height: calc(100vh - 5rem);
+  overflow: auto;
+}
+
+.guide-subnav,
+.guide-links,
+.guide-comment-index {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--aira-space-1);
+  font-size: 0.875rem;
+}
+
+.guide-subnav a {
+  display: block;
+  padding: 0.2rem var(--aira-space-2);
+  border-left: 3px solid transparent;
+  color: var(--aira-text);
+  text-decoration: none;
+}
+
+.guide-subnav a:hover {
+  background: var(--aira-surface-muted);
+}
+
+.guide-subnav a[aria-current="true"] {
+  border-left-color: var(--aira-green);
+  background: var(--aira-surface-selected);
+  font-weight: 600;
+}
+
+.guide-subnav .guide-subnav-empty {
+  color: var(--aira-text-muted);
+  padding-left: var(--aira-space-2);
+}
+
+/* Comments */
+
+.guide-comment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--aira-space-1);
+  margin: var(--aira-space-2) 0;
+}
+
+.guide-file-button {
+  cursor: pointer;
+}
+
+.guide-comment-index a {
+  color: var(--aira-text);
+}
+
+.guide-comment-index .aira-meta {
+  display: block;
+}
+
+.guide-block {
+  position: relative;
+}
+
+.guide-anchor {
+  display: block;
+  position: relative;
+  scroll-margin-top: 4.5rem;
+}
+
+.guide-comment-button {
+  position: absolute;
+  top: 0;
+  right: -2.25rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--aira-border);
+  border-radius: var(--aira-radius-control);
+  background: var(--aira-surface);
+  color: var(--aira-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.guide-block:hover > .guide-comment-button,
+.guide-comment-button:focus-visible {
+  opacity: 1;
+}
+
+.guide-comment-button:hover {
+  border-color: var(--aira-green);
+  color: var(--aira-green-accessible);
+}
+
+.guide-thread {
+  margin: calc(-1 * var(--aira-space-2)) 0 var(--aira-space-4);
+  display: grid;
+  gap: var(--aira-space-2);
+}
+
+.guide-comments-hidden .guide-thread,
+.guide-comments-hidden .guide-comment-button {
+  display: none;
+}
+
+.guide-comment,
+.guide-comment-form {
+  padding: var(--aira-space-2) var(--aira-space-3);
+  border: 1px solid #edd675;
+  border-left: 4px solid var(--aira-yellow);
+  border-radius: var(--aira-radius-panel);
+  background: var(--aira-warning-surface);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.guide-comment--target {
+  outline: 3px solid var(--aira-blue);
+  outline-offset: 2px;
+}
+
+.guide-orphans {
+  margin-top: var(--aira-space-8);
+  padding-top: var(--aira-space-4);
+  border-top: 1px solid var(--aira-border-subtle);
+}
+
+.guide-comment__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--aira-space-2);
+  margin-bottom: var(--aira-space-1);
+  font-size: 0.8rem;
+  color: var(--aira-text-secondary);
+}
+
+.guide-comment__author {
+  font-weight: 600;
+  color: var(--aira-text);
+}
+
+.guide-content .guide-comment__quote,
+.guide-comment__quote {
+  margin: 0 0 var(--aira-space-1);
+  padding-left: var(--aira-space-2);
+  border-left: 2px solid var(--aira-border-strong);
+  color: var(--aira-text-secondary);
+  font-style: italic;
+}
+
+.guide-content .guide-comment__text {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.guide-comment__tools {
+  margin-left: auto;
+  display: flex;
+  gap: var(--aira-space-2);
+}
+
+.guide-comment__tools button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--aira-link);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.guide-comment__state {
+  margin: var(--aira-space-1) 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.guide-comment__disposition {
+  margin: var(--aira-space-1) 0;
+  padding: var(--aira-space-2);
+  border-left: 3px solid var(--aira-green);
+  background: var(--aira-surface-selected);
+}
+
+.guide-comment--closed {
+  border-color: var(--aira-border-strong);
+  border-left-color: var(--aira-text-secondary);
+  background: var(--aira-surface-muted);
+}
+
+.guide-confirmation,
+.guide-author-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--aira-space-2);
+  align-items: center;
+  margin-top: var(--aira-space-2);
+  padding: var(--aira-space-2);
+  border: 1px solid var(--aira-border);
+  border-radius: var(--aira-radius-control);
+  background: var(--aira-surface);
+}
+
+.guide-confirmation p {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.guide-author-form textarea {
+  flex-basis: 100%;
+}
+
+.guide-review-flagged {
+  outline: 3px solid var(--aira-yellow);
+  outline-offset: 3px;
+  background: var(--aira-warning-surface);
+}
+
+.guide-flag-control {
+  margin: 0 0 var(--aira-space-2) var(--aira-space-2);
+  font-size: 0.8rem;
+}
+
+.guide-review-flag-entry {
+  padding-left: var(--aira-space-2);
+  border-left: 3px solid var(--aira-yellow);
+}
+
+.guide-comment-form textarea {
+  width: 100%;
+  min-height: 5rem;
+  margin-bottom: var(--aira-space-2);
+}
+
+.guide-comment-form .guide-comment-actions {
+  margin: 0;
+}
+
+.guide-reply {
+  margin: var(--aira-space-2) 0 0 var(--aira-space-4);
+  background: var(--aira-surface);
+}
+
+.guide-form-error {
+  color: var(--aira-danger, #a11);
+  font-weight: 600;
+}
+
+.guide-flash {
+  animation: guide-flash 1.5s ease-out;
+}
+
+@keyframes guide-flash {
+  from { background: var(--aira-surface-selected); }
+  to { background: transparent; }
+}
+
+@media (max-width: 64rem) {
+  .guide-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-comment-button {
+    right: 0;
+    top: -1.9rem;
+    opacity: 1;
+  }
+
+  .guide-rail {
+    max-height: none;
+  }
+}
+
+@media print {
+  .guide-comment-button,
+  .guide-comment-form,
+  .guide-context {
+    display: none;
+  }
+}
+
+.guide-document-type {
+  margin: 0 0 var(--aira-space-1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Primary infographic ("topic at a glance"), drawn from content/infographic.yml. */
+.guide-infographic {
+  margin: 0 0 2rem;
+}
+
+.guide-infographic svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--aira-light-gray);
+  border-radius: 6px;
+}
+
+.guide-infographic a,
+.guide-infographic a text {
+  text-decoration: none;
+}
+
+.guide-infographic a:hover text {
+  text-decoration: underline;
+}
+
+.guide-infographic a:focus-visible rect {
+  stroke: var(--aira-focus);
+  stroke-width: 4;
+}
+
+.guide-infographic figcaption {
+  margin-top: 0.5rem;
+}

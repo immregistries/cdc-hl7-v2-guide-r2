@@ -1,0 +1,3 @@
+Accurate and consistently represented address information supports patient matching, outreach, and geographically based public health analysis. IIS receive address data from many submitting systems with varying data quality, formats, and assumptions. Without clear conventions, address handling can introduce matching errors, duplicate records, and unreliable geocoding.
+
+Address data is inherently complex. Patients may have multiple valid addresses, reside in congregate or institutional settings, or lack a fixed address entirely. Submitted values are often incomplete, inconsistently coded, or free-text. For these reasons, IIS must distinguish between conformance expectations at submission and operational processing performed internally, including cleansing and enrichment.

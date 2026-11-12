@@ -1,0 +1,19 @@
+# Settings for tools/check_cards.py.
+
+# Narrative size beyond which a card is reported as long (card target: 1–3 paragraphs).
+# A card is reported when it exceeds max_words, or when it has more than
+# warn_paragraphs blocks and more than min_words_for_blocks words. It is a
+# warning above warn_words, otherwise a note.
+max_paragraphs: 3
+max_words: 350
+warn_paragraphs: 6
+min_words_for_blocks: 200
+warn_words: 500
+
+# Statements longer than this many words are reported.
+max_statement_words: 60
+
+# Cards where uppercase conformance verbs in the narrative are expected
+# (for example, where the verbs themselves are defined).
+prose_verbs_exempt:
+  - conformance-verbs

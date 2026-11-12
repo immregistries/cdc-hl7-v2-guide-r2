@@ -1,0 +1,16 @@
+- id: use-of-immunity-information-in-forecasting--s1
+  verb: MAY
+  actor: IIS
+  text: IIS MAY use immunity information when generating recommendations.
+- id: use-of-immunity-information-in-forecasting--s2
+  verb: SHALL NOT
+  actor: Submitting systems
+  text: Submitting systems SHALL NOT assume immunity information will affect recommendations.
+- id: use-of-immunity-information-in-forecasting--s3
+  verb: SHOULD
+  actor: ''
+  text: IIS that use immunity information for recommendations SHOULD return the relevant observations in the response to maintain transparency.
+- id: use-of-immunity-information-in-forecasting--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept immunity information even if they do not currently use it for recommendations.

@@ -1,0 +1,13 @@
+id: cvx-code-status-and-operational-meaning
+title: CVX Code Status and Operational Meaning
+figures:
+  - id: fig-26
+    file: fig-26.png
+    number: 26
+    caption: 'CVX Code Lifecycle: Pending, Active, Inactive, Non-US, and Never Active Transitions'
+    alt: ''
+  - id: fig-27
+    file: fig-27.png
+    number: 27
+    caption: 'CVX Code Status: Lifecycle and Standalone Categories'
+    alt: ''

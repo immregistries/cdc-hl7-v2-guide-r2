@@ -1,0 +1,19 @@
+- id: preferred-and-contraindicated-vaccine-types--s1
+  verb: MAY
+  verbs:
+    - MAY
+    - SHOULD NOT
+  actor: ''
+  text: MAY return preferred vaccine type using LOINC 93123-8. This OBX MAY be repeated if multiple preferred products exist. Preferred vaccine type SHOULD NOT be used to indicate a specific vaccination when any vaccine in the group would be equally appropriate.
+- id: preferred-and-contraindicated-vaccine-types--s2
+  verb: MAY
+  actor: ''
+  text: MAY return contraindicated vaccine type using LOINC 93122-0. This OBX MAY be repeated to list multiple contraindicated products.
+- id: preferred-and-contraindicated-vaccine-types--s3
+  verb: SHALL
+  actor: ''
+  text: SHALL populate OBX-5 with the appropriate CVX (antigen or product) when returning preferred or contraindicated vaccine types.
+- id: preferred-and-contraindicated-vaccine-types--s4
+  verb: SHOULD
+  actor: ''
+  text: SHOULD ensure any product-specific guidance is consistent with the registry's CDS forecasting logic and documented in the Local IG.

@@ -1,0 +1,23 @@
+- id: telecommunication-use-codes-hl70201--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL use PRN for the primary phone number.
+- id: telecommunication-use-codes-hl70201--s2
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL use NET for an email address.
+- id: telecommunication-use-codes-hl70201--s3
+  verb: MAY
+  actor: Systems
+  text: Systems MAY send other use codes (ORN, PRS, WPN, VHN, ASN, EMR, BPN).
+- id: telecommunication-use-codes-hl70201--s4
+  verb: SHALL
+  verbs:
+    - SHALL
+    - MAY
+  actor: IIS
+  text: IIS SHALL accept optional use codes and MAY ignore them if not operationally needed.
+- id: telecommunication-use-codes-hl70201--s5
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject messages containing unused or unrecognized use codes.

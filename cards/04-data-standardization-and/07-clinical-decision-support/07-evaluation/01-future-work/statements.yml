@@ -1,0 +1,8 @@
+- id: future-work--s1
+  verb: SHOULD
+  actor: Implementers
+  text: Implementers SHOULD document CVX support and local mappings when Unspecified Formulation values are used.
+- id: future-work--s2
+  verb: SHALL
+  actor: ''
+  text: If dose validity cannot be determined or is unavailable at query time, the dose-validity OBX for that evaluation instance SHALL be omitted.

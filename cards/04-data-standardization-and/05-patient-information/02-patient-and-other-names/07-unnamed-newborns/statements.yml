@@ -1,0 +1,24 @@
+- id: unnamed-newborns--s1
+  verb: MAY
+  actor: Systems
+  text: Systems MAY generate a placeholder given name when the newborn's permanent name is not yet known.
+- id: unnamed-newborns--s2
+  verb: SHALL
+  actor: Systems
+  text: If a placeholder name is used, systems SHALL mark it with the name type code 'NB' in PID-5.
+- id: unnamed-newborns--s3
+  verb: SHALL NOT
+  actor: Systems
+  text: Systems SHALL NOT use the 'L' name type for placeholder newborn names.
+- id: unnamed-newborns--s4
+  verb: SHOULD
+  actor: Systems
+  text: Systems SHOULD follow established newborn naming conventions (e.g., those recommended by the Joint Commission or AHIMA) to improve operational consistency when converting internal records for submission.
+- id: unnamed-newborns--s5
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL update the record as soon as the permanent name is known and SHALL resubmit with both the permanent name ('L') and the placeholder name ('NB') in the same PID-5 field.
+- id: unnamed-newborns--s6
+  verb: MAY
+  actor: Systems
+  text: Systems MAY continue sending both names temporarily to assist reconciliation.

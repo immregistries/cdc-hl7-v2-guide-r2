@@ -1,0 +1,3 @@
+The CDC WSDL defines operations for connectivity testing and message submission. In addition to these, all IIS must implement the following operations to support interoperability and conformance testing. These additional operations align with existing IIS conformance testing practices, are documented here for consistency across jurisdictions, and may be incorporated into future versions of the CDC WSDL specification.
+
+The CDC WSDL does not define a batch submission protocol. If batch processing is implemented by an IIS or a trading partner, it SHALL be handled through sequential submitSingleMessage requests.

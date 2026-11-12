@@ -1,0 +1,20 @@
+- id: historical-vaccinations--s1
+  verb: SHALL
+  actor: ''
+  text: Historical vaccinations SHALL represent doses not administered by the reporting organization.
+- id: historical-vaccinations--s2
+  verb: MAY
+  actor: ''
+  text: Historical records MAY omit product-level details that cannot reasonably be determined.
+- id: historical-vaccinations--s3
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT decrement inventory for historical vaccinations.
+- id: historical-vaccinations--s4
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD expect duplicate reporting of historical doses from multiple sources.
+- id: historical-vaccinations--s5
+  verb: MAY
+  actor: ''
+  text: Historical vaccinations MAY include any of the data elements typically used for administered vaccinations when available (e.g., vaccine code (CVX/NDC), administration date, administering provider, lot number, manufacturer, route/site of administration, funding/eligibility indicators, etc.).

@@ -1,0 +1,1 @@
+This section defines the general mechanics and field usage expectations that apply uniformly to all OBX segments used in immunization messaging. These rules establish consistent interpretation across systems while preserving flexibility where existing implementations differ. Detailed field definitions and data type specifications are provided in Chapter 7.

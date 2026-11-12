@@ -1,0 +1,16 @@
+- id: parent-and-child-organizations--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL assign and manage unique organization identifiers for onboarded entities.
+- id: parent-and-child-organizations--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL recognize that a single submitting or responsible organization may encompass multiple child organizations.
+- id: parent-and-child-organizations--s3
+  verb: MAY
+  actor: Child organizations
+  text: Child organizations MAY be distinguished using ORC-17 or RXA-11 when operationally necessary.
+- id: parent-and-child-organizations--s4
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD capture only the level of hierarchy needed for accountability and program operations.

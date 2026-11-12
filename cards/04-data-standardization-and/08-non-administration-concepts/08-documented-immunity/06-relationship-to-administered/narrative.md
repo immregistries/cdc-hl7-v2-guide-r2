@@ -1,0 +1,1 @@
+Reported immunity does not invalidate or block reported vaccinations. IIS accept all administered vaccinations regardless of patient immunity status. Forecasting systems independently determine whether a vaccination is due, recommended, or unnecessary; these determinations do not restrict reporting of administered doses.

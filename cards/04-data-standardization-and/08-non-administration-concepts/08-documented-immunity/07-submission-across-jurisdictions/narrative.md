@@ -1,0 +1,1 @@
+To reduce jurisdiction-specific customization, submitting systems may report immunity information consistently even in jurisdictions that do not use it. IIS that do not support immunity information must still process messages normally and must not reject otherwise valid messages.

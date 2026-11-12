@@ -1,0 +1,8 @@
+id: patient-identifiers
+title: Patient Identifiers
+figures:
+  - id: fig-21
+    file: fig-21.png
+    number: 21
+    caption: 'Patient Identifier Comparison: Medical Record Number vs. State Registry Identifier'
+    alt: ''

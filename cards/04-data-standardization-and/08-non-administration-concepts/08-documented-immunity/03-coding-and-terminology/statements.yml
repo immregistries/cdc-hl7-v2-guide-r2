@@ -1,0 +1,12 @@
+- id: coding-and-terminology--s1
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY use locally extended codes when permitted by the IIS.
+- id: coding-and-terminology--s2
+  verb: MAY
+  actor: IIS
+  text: IIS MAY accept locally extended codes beyond those listed in this guide.
+- id: coding-and-terminology--s3
+  verb: SHALL
+  actor: IIS and submitting systems
+  text: IIS and submitting systems SHALL coordinate the use of any locally extended codes.

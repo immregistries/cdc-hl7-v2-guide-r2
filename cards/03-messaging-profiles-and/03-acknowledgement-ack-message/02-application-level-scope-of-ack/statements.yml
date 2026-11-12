@@ -1,0 +1,16 @@
+- id: application-level-scope-of-ack-messages--s1
+  verb: SHALL
+  actor: ''
+  text: ACK messages SHALL represent application-level processing outcomes only.
+- id: application-level-scope-of-ack-messages--s2
+  verb: SHALL NOT
+  actor: ''
+  text: 'ACK messages SHALL NOT be used to report the following types of faults:'
+- id: application-level-scope-of-ack-messages--s3
+  verb: SHALL
+  actor: IIS
+  text: An IIS SHALL generate exactly one application-level ACK in response to each successfully received VXU message.
+- id: application-level-scope-of-ack-messages--s4
+  verb: SHALL
+  actor: ''
+  text: ACK messages SHALL summarize the processing outcome of the submitted message, not intermediate workflow states.

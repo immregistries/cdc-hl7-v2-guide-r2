@@ -1,0 +1,12 @@
+- id: transparency-as-a-community-obligation--s1
+  verb: SHALL
+  actor: Local IGs
+  text: Local IGs SHALL clearly document all changes from the National IG.
+- id: transparency-as-a-community-obligation--s2
+  verb: SHOULD
+  actor: Jurisdictions
+  text: Jurisdictions SHOULD coordinate with AIRA and CDC when local requirements create widespread interoperability impact.
+- id: transparency-as-a-community-obligation--s3
+  verb: SHALL
+  actor: Local IGs
+  text: Local IGs SHALL reflect current, enforceable behavior rather than aspirational or future-state requirements.

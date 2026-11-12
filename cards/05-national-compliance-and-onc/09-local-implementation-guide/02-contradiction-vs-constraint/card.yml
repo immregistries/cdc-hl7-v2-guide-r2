@@ -1,0 +1,8 @@
+id: contradiction-vs-constraint
+title: Contradiction vs. Constraint
+figures:
+  - id: fig-34
+    file: fig-34.png
+    number: 34
+    caption: 'Local IG Conformance Spectrum: Conformant, Constrained, and Contradictory'
+    alt: ''

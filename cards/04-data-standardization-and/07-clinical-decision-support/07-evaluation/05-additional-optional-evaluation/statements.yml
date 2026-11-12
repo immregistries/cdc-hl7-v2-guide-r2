@@ -1,0 +1,16 @@
+- id: additional-optional-evaluation-information--s1
+  verb: MAY
+  actor: IIS
+  text: The IIS MAY report the series name.
+- id: additional-optional-evaluation-information--s2
+  verb: MAY
+  actor: IIS
+  text: The IIS MAY report the total number of doses in series.
+- id: additional-optional-evaluation-information--s3
+  verb: MAY
+  actor: IIS
+  text: The IIS MAY report the dose number of the evaluated event.
+- id: additional-optional-evaluation-information--s4
+  verb: MAY
+  actor: IIS
+  text: The IIS MAY report the schedule used, with the understanding that this information is not consistently standardized

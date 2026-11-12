@@ -1,0 +1,8 @@
+- id: assigning-authority-and-identifier-namespace--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL document the assigning-authority convention accepted for the primary exchange identifier.
+- id: assigning-authority-and-identifier-namespace--s2
+  verb: SHALL
+  actor: Sending systems
+  text: Sending systems SHALL use the assigning-authority representation established by the receiving IIS for that interface.

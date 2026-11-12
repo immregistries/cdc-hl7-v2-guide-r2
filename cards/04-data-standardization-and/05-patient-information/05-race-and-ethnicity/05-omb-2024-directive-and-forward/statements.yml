@@ -1,0 +1,28 @@
+- id: omb-2024-directive-and-forward-compatibility--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL continue to transmit race and ethnicity as separate fields.
+- id: omb-2024-directive-and-forward-compatibility--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD support the MENA race code as a top-level category.
+- id: omb-2024-directive-and-forward-compatibility--s3
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT collapse race and ethnicity into a single coded field until national implementation guidance is published.
+- id: omb-2024-directive-and-forward-compatibility--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support the minimum top-level CDCREC race and ethnicity categories.
+- id: omb-2024-directive-and-forward-compatibility--s5
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept additional valid CDCREC codes.
+- id: omb-2024-directive-and-forward-compatibility--s6
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD tolerate valid CDCREC codes even if not stored at full granularity.
+- id: omb-2024-directive-and-forward-compatibility--s7
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD roll up granular codes to top-level categories for reporting and analytics when needed.

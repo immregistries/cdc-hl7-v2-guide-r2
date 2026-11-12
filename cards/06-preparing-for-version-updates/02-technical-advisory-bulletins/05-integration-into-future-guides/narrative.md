@@ -1,0 +1,1 @@
+TABs provide the foundation for updates to the National Implementation Guide. Information outlined in TABs is incorporated into future versions of the guide, ensuring continuous alignment with evolving community needs and standards. This iterative approach allows the community to adopt interim guidance while supporting formalization through subsequent guide updates.

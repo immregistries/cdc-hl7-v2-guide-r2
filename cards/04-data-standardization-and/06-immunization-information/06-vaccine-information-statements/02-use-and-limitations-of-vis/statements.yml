@@ -1,0 +1,16 @@
+- id: use-and-limitations-of-vis-information-in-iis--s1
+  verb: SHOULD NOT
+  actor: IIS
+  text: IIS SHOULD NOT return VIS information in RSP messages.
+- id: use-and-limitations-of-vis-information-in-iis--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD accept and store VIS information even when identifiers, publication dates, or dates-given differ from expected values.
+- id: use-and-limitations-of-vis-information-in-iis--s3
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD address VIS inconsistencies through data-quality processes rather than message-level rejection.
+- id: use-and-limitations-of-vis-information-in-iis--s4
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD avoid treating VIS completeness as a proxy for VICP compliance.

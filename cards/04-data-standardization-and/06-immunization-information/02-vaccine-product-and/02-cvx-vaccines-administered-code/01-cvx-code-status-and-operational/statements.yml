@@ -1,0 +1,40 @@
+- id: cvx-code-status-and-operational-meaning--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support receipt, storage, and use of Active CVX codes for administered and historical vaccinations.
+- id: cvx-code-status-and-operational-meaning--s2
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL use Active CVX codes for administered vaccinations when an appropriate Active code exists.
+- id: cvx-code-status-and-operational-meaning--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support receipt, storage, and use of Inactive CVX codes for historical vaccinations.
+- id: cvx-code-status-and-operational-meaning--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support receipt and storage of Non-US CVX codes for historical vaccinations to represent doses administered outside the United States.
+- id: cvx-code-status-and-operational-meaning--s5
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject a vaccination record solely because the associated CVX code is Inactive or Non-US.
+- id: cvx-code-status-and-operational-meaning--s6
+  verb: SHOULD
+  actor: Submitting systems
+  text: Submitting systems SHOULD use Inactive or Non-US CVX codes for historical vaccinations when they accurately represent the vaccine administered.
+- id: cvx-code-status-and-operational-meaning--s7
+  verb: MAY
+  actor: IIS
+  text: IIS MAY defer support for Pending CVX codes until they become Active.
+- id: cvx-code-status-and-operational-meaning--s8
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD plan for timely adoption of Pending CVX codes once they are activated by CDC.
+- id: cvx-code-status-and-operational-meaning--s9
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT accept CVX codes with a status of Never Active in VXU messages.
+- id: cvx-code-status-and-operational-meaning--s10
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL treat the use of Never Active CVX codes as an error condition.

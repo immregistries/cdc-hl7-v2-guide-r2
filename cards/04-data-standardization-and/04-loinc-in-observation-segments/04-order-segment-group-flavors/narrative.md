@@ -1,0 +1,1 @@
+The sections below describe each Order Segment Group flavor, its purpose, and the types of observations expected within it. These groupings define where specific LOINC-coded OBX segments are meaningful. Later sections of this guide provide detailed semantic and conformance requirements, particularly for clinical decision support.

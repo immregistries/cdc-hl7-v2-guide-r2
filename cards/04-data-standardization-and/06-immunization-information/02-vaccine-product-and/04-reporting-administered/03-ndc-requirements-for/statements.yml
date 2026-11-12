@@ -1,0 +1,44 @@
+- id: ndc-requirements-for-administered-vaccinations--s1
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL support Unit-of-Use NDCs for administered vaccinations.
+- id: ndc-requirements-for-administered-vaccinations--s2
+  verb: SHOULD
+  actor: Submitting systems
+  text: Submitting systems SHOULD support Unit-of-Sale NDCs for administered vaccinations.
+- id: ndc-requirements-for-administered-vaccinations--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept both Unit-of-Use and Unit-of-Sale NDCs when reported.
+- id: ndc-requirements-for-administered-vaccinations--s4
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL support NDC11 formatted with dashes using the 5-4-2 format (xxxxx-xxxx-xx).
+- id: ndc-requirements-for-administered-vaccinations--s5
+  verb: SHOULD NOT
+  actor: Submitting systems
+  text: Submitting systems SHOULD NOT use NDC10 without dashes.
+- id: ndc-requirements-for-administered-vaccinations--s6
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY support NDC11 without dashes.
+- id: ndc-requirements-for-administered-vaccinations--s7
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY support NDC10 with dashes using the 4-4-2 format.
+- id: ndc-requirements-for-administered-vaccinations--s8
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL be capable of accepting and interpreting commonly used NDC formats.
+- id: ndc-requirements-for-administered-vaccinations--s9
+  verb: SHALL
+  actor: Submitting systems
+  text: For vaccines requiring reconstitution, submitting systems SHALL report the NDC for the lyophilized powder (the active product) rather than the diluent.
+- id: ndc-requirements-for-administered-vaccinations--s10
+  verb: SHALL
+  actor: Submitting systems
+  text: For vaccines with multiple active components, submitting systems SHALL report any NDC associated with the vaccine (Unit-of-Use or Unit-of-Sale), consistent with clinical workflow.
+- id: ndc-requirements-for-administered-vaccinations--s11
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept administered vaccination reports for multi-component products without requiring a specific NDC selection.

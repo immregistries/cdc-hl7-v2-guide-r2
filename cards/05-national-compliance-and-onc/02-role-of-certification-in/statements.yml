@@ -1,0 +1,8 @@
+- id: role-of-certification-in-immunization-messaging--s1
+  verb: SHALL NOT
+  actor: ''
+  text: Certification of functions or capabilities SHALL NOT be interpreted as evidence that all production messages fully conform to this guide.
+- id: role-of-certification-in-immunization-messaging--s2
+  verb: SHOULD
+  actor: IIS and submitting systems
+  text: IIS and submitting systems SHOULD implement post-certification monitoring and conformance assessment processes to evaluate ongoing data quality and to detect production-level nonconformance.

@@ -1,0 +1,12 @@
+- id: storage-multiplicity-and-lifecycle-management--s1
+  verb: MAY
+  actor: IIS
+  text: IIS MAY store or ignore immunity observations.
+- id: storage-multiplicity-and-lifecycle-management--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL process messages normally even if they ignore immunity observations.
+- id: storage-multiplicity-and-lifecycle-management--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY store multiple immunity observations for the same disease.

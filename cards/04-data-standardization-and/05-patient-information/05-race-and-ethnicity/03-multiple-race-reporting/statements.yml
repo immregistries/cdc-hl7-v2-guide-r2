@@ -1,0 +1,16 @@
+- id: multiple-race-reporting--s1
+  verb: SHALL
+  actor: ''
+  text: If a patient reports multiple races, each SHALL be sent as a separate repetition of PID-10.
+- id: multiple-race-reporting--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support and process multiple PID-10 repetitions.
+- id: multiple-race-reporting--s3
+  verb: SHALL
+  actor: ''
+  text: '"Other race" (2131-1) SHALL only be sent if explicitly selected by the patient.'
+- id: multiple-race-reporting--s4
+  verb: MAY
+  actor: ''
+  text: If no race information is provided, PID-10 MAY be omitted or populated with UNK, ASKU, or PHC1175.

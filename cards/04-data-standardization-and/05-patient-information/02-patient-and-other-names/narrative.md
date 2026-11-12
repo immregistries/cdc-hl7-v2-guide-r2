@@ -1,0 +1,3 @@
+Names are foundational to record matching. A patient's name is often the first and strongest clue an Immunization Information System (IIS) uses to identify which record belongs to which person. When names are formatted inconsistently or reported under the wrong name type, matching errors occur: splitting records, delaying care, and degrading data quality.
+
+This section consolidates and updates prior guidance for reporting both patient and non-patient person names in HL7 v2.5.1 messages. It defines which name types to use, how to report newborns, how to handle diacritics, and how to ensure consistent formatting. Together, these rules support accurate identity management and interoperability across systems.

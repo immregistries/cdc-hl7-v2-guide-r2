@@ -1,0 +1,4 @@
+- id: z31-return-a-list-of-candidates--s1
+  verb: MAY
+  actor: ''
+  text: A Z31 (candidate-list) response MAY be returned in response to either a Z34 (Request a Complete Immunization History) or a Z44 (Request Evaluated Immunization History and Forecast) query when the IIS cannot identify a single high-confidence match.

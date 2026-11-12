@@ -1,0 +1,12 @@
+- id: universal-purchase-and-default-eligibility--s1
+  verb: SHOULD NOT
+  actor: Submitting systems
+  text: In jurisdictions where patients are not individually assessed for funding eligibility for vaccines covered by a universal purchase program, submitting systems SHOULD NOT send funding eligibility or funding source OBX segments for those covered vaccines, unless the jurisdiction has specified explicit values to send.
+- id: universal-purchase-and-default-eligibility--s2
+  verb: SHALL
+  actor: Submitting systems
+  text: If a jurisdiction specifies a default eligibility or funding source to be applied to vaccinations covered by the program, for example, a single public program covering all routine childhood vaccines, submitting systems SHALL follow that jurisdictional guidance when constructing messages.
+- id: universal-purchase-and-default-eligibility--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY treat jurisdiction-specified default eligibility or funding source values as equivalent to explicit per-dose determinations for purposes of inventory management and program reporting.

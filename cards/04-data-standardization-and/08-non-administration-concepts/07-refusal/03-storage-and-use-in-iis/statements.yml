@@ -1,0 +1,16 @@
+- id: storage-and-use-in-iis--s1
+  verb: MAY
+  actor: IIS
+  text: IIS MAY store refusal data only for internal tracking and reporting of declination rates.
+- id: storage-and-use-in-iis--s2
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT use refusal data to alter forecast logic or CDS outcomes.
+- id: storage-and-use-in-iis--s3
+  verb: SHOULD NOT
+  actor: IIS
+  text: IIS SHOULD NOT include refusals in the displayed or transmitted immunization history.
+- id: storage-and-use-in-iis--s4
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD treat refusals as immutable; no mechanism is defined to allow for updates or deletes.

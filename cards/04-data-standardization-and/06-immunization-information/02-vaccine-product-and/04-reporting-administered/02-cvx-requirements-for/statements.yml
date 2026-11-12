@@ -1,0 +1,19 @@
+- id: cvx-requirements-for-administered-vaccinations--s1
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL support Active U.S. vaccine CVX codes for administered vaccinations.
+- id: cvx-requirements-for-administered-vaccinations--s2
+  verb: SHALL NOT
+  actor: Submitting systems
+  text: Submitting systems SHALL NOT use Never Active CVX codes to report administered vaccinations.
+- id: cvx-requirements-for-administered-vaccinations--s3
+  verb: SHALL
+  verbs:
+    - SHALL
+    - SHALL NOT
+  actor: Submitting systems
+  text: Submitting systems SHALL support the non-vaccine CVX code 998 only for HL7 structural purposes and SHALL NOT use it to represent an administered vaccination.
+- id: cvx-requirements-for-administered-vaccinations--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept administered vaccination records reported with valid Active CVX codes.

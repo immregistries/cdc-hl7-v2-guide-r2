@@ -1,0 +1,12 @@
+- id: use-in-query-transactions-qbp-rsp--s1
+  verb: SHALL
+  actor: ''
+  text: Query messages SHALL include MSH-4 to identify the querying organization.
+- id: use-in-query-transactions-qbp-rsp--s2
+  verb: SHALL
+  actor: ''
+  text: MSH-22 SHALL be included when the querying organization is acting on behalf of another responsible organization.
+- id: use-in-query-transactions-qbp-rsp--s3
+  verb: SHOULD
+  actor: IIS
+  text: When returning administered vaccination records in an RSP message, IIS SHOULD include the administering organization identifier RXA-11.4 and, when available, the entering organization identifier ORC-17, provided the IIS has clear, coded values that can be meaningfully interpreted by the requesting system.

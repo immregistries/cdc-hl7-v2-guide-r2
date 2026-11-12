@@ -1,0 +1,16 @@
+- id: jurisdictional-consent-models--s1
+  verb: SHALL
+  actor: Submitters
+  text: In opt-out jurisdictions, submitters SHALL send all immunization records regardless of PD1-12, unless directed otherwise by the IIS.
+- id: jurisdictional-consent-models--s2
+  verb: SHALL
+  actor: Submitters
+  text: In opt-in jurisdictions, submitters SHALL follow IIS-specific guidance for collecting and transmitting PD1-12 values.
+- id: jurisdictional-consent-models--s3
+  verb: SHALL
+  actor: ''
+  text: Where consent has not been determined, PD1-12 SHALL be left empty.
+- id: jurisdictional-consent-models--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL define and publish their consent policy for participating systems.

@@ -1,0 +1,20 @@
+- id: administering-organization-rxa-11--s1
+  verb: SHALL
+  actor: Systems
+  text: For administered vaccinations, systems SHALL populate RXA-11 with the administering organization.
+- id: administering-organization-rxa-11--s2
+  verb: SHOULD
+  actor: Implementations
+  text: Implementations SHOULD use PL.4 (Facility = HD) to carry the organization identifier.
+- id: administering-organization-rxa-11--s3
+  verb: SHOULD
+  actor: ''
+  text: For historical vaccinations, RXA-11 SHOULD be empty.
+- id: administering-organization-rxa-11--s4
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject historical vaccination records that omit RXA-11.
+- id: administering-organization-rxa-11--s5
+  verb: SHOULD NOT
+  actor: IIS
+  text: IIS SHOULD NOT interpret RXA-11 as a physical address or geographic location.

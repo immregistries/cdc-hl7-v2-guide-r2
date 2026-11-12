@@ -1,0 +1,16 @@
+- id: claiming-conformance-to-the-national-ig--s1
+  verb: SHALL
+  actor: Jurisdiction
+  text: A jurisdiction SHALL claim conformance to the National IG only if its Local IG does not contradict National IG requirements.
+- id: claiming-conformance-to-the-national-ig--s2
+  verb: SHOULD
+  actor: Jurisdictions
+  text: 'Jurisdictions SHOULD distinguish clearly between these statements when publishing local guidance:'
+- id: claiming-conformance-to-the-national-ig--s3
+  verb: SHALL
+  actor: Jurisdiction
+  text: '"Based on the National IG with jurisdiction-specific differences": used when the Local IG includes documented differences, whether constraints or contradictions. When using this label, the jurisdiction SHALL indicate for each difference whether it is a compliant constraint or a contradiction that affects interoperability.'
+- id: claiming-conformance-to-the-national-ig--s4
+  verb: SHALL NOT
+  actor: Jurisdictions
+  text: Jurisdictions SHALL NOT imply national endorsement or standard compliance when local requirements require non-standard behavior from submitting systems.

@@ -1,0 +1,8 @@
+- id: primary-patient-identifier-for-exchange--s1
+  verb: SHALL
+  actor: Sending systems
+  text: Sending systems SHALL submit a primary exchange identifier for each patient and SHALL use the current identifier consistently in update and query transactions.
+- id: primary-patient-identifier-for-exchange--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD support MR and PI as identifier types for the primary exchange identifier.

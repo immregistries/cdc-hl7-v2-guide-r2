@@ -1,0 +1,13 @@
+id: overview-of-loinc-and-obx-usage-in-immunization-messaging
+title: Overview of LOINC and OBX Usage in Immunization Messaging
+figures:
+  - id: fig-19
+    file: fig-19.png
+    number: 19
+    caption: OBX Segment Core Components
+    alt: ''
+  - id: fig-20
+    file: fig-20.png
+    number: 20
+    caption: Order Segment Group Flavors and Allowed LOINC Observations
+    alt: ''

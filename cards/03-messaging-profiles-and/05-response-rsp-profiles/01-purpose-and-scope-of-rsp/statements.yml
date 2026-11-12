@@ -1,0 +1,4 @@
+- id: purpose-and-scope-of-rsp-profiles--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL respond to each valid QBP with exactly one RSP message.

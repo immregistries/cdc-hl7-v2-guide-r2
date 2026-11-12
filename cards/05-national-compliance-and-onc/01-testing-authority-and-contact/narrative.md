@@ -1,0 +1,3 @@
+Jurisdictions and IIS programs may designate specific testing authorities or processes for conformance validation. Implementers and EHR users seeking testing information or certification guidance should contact their jurisdictional public health authority or the program office responsible for immunization reporting to identify the appropriate testing authority and test process.
+
+Jurisdictions should publish testing-authority details (testing body, test harness name/version, contact information, and effective date) in their local implementation guide or on the jurisdiction's IIS website, so implementers can identify the appropriate testing and conformance resources.

@@ -1,0 +1,16 @@
+- id: program-considerations--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD align VIS-related policies with specific program needs, not general data-quality expectations.
+- id: program-considerations--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD avoid making VIS data a structural requirement for vaccination reporting.
+- id: program-considerations--s3
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD treat VIS data discrepancies as quality-improvement opportunities, not message-level errors.
+- id: program-considerations--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL continue to accept and store administered vaccinations regardless of VIS completeness or accuracy.

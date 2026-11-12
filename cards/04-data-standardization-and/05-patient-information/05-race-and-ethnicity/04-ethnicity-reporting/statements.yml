@@ -1,0 +1,12 @@
+- id: ethnicity-reporting--s1
+  verb: SHALL
+  actor: ''
+  text: Ethnicity SHALL be reported in PID-22.
+- id: ethnicity-reporting--s2
+  verb: SHALL NOT
+  actor: ''
+  text: Multiple repetitions of PID-22 SHALL NOT be used.
+- id: ethnicity-reporting--s3
+  verb: MAY
+  actor: ''
+  text: If ethnicity is unknown or not provided, PID-22 MAY be omitted or populated with UNK, ASKU, or PHC1175.

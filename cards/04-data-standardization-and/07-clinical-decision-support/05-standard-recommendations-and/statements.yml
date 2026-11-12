@@ -1,0 +1,12 @@
+- id: standard-recommendations-and-series-coverage--s1
+  verb: SHALL
+  actor: ''
+  text: For every applicable standard routine (age-based) recommendation, the RSP SHALL include evaluation information for all administered doses that may count toward that recommendation.
+- id: standard-recommendations-and-series-coverage--s2
+  verb: SHALL
+  actor: ''
+  text: The RSP SHALL also include a recommendation entry in the forecast for every such recommendation, even if the recommendation is complete, age-inappropriate, or no further doses are required (for example, because the patient is too old or too young).
+- id: standard-recommendations-and-series-coverage--s3
+  verb: SHALL
+  actor: ''
+  text: Forecast entries SHALL cover all standard routine recommendations; limiting the forecast to only those recommendations requiring another dose is not permitted.

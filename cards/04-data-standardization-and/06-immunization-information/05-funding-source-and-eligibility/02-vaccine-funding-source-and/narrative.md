@@ -1,0 +1,7 @@
+Funding source indicates which inventory stock actually supplied the administered vaccine dose (for example, private, public VFC, or public non-VFC). U.S. jurisdictions operate either a two-stock or three-stock inventory model and expect all participating organizations to follow that model for program operations and reporting. In a two-stock model, doses are categorized as either private or public. In a three-stock model, doses are further divided within the public category into VFC and non-VFC, resulting in three categories overall: private, public VFC, and public non-VFC. Vaccines for Children (VFC) is a federally funded program that provides vaccines at no cost to children who might not otherwise be vaccinated due to inability to pay; public non-VFC doses refer to publicly funded vaccine supplied through other state or local programs outside VFC.
+
+Submitting systems that participate in publicly funded vaccine programs in a jurisdiction SHALL support the funding source codes required by the jurisdiction's selected stock model.
+
+The Funding Source value set is open and supports local extensions. IIS MAY accept legacy or deprecated codes for backwards compatibility; the extent of required legacy-code support is a jurisdictional decision. IIS SHOULD publish any local extensions and mappings from legacy codes.
+
+**Note:** This guide supports both public and private inventory reporting but does not prescribe an IIS's internal inventory or lot-validation workflows.

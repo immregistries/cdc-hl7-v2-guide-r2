@@ -1,0 +1,8 @@
+id: reporting-vis-information-in-hl7-v2-messages
+title: Reporting VIS Information in HL7 v2 Messages
+figures:
+  - id: fig-29
+    file: fig-29.png
+    number: 29
+    caption: 'VIS Reporting Methods: Barcode Identifier vs. Unspecified Formulation CVX'
+    alt: ''

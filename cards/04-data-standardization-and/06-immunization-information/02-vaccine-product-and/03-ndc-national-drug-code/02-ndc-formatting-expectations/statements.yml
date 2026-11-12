@@ -1,0 +1,8 @@
+- id: ndc-formatting-expectations--s1
+  verb: MAY
+  actor: ''
+  text: Ten-digit NDCs (NDC10) MAY appear in legacy data and require normalization for consistent processing.
+- id: ndc-formatting-expectations--s2
+  verb: SHALL
+  actor: IIS and submitting systems
+  text: IIS and submitting systems SHALL be prepared to recognize common formatting variations to ensure reliable interpretation.

@@ -1,0 +1,3 @@
+Multiple conventions exist for representing unknown race and ethnicity values. To support interoperability across IIS communities with different historical practices, CDCREC may be extended for community needs; this guide adopts the community-accepted unknown codes: UNK, ASKU, and PHC1175. See the *Additional "Unknown" Race and Ethnicity Codes* TAB [8] and Section 7.4, Value Sets, for the IG-maintained authoritative lists.
+
+While ASKU ("Asked but unknown") and PHC1175 ("Refused to answer") convey slightly different intent, IIS are not required to preserve this distinction operationally. Patients are not obligated to provide race or ethnicity, and programmatic requirements to populate these fields do not override national interoperability expectations.

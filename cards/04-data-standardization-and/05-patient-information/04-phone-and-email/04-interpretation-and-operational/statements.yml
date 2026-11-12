@@ -1,0 +1,12 @@
+- id: interpretation-and-operational-guidance--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD treat submitted phone numbers as cellular by default, regardless of equipment type.
+- id: interpretation-and-operational-guidance--s2
+  verb: SHOULD NOT
+  actor: IIS
+  text: IIS SHOULD NOT rely on XTN content to distinguish landline from cellular numbers.
+- id: interpretation-and-operational-guidance--s3
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD use third-party validation services when confirmation of SMS eligibility is required.

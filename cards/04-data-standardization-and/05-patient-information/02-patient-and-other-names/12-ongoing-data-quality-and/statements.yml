@@ -1,0 +1,8 @@
+- id: ongoing-data-quality-and-monitoring--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD implement data quality checks that identify improbable name-type combinations or patterns.
+- id: ongoing-data-quality-and-monitoring--s2
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL strive to correctly classify names by type.

@@ -1,0 +1,18 @@
+id: identifying-vs-non-identifying-vaccination-fields
+title: Identifying vs. Non-Identifying Vaccination Fields
+figures:
+  - id: fig-10a
+    file: fig-10a.png
+    number: 10a
+    caption: Identifying vs. Non-Identifying Vaccination Field Changes
+    alt: ''
+  - id: fig-10b
+    file: fig-10b.png
+    number: 10b
+    caption: 'Rechart: Delete-and-Add Sequence'
+    alt: ''
+  - id: fig-10c
+    file: fig-10c.png
+    number: 10c
+    caption: Simple Update Sequence
+    alt: ''

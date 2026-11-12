@@ -1,0 +1,12 @@
+- id: value-sets-and-field-usage--s1
+  verb: SHALL
+  actor: ''
+  text: Race (PID-10) SHALL use the CDCREC value set.
+- id: value-sets-and-field-usage--s2
+  verb: SHALL
+  actor: ''
+  text: Ethnicity (PID-22) SHALL use the CDCREC value set.
+- id: value-sets-and-field-usage--s3
+  verb: SHALL NOT
+  actor: Systems
+  text: Systems SHALL NOT use HL70005 for race or ethnicity coding.

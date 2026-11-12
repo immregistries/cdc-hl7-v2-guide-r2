@@ -1,0 +1,3 @@
+ACK messages communicate discrete processing findings using ERR segments. Each ERR segment represents a single issue or informational condition identified during message evaluation, and issues are evaluated independently before being summarized at the message-level. ERR segments are not limited to reporting failures; they may also confirm success, convey informational notices, or communicate the effect of a business rule or jurisdictional policy.
+
+ERR segments identify where an issue occurred (ERR-2), classify the nature of the issue (ERR-5), and communicate its severity (ERR-4). Severity determines the required follow-up action for that specific issue.

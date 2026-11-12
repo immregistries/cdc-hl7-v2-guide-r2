@@ -1,0 +1,4 @@
+# Needed only for the local conversion step (reading the narrative docx).
+# Building from committed content needs PyYAML only.
+python-docx==1.2.0
+PyYAML==6.0.3

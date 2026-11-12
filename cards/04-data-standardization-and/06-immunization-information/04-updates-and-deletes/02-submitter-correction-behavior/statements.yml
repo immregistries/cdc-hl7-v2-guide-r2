@@ -1,0 +1,20 @@
+- id: submitter-correction-behavior--s1
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL support sending adds (A), updates (U), and deletes (D) for vaccination records.
+- id: submitter-correction-behavior--s2
+  verb: SHALL
+  actor: Submitting systems
+  text: When any identifying field changes, submitting systems SHALL send a delete followed by an add containing the corrected vaccination information.
+- id: submitter-correction-behavior--s3
+  verb: SHALL
+  actor: Submitting systems
+  text: When only non-identifying field data changes, submitting systems SHALL send an update.
+- id: submitter-correction-behavior--s4
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL reuse the source record’s ORC-3 in every update or delete that refers to that record.
+- id: submitter-correction-behavior--s5
+  verb: SHALL
+  actor: ''
+  text: A delete SHALL carry the identifying field values previously submitted for the source record being deleted.

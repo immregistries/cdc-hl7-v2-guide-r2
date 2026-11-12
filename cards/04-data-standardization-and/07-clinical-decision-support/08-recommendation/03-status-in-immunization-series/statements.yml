@@ -1,0 +1,20 @@
+- id: status-in-immunization-series--s1
+  verb: SHALL
+  actor: ''
+  text: Status SHALL be returned for every forecasted series.
+- id: status-in-immunization-series--s2
+  verb: SHALL
+  actor: ''
+  text: Enough information SHALL be encoded to distinguish at least "complete" from "another dose due."
+- id: status-in-immunization-series--s3
+  verb: SHOULD
+  actor: ''
+  text: LOINC Answer codes SHOULD be returned for interoperable interpretation. See Chapter 7 (Section 7.1.7, co-constraint table) for the authoritative LOINC Answer codes.
+- id: status-in-immunization-series--s4
+  verb: MAY
+  actor: ''
+  text: One or more local codes MAY be returned in addition to the LOINC code.
+- id: status-in-immunization-series--s5
+  verb: SHOULD
+  actor: ''
+  text: When both are returned, the LOINC concept SHOULD be returned first, followed by the local concept.

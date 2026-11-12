@@ -1,0 +1,7 @@
+When returning a patient's immunization history in an RSP message, the IIS is responsible for reporting each vaccination using a CVX code, regardless of how the vaccination was originally submitted. Vaccinations may be reported to an IIS using CVX, NDC, CPT, or other locally supported code systems, but IIS must normalize vaccination records to a CVX-based representation for response and interoperability.
+
+Normalization of the clinical representation of a vaccination is separate from vaccination record identity. An IIS may normalize product information to a CVX-based representation while retaining source-specific identifiers associated with the records that contributed to the consolidated vaccination event. ORC-3 behavior is defined in Section 4.6.3, Vaccination Record Identity and ORC-3.
+
+IIS may represent vaccinations internally using local data models or code systems and may receive additional information about a vaccination from multiple sources over time. As a result, querying systems should not expect the IIS to return the same code system or level of specificity that was originally submitted. The CVX code returned in an RSP reflects the IIS's best available understanding of the vaccination.
+
+IIS may choose to return additional code representations, such as NDC, when available, but this is optional. Returning CPT codes in RSP messages is discouraged, even when CPT was used in the original submission.

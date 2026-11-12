@@ -1,0 +1,40 @@
+- id: adverse-events-associated-with-a-specific-vaccination--s1
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY submit adverse events with any immunization.
+- id: adverse-events-associated-with-a-specific-vaccination--s2
+  verb: MAY
+  actor: IIS
+  text: IIS MAY accept and store adverse events with any immunizations
+- id: adverse-events-associated-with-a-specific-vaccination--s3
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL represent each reported reaction as a separate observation.
+- id: adverse-events-associated-with-a-specific-vaccination--s4
+  verb: SHOULD
+  actor: ''
+  text: If IIS do not store associated adverse events the IIS SHOULD return an informational message indicating they are not stored.
+- id: adverse-events-associated-with-a-specific-vaccination--s5
+  verb: SHOULD
+  actor: IIS
+  text: If IIS store adverse event information associated with an immunization, IIS SHOULD return that information in query responses for patient-safety purposes.
+- id: adverse-events-associated-with-a-specific-vaccination--s6
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY report reactions not associated with a specific vaccination.
+- id: adverse-events-associated-with-a-specific-vaccination--s7
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL represent each reported reaction as a separate observation.
+- id: adverse-events-associated-with-a-specific-vaccination--s8
+  verb: MAY
+  actor: IIS
+  text: IIS MAY store patient-level reactions.
+- id: adverse-events-associated-with-a-specific-vaccination--s9
+  verb: SHOULD
+  actor: IIS
+  text: If IIS do not store adverse events, the IIS SHOULD return an informational message indicating they are not stored.
+- id: adverse-events-associated-with-a-specific-vaccination--s10
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD return patient-level reactions in query responses for patient-safety purposes, if known.

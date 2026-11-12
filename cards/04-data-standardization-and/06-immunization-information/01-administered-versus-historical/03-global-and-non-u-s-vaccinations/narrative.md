@@ -1,0 +1,5 @@
+IIS are intended to maintain a complete immunization history for each patient, regardless of where or when a vaccination was administered. Patients frequently receive vaccinations outside the United States, including during childhood, travel, military service, or residence abroad. These vaccinations may not correspond to products authorized for use in the U.S., but they remain clinically relevant for evaluation and forecasting.
+
+The role of the IIS is to accurately store vaccination events, not to determine clinical validity or authorization status. Decisions about whether a vaccination satisfies a schedule requirement are the responsibility of clinical decision support (CDS) engines, not the registry.
+
+To support recording of global vaccinations, IIS and submitters are expected to use CVX codes where appropriate. See "Representation of Foreign and Non-Standard Products" for specific guidance on representing foreign combination products, use of Unspecified Formulation codes, and local mapping practices.

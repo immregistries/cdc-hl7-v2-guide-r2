@@ -1,0 +1,4 @@
+- id: iis-derived-status-and-jurisdictional-views--s1
+  verb: SHALL NOT
+  actor: Jurisdictional or IIS-derived patient statuses
+  text: Jurisdictional or IIS-derived patient statuses SHALL NOT be transmitted in HL7 v2 messages.

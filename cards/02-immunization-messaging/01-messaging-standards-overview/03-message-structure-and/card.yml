@@ -1,0 +1,8 @@
+id: message-structure-and-terminology
+title: Message Structure and Terminology
+figures:
+  - id: fig-2
+    file: fig-2.png
+    number: 2
+    caption: 'HL7 v2 Message Structure: Segments, Fields, Components and Subcomponents'
+    alt: ''

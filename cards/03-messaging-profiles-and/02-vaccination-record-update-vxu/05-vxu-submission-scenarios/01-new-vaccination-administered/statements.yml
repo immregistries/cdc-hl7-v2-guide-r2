@@ -1,0 +1,16 @@
+- id: new-vaccination-administered-during-an-encounter--s1
+  verb: SHALL
+  actor: Submitting system
+  text: The submitting system SHALL trigger a VXU when an administered vaccination is recorded.
+- id: new-vaccination-administered-during-an-encounter--s2
+  verb: SHALL NOT
+  actor: Submitting system
+  text: The submitting system SHALL NOT trigger a VXU when a vaccination is only anticipated or ordered.
+- id: new-vaccination-administered-during-an-encounter--s3
+  verb: SHALL
+  actor: Submitting system
+  text: The submitting system SHALL follow one of the supported reporting approaches defined in Section 3.2.4.
+- id: new-vaccination-administered-during-an-encounter--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL process or otherwise adjudicate and incorporate the vaccination event(s), which may result in incorporation into the patient's immunization history, qualified acceptance, or rejection depending on the IIS's HL7 v2 conformance and business rules.

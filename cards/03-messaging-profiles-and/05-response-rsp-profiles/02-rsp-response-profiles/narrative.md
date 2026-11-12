@@ -1,0 +1,3 @@
+An IIS response reflects the outcome of applying internal patient matching processes and policy constraints to a query request. The response returned depends on the identifying information provided, whether a patient record can be confidently identified, the consolidation state of that record, and applicable IIS disclosure policies.
+
+RSP profiles define a controlled set of response patterns that allow querying systems to reliably distinguish between successful retrieval, ambiguous matching, and conditions where a patient record cannot be returned. Each response type communicates not only what information is being returned, but also why that outcome occurred and what, if any, follow-up action is appropriate.

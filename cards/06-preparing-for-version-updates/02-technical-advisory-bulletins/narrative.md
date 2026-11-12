@@ -1,0 +1,3 @@
+Technical Advisory Bulletins (TABs) are key tools for providing clarity and guidance on national specifications for immunization information interoperability. These documents address specific technical topics related to the HL7 v2.5.1 Implementation Guide for Immunization Messaging and are designed to ensure consistent interpretation and implementation of the standard across systems.
+
+TABs are developed collaboratively by the American Immunization Registry Association (AIRA) and the Centers for Disease Control and Prevention (CDC) through a community-driven process, with review and approval by AIRA's Standards and Interoperability Steering Committee (SISC).

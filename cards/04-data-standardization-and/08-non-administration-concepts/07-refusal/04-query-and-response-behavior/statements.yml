@@ -1,0 +1,8 @@
+- id: query-and-response-behavior--s1
+  verb: SHOULD NOT
+  actor: IIS
+  text: IIS SHOULD NOT return refusal records in query (RSP) responses.
+- id: query-and-response-behavior--s2
+  verb: SHALL NOT
+  actor: Querying systems
+  text: Querying systems SHALL NOT expect refusals to be returned.

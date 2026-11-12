@@ -1,0 +1,7 @@
+id: vaccine-code-systems-overview
+title: Vaccine Code Systems Overview
+tables:
+  - id: table-1
+    file: table-1.md
+    caption: 'Vaccine Code System Comparison: CVX, NDC, and CPT'
+    number: 25

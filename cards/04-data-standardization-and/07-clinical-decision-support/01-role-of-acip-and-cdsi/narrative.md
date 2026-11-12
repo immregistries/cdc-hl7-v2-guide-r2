@@ -1,0 +1,5 @@
+Immunization evaluation and forecasting are grounded in published immunization schedules and recommendations from national and jurisdictional schedule authorities, including those issued by the Advisory Committee on Immunization Practices (ACIP).
+
+The CDC Clinical Decision Support for Immunization (CDSi) project provides the authoritative, computable interpretation of ACIP recommendations for national implementation. **CDSi** publishes supporting logic specifications that resolve clinical ambiguities, establish consistent series definitions, and can be used to operationalize evaluation and forecasting logic; CDSi itself is a reference resource, not a hosted CDS engine.
+
+Because this Implementation Guide focuses on message structure, completeness, and testability, not on prescribing clinical policy, it anchors the definition of age-based immunization series to the CDSi resources as the reference representation. IIS and CDS engines are expected to use CDSi as the canonical reference for constructing CDS output for querying systems, while recognizing that individual CDS implementations may vary or apply jurisdictional deviations.

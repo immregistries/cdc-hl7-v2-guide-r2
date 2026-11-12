@@ -1,0 +1,12 @@
+- id: persons-without-a-fixed-address--s1
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject messages based solely on placeholder or surrogate address values.
+- id: persons-without-a-fixed-address--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD use cleansing services to detect known placeholder patterns.
+- id: persons-without-a-fixed-address--s3
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD establish local policies for managing repeated use of clinic or landmark addresses.

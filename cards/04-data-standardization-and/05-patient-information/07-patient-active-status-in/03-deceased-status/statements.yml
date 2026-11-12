@@ -1,0 +1,23 @@
+- id: deceased-status--s1
+  verb: SHALL
+  actor: ''
+  text: Deceased status SHALL take precedence over active or inactive designations.
+- id: deceased-status--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD preserve deceased status consistently across provider-level and jurisdictional views of the patient.
+- id: deceased-status--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL continue to accept historical immunization data for deceased patients when submitted.
+- id: deceased-status--s4
+  verb: MAY
+  verbs:
+    - MAY
+    - SHOULD NOT
+  actor: ''
+  text: Receipt of a new immunization event MAY be interpreted by IIS as evidence of current engagement, but SHOULD NOT override an explicitly reported deceased status.
+- id: deceased-status--s5
+  verb: SHOULD
+  actor: ''
+  text: Such cases SHOULD be flagged for review to resolve possible matching or data-quality issues, and to determine whether the event represents historical data reported after the date of death.

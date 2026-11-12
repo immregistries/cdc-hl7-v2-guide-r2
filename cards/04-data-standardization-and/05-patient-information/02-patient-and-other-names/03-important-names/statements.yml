@@ -1,0 +1,20 @@
+- id: important-names--s1
+  verb: SHOULD
+  actor: Systems
+  text: Systems SHOULD support these name types.
+- id: important-names--s2
+  verb: SHALL
+  actor: ''
+  text: If reported, these names SHALL be coded using the correct name type code.
+- id: important-names--s3
+  verb: SHALL NOT
+  actor: Systems
+  text: Systems SHALL NOT send these names as type 'L'.
+- id: important-names--s4
+  verb: SHALL
+  actor: Receiving systems
+  text: Receiving systems SHALL recognize and process these codes without error.
+- id: important-names--s5
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD store or evaluate them as supplemental identifiers for patient matching.

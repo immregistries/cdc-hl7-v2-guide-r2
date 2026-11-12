@@ -1,0 +1,1 @@
+Deceased status has clearer operational significance than active or inactive designations. It supports suppression of reminder/recall activities and helps IIS maintain accurate denominators. Deceased information may be reported by providers or derived from external death reporting sources.

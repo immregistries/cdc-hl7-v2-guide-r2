@@ -1,0 +1,3 @@
+When the IIS returns a patient record, the response includes the primary exchange identifier associated with that submitting system. This allows the submitter to associate the response with its local patient record. The response also includes the IIS registry identifier for the returned record or candidate.
+
+Returning the submitter identifier indicates that the IIS has associated it with the returned patient record; an identifier received in a query is not simply echoed when that association has not been established. External identifiers associated only with other submitters are not needed for this workflow and can create privacy and data-integrity concerns if disclosed.

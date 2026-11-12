@@ -1,0 +1,44 @@
+- id: timeliness-and-maintenance-of-cvx-support--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support newly published Active CVX codes within 30 days of CDC publication, provided the corresponding CDSi supporting data required to evaluate and forecast the CVX code are available.
+- id: timeliness-and-maintenance-of-cvx-support--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support newly published Inactive CVX codes within 30 days of CDC publication so that historical and category-level records can be recorded accurately.
+- id: timeliness-and-maintenance-of-cvx-support--s3
+  verb: SHOULD
+  actor: Submitting systems
+  text: Submitting systems SHOULD plan for timely adoption of newly published CVX codes in alignment with CDC publication schedules.
+- id: timeliness-and-maintenance-of-cvx-support--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL preserve CVX codes recorded in patient immunization histories indefinitely, even after those codes become inactive.
+- id: timeliness-and-maintenance-of-cvx-support--s5
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT modify historical CVX values solely due to status changes in the CVX code set.
+- id: timeliness-and-maintenance-of-cvx-support--s6
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL ensure that historical vaccination records remain interpretable over time.
+- id: timeliness-and-maintenance-of-cvx-support--s7
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL maintain CVX status information (e.g., Active, Inactive, Non-US, Pending, Never Active) consistent with the CDC-published code set.
+- id: timeliness-and-maintenance-of-cvx-support--s8
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD track effective dates and status changes for CVX codes to support accurate interpretation of historical records.
+- id: timeliness-and-maintenance-of-cvx-support--s9
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD ensure that internal mappings and decision support configuration remain aligned with current CVX status information.
+- id: timeliness-and-maintenance-of-cvx-support--s10
+  verb: SHOULD
+  actor: IIS and submitting systems
+  text: IIS and submitting systems SHOULD monitor CDC CVX publications and update mechanisms to remain current with code set changes.
+- id: timeliness-and-maintenance-of-cvx-support--s11
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD encourage submitting systems to align code usage with current CDC-published CVX values to minimize data quality issues and rejected submissions.

@@ -1,0 +1,8 @@
+id: msa-1-guidance
+title: MSA-1 Guidance
+figures:
+  - id: fig-14
+    file: fig-14.png
+    number: 14
+    caption: Derivation of Message-Level Disposition (MSA-1)
+    alt: ''

@@ -1,0 +1,20 @@
+- id: submitting-organization-msh-4-sending-facility--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL populate MSH-4 in all VXU and QBP messages to identify the submitting organization.
+- id: submitting-organization-msh-4-sending-facility--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL authenticate connections and confirm that transport credentials correspond to the organization identified in MSH-4.
+- id: submitting-organization-msh-4-sending-facility--s3
+  verb: SHALL
+  actor: IIS and submitters
+  text: IIS and submitters SHALL establish and maintain the submitting-organization identifier during onboarding.
+- id: submitting-organization-msh-4-sending-facility--s4
+  verb: MAY
+  actor: Single submitting organization identifier
+  text: A single submitting organization identifier MAY be authorized to submit on behalf of multiple responsible organizations.
+- id: submitting-organization-msh-4-sending-facility--s5
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT rely solely on transport-layer information to infer other organizational roles.

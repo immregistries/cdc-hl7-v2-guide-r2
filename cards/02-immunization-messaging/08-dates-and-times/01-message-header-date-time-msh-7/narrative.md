@@ -1,0 +1,1 @@
+MSH-7 identifies when the sending system created the message. This timestamp supports operational processing, auditing, and troubleshooting, but it is not used for clinical interpretation of immunization events. Because systems operate across multiple platforms and time zones, consistent timestamp precision and offset handling are required to ensure interoperability.

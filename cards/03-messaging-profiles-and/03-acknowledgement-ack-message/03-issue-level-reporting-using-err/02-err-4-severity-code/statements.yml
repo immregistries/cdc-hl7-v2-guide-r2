@@ -1,0 +1,40 @@
+- id: err-4-severity-code--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD implement different validation rules based on the submitter or submitter class to align with operational priorities; for example, an issue treated as a Warning for general providers may be escalated to an Error for submitters subject to stricter program requirements (such as VFC participants).
+- id: err-4-severity-code--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL return severity 'E' to convey that core intent was not fulfilled and correction and resubmission are required.
+- id: err-4-severity-code--s3
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT return severity 'E' for conformance violations alone (e.g., segment mis-ordering, missing required delimiters), unless the issue prevents the IIS from fulfilling core intent.
+- id: err-4-severity-code--s4
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT return severity 'E' for a requested update or delete action from a conformant VXU that was not applied (e.g., a deletion not honored due to policy).
+- id: err-4-severity-code--s5
+  verb: SHALL NOT
+  actor: Systems
+  text: Systems SHALL NOT automatically block the transmission or processing of subsequent messages for other patients or immunizations due to a severity 'E' error on one message.
+- id: err-4-severity-code--s6
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL return severity 'W' to convey an issue requiring correction that does not prevent core intent from being fulfilled.
+- id: err-4-severity-code--s7
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL return severity 'I' to convey an issue that does not require correction (e.g., a submitted precaution or VIS information that was not stored).
+- id: err-4-severity-code--s8
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD return severity 'I' to convey that a requested update or delete action from a conformant VXU was not applied.
+- id: err-4-severity-code--s9
+  verb: MAY
+  actor: IIS
+  text: IIS MAY return severity 'I' to convey a positive or neutral statement where no follow-up is required.
+- id: err-4-severity-code--s10
+  verb: SHALL NOT
+  actor: Systems
+  text: Systems SHALL NOT use informational-severity ERR segments to determine what data may need to be resubmitted.

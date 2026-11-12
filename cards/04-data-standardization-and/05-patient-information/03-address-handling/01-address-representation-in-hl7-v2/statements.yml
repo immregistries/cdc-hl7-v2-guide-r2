@@ -1,0 +1,24 @@
+- id: address-representation-in-hl7-v2--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL send patient address information in PID-11.
+- id: address-representation-in-hl7-v2--s2
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL use PID-11.7 (Address Type) to identify the type of address.
+- id: address-representation-in-hl7-v2--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL correctly interpret repeated PID-11 segments.
+- id: address-representation-in-hl7-v2--s4
+  verb: MAY
+  actor: IIS
+  text: IIS MAY choose whether to retain one or multiple patient addresses.
+- id: address-representation-in-hl7-v2--s5
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT require "self" NK1 entries duplicating PID-11 content.
+- id: address-representation-in-hl7-v2--s6
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept valid non-U.S. addresses when submitted.

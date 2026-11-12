@@ -1,0 +1,1 @@
+Immunity observations are reported using specific LOINC codes with associated value sets. While this IG defines the expected structure and references standard codes in the value set tables, jurisdictions may extend their allowable code lists. Use of extended codes must be coordinated with the IIS, as acceptance varies.

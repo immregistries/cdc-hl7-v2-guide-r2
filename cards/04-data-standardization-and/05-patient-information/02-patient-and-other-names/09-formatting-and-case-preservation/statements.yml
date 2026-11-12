@@ -1,0 +1,23 @@
+- id: formatting-and-case-preservation--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL preserve spaces, hyphens, and multiple given names as submitted.
+- id: formatting-and-case-preservation--s2
+  verb: SHOULD
+  actor: Systems
+  text: Systems SHOULD preserve original capitalization when storing names.
+- id: formatting-and-case-preservation--s3
+  verb: MAY
+  verbs:
+    - MAY
+    - SHALL NOT
+  actor: IIS
+  text: IIS MAY standardize capitalization for internal comparison or display purposes but SHALL NOT alter the capitalization in transmitted data.
+- id: formatting-and-case-preservation--s4
+  verb: SHOULD
+  actor: ''
+  text: Each name component SHOULD support up to 64 characters.
+- id: formatting-and-case-preservation--s5
+  verb: MAY
+  actor: IIS
+  text: IIS MAY define local policies for reconciling capitalization differences across submissions but must retain a version of the name as originally submitted.

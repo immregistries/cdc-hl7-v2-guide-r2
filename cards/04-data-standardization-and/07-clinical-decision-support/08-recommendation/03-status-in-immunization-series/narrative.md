@@ -1,0 +1,3 @@
+Status in immunization series (LOINC 59783-1) provides the core meaning of each forecast: whether another dose is needed or the series is complete. This field must always be returned. LOINC Answer codes provide a baseline interoperable vocabulary, but CDS engines may supply more specific status concepts. This guide does not restrict that granularity; systems may return both LOINC codes and local codes together, with the LOINC code supplying interoperability and the local code providing precision.
+
+A minimal floor is required: a system must distinguish series complete versus another dose due. Beyond that, additional granularity is allowed and encouraged.

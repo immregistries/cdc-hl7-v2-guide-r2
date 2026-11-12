@@ -1,0 +1,28 @@
+- id: code-retirement-and-long-term-data-fidelity--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL preserve CVX codes recorded in patient immunization histories, even after those codes are retired or become inactive.
+- id: code-retirement-and-long-term-data-fidelity--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL treat vaccinations reported with retired CVX codes as valid historical records when they accurately represent doses administered.
+- id: code-retirement-and-long-term-data-fidelity--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL continue to return retired CVX codes in RSP messages when they are part of a patient's immunization history.
+- id: code-retirement-and-long-term-data-fidelity--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept vaccination records reported with retired CVX codes when the vaccination was administered prior to retirement.
+- id: code-retirement-and-long-term-data-fidelity--s5
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD be prepared to accept administered vaccination reports using retired CVX codes during transition periods when products remain in circulation.
+- id: code-retirement-and-long-term-data-fidelity--s6
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD monitor use of retired CVX codes for administered vaccinations and coordinate with submitting systems to transition to appropriate replacement codes.
+- id: code-retirement-and-long-term-data-fidelity--s7
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD distinguish between historical use of retired codes and inappropriate continued use for new administrations as part of data quality monitoring.

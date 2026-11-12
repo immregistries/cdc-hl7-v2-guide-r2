@@ -1,0 +1,4 @@
+- id: intended-use-of-tabs--s1
+  verb: SHALL
+  actor: 'Required Implementation: Organizations'
+  text: 'Required Implementation: Organizations SHALL implement TAB specifications as soon as feasible to maintain HL7 v2.5.1 exchange capabilities.'

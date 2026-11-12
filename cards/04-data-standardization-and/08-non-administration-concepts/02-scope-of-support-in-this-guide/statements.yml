@@ -1,0 +1,8 @@
+- id: scope-of-support-in-this-guide--s1
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY report that a vaccine was not administered; a VXU may contain zero administered vaccinations and may consist solely of non-administration concepts.
+- id: scope-of-support-in-this-guide--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD extract and store patient-level observations whenever they appear in the message, regardless of whether they are transmitted inside an administered RXA or a non-administration RXA.

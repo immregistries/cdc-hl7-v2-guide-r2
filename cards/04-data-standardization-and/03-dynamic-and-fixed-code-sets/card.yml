@@ -1,0 +1,8 @@
+id: dynamic-and-fixed-code-sets
+title: Dynamic and Fixed Code Sets
+figures:
+  - id: fig-18
+    file: fig-18.png
+    number: 18
+    caption: Stability and Extensibility Matrix
+    alt: ''

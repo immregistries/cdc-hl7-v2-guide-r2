@@ -1,0 +1,12 @@
+- id: message-header-date-time-msh-7--s1
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY use any valid time zone offset and are not required to convert timestamps to the IIS local time zone.
+- id: message-header-date-time-msh-7--s2
+  verb: SHALL
+  actor: Receiving systems
+  text: Receiving systems SHALL accept functionally equivalent timestamps expressed with different time zone offsets.
+- id: message-header-date-time-msh-7--s3
+  verb: SHALL NOT
+  actor: ''
+  text: MSH-7 SHALL NOT be used for clinical interpretation, immunization evaluation, or forecasting.

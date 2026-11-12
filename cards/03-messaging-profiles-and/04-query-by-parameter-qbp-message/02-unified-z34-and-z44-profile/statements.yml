@@ -1,0 +1,12 @@
+- id: unified-z34-and-z44-profile-model--s1
+  verb: MAY
+  actor: IIS
+  text: IIS MAY omit computationally expensive evaluation when Z34 is used.
+- id: unified-z34-and-z44-profile-model--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL include both the complete immunization history and the associated evaluation and recommendations when Z44 is used.
+- id: unified-z34-and-z44-profile-model--s3
+  verb: SHOULD
+  actor: Implementers
+  text: Implementers SHOULD validate local behavior and perform interoperability testing before relying on the unified model in production.

@@ -1,0 +1,3 @@
+The Standards and Interoperability Testing Tools (SITT), originally developed by NIST and now managed by Prometheus Computing, provide standardized tooling to support certification and conformance assessment for immunization messaging. The HL7 v2 Immunization Test Suite within SITT supports both context-free message validation and scenario-based testing used during certification.
+
+Not all requirements in this guide are verifiable through inspection of a single message. Fields with RE (Required, but may be Empty if unknown) usage, for example, require contextual knowledge to determine whether data was known and therefore required to be populated. This limitation does not render such requirements unenforceable.

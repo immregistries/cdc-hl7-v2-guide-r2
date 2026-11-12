@@ -1,0 +1,16 @@
+- id: name-consistency-and-matching-expectations--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL send the closest available representation of the patient's official registry name ('L'), even if other systems use slightly different forms.
+- id: name-consistency-and-matching-expectations--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept minor variations in name spelling, case, or special characters when evaluating matches.
+- id: name-consistency-and-matching-expectations--s3
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT require submitting systems to alter or "correct" names to match the registry's stored spelling or format.
+- id: name-consistency-and-matching-expectations--s4
+  verb: MAY
+  actor: IIS
+  text: IIS MAY return transliterated or modified versions of names (e.g., "Pena" instead of "Peña") when system limitations prevent preserving certain characters, while maintaining the same record linkage.

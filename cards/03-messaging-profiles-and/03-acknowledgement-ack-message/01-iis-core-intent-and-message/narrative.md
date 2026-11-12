@@ -1,0 +1,8 @@
+Considering whether a VXU's core intent was fulfilled provides a consistent, implementation-independent way to determine acceptance or rejection:
+
+- If the submitted patient was associated with or created in the IIS, and their shot history (if submitted) was recorded, core intent is fulfilled and the VXU is accepted.
+- If the patient was not associated with or created in the IIS, or their submitted shot history was not recorded, core intent is not fulfilled and the VXU is rejected.
+
+Operationally, core intent is fulfilled when the Critical Data associated with a submission, the minimum information necessary for the IIS to safely incorporate the submission into the patient's immunization history, is successfully processed and stored. Storage or rejection of non-Critical Data does not independently determine message disposition.
+
+Implementation-specific business rules, such as those governing patient matching, record consolidation, and de-duplication, determine how an individual IIS arrives at these outcomes. For example, an IIS that requires a patient address to associate a record will reject a VXU missing that address, while an IIS with no such requirement will accept the same VXU. Regardless of local policy, whichever outcome results, whether the VXU was accepted or rejected depends on whether core intent was fulfilled, not on the specific local rule that produced that result. Some CDC Core Data Elements, particularly those necessary to associate a patient record or record a submitted vaccination, are commonly treated as Critical Data by IIS; however, the specific set of Critical Data elements remains a matter of local policy, as described above.

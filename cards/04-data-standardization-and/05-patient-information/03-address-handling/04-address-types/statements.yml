@@ -1,0 +1,12 @@
+- id: address-types--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL determine address type using PID-11.7.
+- id: address-types--s2
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject messages solely due to uncommon or additional address types.
+- id: address-types--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY disregard address types with no operational relevance (e.g., birth location) unless explicitly negotiated.

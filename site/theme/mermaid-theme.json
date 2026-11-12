@@ -1,0 +1,18 @@
+{
+  "_comment": "Mermaid theme for diagrams in this guide. Keep in step with tokens.css.",
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Open Sans, Segoe UI, Arial, sans-serif",
+    "primaryColor": "#d8e8f0",
+    "primaryBorderColor": "#0050b0",
+    "primaryTextColor": "#002058",
+    "secondaryColor": "#eef5fa",
+    "secondaryBorderColor": "#78e0e8",
+    "tertiaryColor": "#fff4d6",
+    "tertiaryBorderColor": "#f8b858",
+    "lineColor": "#002058",
+    "textColor": "#1b2733",
+    "noteBkgColor": "#fff4d6",
+    "noteBorderColor": "#f8b858"
+  }
+}

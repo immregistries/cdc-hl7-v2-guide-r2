@@ -1,0 +1,8 @@
+id: msa-1-derivation-of-message-level-disposition
+title: 'MSA-1: Derivation of Message-Level Disposition'
+figures:
+  - id: fig-13
+    file: fig-13.png
+    number: 13
+    caption: 'ERR-4 Severity to MSA-1 Disposition: AA, AE, and AR Determination'
+    alt: ''

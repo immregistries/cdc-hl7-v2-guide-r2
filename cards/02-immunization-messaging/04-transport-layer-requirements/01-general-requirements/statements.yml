@@ -1,0 +1,19 @@
+- id: general-requirements--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL implement and maintain conformance with the CDC WSDL Specification (2015).
+- id: general-requirements--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL expose a single SOAP endpoint supporting both update (VXU) and query (QBP) messages.
+- id: general-requirements--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL determine message type from the HL7 v2 content, not from SOAP endpoint selection.
+- id: general-requirements--s4
+  verb: MAY
+  verbs:
+    - MAY
+    - SHALL
+  actor: IIS
+  text: IIS MAY offer additional SOAP endpoints for specialized or high-volume use but the primary endpoint SHALL support both operations.

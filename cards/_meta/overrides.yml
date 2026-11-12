@@ -1,0 +1,111 @@
+# Human-maintained conversion rules. The converter reads this file on every run.
+# Titles are matched after whitespace normalization, case-insensitively.
+
+# Sub-headings with these titles are not cards. Their content becomes the
+# parent card's own narrative.
+context_titles:
+  - Context and Rationale
+  - Context & Rationale
+
+# Sections whose bold sub-headings stay as bold lines in the section's own
+# narrative instead of becoming child cards.
+no_split:
+  - Document and Structure
+
+# Most requirements in the draft are written as one-sentence paragraphs rather
+# than bullets. When true, such paragraphs (a conformance verb, one sentence,
+# opening with the actor or a condition) become conformance statements. The
+# quality report lists every promoted statement. Cards listed in no_promote
+# are left as written.
+promote_prose_statements: true
+no_promote:
+  - conformance-verbs
+
+# Sub-headings that group the sub-headings listed under them. In the draft these
+# are all at one level; here the listed ones become child cards. A nested group
+# ends at the first sub-heading not in its list.
+nest:
+  Purpose and Scope: [Purpose, Scope]
+  Entity Models: [Patient (Entity), Guardian (Entity), Vaccination (Entity)]
+  Coding Considerations: [CVX Codes, NDC Codes]
+  # Proposed at the Phase 1 checkpoint (12 Nov 2026): grouping sub-headings
+  # followed by the items they introduce.
+  Identifying vs. Non-Identifying Vaccination Fields: [Identifying Vaccination Fields, Non-Identifying Vaccination Fields]
+  VXU Submission Scenarios:
+    - New Vaccination Administered During an Encounter
+    - Historical Vaccination Recorded
+    - Modifying Non-Identifying Vaccination Fields
+    - Deletion of a Vaccination Record Submitted by the Same Organization
+    - Deletion of a Vaccination Record Submitted by Another Organization
+    - Patient Demographic Records and VXUs Without Immunizations
+    - Official Registry Name Recorded for a Newborn
+    - "Qualifying Event: First Submission for a Patient"
+  Issue-Level Reporting Using ERR Segments:
+    - "ERR-2: Error Location"
+    - "ERR-4: Severity Code"
+    - Required Follow-Up Actions
+    - "ERR-5: Application Error Code"
+    - Optional Use of Code 5044 (Patient Identifier Returned)
+    - "ERR-8: User Message"
+  "MSA-1: Derivation of Message-Level Disposition": [MSA-1 Guidance]
+  Scenarios That Trigger QBP Messages: [User-Initiated Query Scenarios, System-Initiated Query Scenarios]
+  RSP Response Profiles:
+    - Z23 - Return an Acknowledgement
+    - Z32 - Return Complete Immunization History
+    - Z31 - Return a List of Candidates
+    - Z33 - Return a Response with No Person Records
+    - Z42 - Return Evaluated Immunization History and Forecast
+  OBX Segment Mechanics and Field Usage:
+    - OBX-1 Set ID - OBX
+    - OBX-3 Observation Identifier
+    - OBX-2 Value Type
+    - OBX-4 Observation Sub-ID
+    - OBX-5 Observation Value
+    - OBX-14 Date/Time of the Observation
+    - OBX-17 Observation Method
+  Order Segment Group Flavors:
+    - Immunization Event
+    - Immunization Event (Contraindicated)
+    - Immunization Event (Refused)
+    - Patient Observations
+    - Immunization Event with Evaluation
+    - Forecast
+  CVX - Vaccines Administered Code:
+    - CVX Code Status and Operational Meaning
+    - Unspecified Formulation and Category-Level CVX Codes
+    - Appropriate Use of Unspecified Formulation and Category-Level CVX Codes
+    - Non-Vaccine CVX Codes (Including 998 and 999)
+    - Timeliness and Maintenance of CVX Support
+  NDC - National Drug Code:
+    - Unit-of-Use and Unit-of-Sale NDCs
+    - NDC Formatting Expectations
+    - Relationship Between NDC and CVX
+    - Storage and Traceability Expectations
+  Reporting Administered Vaccinations (VXU):
+    - Accepted Code Systems for Administered Vaccinations
+    - CVX Requirements for Administered Vaccinations
+    - NDC Requirements for Administered Vaccinations
+  Vaccinations Returned in Query Responses (RSP):
+    - CVX Requirements for RSP Messages
+    - Optional Return of Other Code Systems
+  Conceptual Model: [Patient-Level Observations, Dose-Level Non-Administration]
+
+# Sections whose bold sub-headings are glossary terms. The terms go to
+# data/<name>.yml, and the section card refers to that data set.
+glossary_sections:
+  Key Terms: key-terms
+
+# Top-level (Heading 1) sections handled outside the card tree.
+#   skip: ignored by the narrative conversion
+#   glossary / references / change-history: converted to data/ files
+stop_at: Message Infrastructure          # structured chapter comes from the IGAMT export
+appendices:
+  "Appendix A: Example Messages": skip   # examples are imported separately
+  "Appendix B: Glossary and Abbreviations": glossary
+  "Appendix C: List Of Figures and Diagrams": skip
+  "Appendix D: Immunization and Public Health Data Exchange Resources": references
+  "Change History": change-history
+
+# Alternative text for figures, by figure number. Captions are used until
+# alt text is written here.
+figure_alt: {}

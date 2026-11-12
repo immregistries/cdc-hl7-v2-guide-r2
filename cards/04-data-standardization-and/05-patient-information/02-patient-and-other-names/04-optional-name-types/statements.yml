@@ -1,0 +1,16 @@
+- id: optional-name-types--s1
+  verb: MAY
+  actor: Systems
+  text: Systems MAY support optional name types when used for legitimate patient identification.
+- id: optional-name-types--s2
+  verb: MAY
+  actor: IIS
+  text: IIS MAY accept these additional name types for local matching needs.
+- id: optional-name-types--s3
+  verb: SHOULD NOT
+  actor: Systems
+  text: Systems SHOULD NOT send names with ambiguous or administrative meaning such as Business, Partner/Spouse, or Licensing names.
+- id: optional-name-types--s4
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT process unsupported name types if received.

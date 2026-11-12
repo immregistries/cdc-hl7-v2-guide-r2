@@ -1,0 +1,4 @@
+- id: intended-use-and-implementation-expectations--s1
+  verb: SHOULD
+  actor: ''
+  text: This section's SHOULD requirements indicate capabilities that are expected to become mandatory in future versions of this guide; implementing them now provides forward compatibility.

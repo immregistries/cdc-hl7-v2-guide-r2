@@ -1,0 +1,24 @@
+- id: appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s1
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL use the most specific CVX code they know to be accurate for an administered vaccination.
+- id: appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s2
+  verb: SHOULD NOT
+  actor: Submitting systems
+  text: Submitting systems SHOULD NOT use Unspecified Formulation or broad category-level CVX codes for newly administered vaccinations when a more specific CVX code is known at the time of documentation.
+- id: appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept Unspecified Formulation and category-level CVX codes when they represent the best available information.
+- id: appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s4
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject vaccination records solely because an Unspecified Formulation or category-level CVX code is used.
+- id: appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s5
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD monitor use of Unspecified Formulation and category-level CVX codes, particularly for administered vaccinations, as part of ongoing data-quality review.
+- id: appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s6
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD work with submitting systems when routine use of broader CVX codes indicates loss of available specificity or workflow issues.

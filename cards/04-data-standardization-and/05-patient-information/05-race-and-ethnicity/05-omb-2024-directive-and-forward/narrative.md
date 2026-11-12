@@ -1,0 +1,7 @@
+In March 2024, OMB updated Statistical Policy Directive No. 15, introducing several changes to federal race and ethnicity standards, including a combined race/ethnicity question and the addition of Middle Eastern or North African (MENA) as a minimum reporting category. Federal agencies are required to implement these changes by September 28, 2029. This guide does not mandate a particular SPD-15/OMB version for HL7 messaging.
+
+These updates affect data collection practices but do not yet change HL7 v2 transmission requirements. Until coordinated guidance is issued by CDC and HL7, IIS should continue current exchange practices while preparing for transition.
+
+A top-level category is an aggregate, primary race or ethnicity classification used for broad reporting and program metrics, for example, White; Black or African American; Asian; American Indian or Alaska Native; Native Hawaiian or Other Pacific Islander; Middle Eastern or North African (MENA); Hispanic/Latino; Not Hispanic/Latino. The CDCREC value set includes these top-level categories and also detailed subcategories for greater local specificity. These granular CDCREC codes support local analysis but are not required for national interoperability.
+
+Querying systems should also be aware that IIS are not authoritative race/ethnicity registries; querying systems SHOULD NOT assume that race or ethnicity will be returned in RSP responses.

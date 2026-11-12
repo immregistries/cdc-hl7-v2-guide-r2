@@ -1,0 +1,8 @@
+id: date-of-vaccination-rxa-3
+title: Date of Vaccination (RXA-3)
+figures:
+  - id: fig-7
+    file: fig-7.png
+    number: 7
+    caption: Comparison of Message, Patient, and Dose-Level Timestamps (MSH-7, PID-7, RXA-3)
+    alt: ''

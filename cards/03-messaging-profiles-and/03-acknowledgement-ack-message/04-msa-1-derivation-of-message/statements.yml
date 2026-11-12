@@ -1,0 +1,8 @@
+- id: msa-1-derivation-of-message-level-disposition--s1
+  verb: SHALL
+  actor: ''
+  text: SHALL be returned to indicate VXU acceptance with no issues requiring correction/resubmission.
+- id: msa-1-derivation-of-message-level-disposition--s2
+  verb: SHALL
+  actor: ''
+  text: SHALL be returned when the ERR-4 severity is 'W' and there are no severity 'E' error(s).

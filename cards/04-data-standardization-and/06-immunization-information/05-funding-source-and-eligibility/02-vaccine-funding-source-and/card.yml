@@ -1,0 +1,8 @@
+id: vaccine-funding-source-and-stock-models
+title: Vaccine Funding Source and Stock Models
+figures:
+  - id: fig-28
+    file: fig-28.png
+    number: 28
+    caption: Two-Stock vs. Three-Stock Vaccine Inventory Models
+    alt: ''

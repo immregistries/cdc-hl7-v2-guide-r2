@@ -1,0 +1,5 @@
+Vaccines administered outside the U.S. may not map cleanly to a CVX code, particularly when combination products are used that are not licensed domestically. In these cases, the vaccination should be represented in terms of the antigen components given, rather than attempting to force an exact product match.
+
+When a foreign combination vaccine cannot be represented as a single CVX code, submitting systems SHOULD decompose the vaccination into its component antigens and report each component as a separate vaccination event using appropriate CVX codes. If exact product identification is not possible, submitters MAY use an Unspecified Formulation CVX for the component(s) and SHOULD include provenance or a Local IG mapping reference so receivers can interpret the submission. Foreign or extra-jurisdictional vaccinations that were not administered by the submitting organization are typically reported as historical vaccinations and should be marked accordingly.
+
+This approach preserves the clinical meaning of the vaccination while allowing CDS engines to apply schedule logic appropriately.

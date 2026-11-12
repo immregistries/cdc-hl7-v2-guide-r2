@@ -1,0 +1,12 @@
+- id: use-of-administered-vs-historical-on-output--s1
+  verb: SHOULD NOT
+  actor: IIS
+  text: IIS SHOULD NOT differentiate between administered and historical vaccinations when returning consolidated immunization histories.
+- id: use-of-administered-vs-historical-on-output--s2
+  verb: SHOULD
+  actor: Querying systems
+  text: Querying systems SHOULD ignore administered/historical indicators if present.
+- id: use-of-administered-vs-historical-on-output--s3
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD focus outbound histories on vaccine type, date of administration, and relevant clinical attributes rather than submission context.

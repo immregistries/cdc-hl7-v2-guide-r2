@@ -1,0 +1,1 @@
+Race and ethnicity are transmitted using distinct HL7 fields and standardized code systems. IIS interoperability depends on consistent use of the CDCREC value set rather than legacy HL7 tables. See Section 7.4, Value Sets, for the authoritative Race and Ethnicity codes.

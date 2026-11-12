@@ -1,0 +1,3 @@
+Prior to HL7 v2.5, the meaning of "Y" in PD1-12 was reversed ("Y" meant share). HL7 v2.5.1 corrected this to align with the base HL7 definition: "Y" = protect data, "N" = do not protect. Systems maintaining older interfaces must ensure that their interpretation matches the current standard.
+
+This reversal is a common source of error when updating interfaces from pre-2.5.1 HL7 versions to HL7 v2.5.1, particularly when existing mappings are reused without review. Implementers upgrading interfaces SHOULD review PD1-12 mappings and test message flows carefully to ensure their interpretation matches the current standard.

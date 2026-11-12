@@ -1,0 +1,1 @@
+By adopting this IG, IIS and their partners can reduce onboarding time, minimize local variability, and improve the reliability of shared data. The result is a more cohesive national immunization data ecosystem-one in which every system contributes to and benefits from a common standard that ultimately serves patients, clinicians, and public-health programs alike.

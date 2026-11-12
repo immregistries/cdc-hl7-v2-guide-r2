@@ -1,0 +1,12 @@
+- id: use-of-acks-in-interface-monitoring--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL ensure that severities assigned in ACK messages accurately reflect expected follow-up actions.
+- id: use-of-acks-in-interface-monitoring--s2
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT use rejection solely as a mechanism to enforce minor conformance preferences that do not result in loss of Critical Data or failure to fulfill core intent.
+- id: use-of-acks-in-interface-monitoring--s3
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL analyze ACK feedback in aggregate to identify recurring data quality patterns.

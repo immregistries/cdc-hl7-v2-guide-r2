@@ -1,0 +1,20 @@
+- id: evaluation-future-work--s1
+  verb: SHALL
+  actor: ''
+  text: The vaccine type SHALL be reported using the designated LOINC code specified in Chapter 7 (OBX table).
+- id: evaluation-future-work--s2
+  verb: SHALL
+  actor: ''
+  text: The vaccine-type observation SHALL be placed first within each evaluated group.
+- id: evaluation-future-work--s3
+  verb: SHALL
+  verbs:
+    - SHALL
+    - SHOULD
+    - MAY
+  actor: ''
+  text: CVX SHALL be used in OBX-5; the CVX selected SHOULD represent the most appropriate antigen-level CVX. When an exact product formulation is not known, implementers MAY use an unspecified formulation CVX.
+- id: evaluation-future-work--s4
+  verb: SHOULD NOT
+  actor: ''
+  text: The deprecated component-level vaccine-type LOINC code SHOULD NOT be returned (see Chapter 7 for additional detail).

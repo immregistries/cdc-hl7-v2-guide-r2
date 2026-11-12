@@ -1,0 +1,16 @@
+- id: reporting-historical-vaccinations--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept Inactive CVX codes for historical vaccinations.
+- id: reporting-historical-vaccinations--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept Non-US CVX codes for historical vaccinations.
+- id: reporting-historical-vaccinations--s3
+  verb: SHOULD
+  actor: Submitting systems
+  text: Submitting systems SHOULD use the most specific CVX code available that accurately represents the historical vaccination.
+- id: reporting-historical-vaccinations--s4
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY use category-level or unspecified formulation CVX codes when the exact formulation cannot be determined.

@@ -1,0 +1,28 @@
+- id: protection-indicator-pd1-12-usage--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL use PD1-12 (Protection Indicator) only to communicate explicit patient or guardian consent preferences.
+- id: protection-indicator-pd1-12-usage--s2
+  verb: SHALL
+  actor: ''
+  text: '''Y'' SHALL indicate that the patient/guardian has not consented to data sharing (protect data).'
+- id: protection-indicator-pd1-12-usage--s3
+  verb: SHALL
+  actor: ''
+  text: '''N'' SHALL indicate that the patient/guardian has consented to data sharing.'
+- id: protection-indicator-pd1-12-usage--s4
+  verb: SHALL
+  actor: ''
+  text: An empty PD1-12 SHALL indicate that no determination of patient/guardian preference is available.
+- id: protection-indicator-pd1-12-usage--s5
+  verb: SHALL NOT
+  actor: Sending systems
+  text: Sending systems SHALL NOT populate PD1-12 by default unless the patient/guardian has made an explicit determination.
+- id: protection-indicator-pd1-12-usage--s6
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT require sending systems to populate PD1-12 with a default
+- id: protection-indicator-pd1-12-usage--s7
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD apply jurisdiction-specific defaults or restrictions after message receipt.

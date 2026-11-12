@@ -1,0 +1,8 @@
+id: patient-and-other-names
+title: Patient and Other Names
+figures:
+  - id: fig-22
+    file: fig-22.png
+    number: 22
+    caption: 'Patient Name Types: Official Registry, Maiden, Nickname, and Newborn'
+    alt: ''

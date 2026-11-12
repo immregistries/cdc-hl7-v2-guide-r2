@@ -1,0 +1,12 @@
+- id: representation-of-foreign-and-non-standard-products--s1
+  verb: MAY
+  actor: ''
+  text: Foreign or non-U.S. vaccination products MAY be represented using component-based CVX reporting.
+- id: representation-of-foreign-and-non-standard-products--s2
+  verb: MAY
+  actor: ''
+  text: Unspecified Formulation CVX codes MAY be used when exact product identification is not possible.
+- id: representation-of-foreign-and-non-standard-products--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL store these vaccinations as reported and include them in the consolidated immunization history.

@@ -1,0 +1,16 @@
+- id: dynamic-code-sets-evolving-code-sets-requiring-active-maintenance--s1
+  verb: SHALL
+  actor: Systems (including IIS and submitting systems)
+  text: Systems (including IIS and submitting systems) SHALL maintain a process to monitor and incorporate updates to dynamic code sets relevant to immunization messaging.
+- id: dynamic-code-sets-evolving-code-sets-requiring-active-maintenance--s2
+  verb: SHALL NOT
+  actor: Systems
+  text: Systems SHALL NOT hard-code dynamic code values into application logic without a defined update mechanism.
+- id: dynamic-code-sets-evolving-code-sets-requiring-active-maintenance--s3
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL validate received values for dynamic code sets against their current authoritative versions.
+- id: dynamic-code-sets-evolving-code-sets-requiring-active-maintenance--s4
+  verb: SHALL
+  actor: IIS
+  text: When a value from a dynamic and closed code set (e.g., CVX or NDC) is not recognized, the IIS SHALL generate an error or warning indicating that an unexpected or unknown value was received.

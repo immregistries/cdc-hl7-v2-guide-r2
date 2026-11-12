@@ -1,0 +1,15 @@
+- id: selecting-a-candidate-match--s1
+  verb: SHALL
+  actor: Querying systems
+  text: When a candidate is selected, querying systems SHALL re-initiate a Z34 or Z44 query using all the patient identifying information returned by the IIS for the selected record.
+- id: selecting-a-candidate-match--s2
+  verb: SHOULD
+  verbs:
+    - SHOULD
+    - SHALL NOT
+  actor: Querying systems
+  text: Querying systems SHOULD treat candidate selection as transitory and SHALL NOT permanently associate the IIS identifier with the local patient record without explicit user awareness and control.
+- id: selecting-a-candidate-match--s3
+  verb: SHALL
+  actor: Querying systems
+  text: If an IIS identifier is retained for future querying, querying systems SHALL provide a mechanism to remove or disregard that identifier.

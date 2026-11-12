@@ -1,0 +1,8 @@
+- id: defining-a-refusal--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL record a refusal only when the vaccine was due and the patient or guardian declined administration.
+- id: defining-a-refusal--s2
+  verb: SHALL NOT
+  actor: Systems
+  text: Systems SHALL NOT record refusals for cases of missed appointments, vaccine shortage, contraindications, or shared decision-making not to vaccinate.

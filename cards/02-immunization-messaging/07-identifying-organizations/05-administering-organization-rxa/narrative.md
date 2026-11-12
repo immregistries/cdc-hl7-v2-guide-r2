@@ -1,0 +1,9 @@
+The administering organization is the entity that physically administered the vaccine and managed its inventory. Although RXA-11 is labeled "Administered-at Location" in HL7 v2, in immunization messaging it represents an organization, not a physical address or temporary site.
+
+For mobile, outreach, or off-site programs, the administering organization is the program or unit responsible for vaccine administration, not the transient location where the event occurred. For historical vaccinations, there is no standardized, coded mechanism to identify the administering organization.
+
+In practice, IIS programs typically assign and manage their own identifiers for administering organizations, and submitting systems use those identifiers when reporting administered vaccinations. RXA-11.4 represents the organization identifier defined by the IIS, which does not necessarily correspond to an external identifier such as the National Provider Identifier (NPI). This approach reflects current operational practice and allows IIS programs to maintain consistent control over organization identification within their jurisdiction.
+
+Nationally recognized identifiers such as NPI may hold value in broader interoperability scenarios, particularly in contexts such as IIS-to-IIS exchange or query responses, where a locally assigned identifier may not be meaningful outside the originating system. Jurisdictions and submitters that wish to represent an NPI in RXA-11 may do so; however, NPI use is not currently required.
+
+CDC intends to pursue follow-up activities with the community on this topic, including defining a clear method for representing NPIs within the RXA-11 structure when desired, and facilitating broader discussion about whether and how national identifiers should be incorporated into IIS messaging standards in future versions of the implementation guide.

@@ -1,0 +1,19 @@
+- id: non-patient-person-names--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL preserve spaces and hyphens.
+- id: non-patient-person-names--s2
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL support commonly used diacritics or transliterations.
+- id: non-patient-person-names--s3
+  verb: SHOULD
+  actor: Systems
+  text: Systems SHOULD preserve case and support up to 64 characters per component.
+- id: non-patient-person-names--s4
+  verb: SHALL
+  verbs:
+    - SHALL
+    - SHOULD
+  actor: Submitting systems
+  text: For NK1-2, submitting systems SHALL populate the name type code (NK1-2.7) and SHOULD use the official registry ('L') name when known.

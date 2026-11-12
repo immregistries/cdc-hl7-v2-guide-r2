@@ -1,0 +1,3 @@
+User-initiated queries are driven by a person (clinician, patient, or guardian) who needs immunization information for a specific patient and is actively waiting for the result. These scenarios most commonly support clinical care, where the information returned by the IIS is used immediately to inform vaccination decisions. They may also occur when a patient or guardian requests information via a portal, or when a clinician initiates a patient lookup as part of an active clinical workflow.
+
+Because a user is waiting for the response, these queries represent the primary and highest-priority use of the IIS query interface. Availability and responsiveness are critical, and IIS operations should ensure that these queries are not delayed or degraded by background activity.

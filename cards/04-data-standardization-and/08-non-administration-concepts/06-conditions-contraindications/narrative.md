@@ -1,0 +1,3 @@
+Conditions describe clinical facts about a patient that may affect immunization decisions. These include allergies, pregnancy, immune status, current illness, medications, or other health factors that may contraindicate, indicate, or modify the appropriateness of one or more vaccines. Conditions may be temporary or permanent and may apply differently to different vaccines over time.
+
+In practice, the term contraindication is used both to describe these patient-level clinical facts and to describe encounter-level decisions not to administer a specific vaccine. This section defines conditions strictly as patient-level observations. Decisions not to administer a particular vaccine at a specific encounter are discussed separately as dose-level non-administration.

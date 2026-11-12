@@ -1,0 +1,5 @@
+Accurate contact information supports IIS follow-up, reminder/recall activities, and patient record matching. In HL7 v2, contact information is conveyed using the Extended Telecommunication Number (XTN) data type, most commonly in PID-13 (Patient Phone Number - Home) and NK1-5 (Next-of-Kin Phone Number).
+
+XTN represents a means of contact, not ownership or responsibility. For example, a newborn may have a phone number listed that belongs to a parent or guardian. Historically, these fields were designed to represent a household landline associated with a physical address. In modern use, they primarily represent mobile phone numbers or email addresses used to reach the patient or guardian responsible for care.
+
+Because the XTN data type predates widespread mobile phones and email, some of its concepts, particularly telecommunication use and equipment type, have limited modern relevance. IIS implementations must therefore apply consistent interpretation rules that reflect current practice rather than historical assumptions.

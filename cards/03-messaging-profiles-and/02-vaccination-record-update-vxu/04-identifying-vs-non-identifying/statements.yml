@@ -1,0 +1,8 @@
+- id: identifying-vs-non-identifying-vaccination-fields--s1
+  verb: SHALL
+  actor: Submitting system
+  text: 'When an identifying vaccination field is changed, the submitting system SHALL:'
+- id: identifying-vs-non-identifying-vaccination-fields--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support VXU delete and update messages for vaccination records originally submitted by the sending system.

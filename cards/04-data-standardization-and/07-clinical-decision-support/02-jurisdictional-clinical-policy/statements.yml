@@ -1,0 +1,4 @@
+- id: jurisdictional-clinical-policy--s1
+  verb: SHALL
+  actor: ''
+  text: When an RSP message includes evaluations and recommendations they SHALL cover all age-based recommendations used by the registry’s CDS logic.

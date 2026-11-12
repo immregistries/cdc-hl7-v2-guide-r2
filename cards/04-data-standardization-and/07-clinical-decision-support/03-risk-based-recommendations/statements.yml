@@ -1,0 +1,8 @@
+- id: risk-based-recommendations--s1
+  verb: MAY
+  actor: Jurisdictions
+  text: Jurisdictions MAY include recommendations for risk-based antigens, for example, HPV in adults where the routine recommendation primarily targets younger populations, or rabies vaccination for documented exposure or travel risk.
+- id: risk-based-recommendations--s2
+  verb: MAY
+  actor: Jurisdictions
+  text: Jurisdictions MAY include SCDM recommendations, for example, meningococcal B vaccination for adolescents and young adults, which is not universally recommended for everyone in the age group and is instead based on clinical discussion of individual risk and preferences.

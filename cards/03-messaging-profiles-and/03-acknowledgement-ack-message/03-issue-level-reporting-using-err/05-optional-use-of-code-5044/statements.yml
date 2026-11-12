@@ -1,0 +1,16 @@
+- id: optional-use-of-code-5044-patient-identifier-returned--s1
+  verb: MAY
+  actor: IIS
+  text: 'IIS MAY support ERR-5 code 5044 ("Patient identifying information saved, IIS identifier for patient is {1}") to communicate the internal IIS patient identifier assigned to a record that was newly created or successfully matched and updated. If implemented:'
+- id: optional-use-of-code-5044-patient-identifier-returned--s2
+  verb: MAY
+  actor: ''
+  text: This code MAY be used only when the patient record was newly created in the IIS, or matched to an existing patient and successfully updated.
+- id: optional-use-of-code-5044-patient-identifier-returned--s3
+  verb: SHALL
+  actor: IIS
+  text: When used, the IIS SHALL include the corresponding internal patient identifier in ERR-6 (Application Error Parameter).
+- id: optional-use-of-code-5044-patient-identifier-returned--s4
+  verb: SHALL
+  actor: ''
+  text: The identifier returned in ERR-6 SHALL be suitable for use in a future QBP^Q11 query as a State Registry ID (SR) or Local Registry ID (LR); that is, it must be a valid, query-able identifier recognized by the IIS for record retrieval, and it may be combined with other identifiers in QPD-3.

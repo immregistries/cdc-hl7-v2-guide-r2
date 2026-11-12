@@ -1,0 +1,19 @@
+- id: supported-operations--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support connectivityTest to verify endpoint availability without authentication.
+- id: supported-operations--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support submitSingleMessage for both VXU and QBP transactions.
+- id: supported-operations--s3
+  verb: SHALL
+  verbs:
+    - SHALL
+    - SHOULD
+  actor: Sending systems
+  text: Sending systems SHALL implement submitSingleMessage and SHOULD implement connectivityTest.
+- id: supported-operations--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL respond to each request within 5 seconds under controlled or normal operating conditions, such as interoperability testing environments.

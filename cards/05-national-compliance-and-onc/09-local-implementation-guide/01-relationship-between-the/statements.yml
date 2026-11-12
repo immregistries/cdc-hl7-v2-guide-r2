@@ -1,0 +1,16 @@
+- id: relationship-between-the-national-ig-and-local-igs--s1
+  verb: SHALL
+  actor: Local IGs
+  text: Local IGs SHALL be derived from the National IG and identify all jurisdiction-specific constraints.
+- id: relationship-between-the-national-ig-and-local-igs--s2
+  verb: MAY
+  actor: Local IGs
+  text: Local IGs MAY introduce local requirements that differ from the National IG for policy, legal, or operational reasons.
+- id: relationship-between-the-national-ig-and-local-igs--s3
+  verb: SHALL NOT
+  actor: Local IGs
+  text: Local IGs SHALL NOT represent themselves as conformant with the National IG if they introduce requirements that contradict National IG behavior.
+- id: relationship-between-the-national-ig-and-local-igs--s4
+  verb: SHALL
+  actor: Jurisdiction
+  text: When a local IG contradicts the National IG, the jurisdiction SHALL clearly state that the local specification does not conform to the National IG and identify the areas of divergence.

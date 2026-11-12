@@ -1,0 +1,12 @@
+- id: vaccination-record-identity-and-orc-3--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD retain a durable association between the submitting source, the source-assigned ORC-3, and the consolidated vaccination event.
+- id: vaccination-record-identity-and-orc-3--s2
+  verb: SHOULD
+  actor: IIS
+  text: When responding to the same source, IIS SHOULD return the source-assigned ORC-3 when the association is reliably available.
+- id: vaccination-record-identity-and-orc-3--s3
+  verb: MAY
+  actor: IIS
+  text: When a source-assigned ORC-3 is not reliably available, IIS MAY return an IIS-assigned identifier for the consolidated vaccination event.

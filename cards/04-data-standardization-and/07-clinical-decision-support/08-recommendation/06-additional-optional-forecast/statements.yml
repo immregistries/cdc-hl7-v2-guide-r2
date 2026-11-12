@@ -1,0 +1,16 @@
+- id: additional-optional-forecast-details--s1
+  verb: MAY
+  actor: IIS
+  text: The IIS MAY return series name.
+- id: additional-optional-forecast-details--s2
+  verb: MAY
+  actor: IIS
+  text: The IIS MAY return total number of doses in series.
+- id: additional-optional-forecast-details--s3
+  verb: MAY
+  actor: IIS
+  text: The IIS MAY return dose number for the next event.
+- id: additional-optional-forecast-details--s4
+  verb: MAY
+  actor: IIS
+  text: The IIS MAY return the schedule used, with the understanding that it has limited reliability.

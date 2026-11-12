@@ -1,0 +1,8 @@
+- id: qualifying-event-first-submission-for-a-patient--s1
+  verb: MAY
+  actor: Submitting system
+  text: A submitting system MAY trigger a VXU containing the patient's complete immunization history upon first submission.
+- id: qualifying-event-first-submission-for-a-patient--s2
+  verb: SHALL
+  actor: Submitting system
+  text: The submitting system SHALL coordinate with the IIS prior to such submissions.

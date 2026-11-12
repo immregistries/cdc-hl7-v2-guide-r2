@@ -1,0 +1,3 @@
+Every submitting system uses a patient identifier to coordinate exchange with the IIS. The identifier used consistently for updates and queries is the primary exchange identifier. It does not need to be a formal medical record number, but it needs to remain stable while current and cannot be reassigned to another patient.
+
+MR is the expected national baseline because it reflects longstanding IIS practice. PI provides an alternative when the sender uses a general patient identifier rather than a medical record number. An IIS may support a limited set of additional identifier types. The supported set is documented in the IIS profile or onboarding agreement; support for the full HL7 identifier-type table is not expected.

@@ -1,0 +1,8 @@
+id: organization-identifier-data-types
+title: Organization Identifier Data Types
+figures:
+  - id: fig-5
+    file: fig-5.png
+    number: 5
+    caption: 'Organization Identifiers: Message-Level vs. Vaccination-Event-Level'
+    alt: ''

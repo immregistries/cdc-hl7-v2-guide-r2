@@ -1,0 +1,24 @@
+- id: date-semantics--s1
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL report patient-level conditions using OBX segments within an ORC/RXA group indicating no vaccination was administered.
+- id: date-semantics--s2
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL include LOINC 30945-0 with a valid SNOMED CT value to convey a condition.
+- id: date-semantics--s3
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY include effective and expiration date observations when applicable.
+- id: date-semantics--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL treat reported conditions as patient-level observations, not as vaccination events.
+- id: date-semantics--s5
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT infer dose-level non-administration semantics from the presence of a condition.
+- id: date-semantics--s6
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject a message solely because condition data is unsupported or not stored.

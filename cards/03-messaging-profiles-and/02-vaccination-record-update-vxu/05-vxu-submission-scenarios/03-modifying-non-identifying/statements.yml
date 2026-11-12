@@ -1,0 +1,12 @@
+- id: modifying-non-identifying-vaccination-fields--s1
+  verb: SHALL
+  actor: Submitting system
+  text: When only non-identifying vaccination fields are changed, the submitting system SHALL trigger a VXU update containing the modified information.
+- id: modifying-non-identifying-vaccination-fields--s2
+  verb: SHALL NOT
+  actor: Submitting systems
+  text: Submitting systems SHALL NOT trigger a VXU when a vaccination record is viewed or accessed without changes to any identifying or non-identifying vaccination record fields.
+- id: modifying-non-identifying-vaccination-fields--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support VXU update messages for vaccination records originally submitted by the sending system

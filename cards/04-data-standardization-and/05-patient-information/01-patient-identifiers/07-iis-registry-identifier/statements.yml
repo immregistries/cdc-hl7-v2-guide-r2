@@ -1,0 +1,4 @@
+- id: iis-registry-identifier--s1
+  verb: SHALL
+  actor: IIS
+  text: When an RSP includes a patient record or match candidate, the IIS SHALL include the current SR or LR assigned to that IIS patient record.

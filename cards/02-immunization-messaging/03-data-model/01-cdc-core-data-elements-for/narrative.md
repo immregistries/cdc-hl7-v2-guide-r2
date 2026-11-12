@@ -1,0 +1,7 @@
+The CDC has published the CDC Core Data Elements for Functional Standards [3], which is a set of data elements intended to identify the minimum data fields Immunization Information Systems (IIS) should support to enable effective immunization data exchange and interoperability. This data model references those elements as a definitional and descriptive resource, not as the organizing structure for the model itself.
+
+The conceptual data model presented in this guide is intentionally IIS-centric, reflecting how immunization histories are understood, exchanged, and stored by IIS and their trading partners. In contrast, the CDC Core Data Elements are aligned with broader interoperability efforts, including USCDI, and organize data elements according to a generalized data class structure. While that structure is valuable for standards alignment and cataloging, it does not always map cleanly to the way IIS model patients and vaccination histories.
+
+For that reason, this guide uses the CDC Core Data Elements as a reference catalog of data fields and definitions, drawing on its terminology and field descriptions where appropriate, while maintaining a data model that is purpose-built for immunization history exchange. Both documents were developed in parallel; alignment between them is expected to evolve over time.
+
+Where applicable, subsequent sections of this guide summarize relevant data elements drawn from the CDC Core Data Elements and relate them to the IIS conceptual model described here.

@@ -1,0 +1,4 @@
+- id: processing-multiple-pid-3-repetitions--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL locate by identifier type without regard to their PID-3 repetition position.

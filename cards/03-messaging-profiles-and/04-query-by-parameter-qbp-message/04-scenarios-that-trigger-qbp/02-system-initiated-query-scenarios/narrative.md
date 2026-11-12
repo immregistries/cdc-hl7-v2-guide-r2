@@ -1,0 +1,3 @@
+System-initiated queries occur without a user waiting for an immediate response. These queries are typically used to support planning, evaluation, or population-level activities and may operate on individual patients or sets of patients. While these uses are legitimate and valuable, their scale and frequency are not naturally bounded by human interaction.
+
+As a result, system-initiated queries must be designed to balance usefulness with the operational capacity of the IIS. Poorly configured or overly aggressive processes can generate large volumes of low-value traffic and negatively impact IIS performance, particularly during clinical hours.

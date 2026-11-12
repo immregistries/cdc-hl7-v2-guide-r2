@@ -1,0 +1,5 @@
+A Z23 response indicates that the query message could not be processed due to a structural or application-level problem detected within the HL7 message itself, for example, malformed or invalid MSH/QPD segments, missing required message header information, or other unrecoverable errors detected prior to query execution. In this case, the IIS is unable to execute the query as requested, and no patient matching or record retrieval is performed.
+
+Consistent with the Application-Level Scope of ACK Messages described in the Acknowledgement Message Profile section, a Z23 response represents an application-level outcome and is distinct from transport or connectivity failures (such as SOAP faults, network issues, or authentication failures), which are handled at the transport layer and are never conveyed through an ACK or RSP.
+
+Z23 responses are not part of normal query processing and generally indicate a configuration or message-construction error that must be corrected before successful queries can occur. Implementers should treat a Z23 as a signal to correct the submitted message (header or structure) and retry.

@@ -1,0 +1,1 @@
+The IIS transport layer must implement the CDC WSDL in full and provide a single interface capable of handling both update and query transactions. In this context, an endpoint refers to the network service address through which trading partners send HL7 v2 messages to the IIS (commonly implemented as a SOAP service URL).

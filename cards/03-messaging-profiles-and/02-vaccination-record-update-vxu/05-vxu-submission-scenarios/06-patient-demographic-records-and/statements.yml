@@ -1,0 +1,12 @@
+- id: patient-demographic-records-and-vxus-without-immunizations--s1
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY submit VXU messages containing patient demographic information with or without immunization events.
+- id: patient-demographic-records-and-vxus-without-immunizations--s2
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL coordinate with the IIS prior to sending demographic-only VXUs on an ongoing or routine basis.
+- id: patient-demographic-records-and-vxus-without-immunizations--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept VXU messages that contain patient demographic information, including VXUs with no immunization events.

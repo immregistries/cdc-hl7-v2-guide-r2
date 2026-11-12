@@ -1,0 +1,1 @@
+Refusal data are not part of the patient's official immunization record and carry no operational impact on forecasting or CDS. They exist solely for internal analytics and program evaluation. IIS may aggregate refusal data for population-level reporting or trend analysis.

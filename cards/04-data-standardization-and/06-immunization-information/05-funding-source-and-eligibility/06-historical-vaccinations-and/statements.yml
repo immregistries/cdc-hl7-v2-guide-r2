@@ -1,0 +1,15 @@
+- id: historical-vaccinations-and-internal-use--s1
+  verb: MAY
+  actor: ''
+  text: These values MAY be sent on historical vaccinations, and IIS use them, when relevant, for inventory and program operations; IIS are not required to store these values for historical doses, though they MAY retain them for audit or reconciliation purposes.
+- id: historical-vaccinations-and-internal-use--s2
+  verb: SHOULD NOT
+  verbs:
+    - SHOULD NOT
+    - MAY
+  actor: IIS
+  text: IIS SHOULD NOT use funding eligibility or funding source on historical doses to decrement inventory or drive program operations, and MAY ignore them when not needed.
+- id: historical-vaccinations-and-internal-use--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY normalize, correct, or update funding eligibility and funding source values internally over time to align with program operations, without attempting to preserve those changes as part of the clinical patient history returned to external systems.

@@ -1,0 +1,36 @@
+- id: patient-matching-responsibilities--s1
+  verb: SHALL
+  actor: Querying systems
+  text: Querying systems SHALL send all known patient demographic and identifying information available at the time of query.
+- id: patient-matching-responsibilities--s2
+  verb: SHOULD
+  actor: Querying systems
+  text: Querying systems SHOULD send the most current patient information, even if it differs from previously submitted data.
+- id: patient-matching-responsibilities--s3
+  verb: SHOULD
+  actor: ''
+  text: When querying systems both submit VXU messages and send QBP queries, the same patient identifiers SHOULD be used consistently across both interactions.
+- id: patient-matching-responsibilities--s4
+  verb: SHALL
+  actor: State immunization registry identifiers (SR)
+  text: State immunization registry identifiers (SR) SHALL be included when known, such as when obtained from prior candidate match responses.
+- id: patient-matching-responsibilities--s5
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL use all patient data submitted in the query to identify the most likely matching record or records.
+- id: patient-matching-responsibilities--s6
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD use probabilistic, weighted, machine learning, or other advanced matching techniques rather than relying solely on exact field matches.
+- id: patient-matching-responsibilities--s7
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD retain and reuse patient identifiers received through prior VXU submissions when those identifiers are consistent with other key patient attributes.
+- id: patient-matching-responsibilities--s8
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD treat strong patient identifiers (such as MRNs) as high-confidence match indicators while validating consistency with other demographic data.
+- id: patient-matching-responsibilities--s9
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD document how patient identifiers are used operationally to support matching and performance.

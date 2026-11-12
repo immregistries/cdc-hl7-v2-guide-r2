@@ -1,0 +1,19 @@
+- id: system-initiated-query-scenarios--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL enforce coordinated daily limits for automated per-patient or bulk queries.
+- id: system-initiated-query-scenarios--s2
+  verb: MAY
+  actor: ''
+  text: Appointment scheduling, imminent appointments, encounter start, and encounter completion MAY trigger a QBP.
+- id: system-initiated-query-scenarios--s3
+  verb: MAY
+  actor: Systems
+  text: After reporting vaccinations to the IIS, systems MAY trigger a QBP.
+- id: system-initiated-query-scenarios--s4
+  verb: MAY
+  verbs:
+    - MAY
+    - SHALL
+  actor: ''
+  text: Bulk or cohort queries MAY be implemented as a series of single-patient QBPs and SHALL be coordinated with the IIS in advance.

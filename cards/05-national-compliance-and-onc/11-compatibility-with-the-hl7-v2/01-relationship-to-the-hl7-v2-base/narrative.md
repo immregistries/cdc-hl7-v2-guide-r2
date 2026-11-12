@@ -1,0 +1,1 @@
+This guide intentionally preserves the structure of HL7 v2, segments, datatypes, and overall message organization, because implementers still benefit from the familiarity and tooling of the base standard. However, full conformance with HL7 v2 is not achievable or desirable for IIS workflows. Divergences fall into several categories:

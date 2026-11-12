@@ -1,0 +1,12 @@
+- id: jurisdiction-specific-eligibility-codes--s1
+  verb: SHALL
+  actor: Jurisdictions that define local eligibility codes
+  text: Jurisdictions that define local eligibility codes SHALL publish those codes, their meanings, their assigning authorities, and any effective dates or mappings in their local implementation guide.
+- id: jurisdiction-specific-eligibility-codes--s2
+  verb: SHALL NOT
+  actor: ''
+  text: Locally defined eligibility codes SHALL NOT duplicate the semantic meaning of existing national eligibility codes.
+- id: jurisdiction-specific-eligibility-codes--s3
+  verb: SHALL
+  actor: ''
+  text: Locally defined eligibility codes SHALL use a consistent pattern that clearly associates the code with the jurisdiction (for example, a state abbreviation followed by a sequence number, such as AK01, AK02) and SHALL include an assigning authority to distinguish jurisdictional values from national or other authorities.

@@ -1,0 +1,4 @@
+- id: unnecessary-corrections--s1
+  verb: SHALL NOT
+  actor: Submitting systems
+  text: Submitting systems SHALL NOT send an update or delete unless vaccination information has changed or the source record has been retracted.

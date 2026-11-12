@@ -1,0 +1,12 @@
+- id: forecast-group-structure--s1
+  verb: SHALL
+  actor: ''
+  text: All forecast information SHALL be returned under a single ORC/RXA order group.
+- id: forecast-group-structure--s2
+  verb: SHALL
+  actor: ''
+  text: Each antigen's forecast SHALL be distinguished using OBX-4 sub-ID values.
+- id: forecast-group-structure--s3
+  verb: SHALL
+  actor: ''
+  text: A forecast SHALL be included for every standard age-based series, including recommended series (for example, on-schedule or not yet due to start) and not-recommended series (for example, complete, immune, or contraindicated).

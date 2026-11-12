@@ -1,0 +1,20 @@
+- id: special-characters--s1
+  verb: SHALL
+  actor: Systems
+  text: 'Systems SHALL support the following 18 commonly used Latin-based characters (in both upper and lowercase): á, â, à, é, ê, ë, è, í, î, ï, ó, ô, ú, û, ü, ù, ç, ñ.'
+- id: special-characters--s2
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL either preserve these characters as submitted or transliterate them using the conversion table provided in this guide.
+- id: special-characters--s3
+  verb: MAY
+  actor: Systems
+  text: Systems MAY support additional special characters beyond this list.
+- id: special-characters--s4
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject a message solely because one of these characters appears in a patient or person name.
+- id: special-characters--s5
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL apply transliteration rules consistently when storage systems cannot represent these characters.

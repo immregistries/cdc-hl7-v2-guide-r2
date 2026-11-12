@@ -1,0 +1,4 @@
+- id: preserving-the-submitter-s-primary-exchange-identifier--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL retain the identifier value, identifier type, and assigning authority of the current primary exchange identifier associated with the patient record.

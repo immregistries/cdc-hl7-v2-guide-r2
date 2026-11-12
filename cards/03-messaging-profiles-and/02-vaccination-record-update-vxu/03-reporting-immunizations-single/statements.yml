@@ -1,0 +1,12 @@
+- id: reporting-immunizations-single-vs-multiple-administered-vaccinations-per-vxu--s1
+  verb: SHALL
+  actor: Submitting system
+  text: 'A submitting system SHALL support at least one of the following approaches:'
+- id: reporting-immunizations-single-vs-multiple-administered-vaccinations-per-vxu--s2
+  verb: MAY
+  actor: Submitting system
+  text: A submitting system MAY support both approaches if operationally required.
+- id: reporting-immunizations-single-vs-multiple-administered-vaccinations-per-vxu--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept both single-vaccination and multi-vaccination VXU messages.

@@ -1,0 +1,8 @@
+id: vaccination-entity
+title: Vaccination (Entity)
+figures:
+  - id: fig-3
+    file: fig-3.png
+    number: 3
+    caption: 'Data Model: Patient, Guardian, and Vaccination Entity Relationships'
+    alt: ''

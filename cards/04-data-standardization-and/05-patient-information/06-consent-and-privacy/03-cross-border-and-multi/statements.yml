@@ -1,0 +1,8 @@
+- id: cross-border-and-multi-jurisdictional-messaging--s1
+  verb: SHALL NOT
+  actor: ''
+  text: Consent indicators in PD1-12 SHALL NOT have any meaning outside the receiving jurisdiction.
+- id: cross-border-and-multi-jurisdictional-messaging--s2
+  verb: SHALL
+  actor: Submitters
+  text: Submitters SHALL comply independently with the consent and privacy policies of each IIS to which they send data.

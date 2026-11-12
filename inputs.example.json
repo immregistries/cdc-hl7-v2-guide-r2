@@ -1,0 +1,7 @@
+{
+  "_comment": "Copy to inputs.json (git-ignored) and point each entry at your local copy of the source files. These files are never committed.",
+  "narrative_docx": "C:/path/to/NationalIG_Draft.docx",
+  "igamt_xml_dir": "C:/path/to/igamt-xml-export",
+  "examples_xlsx": "C:/path/to/Example Message List for New Release.xlsx",
+  "examples_docx": "C:/path/to/Sample Messages for New IG.docx"
+}

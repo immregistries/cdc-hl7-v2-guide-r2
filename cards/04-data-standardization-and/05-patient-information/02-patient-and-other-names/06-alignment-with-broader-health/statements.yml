@@ -1,0 +1,16 @@
+- id: alignment-with-broader-health-standards--s1
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL flag all placeholder newborn names with the name type code 'NB' when sending to an IIS.
+- id: alignment-with-broader-health-standards--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL recognize and process 'NB' as a valid name type without error.
+- id: alignment-with-broader-health-standards--s3
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT rely on textual pattern detection (e.g., "Baby Boy") to infer that a record represents a newborn.
+- id: alignment-with-broader-health-standards--s4
+  verb: SHOULD
+  actor: Submitting systems
+  text: Submitting systems SHOULD align internal placeholder naming conventions with established national frameworks to reduce mapping and conversion errors during transmission.

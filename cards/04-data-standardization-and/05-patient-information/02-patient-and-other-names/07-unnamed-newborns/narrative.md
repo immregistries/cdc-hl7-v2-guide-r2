@@ -1,0 +1,5 @@
+Many newborns receive vaccinations before their permanent names are entered into hospital or EHR systems. The problem for IIS is not occasional naming delays, but the widespread practice in some hospitals of never updating placeholder names. These placeholders, such as "Baby Girl Smith" or "Infant Jones", remain indefinitely, leaving the IIS unable to match vaccination records once the child's real name appears elsewhere.
+
+This guidance defines how to represent those cases in HL7 v2 messaging. It does not prescribe how hospitals or EHRs choose or format placeholder names internally. The goal is that all systems can clearly indicate when a submitted record represents a newborn with a temporary name, using a standard HL7 v2 mechanism.
+
+Hospitals and submitting organizations should review their workflows to ensure that once a newborn's name is known, that information flows promptly to all connected systems and to the IIS. This ensures that the initial vaccination record, often the first dose of Hepatitis B, is properly linked to the correct child record.

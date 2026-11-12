@@ -1,0 +1,4 @@
+- id: provider-reported-status--s1
+  verb: SHALL NOT
+  actor: ''
+  text: Absence of a patient status SHALL NOT be interpreted as evidence that the patient is active or inactive.

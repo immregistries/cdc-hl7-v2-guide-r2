@@ -1,0 +1,11 @@
+- id: fixed-code-sets-stable-code-sets-anchored-to-messaging-semantics--s1
+  verb: SHALL
+  verbs:
+    - SHALL
+    - SHALL NOT
+  actor: Systems (including submitting systems and IIS)
+  text: Systems (including submitting systems and IIS) SHALL use only the values explicitly defined for fixed code sets and SHALL NOT introduce local extensions.
+- id: fixed-code-sets-stable-code-sets-anchored-to-messaging-semantics--s2
+  verb: SHALL NOT
+  actor: Systems
+  text: Systems SHALL NOT assume that future values may appear in fixed code sets unless explicitly updated through a new guide release.

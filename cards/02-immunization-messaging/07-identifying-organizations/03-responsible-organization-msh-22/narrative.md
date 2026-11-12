@@ -1,0 +1,7 @@
+The **responsible organization** is the care-providing entity that owns and is accountable for the vaccination data being reported. This organization is legally responsible for the accuracy and maintenance of the immunization record and is typically a clinic, provider group, hospital, pharmacy chain, or public health program.
+
+In many cases, the responsible organization and submitting organization are the same. In other cases, a submitting organization is authorized to report on behalf of multiple responsible organizations, for example, when a shared EHR or service bureau submits data for participating clinics. When these roles differ, the responsible organization should be explicitly identified using MSH-22.
+
+When the submitting organization (MSH-4) and the responsible organization are the same, MSH-22 may be left empty and interpreted as equivalent to the submitting organization. When a submitting organization is authorized to report on behalf of another organization, such as through shared EHR systems, service bureaus, or gateway architectures, MSH-22 should be populated to explicitly identify the responsible organization.
+
+Authorization for submitting on behalf of another organization is established through IIS onboarding policy and operational governance. The HL7 v2 message structure, through MSH-4 and MSH-22, provides the mechanism for clearly communicating the roles involved in the transaction once that authorization is in place.

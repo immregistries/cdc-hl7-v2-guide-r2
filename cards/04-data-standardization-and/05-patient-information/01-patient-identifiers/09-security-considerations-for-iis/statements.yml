@@ -1,0 +1,8 @@
+- id: security-considerations-for-iis-registry-identifiers--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD design externally shared SR and LR values to minimize predictability and enumeration risk.
+- id: security-considerations-for-iis-registry-identifiers--s2
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT return patient information based solely on the presence of a valid SR or LR.

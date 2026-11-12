@@ -1,0 +1,12 @@
+- id: handling-delete-requests--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support processing delete requests for vaccination records previously reported by the submitting source.
+- id: handling-delete-requests--s2
+  verb: SHOULD NOT
+  actor: Submitting systems
+  text: Submitting systems SHOULD NOT send a delete for a vaccination record originally reported by another source.
+- id: handling-delete-requests--s3
+  verb: SHOULD
+  actor: IIS
+  text: When an update or delete cannot be applied, IIS SHOULD return an acknowledgment that explains the outcome and indicates when manual follow-up is required.

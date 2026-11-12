@@ -1,0 +1,20 @@
+- id: iis-core-intent-and-message-disposition--s1
+  verb: SHALL
+  actor: ''
+  text: A VXU SHALL be considered accepted when core intent is fulfilled, that is, when the submitted patient is associated or created and all submitted Critical Data is processed and stored.
+- id: iis-core-intent-and-message-disposition--s2
+  verb: SHALL
+  actor: ''
+  text: A VXU SHALL be considered rejected when core intent is not fulfilled, that is, when the patient cannot be associated or created, or when any submitted Critical Data cannot be processed or stored.
+- id: iis-core-intent-and-message-disposition--s3
+  verb: SHALL NOT
+  actor: ''
+  text: Acceptance SHALL NOT imply that all non-Critical Data was stored.
+- id: iis-core-intent-and-message-disposition--s4
+  verb: SHALL NOT
+  actor: ''
+  text: Rejection SHALL NOT imply that no data was stored.
+- id: iis-core-intent-and-message-disposition--s5
+  verb: MAY
+  actor: IIS
+  text: IIS MAY expand the definition of Critical Data through jurisdictional policy, provided that such expansion is documented in local messaging specifications.

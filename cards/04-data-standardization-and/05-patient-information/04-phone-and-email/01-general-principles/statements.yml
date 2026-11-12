@@ -1,0 +1,20 @@
+- id: general-principles--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL send patient contact information in PID-13 and guardian or next-of-kin contact information in NK1-5.
+- id: general-principles--s2
+  verb: SHALL
+  actor: ''
+  text: The first repetition of PID-13 SHALL represent the primary contact number.
+- id: general-principles--s3
+  verb: SHALL
+  actor: ''
+  text: Each contact method (phone or email) SHALL be sent in its own repetition.
+- id: general-principles--s4
+  verb: SHALL
+  actor: Systems
+  text: If no primary phone number is available, systems SHALL include an empty first repetition before the email repetition.
+- id: general-principles--s5
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept and store contact information for either the patient or guardian, as appropriate.

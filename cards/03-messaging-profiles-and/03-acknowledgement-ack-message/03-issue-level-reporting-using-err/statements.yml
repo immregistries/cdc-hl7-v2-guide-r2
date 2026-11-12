@@ -1,0 +1,16 @@
+- id: issue-level-reporting-using-err-segments--s1
+  verb: SHALL
+  actor: ''
+  text: Each discrete issue identified during VXU processing SHALL be represented by a separate ERR segment.
+- id: issue-level-reporting-using-err-segments--s2
+  verb: SHALL
+  actor: ''
+  text: Each ERR segment SHALL convey a severity that indicates the required follow-up action.
+- id: issue-level-reporting-using-err-segments--s3
+  verb: MAY
+  actor: ''
+  text: ERR segments MAY be used to convey informational feedback when no corrective action is required.
+- id: issue-level-reporting-using-err-segments--s4
+  verb: SHALL
+  actor: ''
+  text: The absence of ERR segments with Warning or Error severity SHALL indicate that no corrective action is required.

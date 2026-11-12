@@ -1,0 +1,24 @@
+- id: accepted-code-systems-for-administered-vaccinations--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept CVX codes to represent administered vaccinations.
+- id: accepted-code-systems-for-administered-vaccinations--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept NDC codes to represent administered vaccinations.
+- id: accepted-code-systems-for-administered-vaccinations--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY accept CPT codes for administered vaccinations to support legacy interfaces.
+- id: accepted-code-systems-for-administered-vaccinations--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL be capable of accepting an administered vaccination reported with only a valid CVX code and no NDC.
+- id: accepted-code-systems-for-administered-vaccinations--s5
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL be capable of accepting an administered vaccination reported with only a valid NDC and no CVX.
+- id: accepted-code-systems-for-administered-vaccinations--s6
+  verb: SHALL
+  actor: IIS
+  text: When both CVX and NDC are submitted for an administered vaccination, IIS SHALL inspect the submitted values to ensure they correlate to the same vaccine concept.

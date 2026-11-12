@@ -1,0 +1,16 @@
+- id: county-information--s1
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT require submitters to include county codes.
+- id: county-information--s2
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject addresses with missing or invalid county values.
+- id: county-information--s3
+  verb: SHOULD
+  actor: ''
+  text: If county information is submitted, it SHOULD use the five-digit FIPS county code.
+- id: county-information--s4
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD generate or validate county information internally using a third-party address cleansing service, since submitters are not required to provide it.

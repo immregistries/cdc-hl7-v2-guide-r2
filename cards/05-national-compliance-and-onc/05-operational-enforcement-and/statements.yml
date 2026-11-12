@@ -1,0 +1,8 @@
+- id: operational-enforcement-and-ongoing-compliance--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL be capable of monitoring submission data to assess compliance with required and required but may be empty elements over time.
+- id: operational-enforcement-and-ongoing-compliance--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD establish thresholds or metrics to identify systematic non-conformance by submitting systems.

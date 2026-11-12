@@ -1,0 +1,3 @@
+VIS information may support local program monitoring needs, but it has no nationally defined operational role for IIS. VIS does not influence forecasting, dose validity, patient matching, deduplication, inventory management, or official immunization histories. Programs must determine whether they have a legitimate operational need for VIS data before prioritizing completeness or auditing.
+
+Because VIS data often reflects EHR configuration rather than clinical encounter behavior, IIS should expect variation. Unexpected VIS identifiers, publication dates, or dates-given may indicate configuration drift, not clinical problems. Accepting and reviewing this data through quality-improvement processes is preferable to rejecting administered doses.

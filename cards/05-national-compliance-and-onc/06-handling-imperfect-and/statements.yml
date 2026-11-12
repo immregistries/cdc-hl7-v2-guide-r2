@@ -1,0 +1,12 @@
+- id: handling-imperfect-and-incomplete-data--s1
+  verb: SHOULD
+  actor: Receiving systems
+  text: Receiving systems SHOULD accept and store data that is incomplete but operationally useful, unless prohibited by local policy.
+- id: handling-imperfect-and-incomplete-data--s2
+  verb: SHALL NOT
+  actor: Receiving systems
+  text: Receiving systems SHALL NOT use this guide as the sole basis for rejecting data when doing so would result in unnecessary data loss.
+- id: handling-imperfect-and-incomplete-data--s3
+  verb: SHOULD
+  actor: Receiving systems
+  text: Receiving systems SHOULD distinguish between message structure compliance, system capability, and data correctness when assessing conformance.

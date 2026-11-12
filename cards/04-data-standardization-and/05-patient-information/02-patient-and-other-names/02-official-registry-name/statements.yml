@@ -1,0 +1,23 @@
+- id: official-registry-name--s1
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL send the closest representation of the patient's legal/official registry name using name type code 'L' when that name is available.
+- id: official-registry-name--s2
+  verb: SHALL NOT
+  actor: Systems
+  text: Systems SHALL NOT use the 'L' name type for names that are not intended to represent the legal or official registry name.
+- id: official-registry-name--s3
+  verb: SHOULD
+  verbs:
+    - SHOULD
+    - SHOULD NOT
+  actor: Systems
+  text: If an 'L' name is provided, systems SHOULD place it in the first repetition of PID-5 to simplify processing. Systems SHOULD NOT send an empty first PID-5 repetition to reserve space for an 'L' name; the repetition should be omitted if no 'L' name is available, and alternate name types (e.g., alias or newborn placeholder) should be included as subsequent repetitions.
+- id: official-registry-name--s4
+  verb: SHALL
+  actor: Receiving systems
+  text: Receiving systems SHALL accept the 'L' name in any repetition.
+- id: official-registry-name--s5
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD preferentially use the 'L' (legal/official) name for record matching when it is available, but other name types (e.g., alias or placeholder names) remain acceptable inputs for matching in the absence of an 'L' name.

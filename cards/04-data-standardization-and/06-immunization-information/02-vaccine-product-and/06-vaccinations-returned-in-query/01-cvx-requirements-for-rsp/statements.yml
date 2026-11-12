@@ -1,0 +1,16 @@
+- id: cvx-requirements-for-rsp-messages--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL return a CVX code for every vaccination included in an RSP immunization history.
+- id: cvx-requirements-for-rsp-messages--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL be capable of returning Active, Inactive, and Non-US CVX codes in RSP messages.
+- id: cvx-requirements-for-rsp-messages--s3
+  verb: SHOULD
+  actor: Querying systems
+  text: Querying systems SHOULD expect to receive Active, Inactive, and Non-US CVX codes in immunization history responses.
+- id: cvx-requirements-for-rsp-messages--s4
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT return Never Active CVX codes in RSP messages.

@@ -1,0 +1,3 @@
+Names beyond the official registry name can strengthen patient matching when used correctly. They capture additional identifiers that may be known by family, clinical staff, or records from other systems. If these names are supported, they must be coded accurately to avoid misclassification.
+
+**Maiden Name** ('M') – Represents the patient’s former surname (patient’s maiden name), often before marriage, and supports matching over time. **Nickname / Preferred Name** ('N') - Represents a commonly used or familiar name. **Newborn Name** ('NB') - Represents a temporary name used before a newborn receives an official name.

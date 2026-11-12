@@ -1,0 +1,8 @@
+id: transport-level-vs-message-level-responses
+title: Transport-Level vs Message-Level Responses
+figures:
+  - id: fig-4
+    file: fig-4.png
+    number: 4
+    caption: Transport Layer vs. HL7 Application Layer
+    alt: ''

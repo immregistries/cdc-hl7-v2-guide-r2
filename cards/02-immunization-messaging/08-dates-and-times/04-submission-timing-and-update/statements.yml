@@ -1,0 +1,20 @@
+- id: submission-timing-and-update-frequency--s1
+  verb: SHOULD
+  actor: Submitting systems
+  text: Submitting systems SHOULD transmit administered vaccination records on the same day or within 24 hours of administration.
+- id: submission-timing-and-update-frequency--s2
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL transmit only vaccination events after the event has been finalized in the source system.
+- id: submission-timing-and-update-frequency--s3
+  verb: SHALL NOT
+  actor: Submitting systems
+  text: Submitting systems SHALL NOT send partial, in-progress, or repeatedly updated vaccination records for the same event.
+- id: submission-timing-and-update-frequency--s4
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL support IIS-defined submission timing requirements when such requirements are published.
+- id: submission-timing-and-update-frequency--s5
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD tolerate reasonable short processing delays while encouraging timely, stable submission of finalized vaccination events.

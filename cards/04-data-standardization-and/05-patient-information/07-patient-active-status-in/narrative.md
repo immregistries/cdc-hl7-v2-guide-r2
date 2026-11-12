@@ -1,0 +1,5 @@
+Patient active status describes the relationship between a patient and a submitting provider organization. At the clinical level, this status was originally intended to support continuity of care, reminder/recall, and quality measurement. At the IIS level, it was designed to help distinguish patients actively managed by a provider from those no longer under that provider's care.
+
+In practice, determining patient status is difficult. Immunization reporting is episodic and event-driven, and IIS generally lack reliable signals indicating when a patient relocates, changes providers, or disengages from care. As a result, IIS often retain records well beyond a patient's active relationship with any given provider, and patient status data, while conceptually valuable, is inconsistently populated and rarely drives critical IIS workflows.
+
+This section describes the intent and interpretation of patient status values in immunization messaging, with an emphasis on realistic use and limitations rather than prescriptive workflow enforcement.

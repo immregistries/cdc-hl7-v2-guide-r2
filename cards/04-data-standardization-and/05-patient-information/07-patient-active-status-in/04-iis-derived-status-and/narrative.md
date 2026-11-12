@@ -1,0 +1,1 @@
+IIS may maintain internal status classifications that reflect jurisdictional considerations, such as inferred inactivity due to lack of recent vaccination activity or confirmed death from vital records. These statuses are derived internally and are not part of HL7 v2 immunization messaging.

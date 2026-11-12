@@ -1,0 +1,12 @@
+- id: err-8-user-message--s1
+  verb: SHALL
+  actor: ''
+  text: ERR-8 SHALL provide a locally specified, clear, non-technical message that describes the issue in plain language, understandable without HL7 v2 expertise.
+- id: err-8-user-message--s2
+  verb: SHOULD NOT
+  actor: ''
+  text: ERR-8 SHOULD NOT reference an HL7 segment, field, or component (e.g., "PID-5").
+- id: err-8-user-message--s3
+  verb: SHOULD NOT
+  actor: ''
+  text: ERR-8 SHOULD NOT include information about the overall message processing outcome (e.g., "message rejected").

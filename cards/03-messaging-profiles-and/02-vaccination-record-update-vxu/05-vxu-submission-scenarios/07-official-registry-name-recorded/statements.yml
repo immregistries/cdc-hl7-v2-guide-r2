@@ -1,0 +1,4 @@
+- id: official-registry-name-recorded-for-a-newborn--s1
+  verb: SHALL
+  actor: Submitting system
+  text: When an official registry name is recorded for a newborn for the first time, the submitting system SHALL trigger a VXU containing the patient's complete immunization history.

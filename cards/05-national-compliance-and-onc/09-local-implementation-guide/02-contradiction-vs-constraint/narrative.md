@@ -1,0 +1,3 @@
+Not all differences between a local IG and the National IG have the same impact on interoperability. For clarity, this section distinguishes two useful concepts: a **constraint** is a jurisdictional refinement that narrows, clarifies, or mandates specific uses of fields or value sets without forcing behavior that is incompatible with National IG-compliant senders; a **contradiction** is a local rule that requires senders to behave differently than the National IG specifies, creating incompatible expectations.
+
+Contradictory requirements impose direct costs on submitting systems, slow onboarding, and fragment the national ecosystem by forcing systems to build and maintain jurisdiction-specific behavior that cannot be reused.

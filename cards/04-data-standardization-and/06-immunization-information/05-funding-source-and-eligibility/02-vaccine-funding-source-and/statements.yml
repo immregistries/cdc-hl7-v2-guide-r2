@@ -1,0 +1,16 @@
+- id: vaccine-funding-source-and-stock-models--s1
+  verb: SHALL
+  actor: IIS
+  text: Each IIS SHALL select either a two-stock or three-stock model and SHALL apply that model consistently for all reporting organizations in its jurisdiction.
+- id: vaccine-funding-source-and-stock-models--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept funding source and funding eligibility combinations that are possible in practice, even when they do not conform to program policy (for example, a public VFC-funded vaccine administered to an ineligible patient), unless the jurisdiction has explicitly chosen to enforce stricter rules as part of its program operations.
+- id: vaccine-funding-source-and-stock-models--s3
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD prefer accepting administered vaccination data with incorrect or unexpected funding source values and resolving issues through data quality and program follow-up activities, rather than rejecting the entire vaccination record.
+- id: vaccine-funding-source-and-stock-models--s4
+  verb: MAY
+  actor: IIS
+  text: IIS MAY enforce stricter completeness or correctness requirements on funding source for participants in publicly funded vaccine programs when the jurisdiction has a plan in place to ensure corrections and resubmissions.

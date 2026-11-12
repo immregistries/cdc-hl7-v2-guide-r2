@@ -1,0 +1,1 @@
+OBX-17 is used only in limited circumstances to indicate the applicability context of certain observations. In immunization messaging, its use is restricted to classifying whether eligibility or funding information applies at the visit-level or the dose-level.

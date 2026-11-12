@@ -1,0 +1,16 @@
+- id: patient-funding-eligibility-per-dose--s1
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL support capture and messaging of funding eligibility at the vaccination (per-dose) level.
+- id: patient-funding-eligibility-per-dose--s2
+  verb: SHALL
+  actor: ''
+  text: If a submitting system only captures eligibility at the visit-level, it SHALL associate that eligibility with each administered vaccination from that visit when constructing the message.
+- id: patient-funding-eligibility-per-dose--s3
+  verb: SHALL
+  actor: ''
+  text: For each administered vaccination, at most one funding eligibility value SHALL be sent.
+- id: patient-funding-eligibility-per-dose--s4
+  verb: MAY
+  actor: IIS
+  text: IIS MAY use OBX-17 to diagnose legacy or misconfigured interfaces but are not required to use OBX-17 to drive program logic.

@@ -1,0 +1,16 @@
+- id: other-transport-standards-and-intermediaries--s1
+  verb: MAY
+  actor: IIS
+  text: IIS MAY implement additional transport standards at their discretion.
+- id: other-transport-standards-and-intermediaries--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL permit any submitter to use the CDC WSDL for message exchange.
+- id: other-transport-standards-and-intermediaries--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY continue to support existing transport methods indefinitely, provided they do not exclude CDC WSDL access.
+- id: other-transport-standards-and-intermediaries--s4
+  verb: SHALL
+  actor: That intermediary
+  text: When an intermediary such as an HIE is the sole access point to the IIS, that intermediary SHALL meet all CDC WSDL transport requirements defined for IIS.

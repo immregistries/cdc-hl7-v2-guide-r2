@@ -1,0 +1,20 @@
+- id: date-of-birth-pid-7--s1
+  verb: SHALL
+  actor: ''
+  text: PID-7 SHALL represent the patient's official date of birth as recorded at the place and time of birth.
+- id: date-of-birth-pid-7--s2
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL use the date of birth recorded on official documentation when available.
+- id: date-of-birth-pid-7--s3
+  verb: SHALL
+  actor: ''
+  text: Time component is not expected in typical operations but if it is included, PID-7 SHALL be encoded using the time zone where the birth occurred.
+- id: date-of-birth-pid-7--s4
+  verb: SHALL
+  actor: Receiving IIS
+  text: When time or time-zone components are present in PID-7, receiving IIS SHALL ignore the time and offset components and SHALL preserve the submitted calendar date exactly as provided, without applying time-zone normalization.
+- id: date-of-birth-pid-7--s5
+  verb: SHALL
+  actor: ''
+  text: PID-7 SHALL represent a single, consistent date of birth for the patient across submissions.

@@ -1,0 +1,12 @@
+- id: overall-structure-of-cds-in-the-rsp--s1
+  verb: SHALL
+  actor: ''
+  text: RSP messages SHALL include evaluation information within each vaccination history order group when evaluation is supported for that vaccination.
+- id: overall-structure-of-cds-in-the-rsp--s2
+  verb: SHALL
+  actor: ''
+  text: RSP messages that include CDS information SHALL include exactly one Forecast order group, and the Forecast order group SHALL appear after all vaccination history order groups and after all other non-administration order groups.
+- id: overall-structure-of-cds-in-the-rsp--s3
+  verb: SHALL
+  actor: ''
+  text: Vaccination history order groups SHALL be complete and unfiltered in the RSP, regardless of whether each vaccination influences a forecast.

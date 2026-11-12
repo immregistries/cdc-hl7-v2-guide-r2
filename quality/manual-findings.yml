@@ -1,0 +1,9 @@
+# Findings recorded by reviewers that the automated checks cannot detect.
+# Each needs a stable id (qf-manual-...), a card, a severity (issue | warning | note),
+# a category, and a message.
+- id: qf-manual-figure-1-shall-not
+  card: conformance-verbs
+  location: fig-1
+  severity: issue
+  category: figures
+  message: "In Figure 1, the SHALL NOT definition repeats the SHOULD NOT text (\"A recommended prohibition… may do so if justified by local needs\"). The text definition on this card is correct: SHALL NOT is a mandatory prohibition."

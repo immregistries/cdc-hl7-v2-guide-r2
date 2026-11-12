@@ -1,0 +1,12 @@
+- id: conformance-tooling-and-standards-and-interoperability-testing-tools--s1
+  verb: SHALL
+  actor: Systems claiming conformance
+  text: Systems claiming conformance SHALL be capable of producing messages that meet context-based test scenarios defined for certification, including population of RE fields when data is known.
+- id: conformance-tooling-and-standards-and-interoperability-testing-tools--s2
+  verb: SHOULD
+  actor: IIS and submitting systems
+  text: IIS and submitting systems SHOULD use SITT or equivalent validation mechanisms during onboarding and regression testing.
+- id: conformance-tooling-and-standards-and-interoperability-testing-tools--s3
+  verb: SHALL NOT
+  actor: ''
+  text: Context-free validation results SHALL NOT be treated as the sole measure of conformance to this guide.

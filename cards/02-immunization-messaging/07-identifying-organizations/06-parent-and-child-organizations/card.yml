@@ -1,0 +1,8 @@
+id: parent-and-child-organizations
+title: Parent and Child Organizations
+figures:
+  - id: fig-6
+    file: fig-6.png
+    number: 6
+    caption: 'Vaccination Organization Identifiers: Parent and Child Organizations'
+    alt: ''

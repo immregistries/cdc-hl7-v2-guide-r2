@@ -1,0 +1,5 @@
+The immunization community began adopting HL7 v2 for IIS in the late 1990s, long before FHIR was available. The choice of HL7 v2.5.1 reflects decades of refinement in data exchange practices for immunizations. While v2 does not use XML or JSON and lacks some of the flexibility of modern standards, it is efficient, straightforward to learn, and continues to serve the needs of IIS effectively.
+
+HL7 v2 messages are structured as delimited text files that use separators to divide messages into segments, fields, components, and subcomponents. These messages are concise, human-readable, and platform-independent. Understanding the delimiters and segment structure allows implementers to quickly learn how the message format operates. Training resources are widely available to support learning HL7 v2 structure and implementation.
+
+This implementation guide also follows the latest Conformance Methodology for HL7 v2 [2], meaning that message requirements are expressed with precise and testable rules. This allows for improved consistency, automated conformance testing, and better data quality.

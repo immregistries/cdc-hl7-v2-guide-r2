@@ -1,0 +1,1 @@
+County information is carried in XAD.9 but is difficult for submitting systems to populate consistently. Multiple coding systems exist, and values are often missing or incorrect. IIS should treat county as a derived attribute rather than a submission requirement.

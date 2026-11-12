@@ -1,0 +1,8 @@
+id: conformance-verbs
+title: Conformance Verbs
+figures:
+  - id: fig-1
+    file: fig-1.png
+    number: 1
+    caption: 'Conformance Verbs: SHALL, SHALL NOT, SHOULD, SHOULD NOT, and MAY'
+    alt: ''

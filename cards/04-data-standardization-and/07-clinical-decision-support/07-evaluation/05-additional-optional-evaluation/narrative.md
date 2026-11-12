@@ -1,0 +1,5 @@
+Optional evaluation observations may be included to reflect how the CDS engine applied logic to the patient's series. These values are not standardized across IIS implementations and may have differing interpretations.
+
+Series name provides a simple indication of which series definition the CDS engine selected. Total number of doses and dose number of the evaluated event may be included but should be interpreted cautiously due to variability in series completeness rules, primary vs. booster definitions, and differences in how CDS engines count doses. The schedule used may also be returned, but currently only ACIP has a recognized code, and IIS may be using modified variants of ACIP schedules without a consistent way to express these differences. Querying systems should consult with registries directly when schedule interpretation matters.
+
+Designated LOINC identifiers for optional evaluation observations are specified in the co-constraints table in Chapter 7.1.4, Z32- Return Complete Immunization History).

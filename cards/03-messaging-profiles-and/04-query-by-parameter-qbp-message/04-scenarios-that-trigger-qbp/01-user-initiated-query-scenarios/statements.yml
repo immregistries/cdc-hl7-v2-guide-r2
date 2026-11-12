@@ -1,0 +1,16 @@
+- id: user-initiated-query-scenarios--s1
+  verb: SHALL
+  actor: System
+  text: When a clinical user requests a patient's immunization record, or when a patient or guardian requests immunization information via a portal, the system SHALL initiate a user-initiated QBP for that patient.
+- id: user-initiated-query-scenarios--s2
+  verb: SHALL
+  actor: Systems
+  text: Systems SHALL allow repeated user-initiated queries for a single selected patient.
+- id: user-initiated-query-scenarios--s3
+  verb: SHOULD
+  actor: Jurisdictions and implementers
+  text: Jurisdictions and implementers SHOULD agree on reasonable daily limits and controls to prevent over-querying.
+- id: user-initiated-query-scenarios--s4
+  verb: SHOULD
+  actor: Systems
+  text: Systems SHOULD allow re-query after no matches or too many matches are returned, to support interactive resolution of matching issues.

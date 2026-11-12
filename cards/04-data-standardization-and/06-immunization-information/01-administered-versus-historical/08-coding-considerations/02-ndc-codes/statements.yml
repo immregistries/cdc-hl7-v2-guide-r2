@@ -1,0 +1,12 @@
+- id: ndc-codes--s1
+  verb: SHOULD
+  actor: ''
+  text: NDC codes SHOULD be reported for administered vaccinations when available.
+- id: ndc-codes--s2
+  verb: SHOULD NOT
+  actor: ''
+  text: Historical vaccinations SHOULD NOT be expected to include NDC codes.
+- id: ndc-codes--s3
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject historical records due to missing NDC information.

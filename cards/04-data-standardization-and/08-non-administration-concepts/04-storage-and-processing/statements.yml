@@ -1,0 +1,12 @@
+- id: storage-and-processing-expectations--s1
+  verb: MAY
+  actor: IIS
+  text: IIS MAY store conditions, refusals, immunity, or adverse events according to local policy.
+- id: storage-and-processing-expectations--s2
+  verb: MAY
+  actor: IIS
+  text: IIS MAY ignore any or all non-administration concepts without error.
+- id: storage-and-processing-expectations--s3
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD continue processing supported vaccination data in the same message even when unsupported non-administration data is present.

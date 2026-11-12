@@ -1,0 +1,3 @@
+Local implementation guides (Local IGs) are the primary mechanism jurisdictions use to describe how a specific IIS interface behaves in practice. The National IG defines a shared technical standard developed and maintained by the immunization community to support interoperability across jurisdictions and systems. Local IGs document jurisdiction-specific requirements, constraints, and operational decisions layered on top of that shared baseline.
+
+This guide does not have regulatory or legal authority. Jurisdictions may introduce local requirements for any reason, including statutory mandate or policy interpretation. However, the value of a national standard depends on clear, honest signaling about when it is being followed and when it is not.

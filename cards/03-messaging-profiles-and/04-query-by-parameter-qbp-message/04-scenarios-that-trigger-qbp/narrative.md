@@ -1,0 +1,1 @@
+A scenario describes an operational condition in the querying system that results in a QBP being sent to an IIS. These scenarios are based on common, community-validated practice and are intentionally described independently of HL7 message trigger semantics. Their purpose is to define when queries are appropriate and how they should be constrained in real-world operation.

@@ -1,0 +1,1 @@
+Reasons for recommendation provide the rationale associated with a recommendation status (for example, why a dose is indicated, overdue, contraindicated, or considered complete). They are informational and may include multiple contributing factors. When several reasons apply, each reason must be sent in its own OBX segment so receivers can parse them separately.

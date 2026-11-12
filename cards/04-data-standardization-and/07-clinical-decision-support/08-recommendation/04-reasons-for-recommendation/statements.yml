@@ -1,0 +1,8 @@
+- id: reasons-for-recommendation--s1
+  verb: MAY
+  actor: ''
+  text: One or more reasons for recommendation MAY be returned.
+- id: reasons-for-recommendation--s2
+  verb: SHALL
+  actor: ''
+  text: When multiple reasons exist, each SHALL be sent in a separate OBX.

@@ -1,0 +1,16 @@
+- id: dose-timing-earliest-recommended-overdue-latest--s1
+  verb: SHALL
+  actor: ''
+  text: An earliest date SHALL be returned when another dose is indicated.
+- id: dose-timing-earliest-recommended-overdue-latest--s2
+  verb: SHALL
+  actor: ''
+  text: A recommended date SHALL be returned when another dose is indicated.
+- id: dose-timing-earliest-recommended-overdue-latest--s3
+  verb: MAY
+  actor: ''
+  text: An overdue date MAY be returned; interpretation depends on local CDS/jurisdictional definitions and should be discussed with the registry when interpretation matters.
+- id: dose-timing-earliest-recommended-overdue-latest--s4
+  verb: MAY
+  actor: ''
+  text: A latest date MAY be returned; for vaccines that define a maximum age (for example, rotavirus), the latest date may be authoritative, while for others it may have limited applicability.

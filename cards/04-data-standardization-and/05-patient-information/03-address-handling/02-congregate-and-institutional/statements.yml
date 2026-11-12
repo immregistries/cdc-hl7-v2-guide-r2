@@ -1,0 +1,12 @@
+- id: congregate-and-institutional-addresses--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD recognize that identical addresses may legitimately correspond to multiple patients.
+- id: congregate-and-institutional-addresses--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD use cleansing services to standardize institutional addresses.
+- id: congregate-and-institutional-addresses--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY maintain reference tables of known institutions to improve matching and analysis.

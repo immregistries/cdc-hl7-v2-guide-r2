@@ -1,0 +1,16 @@
+- id: fault-handling-and-error-responses--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL return a SOAP Security Fault when authentication fails.
+- id: fault-handling-and-error-responses--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL use other defined SOAP Faults (Unsupported Operation, Message Too Large, Unknown Fault) as appropriate.
+- id: fault-handling-and-error-responses--s3
+  verb: SHALL
+  actor: Sending systems
+  text: Sending systems SHALL be able to receive and handle all defined SOAP Faults.
+- id: fault-handling-and-error-responses--s4
+  verb: SHALL
+  actor: ''
+  text: Transport-level faults SHALL indicate the message was not transmitted and require resubmission after correction.

@@ -1,0 +1,12 @@
+- id: representation-overview--s1
+  verb: MAY
+  actor: Submitting systems
+  text: Submitting systems MAY report dose-level non-administration, but IIS are not required to store or interpret the non-administration event.
+- id: representation-overview--s2
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject a message solely because non-administration concepts are unsupported.
+- id: representation-overview--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL continue processing valid vaccination data in the same message even when non-administration data is ignored.

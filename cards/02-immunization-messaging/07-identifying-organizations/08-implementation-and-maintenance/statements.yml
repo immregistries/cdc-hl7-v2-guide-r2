@@ -1,0 +1,16 @@
+- id: implementation-and-maintenance-considerations--s1
+  verb: SHALL
+  actor: IIS and submitters
+  text: IIS and submitters SHALL maintain a shared record of organization identifiers used in immunization messages.
+- id: implementation-and-maintenance-considerations--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD provide documented processes for requesting, updating, or retiring identifiers.
+- id: implementation-and-maintenance-considerations--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY simplify complex local structures to maintain stable and manageable identifiers.
+- id: implementation-and-maintenance-considerations--s4
+  verb: SHOULD
+  actor: Submitters
+  text: Submitters SHOULD notify IIS of organizational changes that affect ownership or structure.

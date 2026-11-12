@@ -1,0 +1,20 @@
+- id: address-cleansing-and-normalization--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD use a third-party address cleansing service to normalize and validate address data.
+- id: address-cleansing-and-normalization--s2
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT require strictly coded state, country, or county values at submission.
+- id: address-cleansing-and-normalization--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY retain both the original submitted address and the cleansed address.
+- id: address-cleansing-and-normalization--s4
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD use the cleansed address for matching, de-duplication, and geocoding.
+- id: address-cleansing-and-normalization--s5
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD return the standard two-letter USPS state abbreviation (for example, 'AK' for Alaska) for U.S. addresses in outbound responses to improve automated interoperability.

@@ -1,0 +1,28 @@
+- id: unknown-and-refused-values--s1
+  verb: MAY
+  actor: Sending systems
+  text: Sending systems MAY use UNK, ASKU, or PHC1175 when race or ethnicity is unknown or not provided.
+- id: unknown-and-refused-values--s2
+  verb: SHOULD
+  actor: Sending systems
+  text: Sending systems SHOULD select and consistently implement either ASKU or PHC1175 as their preferred "unknown" code, but not both.
+- id: unknown-and-refused-values--s3
+  verb: MAY
+  actor: Sending systems
+  text: Sending systems MAY use UNK where a general unknown designation is appropriate.
+- id: unknown-and-refused-values--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept UNK, ASKU, and PHC1175.
+- id: unknown-and-refused-values--s5
+  verb: MAY
+  actor: IIS
+  text: IIS MAY translate ASKU or PHC1175 to UNK or to an empty value according to local policy.
+- id: unknown-and-refused-values--s6
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject messages because these codes are present.
+- id: unknown-and-refused-values--s7
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT define additional local "unknown" codes.

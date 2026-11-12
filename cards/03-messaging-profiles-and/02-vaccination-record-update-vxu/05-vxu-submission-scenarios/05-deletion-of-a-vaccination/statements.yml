@@ -1,0 +1,12 @@
+- id: deletion-of-a-vaccination-record-submitted-by-another-organization--s1
+  verb: SHALL NOT
+  actor: Submitting system
+  text: The submitting system SHALL NOT trigger a VXU when deleting a vaccination originally submitted by another organization.
+- id: deletion-of-a-vaccination-record-submitted-by-another-organization--s2
+  verb: SHALL
+  actor: Submitting system
+  text: The submitting system SHALL coordinate directly with the IIS to request record cleanup.
+- id: deletion-of-a-vaccination-record-submitted-by-another-organization--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY refuse delete requests for vaccinations submitted by other organizations.

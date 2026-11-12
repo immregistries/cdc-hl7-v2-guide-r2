@@ -1,0 +1,12 @@
+- id: optional-return-of-other-code-systems--s1
+  verb: MAY
+  actor: IIS
+  text: IIS MAY return NDC values associated with a vaccination in an RSP message.
+- id: optional-return-of-other-code-systems--s2
+  verb: SHOULD NOT
+  actor: IIS
+  text: IIS SHOULD NOT return CPT codes in RSP messages, even if CPT was used in the original submission.
+- id: optional-return-of-other-code-systems--s3
+  verb: SHOULD NOT
+  actor: IIS
+  text: IIS SHOULD NOT return non-vaccine CVX codes in RSP messages without prior coordination and agreement with the querying system.

@@ -1,0 +1,1 @@
+This guide's use of HL7 v2's updated conformance methodology enables clear validation of message content. Test tools and validation platforms are available to help developers ensure their implementations meet the standard.

@@ -1,0 +1,1 @@
+Additional HL7 v2 name types (e.g., Assigned, Birth, Adopted, Indigenous/Tribal, Religious) may provide useful contextual detail for certain populations. IIS may choose to accept and store them, though they are not required.

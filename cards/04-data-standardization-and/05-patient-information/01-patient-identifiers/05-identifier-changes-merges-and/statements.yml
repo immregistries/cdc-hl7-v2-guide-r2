@@ -1,0 +1,8 @@
+- id: identifier-changes-merges-and-retirement--s1
+  verb: SHALL NOT
+  actor: Sending systems
+  text: Sending systems SHALL NOT reassign a previously used primary exchange identifier to a different patient.
+- id: identifier-changes-merges-and-retirement--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support receiving a new primary exchange identifier for a patient previously reported by the same submitting system.

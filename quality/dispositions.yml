@@ -1,0 +1,9 @@
+# Decisions on quality findings, by finding id. A disposition stays attached to
+# its finding across builds.
+#
+#   qf-...:
+#     status: accepted | cdc-to-decide | wont-fix | not-an-issue
+#     note: short reason
+#     by: name or role
+#     date: YYYY-MM-DD
+{}

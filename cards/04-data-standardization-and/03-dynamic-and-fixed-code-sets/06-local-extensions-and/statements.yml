@@ -1,0 +1,20 @@
+- id: local-extensions-and-coordination--s1
+  verb: SHALL
+  actor: Systems (including submitting systems and IIS)
+  text: Systems (including submitting systems and IIS) SHALL document and publish any supported local extensions to open value sets.
+- id: local-extensions-and-coordination--s2
+  verb: SHOULD
+  actor: Systems
+  text: Systems SHOULD provide advance notice to trading partners when introducing new locally defined values.
+- id: local-extensions-and-coordination--s3
+  verb: SHALL NOT
+  actor: ''
+  text: Local extensions SHALL NOT override or redefine nationally defined values.
+- id: local-extensions-and-coordination--s4
+  verb: SHOULD
+  actor: Submitting systems
+  text: Submitting systems SHOULD coordinate with IIS before using locally extended codes in production exchange.
+- id: local-extensions-and-coordination--s5
+  verb: SHALL
+  actor: Querying systems
+  text: Querying systems SHALL be capable of handling locally extended values in responses and SHALL not assume that only nationally defined codes will be returned.

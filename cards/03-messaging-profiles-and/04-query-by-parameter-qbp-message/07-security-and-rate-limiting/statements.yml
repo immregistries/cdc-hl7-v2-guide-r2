@@ -1,0 +1,16 @@
+- id: security-and-rate-limiting-considerations--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD implement rate-limiting controls to manage query volume and protect system availability. These limits should be configurable and proportional to expected usage patterns, allowing IIS to balance responsiveness for clinical queries with protection against excessive or inefficient access.
+- id: security-and-rate-limiting-considerations--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL log all query activity in sufficient detail to support investigation, monitoring, and compliance. Logs should enable detection of unusual query volume, repeated access patterns, or other indicators of inappropriate use.
+- id: security-and-rate-limiting-considerations--s3
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD implement active monitoring and alerting to identify anomalous query behavior, including sustained high-frequency querying or access patterns inconsistent with normal clinical workflows.
+- id: security-and-rate-limiting-considerations--s4
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD carefully consider the security properties of externally exposed patient identifiers. Sequential or otherwise predictable identifiers increase the risk of enumeration and misuse. IIS SHOULD use randomly generated, non-guessable identifiers for state registry IDs exposed through query responses or other external interfaces.

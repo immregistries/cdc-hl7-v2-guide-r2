@@ -1,0 +1,4 @@
+- id: deletion-of-a-vaccination-record-submitted-by-the-same-organization--s1
+  verb: SHALL
+  actor: Submitting system
+  text: The submitting system SHALL trigger a VXU delete containing the same information previously submitted, with RXA-21 indicating deletion.

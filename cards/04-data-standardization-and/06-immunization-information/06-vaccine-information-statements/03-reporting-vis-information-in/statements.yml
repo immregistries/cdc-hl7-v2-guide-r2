@@ -1,0 +1,36 @@
+- id: reporting-vis-information-in-hl7-v2-messages--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL support both VIS reporting methods.
+- id: reporting-vis-information-in-hl7-v2-messages--s2
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL support at least one VIS reporting method.
+- id: reporting-vis-information-in-hl7-v2-messages--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept VIS barcode identifiers even when the identifier is not recognized.
+- id: reporting-vis-information-in-hl7-v2-messages--s4
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept publication dates and dates-given even when they differ from expected values.
+- id: reporting-vis-information-in-hl7-v2-messages--s5
+  verb: SHALL NOT
+  actor: ''
+  text: The VIS date-given SHALL NOT be later than the vaccine administration date.
+- id: reporting-vis-information-in-hl7-v2-messages--s6
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD follow up on unexpected VIS data through data-quality processes when programmatically needed.
+- id: reporting-vis-information-in-hl7-v2-messages--s7
+  verb: SHALL NOT
+  actor: IIS
+  text: IIS SHALL NOT reject an administered vaccination due to problems with VIS identifiers, publication dates, or dates-given.
+- id: reporting-vis-information-in-hl7-v2-messages--s8
+  verb: SHALL
+  actor: Submitting systems and IIS
+  text: Submitting systems and IIS SHALL support multiple VIS entries per administered vaccine.
+- id: reporting-vis-information-in-hl7-v2-messages--s9
+  verb: SHOULD
+  actor: Submitting systems
+  text: Submitting systems SHOULD populate OBX-4 to group related VIS OBX segments for each VIS instance, and IIS SHOULD use OBX-4 when present to associate the VIS identifier, publication date, and date-given fields.

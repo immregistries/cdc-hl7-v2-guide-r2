@@ -1,0 +1,16 @@
+- id: validation-enforcement-and-borrowing-scenarios--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD avoid using HL7 v2 conformance rules to enforce all aspects of funding program policy and SHOULD instead rely on data quality processes and program operations to address unexpected or noncompliant combinations.
+- id: validation-enforcement-and-borrowing-scenarios--s2
+  verb: MAY
+  actor: Jurisdictions
+  text: Jurisdictions MAY impose stricter funding eligibility and funding source requirements on organizations participating in publicly funded vaccine programs when necessary to support inventory decrementing and program oversight, provided they have processes to ensure that rejected records can be corrected and resubmitted.
+- id: validation-enforcement-and-borrowing-scenarios--s3
+  verb: SHALL
+  actor: Submitting systems
+  text: In all cases, submitting systems SHALL report the funding eligibility and funding source that actually applied at the time of vaccination, including in borrowing/payback scenarios, regardless of whether the underlying practice fully complied with program policy.
+- id: validation-enforcement-and-borrowing-scenarios--s4
+  verb: MAY
+  actor: IIS
+  text: When a funding source or eligibility code is unrecognized or inconsistent with the jurisdiction's selected stock model, IIS MAY accept the administered vaccination while flagging the issue for data quality review rather than rejecting the record.

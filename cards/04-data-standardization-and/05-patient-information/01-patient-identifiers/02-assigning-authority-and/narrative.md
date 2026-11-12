@@ -1,0 +1,5 @@
+The assigning authority identifies the namespace within which an identifier value is meaningful. The sender knows the source and local meaning of its identifier, while the receiving IIS defines the assigning-authority representations its interface can recognize and process. These expectations are established through the IIS profile or onboarding agreement.
+
+Many IIS use MSH-4, or a naming scheme aligned with MSH-4, to segregate identifiers received from different submitters. Other IIS use a facility-level identifier or another negotiated value when a broader organization identifier does not uniquely identify the namespace. A value used elsewhere in the message, such as MSH-4 or RXA-11.4, can be reused when it identifies the agreed namespace for the primary exchange identifier.
+
+This guide does not establish a national assigning-authority directory or require an IIS to recognize an arbitrary value selected by a sender. When local naming schemes differ, the identifier is represented using the convention established for the receiving IIS interface.

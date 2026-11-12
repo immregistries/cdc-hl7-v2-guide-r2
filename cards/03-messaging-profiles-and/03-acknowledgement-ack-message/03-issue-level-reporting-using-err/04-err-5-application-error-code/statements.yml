@@ -1,0 +1,12 @@
+- id: err-5-application-error-code--s1
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL implement High priority ERR-5 codes.
+- id: err-5-application-error-code--s2
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD implement Medium priority ERR-5 codes.
+- id: err-5-application-error-code--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY implement Low priority ERR-5 codes.

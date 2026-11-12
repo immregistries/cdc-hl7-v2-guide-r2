@@ -1,0 +1,8 @@
+- id: historical-vaccination-recorded--s1
+  verb: SHOULD
+  actor: Submitting system
+  text: The submitting system SHOULD trigger a VXU when a historical vaccination is recorded.
+- id: historical-vaccination-recorded--s2
+  verb: SHALL
+  actor: ''
+  text: The vaccination event SHALL be clearly identified as historical using the vaccination event record type (RXA-9) indicator.

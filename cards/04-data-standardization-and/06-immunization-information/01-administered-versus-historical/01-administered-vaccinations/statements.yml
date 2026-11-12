@@ -1,0 +1,12 @@
+- id: administered-vaccinations--s1
+  verb: SHALL
+  actor: ''
+  text: Administered vaccinations SHALL represent doses given directly by the reporting organization.
+- id: administered-vaccinations--s2
+  verb: SHOULD
+  actor: ''
+  text: Administered records SHOULD include more complete product information when available (e.g., specific CVX, manufacturer, lot number, NDC).
+- id: administered-vaccinations--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY apply additional data quality or inventory rules to administered vaccinations.

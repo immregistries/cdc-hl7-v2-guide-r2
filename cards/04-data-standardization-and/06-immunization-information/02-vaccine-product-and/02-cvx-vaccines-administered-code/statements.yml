@@ -1,0 +1,24 @@
+- id: cvx-vaccines-administered-code--s1
+  verb: SHALL
+  actor: IIS and submitting systems
+  text: IIS and submitting systems SHALL use CVX as the canonical representation of administered and historical vaccinations for IIS operations, evaluation, and forecasting.
+- id: cvx-vaccines-administered-code--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL be able to receive CVX codes in VXU messages and SHALL be able to return CVX codes in RSP messages for all vaccinations maintained in the registry.
+- id: cvx-vaccines-administered-code--s3
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL internally maintain or derive a CVX value for each vaccination that participates in evaluation, forecasting, or query/response, regardless of which code system was originally submitted.
+- id: cvx-vaccines-administered-code--s4
+  verb: SHALL
+  actor: Submitting systems
+  text: Submitting systems SHALL send the most specific CVX code available that accurately reflects the vaccine administered or historically received.
+- id: cvx-vaccines-administered-code--s5
+  verb: SHOULD
+  actor: Submitting systems
+  text: Submitting systems SHOULD send a CVX code for every administered and historical vaccination, even when other code systems (e.g., NDC) are also sent.
+- id: cvx-vaccines-administered-code--s6
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL accept CVX codes for historical vaccinations that represent valid doses administered at any time or location, including those administered outside the United States.

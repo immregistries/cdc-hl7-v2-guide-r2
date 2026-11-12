@@ -1,0 +1,20 @@
+- id: dose-validity-and-reason-for-validity--s1
+  verb: SHALL
+  actor: ''
+  text: Dose validity SHALL be reported using the designated LOINC observation identifier specified in Chapter 7 (OBX table). See Chapter 7 for the exact LOINC code(s) and value-set binding.
+- id: dose-validity-and-reason-for-validity--s2
+  verb: SHALL
+  actor: ''
+  text: '"Y" or "N" SHALL be used in OBX-5 as the only allowable values when dose validity is reported (Y = counts toward the evaluated series; N = does not count toward the evaluated series).'
+- id: dose-validity-and-reason-for-validity--s3
+  verb: SHALL
+  actor: ''
+  text: If dose validity cannot be determined or is unavailable at query time, the dose-validity OBX for that evaluation instance SHALL be omitted.
+- id: dose-validity-and-reason-for-validity--s4
+  verb: SHOULD
+  actor: ''
+  text: Reason-for-validity SHOULD be reported when validity is "N."
+- id: dose-validity-and-reason-for-validity--s5
+  verb: SHALL
+  actor: ''
+  text: When multiple reasons apply, additional OBX segments SHALL be used to repeat the reason.

@@ -1,0 +1,12 @@
+- id: contradiction-vs-constraint--s1
+  verb: SHOULD
+  actor: ''
+  text: Local constraints SHOULD be designed to remain compliant with National IG behavior whenever possible.
+- id: contradiction-vs-constraint--s2
+  verb: SHALL
+  actor: ''
+  text: Requirements that prohibit, redefine, or invert National IG behavior SHALL be treated as contradictions, not extensions.
+- id: contradiction-vs-constraint--s3
+  verb: SHALL
+  actor: Jurisdictions
+  text: Jurisdictions SHALL avoid introducing contradictory requirements unless compelled by law or policy, and SHALL document that justification explicitly.

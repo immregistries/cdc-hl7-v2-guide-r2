@@ -1,0 +1,20 @@
+- id: vaccine-type-and-forecast-initiation--s1
+  verb: SHALL
+  actor: ''
+  text: The forecast SHALL begin with LOINC 30956-7 (Vaccine Type).
+- id: vaccine-type-and-forecast-initiation--s2
+  verb: SHALL NOT
+  actor: ''
+  text: LOINC 38890-0 (Component Vaccine Type) SHALL NOT be used to initiate a forecast.
+- id: vaccine-type-and-forecast-initiation--s3
+  verb: SHOULD
+  actor: IIS
+  text: If needed to support legacy systems, IIS SHOULD include the legacy LOINC 30979-9 (Vaccines Due Next) after LOINC 30956-7 (Vaccine Type).
+- id: vaccine-type-and-forecast-initiation--s4
+  verb: SHALL
+  actor: ''
+  text: For LOINC 30956-7, CVX SHALL be used in OBX-5, selecting the CVX most appropriate for the antigen indicated by the CDS engine (commonly an Unspecified Formulation CVX).
+- id: vaccine-type-and-forecast-initiation--s5
+  verb: SHOULD
+  actor: ''
+  text: The CVX chosen SHOULD align with the CDS engine's forecasting logic.

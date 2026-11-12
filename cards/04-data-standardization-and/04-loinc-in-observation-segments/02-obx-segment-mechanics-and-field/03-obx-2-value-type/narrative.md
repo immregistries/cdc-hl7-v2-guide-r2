@@ -1,0 +1,5 @@
+OBX-2 specifies the HL7 data type used to represent the observation value in OBX-5. OBX-2 SHOULD align with the base data type documented for the corresponding LOINC code in this guide.
+
+Historically, many immunization implementations have used the CE data type for coded observations. Some systems may instead send CWE, which is functionally compatible for the use cases defined in this guide. IIS responding to QBP SHOULD use CE when returning coded observations where a coded element is expected, to maximize compatibility. Systems, including IIS and submitting systems, SHALL accept both CE and CWE where a coded value is expected and SHALL process them equivalently, and querying systems SHALL be prepared to receive either CE or CWE in RSP messages.
+
+In some cases, this guide further constrains how a data type is populated by defining data type flavors. These additional constraints apply to formatting and content but do not change the underlying HL7 data type (e.g., TS, DT, CWE). The specific flavor, such as TS_Z or DT_D, is documented here and is expected in OBX.

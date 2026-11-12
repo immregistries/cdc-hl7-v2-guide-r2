@@ -1,0 +1,8 @@
+- id: hl7-v2-representation--s1
+  verb: SHALL
+  actor: ''
+  text: OBX-5 SHALL contain a SNOMED CT code from the PHVS_VaccinationContraindication_IIS value set
+- id: hl7-v2-representation--s2
+  verb: SHALL
+  actor: ''
+  text: Multiple conditions SHALL be sent as separate OBX segments within the same ORC/RXA group.

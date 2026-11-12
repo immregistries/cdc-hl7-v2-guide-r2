@@ -1,0 +1,15 @@
+- id: handling-unrecognized-values--s1
+  verb: SHALL
+  actor: Systems (including submitting systems and IIS)
+  text: Systems (including submitting systems and IIS) SHALL vary response severity based on the classification of the value set and the usage of the field.
+- id: handling-unrecognized-values--s2
+  verb: SHOULD
+  verbs:
+    - SHOULD
+    - SHALL
+  actor: IIS
+  text: IIS SHOULD be tolerant of unrecognized values in open and dynamic valuesets when the field usage is RE or O and SHALL avoid excessive, non-actionable notifications.
+- id: handling-unrecognized-values--s3
+  verb: SHALL
+  actor: Querying systems
+  text: Querying systems SHALL be capable of handling locally extended values in responses and SHALL not assume that only nationally defined codes will be returned.

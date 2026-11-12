@@ -1,0 +1,12 @@
+- id: cvx-codes--s1
+  verb: SHOULD
+  actor: ''
+  text: Administered vaccinations SHOULD use CVX codes that were active at the time the dose was administered.
+- id: cvx-codes--s2
+  verb: MAY
+  actor: ''
+  text: Historical vaccinations MAY use either active or inactive CVX codes.
+- id: cvx-codes--s3
+  verb: SHALL
+  actor: ''
+  text: Inactive CVX codes SHALL continue to be treated as valid for historical vaccinations and older administered records.

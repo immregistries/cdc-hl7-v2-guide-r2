@@ -1,0 +1,20 @@
+- id: date-of-vaccination-rxa-3--s1
+  verb: SHALL
+  actor: ''
+  text: RXA-3 SHALL represent the calendar date on which the vaccination was administered.
+- id: date-of-vaccination-rxa-3--s2
+  verb: SHALL
+  actor: ''
+  text: RXA-3 SHALL reflect the local date of administration in the time zone where the vaccination occurred.
+- id: date-of-vaccination-rxa-3--s3
+  verb: SHALL
+  actor: ''
+  text: Time component is not expected in typical operations but if it is included, RXA-3 SHALL use the local time zone of administration.
+- id: date-of-vaccination-rxa-3--s4
+  verb: SHALL NOT
+  actor: Submitting systems
+  text: Submitting systems SHALL NOT report billing dates or processing dates in RXA-3.
+- id: date-of-vaccination-rxa-3--s5
+  verb: SHALL
+  actor: ''
+  text: RXA-3 SHALL be accurate enough to support deduplication and patient-facing immunization records, even when time-of-day is not known.

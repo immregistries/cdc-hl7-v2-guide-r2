@@ -1,0 +1,1 @@
+The PID-5 field represents the patient's name and may repeat for multiple name types. Correct classification of each name type allows the IIS to understand how different systems represent the same individual and to reconcile records accordingly.

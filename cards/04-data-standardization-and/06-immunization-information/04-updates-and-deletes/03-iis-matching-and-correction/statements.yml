@@ -1,0 +1,11 @@
+- id: iis-matching-and-correction-processing--s1
+  verb: SHOULD
+  actor: IIS
+  text: IIS SHOULD use the combination of submitting source and ORC-3 as a high-confidence input when matching updates and deletes to previously submitted source records.
+- id: iis-matching-and-correction-processing--s2
+  verb: SHALL
+  verbs:
+    - SHALL
+    - SHALL NOT
+  actor: IIS
+  text: IIS SHALL perform vaccination-level matching for records sent as A or U and SHALL NOT create a duplicate vaccination event solely because a correction was sent as A rather than U.

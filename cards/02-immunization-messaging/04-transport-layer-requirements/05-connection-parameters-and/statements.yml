@@ -1,0 +1,12 @@
+- id: connection-parameters-and-authentication--s1
+  verb: SHALL
+  actor: Sending systems
+  text: Sending systems SHALL support configuration of the endpoint URL and related connection parameters assigned by the IIS.
+- id: connection-parameters-and-authentication--s2
+  verb: SHALL
+  actor: IIS
+  text: IIS SHALL manage credentials through secure processes consistent with jurisdiction policy.
+- id: connection-parameters-and-authentication--s3
+  verb: MAY
+  actor: IIS
+  text: IIS MAY require additional controls such as registered IP addresses or trusted certificate negotiation.

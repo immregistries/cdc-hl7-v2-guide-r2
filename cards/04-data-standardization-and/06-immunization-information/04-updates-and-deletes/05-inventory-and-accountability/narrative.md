@@ -1,0 +1,3 @@
+Corrections to administered vaccinations can affect inventory decrementing, vaccine accountability, and program reporting. These operational consequences do not create a different HL7 correction model. When inventory records can be reconciled automatically or manually, the IIS can apply the vaccination correction and make the corresponding inventory adjustment.
+
+Local policy may require review or delay application when inventory or accountability records can no longer be reconciled. In those situations, the acknowledgment behavior described above communicates whether the correction was applied and whether manual follow-up is required.
