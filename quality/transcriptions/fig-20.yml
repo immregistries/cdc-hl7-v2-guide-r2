@@ -1,0 +1,45 @@
+# Transcription of Figure 20, "Order Segment Group Flavors and Allowed LOINC
+# Observations" (card overview-of-loinc-and-obx-usage), from the 4 Nov 2026 draft.
+# Used by tools/compare_structure.py to compare the figure with the IGAMT
+# co-constraint tables. Marks: R = required, O = optional, "-" = not applicable.
+#
+# `tables` says which co-constraint table (by profile and position in
+# model/coconstraints.json) implements each column. `match` picks out a
+# co-constraint group by its name when two groups share a primary LOINC.
+
+figure: fig-20
+card: overview-of-loinc-and-obx-usage
+columns:
+  - id: event
+    label: Immunization Event (administered/historical dose)
+    tables: [{profile: Z22, table: 0, label: "Z22 administered"}, {profile: Z22, table: 1, label: "Z22 historical"}, {profile: Z32, table: 1, label: "Z32 administered/historical"}]
+  - id: contraindicated
+    label: Immunization Event (Contraindicated)
+    tables: [{profile: Z22, table: 3, label: "Z22 contraindicated"}, {profile: Z32, table: 3, label: "Z32 contraindicated"}]
+  - id: refused
+    label: Immunization Event (Refused)
+    tables: [{profile: Z22, table: 2, label: "Z22 refused"}, {profile: Z32, table: 2, label: "Z32 refused"}]
+  - id: patient
+    label: Patient Observations
+    tables: [{profile: Z22, table: 4, label: "Z22 no vaccination (998)"}, {profile: Z32, table: 0, label: "Z32 no vaccination (998)"}]
+  - id: evaluation
+    label: Immunization Event with Evaluation
+    tables: [{profile: Z42, table: 0, label: "Z42"}]
+  - id: forecast
+    label: Forecast
+    tables: [{profile: Z42, table: 0, label: "Z42"}]
+# Tables that apply to every Order Segment Group regardless of flavor (no condition).
+unconditional: [{profile: Z32, table: 4, label: "Z32 (all groups)"}]
+rows:
+  - {label: Eligibility, loinc: 64994-7, event: R, contraindicated: "-", refused: "-", patient: "-", evaluation: "-", forecast: "-"}
+  - {label: Funding Source, loinc: 30963-3, event: R, contraindicated: "-", refused: "-", patient: "-", evaluation: "-", forecast: "-"}
+  - {label: VIS, loinc: 69764-9, also: [29769-7], event: R, contraindicated: "-", refused: "-", patient: "-", evaluation: "-", forecast: "-"}
+  - {label: Adverse Reaction, loinc: 31044-1, event: O, contraindicated: "-", refused: "-", patient: O, evaluation: "-", forecast: "-"}
+  - {label: Indication Set, loinc: 59785-6, event: O, contraindicated: "-", refused: "-", patient: "-", evaluation: "-", forecast: "-"}
+  - {label: Contraindication Set, loinc: 30945-0, event: "-", contraindicated: R, refused: "-", patient: "-", evaluation: "-", forecast: "-"}
+  - {label: Serological Immunity, loinc: 75505-8, event: "-", contraindicated: "-", refused: "-", patient: O, evaluation: "-", forecast: "-"}
+  - {label: History of Disease, loinc: 59784-9, event: "-", contraindicated: "-", refused: "-", patient: O, evaluation: "-", forecast: "-"}
+  - {label: Patient Condition Set, loinc: 75323-6, event: "-", contraindicated: "-", refused: "-", patient: O, evaluation: "-", forecast: "-"}
+  - {label: Comment, loinc: 48767-8, event: O, contraindicated: O, refused: O, patient: "-", evaluation: "-", forecast: "-"}
+  - {label: Evaluation Set, loinc: 30956-7, match: "Evaluation", event: "-", contraindicated: "-", refused: "-", patient: "-", evaluation: R, forecast: "-"}
+  - {label: Forecast Set, loinc: 30956-7, match: "Forecast", event: "-", contraindicated: "-", refused: "-", patient: "-", evaluation: "-", forecast: R}

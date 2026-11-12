@@ -18,7 +18,7 @@ text, so reviewers can see and respond to them in context.
 
 ```text
 narrative draft (Word) ──► tools/convert_narrative.py ──► cards/   ┐
-IGAMT conformance export ──► (normalizer, coming)    ──► model/    ├─► website, quality report,
+IGAMT conformance export ──► tools/import_igamt.py    ──► model/      ├─► website, quality report,
 example messages         ──► (importer, coming)      ──► examples/ ┘    ballot document
 ```
 
@@ -41,8 +41,9 @@ See [docs/architecture.md](docs/architecture.md) and the
 | Path | Contents |
 |---|---|
 | `cards/` | The narrative as a tree of cards; [`cards/INDEX.md`](cards/INDEX.md) is the table of contents |
+| `model/` | The IGAMT conformance export, normalized (profiles, segments, data types, value sets, constraints, co-constraints); generated, never edited |
 | `data/` | Key terms, glossary, references, and change history |
-| `quality/` | Quality-check settings, reviewer findings, and decisions on findings |
+| `quality/` | Quality-check settings, reviewer findings (including the narrative/IGAMT review), and decisions on findings |
 | `site/` | Theme and web assets (joint CDC/AIRA presentation) |
 | `tools/` | Conversion, checks, the site builder, and (to come) the document builder |
 | `tests/` | Tests for the tools |
@@ -55,8 +56,9 @@ Requires Python 3.12 or later.
 ```powershell
 pip install -r requirements.txt
 
-# Maintainers only: convert the narrative draft (paths in inputs.json; see inputs.example.json)
+# Maintainers only: convert the inputs (paths in inputs.json; see inputs.example.json)
 python tools/convert_narrative.py
+python tools/import_igamt.py
 
 # Anyone: run the quality checks on the committed cards
 python tools/check_cards.py          # writes output/quality/report.md
@@ -73,8 +75,8 @@ python -m unittest discover -s tests
 | Part | State |
 |---|---|
 | Narrative cards | Converted from the 4 Nov 2026 draft: 357 cards, 595 conformance statements |
-| Quality checks | First set (structure, conformance language, figures, references) |
-| Structured chapter (IGAMT) | Next |
+| Quality checks | Structure, conformance language, figures, references, and the narrative/IGAMT comparison ([report](https://immregistries.github.io/cdc-hl7-v2-guide-r2/main/quality/igamt/)) |
+| Structured chapter (IGAMT) | Model imported (8 profiles); pages next |
 | Website | Published from `main` on every push |
 | Card comments (InteropHub) | Planned |
 | Example messages | Planned |

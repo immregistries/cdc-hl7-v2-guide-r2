@@ -26,6 +26,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_cards  # noqa: E402
 import minimd  # noqa: E402
+import site_igamt  # noqa: E402
 from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
 
 SITE_SRC = REPO / "site"
@@ -53,6 +54,7 @@ RULE_HELP = {
     "heading-variants": "One heading spelled more than one way.",
     "long-statement": "Very long statements.",
     "manual": "Found by a reviewer.",
+    **site_igamt.RULE_HELP,
 }
 
 
@@ -133,6 +135,8 @@ def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
         evidence = ""
         if "text" in ev and not (loc and loc in anchors):
             evidence = f"<blockquote>{esc(ev['text'])}</blockquote>"
+        if any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
+            evidence += site_igamt.evidence_html(ev)
         disp = ""
         if i.get("disposition"):
             d = i["disposition"]
@@ -230,7 +234,8 @@ def build(out: Path) -> dict:
         "source": source.get("file", "unknown"),
         "commit": git_commit(),
     }
-    roots, findings = check_cards.run_checks(CARDS_DIR, DATA_DIR, REPO / "quality")
+    roots, findings, structure = check_cards.run_checks_full(CARDS_DIR, DATA_DIR, REPO / "quality")
+    xref = (structure or {}).get("xref", {})
     cards = list(walk(roots))
     by_id = {c.id: c for c in cards}
     by_card = defaultdict(list)
@@ -266,6 +271,10 @@ def build(out: Path) -> dict:
         {"i": "quality", "t": "Quality Review", "n": "", "p": "quality/index.html",
          "f": [sum(f["severity"] == s for f in findings) for s in ("issue", "warning", "note")]},
     ]
+    if structure:
+        cmp_f = [f for f in findings if f["category"] in ("igamt", "igamt-export")]
+        extra.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
+                      "f": [sum(f["severity"] == s for f in cmp_f) for s in ("issue", "warning", "note")]})
     nav = {"nodes": [node(r) for r in roots], "extra": extra}
     write_text(out / "assets" / "nav.js", "window.GUIDE_NAV=" + json.dumps(nav, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
@@ -326,6 +335,7 @@ def build(out: Path) -> dict:
 <div class="narrative">{narrative}{empty}</div>
 {glossary_html(c.meta['glossary']) if c.meta.get('glossary') else ''}
 {statements_html(c, flagged)}
+{site_igamt.structure_panel(xref.get(c.id, []), root)}
 {figures_html(c, root)}
 {tables_html(c)}
 {refs_html}
@@ -401,6 +411,10 @@ def build(out: Path) -> dict:
                 extra_ev = "<p class='mini'>" + esc("; ".join(f"{k} ({v})" for k, v in ev["actors"].items())) + "</p>"
             elif "text" in ev:
                 extra_ev = f"<blockquote>{esc(ev['text'])}</blockquote>"
+            if any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
+                extra_ev += site_igamt.evidence_html(ev)
+            if not where and (f.get("location") or "").startswith("model:"):
+                where = f'<code class="mini">{esc(f["location"][6:])}</code> '
             lis.append(f'<li class="finding sev-{f["severity"]}" id="{esc(f["id"])}"><span class="sev">{SEV_LABEL[f["severity"]]}</span> '
                        f'{where}{esc(f["message"])}{extra_ev}<span class="f-id">{esc(f["id"])}</span></li>')
         sections.append(f'<section id="rule-{esc(rule)}"><h2><code>{esc(rule)}</code> <span class="mini">{n}</span></h2>'
@@ -409,12 +423,22 @@ def build(out: Path) -> dict:
     quality = f"""<article class="page quality"><h1>Quality review</h1>
 <p>These findings come from automated checks run on every build, and from editorial review. They point to places where the
 draft may be unclear, inconsistent, or hard to use, for the authors to consider. Each finding has a permanent ID, and it
-also appears on the section it concerns. Checks comparing the narrative with the IGAMT conformance model, duplication across
-sections, and example messages will be added in later builds.</p>
+also appears on the section it concerns. Checks for duplication across sections and for example messages will be added in
+later builds.</p>
+<p class="callout"><a href="igamt/index.html"><strong>Narrative and IGAMT structure comparison</strong></a>: does the text
+match the conformance profiles? Answers to the Word review comments, conflicts, change requests for IGAMT, and decisions for CDC.
+<a href="findings.csv">Download all findings (CSV)</a>.</p>
 <p class="stats">{len(findings)} findings: {sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes.</p>
 <table class="rules"><thead><tr><th>Check</th><th>What it looks for</th><th>Count</th></tr></thead><tbody>{rows}</tbody></table>
 {''.join(sections)}</article>"""
     write_text(out / "quality" / "index.html", shell(root="../", title="Quality review", body=quality, guide=guide, build=build_info))
+    write_text(out / "quality" / "findings.csv", site_igamt.findings_csv(findings, by_id, guide.get("site", "")))
+    if structure:
+        model_src = read_yaml(REPO / "model" / "source.yml", {}) or {}
+        page = site_igamt.comparison_page(structure, findings, by_id, "../../",
+                                          {"narrative": build_info["source"], "igamt": model_src.get("export", "unknown")})
+        write_text(out / "quality" / "igamt" / "index.html",
+                   shell(root="../../", title="Narrative and IGAMT comparison", body=page, guide=guide, build=build_info))
 
     # ---------------------------------------------------------------- glossary and resources
     gl = read_yaml(DATA_DIR / "glossary.yml", {}) or {}

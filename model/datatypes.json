@@ -1,0 +1,7093 @@
+[
+ {
+  "label": "-",
+  "xml_id": "-",
+  "name": "-",
+  "description": "withdrawn",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "MSA_IZ01"
+  ]
+ },
+ {
+  "label": "AUI",
+  "xml_id": "AUI",
+  "name": "AUI",
+  "description": "Authorization Information",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Authorization Number",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 2,
+    "name": "Date",
+    "usage": "O",
+    "datatype": "DT",
+    "min_length": 1,
+    "max_length": 8
+   },
+   {
+    "position": 3,
+    "name": "Source",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "IN1_IZ01"
+  ]
+ },
+ {
+  "label": "CE",
+  "xml_id": "CE",
+  "name": "CE",
+  "description": "Coded Element",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Identifier",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 2,
+    "name": "Text",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 3,
+    "name": "Name of Coding System",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396 v2.x"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Alternate Identifier",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 5,
+    "name": "Alternate Text",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 6,
+    "name": "Name of Alternate Coding System",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396 v2.x"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "GT1",
+   "PV2",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "MSH_#ConsolidatedIG_IZ01",
+   "MSA_IZ01",
+   "IN2",
+   "IN3",
+   "TQ",
+   "XPN",
+   "VID",
+   "XCN",
+   "CP",
+   "CQ",
+   "ELD"
+  ]
+ },
+ {
+  "label": "CE_IZ01",
+  "xml_id": "CE_IZ01",
+  "name": "CE",
+  "description": "Coded Element",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Identifier",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 2,
+    "name": "Text",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 999
+   },
+   {
+    "position": 3,
+    "name": "Name of Coding System",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Alternate Identifier",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 5,
+    "name": "Alternate Text",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 6,
+    "name": "Name of Alternate Coding System",
+    "usage": "C",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [
+   {
+    "description": "If CE.4 (Alternate Identifier) is valued",
+    "target": "CE.5",
+    "target_path": "5[*]",
+    "true_usage": "RE",
+    "false_usage": "X",
+    "references": [
+     "CE.4"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "4[1]"
+    }
+   },
+   {
+    "description": "If CE.4 (Alternate Identifier) is valued",
+    "target": "CE.6",
+    "target_path": "6[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "CE.4"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "4[1]"
+    }
+   }
+  ],
+  "used_by": [
+   "OBX_IZ03",
+   "QAK_IZ01",
+   "RXA_IZ01_Adm",
+   "PID_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "RXA_IZ03",
+   "IN1_IZ01",
+   "RXA_IZ02",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "RCP_IZ01",
+   "RXA_IZ01_His",
+   "PID_IZ02",
+   "RXR_IZ01",
+   "PD1_IZ01",
+   "OBX_IZ02",
+   "RXA_IZ01_NVx",
+   "ORC_IZ02",
+   "NK1_IZ01",
+   "ORC_IZ01",
+   "QPD_IZ01",
+   "PID_IZ01",
+   "PV1_IZ01",
+   "NTE_IZ01",
+   "OBX_IZ01",
+   "RXA_IZ01",
+   "XPN_IZ01",
+   "CQ_IZ01",
+   "XPN_IZ02",
+   "XCN_IZ01",
+   "XPN_IZ_M",
+   "VID_IZ01"
+  ]
+ },
+ {
+  "label": "CNE",
+  "xml_id": "CNE",
+  "name": "CNE",
+  "description": "Coded with No Exceptions",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Identifier",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 2,
+    "name": "Text",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 3,
+    "name": "Name of Coding System",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396 v2.x"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Alternate Identifier",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 5,
+    "name": "Alternate Text",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 6,
+    "name": "Name of Alternate Coding System",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396 v2.x"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Coding System Version ID",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 8,
+    "name": "Alternate Coding System Version ID",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 9,
+    "name": "Original Text",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "ORC_IZ02",
+   "ORC_IZ01"
+  ]
+ },
+ {
+  "label": "CP",
+  "xml_id": "CP",
+  "name": "CP",
+  "description": "Composite Price",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Price",
+    "usage": "R",
+    "datatype": "MO"
+   },
+   {
+    "position": 2,
+    "name": "Price Type",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 2,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70205"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "From Value",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 16
+   },
+   {
+    "position": 4,
+    "name": "To Value",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 16
+   },
+   {
+    "position": 5,
+    "name": "Range Units",
+    "usage": "O",
+    "datatype": "CE"
+   },
+   {
+    "position": 6,
+    "name": "Range Type",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70298"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "GT1",
+   "IN1_IZ01"
+  ]
+ },
+ {
+  "label": "CQ",
+  "xml_id": "CQ",
+  "name": "CQ",
+  "description": "Composite Quantity with Units",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Quantity",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 16
+   },
+   {
+    "position": 2,
+    "name": "Units",
+    "usage": "O",
+    "datatype": "CE"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "TQ2",
+   "TQ1"
+  ]
+ },
+ {
+  "label": "CQ_IZ01",
+  "xml_id": "CQ_IZ01",
+  "name": "CQ",
+  "description": "Composite Quantity with Units",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Quantity",
+    "usage": "R",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 16
+   },
+   {
+    "position": 2,
+    "name": "Units",
+    "usage": "R",
+    "datatype": "CE_IZ01",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70126_IZ01"
+      ],
+      "strength": "U",
+      "locations": [
+       "1[1]|3[1]"
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-2",
+    "strength": "SHALL",
+    "description": "CQ.2.1 (Identifier) shall contain the value 'RD'.",
+    "references": [
+     "CQ.2.1"
+    ],
+    "assertion": {
+     "op": "PlainText",
+     "path": "2[1].1[1]",
+     "text": "RD",
+     "ignoreCase": "false",
+     "notPresentBehavior": "PASS"
+    }
+   },
+   {
+    "id": "IZ-1",
+    "strength": "SHALL",
+    "description": "CQ.1 (Quantity) shall contain a positive integer.",
+    "references": [
+     "CQ.1"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": "1[1]",
+     "regex": "^[1-9]\\d*$",
+     "notPresentBehavior": "PASS"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "RCP_IZ01"
+  ]
+ },
+ {
+  "label": "CQ_NIST",
+  "xml_id": "CQ_NIST",
+  "name": "CQ_NIST",
+  "description": "Composite Quantity with Units",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Quantity",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 16
+   },
+   {
+    "position": 2,
+    "name": "Units",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 483
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "TQ"
+  ]
+ },
+ {
+  "label": "CWE",
+  "xml_id": "CWE",
+  "name": "CWE",
+  "description": "Coded with Exceptions",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Identifier",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 2,
+    "name": "Text",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 3,
+    "name": "Name of Coding System",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396 v2.x"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Alternate Identifier",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 5,
+    "name": "Alternate Text",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 6,
+    "name": "Name of Alternate Coding System",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396 v2.x"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Coding System Version ID",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 8,
+    "name": "Alternate Coding System Version ID",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 9,
+    "name": "Original Text",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "TQ1",
+   "RPT",
+   "XCN",
+   "CX",
+   "CX_IZ01"
+  ]
+ },
+ {
+  "label": "CWE_IZ01",
+  "xml_id": "CWE_IZ01",
+  "name": "CWE",
+  "description": "Coded with Exceptions",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Identifier",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 999
+   },
+   {
+    "position": 2,
+    "name": "Text",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 999
+   },
+   {
+    "position": 3,
+    "name": "Name of Coding System",
+    "usage": "C",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Alternate Identifier",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 999
+   },
+   {
+    "position": 5,
+    "name": "Alternate Text",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 999
+   },
+   {
+    "position": 6,
+    "name": "Name of Alternate Coding System",
+    "usage": "C",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70396_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Coding System Version ID",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 8,
+    "name": "Alternate Coding System Version ID",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 9,
+    "name": "Original Text",
+    "usage": "O",
+    "datatype": "ST"
+   }
+  ],
+  "constraints": [],
+  "predicates": [
+   {
+    "description": "If CWE.1 (Identifier) is valued",
+    "target": "CWE.3",
+    "target_path": "3[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "CWE.1"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "1[1]"
+    }
+   },
+   {
+    "description": "If CWE.4 (Alternate Identifier) is valued",
+    "target": "CWE.5",
+    "target_path": "5[*]",
+    "true_usage": "RE",
+    "false_usage": "X",
+    "references": [
+     "CWE.4"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "4[1]"
+    }
+   },
+   {
+    "description": "If CWE.4 (Alternate Identifier) is valued",
+    "target": "CWE.6",
+    "target_path": "6[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "CWE.4"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "4[1]"
+    }
+   }
+  ],
+  "used_by": [
+   "RXA_IZ01_Adm",
+   "PID_IZ03",
+   "RXA_IZ03",
+   "RXA_IZ02",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "RXA_IZ01_His",
+   "PID_IZ02",
+   "RXR_IZ01",
+   "RXA_IZ01_NVx",
+   "ORC_IZ02",
+   "ERR_IZ01",
+   "ORC_IZ01",
+   "PID_IZ01",
+   "RXA_IZ01",
+   "XCN_IZ01",
+   "CX_IZ01"
+  ]
+ },
+ {
+  "label": "CX",
+  "xml_id": "CX",
+  "name": "CX",
+  "description": "Extended Composite ID with Check Digit",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "ID Number",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 15
+   },
+   {
+    "position": 2,
+    "name": "Check Digit",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 1
+   },
+   {
+    "position": 3,
+    "name": "Check Digit Scheme",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70061"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Assigning Authority",
+    "usage": "O",
+    "datatype": "HD",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 5,
+    "name": "Identifier Type Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 5,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70203"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 6,
+    "name": "Assigning Facility",
+    "usage": "O",
+    "datatype": "HD"
+   },
+   {
+    "position": 7,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "DT",
+    "min_length": 1,
+    "max_length": 8
+   },
+   {
+    "position": 8,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "DT",
+    "min_length": 1,
+    "max_length": 8
+   },
+   {
+    "position": 9,
+    "name": "Assigning Jurisdiction",
+    "usage": "O",
+    "datatype": "CWE"
+   },
+   {
+    "position": 10,
+    "name": "Assigning Agency or Department",
+    "usage": "O",
+    "datatype": "CWE"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "GT1",
+   "PID_IZ03",
+   "IN2",
+   "PID_IZ02",
+   "IN3",
+   "PID_IZ01"
+  ]
+ },
+ {
+  "label": "CX_IZ01",
+  "xml_id": "CX_IZ01",
+  "name": "CX",
+  "description": "Extended Composite ID with Check Digit",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "ID Number",
+    "usage": "R",
+    "datatype": "ST"
+   },
+   {
+    "position": 2,
+    "name": "Check Digit",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 3,
+    "name": "Check Digit Scheme",
+    "usage": "C",
+    "datatype": "ID",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70061"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Assigning Authority",
+    "usage": "R",
+    "datatype": "HD_IZ01",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363_IZ01"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 5,
+    "name": "Identifier Type Code",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 2,
+    "max_length": 5,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70203_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 6,
+    "name": "Assigning Facility",
+    "usage": "O",
+    "datatype": "HD_IZ01"
+   },
+   {
+    "position": 7,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "DT_D"
+   },
+   {
+    "position": 8,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "DT_D"
+   },
+   {
+    "position": 9,
+    "name": "Assigning Jurisdiction",
+    "usage": "O",
+    "datatype": "CWE"
+   },
+   {
+    "position": 10,
+    "name": "Assigning Agency or Department",
+    "usage": "O",
+    "datatype": "CWE_IZ01"
+   }
+  ],
+  "constraints": [],
+  "predicates": [
+   {
+    "description": "If CX.2 (Check Digit) is valued",
+    "target": "CX.3",
+    "target_path": "3[*]",
+    "true_usage": "O",
+    "false_usage": "X",
+    "references": [
+     "CX.2"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "2[1]"
+    }
+   }
+  ],
+  "used_by": [
+   "PID_IZ03",
+   "IN1_IZ01",
+   "PID_IZ02",
+   "PD1_IZ01",
+   "NK1_IZ01",
+   "QPD_IZ01",
+   "PID_IZ01",
+   "PV1_IZ01"
+  ]
+ },
+ {
+  "label": "DDI",
+  "xml_id": "DDI",
+  "name": "DDI",
+  "description": "Daily Deductible Information",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Delay Days",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 3
+   },
+   {
+    "position": 2,
+    "name": "Monetary Amount",
+    "usage": "R",
+    "datatype": "MO"
+   },
+   {
+    "position": 3,
+    "name": "Number of Days",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 4
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "IN2"
+  ]
+ },
+ {
+  "label": "DLD",
+  "xml_id": "DLD",
+  "name": "DLD",
+  "description": "Discharge Location and Date",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Discharge Location",
+    "usage": "R",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70113"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "PV1_IZ01"
+  ]
+ },
+ {
+  "label": "DLN",
+  "xml_id": "DLN",
+  "name": "DLN",
+  "description": "Driver's License Number",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "License Number",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 2,
+    "name": "Issuing State, Province, Country",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70333"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "DT",
+    "min_length": 1,
+    "max_length": 24
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "PID_IZ03",
+   "PID_IZ02",
+   "PID_IZ01"
+  ]
+ },
+ {
+  "label": "DR_NIST",
+  "xml_id": "DR_NIST",
+  "name": "DR_NIST",
+  "description": "Date/Time Range",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Range Start Date/Time",
+    "usage": "O",
+    "datatype": "DTM",
+    "min_length": 1,
+    "max_length": 26
+   },
+   {
+    "position": 2,
+    "name": "Range End Date/Time",
+    "usage": "O",
+    "datatype": "DTM",
+    "min_length": 1,
+    "max_length": 26
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "XPN",
+   "XPN_IZ01",
+   "XAD",
+   "XPN_IZ02",
+   "XCN",
+   "XCN_IZ01",
+   "XPN_IZ_M",
+   "XAD_IZ01",
+   "XAD_IZ02"
+  ]
+ },
+ {
+  "label": "DT",
+  "xml_id": "DT",
+  "name": "DT",
+  "description": "Date",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [
+   {
+    "id": "DT_DateTimeConstraint",
+    "strength": null,
+    "description": "The value SHALL follow the Date/Time pattern 'YYYY[MM[DD]]'.",
+    "references": [
+     "DT"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": ".",
+     "regex": "^(\\d{4}|\\d{6}|\\d{8})$"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "GT1",
+   "PV2",
+   "IN2",
+   "IN3",
+   "DLN",
+   "CX",
+   "AUI"
+  ]
+ },
+ {
+  "label": "DTM",
+  "xml_id": "DTM",
+  "name": "DTM",
+  "description": "Date/Time",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [
+   {
+    "id": "DTM_DateTimeConstraint",
+    "strength": null,
+    "description": "The value SHALL follow the Date/Time pattern 'YYYY[MM[DD[HH[MM[SS[.S[S[S[S]]]]]]]]][+/-ZZZZ]'.",
+    "references": [
+     "DTM"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": ".",
+     "regex": "^(\\d{4}|\\d{6}|\\d{8}|\\d{10}|\\d{12}|\\d{14}|\\d{14}\\.\\d|\\d{14}\\.\\d{2}|\\d{14}\\.\\d{3}|\\d{14}\\.\\d{4})([+-]\\d{4})?$"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "DR_NIST",
+   "TS"
+  ]
+ },
+ {
+  "label": "DTM_IZ01",
+  "xml_id": "DTM_IZ01",
+  "name": "DTM",
+  "description": "Date/Time",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [
+   {
+    "id": "DTM_IZ01_DateTimeConstraint",
+    "strength": null,
+    "description": "Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMMDD[HH[MM[SS[.S[S[S[S]]]]]]][+/-ZZZZ]'.",
+    "references": [
+     "DTM"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": ".",
+     "regex": "^(\\d{8}|\\d{10}|\\d{12}|\\d{14}|\\d{14}\\.\\d|\\d{14}\\.\\d{2}|\\d{14}\\.\\d{3}|\\d{14}\\.\\d{4})([+-]\\d{4})?$"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "TS_IZ01"
+  ]
+ },
+ {
+  "label": "DTM_M",
+  "xml_id": "DTM_M",
+  "name": "DTM",
+  "description": "Date/Time",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [
+   {
+    "id": "DTM_M_DateTimeConstraint",
+    "strength": null,
+    "description": "Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMM[DD[HH[MM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]'.",
+    "references": [
+     "DTM"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": ".",
+     "regex": "^(\\d{6}|\\d{8}|\\d{10}|\\d{12}|\\d{14}|\\d{14}\\.\\d|\\d{14}\\.\\d{2}|\\d{14}\\.\\d{3}|\\d{14}\\.\\d{4})([+-]\\d{4})?$"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "TS_M"
+  ]
+ },
+ {
+  "label": "DTM_NZ",
+  "xml_id": "DTM_NZ",
+  "name": "DTM",
+  "description": "Date/Time",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [
+   {
+    "id": "DTM_NZ_DateTimeConstraint",
+    "strength": null,
+    "description": "Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMMDD[HH[MM[SS[.S[S[S[S]]]]]]]'.",
+    "references": [
+     "DTM"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": ".",
+     "regex": "^(\\d{8}|\\d{10}|\\d{12}|\\d{14}|\\d{14}\\.\\d|\\d{14}\\.\\d{2}|\\d{14}\\.\\d{3}|\\d{14}\\.\\d{4})$"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "TS_NZ"
+  ]
+ },
+ {
+  "label": "DTM_Z",
+  "xml_id": "DTM_Z",
+  "name": "DTM",
+  "description": "Date/Time",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [
+   {
+    "id": "DTM_Z_DateTimeConstraint",
+    "strength": null,
+    "description": "Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMMDDHHMMSS[.S[S[S[S]]]]+/-ZZZZ'.",
+    "references": [
+     "DTM"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": ".",
+     "regex": "^(\\d{14}|\\d{14}\\.\\d|\\d{14}\\.\\d{2}|\\d{14}\\.\\d{3}|\\d{14}\\.\\d{4})([+-]\\d{4})$"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "TS_Z"
+  ]
+ },
+ {
+  "label": "DTN",
+  "xml_id": "DTN",
+  "name": "DTN",
+  "description": "Day Type and Number",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Day Type",
+    "usage": "R",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 2,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70149"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Number of Days",
+    "usage": "R",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 3
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "IN3"
+  ]
+ },
+ {
+  "label": "DT_D",
+  "xml_id": "DT_D",
+  "name": "DT",
+  "description": "Date",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [
+   {
+    "id": "DT_D_DateTimeConstraint",
+    "strength": null,
+    "description": "Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMMDD'.",
+    "references": [
+     "DT"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": ".",
+     "regex": "^(\\d{8})$"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "IN1_IZ01",
+   "PD1_IZ01",
+   "NK1_IZ01",
+   "PV1_IZ01",
+   "CX_IZ01"
+  ]
+ },
+ {
+  "label": "EI",
+  "xml_id": "EI",
+  "name": "EI",
+  "description": "Entity Identifier",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Entity Identifier",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 2,
+    "name": "Namespace ID",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Universal ID",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 4,
+    "name": "Universal ID Type",
+    "usage": "C",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70301"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "TQ2",
+   "PL",
+   "EIP"
+  ]
+ },
+ {
+  "label": "EIP",
+  "xml_id": "EIP",
+  "name": "EIP",
+  "description": "Entity Identifier Pair",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Placer Assigned Identifier",
+    "usage": "O",
+    "datatype": "EI"
+   },
+   {
+    "position": 2,
+    "name": "Filler Assigned Identifier",
+    "usage": "O",
+    "datatype": "EI"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "ORC_IZ02",
+   "ORC_IZ01"
+  ]
+ },
+ {
+  "label": "EI_IZ01",
+  "xml_id": "EI_IZ01",
+  "name": "EI",
+  "description": "Entity Identifier",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Entity Identifier",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 2,
+    "name": "Namespace ID",
+    "usage": "C",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363_IZ01"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Universal ID",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 4,
+    "name": "Universal ID Type",
+    "usage": "C",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70301"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-3",
+    "strength": "SHALL",
+    "description": "EI.3 (Universal ID) shall be valued with an ISO-compliant OID.",
+    "references": [
+     "EI.3"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": "3[1]",
+     "regex": "[0-2](\\.(0|[1-9][0-9]*))*",
+     "notPresentBehavior": "PASS"
+    }
+   },
+   {
+    "id": "IZ-4",
+    "strength": "SHALL",
+    "description": "EI.4 (Universal ID Type) shall contain the value 'ISO'.",
+    "references": [
+     "EI.4"
+    ],
+    "assertion": {
+     "op": "PlainText",
+     "path": "4[1]",
+     "text": "ISO",
+     "ignoreCase": "false",
+     "notPresentBehavior": "PASS"
+    }
+   }
+  ],
+  "predicates": [
+   {
+    "description": "If EI.3 (Universal ID) is not valued",
+    "target": "EI.2",
+    "target_path": "2[*]",
+    "true_usage": "R",
+    "false_usage": "O",
+    "references": [
+     "EI.3"
+    ],
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "Presence",
+       "path": "3[1]"
+      }
+     ]
+    }
+   },
+   {
+    "description": "If EI.2 (Namespace ID) is not valued",
+    "target": "EI.3",
+    "target_path": "3[*]",
+    "true_usage": "R",
+    "false_usage": "O",
+    "references": [
+     "EI.2"
+    ],
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "Presence",
+       "path": "2[1]"
+      }
+     ]
+    }
+   },
+   {
+    "description": "If EI.3 (Universal ID) is valued",
+    "target": "EI.4",
+    "target_path": "4[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "EI.3"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "3[1]"
+    }
+   }
+  ],
+  "used_by": [
+   "OBX_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "MSH_#ConsolidatedIG_IZ01",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "OBX_IZ02",
+   "ORC_IZ02",
+   "ORC_IZ01",
+   "OBX_IZ01"
+  ]
+ },
+ {
+  "label": "ELD",
+  "xml_id": "ELD",
+  "name": "ELD",
+  "description": "Error Location and Description",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Segment ID",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 3
+   },
+   {
+    "position": 2,
+    "name": "Segment Sequence",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 3,
+    "name": "Field Position",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 4,
+    "name": "Code Identifying Error",
+    "usage": "O",
+    "datatype": "CE",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70357"
+      ],
+      "strength": "R",
+      "locations": [
+       "1[1]|3[1]"
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "ERR_IZ01"
+  ]
+ },
+ {
+  "label": "ERL",
+  "xml_id": "ERL",
+  "name": "ERL",
+  "description": "Error Location",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Segment ID",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 3
+   },
+   {
+    "position": 2,
+    "name": "Segment Sequence",
+    "usage": "R",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 3,
+    "name": "Field Position",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 4,
+    "name": "Field Repetition",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 5,
+    "name": "Component Number",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 6,
+    "name": "Sub-Component Number",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": []
+ },
+ {
+  "label": "ERL_IZ01",
+  "xml_id": "ERL_IZ01",
+  "name": "ERL",
+  "description": "Error Location",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Segment ID",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 3,
+    "max_length": 3
+   },
+   {
+    "position": 2,
+    "name": "Segment Sequence",
+    "usage": "R",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 3,
+    "name": "Field Position",
+    "usage": "C",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 4,
+    "name": "Field Repetition",
+    "usage": "C",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 5,
+    "name": "Component Number",
+    "usage": "C",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   },
+   {
+    "position": 6,
+    "name": "Sub-Component Number",
+    "usage": "RE",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   }
+  ],
+  "constraints": [],
+  "predicates": [
+   {
+    "description": "If ERL.4 (Field Repetition) is valued",
+    "target": "ERL.3",
+    "target_path": "3[*]",
+    "true_usage": "R",
+    "false_usage": "RE",
+    "references": [
+     "ERL.4"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "4[1]"
+    }
+   },
+   {
+    "description": "If ERL.5 (Component Number) is valued",
+    "target": "ERL.4",
+    "target_path": "4[*]",
+    "true_usage": "R",
+    "false_usage": "RE",
+    "references": [
+     "ERL.5"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "5[1]"
+    }
+   },
+   {
+    "description": "If ERL.6 (Sub-Component Number) is valued",
+    "target": "ERL.5",
+    "target_path": "5[*]",
+    "true_usage": "R",
+    "false_usage": "RE",
+    "references": [
+     "ERL.6"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "6[1]"
+    }
+   }
+  ],
+  "used_by": [
+   "ERR_IZ01"
+  ]
+ },
+ {
+  "label": "FC",
+  "xml_id": "FC",
+  "name": "FC",
+  "description": "Financial Class",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Financial Class Code",
+    "usage": "R",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70064"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "GT1",
+   "PV1_IZ01"
+  ]
+ },
+ {
+  "label": "FN",
+  "xml_id": "FN",
+  "name": "FN",
+  "description": "Family Name",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Surname",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 2,
+    "name": "Own Surname Prefix",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 3,
+    "name": "Own Surname",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 4,
+    "name": "Surname Prefix From Partner/Spouse",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 5,
+    "name": "Surname From Partner/Spouse",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "XPN",
+   "XCN"
+  ]
+ },
+ {
+  "label": "FN_IZ01",
+  "xml_id": "FN_IZ01",
+  "name": "FN",
+  "description": "Family Name",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Surname",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 2,
+    "name": "Own Surname Prefix",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 3,
+    "name": "Own Surname",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 4,
+    "name": "Surname Prefix From Partner/Spouse",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 5,
+    "name": "Surname From Partner/Spouse",
+    "usage": "O",
+    "datatype": "ST"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "XPN_IZ01",
+   "XPN_IZ02",
+   "XCN_IZ01",
+   "XPN_IZ_M"
+  ]
+ },
+ {
+  "label": "FT",
+  "xml_id": "FT",
+  "name": "FT",
+  "description": "Formatted Text Data",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "NTE_IZ01"
+  ]
+ },
+ {
+  "label": "GTS",
+  "xml_id": "GTS",
+  "name": "GTS",
+  "description": "General Timing Specification",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "RPT"
+  ]
+ },
+ {
+  "label": "HD",
+  "xml_id": "HD",
+  "name": "HD",
+  "description": "Hierarchic Designator",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Namespace ID",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70300"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Universal ID",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 3,
+    "name": "Universal ID Type",
+    "usage": "C",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70301"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "MSH_#ConsolidatedIG_IZ01",
+   "LA2",
+   "PL",
+   "XCN",
+   "CX",
+   "XON"
+  ]
+ },
+ {
+  "label": "HD_IZ01",
+  "xml_id": "HD_IZ01",
+  "name": "HD",
+  "description": "Hierarchic Designator",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Namespace ID",
+    "usage": "R",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70300",
+       "HL70362",
+       "HL70363_IZ01",
+       "HL70361"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Universal ID",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 3,
+    "name": "Universal ID Type",
+    "usage": "C",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70301"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-6",
+    "strength": "SHALL",
+    "description": "HD.3 (Universal ID Type) shall contain the value 'ISO'.",
+    "references": [
+     "HD.3"
+    ],
+    "assertion": {
+     "op": "PlainText",
+     "path": "3[1]",
+     "text": "ISO",
+     "ignoreCase": "false",
+     "notPresentBehavior": "PASS"
+    }
+   },
+   {
+    "id": "IZ-5",
+    "strength": "SHALL",
+    "description": "HD.2 (Universal ID) shall be valued with an ISO-compliant OID.",
+    "references": [
+     "HD.2"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": "2[1]",
+     "regex": "[0-2](\\.(0|[1-9][0-9]*))*",
+     "notPresentBehavior": "PASS"
+    }
+   }
+  ],
+  "predicates": [
+   {
+    "description": "If HD.1 (Namespace ID) is not valued",
+    "target": "HD.2",
+    "target_path": "2[*]",
+    "true_usage": "R",
+    "false_usage": "O",
+    "references": [
+     "HD.1"
+    ],
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "Presence",
+       "path": "1[1]"
+      }
+     ]
+    }
+   },
+   {
+    "description": "If HD.2 (Universal ID) is valued",
+    "target": "HD.3",
+    "target_path": "3[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "HD.2"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "2[1]"
+    }
+   }
+  ],
+  "used_by": [
+   "PID_IZ03",
+   "MSH_#ConsolidatedIG_IZ01",
+   "PID_IZ02",
+   "QPD_IZ01",
+   "PID_IZ01",
+   "XON_IZ01",
+   "XCN_IZ01",
+   "CX_IZ01",
+   "LA2_IZ01"
+  ]
+ },
+ {
+  "label": "ICD",
+  "xml_id": "ICD",
+  "name": "ICD",
+  "description": "Insurance Certification Definition",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Certification Patient Type",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 11,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70150"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Certification Required",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70136"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Date/Time Certification Required",
+    "usage": "O",
+    "datatype": "TS"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "IN3"
+  ]
+ },
+ {
+  "label": "ID",
+  "xml_id": "ID",
+  "name": "ID",
+  "description": "String Data",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "GT1",
+   "QAK_IZ01",
+   "RXA_IZ01_Adm",
+   "PV2",
+   "PID_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "MSH_#ConsolidatedIG_IZ01",
+   "MSA_IZ01",
+   "RXA_IZ03",
+   "IN1_IZ01",
+   "RXA_IZ02",
+   "IN2",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "RCP_IZ01",
+   "DSC",
+   "RXA_IZ01_His",
+   "PID_IZ02",
+   "PD1_IZ01",
+   "OBX_IZ02",
+   "RXA_IZ01_NVx",
+   "TQ2",
+   "ORC_IZ02",
+   "ERR_IZ01",
+   "NK1_IZ01",
+   "ORC_IZ01",
+   "IN3",
+   "PID_IZ01",
+   "TQ1",
+   "NTE_IZ01",
+   "OBX_IZ01",
+   "RXA_IZ01",
+   "CWE",
+   "TQ",
+   "RPT",
+   "TS_IZ01",
+   "MO",
+   "MSG",
+   "EI",
+   "HD_IZ01",
+   "XPN",
+   "MSG_IZ01",
+   "XPN_IZ01",
+   "LA2",
+   "XON_IZ01",
+   "PT_IZ01",
+   "XAD",
+   "SRT",
+   "VID",
+   "HD",
+   "RCD",
+   "CNE",
+   "TS_NZ",
+   "XTN_IZ01",
+   "XPN_IZ02",
+   "XCN",
+   "CE_IZ01",
+   "CP",
+   "XCN_IZ01",
+   "TS_M",
+   "MOP",
+   "PT",
+   "EI_IZ01",
+   "XPN_IZ_M",
+   "CX",
+   "XON",
+   "OSD",
+   "TS_Z",
+   "TS",
+   "CX_IZ01",
+   "XAD_IZ01",
+   "ICD",
+   "XTN",
+   "CE",
+   "LA2_IZ01",
+   "CWE_IZ01",
+   "XAD_IZ02",
+   "VID_IZ01"
+  ]
+ },
+ {
+  "label": "ID",
+  "xml_id": "ID_2-8-2",
+  "name": "ID",
+  "description": "Coded Value for HL7 Defined Tables",
+  "version": "2.8.2",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "QPD_IZ01"
+  ]
+ },
+ {
+  "label": "IS",
+  "xml_id": "IS",
+  "name": "IS",
+  "description": "String Data",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "GT1",
+   "PV2",
+   "PID_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "IN1_IZ01",
+   "IN2",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "PID_IZ02",
+   "PD1_IZ01",
+   "OBX_IZ02",
+   "ERR_IZ01",
+   "NK1_IZ01",
+   "IN3",
+   "PID_IZ01",
+   "PV1_IZ01",
+   "OBX_IZ01",
+   "RPT",
+   "EI",
+   "HD_IZ01",
+   "XPN",
+   "JCC",
+   "DLN",
+   "XPN_IZ01",
+   "LA2",
+   "XON_IZ01",
+   "XAD",
+   "DTN",
+   "HD",
+   "PL",
+   "XPN_IZ02",
+   "XCN",
+   "XCN_IZ01",
+   "EI_IZ01",
+   "XPN_IZ_M",
+   "XON",
+   "RI",
+   "RMC",
+   "OSD",
+   "PTA",
+   "DLD",
+   "XAD_IZ01",
+   "ICD",
+   "LA2_IZ01",
+   "FC",
+   "XAD_IZ02"
+  ]
+ },
+ {
+  "label": "IS",
+  "xml_id": "IS_2-7-1",
+  "name": "IS",
+  "description": "Coded Value for User-Defined Tables",
+  "version": "2.7.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "QPD_IZ01"
+  ]
+ },
+ {
+  "label": "JCC",
+  "xml_id": "JCC",
+  "name": "JCC",
+  "description": "Job Code/Class",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Job Code",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70327"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Job Class",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70328"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Job Description Text",
+    "usage": "O",
+    "datatype": "TX",
+    "min_length": 1,
+    "max_length": 250
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "GT1",
+   "IN2",
+   "NK1_IZ01"
+  ]
+ },
+ {
+  "label": "LA2",
+  "xml_id": "LA2",
+  "name": "LA2",
+  "description": "Location with Address Variation 2",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Point of Care",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70302"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Room",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70303"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Bed",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70304"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Facility",
+    "usage": "O",
+    "datatype": "HD"
+   },
+   {
+    "position": 5,
+    "name": "Location Status",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70306"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 6,
+    "name": "Patient Location Type",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70305"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Building",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70307"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Floor",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70308"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 9,
+    "name": "Street Address",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 120
+   },
+   {
+    "position": 10,
+    "name": "Other Designation",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 120
+   },
+   {
+    "position": 11,
+    "name": "City",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 12,
+    "name": "State or Province",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 13,
+    "name": "Zip or Postal Code",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 12
+   },
+   {
+    "position": 14,
+    "name": "Country",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70399"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 15,
+    "name": "Address Type",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70190"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 16,
+    "name": "Other Geographic Designation",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": []
+ },
+ {
+  "label": "LA2_IZ01",
+  "xml_id": "LA2_IZ01",
+  "name": "LA2",
+  "description": "Location with Address Variation 2",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Point of Care",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 2,
+    "name": "Room",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 3,
+    "name": "Bed",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 4,
+    "name": "Facility",
+    "usage": "R",
+    "datatype": "HD_IZ01",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70362"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 5,
+    "name": "Location Status",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 6,
+    "name": "Patient Location Type",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 7,
+    "name": "Building",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 8,
+    "name": "Floor",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 9,
+    "name": "Street Address",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 10,
+    "name": "Other Designation",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 11,
+    "name": "City",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 12,
+    "name": "State or Province",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 13,
+    "name": "Zip or Postal Code",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 14,
+    "name": "Country",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 15,
+    "name": "Address Type",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 16,
+    "name": "Other Geographic Designation",
+    "usage": "O",
+    "datatype": "ST"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "RXA_IZ01_Adm",
+   "RXA_IZ03",
+   "RXA_IZ02",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "RXA_IZ01_His",
+   "RXA_IZ01_NVx",
+   "RXA_IZ01"
+  ]
+ },
+ {
+  "label": "MO",
+  "xml_id": "MO",
+  "name": "MO",
+  "description": "Money",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Quantity",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 16
+   },
+   {
+    "position": 2,
+    "name": "Denomination",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "DDI",
+   "CP"
+  ]
+ },
+ {
+  "label": "MOP",
+  "xml_id": "MOP",
+  "name": "MOP",
+  "description": "Money or Percentage",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Money or Percentage Indicator",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 2,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70148"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Money or Percentage Quantity",
+    "usage": "R",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 16
+   },
+   {
+    "position": 3,
+    "name": "Currency Denomination",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "IN3",
+   "RMC",
+   "PTA"
+  ]
+ },
+ {
+  "label": "MSG",
+  "xml_id": "MSG",
+  "name": "MSG",
+  "description": "Message Type",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Message Code",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70076"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Trigger Event",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70003"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Message Structure",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 7,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70354"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": []
+ },
+ {
+  "label": "MSG_IZ01",
+  "xml_id": "MSG_IZ01",
+  "name": "MSG",
+  "description": "Message Type",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Message Code",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 3,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70076_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Trigger Event",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 3,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70003_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Message Structure",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 3,
+    "max_length": 7,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70354_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "MSH_#ConsolidatedIG_IZ01"
+  ]
+ },
+ {
+  "label": "NM",
+  "xml_id": "NM",
+  "name": "NM",
+  "description": "Numeric",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "GT1",
+   "QAK_IZ01",
+   "RXA_IZ01_Adm",
+   "PV2",
+   "PID_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "MSH_#ConsolidatedIG_IZ01",
+   "MSA_IZ01",
+   "RXA_IZ03",
+   "RDF",
+   "IN1_IZ01",
+   "RXA_IZ02",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "RXA_IZ01_His",
+   "PID_IZ02",
+   "OBX_IZ02",
+   "RXA_IZ01_NVx",
+   "TQ2",
+   "QPD_IZ01",
+   "PID_IZ01",
+   "TQ1",
+   "PV1_IZ01",
+   "OBX_IZ01",
+   "RXA_IZ01",
+   "TQ",
+   "RPT",
+   "MO",
+   "CQ_IZ01",
+   "XON_IZ01",
+   "DTN",
+   "RCD",
+   "XTN_IZ01",
+   "CQ_NIST",
+   "DDI",
+   "CP",
+   "CQ",
+   "MOP",
+   "XON",
+   "RMC",
+   "OSD",
+   "PTA",
+   "XTN",
+   "ELD",
+   "ERL",
+   "ERL_IZ01"
+  ]
+ },
+ {
+  "label": "OSD",
+  "xml_id": "OSD",
+  "name": "OSD",
+  "description": "Order Sequence Definition",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Sequence/Results Flag",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70524"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Placer Order Number: Entity Identifier",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 15
+   },
+   {
+    "position": 3,
+    "name": "Placer Order Number: Namespace ID",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Filler Order Number: Entity Identifier",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 15
+   },
+   {
+    "position": 5,
+    "name": "Filler Order Number: Namespace ID",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 6,
+    "name": "Sequence Condition Value",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 12
+   },
+   {
+    "position": 7,
+    "name": "Maximum Number of Repeats",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 3
+   },
+   {
+    "position": 8,
+    "name": "Placer Order Number: Universal ID",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 15
+   },
+   {
+    "position": 9,
+    "name": "Placer Order Number: Universal ID Type",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70301"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 10,
+    "name": "Filler Order Number: Universal ID",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 15
+   },
+   {
+    "position": 11,
+    "name": "Filler Order Number: Universal ID Type",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70301"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "TQ"
+  ]
+ },
+ {
+  "label": "PL",
+  "xml_id": "PL",
+  "name": "PL",
+  "description": "Person Location",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Point of Care",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70302"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Room",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70303"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Bed",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70304"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Facility",
+    "usage": "O",
+    "datatype": "HD"
+   },
+   {
+    "position": 5,
+    "name": "Location Status",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70306"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 6,
+    "name": "Person Location Type",
+    "usage": "C",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70305"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Building",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70307"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Floor",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70308"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 9,
+    "name": "Location Description",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 10,
+    "name": "Comprehensive Location Identifier",
+    "usage": "O",
+    "datatype": "EI"
+   },
+   {
+    "position": 11,
+    "name": "Assigning Authority for Location",
+    "usage": "O",
+    "datatype": "HD"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "PV2",
+   "ORC_IZ02",
+   "ORC_IZ01",
+   "PV1_IZ01"
+  ]
+ },
+ {
+  "label": "PT",
+  "xml_id": "PT",
+  "name": "PT",
+  "description": "Processing Type",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Processing ID",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70103"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Processing Mode",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70207"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": []
+ },
+ {
+  "label": "PTA",
+  "xml_id": "PTA",
+  "name": "PTA",
+  "description": "Policy Type and Amount",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Policy Type",
+    "usage": "R",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 5,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70147"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Amount Class",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 9,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70193"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Money or Percentage Quantity",
+    "usage": "B",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 16
+   },
+   {
+    "position": 4,
+    "name": "Money or Percentage",
+    "usage": "R",
+    "datatype": "MOP"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "IN2"
+  ]
+ },
+ {
+  "label": "PT_IZ01",
+  "xml_id": "PT_IZ01",
+  "name": "PT",
+  "description": "Processing Type",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Processing ID",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70103_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Processing Mode",
+    "usage": "O",
+    "datatype": "ID"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "MSH_#ConsolidatedIG_IZ01"
+  ]
+ },
+ {
+  "label": "RCD",
+  "xml_id": "RCD",
+  "name": "RCD",
+  "description": "Row Column Definition",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Segment Field Name",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 12
+   },
+   {
+    "position": 2,
+    "name": "HL7 Data Type",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70440"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Maximum Column Width",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 2
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "RDF"
+  ]
+ },
+ {
+  "label": "RI",
+  "xml_id": "RI",
+  "name": "RI",
+  "description": "Repeat Interval",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Repeat Pattern",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70335"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Explicit Time Interval",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "TQ"
+  ]
+ },
+ {
+  "label": "RMC",
+  "xml_id": "RMC",
+  "name": "RMC",
+  "description": "Room Coverage",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Room Type",
+    "usage": "R",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70145"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Amount Type",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70146"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Coverage Amount",
+    "usage": "B",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 16
+   },
+   {
+    "position": 4,
+    "name": "Money or Percentage",
+    "usage": "R",
+    "datatype": "MOP"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "IN2"
+  ]
+ },
+ {
+  "label": "RPT",
+  "xml_id": "RPT",
+  "name": "RPT",
+  "description": "Repeat Pattern",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Repeat Pattern Code",
+    "usage": "R",
+    "datatype": "CWE",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70335"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]|3[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Calendar Alignment",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 2,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70527"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Phase Range Begin Value",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 4,
+    "name": "Phase Range End Value",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 5,
+    "name": "Period Quantity",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 6,
+    "name": "Period Units",
+    "usage": "C",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 7,
+    "name": "Institution Specified Time",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70136"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Event",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70528"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 9,
+    "name": "Event Offset Quantity",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 10,
+    "name": "Event Offset Units",
+    "usage": "C",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 10
+   },
+   {
+    "position": 11,
+    "name": "General Timing Specification",
+    "usage": "O",
+    "datatype": "GTS",
+    "min_length": 1,
+    "max_length": 200
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "TQ1"
+  ]
+ },
+ {
+  "label": "SAD",
+  "xml_id": "SAD",
+  "name": "SAD",
+  "description": "Street Address",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Street or Mailing Address",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 120
+   },
+   {
+    "position": 2,
+    "name": "Street Name",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 3,
+    "name": "Dwelling Number",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 12
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "XAD"
+  ]
+ },
+ {
+  "label": "SAD_IZ01",
+  "xml_id": "SAD_IZ01",
+  "name": "SAD",
+  "description": "Street Address",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Street or Mailing Address",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 120
+   },
+   {
+    "position": 2,
+    "name": "Street Name",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 3,
+    "name": "Dwelling Number",
+    "usage": "O",
+    "datatype": "ST"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "XAD_IZ01",
+   "XAD_IZ02"
+  ]
+ },
+ {
+  "label": "SI",
+  "xml_id": "SI",
+  "name": "SI",
+  "description": "Sequence ID",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "GT1",
+   "PID_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "IN1_IZ01",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "PID_IZ02",
+   "OBX_IZ02",
+   "TQ2",
+   "NK1_IZ01",
+   "IN3",
+   "PID_IZ01",
+   "TQ1",
+   "PV1_IZ01",
+   "NTE_IZ01",
+   "OBX_IZ01"
+  ]
+ },
+ {
+  "label": "SRT",
+  "xml_id": "SRT",
+  "name": "SRT",
+  "description": "Sort Order",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Sort-by Field",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 12
+   },
+   {
+    "position": 2,
+    "name": "Sequencing",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 2,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70397"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "RCP_IZ01"
+  ]
+ },
+ {
+  "label": "ST",
+  "xml_id": "ST",
+  "name": "ST",
+  "description": "String Data",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "GT1",
+   "QAK_IZ01",
+   "RXA_IZ01_Adm",
+   "PV2",
+   "PID_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "SFT",
+   "MSH_#ConsolidatedIG_IZ01",
+   "MSA_IZ01",
+   "RXA_IZ03",
+   "IN1_IZ01",
+   "RXA_IZ02",
+   "IN2",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "DSC",
+   "RXA_IZ01_His",
+   "PID_IZ02",
+   "OBX_IZ02",
+   "RXA_IZ01_NVx",
+   "ERR_IZ01",
+   "NK1_IZ01",
+   "IN3",
+   "QPD_IZ01",
+   "PID_IZ01",
+   "OBX_IZ01",
+   "RXA_IZ01",
+   "CWE",
+   "TQ",
+   "EI",
+   "HD_IZ01",
+   "FN_IZ01",
+   "XPN",
+   "DLN",
+   "XPN_IZ01",
+   "LA2",
+   "XON_IZ01",
+   "XAD",
+   "SRT",
+   "SAD_IZ01",
+   "HD",
+   "PL",
+   "RCD",
+   "CNE",
+   "XTN_IZ01",
+   "XPN_IZ02",
+   "XCN",
+   "CQ_NIST",
+   "CE_IZ01",
+   "XCN_IZ01",
+   "EI_IZ01",
+   "XPN_IZ_M",
+   "CX",
+   "XON",
+   "RI",
+   "OSD",
+   "CX_IZ01",
+   "XAD_IZ01",
+   "AUI",
+   "XTN",
+   "CE",
+   "SAD",
+   "FN",
+   "ELD",
+   "ERL",
+   "LA2_IZ01",
+   "CWE_IZ01",
+   "XAD_IZ02",
+   "ERL_IZ01"
+  ]
+ },
+ {
+  "label": "TM",
+  "xml_id": "TM",
+  "name": "TM",
+  "description": "Time",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [
+   {
+    "id": "TM_DateTimeConstraint",
+    "strength": null,
+    "description": "The value SHALL follow the Date/Time pattern 'HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]'.",
+    "references": [
+     "TM"
+    ],
+    "assertion": {
+     "op": "Format",
+     "path": ".",
+     "regex": "^(\\d{2}|\\d{4}|\\d{6}|\\d{6}\\.\\d|\\d{6}\\.\\d{2}|\\d{6}\\.\\d{3}|\\d{6}\\.\\d{4})([+-]\\d{4})?$"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "TQ1"
+  ]
+ },
+ {
+  "label": "TQ",
+  "xml_id": "TQ",
+  "name": "TQ",
+  "description": "Timing Quantity",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Quantity",
+    "usage": "O",
+    "datatype": "CQ_NIST"
+   },
+   {
+    "position": 2,
+    "name": "Interval",
+    "usage": "O",
+    "datatype": "RI"
+   },
+   {
+    "position": 3,
+    "name": "Duration",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 6
+   },
+   {
+    "position": 4,
+    "name": "Start Date/Time",
+    "usage": "O",
+    "datatype": "TS"
+   },
+   {
+    "position": 5,
+    "name": "End Date/Time",
+    "usage": "O",
+    "datatype": "TS"
+   },
+   {
+    "position": 6,
+    "name": "Priority",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 6
+   },
+   {
+    "position": 7,
+    "name": "Condition",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 8,
+    "name": "Text",
+    "usage": "O",
+    "datatype": "TX",
+    "min_length": 1,
+    "max_length": 200
+   },
+   {
+    "position": 9,
+    "name": "Conjunction",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70472"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 10,
+    "name": "Order Sequencing",
+    "usage": "O",
+    "datatype": "OSD"
+   },
+   {
+    "position": 11,
+    "name": "Occurrence Duration",
+    "usage": "O",
+    "datatype": "CE"
+   },
+   {
+    "position": 12,
+    "name": "Total Occurrences",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 4
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "ORC_IZ02",
+   "ORC_IZ01"
+  ]
+ },
+ {
+  "label": "TS",
+  "xml_id": "TS",
+  "name": "TS",
+  "description": "Time Stamp",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Time",
+    "usage": "R",
+    "datatype": "DTM",
+    "min_length": 1,
+    "max_length": 24
+   },
+   {
+    "position": 2,
+    "name": "Degree of Precision",
+    "usage": "B",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70529"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "GT1",
+   "PV2",
+   "SFT",
+   "RXA_IZ03",
+   "RXA_IZ02",
+   "IN3",
+   "TQ1",
+   "TQ",
+   "XPN",
+   "XAD",
+   "XCN",
+   "DLD",
+   "ICD",
+   "FC"
+  ]
+ },
+ {
+  "label": "TS_IZ01",
+  "xml_id": "TS_IZ01",
+  "name": "TS",
+  "description": "Time Stamp",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Time",
+    "usage": "R",
+    "datatype": "DTM_IZ01"
+   },
+   {
+    "position": 2,
+    "name": "Degree of Precision",
+    "usage": "X",
+    "datatype": "ID"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "RXA_IZ01_Adm",
+   "PID_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "RXA_IZ03",
+   "IN1_IZ01",
+   "RXA_IZ02",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "RCP_IZ01",
+   "RXA_IZ01_His",
+   "PID_IZ02",
+   "OBX_IZ02",
+   "RXA_IZ01_NVx",
+   "ORC_IZ02",
+   "NK1_IZ01",
+   "ORC_IZ01",
+   "QPD_IZ01",
+   "PID_IZ01",
+   "PV1_IZ01",
+   "OBX_IZ01",
+   "RXA_IZ01",
+   "XPN_IZ01",
+   "XPN_IZ02",
+   "XCN_IZ01",
+   "XPN_IZ_M",
+   "XAD_IZ01",
+   "XAD_IZ02"
+  ]
+ },
+ {
+  "label": "TS_M",
+  "xml_id": "TS_M",
+  "name": "TS",
+  "description": "Time Stamp",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Time",
+    "usage": "R",
+    "datatype": "DTM_M"
+   },
+   {
+    "position": 2,
+    "name": "Degree of Precision",
+    "usage": "X",
+    "datatype": "ID"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "RXA_IZ01_Adm",
+   "RXA_IZ02",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "RXA_IZ01_His",
+   "RXA_IZ01_NVx",
+   "RXA_IZ01"
+  ]
+ },
+ {
+  "label": "TS_NZ",
+  "xml_id": "TS_NZ",
+  "name": "TS",
+  "description": "Time Stamp",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Time",
+    "usage": "R",
+    "datatype": "DTM_NZ"
+   },
+   {
+    "position": 2,
+    "name": "Degree of Precision",
+    "usage": "X",
+    "datatype": "ID"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "RXA_IZ01_Adm",
+   "PID_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "RXA_IZ03",
+   "IN1_IZ01",
+   "RXA_IZ02",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "RXA_IZ01_His",
+   "OBX_IZ02",
+   "RXA_IZ01_NVx",
+   "QPD_IZ01",
+   "PID_IZ01",
+   "OBX_IZ01",
+   "RXA_IZ01"
+  ]
+ },
+ {
+  "label": "TS_Z",
+  "xml_id": "TS_Z",
+  "name": "TS",
+  "description": "Time Stamp",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Time",
+    "usage": "R",
+    "datatype": "DTM_Z"
+   },
+   {
+    "position": 2,
+    "name": "Degree of Precision",
+    "usage": "X",
+    "datatype": "ID"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "MSH_#ConsolidatedIG_IZ01"
+  ]
+ },
+ {
+  "label": "TX",
+  "xml_id": "TX",
+  "name": "TX",
+  "description": "Text Data",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "SFT",
+   "ERR_IZ01",
+   "TQ1",
+   "TQ",
+   "JCC"
+  ]
+ },
+ {
+  "label": "VID",
+  "xml_id": "VID",
+  "name": "VID",
+  "description": "Version Identifier",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Version ID",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 5,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70104"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Internationalization Code",
+    "usage": "O",
+    "datatype": "CE",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70399"
+      ],
+      "strength": "R",
+      "locations": [
+       "1[1]|3[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "International Version ID",
+    "usage": "O",
+    "datatype": "CE"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": []
+ },
+ {
+  "label": "VID_IZ01",
+  "xml_id": "VID_IZ01",
+  "name": "VID",
+  "description": "Version Identifier",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Version ID",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 5,
+    "max_length": 5,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70104_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 2,
+    "name": "Internationalization Code",
+    "usage": "O",
+    "datatype": "CE_IZ01"
+   },
+   {
+    "position": 3,
+    "name": "International Version ID",
+    "usage": "O",
+    "datatype": "CE_IZ01"
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-7",
+    "strength": "SHALL",
+    "description": "VID.1 (Version ID) shall contain the value '2.5.1'.",
+    "references": [
+     "VID.1"
+    ],
+    "assertion": {
+     "op": "PlainText",
+     "path": "1[1]",
+     "text": "2.5.1",
+     "ignoreCase": "false",
+     "notPresentBehavior": "PASS"
+    }
+   }
+  ],
+  "predicates": [],
+  "used_by": [
+   "MSH_#ConsolidatedIG_IZ01"
+  ]
+ },
+ {
+  "label": "XAD",
+  "xml_id": "XAD",
+  "name": "XAD",
+  "description": "Extended Address",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Street Address",
+    "usage": "O",
+    "datatype": "SAD"
+   },
+   {
+    "position": 2,
+    "name": "Other Designation",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 120
+   },
+   {
+    "position": 3,
+    "name": "City",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 4,
+    "name": "State or Province",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 5,
+    "name": "Zip or Postal Code",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 12
+   },
+   {
+    "position": 6,
+    "name": "Country",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70399"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Address Type",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70190"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Other Geographic Designation",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 9,
+    "name": "County/Parish Code",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70289"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 10,
+    "name": "Census Tract",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70288"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 11,
+    "name": "Address Representation Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70465"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 12,
+    "name": "Address Validity Range",
+    "usage": "B",
+    "datatype": "DR_NIST"
+   },
+   {
+    "position": 13,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS"
+   },
+   {
+    "position": 14,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "TS"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "GT1"
+  ]
+ },
+ {
+  "label": "XAD_IZ01",
+  "xml_id": "XAD_IZ01",
+  "name": "XAD",
+  "description": "Extended Address",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Street Address",
+    "usage": "RE",
+    "datatype": "SAD_IZ01"
+   },
+   {
+    "position": 2,
+    "name": "Other Designation",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 120
+   },
+   {
+    "position": 3,
+    "name": "City",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 4,
+    "name": "State or Province",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 2,
+    "max_length": 2
+   },
+   {
+    "position": 5,
+    "name": "Zip or Postal Code",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 12
+   },
+   {
+    "position": 6,
+    "name": "Country",
+    "usage": "RE",
+    "datatype": "ID",
+    "min_length": 3,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70399"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Address Type",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70190_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Other Geographic Designation",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 9,
+    "name": "County/Parish Code",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 10,
+    "name": "Census Tract",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 11,
+    "name": "Address Representation Code",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 12,
+    "name": "Address Validity Range",
+    "usage": "X",
+    "datatype": "DR_NIST"
+   },
+   {
+    "position": 13,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 14,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "IN1_IZ01",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "PID_IZ02",
+   "OBX_IZ02",
+   "ORC_IZ02",
+   "NK1_IZ01",
+   "ORC_IZ01",
+   "QPD_IZ01",
+   "OBX_IZ01"
+  ]
+ },
+ {
+  "label": "XAD_IZ02",
+  "xml_id": "XAD_IZ02",
+  "name": "XAD",
+  "description": "Extended Address",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Street Address",
+    "usage": "RE",
+    "datatype": "SAD_IZ01"
+   },
+   {
+    "position": 2,
+    "name": "Other Designation",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 120
+   },
+   {
+    "position": 3,
+    "name": "City",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 4,
+    "name": "State or Province",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 2,
+    "max_length": 2,
+    "bindings": [
+     {
+      "value_sets": [
+       "PHVS_State_FIPS_5-2"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 5,
+    "name": "Zip or Postal Code",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 12
+   },
+   {
+    "position": 6,
+    "name": "Country",
+    "usage": "RE",
+    "datatype": "ID",
+    "min_length": 3,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70399"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Address Type",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70190_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Other Geographic Designation",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 9,
+    "name": "County/Parish Code",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 10,
+    "name": "Census Tract",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 11,
+    "name": "Address Representation Code",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 12,
+    "name": "Address Validity Range",
+    "usage": "X",
+    "datatype": "DR_NIST"
+   },
+   {
+    "position": 13,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 14,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "PID_IZ03",
+   "PID_IZ01"
+  ]
+ },
+ {
+  "label": "XCN",
+  "xml_id": "XCN",
+  "name": "XCN",
+  "description": "Extended Composite ID Number and Name for Persons",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "ID Number",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 15
+   },
+   {
+    "position": 2,
+    "name": "Family Name",
+    "usage": "O",
+    "datatype": "FN"
+   },
+   {
+    "position": 3,
+    "name": "Given Name",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 4,
+    "name": "Second and Further Given Names or Initials Thereof",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 5,
+    "name": "Suffix (e.g., JR or III)",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 6,
+    "name": "Prefix (e.g., DR)",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 7,
+    "name": "Degree (e.g., MD)",
+    "usage": "B",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 5,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70360"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Source Table",
+    "usage": "C",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 4,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70297"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 9,
+    "name": "Assigning Authority",
+    "usage": "O",
+    "datatype": "HD",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 10,
+    "name": "Name Type Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70200"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 11,
+    "name": "Identifier Check Digit",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 1
+   },
+   {
+    "position": 12,
+    "name": "Check Digit Scheme",
+    "usage": "C",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70061"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 13,
+    "name": "Identifier Type Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 5,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70203"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 14,
+    "name": "Assigning Facility",
+    "usage": "O",
+    "datatype": "HD"
+   },
+   {
+    "position": 15,
+    "name": "Name Representation Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70465"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 16,
+    "name": "Name Context",
+    "usage": "O",
+    "datatype": "CE",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70448"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]|3[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 17,
+    "name": "Name Validity Range",
+    "usage": "B",
+    "datatype": "DR_NIST"
+   },
+   {
+    "position": 18,
+    "name": "Name Assembly Order",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70444"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 19,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS"
+   },
+   {
+    "position": 20,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "TS"
+   },
+   {
+    "position": 21,
+    "name": "Professional Suffix",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 22,
+    "name": "Assigning Jurisdiction",
+    "usage": "O",
+    "datatype": "CWE"
+   },
+   {
+    "position": 23,
+    "name": "Assigning Agency or Department",
+    "usage": "O",
+    "datatype": "CWE"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "PV2",
+   "IN2",
+   "PD1_IZ01",
+   "IN3",
+   "PV1_IZ01"
+  ]
+ },
+ {
+  "label": "XCN_IZ01",
+  "xml_id": "XCN_IZ01",
+  "name": "XCN",
+  "description": "Extended Composite ID Number and Name for Persons",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "ID Number",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 15
+   },
+   {
+    "position": 2,
+    "name": "Family Name",
+    "usage": "RE",
+    "datatype": "FN_IZ01"
+   },
+   {
+    "position": 3,
+    "name": "Given Name",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 4,
+    "name": "Second and Further Given Names or Initials Thereof",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 5,
+    "name": "Suffix (e.g., JR or III)",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 6,
+    "name": "Prefix (e.g., DR)",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 7,
+    "name": "Degree (e.g., MD)",
+    "usage": "X",
+    "datatype": "IS"
+   },
+   {
+    "position": 8,
+    "name": "Source Table",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 9,
+    "name": "Assigning Authority",
+    "usage": "C",
+    "datatype": "HD_IZ01",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363_IZ01"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 10,
+    "name": "Name Type Code",
+    "usage": "RE",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70200_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 11,
+    "name": "Identifier Check Digit",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 12,
+    "name": "Check Digit Scheme",
+    "usage": "C",
+    "datatype": "ID"
+   },
+   {
+    "position": 13,
+    "name": "Identifier Type Code",
+    "usage": "C",
+    "datatype": "ID",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70203_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 14,
+    "name": "Assigning Facility",
+    "usage": "O",
+    "datatype": "HD_IZ01"
+   },
+   {
+    "position": 15,
+    "name": "Name Representation Code",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 16,
+    "name": "Name Context",
+    "usage": "O",
+    "datatype": "CE_IZ01"
+   },
+   {
+    "position": 17,
+    "name": "Name Validity Range",
+    "usage": "X",
+    "datatype": "DR_NIST"
+   },
+   {
+    "position": 18,
+    "name": "Name Assembly Order",
+    "usage": "X",
+    "datatype": "ID"
+   },
+   {
+    "position": 19,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 20,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 21,
+    "name": "Professional Suffix",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 22,
+    "name": "Assigning Jurisdiction",
+    "usage": "O",
+    "datatype": "CWE_IZ01"
+   },
+   {
+    "position": 23,
+    "name": "Assigning Agency or Department",
+    "usage": "O",
+    "datatype": "CWE_IZ01"
+   }
+  ],
+  "constraints": [],
+  "predicates": [
+   {
+    "description": "If XCN.11 (Identifier Check Digit) is valued",
+    "target": "XCN.12",
+    "target_path": "12[*]",
+    "true_usage": "O",
+    "false_usage": "X",
+    "references": [
+     "XCN.11"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "11[1]"
+    }
+   },
+   {
+    "description": "If ( XCN.2.1 (Surname) is not valued AND XCN.3 (Given Name) is not valued )",
+    "target": "XCN.1",
+    "target_path": "1[*]",
+    "true_usage": "R",
+    "false_usage": "RE",
+    "references": [
+     "XCN.2.1",
+     "XCN.3"
+    ],
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "NOT",
+       "args": [
+        {
+         "op": "Presence",
+         "path": "2[1].1[1]"
+        }
+       ]
+      },
+      {
+       "op": "NOT",
+       "args": [
+        {
+         "op": "Presence",
+         "path": "3[1]"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "description": "If XCN.1 (ID Number) is valued",
+    "target": "XCN.13",
+    "target_path": "13[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "XCN.1"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "1[1]"
+    }
+   },
+   {
+    "description": "If XCN.1 (ID Number) is valued",
+    "target": "XCN.9",
+    "target_path": "9[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "XCN.1"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "1[1]"
+    }
+   }
+  ],
+  "used_by": [
+   "OBX_IZ03",
+   "RXA_IZ01_Adm",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "RXA_IZ03",
+   "IN1_IZ01",
+   "RXA_IZ02",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "RXA_IZ01_Con",
+   "RXA_IZ01_Ref",
+   "RXA_IZ01_His",
+   "OBX_IZ02",
+   "RXA_IZ01_NVx",
+   "ORC_IZ02",
+   "ORC_IZ01",
+   "PV1_IZ01",
+   "OBX_IZ01",
+   "RXA_IZ01"
+  ]
+ },
+ {
+  "label": "XON",
+  "xml_id": "XON",
+  "name": "XON",
+  "description": "Extended Composite Name and Identification Number for Organizations",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Organization Name",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 2,
+    "name": "Organization Name Type Code",
+    "usage": "O",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 20,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70204"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "ID Number",
+    "usage": "B",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 4
+   },
+   {
+    "position": 4,
+    "name": "Check Digit",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 1
+   },
+   {
+    "position": 5,
+    "name": "Check Digit Scheme",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70061"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 6,
+    "name": "Assigning Authority",
+    "usage": "O",
+    "datatype": "HD",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Identifier Type Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 5,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70203"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Assigning Facility",
+    "usage": "O",
+    "datatype": "HD"
+   },
+   {
+    "position": 9,
+    "name": "Name Representation Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70465"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 10,
+    "name": "Organization Identifier",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "GT1",
+   "PV2",
+   "SFT",
+   "IN2"
+  ]
+ },
+ {
+  "label": "XON_IZ01",
+  "xml_id": "XON_IZ01",
+  "name": "XON",
+  "description": "Extended Composite Name and Identification Number for Organizations",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Organization Name",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 50
+   },
+   {
+    "position": 2,
+    "name": "Organization Name Type Code",
+    "usage": "O",
+    "datatype": "IS"
+   },
+   {
+    "position": 3,
+    "name": "ID Number",
+    "usage": "X",
+    "datatype": "NM"
+   },
+   {
+    "position": 4,
+    "name": "Check Digit",
+    "usage": "O",
+    "datatype": "NM"
+   },
+   {
+    "position": 5,
+    "name": "Check Digit Scheme",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 6,
+    "name": "Assigning Authority",
+    "usage": "C",
+    "datatype": "HD_IZ01",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70363_IZ01"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Identifier Type Code",
+    "usage": "C",
+    "datatype": "ID",
+    "min_length": 2,
+    "max_length": 5,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70203_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Assigning Facility",
+    "usage": "O",
+    "datatype": "HD_IZ01"
+   },
+   {
+    "position": 9,
+    "name": "Name Representation Code",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 10,
+    "name": "Organization Identifier",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   }
+  ],
+  "constraints": [],
+  "predicates": [
+   {
+    "description": "If XON.10 (Organization Identifier) is valued",
+    "target": "XON.6",
+    "target_path": "6[*]",
+    "true_usage": "R",
+    "false_usage": "O",
+    "references": [
+     "XON.10"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "10[1]"
+    }
+   },
+   {
+    "description": "If XON.10 (Organization Identifier) is valued",
+    "target": "XON.7",
+    "target_path": "7[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "XON.10"
+    ],
+    "assertion": {
+     "op": "Presence",
+     "path": "10[1]"
+    }
+   },
+   {
+    "description": "If XON.1 (Organization Name) is not valued",
+    "target": "XON.10",
+    "target_path": "10[*]",
+    "true_usage": "R",
+    "false_usage": "RE",
+    "references": [
+     "XON.1"
+    ],
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "Presence",
+       "path": "1[1]"
+      }
+     ]
+    }
+   }
+  ],
+  "used_by": [
+   "OBX_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "MSH_#ConsolidatedIG_IZ01",
+   "IN1_IZ01",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "PD1_IZ01",
+   "OBX_IZ02",
+   "ORC_IZ02",
+   "NK1_IZ01",
+   "ORC_IZ01",
+   "OBX_IZ01"
+  ]
+ },
+ {
+  "label": "XPN",
+  "xml_id": "XPN",
+  "name": "XPN",
+  "description": "Extended Person Name",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Family Name",
+    "usage": "O",
+    "datatype": "FN"
+   },
+   {
+    "position": 2,
+    "name": "Given Name",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 3,
+    "name": "Second and Further Given Names or Initials Thereof",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 4,
+    "name": "Suffix (e.g., JR or III)",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 5,
+    "name": "Prefix (e.g., DR)",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 20
+   },
+   {
+    "position": 6,
+    "name": "Degree (e.g., MD)",
+    "usage": "B",
+    "datatype": "IS",
+    "min_length": 1,
+    "max_length": 6,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70360"
+      ],
+      "strength": "S",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 7,
+    "name": "Name Type Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70200"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Name Representation Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70465"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 9,
+    "name": "Name Context",
+    "usage": "O",
+    "datatype": "CE",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70448"
+      ],
+      "strength": "S",
+      "locations": [
+       "1[1]|3[1]"
+      ]
+     }
+    ]
+   },
+   {
+    "position": 10,
+    "name": "Name Validity Range",
+    "usage": "B",
+    "datatype": "DR_NIST"
+   },
+   {
+    "position": 11,
+    "name": "Name Assembly Order",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70444"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 12,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS"
+   },
+   {
+    "position": 13,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "TS"
+   },
+   {
+    "position": 14,
+    "name": "Professional Suffix",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "GT1",
+   "PID_IZ03",
+   "IN2",
+   "PID_IZ02",
+   "PID_IZ01"
+  ]
+ },
+ {
+  "label": "XPN_IZ01",
+  "xml_id": "XPN_IZ01",
+  "name": "XPN",
+  "description": "Extended Person Name",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Family Name",
+    "usage": "R",
+    "datatype": "FN_IZ01"
+   },
+   {
+    "position": 2,
+    "name": "Given Name",
+    "usage": "R",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 3,
+    "name": "Second and Further Given Names or Initials Thereof",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 4,
+    "name": "Suffix (e.g., JR or III)",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 5,
+    "name": "Prefix (e.g., DR)",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 6,
+    "name": "Degree (e.g., MD)",
+    "usage": "X",
+    "datatype": "IS"
+   },
+   {
+    "position": 7,
+    "name": "Name Type Code",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70200_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Name Representation Code",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 9,
+    "name": "Name Context",
+    "usage": "O",
+    "datatype": "CE_IZ01"
+   },
+   {
+    "position": 10,
+    "name": "Name Validity Range",
+    "usage": "X",
+    "datatype": "DR_NIST"
+   },
+   {
+    "position": 11,
+    "name": "Name Assembly Order",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 12,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 13,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 14,
+    "name": "Professional Suffix",
+    "usage": "O",
+    "datatype": "ST"
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "IN1_IZ01",
+   "PID_IZ02",
+   "NK1_IZ01",
+   "QPD_IZ01",
+   "PID_IZ01"
+  ]
+ },
+ {
+  "label": "XPN_IZ02",
+  "xml_id": "XPN_IZ02",
+  "name": "XPN",
+  "description": "Extended Person Name",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Family Name",
+    "usage": "C",
+    "datatype": "FN_IZ01"
+   },
+   {
+    "position": 2,
+    "name": "Given Name",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 3,
+    "name": "Second and Further Given Names or Initials Thereof",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 4,
+    "name": "Suffix (e.g., JR or III)",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 5,
+    "name": "Prefix (e.g., DR)",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 6,
+    "name": "Degree (e.g., MD)",
+    "usage": "X",
+    "datatype": "IS"
+   },
+   {
+    "position": 7,
+    "name": "Name Type Code",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70200_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Name Representation Code",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 9,
+    "name": "Name Context",
+    "usage": "O",
+    "datatype": "CE_IZ01"
+   },
+   {
+    "position": 10,
+    "name": "Name Validity Range",
+    "usage": "X",
+    "datatype": "DR_NIST"
+   },
+   {
+    "position": 11,
+    "name": "Name Assembly Order",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 12,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 13,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 14,
+    "name": "Professional Suffix",
+    "usage": "O",
+    "datatype": "ST"
+   }
+  ],
+  "constraints": [],
+  "predicates": [
+   {
+    "description": "If XPN.2 (Given Name) is not valued.",
+    "target": "XPN.1",
+    "target_path": "1[*]",
+    "true_usage": "R",
+    "false_usage": "RE",
+    "references": [
+     "XPN.2"
+    ],
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "Presence",
+       "path": "2[1]"
+      }
+     ]
+    }
+   }
+  ],
+  "used_by": [
+   "PID_IZ03"
+  ]
+ },
+ {
+  "label": "XPN_IZ_M",
+  "xml_id": "XPN_IZ_M",
+  "name": "XPN",
+  "description": "Extended Person Name",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Family Name",
+    "usage": "C",
+    "datatype": "FN_IZ01"
+   },
+   {
+    "position": 2,
+    "name": "Given Name",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 3,
+    "name": "Second and Further Given Names or Initials Thereof",
+    "usage": "RE",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 30
+   },
+   {
+    "position": 4,
+    "name": "Suffix (e.g., JR or III)",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 5,
+    "name": "Prefix (e.g., DR)",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 6,
+    "name": "Degree (e.g., MD)",
+    "usage": "X",
+    "datatype": "IS"
+   },
+   {
+    "position": 7,
+    "name": "Name Type Code",
+    "usage": "R",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 1,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70200_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 8,
+    "name": "Name Representation Code",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 9,
+    "name": "Name Context",
+    "usage": "O",
+    "datatype": "CE_IZ01"
+   },
+   {
+    "position": 10,
+    "name": "Name Validity Range",
+    "usage": "X",
+    "datatype": "DR_NIST"
+   },
+   {
+    "position": 11,
+    "name": "Name Assembly Order",
+    "usage": "O",
+    "datatype": "ID"
+   },
+   {
+    "position": 12,
+    "name": "Effective Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 13,
+    "name": "Expiration Date",
+    "usage": "O",
+    "datatype": "TS_IZ01"
+   },
+   {
+    "position": 14,
+    "name": "Professional Suffix",
+    "usage": "O",
+    "datatype": "ST"
+   }
+  ],
+  "constraints": [
+   {
+    "id": "XPN_7 (Name Type Code)",
+    "strength": "SHALL",
+    "description": "XPN.7 (Name Type Code) shall contain the value 'M'.",
+    "references": [
+     "XPN.7"
+    ],
+    "assertion": {
+     "op": "PlainText",
+     "path": "7[1]",
+     "text": "M",
+     "ignoreCase": "false",
+     "notPresentBehavior": "PASS"
+    }
+   }
+  ],
+  "predicates": [
+   {
+    "description": "If XPN.2 (Given Name) is not valued.",
+    "target": "XPN.1",
+    "target_path": "1[*]",
+    "true_usage": "R",
+    "false_usage": "RE",
+    "references": [
+     "XPN.2"
+    ],
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "Presence",
+       "path": "2[1]"
+      }
+     ]
+    }
+   }
+  ],
+  "used_by": [
+   "PID_IZ03",
+   "PID_IZ02",
+   "QPD_IZ01",
+   "PID_IZ01"
+  ]
+ },
+ {
+  "label": "XTN",
+  "xml_id": "XTN",
+  "name": "XTN",
+  "description": "Extended Telecommunication Number",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Telephone Number",
+    "usage": "B",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 2,
+    "name": "Telecommunication Use Code",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 3,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70201"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Telecommunication Equipment Type",
+    "usage": "O",
+    "datatype": "ID",
+    "min_length": 1,
+    "max_length": 8,
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70202"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Email Address",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 5,
+    "name": "Country Code",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 3
+   },
+   {
+    "position": 6,
+    "name": "Area/City Code",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 5
+   },
+   {
+    "position": 7,
+    "name": "Local Number",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 9
+   },
+   {
+    "position": 8,
+    "name": "Extension",
+    "usage": "O",
+    "datatype": "NM",
+    "min_length": 1,
+    "max_length": 5
+   },
+   {
+    "position": 9,
+    "name": "Any Text",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 10,
+    "name": "Extension Prefix",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 4
+   },
+   {
+    "position": 11,
+    "name": "Speed Dial Code",
+    "usage": "O",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 6
+   },
+   {
+    "position": 12,
+    "name": "Unformatted Telephone number",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   }
+  ],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "GT1",
+   "IN2",
+   "IN3"
+  ]
+ },
+ {
+  "label": "XTN_IZ01",
+  "xml_id": "XTN_IZ01",
+  "name": "XTN",
+  "description": "Extended Telecommunication Number",
+  "version": "2.5.1",
+  "components": [
+   {
+    "position": 1,
+    "name": "Telephone Number",
+    "usage": "X",
+    "datatype": "ST"
+   },
+   {
+    "position": 2,
+    "name": "Telecommunication Use Code",
+    "usage": "R",
+    "datatype": "ID",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70201_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 3,
+    "name": "Telecommunication Equipment Type",
+    "usage": "RE",
+    "datatype": "ID",
+    "bindings": [
+     {
+      "value_sets": [
+       "HL70202_IZ01"
+      ],
+      "strength": "R",
+      "locations": [
+       "."
+      ]
+     }
+    ]
+   },
+   {
+    "position": 4,
+    "name": "Email Address",
+    "usage": "C",
+    "datatype": "ST",
+    "min_length": 1,
+    "max_length": 199
+   },
+   {
+    "position": 5,
+    "name": "Country Code",
+    "usage": "O",
+    "datatype": "NM"
+   },
+   {
+    "position": 6,
+    "name": "Area/City Code",
+    "usage": "C",
+    "datatype": "NM",
+    "min_length": 3,
+    "max_length": 5
+   },
+   {
+    "position": 7,
+    "name": "Local Number",
+    "usage": "C",
+    "datatype": "NM",
+    "min_length": 7,
+    "max_length": 9
+   },
+   {
+    "position": 8,
+    "name": "Extension",
+    "usage": "O",
+    "datatype": "NM"
+   },
+   {
+    "position": 9,
+    "name": "Any Text",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 10,
+    "name": "Extension Prefix",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 11,
+    "name": "Speed Dial Code",
+    "usage": "O",
+    "datatype": "ST"
+   },
+   {
+    "position": 12,
+    "name": "Unformatted Telephone number",
+    "usage": "O",
+    "datatype": "ST"
+   }
+  ],
+  "constraints": [],
+  "predicates": [
+   {
+    "description": "If XTN.2 (Telecommunication Use Code) contain the value 'NET'.",
+    "target": "XTN.4",
+    "target_path": "4[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "XTN.2"
+    ],
+    "assertion": {
+     "op": "PlainText",
+     "path": "2[1]",
+     "text": "NET",
+     "ignoreCase": "false",
+     "notPresentBehavior": "FAIL"
+    }
+   },
+   {
+    "description": "If XTN.2 (Telecommunication Use Code) does not contain the value 'NET'.",
+    "target": "XTN.6",
+    "target_path": "6[*]",
+    "true_usage": "RE",
+    "false_usage": "X",
+    "references": [
+     "XTN.2"
+    ],
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "PlainText",
+       "path": "2[1]",
+       "text": "NET",
+       "ignoreCase": "false",
+       "notPresentBehavior": "FAIL"
+      }
+     ]
+    }
+   },
+   {
+    "description": "If XTN.2 (Telecommunication Use Code) does not contain the value 'NET'.",
+    "target": "XTN.7",
+    "target_path": "7[*]",
+    "true_usage": "R",
+    "false_usage": "X",
+    "references": [
+     "XTN.2"
+    ],
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "PlainText",
+       "path": "2[1]",
+       "text": "NET",
+       "ignoreCase": "false",
+       "notPresentBehavior": "FAIL"
+      }
+     ]
+    }
+   }
+  ],
+  "used_by": [
+   "PID_IZ03",
+   "IN1_IZ01",
+   "PID_IZ02",
+   "ORC_IZ02",
+   "ERR_IZ01",
+   "NK1_IZ01",
+   "ORC_IZ01",
+   "QPD_IZ01",
+   "PID_IZ01"
+  ]
+ },
+ {
+  "label": "var",
+  "xml_id": "var",
+  "name": "var",
+  "description": "varies",
+  "version": "2.5.1",
+  "components": [],
+  "constraints": [],
+  "predicates": [],
+  "used_by": [
+   "OBX_IZ03",
+   "OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17",
+   "RDT",
+   "OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15",
+   "OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18",
+   "OBX_IZ02",
+   "OBX_IZ01"
+  ]
+ }
+]

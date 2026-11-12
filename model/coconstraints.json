@@ -1,0 +1,2879 @@
+[
+ {
+  "profile": "Z32",
+  "segment": "OBX",
+  "location": "Order.OBSERVATION.OBX",
+  "tables": [
+   {
+    "kind": "conditional",
+    "condition": "If (At least one occurrence of Order.RXA-20 (Completion Status) contains the value 'NA' (Case Sensitive) AND at least one occurrence of Order.RXA-5.1 (Identifier) contains the value '998' (Case Sensitive))",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [],
+    "groups": [
+     {
+      "name": "Immunization Forecast Results",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30956-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "CVX_01"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59783-1",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "Imm_status"
+          ],
+          "strength": "S",
+          "locations": [
+           "1[1]|3[1]",
+           "4[1]|6[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30982-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "ST"
+         }
+        ]
+       },
+       {
+        "usage": "S",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30981-5",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "S",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30980-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59778-1",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59777-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59779-9",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_ImmunizationScheduleIdentifier_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59780-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59782-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "NM"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30973-2",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "NM"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "93123-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "93122-0",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "kind": "conditional",
+    "condition": "If (At least one occurrence of Order.RXA-5.1 (Identifier) does not contain the value '998' (Case Sensitive) AND at least one occurrence of Order.RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA'] (Case Sensitive))",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "31044-1",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_VaccinationReaction_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]",
+         "4[1]|6[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "48767-8",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "ST"
+       }
+      ]
+     }
+    ],
+    "groups": [
+     {
+      "name": "Dose-Level Program Eligibility and Funding Source",
+      "usage": "S",
+      "min": 0,
+      "max": 1,
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "64994-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "HL70064"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30963-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_ImmunizationFundingSource_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "VIS Information: Document Type",
+      "usage": "S",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "69764-9",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "29769-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Special Indications - Immunization Event",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59785-6",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_VaccinationSpecialIndications_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "88877-6",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "88879-2",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Immunization Evaluation Results",
+      "usage": "S",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30956-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "CVX_01"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59781-5",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "ID"
+         }
+        ]
+       },
+       {
+        "usage": "S",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30982-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "ST"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59780-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59782-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "NM"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30973-2",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "NM"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59779-9",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "kind": "conditional",
+    "condition": "If (At least one occurrence of Order.RXA-20 (Completion Status) contains the value 'RE' (Case Sensitive) AND at least one occurrence of Order.RXA-6 (Administered Amount) contains the value '999' (Case Sensitive))",
+    "rows": [
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "48767-8",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "ST"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "kind": "conditional",
+    "condition": "If ((At least one occurrence of Order.RXA-5.1 (Identifier) does not contain the value '998' (Case Sensitive) AND at least one occurrence of Order.RXA-6 (Administered Amount) contains the value '999' (Case Sensitive)) AND at least one occurrence of Order.RXA-20 (Completion Status) contains the value 'NA' (Case Sensitive))",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [],
+    "groups": [
+     {
+      "name": "Contraindication / Precaution",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30945-0",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         },
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_VaccinationContraindication_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30946-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30944-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "48767-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "ST"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "kind": "simple",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "31044-1",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       },
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_VaccinationReaction_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "75505-8",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       },
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_SerologicalEvidenceOfImmunity_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "59784-9",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       },
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_HistoryOfDisease_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       }
+      ]
+     }
+    ],
+    "groups": [
+     {
+      "name": "No Vaccination: Patient Condition",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "75323-6",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CWE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "85585-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "88878-4",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "profile": "Z22",
+  "segment": "OBX",
+  "location": "ORDER.OBSERVATION.OBX",
+  "tables": [
+   {
+    "kind": "conditional",
+    "condition": "If (At least one occurrence of ORDER.RXA-9.1 (Identifier) contains the value '00' (Case Sensitive) AND at least one occurrence of ORDER.RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA'] (Case Sensitive))",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "48767-8",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "31044-1",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_VaccinationReaction_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "75505-8",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_SerologicalEvidenceOfImmunity_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "31044-1",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_VaccinationReaction_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "59784-9",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_HistoryOfDisease_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     }
+    ],
+    "groups": [
+     {
+      "name": "Dose-Level Program Eligibility and Funding Status",
+      "usage": "R",
+      "min": 1,
+      "max": 1,
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "64994-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "HL70064_IZ01"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30963-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_ImmunizationFundingSource_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "VIS Information: Document Type",
+      "usage": "S",
+      "min": 1,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "69764-9",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "29769-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "VIS Information: Vaccine Type and Dates",
+      "usage": "S",
+      "min": 1,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30956-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "29769-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "29769-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Special Indications - Immunization Event",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59785-6",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_VaccinationSpecialIndications_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "88877-6",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "88879-2",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Condition - Patient Observation",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "75323-6",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CWE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "85585-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "88878-4",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "kind": "conditional",
+    "condition": "If (At least one occurrence of ORDER.RXA-9.1 (Identifier) contains one of the values in the list: ['01','02','03','04','05','06','07','08'] (Case Sensitive) AND at least one occurrence of ORDER.RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA'] (Case Sensitive))",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "75505-8",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_SerologicalEvidenceOfImmunity_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "31044-1",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_VaccinationReaction_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "59784-9",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_HistoryOfDisease_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     }
+    ],
+    "groups": [
+     {
+      "name": "Dose-Level Program Eligibility and Funding Status",
+      "usage": "S",
+      "min": 1,
+      "max": 1,
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "64994-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "HL70064_IZ01"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30963-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_ImmunizationFundingSource_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "VIS Information: Document Type",
+      "usage": "S",
+      "min": 1,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "69764-9",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_VISBarcodes_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "29769-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "VIS Information: Vaccine Type and Dates",
+      "usage": "S",
+      "min": 1,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30956-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "CVX_01"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "29768-9",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "29769-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Condition - Patient Observation",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "75323-6",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CWE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "85585-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "88878-4",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "kind": "conditional",
+    "condition": "If (At least one occurrence of ORDER.RXA-20 (Completion Status) contains the value 'RE' (Case Sensitive) AND at least one occurrence of ORDER.RXA-6 (Administered Amount) contains the value '999' (Case Sensitive))",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "48767-8",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "kind": "conditional",
+    "condition": "If (At least one occurrence of ORDER.RXA-20 (Completion Status) contains the value 'NA' (Case Sensitive) AND (At least one occurrence of ORDER.RXA-5.1 (Identifier) does not contain the value '998' (Case Sensitive) AND at least one occurrence of ORDER.RXA-6 (Administered Amount) contains the value '999' (Case Sensitive)))",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [],
+    "groups": [
+     {
+      "name": "Contraindication / Precaution",
+      "usage": "S",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30945-0",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_VaccinationContraindication_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         },
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "S",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30946-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "S",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30944-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "S",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "48767-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "kind": "conditional",
+    "condition": "If (At least one occurrence of ORDER.RXA-20 (Completion Status) contains the value 'NA' (Case Sensitive) AND (At least one occurrence of ORDER.RXA-5.1 (Identifier) contains the value '998' (Case Sensitive) AND at least one occurrence of ORDER.RXA-6 (Administered Amount) contains the value '999' (Case Sensitive)))",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "31044-1",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_VaccinationReaction_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "75505-8",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_SerologicalEvidenceOfImmunity_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "59784-9",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_HistoryOfDisease_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       },
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       }
+      ]
+     }
+    ],
+    "groups": [
+     {
+      "name": "No Vaccination: Patient Condition",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "75323-6",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CWE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "85585-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "88878-4",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "profile": "Z42",
+  "segment": "OBX",
+  "location": "HISTORY_FORECAST.HISTORY_FORECAST_OBSERVATION.OBX",
+  "tables": [
+   {
+    "kind": "simple",
+    "group_by": [
+     "OBX-4"
+    ],
+    "rows": [
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "31044-1",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       },
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_VaccinationReaction_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "75505-8",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       },
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_SerologicalEvidenceOfImmunity_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       }
+      ]
+     },
+     {
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "when": [
+       {
+        "field": "OBX-3",
+        "kind": "Code",
+        "code": "59784-9",
+        "system": "LN"
+       }
+      ],
+      "then": [
+       {
+        "field": "OBX-2",
+        "kind": "PlainText",
+        "value": "CE"
+       },
+       {
+        "field": "OBX-5",
+        "kind": "ValueSet",
+        "value_sets": [
+         "PHVS_HistoryOfDisease_IIS"
+        ],
+        "strength": "R",
+        "locations": [
+         "1[1]|3[1]"
+        ]
+       }
+      ]
+     }
+    ],
+    "groups": [
+     {
+      "name": "Immunization Evaluation Results",
+      "usage": "S",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30956-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         },
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "CVX_01"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59781-5",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "ID"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30982-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "ST"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59780-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59782-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "NM"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30973-2",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "NM"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59779-9",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         },
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "PHVS_ImmunizationScheduleIdentifier_IIS"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Immunization Forecast Results",
+      "usage": "R",
+      "min": 1,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30956-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         },
+         {
+          "field": "OBX-5",
+          "kind": "ValueSet",
+          "value_sets": [
+           "CVX_01"
+          ],
+          "strength": "R",
+          "locations": [
+           "1[1]|3[1]"
+          ]
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "R",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59783-1",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30982-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "ST"
+         }
+        ]
+       },
+       {
+        "usage": "S",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30981-5",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "S",
+        "min": 1,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30980-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59778-1",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59777-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59779-9",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59780-7",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "59782-3",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "NM"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "30973-2",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "NM"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "93123-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": "*",
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "93122-0",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "name": "Conditions: Patient Observations",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "rows": [
+       {
+        "usage": "R",
+        "min": 1,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "75323-6",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "CWE"
+         }
+        ],
+        "primary": true
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "85585-8",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       },
+       {
+        "usage": "O",
+        "min": 0,
+        "max": 1,
+        "when": [
+         {
+          "field": "OBX-3",
+          "kind": "Code",
+          "code": "88878-4",
+          "system": "LN"
+         }
+        ],
+        "then": [
+         {
+          "field": "OBX-2",
+          "kind": "PlainText",
+          "value": "DT"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+]

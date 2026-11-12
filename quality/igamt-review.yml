@@ -1,0 +1,505 @@
+# Reviewed narrative ↔ IGAMT findings (tools/compare_structure.py).
+#
+# Each entry is a judgement made by a reviewer with the evidence in hand. The
+# automated checks find mechanical problems; these entries cover what needs
+# reading: a requirement in the text that the profiles contradict, a rule the
+# profiles enforce that the text never states, or a confirmation that the two agree.
+#
+# Fields:
+#   id            stable finding ID (qf-igamt-...); never reuse
+#   kind          conflict | gap | xml-defect | narrative-defect | question | confirmed
+#   severity      issue | warning | note   (confirmed entries are not shown as findings)
+#   owner         narrative | igamt | both | decision  (who acts; decision = CDC chooses)
+#   comment       number of the Word review comment this answers, if any
+#   card          card the finding attaches to; location: statement or figure ID
+#   title         one line
+#   summary       what is wrong, in plain language
+#   narrative     what the text says (quoted or paraphrased)
+#   xml           what the IGAMT export says (list)
+#   recommendation
+#
+# Reviewed against: narrative draft 2026-11-04; IGAMT export 2026-11-06.
+
+# ------------------------------------------------------------------ answers to the Word review comments
+
+- id: qf-igamt-c36-name-flavors
+  kind: conflict
+  severity: issue
+  owner: igamt
+  comment: 36
+  card: data-type-and-structure
+  title: "Newborn ('NB') names are not held to the family-and-given rule, and other names are over-constrained when an 'L' name is present"
+  summary: >-
+    The profiles implement the two XPN flavors by slicing the whole PID segment on PID-5.7, not by name
+    repetition. If any repetition is 'L', every repetition (nickname, maiden, and so on) must use XPN_IZ01 and
+    have both family and given name. If no repetition is 'L', every repetition uses XPN_IZ02, where only one of
+    family or given is needed, so an 'NB' placeholder name with one part passes. The two slice conditions also
+    overlap: a patient with an 'L' and an 'N' name matches both. Slicing exists only in Z22; the response
+    profiles (Z31, Z32) always use PID_IZ01 and Z42 uses PID_IZ02.
+  narrative: >-
+    "Official registry and newborn names must contain both a family and given name, while other types (e.g.,
+    nickname, maiden) may have only one component." Word comment 36 asks to confirm three statements: (1)
+    XPN.1 and XPN.2 populated for 'L' and 'NB' names; (2) XPN.7 populated for all repetitions; (3)
+    cardinalities and flavors as defined in the data type section.
+  xml:
+    - "Slicing (Z22, PID): PID_IZ01 if at least one PID-5.7 = 'L'; PID_IZ03 if at least one PID-5.7 is not 'L'."
+    - "PID_IZ01.PID-5 uses XPN_IZ01: XPN.1 R, XPN.2 R, XPN.7 R."
+    - "PID_IZ03.PID-5 uses XPN_IZ02: XPN.1 C(R/RE) if XPN.2 not valued, XPN.2 RE, XPN.7 R."
+    - "Z31/Z32 PID_IZ01 (XPN_IZ01) and Z42 PID_IZ02 are not sliced."
+  recommendation: >-
+    Statement (2) exists: XPN.7 is R in every PID-5 flavor. Statement (1) holds for 'L' only. Ask IGAMT whether
+    a slice or co-constraint can apply per repetition (by XPN.7). If not, use a conformance statement such as
+    "each PID-5 repetition with XPN.7 in ('L','NB') SHALL value XPN.1 and XPN.2". Make the two slice conditions
+    mutually exclusive. Decide whether responses should follow the same rule. Statement (3) has no counterpart in
+    the narrative yet; the card should state it once the data type pages exist.
+
+- id: qf-igamt-c41-unknown-codes
+  kind: confirmed
+  owner: igamt
+  comment: 41
+  card: unknown-and-refused-values
+  location: unknown-and-refused-values--s1
+  title: "UNK, ASKU, and PHC1175 are in both the race and the ethnicity value sets"
+  summary: "The three codes are present, with usage P (permitted), in the value sets bound to PID-10 and PID-22."
+  xml:
+    - "PID-10 bound to PHVS_RaceCategory_CDC_NullFlavor: UNK (P), ASKU (P), PHC1175 (P)."
+    - "PID-22 bound to PHVS_EthnicityGroup_CDC_Unk: UNK (P), ASKU (P), PHC1175 (P)."
+
+- id: qf-igamt-c27-c28-ce-cwe
+  kind: conflict
+  severity: issue
+  owner: both
+  comment: 27
+  card: obx-2-value-type
+  title: "Co-constraints fix OBX-2 to one exact value, which contradicts \"accept both CE and CWE\" and \"responses SHOULD use CE\""
+  summary: >-
+    Every co-constraint row tests OBX-2 for an exact value (for example 'CE'). A submitter that sends CWE for a
+    coded observation fails validation, although the narrative says systems SHALL accept both. Patient
+    Condition (75323-6) is fixed to 'CWE' in Z22, Z32, and Z42, while every other coded observation is 'CE'. An
+    IIS that follows the narrative's SHOULD (use CE in responses) fails Z32/Z42 validation for that observation.
+    Free-text Comment (48767-8) is 'CE' in Z22 but 'ST' in Z32.
+  narrative: >-
+    "IIS responding to QBP SHOULD use CE when returning coded observations … Systems … SHALL accept both CE and
+    CWE where a coded value is expected and SHALL process them equivalently." Comment 27: "Double-check that
+    right data type is used in co-constraint tables"; comment 28: "Does this need to be reflected in the
+    co-constraint tables?"
+  xml:
+    - "Co-constraint OBX-2 checks are PlainText equality (one value)."
+    - "75323-6: OBX-2 = CWE in Z22 (three tables), Z32, Z42."
+    - "48767-8: OBX-2 = CE in Z22 tables 1, 3, 4; ST in Z32 tables 2, 3, 4."
+  recommendation: >-
+    Yes, it needs to be reflected (comment 28). Allow both CE and CWE where the narrative says both are
+    accepted (a value-set check on OBX-2 instead of exact text), or narrow the narrative. Set 48767-8 to a text
+    type (ST or TX) in every profile. Decide whether 75323-6 should be CE like the rest.
+
+- id: qf-igamt-c30-c31-figure-20
+  kind: conflict
+  severity: warning
+  owner: both
+  comment: 31
+  card: order-segment-group-flavors
+  title: "The Order Segment Group flavors (text and Figure 20) and the co-constraint tables do not match"
+  summary: >-
+    The flavor sections and Figure 20 list which observations belong in each Order Segment Group. The
+    co-constraint tables allow more in some places and less in others. Main differences: serological immunity,
+    history of disease, and patient condition are allowed in the administered and historical event groups (the
+    text puts them only in Patient Observations). In Z32 they are allowed in every group. The contraindication
+    set is required in Figure 20 but optional in the tables. Indication observations are missing from the
+    historical-event table. Z32, the history-only response, has evaluation and forecast groups. Z42 has a single
+    table with no conditions (see the Z42 finding). The cell-by-cell comparison is on the comparison page.
+  narrative: >-
+    Sections 4.4.4.1–4.4.4.6 and Figure 20. Comments 30 and 31: "Confirm that the co-constraint tables address
+    this section"; "Make sure these are in alignment with the Co-constraint tables".
+  xml:
+    - "Z22 administered table: also allows 75505-8, 59784-9, 75323-6 group; 31044-1 appears twice."
+    - "Z22 contraindicated table: contraindication group usage S [0..*]."
+    - "Z32 table 5 (no condition) allows 31044-1, 75505-8, 59784-9, 75323-6 in every group."
+    - "Z32 tables 1 and 2 contain Immunization Forecast Results and Immunization Evaluation Results groups."
+  recommendation: >-
+    Agree with CDC which is intended, then align both. The text and Figure 20 are the more restrictive and
+    readable statement, so the tables probably need to change. Once aligned, generate the figure from the
+    co-constraint tables so they cannot drift apart again.
+
+- id: qf-igamt-c57-refusal-slice
+  kind: gap
+  severity: warning
+  owner: narrative
+  comment: 57
+  card: required-data-elements
+  title: "The refusal slice also requires RXA-6 = 999, which the refusal section does not list"
+  summary: >-
+    The Z22 slicing selects the refusal flavor (RXA_IZ01_Ref) only when RXA-20 = 'RE' and RXA-6 = '999', and
+    constraint IZ-48 requires RXA-6 = 999 whenever RXA-20 = 'RE'. The refusal section's list of minimum elements
+    leaves out RXA-6. A refusal sent with any other amount is not validated against the refusal flavor (so
+    RXA-18 is not checked as required) and fails IZ-48. The same applies to contraindicated (NA, CVX ≠ 998) and
+    no-vaccination (NA, CVX 998) groups, which both also select on RXA-6 = 999.
+  narrative: >-
+    "The minimum required elements are: ORC-3=9999 – Filler Order Number; RXA-3 …; RXA-5 …; RXA-18 – Reason
+    for refusal; RXA-20 = 'RE'." Comment 57: "Double-check this is how the slicing logic is set up."
+  xml:
+    - "Slice RXA_IZ01_Ref: RXA-20 = 'RE' AND RXA-6 = '999'; RXA-18 R [1..*] in this flavor."
+    - "IZ-48 (RXA_IZ01): if RXA-20 = 'RE' then RXA-6 SHALL be '999'."
+    - "IZ-45 (Z22 message): if RXA-20 in ('NA','RE') then ORC-3.1 SHALL be '9999'."
+  recommendation: >-
+    The slicing is set up consistently with IZ-45 and IZ-48. Add "RXA-6 = 999 – Administered amount" to the
+    refusal list, and state the RXA-6/ORC-3 values in the non-administration sections too. Consider whether
+    the slice should key on RXA-20 alone, so that a wrong RXA-6 is reported by IZ-48 rather than silently
+    changing which flavor applies.
+
+- id: qf-igamt-c49-chapter-7
+  kind: narrative-defect
+  severity: note
+  owner: narrative
+  comment: 49
+  card: funding-source-and-eligibility
+  title: "References to Chapter 7 point to content that now comes from IGAMT, and use different section numbers"
+  summary: >-
+    Cards point to "HL7 field references", "Chapter 7 (OBX table)", "Section 7.1.4, Z32", "Section 7.1.7,
+    co-constraint table", "Section 7.2.18", and "Section 7.4, Value Sets". Chapter 7 is not in the narrative
+    draft; on the website it is generated from the IGAMT export, so these become links to specific profile,
+    co-constraint, and value-set pages. The section numbers are also inconsistent with each other (7.1.4,
+    7.1.7, and 7.2.18 are all given as the co-constraint tables).
+  narrative: >-
+    "(see HL7 field references)"; "See Chapter 7, Message Infrastructure, and the OBX co-constraint tables,
+    Section 7.2.18"; "co-constraints table in Chapter 7.1.4, Z32"; "Section 7.1.7, co-constraint table".
+    Comment 49: "Is this referring to Section 7?"
+  recommendation: >-
+    Yes. Replace section numbers with managed links (by ID) to the generated pages: the Z22 OBX co-constraint
+    table for funding, the Z42 table for evaluation and forecast, and value-set pages for race and ethnicity.
+
+# ------------------------------------------------------------------ conflicts and gaps
+
+- id: qf-igamt-rxa9-rsp
+  kind: conflict
+  severity: issue
+  owner: decision
+  card: use-of-administered-vs-historical-on-output
+  title: "Text says RSP should leave RXA-9 empty; Z32 and Z42 require RXA-9 for completed doses"
+  summary: >-
+    The narrative prefers an empty RXA-9 in responses. In Z32 and Z42, RXA-9 is conditional and becomes
+    Required whenever RXA-20 is CP or PA, which is every administered or historical dose returned. An IIS that
+    follows the preferred approach fails validation.
+  narrative: "\"Leaving RXA-9 empty on outbound RSP messages SHOULD be the preferred approach.\""
+  xml:
+    - "Z32 RXA_IZ02 and Z42 RXA_IZ03, RXA-9: C(R/O), predicate: RXA-20 in ('CP','PA')."
+  recommendation: >-
+    CDC decides. Either change the response flavors to make RXA-9 O (or RE) in Z32/Z42, or replace the
+    narrative's preference with what to send (for example, always '00' or '01').
+
+- id: qf-igamt-rxa11-administered
+  kind: conflict
+  severity: warning
+  owner: decision
+  card: administering-organization-rxa-11
+  location: administering-organization-rxa-11--s1
+  title: "\"SHALL populate RXA-11\" for administered doses, but the administered flavor has RXA-11 as RE"
+  summary: >-
+    The narrative makes RXA-11 mandatory for administered vaccinations. In the administered flavor
+    (RXA_IZ01_Adm) RXA-11 is RE, so a message without it passes validation. RXA-11.4 (Facility) is R within
+    LA2_IZ01, which only applies when RXA-11 is sent.
+  narrative: "\"For administered vaccinations, systems SHALL populate RXA-11 with the administering organization.\""
+  xml:
+    - "RXA_IZ01_Adm RXA-11: RE [0..1] LA2_IZ01; RXA_IZ01: C(RE/O) when RXA-20 in ('CP','PA') and RXA-9.1 = '00'."
+    - "RXA_IZ01_His RXA-11: O (consistent with \"RXA-11 SHOULD be empty\" for historical doses)."
+  recommendation: >-
+    Make RXA-11 R in the administered flavor (and the RE side of the RXA_IZ01 predicate R), or soften the
+    statement to SHOULD. With usage "R" now defined as "IIS reports an ERR if missing", R matches the intent.
+
+- id: qf-igamt-pid7-time-zone
+  kind: conflict
+  severity: warning
+  owner: both
+  card: date-of-birth-pid-7
+  location: date-of-birth-pid-7--s3
+  title: "The text allows a time-zone offset in PID-7; the profiles reject one"
+  summary: >-
+    PID-7 uses TS_NZ, whose time pattern (DTM_NZ) has no offset, so a birth date/time with an offset fails
+    format validation. The narrative tells senders to use the birth time zone and tells IIS to ignore any offset
+    present. RXA-3 and OBX-14 also use TS_NZ. Their wording ("use the local time zone") is consistent if it
+    means local time without an offset.
+  narrative: >-
+    "if it is included, PID-7 SHALL be encoded using the time zone where the birth occurred." "When time or
+    time-zone components are present in PID-7, receiving IIS SHALL ignore the time and offset components …"
+  xml:
+    - "PID_IZ01/PID_IZ03 PID-7: R [1..1] TS_NZ; DTM_NZ pattern YYYYMMDD[HH[MM[SS[.S[S[S[S]]]]]]] (no offset)."
+    - "Z42 PID_IZ02 PID-7 uses TS_IZ01 instead."
+  recommendation: >-
+    Say "local time of birth, without a time-zone offset" in the narrative. If offsets must be tolerated,
+    loosen the flavor. Align Z42 with the other profiles.
+
+- id: qf-igamt-condition-loinc
+  kind: conflict
+  severity: issue
+  owner: both
+  card: hl7-v2-representation
+  title: "Patient conditions: the text uses 30945-0 in the no-vaccination group; the profiles only allow 75323-6 there"
+  summary: >-
+    Section 4.8.6.2 says conditions are sent as 30945-0 (contraindication/precaution) observations in an
+    ORC/RXA group that reports no vaccination. Section 4.4.4.4 and Figure 20 say patient conditions use 75323-6
+    in the Patient Observations group. The co-constraint tables follow 4.4.4.4: in the no-vaccination (CVX 998)
+    group, 30945-0 is not allowed, and 75323-6 (with 85585-8 and 88878-4) is. 30945-0 is only allowed in the
+    contraindicated group (NA with a real CVX).
+  narrative: >-
+    4.8.6.2: "conditions are expressed using existing vaccination contraindication/precaution LOINC codes …
+    30945-0 … REQUIRED to convey the condition itself"; 4.8.6.3: "Submitting systems SHALL include LOINC 30945-0
+    with a valid SNOMED CT value to convey a condition."
+  xml:
+    - "Z22 no-vaccination table (RXA-20 NA, CVX 998, RXA-6 999): 31044-1, 75505-8, 59784-9, group 75323-6/85585-8/88878-4."
+    - "Z22 contraindicated table (RXA-20 NA, CVX ≠ 998): group 30945-0/30946-8/30944-3/48767-8."
+  recommendation: >-
+    CDC decides which representation is current, then aligns sections 4.4.4.4 and 4.8.6, Figure 20, and the
+    co-constraint tables.
+
+- id: qf-igamt-contraindication-snomed
+  kind: conflict
+  severity: warning
+  owner: both
+  card: hl7-v2-representation
+  location: hl7-v2-representation--s1
+  title: "\"A SNOMED CT code from PHVS_VaccinationContraindication_IIS\", but 12 of the value set's 23 codes are not SNOMED CT"
+  summary: >-
+    The value set mixes 11 SNOMED CT codes with 12 CDC PHIN VS (CDCPHINVS) codes. A sender can use a
+    CDCPHINVS code and pass validation while breaking the narrative's SHALL; or follow the narrative and be
+    unable to express the concepts that only have CDCPHINVS codes.
+  narrative: "\"OBX-5 SHALL contain a SNOMED CT code from the PHVS_VaccinationContraindication_IIS value set\""
+  xml:
+    - "PHVS_VaccinationContraindication_IIS: 23 codes; systems SCT (11), CDCPHINVS (12)."
+  recommendation: "Say \"a code from the PHVS_VaccinationContraindication_IIS value set\", or update the value set to SNOMED CT only."
+
+- id: qf-igamt-race-cdcrec
+  kind: gap
+  severity: warning
+  owner: both
+  card: value-sets-and-field-usage
+  location: value-sets-and-field-usage--s1
+  title: "\"Use the CDCREC value set\": the profiles bind category-only value sets, without MENA or the detailed codes"
+  summary: >-
+    The narrative talks about "the CDCREC value set", including detailed subcategories and Middle Eastern or
+    North African (MENA) as a top-level race category. The profiles bind PID-10 to
+    PHVS_RaceCategory_CDC_NullFlavor (6 OMB categories, Other Race, and three unknown codes) and PID-22 to
+    PHVS_EthnicityGroup_CDC_Unk. Neither contains MENA or any detailed code. Both are Static/Open, so a validator
+    would likely only warn, but readers cannot see what is allowed.
+  narrative: >-
+    "Race (PID-10) SHALL use the CDCREC value set." "IIS SHOULD support the MENA race code as a top-level
+    category." "IIS SHALL accept additional valid CDCREC codes."
+  xml:
+    - "PID-10: PHVS_RaceCategory_CDC_NullFlavor (9 codes: 1002-5, 2028-9, 2054-5, 2076-8, 2106-3, 2131-1, ASKU, PHC1175, UNK); Static, Open."
+    - "PID-22: PHVS_EthnicityGroup_CDC_Unk (5 codes); Static, Open."
+  recommendation: >-
+    Name the bound value sets in the narrative (or rename them in IGAMT). Decide whether MENA and the
+    detailed CDCREC codes belong in the binding (Dynamic), and whether 2131-1 Other Race remains.
+
+- id: qf-igamt-z42-unconditional
+  kind: xml-defect
+  severity: issue
+  owner: igamt
+  card: z42-return-evaluated-immunization-history-and-forecast
+  title: "Z42's co-constraint table has no conditions, so every history dose needs a forecast group"
+  summary: >-
+    Z22 and Z32 select a co-constraint table by the kind of Order Segment Group (administered, refused, …). Z42
+    has one unconditional table. Its "Immunization Forecast Results" group is R [1..*], so it applies to every
+    ORC/RXA group in the response: each returned dose would need a forecast, and evaluation results are allowed
+    in the forecast group. Z42 also has no rows for eligibility, funding, VIS, comments, or contraindications,
+    which Z32 returns.
+  narrative: >-
+    4.7.8.1: "All forecast information SHALL be returned under a single ORC/RXA order group." 4.4.4.5 and
+    4.4.4.6 separate "Immunization Event with Evaluation" from "Forecast".
+  xml:
+    - "Z42 OBX at HISTORY_FORECAST.HISTORY_FORECAST_OBSERVATION: one simple table; groups Immunization Evaluation Results S [0..*], Immunization Forecast Results R [1..*], Conditions: Patient Observations O [0..*]."
+  recommendation: >-
+    Make the Z42 tables conditional like Z32: evaluation for administered or historical doses (RXA-20 CP or
+    PA), and forecast for the CVX 998 group. Add the event-level observations that Z32 allows.
+
+- id: qf-igamt-z32-evaluation
+  kind: conflict
+  severity: warning
+  owner: igamt
+  card: z32-return-complete-immunization-history
+  title: "Z32 (history only) contains evaluation and forecast groups"
+  summary: >-
+    The narrative describes Z32 as the response to a history-only query (Z34); evaluation and forecast belong
+    to Z42. The Z32 co-constraints include an "Immunization Evaluation Results" group for administered and
+    historical doses, and an "Immunization Forecast Results" group for the no-vaccination group. Section
+    4.7.7.5 also points to "Chapter 7.1.4, Z32" for the evaluation LOINC codes.
+  narrative: "\"This response represents the primary success case for history-only queries.\""
+  xml:
+    - "Z32 table 1 (RXA-20 NA, CVX 998): group Immunization Forecast Results O [0..*]."
+    - "Z32 table 2 (RXA-20 CP/PA, CVX ≠ 998): group Immunization Evaluation Results S [0..*]."
+  recommendation: >-
+    Remove the evaluation and forecast groups from Z32 (or state that Z32 may carry them) and correct the
+    cross-reference in 4.7.7.5 to Z42.
+
+- id: qf-igamt-vis-dates
+  kind: xml-defect
+  severity: warning
+  owner: igamt
+  card: reporting-vis-information-in-hl7-v2-messages
+  title: "Z22 administered doses cannot carry the VIS publication date (29768-9) for the alternate VIS method"
+  summary: >-
+    The alternate VIS method is a CVX (30956-7), the publication date (29768-9), and the date given (29769-7).
+    In the Z22 administered-dose table, the "VIS Information: Vaccine Type and Dates" group lists 29769-7 twice
+    and 29768-9 not at all. The historical-dose table has it right. The Z22 administered document-type group
+    also has no OBX-5 binding for 69764-9; the historical group binds PHVS_VISBarcodes_IIS. Constraint IZ-36
+    covers the barcode check separately.
+  narrative: >-
+    "Under the alternate method, submitters report the CVX Unspecified Formulation code representing the
+    applicable VIS, along with an OBX giving the VIS publication date and an OBX giving the VIS date-given."
+  xml:
+    - "Z22 table 1, group VIS Information: Vaccine Type and Dates: 30956-7, 29769-7, 29769-7."
+    - "Z22 table 2 (historical), same group: 30956-7, 29768-9, 29769-7."
+  recommendation: "Replace the second 29769-7 row with 29768-9, and bind 69764-9 to PHVS_VISBarcodes_IIS in the administered group."
+
+- id: qf-igamt-vis-historical
+  kind: question
+  severity: note
+  owner: decision
+  card: reporting-vis-information-in-hl7-v2-messages
+  title: "VIS groups appear for historical doses; the narrative describes VIS only for administered doses"
+  summary: >-
+    The Z22 historical-dose table repeats both VIS groups (usage S [1..*]) and the eligibility/funding group
+    (S [1..1]). The narrative and Figure 20 describe VIS and eligibility for new administrations. A reader
+    cannot tell whether VIS information on a historical dose is expected, allowed, or meaningless.
+  narrative: "\"VIS information is reported using one or more OBX segments within the administered vaccination group (ORC/RXA/RXR).\""
+  xml:
+    - "Z22 table 2 (RXA-9 01–08): groups Dose-Level Program Eligibility and Funding Status S [1..1], VIS Information: Document Type S [1..*], VIS Information: Vaccine Type and Dates S [1..*]."
+  recommendation: "Decide; then either remove these groups from the historical table or say in the narrative that they are allowed."
+
+- id: qf-igamt-dose-validity
+  kind: gap
+  severity: warning
+  owner: igamt
+  card: dose-validity-and-reason-for-validity
+  location: dose-validity-and-reason-for-validity--s2
+  title: "\"Y or N are the only allowable values\" for dose validity is not enforced"
+  summary: >-
+    The dose-validity observation (59781-5) is typed ID with no value set in the Z32 and Z42 co-constraints,
+    so any value passes.
+  narrative: "\"'Y' or 'N' SHALL be used in OBX-5 as the only allowable values when dose validity is reported\""
+  xml:
+    - "Z42 and Z32 Immunization Evaluation Results: 59781-5 OBX-2 = ID; no OBX-5 binding."
+    - "HL70136_IZ01 (Y, N) exists and is used for PD1-12."
+  recommendation: "Bind OBX-5 for 59781-5 to HL70136_IZ01 (or an equivalent Y/N value set)."
+
+- id: qf-igamt-forecast-loinc
+  kind: gap
+  severity: warning
+  owner: both
+  card: vaccine-type-and-forecast-initiation
+  location: vaccine-type-and-forecast-initiation--s3
+  title: "Forecast observations: the text and the Z42 table list different LOINC codes"
+  summary: >-
+    The narrative allows the legacy 30979-9 (Vaccines Due Next) after 30956-7, but the Z42 forecast group has
+    no row for it, so it cannot be sent. The Z42 forecast group allows 93123-8 and 93122-0, which the Forecast
+    section (4.4.4.6) does not mention. The status observation 59783-1 is bound to Imm_status in Z32 but has
+    no binding in Z42.
+  narrative: >-
+    "If needed to support legacy systems, IIS SHOULD include the legacy LOINC 30979-9 (Vaccines Due Next)
+    after LOINC 30956-7 (Vaccine Type)." 4.4.4.6 lists 30956-7, 59783-1, 30982-3, 30981-5, 30980-7, 59778-1,
+    59777-3, 59779-9, 59780-7, 59782-3, 30973-2.
+  xml:
+    - "Z42 Immunization Forecast Results: 30956-7, 59783-1, 30982-3, 30981-5, 30980-7, 59778-1, 59777-3, 59779-9, 59780-7, 59782-3, 30973-2, 93123-8, 93122-0."
+  recommendation: "Add 30979-9 to the forecast group (optional), describe 93123-8 and 93122-0 in 4.4.4.6, and bind 59783-1 in Z42."
+
+- id: qf-igamt-usage-s
+  kind: gap
+  severity: warning
+  owner: both
+  card: usage-designations-and-expectations
+  title: "Co-constraint tables use usage 'S', which the guide does not define"
+  summary: >-
+    Eighteen co-constraint rows and groups have usage 'S' (for example, VIS groups, the contraindication group,
+    and the forecast dates). The guide defines R, RE, O, C, X, and IX. A reader cannot tell whether 'S' means
+    "should", "situational", or something else, and Figure 20 shows these items as Required.
+  xml:
+    - "Usage 'S' in Z22 (VIS groups, historical eligibility, contraindication group and rows), Z32 (eligibility, VIS, evaluation, forecast dates), Z42 (evaluation group, forecast dates)."
+  recommendation: "Define 'S' in this section (as IGAMT uses it), or replace it in the tables with a defined usage."
+
+- id: qf-igamt-contact-address-re
+  kind: question
+  severity: note
+  owner: narrative
+  card: general-principles
+  location: general-principles--s1
+  title: "\"SHALL send\" patient address, phone, and guardian contact, which the profiles have as RE"
+  summary: >-
+    PID-11, PID-13, and NK1-5 are RE (send when known). The statements read as unconditional. Adding "when
+    known" matches the profiles and the guide's definition of RE.
+  narrative: >-
+    "Systems SHALL send patient contact information in PID-13 and guardian or next-of-kin contact
+    information in NK1-5." "Systems SHALL send patient address information in PID-11."
+  xml:
+    - "PID-11 RE [0..*] XAD_IZ02; PID-13 RE [0..*] XTN_IZ01; NK1-5 RE [0..*] XTN_IZ01 (Z22)."
+  recommendation: "Add \"when known\" to these statements."
+
+- id: qf-igamt-ordering-provider
+  kind: xml-defect
+  severity: warning
+  owner: igamt
+  card: non-patient-person-names
+  title: "ORC-12 (Ordering Provider) has usage C with no predicate"
+  summary: >-
+    In ORC_IZ01 (Z22, Z32), ORC-12 is conditional, but there is no predicate, so neither readers nor validators
+    know when it is required. Z42's ORC_IZ02 has it as O.
+  xml:
+    - "ORC_IZ01 ORC-12: C [0..1] XCN_IZ01, no predicate."
+  recommendation: "Add the intended predicate, or set a fixed usage."
+
+# ------------------------------------------------------------------ confirmed (shown in the comparison report only)
+
+- id: qf-igamt-ok-msa1
+  kind: confirmed
+  card: msa-1-derivation-of-message-level-disposition
+  title: "MSA-1 values AA, AE, AR are the only permitted acknowledgment codes"
+  summary: "HL70008_IZ01 has AA, AE, AR as R and the enhanced-mode codes CA, CE, CR as E (excluded). The derivation rules (AA not with W or E errors, and so on) are not machine-checked; no constraint covers them."
+- id: qf-igamt-ok-err4
+  kind: confirmed
+  card: err-4-severity-code
+  title: "ERR-4 severities E, W, I match HL70516_IZ01"
+- id: qf-igamt-ok-5044
+  kind: confirmed
+  card: optional-use-of-code-5044-patient-identifier-returned
+  location: optional-use-of-code-5044-patient-identifier-returned--s3
+  title: "ERR-5 code 5044 and ERR-6"
+  summary: "5044 is in HL70533_IZ01, and ERR-6 has the predicate R when ERR-5.1 = '5044', which matches \"the IIS SHALL include the corresponding internal patient identifier in ERR-6\". The code has no usage in the value set (see the export findings)."
+- id: qf-igamt-ok-msh7
+  kind: confirmed
+  card: data-type-flavors
+  title: "MSH-7 uses TS_Z, which requires a time-zone offset, as the Data Type Flavors section says"
+- id: qf-igamt-ok-err2
+  kind: confirmed
+  card: err-2-error-location
+  title: "ERR-2 is RE, as the text says"
+- id: qf-igamt-ok-pid22
+  kind: confirmed
+  card: ethnicity-reporting
+  title: "PID-22 is [0..1], matching \"Multiple repetitions of PID-22 SHALL NOT be used\""
+- id: qf-igamt-ok-nk1-2-7
+  kind: confirmed
+  card: non-patient-person-names
+  location: non-patient-person-names--s4
+  title: "NK1-2.7 (name type) is R, matching the statement for NK1-2"
+- id: qf-igamt-ok-pid11-7
+  kind: confirmed
+  card: address-representation-in-hl7-v2
+  location: address-representation-in-hl7-v2--s2
+  title: "PID-11.7 (address type) is R in both XAD flavors"
+- id: qf-igamt-ok-refusal-orc3
+  kind: confirmed
+  card: required-data-elements
+  title: "ORC-3 = 9999 for refused and not-administered doses is enforced (IZ-45) in Z22, Z32, and Z42"
+- id: qf-igamt-ok-cvx999
+  kind: confirmed
+  card: non-vaccine-cvx-codes-including-998-and-999
+  title: "CVX 999 is excluded (usage E) in CVX_01, matching \"IIS SHALL treat the presence of CVX 999 in RXA-5 as an error condition\""
+- id: qf-igamt-ok-obx1
+  kind: confirmed
+  card: obx-1-set-id-obx
+  title: "OBX-1 sequencing: IZ-20 allows numbering within the message or within each group, matching the text"
+- id: qf-igamt-ok-eligibility
+  kind: confirmed
+  card: immunization-event
+  title: "Eligibility and funding are required for new administrations only: Z22 administered group R [1..1], with IZ-23 requiring 64994-7"
+- id: qf-igamt-ok-flavor-lists
+  kind: confirmed
+  card: immunization-event-contraindicated
+  title: "The contraindicated and refused flavor lists match the Z22 tables (30945-0, 30946-8, 30944-3, 48767-8; refused: 48767-8 only)"

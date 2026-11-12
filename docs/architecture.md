@@ -18,7 +18,7 @@
 | Content | Authoritative source | In this repository |
 |---|---|---|
 | Narrative | The CDC Word draft, until the card tree becomes the source | `cards/`, converted by `tools/convert_narrative.py` |
-| Conformance structure (profiles, segments, data types, value sets, constraints, co-constraints) | IGAMT | `model/` (to come), normalized from the IGAMT export |
+| Conformance structure (profiles, segments, data types, value sets, constraints, co-constraints) | IGAMT | `model/`, normalized from the IGAMT export by `tools/import_igamt.py` |
 | Example messages | Example definitions | `examples/` (to come) |
 
 Structural problems found by the checks are reported as **requested changes
@@ -86,3 +86,19 @@ A static, multi-page site:
 
 The presentation is a project-owned theme (`site/theme/`) for joint CDC/AIRA
 branding.
+
+## Narrative and IGAMT comparison
+
+`tools/check_cards.py` also compares the cards with `model/` (`tools/compare_structure.py`):
+
+- **Automated, on every build:** field references that do not exist, field names that differ from the
+  profiles, codes not in the bound value set, Figure 20 against the OBX co-constraint tables
+  (transcribed in `quality/transcriptions/fig-20.yml`), and checks of the export itself (conditional
+  usage without a predicate, empty or placeholder value sets, reused constraint IDs, inconsistent
+  co-constraint rows).
+- **Reviewed:** judgements recorded with their evidence in `quality/igamt-review.yml` (conflicts, gaps,
+  export defects, questions, and confirmed matches), each saying who acts: the narrative, IGAMT, or a CDC decision.
+
+The site shows these findings on the sections they concern, adds a "Message structure" panel to every
+section that mentions fields, and publishes the comparison report at `quality/igamt/` with the
+change requests for IGAMT. All findings are downloadable as `quality/findings.csv`.

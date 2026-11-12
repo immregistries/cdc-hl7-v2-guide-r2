@@ -1,0 +1,195 @@
+[
+ {
+  "profile": "Z22",
+  "context": "ORDER",
+  "segment": "RXA",
+  "default_flavor": "RXA_IZ01",
+  "kind": "AssertionSlicing",
+  "slices": [
+   {
+    "flavor": "RXA_IZ01_Adm",
+    "when": "If (At least one occurrence of RXA-9.1 (Identifier) contains one of the values in the list: ['00'] (Case Sensitive) AND RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA'] (Case Sensitive))",
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "StringList",
+       "path": "20[1]",
+       "cSV": "CP,PA",
+       "ignoreCase": "false",
+       "notPresentBehavior": "FAIL"
+      },
+      {
+       "op": "StringList",
+       "path": "9[1].1[1]",
+       "cSV": "00",
+       "ignoreCase": "false",
+       "atLeastOnce": "true",
+       "notPresentBehavior": "FAIL"
+      }
+     ]
+    }
+   },
+   {
+    "flavor": "RXA_IZ01_His",
+    "when": "If (At least one occurrence of RXA-9.1 (Identifier) contains one of the values in the list: ['01','02','03','04','05','06','07','08'] (Case Sensitive) AND RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA'] (Case Sensitive))",
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "StringList",
+       "path": "20[1]",
+       "cSV": "CP,PA",
+       "ignoreCase": "false",
+       "notPresentBehavior": "FAIL"
+      },
+      {
+       "op": "StringList",
+       "path": "9[1].1[1]",
+       "cSV": "01,02,03,04,05,06,07,08",
+       "ignoreCase": "false",
+       "atLeastOnce": "true",
+       "notPresentBehavior": "FAIL"
+      }
+     ]
+    }
+   },
+   {
+    "flavor": "RXA_IZ01_Ref",
+    "when": "If (RXA-20 (Completion Status) contains the value 'RE' (Case Sensitive) AND RXA-6 (Administered Amount) contains the value '999' (Case Sensitive))",
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "PlainText",
+       "path": "6[1]",
+       "text": "999",
+       "ignoreCase": "false",
+       "notPresentBehavior": "FAIL"
+      },
+      {
+       "op": "PlainText",
+       "path": "20[1]",
+       "text": "RE",
+       "ignoreCase": "false",
+       "notPresentBehavior": "FAIL"
+      }
+     ]
+    }
+   },
+   {
+    "flavor": "RXA_IZ01_Con",
+    "when": "If (RXA-20 (Completion Status) contains the value 'NA' (Case Sensitive) AND (RXA-5.1 (Identifier) does not contain the value '998' (Case Sensitive) AND RXA-6 (Administered Amount) contains the value '999' (Case Sensitive)))",
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "NOT",
+         "args": [
+          {
+           "op": "PlainText",
+           "path": "5[1].1[1]",
+           "text": "998",
+           "ignoreCase": "false",
+           "notPresentBehavior": "FAIL"
+          }
+         ]
+        },
+        {
+         "op": "PlainText",
+         "path": "6[1]",
+         "text": "999",
+         "ignoreCase": "false",
+         "notPresentBehavior": "FAIL"
+        }
+       ]
+      },
+      {
+       "op": "PlainText",
+       "path": "20[1]",
+       "text": "NA",
+       "ignoreCase": "false",
+       "notPresentBehavior": "FAIL"
+      }
+     ]
+    }
+   },
+   {
+    "flavor": "RXA_IZ01_NVx",
+    "when": "If (RXA-20 (Completion Status) contains the value 'NA' (Case Sensitive) AND (RXA-5.1 (Identifier) contains the value '998' (Case Sensitive) AND RXA-6 (Administered Amount) contains the value '999' (Case Sensitive)))",
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "path": "5[1].1[1]",
+         "text": "998",
+         "ignoreCase": "false",
+         "notPresentBehavior": "FAIL"
+        },
+        {
+         "op": "PlainText",
+         "path": "6[1]",
+         "text": "999",
+         "ignoreCase": "false",
+         "notPresentBehavior": "FAIL"
+        }
+       ]
+      },
+      {
+       "op": "PlainText",
+       "path": "20[1]",
+       "text": "NA",
+       "ignoreCase": "false",
+       "notPresentBehavior": "FAIL"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "profile": "Z22",
+  "context": "Z22-SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU",
+  "segment": "PID",
+  "default_flavor": "PID_IZ01",
+  "kind": "AssertionSlicing",
+  "slices": [
+   {
+    "flavor": "PID_IZ01",
+    "when": "If At least one occurrence of PID-5.7 (Name Type Code) contains the value 'L' (Case Sensitive).",
+    "assertion": {
+     "op": "PlainText",
+     "path": "5[*].7[1]",
+     "text": "L",
+     "ignoreCase": "false",
+     "atLeastOnce": "true",
+     "notPresentBehavior": "FAIL"
+    }
+   },
+   {
+    "flavor": "PID_IZ03",
+    "when": "If At least one occurrence of PID-5.7 (Name Type Code) does not contain the value 'L' (Case Sensitive).",
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "PlainText",
+       "path": "5[*].7[1]",
+       "text": "L",
+       "ignoreCase": "false",
+       "atLeastOnce": "true",
+       "notPresentBehavior": "FAIL"
+      }
+     ]
+    }
+   }
+  ]
+ }
+]

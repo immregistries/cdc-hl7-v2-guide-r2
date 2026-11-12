@@ -19,7 +19,7 @@ sys.path.insert(0, str(TOOLS))
 
 import check_cards  # noqa: E402
 import convert_narrative  # noqa: E402
-from guidecards import actor_of, load_tree, walk  # noqa: E402
+from guidecards import CARDS_DIR, REPO, actor_of, load_tree, walk  # noqa: E402
 
 OVERRIDES = {
     "context_titles": ["Context and Rationale", "Context & Rationale"],
@@ -196,6 +196,27 @@ class SiteTest(unittest.TestCase):
                 self.assertTrue((out / page).exists(), page)
         finally:
             shutil.rmtree(out)
+
+
+class StructureTest(unittest.TestCase):
+    """Narrative/IGAMT comparison on the committed model/ (skipped if model/ is absent)."""
+
+    def test_comparison(self):
+        import compare_structure  # noqa: F401
+        from structure_index import Model
+        model_dir = REPO / "model"
+        if not Model.available(model_dir):
+            self.skipTest("model/ not present")
+        m = Model(model_dir)
+        self.assertEqual(m.field_name("RXA", 20), "Completion Status")
+        self.assertIn("RE", m.codes(m.bindings("RXA", 20)))
+        self.assertIn("HL70200_IZ01", m.component_bindings("PID", 5, 7))
+        _, items, structure = check_cards.run_checks_full(CARDS_DIR, REPO / "data", REPO / "quality", model_dir)
+        _, again, _ = check_cards.run_checks_full(CARDS_DIR, REPO / "data", REPO / "quality", model_dir)
+        self.assertEqual([i["id"] for i in items], [i["id"] for i in again])
+        self.assertTrue(structure["xref"])
+        self.assertTrue(any(i["rule"] == "igamt-review" for i in items))
+        self.assertTrue(any(i["rule"] == "xml-figure-cocon" for i in items))
 
 
 if __name__ == "__main__":

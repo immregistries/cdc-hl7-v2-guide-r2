@@ -4,7 +4,8 @@
     python tools/check_cards.py
 
 Reads only committed content (cards/, data/, quality/), so it runs anywhere.
-Writes output/quality/findings.json and output/quality/report.md.
+Writes output/quality/findings.json and output/quality/report.md, and (when model/
+exists) output/quality/igamt.json with the narrative/IGAMT comparison data.
 
 Every finding has a stable ID derived from its rule and location, so decisions
 recorded in quality/dispositions.yml stay attached across builds.
@@ -24,6 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from guidecards import (  # noqa: E402
     CARDS_DIR, DATA_DIR, META, REPO, find_verbs, load_tree, norm_title, read_yaml, subject_of, walk, write_text,
 )
+import compare_structure  # noqa: E402
 
 QUALITY_DIR = REPO / "quality"
 SEVERITIES = ("issue", "warning", "note")
@@ -33,7 +35,9 @@ CATEGORIES = {
     "figures": "Figures and tables",
     "references": "References, glossary, and links",
     "conversion": "Conversion",
+    **compare_structure.CATEGORIES,
 }
+MODEL_DIR = REPO / "model"
 MUST_RE = re.compile(r"\b(must not|must|required to|is required|are required)\b", re.I)
 CITATION_RE = re.compile(r"\[(\d{1,2})\]")
 
@@ -91,7 +95,13 @@ def unresolved_part(target: str, titles: list[str]) -> str:
     return rest if re.search(r"[A-Z]", rest) else ""
 
 
-def run_checks(cards_dir: Path, data_dir: Path, quality_dir: Path) -> tuple[list, list[dict]]:
+def run_checks(cards_dir: Path, data_dir: Path, quality_dir: Path, model_dir: Path | None = MODEL_DIR) -> tuple[list, list[dict]]:
+    roots, items, _ = run_checks_full(cards_dir, data_dir, quality_dir, model_dir)
+    return roots, items
+
+
+def run_checks_full(cards_dir: Path, data_dir: Path, quality_dir: Path, model_dir: Path | None = MODEL_DIR):
+    """Like run_checks, and also returns the narrative/IGAMT comparison data (None without model/)."""
     config = read_yaml(quality_dir / "config.yml", {}) or {}
     roots = load_tree(cards_dir)
     cards = list(walk(roots))
@@ -280,6 +290,9 @@ def run_checks(cards_dir: Path, data_dir: Path, quality_dir: Path) -> tuple[list
               "The opening sub-heading is spelled several ways: " + "; ".join(f"\"{k}\" ({v})" for k, v in variants.most_common()) + ". (On the web this text becomes the section's own introduction.)",
               key="document")
 
+    # ---------------------------------------------------------------- narrative vs IGAMT structure
+    structure = compare_structure.run(cards, model_dir, quality_dir, f, config) if model_dir else None
+
     # ---------------------------------------------------------------- manual
     for m in read_yaml(quality_dir / "manual-findings.yml", []) or []:
         item = {"id": m["id"], "rule": "manual", "category": m.get("category", "structure"),
@@ -295,7 +308,7 @@ def run_checks(cards_dir: Path, data_dir: Path, quality_dir: Path) -> tuple[list
     seen = Counter(i["id"] for i in f.items)
     if any(v > 1 for v in seen.values()):
         raise SystemExit(f"Duplicate finding IDs: {[k for k, v in seen.items() if v > 1]}")
-    return roots, f.items
+    return roots, f.items, structure
 
 
 def write_report(roots, findings: list[dict], path: Path) -> None:
@@ -328,6 +341,8 @@ def write_report(roots, findings: list[dict], path: Path) -> None:
             ev = i.get("evidence") or {}
             if "text" in ev:
                 lines.append(f"  > {ev['text']}")
+            elif "xml" in ev and isinstance(ev["xml"], str):
+                lines.append(f"  > XML: {ev['xml']}")
             elif "actors" in ev:
                 lines.append("  " + "; ".join(f"{k} ({v})" for k, v in ev["actors"].items()))
     write_text(path, "\n".join(lines) + "\n")
@@ -339,9 +354,11 @@ def main(argv=None) -> int:
     parser.add_argument("--data", type=Path, default=DATA_DIR)
     parser.add_argument("--out", type=Path, default=REPO / "output" / "quality")
     args = parser.parse_args(argv)
-    roots, findings = run_checks(args.cards, args.data, QUALITY_DIR)
+    roots, findings, structure = run_checks_full(args.cards, args.data, QUALITY_DIR)
     args.out.mkdir(parents=True, exist_ok=True)
     write_text(args.out / "findings.json", json.dumps(findings, indent=2, ensure_ascii=False) + "\n")
+    if structure:
+        write_text(args.out / "igamt.json", json.dumps(structure, indent=1, ensure_ascii=False) + "\n")
     write_report(roots, findings, args.out / "report.md")
     sev = Counter(i["severity"] for i in findings)
     print(f"{len(findings)} findings ({', '.join(f'{sev[s]} {s}' for s in SEVERITIES)}). Report: {args.out / 'report.md'}")

@@ -17,3 +17,10 @@ max_statement_words: 60
 # (for example, where the verbs themselves are defined).
 prose_verbs_exempt:
   - conformance-verbs
+
+# Narrative ↔ IGAMT comparison (tools/compare_structure.py).
+# Tokens that look like field references but are not HL7 segments.
+not_segments: [HTI, SPD]
+# HL7 v2.5.1 segment names: a reference to one of these that is missing from
+# every profile is a warning; other unknown three-letter prefixes are notes.
+hl7_segments: [ACC, ADD, AL1, BHS, BTS, DSC, ERR, EVN, FHS, FTS, GT1, IN1, IN2, IN3, MSA, MSH, NK1, NTE, OBR, OBX, ORC, PD1, PID, PV1, PV2, QAK, QPD, QRD, RCP, RDF, RDT, RXA, RXR, SFT, TQ1, TQ2]
