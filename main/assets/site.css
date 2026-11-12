@@ -353,3 +353,8 @@ pre.hl7 .f:hover { background: var(--guide-blue-light); }
 .filter-terms .term { font: inherit; font-size: .75rem; border: 1px solid var(--guide-border); background: var(--guide-blue-pale); color: var(--guide-navy);
   border-radius: 12px; padding: 1px 9px; margin: 0 2px; cursor: pointer; }
 .filter-terms .term:hover { background: var(--guide-blue-light); }
+
+/* ---------------------------------------------------------------- about page */
+.new-here { font-size: .9rem; color: var(--guide-muted); }
+.about h2 { margin-top: 28px; }
+.about li { margin: 5px 0; }

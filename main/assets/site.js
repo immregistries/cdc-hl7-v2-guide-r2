@@ -62,8 +62,9 @@
   var tree = document.getElementById("tree");
   var treeBody = tree && tree.querySelector(".tree-body");
   if (treeBody && nav.nodes.length) {
-    treeBody.innerHTML = "<ul>" + nav.nodes.map(function (n) { return item(n, 0); }).join("") + "</ul>" +
-      '<div class="sep"></div><ul>' + nav.extra.map(function (n) { return item(n, 0); }).join("") + "</ul>";
+    // the guide (chapters, chapter 7, appendices), then below a line the pages about the draft and its review
+    treeBody.innerHTML = "<ul>" + nav.nodes.concat(nav.extra).map(function (n) { return item(n, 0); }).join("") + "</ul>" +
+      '<div class="sep"></div><ul>' + (nav.meta || []).map(function (n) { return item(n, 0); }).join("") + "</ul>";
     treeBody.addEventListener("click", function (e) {
       var t = e.target.closest(".twisty");
       if (!t || t.classList.contains("leaf")) return;
@@ -83,7 +84,7 @@
   var filter = tree && tree.querySelector(".tree-filter input");
   var filterStatus = tree && tree.querySelector(".filter-status");
   var termsById = {};
-  (function collect(ns) { ns.forEach(function (n) { termsById[n.i] = n.k || []; if (n.c) collect(n.c); }); })(nav.nodes.concat(nav.extra));
+  (function collect(ns) { ns.forEach(function (n) { termsById[n.i] = n.k || []; if (n.c) collect(n.c); }); })(nav.nodes.concat(nav.extra, nav.meta || []));
 
   function tokenMatch(tok, term) {
     var t = term.toLowerCase();
