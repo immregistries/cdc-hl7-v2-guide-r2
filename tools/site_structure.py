@@ -340,7 +340,8 @@ or, for conditional usage, its condition. Open a flavor for data types, lengths,
 {f'<p class="mini">Also defined in the export but not used by any message: {", ".join(esc(s["label"]) for s in unused)}.</p>' if unused and used else ''}
 </article>"""
         page(f"structure/segments/{slug(name)}", f"{name} segment", body, root)
-        seg_nav.append({"i": f"structure-seg-{slug(name)}", "t": f"{name} {desc}", "n": "", "p": f"structure/segments/{slug(name)}/index.html", "f": [0, 0, 0]})
+        seg_nav.append({"i": f"structure-seg-{slug(name)}", "t": f"{name} {desc}", "n": "", "p": f"structure/segments/{slug(name)}/index.html", "f": [0, 0, 0],
+                        "k": [name] + [f"{name}-{i}" for i in range(1, nfields + 1)]})
 
         for s in flavors:
             root = "../" * 4  # structure/segments/<name>/<flavor>/index.html
@@ -509,12 +510,21 @@ The <a href="{root}quality/igamt/index.html">narrative and IGAMT comparison</a> 
 </article>"""
     page("structure", "7 Message Infrastructure", body, root)
 
+    def profile_terms(p):
+        segs = sorted({pl["segment"] for pl in m.placements if pl["profile"] == p["code"] and not pl["excluded"]})
+        return [p["code"], p["message_type"], p["structure"]] + segs
+
+    def cocon_terms(code):
+        return sorted({w["code"] for t in m.coconstraints if t["profile"] == code for tab in t["tables"]
+                       for r in tab["rows"] + [x for g in tab.get("groups", []) for x in g["rows"]] for w in r["when"] if w.get("code")})
+
     nav = [{"i": f"structure-{p['code'].lower()}", "t": p["title"], "n": p["code"], "p": f"structure/profiles/{p['code'].lower()}/index.html",
-            "f": _counts(model_findings.get(("profile", p["code"]), []))} for p in profiles]
+            "f": _counts(model_findings.get(("profile", p["code"]), [])), "k": profile_terms(p)} for p in profiles]
     nav.append({"i": "structure-segments", "t": "Segments", "n": "", "p": "structure/index.html#segments", "f": [0, 0, 0], "c": seg_nav})
     nav.append({"i": "structure-cocon", "t": "OBX co-constraints", "n": "", "p": "structure/index.html#coconstraints", "f": [0, 0, 0],
                 "c": [{"i": f"structure-cocon-{p['code'].lower()}", "t": f"{p['code']} co-constraints", "n": "",
-                       "p": f"structure/coconstraints/{p['code'].lower()}/index.html", "f": _counts(model_findings.get(("cocon", p["code"]), []))}
+                       "p": f"structure/coconstraints/{p['code'].lower()}/index.html", "f": _counts(model_findings.get(("cocon", p["code"]), [])),
+                       "k": ["OBX", "co-constraints"] + cocon_terms(p["code"])}
                       for p in profiles if any(t["profile"] == p["code"] for t in m.coconstraints)]})
     nav.append({"i": "structure-datatypes", "t": "Data types", "n": "", "p": "structure/index.html#datatypes", "f": [0, 0, 0]})
     nav.append({"i": "structure-value-sets", "t": "Value sets", "n": "", "p": "structure/index.html#value-sets", "f": [0, 0, 0]})

@@ -29,6 +29,7 @@ import minimd  # noqa: E402
 import site_igamt  # noqa: E402
 import site_structure  # noqa: E402
 import site_examples  # noqa: E402
+import filter_terms  # noqa: E402
 from structure_index import FIELD_RE, Model  # noqa: E402
 from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
 
@@ -129,7 +130,7 @@ def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id
 </header>
 <div class="layout">
   <nav class="tree" id="tree" aria-label="Table of contents">
-    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
     <div class="tree-body"><a href="{root}contents/index.html">Table of contents</a></div>
   </nav>
   <main id="main" tabindex="-1">
@@ -237,6 +238,14 @@ def tables_html(card) -> str:
     return "".join(out)
 
 
+def terms_html(terms: list[str]) -> str:
+    """Filter terms of a card, as buttons that filter the contents by that term."""
+    if not terms:
+        return ""
+    chips = "".join(f'<button type="button" class="term" data-term="{esc(t)}">{esc(t)}</button>' for t in terms)
+    return (f'<section class="filter-terms" aria-label="Filter terms"><span class="mini">Filter the contents by:</span> {chips}</section>')
+
+
 def glossary_html(name: str) -> str:
     data = read_yaml(DATA_DIR / f"{name}.yml", {}) or {}
     out = []
@@ -322,8 +331,17 @@ def build(out: Path) -> dict:
         sev = Counter(f["severity"] for f in by_card.get(c.id, []))
         return [sev["issue"], sev["warning"], sev["note"]]
 
+    curated = filter_terms.load_curated()
+    seg_names = Model(REPO / "model").segment_names if Model.available(REPO / "model") else None
+    card_terms = {}
+    for c in cards:
+        terms = list(dict.fromkeys(curated.get(c.id, []) + filter_terms.auto_terms(c, seg_names)))
+        card_terms[c.id] = terms
+
     def node(c):
         n = {"i": c.id, "t": c.title, "n": c.number, "f": counts(c)}
+        if card_terms.get(c.id):
+            n["k"] = card_terms[c.id]
         if c.children:
             n["c"] = [node(x) for x in c.children]
         return n
@@ -412,6 +430,7 @@ def build(out: Path) -> dict:
 {tables_html(c)}
 {refs_html}
 {children_html}
+{terms_html(card_terms.get(c.id, []))}
 {pager}
 </article>"""
         targets = [{"i": 0, "label": "Whole section"}]

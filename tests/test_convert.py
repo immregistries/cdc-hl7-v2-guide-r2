@@ -215,6 +215,26 @@ class ExamplesTest(unittest.TestCase):
         self.assertTrue(any("PID-5.1" in t for _, t in problems))  # family name is required for an 'L' name
 
 
+class FilterTermsTest(unittest.TestCase):
+    def test_auto_terms(self):
+        import filter_terms
+        from types import SimpleNamespace
+        card = SimpleNamespace(title="Refusal (RXA-20)", statements=[{"text": "RXA-20 SHALL be 'RE' and ORC-3 SHALL be 9999."}],
+                               narrative="See PID-5.7 and Z22; CVX 998; LOINC 30945-0; PHVS_VaccinationContraindication_IIS; HTI-1.",
+                               meta={}, parent=None)
+        terms = filter_terms.auto_terms(card, {"RXA", "ORC", "PID"})
+        for t in ("RXA-20", "ORC-3", "PID-5", "PID-5.7", "Z22", "RE", "998", "30945-0", "PHVS_VaccinationContraindication_IIS"):
+            self.assertIn(t, terms)
+        self.assertNotIn("HTI-1", terms)
+        self.assertIn("refusal", filter_terms.draft_terms(card))
+
+    def test_curated_file_has_known_cards(self):
+        import filter_terms
+        curated = filter_terms.load_curated()
+        ids = {c.id for c in walk(load_tree())}
+        self.assertFalse(set(curated) - ids, "filter-terms.yml names cards that do not exist")
+
+
 def broken_links(site: Path) -> list[str]:
     """Internal links (and #anchors on HTML pages) that do not resolve in a built site."""
     import re

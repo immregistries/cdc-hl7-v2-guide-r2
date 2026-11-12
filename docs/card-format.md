@@ -106,3 +106,21 @@ re-runs and record human decisions:
 Before cutover, **do not edit card files by hand**: the next conversion
 overwrites them. Put lasting changes in `overrides.yml`. After cutover, the
 converter is retired, and card files are edited directly.
+
+## Filter terms
+
+The contents filter matches section titles and each section's **filter terms**:
+
+- **Automatic**, found in the card's text on every build: field references (`RXA-20`, `PID-5.7`),
+  profile codes (`Z22`), message types, value set IDs, LOINC codes, and code values the text uses
+  (`RE`, `NB`, `998`).
+- **Curated**, in `cards/_meta/filter-terms.yml`, keyed by card ID: concepts readers filter by
+  (`refusal`, `VFC`, `consent`, `forecast`, …). The file started as a machine draft from the
+  vocabulary in `tools/filter_terms.py` and is meant to be edited by hand. Card IDs are stable, so
+  re-converting the narrative keeps it. `python tools/filter_terms.py --draft` adds drafts only for
+  new cards. (`--redraft` replaces everything, including hand edits.)
+
+Every word typed must match. A field matches exactly or with a component (`RXA-2` finds RXA-2 and
+RXA-2.1, never RXA-20). A segment name alone (`RXA`) finds all its fields. Codes of one or two
+characters match only exactly. A card shows its terms at the bottom, and selecting one filters the
+contents by it.

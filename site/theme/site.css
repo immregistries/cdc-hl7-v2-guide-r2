@@ -344,3 +344,12 @@ pre.hl7 .f:hover { background: var(--guide-blue-light); }
 .ex-check.ok { color: #1d6b36; }
 .ex-check.bad summary { color: var(--finding-warning); cursor: pointer; }
 .ex-check ul { margin: 4px 0; padding-left: 20px; }
+
+/* ---------------------------------------------------------------- filter terms */
+.filter-status:empty { display: none; }
+.filter-status { margin: 6px 0 0; font-size: .75rem; color: var(--guide-muted); }
+.tree .row .hit { display: block; font-size: .68rem; color: var(--guide-blue); font-family: var(--guide-mono); }
+.filter-terms { margin: 22px 0 0; padding-top: 12px; border-top: 1px solid #eef2f6; line-height: 2; }
+.filter-terms .term { font: inherit; font-size: .75rem; border: 1px solid var(--guide-border); background: var(--guide-blue-pale); color: var(--guide-navy);
+  border-radius: 12px; padding: 1px 9px; margin: 0 2px; cursor: pointer; }
+.filter-terms .term:hover { background: var(--guide-blue-light); }

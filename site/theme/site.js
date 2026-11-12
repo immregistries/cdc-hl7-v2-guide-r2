@@ -22,7 +22,8 @@
   }
 
   function store(key, value) {
-    try { if (value === undefined) return localStorage.getItem(key); localStorage.setItem(key, value); } catch (e) { return null; }
+    var area = key === "guide-filter" ? window.sessionStorage : window.localStorage;
+    try { if (value === undefined) return area.getItem(key); area.setItem(key, value); } catch (e) { return null; }
   }
 
   // ------------------------------------------------------------ tree
@@ -75,26 +76,82 @@
     if (cur) cur.scrollIntoView({ block: "center" });
   }
 
-  // filter
+  // filter: by title words and by each section's terms (fields, codes, value sets, curated concepts).
+  // Every word typed must match. A field (RXA-2) matches exactly or with a component (RXA-2.1), never RXA-20;
+  // a segment (RXA) matches all its fields; codes of 1-2 characters match only exactly; other words match
+  // a term or title word that starts with them. The filter is kept while moving between pages.
   var filter = tree && tree.querySelector(".tree-filter input");
-  if (filter && treeBody) {
-    filter.addEventListener("input", function () {
-      var q = filter.value.trim().toLowerCase();
-      var all = treeBody.querySelectorAll("li");
-      if (!q) {
-        all.forEach(function (li) { li.classList.remove("hidden"); });
-        return;
+  var filterStatus = tree && tree.querySelector(".filter-status");
+  var termsById = {};
+  (function collect(ns) { ns.forEach(function (n) { termsById[n.i] = n.k || []; if (n.c) collect(n.c); }); })(nav.nodes.concat(nav.extra));
+
+  function tokenMatch(tok, term) {
+    var t = term.toLowerCase();
+    if (/^[a-z][a-z0-9]{2}-\d+(\.\d+)*$/.test(tok)) return t === tok || t.indexOf(tok + ".") === 0;
+    if (/^[a-z][a-z0-9]{2}$/.test(tok) && t.indexOf(tok + "-") === 0) return true;
+    if (tok.length <= 2) return t === tok;
+    if (t === tok) return true;
+    return t.split(/[\s\/-]+/).some(function (w) { return w.indexOf(tok) === 0; });
+  }
+
+  function nodeMatches(li, tokens) {
+    var id = li.getAttribute("data-id");
+    var terms = termsById[id] || [];
+    var title = li.getAttribute("data-title") || "";
+    var words = title.split(/\s+/);
+    var hits = [];
+    var ok = tokens.every(function (tok) {
+      var termHit = terms.filter(function (term) { return tokenMatch(tok, term); });
+      if (termHit.length) { termHit.forEach(function (h) { if (hits.indexOf(h) < 0) hits.push(h); }); return true; }
+      if (tok.length > 2 && (title.indexOf(tok) >= 0 || words.some(function (w) { return w.indexOf(tok) === 0; }))) return true;
+      return words.indexOf(tok) >= 0;
+    });
+    return ok ? hits : null;
+  }
+
+  function applyFilter(q) {
+    var all = treeBody.querySelectorAll("li");
+    treeBody.querySelectorAll(".row .hit").forEach(function (e) { e.remove(); });
+    store("guide-filter", q);
+    if (!q) {
+      all.forEach(function (li) { li.classList.remove("hidden"); });
+      if (filterStatus) filterStatus.textContent = "";
+      return;
+    }
+    var tokens = q.toLowerCase().split(/[\s,]+/).filter(Boolean);
+    var count = 0;
+    all.forEach(function (li) { li.classList.add("hidden"); });
+    all.forEach(function (li) {
+      var hits = nodeMatches(li, tokens);
+      if (!hits) return;
+      count++;
+      var row = li.querySelector(":scope > .row");
+      if (row && hits.length) {
+        var chip = document.createElement("span");
+        chip.className = "hit";
+        chip.textContent = hits.slice(0, 3).join(", ") + (hits.length > 3 ? " …" : "");
+        row.querySelector("a").appendChild(chip);
       }
-      all.forEach(function (li) { li.classList.add("hidden"); });
-      all.forEach(function (li) {
-        if (li.getAttribute("data-title").indexOf(q) >= 0) {
-          var p = li;
-          while (p && p !== treeBody) {
-            if (p.tagName === "LI") { p.classList.remove("hidden"); if (p !== li) p.classList.remove("collapsed"); }
-            p = p.parentElement;
-          }
-        }
-      });
+      var p = li;
+      while (p && p !== treeBody) {
+        if (p.tagName === "LI") { p.classList.remove("hidden"); if (p !== li) p.classList.remove("collapsed"); }
+        p = p.parentElement;
+      }
+    });
+    if (filterStatus) filterStatus.textContent = count ? count + " matching" : "Nothing matches";
+  }
+
+  if (filter && treeBody) {
+    filter.addEventListener("input", function () { applyFilter(filter.value.trim()); });
+    var saved = store("guide-filter");
+    if (saved) { filter.value = saved; applyFilter(saved); }
+    document.addEventListener("click", function (e) {
+      var b = e.target.closest(".term");
+      if (!b) return;
+      filter.value = b.getAttribute("data-term");
+      applyFilter(filter.value);
+      if (tree.classList && window.matchMedia("(max-width: 900px)").matches) tree.classList.add("open");
+      filter.focus();
     });
   }
 
