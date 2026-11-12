@@ -76,7 +76,7 @@ python -m unittest discover -s tests
 |---|---|
 | Narrative cards | Converted from the 4 Nov 2026 draft: 357 cards, 595 conformance statements |
 | Quality checks | Structure, conformance language, figures, references, and the narrative/IGAMT comparison ([report](https://immregistries.github.io/cdc-hl7-v2-guide-r2/main/quality/igamt/)) |
-| Structured chapter (IGAMT) | Model imported (8 profiles); pages next |
+| Structured chapter (IGAMT) | Chapter 7 generated: 8 profiles, segments and flavors, data types, value sets, OBX co-constraints; linked from the narrative |
 | Website | Published from `main` on every push |
 | Card comments (InteropHub) | Planned |
 | Example messages | Planned |

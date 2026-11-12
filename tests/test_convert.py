@@ -175,6 +175,30 @@ class ChecksTest(unittest.TestCase):
         self.assertEqual(actor_of("The same identifiers SHOULD be used."), "")
 
 
+def broken_links(site: Path) -> list[str]:
+    """Internal links (and #anchors on HTML pages) that do not resolve in a built site."""
+    import re
+    ids_cache: dict = {}
+
+    def ids(p: Path) -> set:
+        if p not in ids_cache:
+            ids_cache[p] = set(re.findall(r'id="([^"]+)"', p.read_text(encoding="utf-8")))
+        return ids_cache[p]
+
+    bad = set()
+    for page in site.rglob("*.html"):
+        for href in re.findall(r'href="([^"]+)"', page.read_text(encoding="utf-8")):
+            if href.startswith(("http:", "https:", "mailto:")):
+                continue
+            path, _, frag = href.partition("#")
+            target = (page.parent / path).resolve() if path else page.resolve()
+            if not target.exists():
+                bad.add(f"{page.relative_to(site)} -> {href}")
+            elif frag and target.suffix == ".html" and frag not in ids(target):
+                bad.add(f"{page.relative_to(site)} -> {href}")
+    return sorted(bad)[:20]
+
+
 class SiteTest(unittest.TestCase):
     def test_minimd(self):
         import minimd
@@ -194,6 +218,11 @@ class SiteTest(unittest.TestCase):
             for page in ("index.html", "contents/index.html", "quality/index.html", "glossary/index.html",
                          "resources/index.html", "assets/nav.js"):
                 self.assertTrue((out / page).exists(), page)
+            if (REPO / "model" / "profiles.json").exists():
+                for page in ("structure/index.html", "structure/profiles/z22/index.html",
+                             "structure/segments/rxa/index.html", "quality/igamt/index.html"):
+                    self.assertTrue((out / page).exists(), page)
+            self.assertEqual(broken_links(out), [])
         finally:
             shutil.rmtree(out)
 

@@ -47,7 +47,7 @@ def esc(text) -> str:
 
 # ---------------------------------------------------------------- card fragments
 
-def structure_panel(items: list[dict], root: str) -> str:
+def structure_panel(items: list[dict], root: str, st=None) -> str:
     """What the profiles say about the fields a card mentions."""
     if not items:
         return ""
@@ -55,9 +55,11 @@ def structure_panel(items: list[dict], root: str) -> str:
     for it in items:
         usage = "".join(f'<div class="u-row"><span class="u">{esc(u["usage"])}</span> <span class="u-where">{esc(u["where"])}</span></div>'
                         for u in it["usage"])
-        vs = ", ".join(f"<code>{esc(v)}</code>" for v in it["value_sets"]) or '<span class="mini">—</span>'
+        vs = ", ".join((st.vs_link(v, root) if st else f"<code>{esc(v)}</code>") for v in it["value_sets"]) or '<span class="mini">—</span>'
+        seg, pos = it["ref"].split("-")
+        ref = (f'<a href="{st.segment_href(seg, root, int(pos))}"><code>{esc(it["ref"])}</code></a>' if st else f"<code>{esc(it['ref'])}</code>")
         cs = " ".join(f'<abbr class="cs" title="{esc(c["context"] + ": " + c["description"])}">{esc(c["id"])}</abbr>' for c in it["constraints"])
-        rows.append(f'<tr><th scope="row"><code>{esc(it["ref"])}</code><div class="mini">{esc(it["name"] or "")}</div></th>'
+        rows.append(f'<tr><th scope="row">{ref}<div class="mini">{esc(it["name"] or "")}</div></th>'
                     f'<td>{usage}</td><td>{vs}</td><td>{cs or "<span class=mini>—</span>"}</td></tr>')
     return f"""<section class="xref" aria-labelledby="xref-h"><details>
 <summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">{len(items)} field{'s' if len(items) != 1 else ''} · from the IGAMT export</span></summary>
@@ -159,7 +161,7 @@ def comparison_page(structure: dict, findings: list[dict], by_id: dict, root: st
                           f'<ul class="finding-list">{"".join(_finding_li(f, by_id, root) for f in items)}</ul>')
 
     confirmed = [r for r in review if r.get("kind") == "confirmed"]
-    conf_lis = "".join(f'<li>{_card_link(r.get("card"), by_id, root, r.get("location"))}: {esc(r["title"])}'
+    conf_lis = "".join(f'<li id="{esc(r["id"])}">{_card_link(r.get("card"), by_id, root, r.get("location"))}: {esc(r["title"])}'
                        + (f'<div class="mini">{esc(" ".join(r["summary"].split()))}</div>' if r.get("summary") else "") + "</li>"
                        for r in confirmed)
     codes = structure.get("codes_confirmed", [])
@@ -190,6 +192,9 @@ def comparison_page(structure: dict, findings: list[dict], by_id: dict, root: st
     return f"""<article class="page quality igamt-report">
 <p class="eyebrow">Quality review</p>
 <h1>Narrative and IGAMT structure comparison</h1>
+<p class="callout"><strong>For CDC review.</strong> These findings come from automated checks and from an AIRA reviewer's reading of the
+export. Each one needs to be verified by CDC before anything is changed in the narrative or in IGAMT; the decisions can be recorded
+against the finding IDs.</p>
 <p class="lede">Does what the narrative says about messages, fields, codes, and observations match the conformance profiles authored in
 IGAMT? This page compares the two, answers the review comments in the Word draft that asked for this check, and lists what
 needs to change in IGAMT, in the narrative, or by CDC decision.</p>

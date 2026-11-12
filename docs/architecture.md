@@ -102,3 +102,12 @@ branding.
 The site shows these findings on the sections they concern, adds a "Message structure" panel to every
 section that mentions fields, and publishes the comparison report at `quality/igamt/` with the
 change requests for IGAMT. All findings are downloadable as `quality/findings.csv`.
+
+## Chapter 7, Message Infrastructure
+
+`tools/site_structure.py` generates chapter 7 from `model/`: a page per message profile (segment tree,
+slicing, message- and group-level constraints), per segment (every field across all flavors) and
+segment flavor, per data type, per value set (codes and where it is bound), and the OBX co-constraint
+tables per profile. Field references (RXA-20), profile codes (Z22), and value set IDs in the narrative
+link to these pages, and each segment page lists the sections that discuss its fields. Export
+findings appear on the page they concern. The site test fails on any broken internal link.

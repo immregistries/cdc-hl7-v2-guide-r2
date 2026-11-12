@@ -27,6 +27,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_cards  # noqa: E402
 import minimd  # noqa: E402
 import site_igamt  # noqa: E402
+import site_structure  # noqa: E402
+from structure_index import FIELD_RE, Model  # noqa: E402
 from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
 
 SITE_SRC = REPO / "site"
@@ -146,7 +148,7 @@ def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
             f'<span class="sev">{SEV_LABEL[i["severity"]]}</span>{where} {esc(i["message"])}{evidence}{disp}'
             f'<a class="f-id" href="{root}quality/index.html#{esc(i["id"])}">{esc(i["id"])}</a></li>'
         )
-    return f"""<aside class="findings sev-{worst}" aria-label="Quality review findings">
+    return f"""<aside class="findings sev-{worst}" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">{summary}</span></summary>
 <p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
 <ul>{''.join(lis)}</ul></details></aside>"""
@@ -252,6 +254,23 @@ def build(out: Path) -> dict:
     for name in ("tokens.css", "site.css", "site.js"):
         shutil.copy2(SITE_SRC / "theme" / name, out / "assets" / name)
 
+    # ---------------------------------------------------------------- chapter 7 (generated from model/)
+    st, structure_nav = None, []
+    if Model.available(REPO / "model"):
+        field_cards, profile_cards = defaultdict(list), defaultdict(list)
+        for card_id, items in xref.items():
+            for it in items:
+                seg, pos = it["ref"].split("-")
+                field_cards[(seg, int(pos))].append(card_id)
+        for c in cards:
+            text = c.narrative + " " + " ".join(x["text"] for x in c.statements) + " " + c.title
+            for code in dict.fromkeys(re.findall(r"\b(Z\d{2})\b", text)):
+                profile_cards[code].append(c.id)
+        structure_nav, st = site_structure.build(
+            out, Model(REPO / "model"),
+            shell=lambda root, title, body: shell(root=root, title=title, body=body, guide=guide, build=build_info, page_class="model"),
+            findings_panel=findings_panel, field_cards=field_cards, profile_cards=profile_cards, findings=findings, by_id=by_id)
+
     # ---------------------------------------------------------------- nav data
     def counts(c):
         sev = Counter(f["severity"] for f in by_card.get(c.id, []))
@@ -264,7 +283,8 @@ def build(out: Path) -> dict:
         return n
 
     extra = [
-        {"i": "structure", "t": "Message Infrastructure", "n": str(len(roots) + 1), "p": "structure/index.html", "f": [0, 0, 0]},
+        {"i": "structure", "t": "Message Infrastructure", "n": str(len(roots) + 1), "p": "structure/index.html", "f": [0, 0, 0],
+         **({"c": structure_nav} if structure_nav else {})},
         {"i": "examples", "t": "Example Messages", "n": "A", "p": "examples/index.html", "f": [0, 0, 0]},
         {"i": "glossary", "t": "Glossary and Abbreviations", "n": "B", "p": "glossary/index.html", "f": [0, 0, 0]},
         {"i": "resources", "t": "Resources", "n": "C", "p": "resources/index.html", "f": [0, 0, 0]},
@@ -325,6 +345,7 @@ def build(out: Path) -> dict:
                   if next_c else f'<a class="next" href="{root}structure/index.html"><span>Next</span>Message Infrastructure</a>')
         pager += "</nav>"
         narrative = minimd.render(c.narrative, citation_href=f"{root}resources/index.html") if c.narrative.strip() else ""
+        link = (lambda h, r=root: st.autolink(h, r)) if st else (lambda h: h)
         empty = "" if (narrative or c.statements or c.children or c.meta.get("figures") or c.meta.get("glossary")) \
             else '<p class="empty">This section has no content in the current draft.</p>'
         body = f"""<article class="card" id="card">
@@ -332,10 +353,10 @@ def build(out: Path) -> dict:
 <header class="card-head"><h1><span class="num">{esc(c.number)}</span> {esc(c.title)}</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
 {findings_panel(items, root, anchors)}
-<div class="narrative">{narrative}{empty}</div>
+<div class="narrative">{link(narrative)}{empty}</div>
 {glossary_html(c.meta['glossary']) if c.meta.get('glossary') else ''}
-{statements_html(c, flagged)}
-{site_igamt.structure_panel(xref.get(c.id, []), root)}
+{link(statements_html(c, flagged))}
+{site_igamt.structure_panel(xref.get(c.id, []), root, st)}
 {figures_html(c, root)}
 {tables_html(c)}
 {refs_html}
@@ -355,7 +376,7 @@ def build(out: Path) -> dict:
         chapters.append(f'<li><a href="{r.id}/index.html"><span class="num">{esc(r.number)}</span> {esc(r.title)}</a>'
                         f'<p>{esc(first)}</p><p class="mini">{n_cards} sections · {n_st} conformance statements</p></li>')
     chapters.append(f'<li><a href="structure/index.html"><span class="num">{len(roots) + 1}</span> Message Infrastructure</a>'
-                    '<p>Message profiles, segments, data types, and value sets, generated from the IGAMT conformance export.</p><p class="mini">Coming next</p></li>')
+                    '<p>Message profiles, segments, data types, value sets, and co-constraints, generated from the IGAMT conformance export.</p><p class="mini">Generated from IGAMT</p></li>')
     total_st = sum(len(c.statements) for c in cards)
     landing = f"""<section class="hero">
 <p class="eyebrow">{esc(guide['release'])} · {esc(guide['status'])}</p>
@@ -380,7 +401,7 @@ def build(out: Path) -> dict:
 
     contents = f"""<article class="page"><h1>Table of contents</h1>
 <ol class="toc">{toc(roots)}
-<li><a href="../structure/index.html"><span class="num">{len(roots) + 1}</span> Message Infrastructure</a> <span class="mini">coming</span></li>
+<li><a href="../structure/index.html"><span class="num">{len(roots) + 1}</span> Message Infrastructure</a> <span class="mini">generated from IGAMT</span></li>
 <li><a href="../examples/index.html"><span class="num">A</span> Example Messages</a> <span class="mini">coming</span></li>
 <li><a href="../glossary/index.html"><span class="num">B</span> Glossary and Abbreviations</a></li>
 <li><a href="../resources/index.html"><span class="num">C</span> Resources</a></li></ol></article>"""
@@ -465,12 +486,8 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
     write_text(out / "resources" / "index.html", shell(root="../", title="Resources", body=resources, guide=guide, build=build_info))
 
     # ---------------------------------------------------------------- placeholders
-    write_text(out / "structure" / "index.html", shell(root="../", title="Message Infrastructure", guide=guide, build=build_info, body=f"""
-<article class="page"><h1><span class="num">{len(roots) + 1}</span> Message Infrastructure</h1>
-<p>This chapter is generated from the IGAMT conformance export: the eight message profiles (Z22, Z23, Z31, Z32, Z33, Z34,
-Z42, Z44), their segments and fields, data types, value sets, conformance statements, and co-constraints. Each profile,
-segment, data type, and value set will have its own page, linked from the sections that discuss it.</p>
-<p class="empty">Coming in the next build.</p></article>"""))
+    if st is None:
+        write_text(out / "structure" / "index.html", shell(root="../", title="Message Infrastructure", guide=guide, build=build_info, body="<article class='page'><h1>Message Infrastructure</h1><p class='empty'>Generated when model/ is present.</p></article>"))
     write_text(out / "examples" / "index.html", shell(root="../", title="Example Messages", guide=guide, build=build_info, body="""
 <article class="page"><h1><span class="num">A</span> Example Messages</h1>
 <p>Complete, validated example messages will appear on the sections they illustrate and be listed here, with the part
