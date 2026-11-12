@@ -81,7 +81,7 @@ python -m unittest discover -s tests
 | Structured chapter (IGAMT) | Chapter 7 generated: 8 profiles, segments and flavors, data types, value sets, OBX co-constraints; linked from the narrative |
 | Website | Published from `main` on every push |
 | Card comments (InteropHub) | Open on topic 52 ([how it works](docs/comments.md)) |
-| Example messages | 81 examples on 60+ sections, assembled into whole messages and checked against the IGAMT profiles ([Appendix A](https://immregistries.github.io/cdc-hl7-v2-guide-r2/main/examples/)) |
+| Example messages | 81 examples on 50 sections, assembled into whole messages and checked against the IGAMT profiles ([Appendix A](https://immregistries.github.io/cdc-hl7-v2-guide-r2/main/examples/)) |
 | Ballot document (Word/PDF) | Planned |
 
 ## License
