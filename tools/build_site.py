@@ -29,6 +29,7 @@ import minimd  # noqa: E402
 import site_igamt  # noqa: E402
 import site_structure  # noqa: E402
 import site_examples  # noqa: E402
+import site_about  # noqa: E402
 import filter_terms  # noqa: E402
 from structure_index import FIELD_RE, Model  # noqa: E402
 from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
@@ -142,7 +143,7 @@ def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id
   <p><strong>{status.upper()}</strong> — {esc(guide['title'])}, {esc(guide['release'])}. A joint publication of the
   {' and the '.join(esc(p['name']) for p in guide['publishers'])}. {esc(guide.get('status_note', ''))}</p>
   <p class="build">Built {esc(build['date'])} from narrative draft <code>{esc(build['source'])}</code>{esc(build['commit'])}.
-  <a href="{esc(guide['repository'])}">Source on GitHub</a>.</p>
+  <a href="{root}about/index.html">How this guide works</a> · <a href="{esc(guide['repository'])}">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="{root}assets/nav.js"></script>
@@ -352,17 +353,22 @@ def build(out: Path) -> dict:
         {"i": "examples", "t": "Example Messages", "n": "A", "p": "examples/index.html", "f": [0, 0, 0]},
         {"i": "glossary", "t": "Glossary and Abbreviations", "n": "B", "p": "glossary/index.html", "f": [0, 0, 0]},
         {"i": "resources", "t": "Resources", "n": "C", "p": "resources/index.html", "f": [0, 0, 0]},
+    ]
+    # below the line: about the draft and the review tools (not part of the guide)
+    meta = [
+        {"i": "about", "t": "How this guide works", "n": "", "p": "about/index.html", "f": [0, 0, 0]},
         {"i": "quality", "t": "Quality Review", "n": "", "p": "quality/index.html",
          "f": [sum(f["severity"] == s for f in findings) for s in ("issue", "warning", "note")]},
     ]
     if structure:
         cmp_f = [f for f in findings if f["category"] in ("igamt", "igamt-export")]
-        extra.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
-                      "f": [sum(f["severity"] == s for f in cmp_f) for s in ("issue", "warning", "note")]})
+        meta.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
+                     "f": [sum(f["severity"] == s for f in cmp_f) for s in ("issue", "warning", "note")]})
     page_anchors = {"quality": "quality/index.html", "quality-igamt": "quality/igamt/index.html",
                     "glossary": "glossary/index.html", "resources": "resources/index.html", "examples": "examples/index.html",
                     **structure_anchors}
-    nav = {"nodes": [node(r) for r in roots], "extra": extra, "anchors": page_anchors}
+    page_anchors["about"] = "about/index.html"
+    nav = {"nodes": [node(r) for r in roots], "extra": extra, "meta": meta, "anchors": page_anchors}
     write_text(out / "assets" / "nav.js", "window.GUIDE_NAV=" + json.dumps(nav, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
     # ---------------------------------------------------------------- card pages
@@ -464,7 +470,10 @@ def build(out: Path) -> dict:
 <h1>{esc(guide['title'])}</h1>
 <p class="publishers-line">A joint publication of the {' and the '.join(esc(p['name']) for p in guide['publishers'])}</p>
 <div class="intro">{minimd.render(guide.get('intro', ''))}</div>
-<p><a class="button" href="{roots[0].id}/index.html">Start reading</a> <a class="button secondary" href="contents/index.html">Table of contents</a></p>
+<p><a class="button" href="{roots[0].id}/index.html">Start reading</a> <a class="button secondary" href="contents/index.html">Table of contents</a>
+<a class="button secondary" href="about/index.html">How this guide works</a></p>
+<p class="new-here">New to this draft? <a href="about/index.html">How this guide works</a> walks through the contents filter,
+sections and conformance statements, the generated message structure, example messages, commenting, and the quality review.</p>
 <p class="stats">{len(cards)} sections · {total_st} conformance statements · <a href="quality/index.html">{len(findings)} quality findings</a>
 ({sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes)</p>
 </section>
@@ -525,8 +534,8 @@ def build(out: Path) -> dict:
     quality = f"""<article class="page quality"><h1>Quality review</h1>
 <p>These findings come from automated checks run on every build, and from editorial review. They point to places where the
 draft may be unclear, inconsistent, or hard to use, for the authors to consider. Each finding has a permanent ID, and it
-also appears on the section it concerns. Checks for duplication across sections and for example messages will be added in
-later builds.</p>
+also appears on the section it concerns. The example messages are checked against the IGAMT profiles too. A check
+for duplication across sections will be added in a later build.</p>
 <p class="callout"><a href="igamt/index.html"><strong>Narrative and IGAMT structure comparison</strong></a>: does the text
 match the conformance profiles? Answers to the Word review comments, conflicts, change requests for IGAMT, and decisions for CDC.
 <a href="findings.csv">Download all findings (CSV)</a>.</p>
@@ -574,6 +583,15 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
     # ---------------------------------------------------------------- placeholders
     if st is None:
         write_text(out / "structure" / "index.html", shell(root="../", title="Message Infrastructure", guide=guide, build=build_info, body="<article class='page'><h1>Message Infrastructure</h1><p class='empty'>Generated when model/ is present.</p></article>"))
+    stats = {"cards": len(cards), "statements": sum(len(c.statements) for c in cards),
+             "profiles": len((structure or {}).get("profiles", [])) or 8,
+             "value_sets": ((structure or {}).get("stats") or {}).get("value_sets", 0),
+             "examples": len(examples),
+             "examples_clean": sum(1 for ex in examples if all(not r.get("problems") for r in ex_data.get("results", {}).get(ex["id"], []))),
+             "findings": len(findings)}
+    write_text(out / "about" / "index.html", shell(root="../", title="How this guide works", guide=guide, build=build_info, card_id="about",
+                                                    body=site_about.page("../", guide, stats, by_id),
+                                                    review={"anchor": "about", "title": "How this guide works"}))
     ex_body = (ex_renderer.index_page(examples, ex_data.get("list", {}), by_id, "../") if examples else
                "<article class='page'><h1><span class='num'>A</span> Example Messages</h1><p class='empty'>No examples yet.</p></article>")
     write_text(out / "examples" / "index.html", shell(root="../", title="Example Messages", guide=guide, build=build_info, body=ex_body,
