@@ -1,0 +1,46 @@
+/*
+ * Theme tokens for the CDC HL7 v2 Guide (Release 2).
+ *
+ * This theme is owned by this project. It starts from the AIRA guide styles in
+ * site/vendor/aira-guide/ but is adjusted independently of other AIRA Topic
+ * References. Change colors, fonts, and logos here, not in the vendor files.
+ *
+ * Colors are provisional: sampled from the draft's figures and to be confirmed
+ * against CDC brand guidance.
+ */
+:root {
+  /* Joint CDC / AIRA palette */
+  --guide-navy: #002058;          /* headings, header bar */
+  --guide-blue: #0050b0;          /* primary actions, links */
+  --guide-blue-light: #d8e8f0;    /* panels, callouts */
+  --guide-blue-pale: #eef5fa;     /* subtle backgrounds */
+  --guide-teal: #78e0e8;          /* diagram accent */
+  --guide-amber: #f8b858;         /* diagram accent; SHOULD */
+  --guide-coral: #f89890;         /* diagram accent; SHALL NOT */
+  --guide-mauve: #e0b8d8;         /* diagram accent */
+  --guide-text: #1b2733;
+  --guide-muted: #5a6b7b;
+  --guide-border: #c9d6e2;
+  --guide-surface: #ffffff;
+  --guide-page: #f6f8fa;
+
+  /* Conformance verb chips */
+  --verb-shall: var(--guide-navy);
+  --verb-shall-not: #b3261e;
+  --verb-should: #0050b0;
+  --verb-should-not: #b06000;
+  --verb-may: #5a6b7b;
+
+  /* Quality findings */
+  --finding-issue: #b3261e;
+  --finding-warning: #b06000;
+  --finding-note: #0050b0;
+
+  /* Status */
+  --status-draft-bg: #fff4d6;
+  --status-draft-text: #6b4a00;
+
+  /* Typography */
+  --guide-font: "Open Sans", "Segoe UI", Arial, sans-serif;
+  --guide-mono: "Cascadia Mono", Consolas, "Courier New", monospace;
+}

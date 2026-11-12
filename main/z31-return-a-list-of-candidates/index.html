@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.5.2.3 Z31 - Return a List of Candidates · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="z31-return-a-list-of-candidates">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../response-rsp-profiles/index.html">3.5 Response (RSP) Profiles</a> <span>›</span> <a href="../rsp-response-profiles/index.html">3.5.2 RSP Response Profiles</a></nav>
+<header class="card-head"><h1><span class="num">3.5.2.3</span> Z31 - Return a List of Candidates</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">4 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-no-actor-c6266460"><span class="sev">Note</span> <a class="f-loc" href="#z31-return-a-list-of-candidates--s1">Statement s1</a> Its subject is &quot;Z31 (candidate-list) response&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-c6266460">qf-no-actor-c6266460</a></li><li class="finding sev-note" id="qf-normative-prose-1300b683"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Z31 responses do not include immunization history. They are intended to support user-assisted resolution of ambiguous matches. To retrieve immunization data, the querying system must select a specific candidate and issue a follow-up query for that patient.</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-1300b683">qf-normative-prose-1300b683</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-3521b882"><span class="sev">Note</span> 1 requirement was written as a paragraph in the draft and is shown here as conformance statement (wording unchanged): s1.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-3521b882">qf-statement-from-paragraph-3521b882</a></li><li class="finding sev-note" id="qf-statements-mid-section-0a9d425c"><span class="sev">Note</span> In the draft, explanatory text continues after the conformance statements. Cards show statements after the narrative, so check that the order still reads well.<a class="f-id" href="../quality/index.html#qf-statements-mid-section-0a9d425c">qf-statements-mid-section-0a9d425c</a></li></ul></details></aside>
+<div class="narrative"><p>A Z31 response indicates that the IIS was unable to identify exactly one high-confidence patient match. Instead, one or more possible matching patient records were found, and IIS policy allows limited identifying information for those candidates to be returned.</p>
+<p><strong>A candidate list typically represents a small, resolvable number of possible matches, not an open-ended result set.</strong> In most cases, a Z31 response contains only two or three candidates, patient records that are similar enough to the submitted identifying information that the IIS cannot confidently select one, but distinct enough that a user reviewing the candidates can reasonably identify the correct match. This is the expected, ordinary use of Z31 and reflects normal ambiguity in patient matching, such as family members with similar names and addresses, rather than a data quality problem.</p>
+<p>"Too many matches," by contrast, describes a different situation: the number of possible candidates exceeds what can be usefully presented for manual selection, whether because the submitted identifying information was too sparse to narrow the search meaningfully, or because the number of candidates exceeds the limit requested in RCP-2 or configured by the IIS. In this situation, returning a long, unwieldy candidate list would not help a user identify the correct patient and could itself introduce privacy and matching risk. For this reason, an IIS facing more candidates than it can reasonably return does not send an oversized Z31; instead, it returns a QAK-2 value of TM (Too Many Found), signaling that the query itself should be refined with more specific identifying information rather than resolved by manual review of a long list.</p>
+<p>Z31 responses do not include immunization history. They are intended to support user-assisted resolution of ambiguous matches. To retrieve immunization data, the querying system must select a specific candidate and issue a follow-up query for that patient.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="z31-return-a-list-of-candidates--s1"><span class="verb verb-may">MAY</span><span class="s-text">A Z31 (candidate-list) response MAY be returned in response to either a Z34 (Request a Complete Immunization History) or a Z44 (Request Evaluated Immunization History and Forecast) query when the IIS cannot identify a single high-confidence match.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#z31-return-a-list-of-candidates--s1" title="Link to this statement">s1</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../z32-return-complete-immunization-history/index.html"><span>Previous</span>3.5.2.2 Z32 - Return Complete Immunization History</a><a class="next" href="../z33-return-a-response-with-no-person-records/index.html"><span>Next</span>3.5.2.4 Z33 - Return a Response with No Person Records</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

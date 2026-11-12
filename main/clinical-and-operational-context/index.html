@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.6.6.1 Clinical and Operational Context · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="clinical-and-operational-context">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../immunization-information/index.html">4.6 Immunization Information</a> <span>›</span> <a href="../vaccine-information-statements/index.html">4.6.6 Vaccine Information Statements</a></nav>
+<header class="card-head"><h1><span class="num">4.6.6.1</span> Clinical and Operational Context</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 warnings · 2 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-multi-verb-statement-a5ec2474"><span class="sev">Warning</span> <a class="f-loc" href="#clinical-and-operational-context--s2">Statement s2</a> Statement combines SHOULD, MAY. Each statement should carry one requirement so it can be tested and referenced on its own.<a class="f-id" href="../quality/index.html#qf-multi-verb-statement-a5ec2474">qf-multi-verb-statement-a5ec2474</a></li><li class="finding sev-warning" id="qf-verb-in-prose-a548ca00"><span class="sev">Warning</span> Narrative uses the conformance verb SHOULD. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>IIS SHOULD scope any VIS-related data-quality efforts to clearly defined program purposes. For example, a state or local public health authority may rely on its IIS to gather VIS metadata, such as which VIS edition was associated with an administered vaccine and its publication date, in order to ch…</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-a548ca00">qf-verb-in-prose-a548ca00</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-74671c67"><span class="sev">Note</span> 2 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-74671c67">qf-statement-from-paragraph-74671c67</a></li><li class="finding sev-note" id="qf-statements-mid-section-85fcaa4b"><span class="sev">Note</span> In the draft, explanatory text continues after the conformance statements. Cards show statements after the narrative, so check that the order still reads well.<a class="f-id" href="../quality/index.html#qf-statements-mid-section-85fcaa4b">qf-statements-mid-section-85fcaa4b</a></li></ul></details></aside>
+<div class="narrative"><p>VIS requirements apply at the clinical encounter. In busy care environments, families may receive multiple VIS documents at once, often bundled with other paperwork. EHR systems typically manage VIS data by maintaining internal tables linking CVX codes to their current VIS identifiers and dates. As a result, the VIS information transmitted to an IIS generally reflects the EHR's configuration rather than the real-time workflow at the encounter, and IIS should not interpret the presence or absence of VIS data as evidence of VICP compliance.</p>
+<p>IIS SHOULD scope any VIS-related data-quality efforts to clearly defined program purposes. For example, a state or local public health authority may rely on its IIS to gather VIS metadata, such as which VIS edition was associated with an administered vaccine and its publication date, in order to check whether providers are following VIS distribution practices required by law or funding programs.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="clinical-and-operational-context--s1"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">IIS SHALL NOT reject an administered vaccination solely because VIS information is missing, incomplete, or inconsistent.</span><span class="s-meta"><a class="s-id" href="#clinical-and-operational-context--s1" title="Link to this statement">s1</a></span></li><li id="clinical-and-operational-context--s2"><span class="verb verb-should">SHOULD</span><span class="s-text">IIS SHOULD accept and MAY store VIS information when required by jurisdictional policy, and SHOULD interpret VIS data as part of the submitted vaccination record rather than as confirmation of clinical compliance with VICP requirements.</span><span class="s-meta"><a class="s-flag sev-warning" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#clinical-and-operational-context--s2" title="Link to this statement">s2</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../vaccine-information-statements/index.html"><span>Previous</span>4.6.6 Vaccine Information Statements</a><a class="next" href="../use-and-limitations-of-vis-information-in-iis/index.html"><span>Next</span>4.6.6.2 Use and Limitations of VIS Information in IIS</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

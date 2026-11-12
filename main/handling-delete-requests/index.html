@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.6.4.4 Handling Delete Requests · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="handling-delete-requests">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../immunization-information/index.html">4.6 Immunization Information</a> <span>›</span> <a href="../updates-and-deletes/index.html">4.6.4 Updates and Deletes</a></nav>
+<header class="card-head"><h1><span class="num">4.6.4.4</span> Handling Delete Requests</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+
+<div class="narrative"><p>A delete retracts a source record; it does not necessarily direct physical removal of the entire consolidated vaccination event. If other source records continue to support the same vaccination, the IIS can retain the event or the information supported by those remaining sources.</p>
+<p>When the source record cannot be identified confidently or a requested correction cannot be applied, the IIS communicates the outcome so that the submitting system can determine whether manual follow-up is needed.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="handling-delete-requests--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL support processing delete requests for vaccination records previously reported by the submitting source.</span><span class="s-meta"><a class="s-id" href="#handling-delete-requests--s1" title="Link to this statement">s1</a></span></li><li id="handling-delete-requests--s2"><span class="verb verb-should-not">SHOULD NOT</span><span class="s-text">Submitting systems SHOULD NOT send a delete for a vaccination record originally reported by another source.</span><span class="s-meta"><a class="s-id" href="#handling-delete-requests--s2" title="Link to this statement">s2</a></span></li><li id="handling-delete-requests--s3"><span class="verb verb-should">SHOULD</span><span class="s-text">When an update or delete cannot be applied, IIS SHOULD return an acknowledgment that explains the outcome and indicates when manual follow-up is required.</span><span class="s-meta"><a class="s-id" href="#handling-delete-requests--s3" title="Link to this statement">s3</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../iis-matching-and-correction-processing/index.html"><span>Previous</span>4.6.4.3 IIS Matching and Correction Processing</a><a class="next" href="../inventory-and-accountability-considerations/index.html"><span>Next</span>4.6.4.5 Inventory and Accountability Considerations</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

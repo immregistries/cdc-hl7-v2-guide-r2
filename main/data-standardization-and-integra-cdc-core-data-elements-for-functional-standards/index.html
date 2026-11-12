@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.2 CDC Core Data Elements for Functional Standards · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="data-standardization-and-integra-cdc-core-data-elements-for-functional-standards">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a></nav>
+<header class="card-head"><h1><span class="num">4.2</span> CDC Core Data Elements for Functional Standards</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">3 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-duplicate-title-262fb3b2"><span class="sev">Note</span> Another card has the same title (2.3.1 CDC Core Data Elements for Functional Standards). Distinct titles make navigation and links clearer.<a class="f-id" href="../quality/index.html#qf-duplicate-title-262fb3b2">qf-duplicate-title-262fb3b2</a></li><li class="finding sev-note" id="qf-long-card-429375b4"><span class="sev">Note</span> Narrative is 4 blocks and 377 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-429375b4">qf-long-card-429375b4</a></li><li class="finding sev-note" id="qf-normative-prose-4997c944"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Each CDE must be supported by several key functions within an IIS: facilitating input, processing, validation, updates, and deletion to maintain data accuracy and consistency; secure storage to guarantee accessibility and preservation for future use; and, where needed, generation or transformation …</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-4997c944">qf-normative-prose-4997c944</a></li></ul></details></aside>
+<div class="narrative"><p>The CDC Core Data Elements for Functional Standards (CDEs) are the baseline set of data elements that CDC has identified as essential to IIS functionality, ensuring the completeness of patient and vaccination records for each vaccination event. CDEs are documented in the CDC Core Data Elements (CDE) for Functional Standards resource, which provides definitions, rationale, and standards mappings for each element. Each CDE is mapped to a corresponding HL7 v2.5.1 field or component, meaning that the HL7 messaging conformance defined throughout this guide is, in large part, the mechanism by which CDEs are actually captured, transmitted, and exchanged between systems. This guide focuses on that HL7 messaging conformance and does not restate the full CDE catalog, definitions, or rationale, which are maintained in the CDE resource itself <a class="cite" href="../resources/index.html#ref-3">[3]</a>.</p>
+<p>Each CDE must be supported by several key functions within an IIS: facilitating input, processing, validation, updates, and deletion to maintain data accuracy and consistency; secure storage to guarantee accessibility and preservation for future use; and, where needed, generation or transformation of CDEs, such as creating unique identifiers or combining data. Many of these functions are expressed directly in this guide's HL7 conformance requirements: for example, a CDE's usage designation (R, RE, O, etc.) reflects expectations for how consistently that element should be populated in a VXU, and specific HL7 fields such as MSH-4, PID-7, and RXA-3 exist precisely to carry designated CDEs across systems in a standardized way.</p>
+<p>CDEs represent a baseline, not a ceiling. They establish the basic structure of data that should be contained within an IIS, but are not prescriptive regarding naming conventions, repetition frequency, or how the data is used locally. IIS and their data exchange partners may support additional data elements beyond this baseline as needed.</p>
+<p>Some CDEs constitute Critical Data for the purposes of VXU processing and acknowledgement messaging, as described in the Acknowledgement Message Profile section. Because CDEs are carried through specific HL7 fields, the presence, absence, or validity of those fields in a submitted VXU directly affects whether the message fulfills its core intent and is accepted or rejected. Understanding the CDE catalog provides useful context for why certain HL7 fields carry this level of operational significance throughout the rest of this guide.</p></div>
+
+
+
+
+<section class="related"><h2>Resources cited</h2><ul><li><a href="../resources/index.html#ref-3">[3]</a> <a href="https://www.cdc.gov/iis/core-data-elements/index.html" rel="noopener" target="_blank">CDC Core Data Elements for Functional Standards</a></li></ul></section>
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../data-type-flavors/index.html"><span>Previous</span>4.1.3 Data Type Flavors</a><a class="next" href="../dynamic-and-fixed-code-sets/index.html"><span>Next</span>4.3 Dynamic and Fixed Code Sets</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

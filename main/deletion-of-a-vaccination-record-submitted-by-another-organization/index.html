@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.2.5.5 Deletion of a Vaccination Record Submitted by Another Organization · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="deletion-of-a-vaccination-record-submitted-by-another-organization">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../vaccination-record-update-vxu-message-profile/index.html">3.2 Vaccination Record Update (VXU) Message Profile</a> <span>›</span> <a href="../vxu-submission-scenarios/index.html">3.2.5 VXU Submission Scenarios</a></nav>
+<header class="card-head"><h1><span class="num">3.2.5.5</span> Deletion of a Vaccination Record Submitted by Another Organization</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-normative-prose-5f4160dc"><span class="sev">Note</span> Narrative uses &quot;required to&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Deletion of vaccinations reported by another organization is fundamentally a record-cleanup activity that cannot be reliably or safely handled through HL7 v2 VXU messaging alone. IIS are not required to honor delete requests for vaccinations submitted by other organizations, and in many cases shoul…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-5f4160dc">qf-normative-prose-5f4160dc</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-3a5b7910"><span class="sev">Note</span> 3 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-3a5b7910">qf-statement-from-paragraph-3a5b7910</a></li></ul></details></aside>
+<div class="narrative"><p>Submitting systems may encounter vaccination records that they did not originate, often as a result of consolidation performed by the IIS across multiple reporting sources. In these situations, the submitting system does not have sufficient context to safely determine whether a vaccination should be removed from the IIS record.</p>
+<p>Deletion of vaccinations reported by another organization is fundamentally a record-cleanup activity that cannot be reliably or safely handled through HL7 v2 VXU messaging alone. IIS are not required to honor delete requests for vaccinations submitted by other organizations, and in many cases should not, as doing so risks removing valid immunization events supported by independent reporting sources.</p>
+<p>This scenario commonly arises when submitting systems identify what appear to be duplicate vaccinations after receiving consolidated data from the IIS. In these cases, the duplication may already have been resolved or intentionally retained by the IIS based on its internal reconciliation logic. Attempting to delete such records via VXU can result in conflicting actions that do not reflect the IIS's full view of the patient record.</p>
+<p>When a submitting system believes that duplicate or incorrect vaccinations originating from other organizations exist in the IIS, the appropriate course of action is to work directly with the IIS through established data-quality or support processes. This ensures that cleanup decisions are made with full visibility into all contributing sources and that the patient's immunization history remains accurate and complete.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="deletion-of-a-vaccination-record-submitted-by-another-organization--s1"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">The submitting system SHALL NOT trigger a VXU when deleting a vaccination originally submitted by another organization.</span><span class="s-meta"><a class="s-id" href="#deletion-of-a-vaccination-record-submitted-by-another-organization--s1" title="Link to this statement">s1</a></span></li><li id="deletion-of-a-vaccination-record-submitted-by-another-organization--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">The submitting system SHALL coordinate directly with the IIS to request record cleanup.</span><span class="s-meta"><a class="s-id" href="#deletion-of-a-vaccination-record-submitted-by-another-organization--s2" title="Link to this statement">s2</a></span></li><li id="deletion-of-a-vaccination-record-submitted-by-another-organization--s3"><span class="verb verb-may">MAY</span><span class="s-text">IIS MAY refuse delete requests for vaccinations submitted by other organizations.</span><span class="s-meta"><a class="s-id" href="#deletion-of-a-vaccination-record-submitted-by-another-organization--s3" title="Link to this statement">s3</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../deletion-of-a-vaccination-record-submitted-by-the-same-organization/index.html"><span>Previous</span>3.2.5.4 Deletion of a Vaccination Record Submitted by the Same Organization</a><a class="next" href="../patient-demographic-records-and-vxus-without-immunizations/index.html"><span>Next</span>3.2.5.6 Patient Demographic Records and VXUs Without Immunizations</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

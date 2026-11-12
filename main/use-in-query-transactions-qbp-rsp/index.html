@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.7.7 Use in Query Transactions (QBP/RSP) · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="use-in-query-transactions-qbp-rsp">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a> <span>›</span> <a href="../identifying-organizations/index.html">2.7 Identifying Organizations</a></nav>
+<header class="card-head"><h1><span class="num">2.7.7</span> Use in Query Transactions (QBP/RSP)</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">3 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-no-actor-0b972e30"><span class="sev">Note</span> <a class="f-loc" href="#use-in-query-transactions-qbp-rsp--s2">Statement s2</a> Its subject is &quot;MSH-22&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-0b972e30">qf-no-actor-0b972e30</a></li><li class="finding sev-note" id="qf-no-actor-b202f5a7"><span class="sev">Note</span> <a class="f-loc" href="#use-in-query-transactions-qbp-rsp--s1">Statement s1</a> Its subject is &quot;Query messages&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-b202f5a7">qf-no-actor-b202f5a7</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-4c3a77cf"><span class="sev">Note</span> 3 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-4c3a77cf">qf-statement-from-paragraph-4c3a77cf</a></li></ul></details></aside>
+<div class="narrative"><p>Organizations are also identified when querying the IIS. In query transactions, MSH-4 and MSH-22 serve the same purposes as in VXU messages: identifying the querying organization and establishing authorization to access patient data. Query transactions operate at the organization level, using MSH-4 (Submitting Organization) and MSH-22 (Responsible Organization) to identify the entity authorized to perform the query. These identifiers represent the organization responsible for the connection and authorization to access IIS data, and are not intended to identify individual facilities or child organizational units. This is noted as a current limitation of the specification.</p>
+<p>Organization identifiers included in the original message, such as MSH-4 and MSH-22, are typically mirrored back to the sender as part of the message envelope in acknowledgement responses. This preserves organization identification across the request, response, and acknowledgement exchange, allowing implementers to track which organizations were involved throughout the transaction.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="use-in-query-transactions-qbp-rsp--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">Query messages SHALL include MSH-4 to identify the querying organization.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#use-in-query-transactions-qbp-rsp--s1" title="Link to this statement">s1</a></span></li><li id="use-in-query-transactions-qbp-rsp--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">MSH-22 SHALL be included when the querying organization is acting on behalf of another responsible organization.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#use-in-query-transactions-qbp-rsp--s2" title="Link to this statement">s2</a></span></li><li id="use-in-query-transactions-qbp-rsp--s3"><span class="verb verb-should">SHOULD</span><span class="s-text">When returning administered vaccination records in an RSP message, IIS SHOULD include the administering organization identifier RXA-11.4 and, when available, the entering organization identifier ORC-17, provided the IIS has clear, coded values that can be meaningfully interpreted by the requesting system.</span><span class="s-meta"><a class="s-id" href="#use-in-query-transactions-qbp-rsp--s3" title="Link to this statement">s3</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../parent-and-child-organizations/index.html"><span>Previous</span>2.7.6 Parent and Child Organizations</a><a class="next" href="../implementation-and-maintenance-considerations/index.html"><span>Next</span>2.7.8 Implementation and Maintenance Considerations</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

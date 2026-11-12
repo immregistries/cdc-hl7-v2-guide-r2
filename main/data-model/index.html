@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.3 Data Model · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="data-model">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a></nav>
+<header class="card-head"><h1><span class="num">2.3</span> Data Model</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-long-card-308318ef"><span class="sev">Note</span> Narrative is 7 blocks and 335 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-308318ef">qf-long-card-308318ef</a></li><li class="finding sev-note" id="qf-normative-prose-9ff47496"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>The model represents a minimum shared understanding between trading partners. It highlights the essential concepts that must align across systems for immunization data exchange to work reliably, while intentionally abstracting away from implementation details. Actual IIS implementations are often m…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-9ff47496">qf-normative-prose-9ff47496</a></li></ul></details></aside>
+<div class="narrative"><p>This section introduces a conceptual data model for immunization information as it is received by an IIS in a VXU message and stored as part of a patient's immunization history. The purpose of this model is to help readers form a clear mental picture of the core data an IIS is designed to manage: patients, their guardians, and the vaccinations associated with them. It is not intended to describe message structure, transport, or system-specific database implementations.</p>
+<p>The model represents a minimum shared understanding between trading partners. It highlights the essential concepts that must align across systems for immunization data exchange to work reliably, while intentionally abstracting away from implementation details. Actual IIS implementations are often more complex, for example, storing multiple addresses or address histories, retaining merged or superseded records, or preserving original submissions alongside normalized data. Those details are out of scope here. This model is meant to be useful, not exhaustive.</p>
+<p>This data model also intentionally excludes several categories of information. It does not address message construction, authentication, or transmission mechanics (for example, elements conveyed in the MSH segment). It also excludes evaluation and recommendation data returned in response to queries (QBP/RSP), which is transitory in nature and documented separately. The focus here is on persisted clinical and demographic data that forms a longitudinal immunization record.</p>
+<p>Within that scope, the model covers two primary areas:</p>
+<p><strong>Patient and guardian information</strong>, including patient identification and classification, registry and consent status, contact details, and limited guardian (parent) identification.</p>
+<p><strong>Vaccination events</strong>, including product identification, administration details, funding information, and key clinical attributes needed to interpret the immunization history.</p>
+<p>Other immunization-related concepts, such as refusals, contraindications, immunity evidence, and similar artifacts, are intentionally excluded from this model. These concepts are more variable, less consistently supported across IIS implementations, and are addressed separately in Section 4.8. By narrowing the scope, this section aims to provide a stable conceptual foundation that supports interoperability without attempting to catalog every possible data element an IIS may store.</p></div>
+
+
+
+
+
+<section class="children"><h2>In this section</h2><ol><li><a href="../cdc-core-data-elements-for-functional-standards/index.html"><span class="num">2.3.1</span> CDC Core Data Elements for Functional Standards</a></li><li><a href="../entity-models/index.html"><span class="num">2.3.2</span> Entity Models</a></li><li><a href="../record-consolidation-and-deduplication/index.html"><span class="num">2.3.3</span> Record Consolidation and Deduplication</a></li></ol></section>
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../notes-on-data-intermediaries/index.html"><span>Previous</span>2.2.3 Notes on Data Intermediaries</a><a class="next" href="../cdc-core-data-elements-for-functional-standards/index.html"><span>Next</span>2.3.1 CDC Core Data Elements for Functional Standards</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

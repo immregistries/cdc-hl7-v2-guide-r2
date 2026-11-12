@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.6.1 Administered versus Historical Vaccinations · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="administered-versus-historical-vaccinations">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../immunization-information/index.html">4.6 Immunization Information</a></nav>
+<header class="card-head"><h1><span class="num">4.6.1</span> Administered versus Historical Vaccinations</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+
+<div class="narrative"><p>Immunization Information Systems (IIS) distinguish between administered and historical vaccination records to support data quality, inventory management, and record reconciliation. This distinction is frequently misunderstood. "Historical" does not imply that a dose was given long ago; it indicates that the reporting organization did not administer the dose and is reporting second-hand information. Conversely, "administered" indicates that the reporting organization gave the vaccination directly.</p>
+<p>Consolidation does not require an IIS to disregard the relationship between a vaccination event and the records from which it was assembled. A consolidated vaccination event may be associated with records submitted by multiple systems, each with its own identifier. Retaining these source-specific associations can support later corrections and can provide querying systems with additional information for distinguishing records they previously reported from records received from other sources.</p>
+<p>This distinction is defined for inbound reporting semantics (what a submitter reports to the IIS). See "Use of Administered vs. Historical on Output" for guidance on how IIS commonly present consolidated immunization histories in responses; querying systems should expect a history rather than rely on provenance flags. This distinction is important for submission workflows and IIS internal processing, but it does not represent a clinically meaningful difference once a complete immunization history has been consolidated.</p></div>
+
+
+
+
+
+<section class="children"><h2>In this section</h2><ol><li><a href="../administered-vaccinations/index.html"><span class="num">4.6.1.1</span> Administered Vaccinations</a> <span class="mini">3 statements</span></li><li><a href="../historical-vaccinations/index.html"><span class="num">4.6.1.2</span> Historical Vaccinations</a> <span class="mini">5 statements</span></li><li><a href="../global-and-non-u-s-vaccinations/index.html"><span class="num">4.6.1.3</span> Global and Non-U.S. Vaccinations</a></li><li><a href="../representation-of-foreign-and-non-standard-products/index.html"><span class="num">4.6.1.4</span> Representation of Foreign and Non-Standard Products</a> <span class="mini">3 statements</span></li><li><a href="../use-of-administered-vs-historical-on-output/index.html"><span class="num">4.6.1.5</span> Use of Administered vs. Historical on Output</a> <span class="mini">3 statements</span></li><li><a href="../iis-processing-and-reconciliation/index.html"><span class="num">4.6.1.6</span> IIS Processing and Reconciliation</a></li><li><a href="../ehr-workflow-considerations/index.html"><span class="num">4.6.1.7</span> EHR Workflow Considerations</a></li><li><a href="../coding-considerations/index.html"><span class="num">4.6.1.8</span> Coding Considerations</a></li></ol></section>
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../immunization-information/index.html"><span>Previous</span>4.6 Immunization Information</a><a class="next" href="../administered-vaccinations/index.html"><span>Next</span>4.6.1.1 Administered Vaccinations</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

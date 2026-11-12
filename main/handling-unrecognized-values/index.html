@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.3.5 Handling Unrecognized Values · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="handling-unrecognized-values">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../dynamic-and-fixed-code-sets/index.html">4.3 Dynamic and Fixed Code Sets</a></nav>
+<header class="card-head"><h1><span class="num">4.3.5</span> Handling Unrecognized Values</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 warning · 3 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-multi-verb-statement-d3716885"><span class="sev">Warning</span> <a class="f-loc" href="#handling-unrecognized-values--s2">Statement s2</a> Statement combines SHOULD, SHALL. Each statement should carry one requirement so it can be tested and referenced on its own.<a class="f-id" href="../quality/index.html#qf-multi-verb-statement-d3716885">qf-multi-verb-statement-d3716885</a></li><li class="finding sev-note" id="qf-compound-statement-f7701be5"><span class="sev">Note</span> <a class="f-loc" href="#handling-unrecognized-values--s3">Statement s3</a> Statement repeats its conformance verb, so it may hold more than one requirement. Consider splitting it.<a class="f-id" href="../quality/index.html#qf-compound-statement-f7701be5">qf-compound-statement-f7701be5</a></li><li class="finding sev-note" id="qf-normative-prose-0de07f9f"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Not all unrecognized values indicate the same level of risk. The appropriate response depends on the stability, extensibility, and operational role of the value set, as well as the usage designation of the field in which it appears. Some variation is expected and manageable, particularly for open a…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-0de07f9f">qf-normative-prose-0de07f9f</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-3b330822"><span class="sev">Note</span> 3 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-3b330822">qf-statement-from-paragraph-3b330822</a></li></ul></details></aside>
+<div class="narrative"><p>Not all unrecognized values indicate the same level of risk. The appropriate response depends on the stability, extensibility, and operational role of the value set, as well as the usage designation of the field in which it appears. Some variation is expected and manageable, particularly for open and dynamic sets in fields with usage RE or O. In contrast, unrecognized values in static or closed sets represent structural or semantic errors that must be corrected.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="handling-unrecognized-values--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">Systems (including submitting systems and IIS) SHALL vary response severity based on the classification of the value set and the usage of the field.</span><span class="s-meta"><a class="s-id" href="#handling-unrecognized-values--s1" title="Link to this statement">s1</a></span></li><li id="handling-unrecognized-values--s2"><span class="verb verb-should">SHOULD</span><span class="s-text">IIS SHOULD be tolerant of unrecognized values in open and dynamic valuesets when the field usage is RE or O and SHALL avoid excessive, non-actionable notifications.</span><span class="s-meta"><a class="s-flag sev-warning" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#handling-unrecognized-values--s2" title="Link to this statement">s2</a></span></li><li id="handling-unrecognized-values--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">Querying systems SHALL be capable of handling locally extended values in responses and SHALL not assume that only nationally defined codes will be returned.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#handling-unrecognized-values--s3" title="Link to this statement">s3</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../closed-value-sets-constrained-sets-requiring-strict-conformance/index.html"><span>Previous</span>4.3.4 Closed Value Sets (Constrained Sets Requiring Strict Conformance)</a><a class="next" href="../local-extensions-and-coordination/index.html"><span>Next</span>4.3.6 Local Extensions and Coordination</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

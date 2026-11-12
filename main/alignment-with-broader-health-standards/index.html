@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.5.2.6 Alignment with Broader Health Standards · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="alignment-with-broader-health-standards">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../patient-information/index.html">4.5 Patient Information</a> <span>›</span> <a href="../patient-and-other-names/index.html">4.5.2 Patient and Other Names</a></nav>
+<header class="card-head"><h1><span class="num">4.5.2.6</span> Alignment with Broader Health Standards</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-statement-from-paragraph-425be430"><span class="sev">Note</span> 4 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3, s4.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-425be430">qf-statement-from-paragraph-425be430</a></li><li class="finding sev-note" id="qf-statements-mid-section-42e1ab5a"><span class="sev">Note</span> In the draft, explanatory text continues after the conformance statements. Cards show statements after the narrative, so check that the order still reads well.<a class="f-id" href="../quality/index.html#qf-statements-mid-section-42e1ab5a">qf-statements-mid-section-42e1ab5a</a></li></ul></details></aside>
+<div class="narrative"><p>National naming frameworks provide useful guidance on how placeholder names should be formatted within clinical systems. The Joint Commission requires accredited hospitals and critical access facilities to implement clear newborn identification methods (Newborn Identification, 2018), and the American Health Information Management Association (AHIMA) Naming Policy Framework (2023) provides structured examples for naming newborns within hospital records.</p>
+<p>While IIS do not set those policies, consistent use of such frameworks simplifies the process of converting internal hospital data into standardized HL7 v2 messages. When hospitals adopt a predictable naming format internally, it becomes easier for their systems to accurately mark newborn records with the 'NB' name type during submission.</p>
+<p>This guidance defines only how newborn names are designated on the wire, not how they are created or maintained within the originating systems.</p>
+<p>This specification does not solve the larger issue of incomplete newborn naming practices but establishes a clear, consistent method for identifying temporary newborn records in HL7 v2 messages. When applied uniformly, it allows IIS to recognize, store, and later reconcile these records once permanent names are available.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="alignment-with-broader-health-standards--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL flag all placeholder newborn names with the name type code &#x27;NB&#x27; when sending to an IIS.</span><span class="s-meta"><a class="s-id" href="#alignment-with-broader-health-standards--s1" title="Link to this statement">s1</a></span></li><li id="alignment-with-broader-health-standards--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL recognize and process &#x27;NB&#x27; as a valid name type without error.</span><span class="s-meta"><a class="s-id" href="#alignment-with-broader-health-standards--s2" title="Link to this statement">s2</a></span></li><li id="alignment-with-broader-health-standards--s3"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">IIS SHALL NOT rely on textual pattern detection (e.g., &quot;Baby Boy&quot;) to infer that a record represents a newborn.</span><span class="s-meta"><a class="s-id" href="#alignment-with-broader-health-standards--s3" title="Link to this statement">s3</a></span></li><li id="alignment-with-broader-health-standards--s4"><span class="verb verb-should">SHOULD</span><span class="s-text">Submitting systems SHOULD align internal placeholder naming conventions with established national frameworks to reduce mapping and conversion errors during transmission.</span><span class="s-meta"><a class="s-id" href="#alignment-with-broader-health-standards--s4" title="Link to this statement">s4</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../data-type-and-structure/index.html"><span>Previous</span>4.5.2.5 Data Type and Structure</a><a class="next" href="../unnamed-newborns/index.html"><span>Next</span>4.5.2.7 Unnamed Newborns</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.5.3 Role of ACKs in Data Quality · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="role-of-acks-in-data-quality">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a> <span>›</span> <a href="../acknowledgement-processing-overview/index.html">2.5 Acknowledgement Processing Overview</a></nav>
+<header class="card-head"><h1><span class="num">2.5.3</span> Role of ACKs in Data Quality</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-normative-prose-31ee5d59"><span class="sev">Note</span> Narrative uses &quot;required to&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>At a conceptual level, a positive acknowledgement indicates that the IIS successfully received and processed the message, and that the critical data elements required to establish or update an immunization history were accepted. A negative acknowledgement indicates that the message could not be pro…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-31ee5d59">qf-normative-prose-31ee5d59</a></li></ul></details></aside>
+<div class="narrative"><p>ACK messages provide structured, machine-readable feedback about how the IIS handled a submitted message. Their primary purpose is not to report the results of a structural conformance check against the HL7 v2 message specification, but to communicate a broader processing outcome: whether the information necessary to update the patient's immunization history was successfully processed. Structural or conformance-related issues may appear in an acknowledgement when they affect the IIS's ability to interpret or process the message, but they are one input into this outcome rather than the outcome itself. As a general principle, any data-quality issue that can be identified at the time a message is received is a candidate for reporting in the ACK.</p>
+<p>At a conceptual level, a positive acknowledgement indicates that the IIS successfully received and processed the message, and that the critical data elements required to establish or update an immunization history were accepted. A negative acknowledgement indicates that the message could not be processed because required or critical data elements were missing, invalid, or otherwise prevented the IIS from updating the immunization record. The detailed definition of critical data elements, along with the specific mechanisms used to communicate these conditions, is described in the acknowledgement conformance sections that follow.</p>
+<p>Because ACKs function as one of the few automated feedback mechanisms available to submitters, their value depends on remaining accurate and meaningful. An acknowledgement that reports issues submitters are instructed to disregard, particularly when those issues are labeled as errors or warnings, introduces noise that reduces the effectiveness of ACK responses. Over time, this can lead submitters to discount acknowledgement feedback altogether, making genuine problems harder to detect when they occur. Ensuring that acknowledgements reflect meaningful validation outcomes, and avoiding unnecessary or misleading error and warning conditions, keeps this feedback channel useful for the implementers who rely on it.</p></div>
+
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../transport-level-vs-message-level-responses/index.html"><span>Previous</span>2.5.2 Transport-Level vs Message-Level Responses</a><a class="next" href="../balancing-acceptance-and-quality-control/index.html"><span>Next</span>2.5.4 Balancing Acceptance and Quality Control</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

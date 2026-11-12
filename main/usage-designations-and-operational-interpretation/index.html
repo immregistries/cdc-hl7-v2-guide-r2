@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.9 Usage Designations and Operational Interpretation · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="usage-designations-and-operational-interpretation">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a></nav>
+<header class="card-head"><h1><span class="num">2.9</span> Usage Designations and Operational Interpretation</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-long-card-d8712e86"><span class="sev">Note</span> Narrative is 6 blocks and 464 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-d8712e86">qf-long-card-d8712e86</a></li></ul></details></aside>
+<div class="narrative"><p>This section describes how usage designations are applied and interpreted in this Implementation Guide. The base HL7 v2 standard defines usage designations such as Required (R), Required but may be empty (RE), Conditional (C), and Optional (O), and X (Not Supported). In practice, however, the meaning and enforcement of these designations vary across implementation guides and operational environments. The intent of this section is to document real, operational behavior within the IIS community, rather than theoretical or aspirational constraints inherited from the base HL7 v2 standard.</p>
+<p>Historically, usage designations-particularly R (Required), have been applied inconsistently in national guidance. In prior IIS guides, elements marked as R have ranged from fields that are essential for processing (e.g., patient name) to fields that are routinely ignored by IIS implementations. As a result, R has often conveyed little useful information to implementers. The IIS community has historically encountered situations where elements marked as Required in the base standard are not operationally necessary for IIS workflows or are not enforced by receiving systems.</p>
+<p>HL7 v2 profiling rules typically allow implementation guides to add constraints but not relax them. This guide, however, prioritizes clear documentation of operational behavior over strict adherence to that methodology: usage designations are aligned with how IIS actually behave today and how they are expected to behave operationally. Where the base HL7 v2 standard imposes requirements that are not relevant to IIS workflows or are not enforced in practice, this guide may relax those constraints. In some cases, elements marked as Required (R) in the base standard may be documented as Optional (O) here to reflect real-world processing and testing experience. In limited cases, this guide may pre-adopt an emerging HL7 v2 methodology, aligned with more recent HL7 and FHIR profiling approaches, in which the base standard defines structural capabilities and implementation guides define operational requirements.</p>
+<p>When this guide diverges from base HL7 v2 usage designations, those differences are explicitly documented and justified so that implementers understand the operational expectations of the IIS community. This approach improves transparency and avoids a situation in which implementation guides formally claim strict conformance while operational practice differs.</p>
+<p>This approach prioritizes interoperability, clarity, and implementer trust over strict adherence to constraints that are not operationally meaningful. This flexibility is not treated as a general license to modify the base standard; deviations from base usage designations are limited, deliberate, and clearly explained. This allows the national guide to accurately document real-world IIS behavior while enabling local jurisdictional guides to align with the national specification without repeatedly documenting non-compliance.</p>
+<p>Finally, although HL7 v2 conformance methodology distinguishes between sender and receiver obligations, this guide generally presents unified expectations for both parties where practical. This avoids unnecessary complexity while still providing sufficient clarity for most implementation scenarios.</p></div>
+
+
+
+
+
+<section class="children"><h2>In this section</h2><ol><li><a href="../usage-designations-and-expectations/index.html"><span class="num">2.9.1</span> Usage Designations and Expectations</a></li><li><a href="../relationship-to-ack-processing/index.html"><span class="num">2.9.2</span> Relationship to ACK Processing</a></li></ol></section>
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../submission-timing-and-update-frequency/index.html"><span>Previous</span>2.8.4 Submission Timing and Update Frequency</a><a class="next" href="../usage-designations-and-expectations/index.html"><span>Next</span>2.9.1 Usage Designations and Expectations</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.10.6 How IIS Should Support Policy in Their Local Guides · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="how-iis-should-support-policy-in-their-local-guides">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../national-compliance-and-onc-regulations/index.html">5 National Compliance and ONC Regulations</a> <span>›</span> <a href="../representing-policy-requirements-in-hl7/index.html">5.10 Representing Policy Requirements in HL7</a></nav>
+<header class="card-head"><h1><span class="num">5.10.6</span> How IIS Should Support Policy in Their Local Guides</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">3 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-long-card-9058a129"><span class="sev">Note</span> Narrative is 8 blocks and 270 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-9058a129">qf-long-card-9058a129</a></li><li class="finding sev-note" id="qf-normative-prose-ba9a634a"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>IIS must support state and federal policy, but they must do so using the correct HL7 v2 mechanisms. Policy expectations describe what programs want providers and systems to accomplish; HL7 v2 conformance describes what must appear in a message. Confusing these two leads to wasted effort, inconsiste…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-ba9a634a">qf-normative-prose-ba9a634a</a></li><li class="finding sev-note" id="qf-normative-prose-c18a453d"><span class="sev">Note</span> Narrative uses &quot;Required to&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Representing program requirements accurately using RE when that is the technically correct HL7 expression. Most policy requirements translate to &quot;Required to Support,&quot; not to &quot;Required and must always be populated.&quot;</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-c18a453d">qf-normative-prose-c18a453d</a></li></ul></details></aside>
+<div class="narrative"><p>IIS must support state and federal policy, but they must do so using the correct HL7 v2 mechanisms. Policy expectations describe what programs want providers and systems to accomplish; HL7 v2 conformance describes what must appear in a message. Confusing these two leads to wasted effort, inconsistent implementations, and unreliable data. IIS authors should translate policy into HL7 v2 deliberately, using HL7's definitions, not policy language, to determine conformance.</p>
+<p>IIS should support policy by:</p>
+<p><strong>Representing program requirements accurately using RE</strong> when that is the technically correct HL7 expression. Most policy requirements translate to "Required to Support," not to "Required and must always be populated."</p>
+<p><strong>Explaining in the guide why R is reserved for structural necessities</strong>, fields without which the IIS cannot safely store or understand a record.</p>
+<p><strong>Documenting program expectations outside the HL7 conformance tables</strong> (e.g., in narrative sections, onboarding guidance, or data quality documentation) instead of forcing program rules into message structure.</p>
+<p><strong>Ensuring that HL7 requirements reflect operational reality</strong>, what the IIS truly needs to store, process, or interpret, not what the program hopes to encourage through compliance pressure.</p>
+<p><strong>Relying on data quality programs, not conformance verbs, to improve data completeness</strong>, using onboarding, monitoring, and follow-up rather than distorting HL7 to force behavior.</p>
+<p>For example, an IIS may accept a vaccination record that omits information expected by program policy, while returning an ACK warning that identifies the missing data. This approach records the vaccination while providing actionable feedback to the submitting system. Data-quality expectations can then be reinforced through onboarding, monitoring, and follow-up, rather than by rejecting messages or reclassifying RE fields as R.</p></div>
+
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../why-hl7-requirements-cannot-substitute-for-data-quality/index.html"><span>Previous</span>5.10.5 Why HL7 Requirements Cannot Substitute for Data Quality</a><a class="next" href="../outcome/index.html"><span>Next</span>5.10.7 Outcome</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

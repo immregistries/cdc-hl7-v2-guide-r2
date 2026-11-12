@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.3.3.4 ERR-5: Application Error Code · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="err-5-application-error-code">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../acknowledgement-ack-message-profile/index.html">3.3 Acknowledgement (ACK) Message Profile</a> <span>›</span> <a href="../issue-level-reporting-using-err-segments/index.html">3.3.3 Issue-Level Reporting Using ERR Segments</a></nav>
+<header class="card-head"><h1><span class="num">3.3.3.4</span> ERR-5: Application Error Code</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+
+<div class="narrative"><p>ERR-5 communicates the specific nature of an issue using a code from a national code set, supplementing ERR-2 (location) and ERR-4 (severity) by answering the question of what the problem was. Codes are organized into ranges by issue type, including legacy HL7 v2 codes, conflicting data, inappropriate data, invalid data, lookup failures, message construction issues, missing data, processing errors, data sharing or consent restrictions, and missing or invalid endorsed data elements, among others. Codes in the missing- and invalid-data ranges use matching endings to pair each data element across both ranges.</p>
+<p>Implementing a code means that when the IIS detects the corresponding condition, it returns that code in ERR-5. This does not, by itself, determine how the underlying data is treated (e.g., whether it is accepted or rejected) or what ERR-4 severity is assigned; those determinations remain governed by local policy and are conveyed independently through ERR-4.</p>
+<p>If a concept needed by an IIS is not already represented in the national code set, implementers should coordinate with the guide's maintaining organization to have a new code added, rather than defining a local code. Locally invented codes are discouraged, as they increase burden and inconsistency across interfaces. Submitters should expect that the national ERR-5 code set will continue to expand as new data quality concepts are identified.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="err-5-application-error-code--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL implement High priority ERR-5 codes.</span><span class="s-meta"><a class="s-id" href="#err-5-application-error-code--s1" title="Link to this statement">s1</a></span></li><li id="err-5-application-error-code--s2"><span class="verb verb-should">SHOULD</span><span class="s-text">IIS SHOULD implement Medium priority ERR-5 codes.</span><span class="s-meta"><a class="s-id" href="#err-5-application-error-code--s2" title="Link to this statement">s2</a></span></li><li id="err-5-application-error-code--s3"><span class="verb verb-may">MAY</span><span class="s-text">IIS MAY implement Low priority ERR-5 codes.</span><span class="s-meta"><a class="s-id" href="#err-5-application-error-code--s3" title="Link to this statement">s3</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../required-follow-up-actions/index.html"><span>Previous</span>3.3.3.3 Required Follow-Up Actions</a><a class="next" href="../optional-use-of-code-5044-patient-identifier-returned/index.html"><span>Next</span>3.3.3.5 Optional Use of Code 5044 (Patient Identifier Returned)</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

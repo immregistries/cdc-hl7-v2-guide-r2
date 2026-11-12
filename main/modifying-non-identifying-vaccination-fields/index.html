@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.2.5.3 Modifying Non-Identifying Vaccination Fields · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="modifying-non-identifying-vaccination-fields">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../vaccination-record-update-vxu-message-profile/index.html">3.2 Vaccination Record Update (VXU) Message Profile</a> <span>›</span> <a href="../vxu-submission-scenarios/index.html">3.2.5 VXU Submission Scenarios</a></nav>
+<header class="card-head"><h1><span class="num">3.2.5.3</span> Modifying Non-Identifying Vaccination Fields</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 warnings · 1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-verb-in-prose-0b79b9a6"><span class="sev">Warning</span> Narrative uses the conformance verb SHOULD NOT. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>When only non-identifying fields are modified, the update should be interpreted as applying to the previously submitted vaccination record. Changes such as correcting a lot number, adjusting manufacturer information, or updating ancillary details SHOULD NOT, by themselves, cause the IIS to treat th…</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-0b79b9a6">qf-verb-in-prose-0b79b9a6</a></li><li class="finding sev-warning" id="qf-verb-in-prose-2dbcf203"><span class="sev">Warning</span> Narrative uses the conformance verb SHOULD. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>Passive access to a vaccination record, such as viewing or opening the record without modifying any identifying or non-identifying fields, does not represent a meaningful change and should not result in a VXU message. Submitting systems SHOULD ensure that VXU updates are generated only when actual …</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-2dbcf203">qf-verb-in-prose-2dbcf203</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-2ca0ce70"><span class="sev">Note</span> 3 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-2ca0ce70">qf-statement-from-paragraph-2ca0ce70</a></li></ul></details></aside>
+<div class="narrative"><p>Some changes update descriptive or supporting details of a vaccination record without changing the identity of the vaccination event itself. These changes are intended to refine or correct information about an already reported vaccination, not to replace it or introduce a new event.</p>
+<p>When only non-identifying fields are modified, the update should be interpreted as applying to the previously submitted vaccination record. Changes such as correcting a lot number, adjusting manufacturer information, or updating ancillary details SHOULD NOT, by themselves, cause the IIS to treat the vaccination as a new or distinct event. The purpose of an update in these cases is to improve data quality while preserving continuity of the vaccination record.</p>
+<p>Submitting systems signal this intent by sending a VXU update rather than a delete-and-add sequence. IIS are expected to apply these updates to the existing vaccination record and to avoid creating duplicate immunization events solely as a result of non-identifying field changes.</p>
+<p>Passive access to a vaccination record, such as viewing or opening the record without modifying any identifying or non-identifying fields, does not represent a meaningful change and should not result in a VXU message. Submitting systems SHOULD ensure that VXU updates are generated only when actual changes to vaccination data occur, and that multiple transient or intermediate system actions are not reported as separate updates. Sending VXUs when no substantive changes have occurred wastes resources and can create processing ambiguity, particularly when messages are received and applied in rapid succession. VXU submissions in this scenario SHOULD be suppressed unless there is a final, material change that the IIS needs to reflect.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="modifying-non-identifying-vaccination-fields--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">When only non-identifying vaccination fields are changed, the submitting system SHALL trigger a VXU update containing the modified information.</span><span class="s-meta"><a class="s-id" href="#modifying-non-identifying-vaccination-fields--s1" title="Link to this statement">s1</a></span></li><li id="modifying-non-identifying-vaccination-fields--s2"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">Submitting systems SHALL NOT trigger a VXU when a vaccination record is viewed or accessed without changes to any identifying or non-identifying vaccination record fields.</span><span class="s-meta"><a class="s-id" href="#modifying-non-identifying-vaccination-fields--s2" title="Link to this statement">s2</a></span></li><li id="modifying-non-identifying-vaccination-fields--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL support VXU update messages for vaccination records originally submitted by the sending system</span><span class="s-meta"><a class="s-id" href="#modifying-non-identifying-vaccination-fields--s3" title="Link to this statement">s3</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../historical-vaccination-recorded/index.html"><span>Previous</span>3.2.5.2 Historical Vaccination Recorded</a><a class="next" href="../deletion-of-a-vaccination-record-submitted-by-the-same-organization/index.html"><span>Next</span>3.2.5.4 Deletion of a Vaccination Record Submitted by the Same Organization</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

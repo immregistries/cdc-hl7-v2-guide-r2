@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.9.1 Usage Designations and Expectations · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="usage-designations-and-expectations">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a> <span>›</span> <a href="../usage-designations-and-operational-interpretation/index.html">2.9 Usage Designations and Operational Interpretation</a></nav>
+<header class="card-head"><h1><span class="num">2.9.1</span> Usage Designations and Expectations</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 warnings · 1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-long-card-e312a0e7"><span class="sev">Warning</span> Narrative is 8 blocks and 533 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-e312a0e7">qf-long-card-e312a0e7</a></li><li class="finding sev-warning" id="qf-verb-in-prose-90a6539e"><span class="sev">Warning</span> Narrative uses the conformance verb SHALL. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>R (Required) The element is expected to be populated during normal operation, and the receiving system attempts to process it when present. If the element is missing or unusable, the receiving system SHALL indicate the issue using an ERR segment. For example, when a submitting system sends a VXU, t…</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-90a6539e">qf-verb-in-prose-90a6539e</a></li><li class="finding sev-note" id="qf-image-figure-be26b672"><span class="sev">Note</span> <a class="f-loc" href="#fig-8">Figure 8</a> This figure is an image. If it holds a table or text, convert it to a structured table so it can be searched, read by screen readers, and commented on; diagrams can become Mermaid. It also needs alternative text.<a class="f-id" href="../quality/index.html#qf-image-figure-be26b672">qf-image-figure-be26b672</a></li></ul></details></aside>
+<div class="narrative"><p>Usage designations in this guide describe whether data is expected to be populated and whether the IIS attempts to process it, not whether the entire message will succeed or fail. When issues arise, they are communicated through ERR segments in the ACK, with severity determined later in Section 3.3, Acknowledgement Message Profile.</p>
+<p>The following interpretations apply:</p>
+<p><strong>R (Required)</strong> The element is expected to be populated during normal operation, and the receiving system attempts to process it when present. If the element is missing or unusable, the receiving system SHALL indicate the issue using an ERR segment. For example, when a submitting system sends a VXU, the IIS, as the receiving system, SHALL indicate the issue via ERR.</p>
+<p><strong>RE (Required but may be empty)</strong> The element should be populated when data are known. If present, the receiving system processes the element meaningfully. If omitted, the receiving system continues processing and may indicate the omission via an ERR segment, depending on local policy and data importance. For example, when a submitting system sends a VXU, the IIS, as the receiving system, may indicate the omission via ERR.</p>
+<p><strong>O (Optional)</strong> The element may be populated by the sender at its discretion. If present, the receiving system processes the element; if absent, no further action is expected. For example, when a submitting system sends a VXU, the IIS, as the receiving system, may process the element and an ERR may be included if the data was invalid.</p>
+<p><strong>C (Conditional)</strong> Conditional usage indicates that the applicability of the element depends on a defined condition. Once the condition is evaluated for a specific data instance, the conditional resolves to a concrete usage (e.g., R or O). For example, a lot number may be required for administered vaccinations but optional for historical ones. Conditional usage is a documentation mechanism; at runtime, the element always has a specific usage. This guide intentionally limits its reliance on conditional expressions, using separate message profiles and segment flavors instead where appropriate. This approach simplifies implementation and reflects feedback that complex conditional logic can be difficult for implementers to interpret.</p>
+<p><strong>X (Not Supported)</strong> The element shall not be populated by the sender. If present, the receiving system shall not process, store, or use the data. For example, when a submitting system sends a VXU containing an unsupported element, the IIS, as the receiving system, does not process, store, or use that data.</p>
+<p><strong>IX (Ignored)</strong> The element may be populated by the sender, but the IIS does not read, validate, or store the data. IX is not defined in the national guide. The designation is defined here as a convention that local implementation guides may use to document elements that are unsupported by a receiving system, without treating their presence as an error. Unlike X, it is not an error for data to be sent in an IX element, but senders should expect the data to be ignored entirely. For example, a local jurisdiction's guide may designate a specific element as IX if its IIS does not support that data element; a submitting system may include data in that element, but the IIS will not process it and not generate an ERR segment.</p></div>
+
+
+<section class="figures" aria-label="Figures"><figure id="fig-8"><button type="button" class="fig-open" data-src="fig-8.png" data-caption="Figure 8: Usage Designations: R, RE, O, C, X, and IX"><img src="fig-8.png" alt="Usage Designations: R, RE, O, C, X, and IX" loading="lazy"></button><figcaption><strong>Figure 8.</strong> Usage Designations: R, RE, O, C, X, and IX</figcaption></figure></section>
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../usage-designations-and-operational-interpretation/index.html"><span>Previous</span>2.9 Usage Designations and Operational Interpretation</a><a class="next" href="../relationship-to-ack-processing/index.html"><span>Next</span>2.9.2 Relationship to ACK Processing</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

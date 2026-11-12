@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.7.4 Entering (Recording) Organization (ORC-17) · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="entering-recording-organization-orc-17">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a> <span>›</span> <a href="../identifying-organizations/index.html">2.7 Identifying Organizations</a></nav>
+<header class="card-head"><h1><span class="num">2.7.4</span> Entering (Recording) Organization (ORC-17)</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+
+<div class="narrative"><p>Within a responsible organization, vaccinations may be recorded or entered by different organizational units. ORC-17 (Entering Organization) identifies the organization that created or entered the vaccination record. This supports auditing, troubleshooting, and workflow analysis without altering clinical meaning or patient attribution.</p>
+<p>ORC-17 identifies an organization but does not require a specific level of organizational hierarchy. Depending on the implementation, the value may represent a clinic, department, facility, or other organizational unit responsible for entering the data. ORC-17 should not be interpreted as a sub-organization of the responsible organization by definition, nor does this guide require that it align with any particular organizational structure.</p>
+<p>ORC-17 often overlaps with other organizational identifiers already present in the message, particularly RXA-11.4 for administered vaccinations. For many IIS implementations, these values may be identical, or the ORC-17 value may not currently be used operationally. However, the field remains useful in scenarios such as historical vaccination entry, where the organization recording the data may differ from the organization that administered the vaccine.</p>
+<p>Systems typically populate ORC-17 with the organization that entered or recorded the vaccination, and IIS often retain these values for auditing and analysis. Because operational use of ORC-17 varies across implementations, IIS generally do not treat the field as a condition for message acceptance.</p>
+<p>The usage of ORC-17 may be evaluated in future revision of this implementation guide if real-world adoption remains limited.</p></div>
+
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../responsible-organization-msh-22/index.html"><span>Previous</span>2.7.3 Responsible Organization (MSH-22)</a><a class="next" href="../administering-organization-rxa-11/index.html"><span>Next</span>2.7.5 Administering Organization (RXA-11)</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

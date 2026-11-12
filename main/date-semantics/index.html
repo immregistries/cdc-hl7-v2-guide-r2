@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.8.6.3 Date Semantics · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="date-semantics">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../non-administration-concepts/index.html">4.8 Non-Administration Concepts</a> <span>›</span> <a href="../conditions-contraindications-precautions-and-indications/index.html">4.8.6 Conditions (Contraindications, Precautions, and Indications)</a></nav>
+<header class="card-head"><h1><span class="num">4.8.6.3</span> Date Semantics</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">3 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-long-card-d4a34559"><span class="sev">Note</span> Narrative is 9 blocks and 227 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-d4a34559">qf-long-card-d4a34559</a></li><li class="finding sev-note" id="qf-normative-prose-5e951765"><span class="sev">Note</span> Narrative uses &quot;must not&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>RXA dates and vaccine identifiers in this context do not carry clinical meaning and must not be interpreted as vaccination events. Submitting systems may populate required RXA fields to satisfy HL7 syntax; receiving IIS should not validate or act on those values beyond recognizing that no vaccine w…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-5e951765">qf-normative-prose-5e951765</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-c33fea90"><span class="sev">Note</span> 6 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3, s4, s5, s6.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-c33fea90">qf-statement-from-paragraph-c33fea90</a></li></ul></details></aside>
+<div class="narrative"><p>OBX-14 represents the date the observation was authored or recorded. It does not indicate when the underlying condition began, except for ongoing conditions such as pregnancy or allergies, where the onset date/time is used. The effective and expiration date OBXs are the only elements that convey temporal applicability of the condition itself.</p>
+<p>Implementers should not assume alignment between OBX-14 and the onset of the condition.</p>
+<p>Relationship to Non-Administered Doses</p>
+<p>Conditions may be sent either:</p>
+<p>As standalone patient-level observations, or</p>
+<p>Within an ORC/RXA group where RXA-20 indicates that a vaccine was not administered</p>
+<p>From an IIS perspective, these are processed identically. The condition is treated as a patient-level observation regardless of whether the RXA references CVX 998 ("No vaccine administered") or a specific vaccine CVX.</p>
+<p>The presence of RXA-20 = NA establishes only that no vaccination occurred. It does not create standardized meaning linking the condition to a specific non-administered vaccine. IIS should not infer whether the condition applies to one vaccine, a class of vaccines, or vaccination in general.</p>
+<p>RXA dates and vaccine identifiers in this context do not carry clinical meaning and must not be interpreted as vaccination events. Submitting systems may populate required RXA fields to satisfy HL7 syntax; receiving IIS should not validate or act on those values beyond recognizing that no vaccine was administered.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="date-semantics--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL report patient-level conditions using OBX segments within an ORC/RXA group indicating no vaccination was administered.</span><span class="s-meta"><a class="s-id" href="#date-semantics--s1" title="Link to this statement">s1</a></span></li><li id="date-semantics--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL include LOINC 30945-0 with a valid SNOMED CT value to convey a condition.</span><span class="s-meta"><a class="s-id" href="#date-semantics--s2" title="Link to this statement">s2</a></span></li><li id="date-semantics--s3"><span class="verb verb-may">MAY</span><span class="s-text">Submitting systems MAY include effective and expiration date observations when applicable.</span><span class="s-meta"><a class="s-id" href="#date-semantics--s3" title="Link to this statement">s3</a></span></li><li id="date-semantics--s4"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL treat reported conditions as patient-level observations, not as vaccination events.</span><span class="s-meta"><a class="s-id" href="#date-semantics--s4" title="Link to this statement">s4</a></span></li><li id="date-semantics--s5"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">IIS SHALL NOT infer dose-level non-administration semantics from the presence of a condition.</span><span class="s-meta"><a class="s-id" href="#date-semantics--s5" title="Link to this statement">s5</a></span></li><li id="date-semantics--s6"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">IIS SHALL NOT reject a message solely because condition data is unsupported or not stored.</span><span class="s-meta"><a class="s-id" href="#date-semantics--s6" title="Link to this statement">s6</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../hl7-v2-representation/index.html"><span>Previous</span>4.8.6.2 HL7 v2 Representation</a><a class="next" href="../scope-and-limitations/index.html"><span>Next</span>4.8.6.4 Scope and Limitations</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

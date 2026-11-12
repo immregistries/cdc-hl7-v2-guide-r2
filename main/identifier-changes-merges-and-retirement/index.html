@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.5.1.5 Identifier Changes, Merges, and Retirement · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="identifier-changes-merges-and-retirement">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../patient-information/index.html">4.5 Patient Information</a> <span>›</span> <a href="../patient-identifiers/index.html">4.5.1 Patient Identifiers</a></nav>
+<header class="card-head"><h1><span class="num">4.5.1.5</span> Identifier Changes, Merges, and Retirement</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+
+<div class="narrative"><p>A primary exchange identifier can change after a merge, correction, or system conversion. The IIS may therefore receive a new identifier for a patient previously reported by the same submitter. The IIS associates the new identifier through patient matching, and it becomes current for later exchange.</p>
+<p>An SR or LR can also change when IIS patient records are merged. The IIS may retain one existing identifier, assign a new one, and retire others. Historical identifiers may be retained as aliases, but a complete identifier history is not required.</p>
+<p>An identifier can be replaced or retired, but it cannot be recycled for another person. Retaining an identifier after records for the same person are merged is not reuse.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="identifier-changes-merges-and-retirement--s1"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">Sending systems SHALL NOT reassign a previously used primary exchange identifier to a different patient.</span><span class="s-meta"><a class="s-id" href="#identifier-changes-merges-and-retirement--s1" title="Link to this statement">s1</a></span></li><li id="identifier-changes-merges-and-retirement--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL support receiving a new primary exchange identifier for a patient previously reported by the same submitting system.</span><span class="s-meta"><a class="s-id" href="#identifier-changes-merges-and-retirement--s2" title="Link to this statement">s2</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../preserving-the-submitter-s-primary-exchange-identifier/index.html"><span>Previous</span>4.5.1.4 Preserving the Submitter&#x27;s Primary Exchange Identifier</a><a class="next" href="../identifiers-as-matching-evidence/index.html"><span>Next</span>4.5.1.6 Identifiers as Matching Evidence</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.5.3 Address Handling · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="address-handling">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../patient-information/index.html">4.5 Patient Information</a></nav>
+<header class="card-head"><h1><span class="num">4.5.3</span> Address Handling</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-normative-prose-3ec93ee7"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Address data is inherently complex. Patients may have multiple valid addresses, reside in congregate or institutional settings, or lack a fixed address entirely. Submitted values are often incomplete, inconsistently coded, or free-text. For these reasons, IIS must distinguish between conformance ex…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-3ec93ee7">qf-normative-prose-3ec93ee7</a></li></ul></details></aside>
+<div class="narrative"><p>Accurate and consistently represented address information supports patient matching, outreach, and geographically based public health analysis. IIS receive address data from many submitting systems with varying data quality, formats, and assumptions. Without clear conventions, address handling can introduce matching errors, duplicate records, and unreliable geocoding.</p>
+<p>Address data is inherently complex. Patients may have multiple valid addresses, reside in congregate or institutional settings, or lack a fixed address entirely. Submitted values are often incomplete, inconsistently coded, or free-text. For these reasons, IIS must distinguish between conformance expectations at submission and operational processing performed internally, including cleansing and enrichment.</p></div>
+
+
+
+
+
+<section class="children"><h2>In this section</h2><ol><li><a href="../address-representation-in-hl7-v2/index.html"><span class="num">4.5.3.1</span> Address Representation in HL7 v2</a> <span class="mini">6 statements</span></li><li><a href="../congregate-and-institutional-addresses/index.html"><span class="num">4.5.3.2</span> Congregate and Institutional Addresses</a> <span class="mini">3 statements</span></li><li><a href="../persons-without-a-fixed-address/index.html"><span class="num">4.5.3.3</span> Persons Without a Fixed Address</a> <span class="mini">3 statements</span></li><li><a href="../address-types/index.html"><span class="num">4.5.3.4</span> Address Types</a> <span class="mini">3 statements</span></li><li><a href="../county-information/index.html"><span class="num">4.5.3.5</span> County Information</a> <span class="mini">4 statements</span></li><li><a href="../address-cleansing-and-normalization/index.html"><span class="num">4.5.3.6</span> Address Cleansing and Normalization</a> <span class="mini">5 statements</span></li></ol></section>
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../ongoing-data-quality-and-monitoring/index.html"><span>Previous</span>4.5.2.12 Ongoing Data Quality and Monitoring</a><a class="next" href="../address-representation-in-hl7-v2/index.html"><span>Next</span>4.5.3.1 Address Representation in HL7 v2</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

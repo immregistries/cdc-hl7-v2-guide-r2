@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.7 Clinical Decision Support · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="clinical-decision-support">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a></nav>
+<header class="card-head"><h1><span class="num">4.7</span> Clinical Decision Support</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-normative-prose-fccae442"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>This guide defines how CDS information must be expressed in the RSP message; it does not prescribe the underlying logic. That logic is determined by the CDS system implemented by the registry and must be routinely updated in alignment with nationally or jurisdictionally recognized immunization reco…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-fccae442">qf-normative-prose-fccae442</a></li></ul></details></aside>
+<div class="narrative"><p>Clinical Decision Support (CDS) information in an RSP message communicates how a patient's immunization history was assessed and what future vaccinations are recommended. CDS has two complementary components: evaluation, which indicates how each vaccination counts toward one or more immunization series, and recommendation, which provides the forecast indicating recommended vaccinations based on patient age, vaccination history, and any relevant clinical factors the registry supports, such as documented contraindications, precautions, or immunity.</p>
+<p>CDS results are generated at the time of the query and reflect the system's current interpretation of ACIP-based logic. The information returned is intentionally comprehensive, including items that may be clinically relevant now (e.g., an overdue vaccination), clinically relevant later (e.g., earliest and recommended dates), or informational only (e.g., a series marked complete for a vaccine no longer age-appropriate). Because CDS output is used in varied contexts, receiving systems may need to filter or suppress content that is not relevant to the encounter.</p>
+<p>This guide defines how CDS information must be expressed in the RSP message; it does not prescribe the underlying logic. That logic is determined by the CDS system implemented by the registry and must be routinely updated in alignment with nationally or jurisdictionally recognized immunization recommendations.</p>
+<p>As CDS support matures, this guide provides more consistent requirements for encoding evaluation and recommendation data. Future versions of the guide are expected to continue tightening requirements as community implementation patterns stabilize and as more registries adopt uniform CDS capabilities.</p></div>
+
+
+
+
+
+<section class="children"><h2>In this section</h2><ol><li><a href="../role-of-acip-and-cdsi/index.html"><span class="num">4.7.1</span> Role of ACIP and CDSi</a></li><li><a href="../jurisdictional-clinical-policy/index.html"><span class="num">4.7.2</span> Jurisdictional Clinical Policy</a> <span class="mini">1 statement</span></li><li><a href="../risk-based-recommendations/index.html"><span class="num">4.7.3</span> Risk-Based Recommendations</a> <span class="mini">2 statements</span></li><li><a href="../overall-structure-of-cds-in-the-rsp/index.html"><span class="num">4.7.4</span> Overall Structure of CDS in the RSP</a> <span class="mini">3 statements</span></li><li><a href="../standard-recommendations-and-series-coverage/index.html"><span class="num">4.7.5</span> Standard Recommendations and Series Coverage</a> <span class="mini">3 statements</span></li><li><a href="../intended-use-and-implementation-expectations/index.html"><span class="num">4.7.6</span> Intended Use and Implementation Expectations</a> <span class="mini">1 statement</span></li><li><a href="../evaluation/index.html"><span class="num">4.7.7</span> Evaluation</a></li><li><a href="../recommendation/index.html"><span class="num">4.7.8</span> Recommendation</a></li></ol></section>
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../program-considerations/index.html"><span>Previous</span>4.6.6.4 Program Considerations</a><a class="next" href="../role-of-acip-and-cdsi/index.html"><span>Next</span>4.7.1 Role of ACIP and CDSi</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

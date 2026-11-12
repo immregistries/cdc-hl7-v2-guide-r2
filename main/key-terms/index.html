@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.4 Key Terms · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="key-terms">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../overview-and-introduction/index.html">1 Overview and Introduction</a></nav>
+<header class="card-head"><h1><span class="num">1.4</span> Key Terms</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+
+<div class="narrative"><p>This section defines foundational concepts used throughout this Implementation Guide. These terms are used consistently across all sections and should not be redefined elsewhere. The explanations are written for a general audience and align with common usage in immunization and interoperability communities. Terms are grouped by concept and ordered so that each builds on those before it; an alphabetical listing of these and other terms is provided in Appendix B: Glossary and Abbreviations.</p></div>
+<section class="key-terms"><h3>Actors and Systems</h3><dl class='terms'><dt id='term-immunization-information-system-iis'>Immunization Information System (IIS)</dt><dd><p>An IIS, also called an immunization registry or simply registry, is a population-based information system that records all vaccination doses administered by participating providers within a jurisdiction. IIS data support clinical care, public health surveillance, and program management by maintaining consolidated immunization histories for individuals and populations.</p></dd><dt id='term-system'>System</dt><dd><p>A set of interconnected components, such as hardware, software, processes, and people, that work together to collect, process, store, and disseminate information. Systems may be custom-built or commercially available and may include subsystems that perform specific functions. Examples include Electronic Health Record (EHR) systems, hospital information systems, pharmacy applications, and school-based health systems.</p></dd><dt id='term-submitting-system'>Submitting System</dt><dd><p>A system external to the IIS that transmits vaccination information to help build a complete patient history. Examples include Electronic Health Record (EHR) systems, hospital information systems, pharmacy applications, and school-based health systems. Any system performing this function is considered a submitting system.</p></dd><dt id='term-querying-system'>Querying System</dt><dd><p>A system that retrieves immunization histories or forecasts from an IIS. Most clinical systems, such as EHRs, act as both submitting and querying systems.</p></dd><dt id='term-organization'>Organization</dt><dd><p>Any entity that administers, records, or manages vaccination services, including clinics, hospitals, pharmacies, mobile units, and schools. The IG uses "organization" to encompass these roles consistently.</p></dd><dt id='term-clinician'>Clinician</dt><dd><p>Any person involved in administering or recording a vaccination, such as a doctor, nurse, medical assistant, or pharmacist. The term implies a functional role, not a specific credential.</p></dd><dt id='term-patient'>Patient</dt><dd><p>The individual whose immunization record is maintained in the IIS. Patients include children, adolescents, and adults across in-patient and out-patient settings. All persons within a jurisdiction's catchment area are potential patients.</p></dd><dt id='term-responsible-person'>Responsible Person</dt><dd><p>An individual who supports or assists in the care of a patient, such as a parent, legal guardian, custodian, or grandparent. A responsible person is not necessarily the individual with legal authority to make healthcare decisions, view or disclose health information, or bear financial responsibility for the patient; IIS are not expected to track or determine who holds such authority. The role of a responsible person is primarily to support patient matching and to identify individuals involved in ensuring the patient receives appropriate care.</p></dd></dl><h3>Vaccination Concepts</h3><dl class='terms'><dt id='term-vaccination-and-immunization'>Vaccination and Immunization</dt><dd><p>These terms are used interchangeably to describe the administration of a vaccine and the resulting immunologic protection.</p></dd><dt id='term-administered-vaccination'>Administered Vaccination</dt><dd><p>A dose reported by the system that directly recorded the vaccination event and knows its details (date, product, lot, clinician, etc.).</p></dd><dt id='term-historical-vaccination'>Historical Vaccination</dt><dd><p>A dose reported from another source or record (paper or electronic) to document prior vaccination history.</p></dd><dt id='term-evaluation-and-recommendation'>Evaluation and Recommendation</dt><dd><p>Clinical Decision Support (CDS) systems, often called forecasters, evaluate each recorded dose for validity and generate recommendations (or forecasts) for future doses, based on published schedules such as ACIP guidelines.</p></dd><dt id='term-inventory'>Inventory</dt><dd><p>An optional IIS function that tracks vaccine stock levels for organizations. When a dose is reported as administered, the IIS may automatically decrement the reporting organization's inventory.</p></dd></dl><h3>Message Structure</h3><dl class='terms'><dt id='term-message'>Message</dt><dd><p>An HL7 Version 2 electronic transmission between systems (e.g., VXU, QBP, RSP, ACK) used to exchange immunization information between a submitting or querying system and the IIS.</p></dd><dt id='term-record'>Record</dt><dd><p>A unit of information within an IIS, representing a patient, vaccination event, or related entity that is stored and maintained for clinical and public health use.</p></dd><dt id='term-order-segment-group'>Order Segment Group</dt><dd><p>A coordinated set of HL7 v2 segments, ORC, RXA, optional RXR, and one or more OBX segments, that together convey a coherent unit of meaning within a VXU or RSP message.</p></dd><dt id='term-evaluated-group'>Evaluated Group</dt><dd><p>The set of OBX observations that together express the evaluation of a single antigen or series component within an Order Segment Group. A single RXA may contain multiple evaluated groups when a dose is assessed for multiple antigens (e.g., a combination vaccine).</p></dd><dt id='term-forecast-group'>Forecast Group</dt><dd><p>The set of OBX observations that together express the forecast for a single antigen within the Forecast Order Segment Group.</p></dd><dt id='term-assigning-authority'>Assigning Authority</dt><dd><p>The organization or system that issued a given identifier (e.g., an MRN), distinguishing identifiers that may otherwise appear identical.</p></dd></dl><h3>Processing Outcomes</h3><dl class='terms'><dt id='term-critical-data'>Critical Data</dt><dd><p>The minimum information necessary for an IIS to safely incorporate a submitted VXU into a patient's immunization history. Whether all submitted Critical Data was successfully processed and stored determines a message's core intent and, in turn, its acceptance or rejection; storage or rejection of non-Critical Data does not independently determine this outcome. IIS may expand the definition of Critical Data through jurisdictional policy, provided such expansion is documented in local messaging specifications</p></dd><dt id='term-core-intent'>Core Intent</dt><dd><p>Whether a submitted VXU's patient and vaccine history (if submitted) could be associated with and recorded in the IIS, as determined by whether the message's Critical Data was successfully processed and stored.</p></dd><dt id='term-rejection'>Rejection</dt><dd><p>A determination that one or more submitted Critical Data elements could not be processed or stored, requiring correction and resubmission. Rejection does not necessarily mean that non-Critical Data went unstored; an IIS may retain non-Critical Data even while signaling the loss of Critical Data.</p></dd><dt id='term-data-quality'>Data Quality</dt><dd><p>The degree to which IIS data are accurate, complete, and timely. Data quality activities include validation, deduplication, and routine measurement against community standards.</p></dd></dl><h3>Jurisdictional and Governance Concepts</h3><dl class='terms'><dt id='term-jurisdiction'>Jurisdiction</dt><dd><p>The geopolitical area responsible for operating an IIS (e.g., state, territory, city). Jurisdictions define participating providers, reporting requirements, and data-sharing policies.</p>
+<p><strong>Constraint</strong> and <strong>Contradiction</strong> - <em>Constraint</em>: A jurisdictional refinement that narrows, clarifies, or mandates specific uses of fields or value sets without forcing behavior incompatible with National-IG-compliant senders. - <em>Contradiction</em>: A local rule that requires senders to behave differently than the National IG specifies, creating incompatible expectations.</p></dd><dt id='term-avoiding-ambiguity'>Avoiding Ambiguity</dt><dd><p>Two terms used in this guide require special attention: Provider and Site. Both are common in clinical and HL7 v2 contexts but are inherently ambiguous.</p>
+<p><strong>Provider</strong> can refer to either an individual clinician or an organization that delivers vaccination services (e.g., "Dr. Smith" vs. "Dr. Smith's Clinic"). This guide generally avoids the term and instead uses clinician for a person and organization for an entity.</p>
+<p><strong>Site</strong> can mean either the physical location where vaccination occurred or the anatomical location on the patient's body. To reduce confusion, this guide will use <em>organization location</em> for facilities and <em>body site</em> for anatomic locations.</p>
+<p>In some cases, these terms appear when referencing specific HL7 field names that cannot be renamed. Readers should take care to interpret those cases precisely in the technical context intended.</p></dd></dl></section>
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../document-and-structure/index.html"><span>Previous</span>1.3 Document and Structure</a><a class="next" href="../conformance-verbs/index.html"><span>Next</span>1.5 Conformance Verbs</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

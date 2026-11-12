@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.5.5 Data-Quality Management Beyond ACKs · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="data-quality-management-beyond-acks">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a> <span>›</span> <a href="../acknowledgement-processing-overview/index.html">2.5 Acknowledgement Processing Overview</a></nav>
+<header class="card-head"><h1><span class="num">2.5.5</span> Data-Quality Management Beyond ACKs</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+
+<div class="narrative"><p>ACK responses are one mechanism for communicating data-quality issues, but they are not intended to be the sole method for managing or improving data quality across submitting organizations. Acknowledgements can identify problems detected during message processing, yet broader data-quality improvement depends on practices that extend well beyond HL7 v2 messaging. Issues surfaced in an ACK are most valuable when they don't stop there: these same issues should feed into an IIS's ongoing data-quality monitoring, trending, and follow-up activities, so that message-level feedback connects to the program's broader improvement efforts rather than existing as an isolated signal.</p>
+<p>IIS often encounter messages containing minor issues that do not prevent the system from safely incorporating the information into an immunization record. In these cases, an IIS may choose to process the message while recording the issue for later review, rather than rejecting the message outright. Rejecting messages unnecessarily can prevent otherwise usable information from entering the registry and may contribute to incomplete immunization histories. Certain errors, however, may still warrant message rejection, specifically when critical data needed to safely update an immunization record are missing or invalid. The definition of critical data elements, along with the rules governing when an acknowledgement should signal message rejection, is addressed in the acknowledgement conformance sections that follow.</p>
+<p>Beyond acknowledgements, IIS commonly rely on additional reporting and feedback mechanisms to support data-quality improvement, such as submitter performance reports, dashboards, validation summaries, or other forms of provider outreach. These mechanisms help organizations identify recurring problems and improve submission quality over time, and they vary widely across jurisdictions; this guide does not prescribe their specific form. Given that IIS programs typically manage a range of data-quality issues at once, it's often practical to prioritize attention based on impact, frequency, and risk to public health or clinical use, rather than treating every issue with equal urgency. High-priority or recurring problems are often better addressed through this kind of coordinated outreach than through ACK feedback alone.</p></div>
+
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../balancing-acceptance-and-quality-control/index.html"><span>Previous</span>2.5.4 Balancing Acceptance and Quality Control</a><a class="next" href="../shared-responsibility/index.html"><span>Next</span>2.5.6 Shared Responsibility</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

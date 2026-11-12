@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.2.4 Identifying vs. Non-Identifying Vaccination Fields · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="identifying-vs-non-identifying-vaccination-fields">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../vaccination-record-update-vxu-message-profile/index.html">3.2 Vaccination Record Update (VXU) Message Profile</a></nav>
+<header class="card-head"><h1><span class="num">3.2.4</span> Identifying vs. Non-Identifying Vaccination Fields</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 warnings · 6 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-verb-in-prose-4f1bd7fd"><span class="sev">Warning</span> Narrative uses the conformance verb SHALL. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>The fields listed in this section represent a minimum set of vaccination attributes that, if changed, can reasonably cause confusion about which vaccination event is being referenced. When an identifying field changes, an IIS may be unable to reliably determine whether the incoming information repr…</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-4f1bd7fd">qf-verb-in-prose-4f1bd7fd</a></li><li class="finding sev-warning" id="qf-verb-in-prose-556277a1"><span class="sev">Warning</span> Narrative uses the conformance verb SHOULD. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>IIS should not assume that all submitting systems will follow this guidance consistently or in every operational scenario. IIS are expected to implement more nuanced and robust matching, reconciliation, and deduplication logic that considers equivalence and proximity, such as vaccination dates that…</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-556277a1">qf-verb-in-prose-556277a1</a></li><li class="finding sev-note" id="qf-image-figure-3573760d"><span class="sev">Note</span> <a class="f-loc" href="#fig-10a">Figure 10a</a> This figure is an image. If it holds a table or text, convert it to a structured table so it can be searched, read by screen readers, and commented on; diagrams can become Mermaid. It also needs alternative text.<a class="f-id" href="../quality/index.html#qf-image-figure-3573760d">qf-image-figure-3573760d</a></li><li class="finding sev-note" id="qf-image-figure-7b1f205e"><span class="sev">Note</span> <a class="f-loc" href="#fig-10b">Figure 10b</a> This figure is an image. If it holds a table or text, convert it to a structured table so it can be searched, read by screen readers, and commented on; diagrams can become Mermaid. It also needs alternative text.<a class="f-id" href="../quality/index.html#qf-image-figure-7b1f205e">qf-image-figure-7b1f205e</a></li><li class="finding sev-note" id="qf-image-figure-bee0c504"><span class="sev">Note</span> <a class="f-loc" href="#fig-10c">Figure 10c</a> This figure is an image. If it holds a table or text, convert it to a structured table so it can be searched, read by screen readers, and commented on; diagrams can become Mermaid. It also needs alternative text.<a class="f-id" href="../quality/index.html#qf-image-figure-bee0c504">qf-image-figure-bee0c504</a></li><li class="finding sev-note" id="qf-long-card-86c89460"><span class="sev">Note</span> Narrative is 6 blocks and 434 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-86c89460">qf-long-card-86c89460</a></li><li class="finding sev-note" id="qf-normative-prose-c6829049"><span class="sev">Note</span> Narrative uses &quot;are required&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Immunization Information Systems (IIS) are required to consolidate vaccination information submitted from many independent sources into a single, coherent immunization history for each patient. To do this, IIS rely on key attributes of a vaccination event to distinguish one vaccination from another…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-c6829049">qf-normative-prose-c6829049</a></li><li class="finding sev-note" id="qf-statements-mid-section-91684778"><span class="sev">Note</span> In the draft, explanatory text continues after the conformance statements. Cards show statements after the narrative, so check that the order still reads well.<a class="f-id" href="../quality/index.html#qf-statements-mid-section-91684778">qf-statements-mid-section-91684778</a></li></ul></details></aside>
+<div class="narrative"><p>Immunization Information Systems (IIS) are required to consolidate vaccination information submitted from many independent sources into a single, coherent immunization history for each patient. To do this, IIS rely on key attributes of a vaccination event to distinguish one vaccination from another and to determine whether an incoming report represents a new event, a correction to an existing event, or a duplicate of information already received.</p>
+<p>Submitting systems should understand that update and delete actions are interpreted in the context of this consolidation process. When a submitting system reports a change to a previously submitted vaccination, it is responsible for signaling whether the change alters the identity of the vaccination event itself or only modifies descriptive details. This ensures the IIS can correctly apply the update or delete to the intended vaccination record and avoid ambiguity or unintended data loss.</p>
+<p>The fields listed in this section represent a minimum set of vaccination attributes that, if changed, can reasonably cause confusion about which vaccination event is being referenced. When an identifying field changes, an IIS may be unable to reliably determine whether the incoming information represents a correction to an existing vaccination or a newly administered dose. To avoid this ambiguity, a submitting system SHALL use <strong>rechart</strong> (delete-and-add) behavior, rather than a simple update, when reporting a change to any of these fields: sending a VXU delete for the original vaccination event, followed by a VXU add containing the corrected information. This guidance is not intended to define the complete set of data elements used by IIS for deduplication or record matching.</p>
+<p>IIS should not assume that all submitting systems will follow this guidance consistently or in every operational scenario. IIS are expected to implement more nuanced and robust matching, reconciliation, and deduplication logic that considers equivalence and proximity, such as vaccination dates that are close but not identical, vaccine codes that differ but are known equivalents, or situations where identifying fields change without an explicit delete-and-add sequence. IIS SHOULD be capable of recognizing likely matches even when submitted data is not an exact match. The purpose of this field classification is to establish clear, predictable signaling behavior for submitting systems, not to constrain IIS matching or merging algorithms.</p>
+<p>Together, these expectations establish a complementary standard: submitting systems are responsible for signaling changes in a way that minimizes ambiguity, while IIS are responsible for managing real-world variability in submissions so that the patient's immunization history ultimately remains complete, accurate, and coherent.</p>
+<ul><li>Send a VXU delete for the original vaccination event</li><li>Followed by a VXU add containing the corrected information.</li></ul></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="identifying-vs-non-identifying-vaccination-fields--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">When an identifying vaccination field is changed, the submitting system SHALL:</span><span class="s-meta"><a class="s-id" href="#identifying-vs-non-identifying-vaccination-fields--s1" title="Link to this statement">s1</a></span></li><li id="identifying-vs-non-identifying-vaccination-fields--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL support VXU delete and update messages for vaccination records originally submitted by the sending system.</span><span class="s-meta"><a class="s-id" href="#identifying-vs-non-identifying-vaccination-fields--s2" title="Link to this statement">s2</a></span></li></ol></section>
+<section class="figures" aria-label="Figures"><figure id="fig-10a"><button type="button" class="fig-open" data-src="fig-10a.png" data-caption="Figure 10a: Identifying vs. Non-Identifying Vaccination Field Changes"><img src="fig-10a.png" alt="Identifying vs. Non-Identifying Vaccination Field Changes" loading="lazy"></button><figcaption><strong>Figure 10a.</strong> Identifying vs. Non-Identifying Vaccination Field Changes</figcaption></figure><figure id="fig-10b"><button type="button" class="fig-open" data-src="fig-10b.png" data-caption="Figure 10b: Rechart: Delete-and-Add Sequence"><img src="fig-10b.png" alt="Rechart: Delete-and-Add Sequence" loading="lazy"></button><figcaption><strong>Figure 10b.</strong> Rechart: Delete-and-Add Sequence</figcaption></figure><figure id="fig-10c"><button type="button" class="fig-open" data-src="fig-10c.png" data-caption="Figure 10c: Simple Update Sequence"><img src="fig-10c.png" alt="Simple Update Sequence" loading="lazy"></button><figcaption><strong>Figure 10c.</strong> Simple Update Sequence</figcaption></figure></section>
+
+
+<section class="children"><h2>In this section</h2><ol><li><a href="../identifying-vaccination-fields/index.html"><span class="num">3.2.4.1</span> Identifying Vaccination Fields</a></li><li><a href="../non-identifying-vaccination-fields/index.html"><span class="num">3.2.4.2</span> Non-Identifying Vaccination Fields</a></li></ol></section>
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../reporting-immunizations-single-vs-multiple-administered-vaccinations-per-vxu/index.html"><span>Previous</span>3.2.3 Reporting Immunizations: Single vs. Multiple Administered Vaccinations per VXU</a><a class="next" href="../identifying-vaccination-fields/index.html"><span>Next</span>3.2.4.1 Identifying Vaccination Fields</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

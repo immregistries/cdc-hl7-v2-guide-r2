@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.5 Conformance Verbs · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="conformance-verbs">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../overview-and-introduction/index.html">1 Overview and Introduction</a></nav>
+<header class="card-head"><h1><span class="num">1.5</span> Conformance Verbs</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-issue" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 issue · 2 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-issue" id="qf-manual-figure-1-shall-not"><span class="sev">Issue</span> <a class="f-loc" href="#fig-1">Figure 1</a> In Figure 1, the SHALL NOT definition repeats the SHOULD NOT text (&quot;A recommended prohibition… may do so if justified by local needs&quot;). The text definition on this card is correct: SHALL NOT is a mandatory prohibition.<a class="f-id" href="../quality/index.html#qf-manual-figure-1-shall-not">qf-manual-figure-1-shall-not</a></li><li class="finding sev-note" id="qf-image-figure-13aee35e"><span class="sev">Note</span> <a class="f-loc" href="#fig-1">Figure 1</a> This figure is an image. If it holds a table or text, convert it to a structured table so it can be searched, read by screen readers, and commented on; diagrams can become Mermaid. It also needs alternative text.<a class="f-id" href="../quality/index.html#qf-image-figure-13aee35e">qf-image-figure-13aee35e</a></li><li class="finding sev-note" id="qf-long-card-9b8199d0"><span class="sev">Note</span> Narrative is 9 blocks and 252 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-9b8199d0">qf-long-card-9b8199d0</a></li></ul></details></aside>
+<div class="narrative"><p>This guide uses a defined set of conformance verbs to indicate the strength of requirements placed on submitting systems, querying systems, and Immunization Information Systems (IIS). These verbs are capitalized when used normatively to distinguish them from narrative text.</p>
+<p>The conformance verbs used in this guide are:</p>
+<p><strong>SHALL</strong>- A mandatory requirement. Systems claiming conformance to this guide are required to implement the stated behavior.</p>
+<p><strong>SHALL NOT</strong> - A mandatory prohibition. Systems claiming conformance to this guide are required to avoid the stated behavior.</p>
+<p><strong>SHOULD</strong>- A recommended requirement. Systems are strongly encouraged to implement the stated behavior but may deviate based on local policy, technical constraints, or phased implementation.</p>
+<p><strong>SHOULD NOT</strong>- A recommended prohibition. Systems are strongly discouraged from implementing the stated behavior but may do so if justified by local needs.</p>
+<p><strong>MAY</strong>- An optional capability or practice. Implementation is permitted but not required.</p>
+<p>Claims of conformance to this guide require full adherence to all SHALL and SHALL NOT statements. SHOULD and SHOULD NOT statements are not binding but are intended to guide implementers toward consistent and interoperable practices over time. MAY statements indicate acceptable variations, optional behaviors, or anticipated local extensions.</p>
+<p>Not all SHALL and SHALL NOT requirements in this guide are directly measurable or observable at the message-level. Some requirements apply to system behavior, processing logic, or operational practices of the submitting system, querying system, or IIS. These requirements are equally normative. Difficulty in testing or measurement does not reduce the obligation to meet them when claiming conformance to this guide.</p></div>
+
+
+<section class="figures" aria-label="Figures"><figure id="fig-1"><button type="button" class="fig-open" data-src="fig-1.png" data-caption="Figure 1: Conformance Verbs: SHALL, SHALL NOT, SHOULD, SHOULD NOT, and MAY"><img src="fig-1.png" alt="Conformance Verbs: SHALL, SHALL NOT, SHOULD, SHOULD NOT, and MAY" loading="lazy"></button><figcaption><strong>Figure 1.</strong> Conformance Verbs: SHALL, SHALL NOT, SHOULD, SHOULD NOT, and MAY</figcaption></figure></section>
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../key-terms/index.html"><span>Previous</span>1.4 Key Terms</a><a class="next" href="../immunization-messaging-fundamentals/index.html"><span>Next</span>2 Immunization Messaging Fundamentals</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

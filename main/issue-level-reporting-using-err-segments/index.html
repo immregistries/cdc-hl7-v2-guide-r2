@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.3.3 Issue-Level Reporting Using ERR Segments · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="issue-level-reporting-using-err-segments">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../acknowledgement-ack-message-profile/index.html">3.3 Acknowledgement (ACK) Message Profile</a></nav>
+<header class="card-head"><h1><span class="num">3.3.3</span> Issue-Level Reporting Using ERR Segments</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">4 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-no-actor-5fc3a03b"><span class="sev">Note</span> <a class="f-loc" href="#issue-level-reporting-using-err-segments--s1">Statement s1</a> Its subject is &quot;Discrete issue identified during VXU processing&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-5fc3a03b">qf-no-actor-5fc3a03b</a></li><li class="finding sev-note" id="qf-no-actor-6e4e262b"><span class="sev">Note</span> <a class="f-loc" href="#issue-level-reporting-using-err-segments--s4">Statement s4</a> It does not open with the system or party it applies to, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-6e4e262b">qf-no-actor-6e4e262b</a></li><li class="finding sev-note" id="qf-no-actor-aeb1afdf"><span class="sev">Note</span> <a class="f-loc" href="#issue-level-reporting-using-err-segments--s2">Statement s2</a> Its subject is &quot;ERR segment&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-aeb1afdf">qf-no-actor-aeb1afdf</a></li><li class="finding sev-note" id="qf-no-actor-feb29ae0"><span class="sev">Note</span> <a class="f-loc" href="#issue-level-reporting-using-err-segments--s3">Statement s3</a> Its subject is &quot;ERR segments&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-feb29ae0">qf-no-actor-feb29ae0</a></li></ul></details></aside>
+<div class="narrative"><p>ACK messages communicate discrete processing findings using ERR segments. Each ERR segment represents a single issue or informational condition identified during message evaluation, and issues are evaluated independently before being summarized at the message-level. ERR segments are not limited to reporting failures; they may also confirm success, convey informational notices, or communicate the effect of a business rule or jurisdictional policy.</p>
+<p>ERR segments identify where an issue occurred (ERR-2), classify the nature of the issue (ERR-5), and communicate its severity (ERR-4). Severity determines the required follow-up action for that specific issue.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="issue-level-reporting-using-err-segments--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">Each discrete issue identified during VXU processing SHALL be represented by a separate ERR segment.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#issue-level-reporting-using-err-segments--s1" title="Link to this statement">s1</a></span></li><li id="issue-level-reporting-using-err-segments--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">Each ERR segment SHALL convey a severity that indicates the required follow-up action.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#issue-level-reporting-using-err-segments--s2" title="Link to this statement">s2</a></span></li><li id="issue-level-reporting-using-err-segments--s3"><span class="verb verb-may">MAY</span><span class="s-text">ERR segments MAY be used to convey informational feedback when no corrective action is required.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#issue-level-reporting-using-err-segments--s3" title="Link to this statement">s3</a></span></li><li id="issue-level-reporting-using-err-segments--s4"><span class="verb verb-shall">SHALL</span><span class="s-text">The absence of ERR segments with Warning or Error severity SHALL indicate that no corrective action is required.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#issue-level-reporting-using-err-segments--s4" title="Link to this statement">s4</a></span></li></ol></section>
+
+
+
+<section class="children"><h2>In this section</h2><ol><li><a href="../err-2-error-location/index.html"><span class="num">3.3.3.1</span> ERR-2: Error Location</a></li><li><a href="../err-4-severity-code/index.html"><span class="num">3.3.3.2</span> ERR-4: Severity Code</a> <span class="mini">10 statements</span></li><li><a href="../required-follow-up-actions/index.html"><span class="num">3.3.3.3</span> Required Follow-Up Actions</a></li><li><a href="../err-5-application-error-code/index.html"><span class="num">3.3.3.4</span> ERR-5: Application Error Code</a> <span class="mini">3 statements</span></li><li><a href="../optional-use-of-code-5044-patient-identifier-returned/index.html"><span class="num">3.3.3.5</span> Optional Use of Code 5044 (Patient Identifier Returned)</a> <span class="mini">4 statements</span></li><li><a href="../err-8-user-message/index.html"><span class="num">3.3.3.6</span> ERR-8: User Message</a> <span class="mini">3 statements</span></li></ol></section>
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../application-level-scope-of-ack-messages/index.html"><span>Previous</span>3.3.2 Application-Level Scope of ACK Messages</a><a class="next" href="../err-2-error-location/index.html"><span>Next</span>3.3.3.1 ERR-2: Error Location</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

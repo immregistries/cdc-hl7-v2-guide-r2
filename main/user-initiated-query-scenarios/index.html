@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.4.4.1 User-Initiated Query Scenarios · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="user-initiated-query-scenarios">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../query-by-parameter-qbp-message-profiles/index.html">3.4 Query by Parameter (QBP) Message Profiles</a> <span>›</span> <a href="../scenarios-that-trigger-qbp-messages/index.html">3.4.4 Scenarios That Trigger QBP Messages</a></nav>
+<header class="card-head"><h1><span class="num">3.4.4.1</span> User-Initiated Query Scenarios</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+
+<div class="narrative"><p>User-initiated queries are driven by a person (clinician, patient, or guardian) who needs immunization information for a specific patient and is actively waiting for the result. These scenarios most commonly support clinical care, where the information returned by the IIS is used immediately to inform vaccination decisions. They may also occur when a patient or guardian requests information via a portal, or when a clinician initiates a patient lookup as part of an active clinical workflow.</p>
+<p>Because a user is waiting for the response, these queries represent the primary and highest-priority use of the IIS query interface. Availability and responsiveness are critical, and IIS operations should ensure that these queries are not delayed or degraded by background activity.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="user-initiated-query-scenarios--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">When a clinical user requests a patient&#x27;s immunization record, or when a patient or guardian requests immunization information via a portal, the system SHALL initiate a user-initiated QBP for that patient.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s1" title="Link to this statement">s1</a></span></li><li id="user-initiated-query-scenarios--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">Systems SHALL allow repeated user-initiated queries for a single selected patient.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s2" title="Link to this statement">s2</a></span></li><li id="user-initiated-query-scenarios--s3"><span class="verb verb-should">SHOULD</span><span class="s-text">Jurisdictions and implementers SHOULD agree on reasonable daily limits and controls to prevent over-querying.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s3" title="Link to this statement">s3</a></span></li><li id="user-initiated-query-scenarios--s4"><span class="verb verb-should">SHOULD</span><span class="s-text">Systems SHOULD allow re-query after no matches or too many matches are returned, to support interactive resolution of matching issues.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s4" title="Link to this statement">s4</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../scenarios-that-trigger-qbp-messages/index.html"><span>Previous</span>3.4.4 Scenarios That Trigger QBP Messages</a><a class="next" href="../system-initiated-query-scenarios/index.html"><span>Next</span>3.4.4.2 System-Initiated Query Scenarios</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

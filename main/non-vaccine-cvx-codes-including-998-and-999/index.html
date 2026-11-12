@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.6.2.2.4 Non-Vaccine CVX Codes (Including 998 and 999) · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="non-vaccine-cvx-codes-including-998-and-999">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../immunization-information/index.html">4.6 Immunization Information</a> <span>›</span> <a href="../vaccine-product-and-administration-codes/index.html">4.6.2 Vaccine Product and Administration Codes</a> <span>›</span> <a href="../cvx-vaccines-administered-code/index.html">4.6.2.2 CVX - Vaccines Administered Code</a></nav>
+<header class="card-head"><h1><span class="num">4.6.2.2.4</span> Non-Vaccine CVX Codes (Including 998 and 999)</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">4 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-normative-prose-53f5cd4e"><span class="sev">Note</span> Narrative uses &quot;is required&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>CVX 998 is used to satisfy specific HL7 structural requirements where an RXA segment is required but no vaccine is being reported.</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-53f5cd4e">qf-normative-prose-53f5cd4e</a></li><li class="finding sev-note" id="qf-normative-prose-988f4c97"><span class="sev">Note</span> Narrative uses &quot;required to&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>IIS are not required to accept, store, or return non-vaccine CVX codes in immunization histories.</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-988f4c97">qf-normative-prose-988f4c97</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-f762c102"><span class="sev">Note</span> 6 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3, s4, s5, s6.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-f762c102">qf-statement-from-paragraph-f762c102</a></li><li class="finding sev-note" id="qf-statements-mid-section-0772689c"><span class="sev">Note</span> In the draft, explanatory text continues after the conformance statements. Cards show statements after the narrative, so check that the order still reads well.<a class="f-id" href="../quality/index.html#qf-statements-mid-section-0772689c">qf-statements-mid-section-0772689c</a></li></ul></details></aside>
+<div class="narrative"><p>The CVX code set includes a small number of codes that do not represent vaccines. These non-vaccine CVX codes exist for two primary reasons. Historically, IIS sometimes served as the only longitudinal public health record for childhood care, and certain non-vaccine concepts were added to support public health objectives similar to vaccination tracking. More recently, new products have emerged that provide protection against vaccine-preventable diseases but are not themselves vaccines and interact with immunization workflows.</p>
+<p>Definition and Use of Non-Vaccine CVX Codes</p>
+<p>Non-vaccine CVX codes represent products or concepts such as immune globulins, tuberculin skin tests, or other non-vaccine interventions.</p>
+<p>These codes are not immunizations and do not represent vaccine doses for evaluation or forecasting purposes.</p>
+<p>IIS are not required to accept, store, or return non-vaccine CVX codes in immunization histories.</p>
+<p>Structural Use of CVX 998</p>
+<p>CVX 998 is used to satisfy specific HL7 structural requirements where an RXA segment is required but no vaccine is being reported.</p>
+<p>Prohibition of CVX 999</p>
+<p>CVX 999 has no defined operational use in this implementation guide.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="non-vaccine-cvx-codes-including-998-and-999--s1"><span class="verb verb-may">MAY</span><span class="s-text">IIS MAY support other non-vaccine CVX codes according to local policy.</span><span class="s-meta"><a class="s-id" href="#non-vaccine-cvx-codes-including-998-and-999--s1" title="Link to this statement">s1</a></span></li><li id="non-vaccine-cvx-codes-including-998-and-999--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL support CVX 998 only for the structural HL7 use cases defined in this guide.</span><span class="s-meta"><a class="s-id" href="#non-vaccine-cvx-codes-including-998-and-999--s2" title="Link to this statement">s2</a></span></li><li id="non-vaccine-cvx-codes-including-998-and-999--s3"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">IIS SHALL NOT treat CVX 998 as an administered, historical, or refused vaccination in the patient&#x27;s immunization history.</span><span class="s-meta"><a class="s-id" href="#non-vaccine-cvx-codes-including-998-and-999--s3" title="Link to this statement">s3</a></span></li><li id="non-vaccine-cvx-codes-including-998-and-999--s4"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">Submitting systems SHALL NOT use CVX 998 to report administered, historical, or refused vaccinations.</span><span class="s-meta"><a class="s-id" href="#non-vaccine-cvx-codes-including-998-and-999--s4" title="Link to this statement">s4</a></span></li><li id="non-vaccine-cvx-codes-including-998-and-999--s5"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">IIS and submitting systems SHALL NOT use CVX 999 for immunization reporting.</span><span class="s-meta"><a class="s-id" href="#non-vaccine-cvx-codes-including-998-and-999--s5" title="Link to this statement">s5</a></span></li><li id="non-vaccine-cvx-codes-including-998-and-999--s6"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL treat the presence of CVX 999 in RXA-5 as an error condition.</span><span class="s-meta"><a class="s-id" href="#non-vaccine-cvx-codes-including-998-and-999--s6" title="Link to this statement">s6</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes/index.html"><span>Previous</span>4.6.2.2.3 Appropriate Use of Unspecified Formulation and Category-Level CVX Codes</a><a class="next" href="../timeliness-and-maintenance-of-cvx-support/index.html"><span>Next</span>4.6.2.2.5 Timeliness and Maintenance of CVX Support</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.3 Dynamic and Fixed Code Sets · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="dynamic-and-fixed-code-sets">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a></nav>
+<header class="card-head"><h1><span class="num">4.3</span> Dynamic and Fixed Code Sets</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">5 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-image-figure-63ddeffd"><span class="sev">Note</span> <a class="f-loc" href="#fig-18">Figure 18</a> This figure is an image. If it holds a table or text, convert it to a structured table so it can be searched, read by screen readers, and commented on; diagrams can become Mermaid. It also needs alternative text.<a class="f-id" href="../quality/index.html#qf-image-figure-63ddeffd">qf-image-figure-63ddeffd</a></li><li class="finding sev-note" id="qf-long-card-ae1eda60"><span class="sev">Note</span> Narrative is 8 blocks and 354 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-ae1eda60">qf-long-card-ae1eda60</a></li><li class="finding sev-note" id="qf-normative-prose-0d45d1ea"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Together, these two dimensions define four operational categories, each with distinct expectations for IIS and submitting systems. A static-closed code set requires strict validation, where unknown values are treated as errors unless the code set is formally updated through the national process. A …</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-0d45d1ea">qf-normative-prose-0d45d1ea</a></li><li class="finding sev-note" id="qf-normative-prose-4c984112"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Immunization messaging relies heavily on coded values to convey clinical meaning, administrative intent, and demographic context. These coded values are not uniform in how they change over time or how strictly they must be constrained. Some code sets evolve frequently and require active monitoring,…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-4c984112">qf-normative-prose-4c984112</a></li><li class="finding sev-note" id="qf-normative-prose-7fabef46"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>This section describes how value sets are classified along two independent dimensions, stability (dynamic vs. static) and extensibility (open vs. closed), and explains the expectations IIS and submitting systems must meet for each category. See Section 7.4 for Value Sets and authoritative lists and…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-7fabef46">qf-normative-prose-7fabef46</a></li></ul></details></aside>
+<div class="narrative"><p>Immunization messaging relies heavily on coded values to convey clinical meaning, administrative intent, and demographic context. These coded values are not uniform in how they change over time or how strictly they must be constrained. Some code sets evolve frequently and require active monitoring, while others are intentionally static to preserve stable processing behavior across systems.</p>
+<p>Misunderstanding the nature of a code set, whether it is dynamic or static, open or closed, can lead to brittle implementations, unnecessary message rejections, or silent data corruption. Systems that treat all code sets the same way risk either over-constraining data that should be flexible or under-validating data that is foundational to correct immunization processing.</p>
+<p>This section describes how value sets are classified along two independent dimensions, stability (dynamic vs. static) and extensibility (open vs. closed), and explains the expectations IIS and submitting systems must meet for each category. See Section 7.4 for Value Sets and authoritative lists and field-level assignments.</p>
+<p><strong>Dynamic</strong>: A code set whose contents are expected to change regularly and therefore require active monitoring, versioning, and notification of changes.</p>
+<p><strong>Static</strong>: A code set intended to remain stable over time; changes are rare and typically governed at the national level.</p>
+<p><strong>Open</strong>: A code set that permits jurisdictional or local extensions.</p>
+<p><strong>Closed</strong>: A code set that does not permit local extensions; only canonical values are accepted.</p>
+<p>Together, these two dimensions define four operational categories, each with distinct expectations for IIS and submitting systems. A static-closed code set requires strict validation, where unknown values are treated as errors unless the code set is formally updated through the national process. A static-open code set maintains a stable baseline of values while allowing local extensions; IIS must publish any local extensions and notify partners when they are introduced. A dynamic-closed code set changes over time but does not permit local extensions, requiring systems to support versioning and apply updates in a timely manner. A dynamic-open code set combines frequent change with allowed local extensions, and therefore requires the most active governance, including machine-readable publication of changes and ongoing coordination with partners.</p></div>
+
+
+<section class="figures" aria-label="Figures"><figure id="fig-18"><button type="button" class="fig-open" data-src="fig-18.png" data-caption="Figure 18: Stability and Extensibility Matrix"><img src="fig-18.png" alt="Stability and Extensibility Matrix" loading="lazy"></button><figcaption><strong>Figure 18.</strong> Stability and Extensibility Matrix</figcaption></figure></section>
+
+
+<section class="children"><h2>In this section</h2><ol><li><a href="../dynamic-code-sets-evolving-code-sets-requiring-active-maintenance/index.html"><span class="num">4.3.1</span> Dynamic Code Sets (Evolving Code Sets Requiring Active Maintenance)</a> <span class="mini">4 statements</span></li><li><a href="../fixed-code-sets-stable-code-sets-anchored-to-messaging-semantics/index.html"><span class="num">4.3.2</span> Fixed Code Sets (Stable Code Sets Anchored to Messaging Semantics)</a> <span class="mini">2 statements</span></li><li><a href="../open-value-sets-extensible-sets-supporting-local-variation/index.html"><span class="num">4.3.3</span> Open Value Sets (Extensible Sets Supporting Local Variation)</a></li><li><a href="../closed-value-sets-constrained-sets-requiring-strict-conformance/index.html"><span class="num">4.3.4</span> Closed Value Sets (Constrained Sets Requiring Strict Conformance)</a></li><li><a href="../handling-unrecognized-values/index.html"><span class="num">4.3.5</span> Handling Unrecognized Values</a> <span class="mini">3 statements</span></li><li><a href="../local-extensions-and-coordination/index.html"><span class="num">4.3.6</span> Local Extensions and Coordination</a> <span class="mini">5 statements</span></li></ol></section>
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../data-standardization-and-integra-cdc-core-data-elements-for-functional-standards/index.html"><span>Previous</span>4.2 CDC Core Data Elements for Functional Standards</a><a class="next" href="../dynamic-code-sets-evolving-code-sets-requiring-active-maintenance/index.html"><span>Next</span>4.3.1 Dynamic Code Sets (Evolving Code Sets Requiring Active Maintenance)</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

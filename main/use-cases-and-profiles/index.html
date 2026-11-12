@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.1 Use Cases and Profiles · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="use-cases-and-profiles">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a></nav>
+<header class="card-head"><h1><span class="num">3.1</span> Use Cases and Profiles</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">3 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-long-card-02ad8c50"><span class="sev">Note</span> Narrative is 4 blocks and 358 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-02ad8c50">qf-long-card-02ad8c50</a></li><li class="finding sev-note" id="qf-normative-prose-39e33595"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>A use case represents a real-world scenario involving one or more actors and the actions they perform. For example, a submitting system may report a new vaccination to an IIS, or a querying system may request a patient&#x27;s consolidated immunization history. Each use case describes a specific function…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-39e33595">qf-normative-prose-39e33595</a></li><li class="finding sev-note" id="qf-normative-prose-53b6239b"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>A profile is a set of conformance requirements-rules layered on top of the base HL7 v2 message structures-to meet the needs of a particular use case. The HL7 v2 standard is intentionally flexible; this guide narrows that flexibility by defining specific expectations for each profile so that message…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-53b6239b">qf-normative-prose-53b6239b</a></li></ul></details></aside>
+<div class="narrative"><p>This section explains how use cases and messaging profiles work together to support the immunization data exchange workflows addressed by this guide. At a high level, the primary use cases focus on two essential needs: submitting administered and historical immunizations to the IIS to maintain a complete record, and retrieving a consolidated immunization history and forecast for use in clinical decision making. Supporting these core interactions are additional profiles that confirm receipt and processing of submissions and enable reliable querying, including patient matching, which is inherently complex and jurisdiction-specific.</p>
+<p>A use case represents a real-world scenario involving one or more actors and the actions they perform. For example, a submitting system may report a new vaccination to an IIS, or a querying system may request a patient's consolidated immunization history. Each use case describes a specific functional interaction that must be supported across systems.</p>
+<p>A profile is a set of conformance requirements-rules layered on top of the base HL7 v2 message structures-to meet the needs of a particular use case. The HL7 v2 standard is intentionally flexible; this guide narrows that flexibility by defining specific expectations for each profile so that messages are interpreted consistently across jurisdictions and systems. The same HL7 v2 segments and data elements may appear in multiple profiles but with different requirements, and implementers must always interpret requirements within the context of the declared profile. Indicating the correct profile within a message signals which constraints apply and enables validation and testing tools to apply the appropriate rules.</p>
+<p>The query and response patterns defined in this guide also support related use cases such as access by patients, schools, and other public health programs, to the extent that those interactions align with the standard IIS query model. This guide does not attempt to cover all HL7 messaging used by IIS. Use cases such as IIS-to-IIS exchange, bulk data sharing, or patient demographic updates (for example, ADT-driven workflows) have distinct considerations and are outside the scope of this document. Other HL7 messages and profiles may be implemented by IIS as needed; this guide neither prescribes nor restricts those implementations.</p></div>
+
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../messaging-profiles-and-transactions/index.html"><span>Previous</span>3 Messaging Profiles and Transactions</a><a class="next" href="../vaccination-record-update-vxu-message-profile/index.html"><span>Next</span>3.2 Vaccination Record Update (VXU) Message Profile</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

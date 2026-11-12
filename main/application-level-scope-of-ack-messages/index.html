@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.3.2 Application-Level Scope of ACK Messages · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="application-level-scope-of-ack-messages">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../acknowledgement-ack-message-profile/index.html">3.3 Acknowledgement (ACK) Message Profile</a></nav>
+<header class="card-head"><h1><span class="num">3.3.2</span> Application-Level Scope of ACK Messages</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">5 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-no-actor-5047851b"><span class="sev">Note</span> <a class="f-loc" href="#application-level-scope-of-ack-messages--s2">Statement s2</a> Its subject is &quot;ACK messages&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-5047851b">qf-no-actor-5047851b</a></li><li class="finding sev-note" id="qf-no-actor-918f0626"><span class="sev">Note</span> <a class="f-loc" href="#application-level-scope-of-ack-messages--s4">Statement s4</a> Its subject is &quot;ACK messages&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-918f0626">qf-no-actor-918f0626</a></li><li class="finding sev-note" id="qf-no-actor-cb4e7df8"><span class="sev">Note</span> <a class="f-loc" href="#application-level-scope-of-ack-messages--s1">Statement s1</a> Its subject is &quot;ACK messages&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-cb4e7df8">qf-no-actor-cb4e7df8</a></li><li class="finding sev-note" id="qf-normative-prose-6519120d"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Transport and connectivity issues prevent a VXU from being submitted to the IIS, or prevent the IIS from returning an ACK in response, and must be investigated and resolved at the transport layer (e.g., per the CDC WSDL) before retrying HL7 v2 messaging. Using an ACK to indicate a transport-layer p…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-6519120d">qf-normative-prose-6519120d</a></li><li class="finding sev-note" id="qf-statements-mid-section-e9cade8d"><span class="sev">Note</span> In the draft, explanatory text continues after the conformance statements. Cards show statements after the narrative, so check that the order still reads well.<a class="f-id" href="../quality/index.html#qf-statements-mid-section-e9cade8d">qf-statements-mid-section-e9cade8d</a></li></ul></details></aside>
+<div class="narrative"><p>ACK messages defined in this profile apply only to application-level processing outcomes following successful receipt of a VXU by the IIS. They do not represent transport or connectivity behavior and do not substitute for SOAP faults or network-level error handling. IIS receipt of the submitted VXU is a precursor to acknowledgement messaging.</p>
+<p>ACK messages communicate the outcome of content validation, patient association, immunization evaluation, and jurisdictional policy application performed by the IIS after the message has reached the application layer.</p>
+<p>Transport and connectivity issues prevent a VXU from being submitted to the IIS, or prevent the IIS from returning an ACK in response, and must be investigated and resolved at the transport layer (e.g., per the CDC WSDL) before retrying HL7 v2 messaging. Using an ACK to indicate a transport-layer problem is unreliable and misleading to submitters.</p>
+<p>In some architectures, an intermediary supporting data exchange between an IIS and a submitter may need to relay a transport-layer issue originating at the IIS back to the submitter via an ACK. In this scenario, the intermediary should use the enhanced-mode acknowledgement value 'CR' (Commit Reject) rather than 'AR', since 'AR' is reserved for application-level rejection and using it to convey a transport issue would create ambiguity for the submitter.</p>
+<ol><li>Transport</li><li>Connectivity (e.g., DNS lookup fault, timeout)</li><li>Authentication (e.g., TLS authentication failure, invalid credentials/tokens)</li><li>SOAP-layer (e.g., unknown operation, invalid SOAP message) Other routing/connectivity issue</li></ol></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="application-level-scope-of-ack-messages--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">ACK messages SHALL represent application-level processing outcomes only.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#application-level-scope-of-ack-messages--s1" title="Link to this statement">s1</a></span></li><li id="application-level-scope-of-ack-messages--s2"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">ACK messages SHALL NOT be used to report the following types of faults:</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#application-level-scope-of-ack-messages--s2" title="Link to this statement">s2</a></span></li><li id="application-level-scope-of-ack-messages--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">An IIS SHALL generate exactly one application-level ACK in response to each successfully received VXU message.</span><span class="s-meta"><a class="s-id" href="#application-level-scope-of-ack-messages--s3" title="Link to this statement">s3</a></span></li><li id="application-level-scope-of-ack-messages--s4"><span class="verb verb-shall">SHALL</span><span class="s-text">ACK messages SHALL summarize the processing outcome of the submitted message, not intermediate workflow states.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#application-level-scope-of-ack-messages--s4" title="Link to this statement">s4</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../iis-core-intent-and-message-disposition/index.html"><span>Previous</span>3.3.1 IIS Core Intent and Message Disposition</a><a class="next" href="../issue-level-reporting-using-err-segments/index.html"><span>Next</span>3.3.3 Issue-Level Reporting Using ERR Segments</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

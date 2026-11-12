@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.5 Response (RSP) Profiles · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="response-rsp-profiles">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a></nav>
+<header class="card-head"><h1><span class="num">3.5</span> Response (RSP) Profiles</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+
+<div class="narrative"><p>A response is generated after the IIS has received a query containing all patient identifying information known to the querying system, including demographic attributes and available patient identifiers. The IIS applies its internal matching processes to this information in order to identify the patient record-or set of records-that best corresponds to the query.</p>
+<p>The intended outcome of a query is a single, high-confidence match. In many cases, particularly when the querying system also submits vaccination updates to the IIS, the patient record already exists and can be identified quickly using previously established identifiers. These situations allow the IIS to return a complete immunization history, with or without evaluation and forecast, in a single response.</p>
+<p>In other situations, the IIS may be unable to identify a single definitive match. The patient may be new to the IIS, identifying information may be incomplete or inconsistent, or multiple records may meet the matching criteria. Depending on policy and technical capability, an IIS may either stop at this point-indicating that a definitive match cannot be returned-or provide limited identifying information for one or more possible matches so that a querying system can assist in selecting the appropriate record.</p>
+<p>Response profiles define the controlled set of outcomes for these situations. They specify how an IIS conveys a successful match, presents candidate matches, or indicates that a record cannot be returned. By constraining response behavior to a small number of well-defined patterns, RSP profiles enable querying systems to interpret results safely, respect patient privacy, and respond appropriately to both successful and ambiguous matching outcomes.</p></div>
+
+
+
+
+
+<section class="children"><h2>In this section</h2><ol><li><a href="../purpose-and-scope-of-rsp-profiles/index.html"><span class="num">3.5.1</span> Purpose and Scope of RSP Profiles</a> <span class="mini">1 statement</span></li><li><a href="../rsp-response-profiles/index.html"><span class="num">3.5.2</span> RSP Response Profiles</a></li><li><a href="../information-disclosure-constraints/index.html"><span class="num">3.5.3</span> Information Disclosure Constraints</a></li></ol></section>
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../security-and-rate-limiting-considerations/index.html"><span>Previous</span>3.4.7 Security and Rate-Limiting Considerations</a><a class="next" href="../purpose-and-scope-of-rsp-profiles/index.html"><span>Next</span>3.5.1 Purpose and Scope of RSP Profiles</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

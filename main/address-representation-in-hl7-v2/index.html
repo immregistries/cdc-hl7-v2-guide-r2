@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.5.3.1 Address Representation in HL7 v2 · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="address-representation-in-hl7-v2">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../patient-information/index.html">4.5 Patient Information</a> <span>›</span> <a href="../address-handling/index.html">4.5.3 Address Handling</a></nav>
+<header class="card-head"><h1><span class="num">4.5.3.1</span> Address Representation in HL7 v2</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-normative-prose-53ff1f05"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Patient address information is carried in PID-11. HL7 v2 allows multiple address repetitions, each qualified by an address type. IIS must correctly interpret these repetitions rather than relying on positional assumptions that appeared in older guidance.</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-53ff1f05">qf-normative-prose-53ff1f05</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-0460afa5"><span class="sev">Note</span> 6 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3, s4, s5, s6.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-0460afa5">qf-statement-from-paragraph-0460afa5</a></li></ul></details></aside>
+<div class="narrative"><p>Patient address information is carried in PID-11. HL7 v2 allows multiple address repetitions, each qualified by an address type. IIS must correctly interpret these repetitions rather than relying on positional assumptions that appeared in older guidance.</p>
+<p>Addresses associated with contact persons may also appear in NK1 segments. These addresses serve a different purpose and are not a substitute for patient address data.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="address-representation-in-hl7-v2--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">Systems SHALL send patient address information in PID-11.</span><span class="s-meta"><a class="s-id" href="#address-representation-in-hl7-v2--s1" title="Link to this statement">s1</a></span></li><li id="address-representation-in-hl7-v2--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">Systems SHALL use PID-11.7 (Address Type) to identify the type of address.</span><span class="s-meta"><a class="s-id" href="#address-representation-in-hl7-v2--s2" title="Link to this statement">s2</a></span></li><li id="address-representation-in-hl7-v2--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL correctly interpret repeated PID-11 segments.</span><span class="s-meta"><a class="s-id" href="#address-representation-in-hl7-v2--s3" title="Link to this statement">s3</a></span></li><li id="address-representation-in-hl7-v2--s4"><span class="verb verb-may">MAY</span><span class="s-text">IIS MAY choose whether to retain one or multiple patient addresses.</span><span class="s-meta"><a class="s-id" href="#address-representation-in-hl7-v2--s4" title="Link to this statement">s4</a></span></li><li id="address-representation-in-hl7-v2--s5"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">IIS SHALL NOT require &quot;self&quot; NK1 entries duplicating PID-11 content.</span><span class="s-meta"><a class="s-id" href="#address-representation-in-hl7-v2--s5" title="Link to this statement">s5</a></span></li><li id="address-representation-in-hl7-v2--s6"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL accept valid non-U.S. addresses when submitted.</span><span class="s-meta"><a class="s-id" href="#address-representation-in-hl7-v2--s6" title="Link to this statement">s6</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../address-handling/index.html"><span>Previous</span>4.5.3 Address Handling</a><a class="next" href="../congregate-and-institutional-addresses/index.html"><span>Next</span>4.5.3.2 Congregate and Institutional Addresses</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

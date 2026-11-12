@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.4.2.4 OBX-4 Observation Sub-ID · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="obx-4-observation-sub-id">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../loinc-in-observation-segments/index.html">4.4 LOINC in Observation Segments</a> <span>›</span> <a href="../obx-segment-mechanics-and-field-usage/index.html">4.4.2 OBX Segment Mechanics and Field Usage</a></nav>
+<header class="card-head"><h1><span class="num">4.4.2.4</span> OBX-4 Observation Sub-ID</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 warnings</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-verb-in-prose-57892e01"><span class="sev">Warning</span> Narrative uses the conformance verbs SHOULD, SHOULD NOT. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>OBX-4 is used to associate related OBX segments that collectively describe a single logical concept. By default, OBX-4 SHOULD be unique for each OBX segment and SHOULD NOT be reused unless the OBX segments are intended to be interpreted together.</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-57892e01">qf-verb-in-prose-57892e01</a></li><li class="finding sev-warning" id="qf-verb-in-prose-72f591e1"><span class="sev">Warning</span> Narrative uses the conformance verbs SHALL, SHOULD. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>When OBX-4 is used to group observations, the shared value SHALL be unique within the set of OBX segments under a given ORC/RXA and the related OBX segments SHOULD appear sequentially. Systems (including IIS, submitting, and querying systems) SHALL support both grouped and ungrouped OBX-4 usage and…</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-72f591e1">qf-verb-in-prose-72f591e1</a></li></ul></details></aside>
+<div class="narrative"><p>OBX-4 is used to associate related OBX segments that collectively describe a single logical concept. By default, OBX-4 SHOULD be unique for each OBX segment and SHOULD NOT be reused unless the OBX segments are intended to be interpreted together.</p>
+<p>Shared OBX-4 values are used in specific, well-defined situations, including:</p>
+<p>Linking Vaccine Information Statement (VIS) observations that describe a single VIS event</p>
+<p>Grouping related evaluation or recommendation observations that together describe a single evaluation or forecast set</p>
+<p>When OBX-4 is used to group observations, the shared value SHALL be unique within the set of OBX segments under a given ORC/RXA and the related OBX segments SHOULD appear sequentially. Systems (including IIS, submitting, and querying systems) SHALL support both grouped and ungrouped OBX-4 usage and SHALL interpret shared OBX-4 values as indicating in a logical association among those OBX segments within the same ORC/RXA group.</p></div>
+
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../obx-2-value-type/index.html"><span>Previous</span>4.4.2.3 OBX-2 Value Type</a><a class="next" href="../obx-5-observation-value/index.html"><span>Next</span>4.4.2.5 OBX-5 Observation Value</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

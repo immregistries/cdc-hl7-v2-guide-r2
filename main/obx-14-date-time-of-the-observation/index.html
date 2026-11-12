@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.4.2.6 OBX-14 Date/Time of the Observation · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="obx-14-date-time-of-the-observation">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../loinc-in-observation-segments/index.html">4.4 LOINC in Observation Segments</a> <span>›</span> <a href="../obx-segment-mechanics-and-field-usage/index.html">4.4.2 OBX Segment Mechanics and Field Usage</a></nav>
+<header class="card-head"><h1><span class="num">4.4.2.6</span> OBX-14 Date/Time of the Observation</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 warning · 1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-verb-in-prose-bdd72725"><span class="sev">Warning</span> Narrative uses the conformance verb SHALL. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>If the appropriate value is not known, OBX-14 should remain empty; it is an RE field and is not required in every message instance. If the observation date is unknown or cannot be represented accurately, OBX-14 SHALL be omitted.</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-bdd72725">qf-verb-in-prose-bdd72725</a></li><li class="finding sev-note" id="qf-long-card-6acc3778"><span class="sev">Note</span> Narrative is 6 blocks and 401 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-6acc3778">qf-long-card-6acc3778</a></li></ul></details></aside>
+<div class="narrative"><p>HL7 v2.5.1 defines OBX-14 as the physiologically relevant date/time, or the closest approximation to that date/time, for the associated observation. A few basic principles govern how OBX-14 should be populated.</p>
+<p>In general, the OBX-14 date/time should reflect when the observation itself occurred or was recorded. For observations that span multiple days, such as pregnancies or allergies, the onset date/time should be used. For serology-based observations, such as serological immunity, the date/time the blood was drawn should be used.</p>
+<p>General Observation, Indication, and Contraindication observations are associated with related codes for effective and abatement dates. Because the relevant date for these coded observations is carried in a related OBX segment, OBX-14 need not be populated in the primary OBX segment; for example, a Contraindication OBX segment does not need OBX-14 populated so long as it is accompanied by a Contraindication Effective Date OBX segment. Neither onset nor abatement date observations have a relevant date/time of their own, so OBX-14 need not be populated for those either.</p>
+<p>If the appropriate value is not known, OBX-14 should remain empty; it is an RE field and is not required in every message instance. If the observation date is unknown or cannot be represented accurately, OBX-14 SHALL be omitted.</p>
+<p>RXA-3 and OBX-14 will not always carry the same date/time, since the relationship between them depends on the type of observation being reported:</p>
+<ul><li>Patient-level observations, such as Serological Immunity, History of Disease Immunity, and Reaction (when it cannot be attributed to a specific administration event), follow an RXA segment where RXA-3 reflects the date/time the report is being made, that is, when the message is constructed.</li><li>Administration event-level observations, including evaluation-related observations in an RSP message (Eligibility, Funding Source, VIS Related, Reaction when attributable to a specific administration event, Comment, and Evaluation Related), follow an RXA segment where RXA-3 reflects the date/time the vaccine was administered, even if the report is submitted later, such as when an adverse reaction is reported several days after administration.</li><li>Forecast-level observations follow an RXA segment where RXA-3 reflects the date/time the evaluation and forecast were performed, which is typically very close to when the message is constructed.</li><li>RSP messages echo the date/time a submitter sent in the corresponding VXU message.</li></ul></div>
+
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../obx-5-observation-value/index.html"><span>Previous</span>4.4.2.5 OBX-5 Observation Value</a><a class="next" href="../obx-17-observation-method/index.html"><span>Next</span>4.4.2.7 OBX-17 Observation Method</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

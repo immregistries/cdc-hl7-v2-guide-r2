@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.8.4 Submission Timing and Update Frequency · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="submission-timing-and-update-frequency">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a> <span>›</span> <a href="../dates-and-times/index.html">2.8 Dates and Times</a></nav>
+<header class="card-head"><h1><span class="num">2.8.4</span> Submission Timing and Update Frequency</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-statement-from-paragraph-1c84d1a3"><span class="sev">Note</span> 5 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3, s4, s5.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-1c84d1a3">qf-statement-from-paragraph-1c84d1a3</a></li></ul></details></aside>
+<div class="narrative"><p>IIS maintain longitudinal immunization histories and depend on timely but stable submissions. Excessive updates or partial records increase processing burden and reduce data quality, while delayed submissions reduce the usefulness of the IIS record for clinical care and patient access. IIS expect vaccination events to be reported once the event record has been finalized within the submitting system, rather than receiving incremental updates as the record is being completed. This guidance is intended to prevent repeated submissions of the same vaccination event as data fields are progressively filled in, which increases processing burden and complicates deduplication. This guidance does not refer to not administered (NA) or partially administered (PA) dose indicators and does not prohibit legitimate clinical reporting practices.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="submission-timing-and-update-frequency--s1"><span class="verb verb-should">SHOULD</span><span class="s-text">Submitting systems SHOULD transmit administered vaccination records on the same day or within 24 hours of administration.</span><span class="s-meta"><a class="s-id" href="#submission-timing-and-update-frequency--s1" title="Link to this statement">s1</a></span></li><li id="submission-timing-and-update-frequency--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL transmit only vaccination events after the event has been finalized in the source system.</span><span class="s-meta"><a class="s-id" href="#submission-timing-and-update-frequency--s2" title="Link to this statement">s2</a></span></li><li id="submission-timing-and-update-frequency--s3"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">Submitting systems SHALL NOT send partial, in-progress, or repeatedly updated vaccination records for the same event.</span><span class="s-meta"><a class="s-id" href="#submission-timing-and-update-frequency--s3" title="Link to this statement">s3</a></span></li><li id="submission-timing-and-update-frequency--s4"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL support IIS-defined submission timing requirements when such requirements are published.</span><span class="s-meta"><a class="s-id" href="#submission-timing-and-update-frequency--s4" title="Link to this statement">s4</a></span></li><li id="submission-timing-and-update-frequency--s5"><span class="verb verb-should">SHOULD</span><span class="s-text">IIS SHOULD tolerate reasonable short processing delays while encouraging timely, stable submission of finalized vaccination events.</span><span class="s-meta"><a class="s-id" href="#submission-timing-and-update-frequency--s5" title="Link to this statement">s5</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../date-of-vaccination-rxa-3/index.html"><span>Previous</span>2.8.3 Date of Vaccination (RXA-3)</a><a class="next" href="../usage-designations-and-operational-interpretation/index.html"><span>Next</span>2.9 Usage Designations and Operational Interpretation</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

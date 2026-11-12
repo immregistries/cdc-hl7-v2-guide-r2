@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.3.3.1 ERR-2: Error Location · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="err-2-error-location">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../acknowledgement-ack-message-profile/index.html">3.3 Acknowledgement (ACK) Message Profile</a> <span>›</span> <a href="../issue-level-reporting-using-err-segments/index.html">3.3.3 Issue-Level Reporting Using ERR Segments</a></nav>
+<header class="card-head"><h1><span class="num">3.3.3.1</span> ERR-2: Error Location</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 warning</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-verb-in-prose-1798346f"><span class="sev">Warning</span> Narrative uses the conformance verb SHALL. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>ERR-2 identifies the specific location in the message where an issue was identified. When populated, it SHALL indicate a single location for understanding and resolving the issue, using the HL7 v2 ERL data type format rather than commonly used shorthand. For example, the field commonly referred to …</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-1798346f">qf-verb-in-prose-1798346f</a></li></ul></details></aside>
+<div class="narrative"><p>ERR-2 identifies the specific location in the message where an issue was identified. When populated, it SHALL indicate a single location for understanding and resolving the issue, using the HL7 v2 ERL data type format rather than commonly used shorthand. For example, the field commonly referred to as "PID-5" is expressed in ERR-2 as PID^1^5.</p>
+<p>ERR-2 should point to the most helpful location for resolving the issue. For repeating segments, such as multiple RXA or OBX segments, it is especially important to identify which repeat the error applies to. When an issue involves multiple fields, for example, a vaccination date that precedes the patient's date of birth, ERR-2 can reference only one location per segment. In these cases, a single ERR segment may point to the most relevant field, with the conflict explained in ERR-5 or ERR-8, or two ERR segments may be returned, each referencing one of the fields involved. When an issue results from an entire segment being absent, such as a missing OBX, ERR-2 cannot point to the missing segment directly and should instead reference the segment group in which it would have appeared, for example, the associated ORC segment.</p>
+<p>If an issue is not tied to a specific segment or field, such as "Patient not consented" or a message-level confirmation, ERR-2 should be left blank. ERR-2 is an RE field, and it is valid to omit it when there is no specific location to reference.</p>
+<p>Accurate use of ERR-2 enhances the interpretability of ACK messages for technical and clinical users alike, supports efficient troubleshooting, and helps ensure that data quality issues can be precisely identified and resolved.</p></div>
+
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../issue-level-reporting-using-err-segments/index.html"><span>Previous</span>3.3.3 Issue-Level Reporting Using ERR Segments</a><a class="next" href="../err-4-severity-code/index.html"><span>Next</span>3.3.3.2 ERR-4: Severity Code</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

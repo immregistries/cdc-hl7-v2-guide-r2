@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.1.2 Scope · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="scope">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../overview-and-introduction/index.html">1 Overview and Introduction</a> <span>›</span> <a href="../purpose-and-scope/index.html">1.1 Purpose and Scope</a></nav>
+<header class="card-head"><h1><span class="num">1.1.2</span> Scope</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-warning" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 warning · 1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-verb-in-prose-20aad364"><span class="sev">Warning</span> Narrative uses the conformance verbs SHOULD, SHALL NOT. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>Each IIS SHOULD publish a local implementation guide that defines additional jurisdiction-specific requirements. Not all operational details can be defined at the national level, and some decisions must be made locally. These local guides should be concise, differential documents that build on this…</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-20aad364">qf-verb-in-prose-20aad364</a></li><li class="finding sev-note" id="qf-long-card-791a9243"><span class="sev">Note</span> Narrative is 7 blocks and 279 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-791a9243">qf-long-card-791a9243</a></li></ul></details></aside>
+<div class="narrative"><p>This IG defines only the HL7 v2 transactions used for:</p>
+<p>Submitting vaccination events (administered and historical) to build complete immunization histories within an IIS jurisdiction.</p>
+<p>Querying for consolidated immunization histories and vaccine recommendations.</p>
+<p>This guide does not define every HL7 v2 transaction an IIS may use. It excludes Admission/Discharge/Transfer (ADT) messaging, inventory ordering, school or vital records exchange, interstate (IIS-to-IIS) data exchange, transactions specific to the IZ Gateway or other national exchange infrastructure, and federal reporting transactions. ADT and FHIR-based mechanisms are recognized as alternative method of data exchange but are outside the scope of this document. These interactions fall outside the defined scope of IIS update and query workflows.</p>
+<p>This guide does not prescribe IIS architecture, internal workflows, or business rules. Each IIS sets its own policies and operational processes. The IG serves as a technical toolbox that supports, rather than dictates, those decisions.</p>
+<p>Each IIS SHOULD publish a local implementation guide that defines additional jurisdiction-specific requirements. Not all operational details can be defined at the national level, and some decisions must be made locally. These local guides should be concise, differential documents that build on this national IG, adding or tightening requirements where appropriate rather than restating the entire content. To claim conformance with this national guide, local profiles SHALL NOT introduce any requirements that contradict its normative statements.</p>
+<p>Finally, this document represents the collective effort of a broad community-public health professionals, clinicians, system implementers, and standards developers, who have contributed to improving immunization interoperability over more than three decades. Their shared work continues to ensure that accurate, timely, and complete vaccination data help safeguard the health of all people.</p></div>
+
+
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../purpose/index.html"><span>Previous</span>1.1.1 Purpose</a><a class="next" href="../key-objectives/index.html"><span>Next</span>1.2 Key Objectives</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

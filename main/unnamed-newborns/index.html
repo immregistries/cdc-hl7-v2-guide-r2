@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.5.2.7 Unnamed Newborns · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="card-page" data-root="../" data-card="unnamed-newborns">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../contents/index.html">Contents</a>
+    <a href="../quality/index.html">Quality review</a>
+    <a href="../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+    <div class="tree-body"><a href="../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="card" id="card">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../patient-information/index.html">4.5 Patient Information</a> <span>›</span> <a href="../patient-and-other-names/index.html">4.5.2 Patient and Other Names</a></nav>
+<header class="card-head"><h1><span class="num">4.5.2.7</span> Unnamed Newborns</h1>
+<button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
+<aside class="findings sev-note" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">3 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-note" id="qf-compound-statement-97d364d9"><span class="sev">Note</span> <a class="f-loc" href="#unnamed-newborns--s5">Statement s5</a> Statement repeats its conformance verb, so it may hold more than one requirement. Consider splitting it.<a class="f-id" href="../quality/index.html#qf-compound-statement-97d364d9">qf-compound-statement-97d364d9</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-173c4a9d"><span class="sev">Note</span> 6 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3, s4, s5, s6.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-173c4a9d">qf-statement-from-paragraph-173c4a9d</a></li><li class="finding sev-note" id="qf-statements-mid-section-9d955430"><span class="sev">Note</span> In the draft, explanatory text continues after the conformance statements. Cards show statements after the narrative, so check that the order still reads well.<a class="f-id" href="../quality/index.html#qf-statements-mid-section-9d955430">qf-statements-mid-section-9d955430</a></li></ul></details></aside>
+<div class="narrative"><p>Many newborns receive vaccinations before their permanent names are entered into hospital or EHR systems. The problem for IIS is not occasional naming delays, but the widespread practice in some hospitals of never updating placeholder names. These placeholders, such as "Baby Girl Smith" or "Infant Jones", remain indefinitely, leaving the IIS unable to match vaccination records once the child's real name appears elsewhere.</p>
+<p>This guidance defines how to represent those cases in HL7 v2 messaging. It does not prescribe how hospitals or EHRs choose or format placeholder names internally. The goal is that all systems can clearly indicate when a submitted record represents a newborn with a temporary name, using a standard HL7 v2 mechanism.</p>
+<p>Hospitals and submitting organizations should review their workflows to ensure that once a newborn's name is known, that information flows promptly to all connected systems and to the IIS. This ensures that the initial vaccination record, often the first dose of Hepatitis B, is properly linked to the correct child record.</p></div>
+
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="unnamed-newborns--s1"><span class="verb verb-may">MAY</span><span class="s-text">Systems MAY generate a placeholder given name when the newborn&#x27;s permanent name is not yet known.</span><span class="s-meta"><a class="s-id" href="#unnamed-newborns--s1" title="Link to this statement">s1</a></span></li><li id="unnamed-newborns--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">If a placeholder name is used, systems SHALL mark it with the name type code &#x27;NB&#x27; in PID-5.</span><span class="s-meta"><a class="s-id" href="#unnamed-newborns--s2" title="Link to this statement">s2</a></span></li><li id="unnamed-newborns--s3"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">Systems SHALL NOT use the &#x27;L&#x27; name type for placeholder newborn names.</span><span class="s-meta"><a class="s-id" href="#unnamed-newborns--s3" title="Link to this statement">s3</a></span></li><li id="unnamed-newborns--s4"><span class="verb verb-should">SHOULD</span><span class="s-text">Systems SHOULD follow established newborn naming conventions (e.g., those recommended by the Joint Commission or AHIMA) to improve operational consistency when converting internal records for submission.</span><span class="s-meta"><a class="s-id" href="#unnamed-newborns--s4" title="Link to this statement">s4</a></span></li><li id="unnamed-newborns--s5"><span class="verb verb-shall">SHALL</span><span class="s-text">Systems SHALL update the record as soon as the permanent name is known and SHALL resubmit with both the permanent name (&#x27;L&#x27;) and the placeholder name (&#x27;NB&#x27;) in the same PID-5 field.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#unnamed-newborns--s5" title="Link to this statement">s5</a></span></li><li id="unnamed-newborns--s6"><span class="verb verb-may">MAY</span><span class="s-text">Systems MAY continue sending both names temporarily to assist reconciliation.</span><span class="s-meta"><a class="s-id" href="#unnamed-newborns--s6" title="Link to this statement">s6</a></span></li></ol></section>
+
+
+
+
+<nav class="pager" aria-label="Previous and next"><a class="prev" href="../alignment-with-broader-health-standards/index.html"><span>Previous</span>4.5.2.6 Alignment with Broader Health Standards</a><a class="next" href="../special-characters/index.html"><span>Next</span>4.5.2.8 Special Characters</a></nav>
+</article>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of
+  Centers for Disease Control and Prevention and American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-12 14:07 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 9bda90f.
+  <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../assets/nav.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>
