@@ -55,10 +55,26 @@ tabs:
       a constrained set of OBX codes, and use of LOINC 59783-1 to say whether a next dose is due or the series is complete.
     cards:
       - clinical-decision-support
+      - jurisdictional-clinical-policy
+      - risk-based-recommendations
+      - overall-structure-of-cds-in-the-rsp
+      - standard-recommendations-and-series-coverage
+      - intended-use-and-implementation-expectations
       - evaluation
+      - vaccine-type-and-component-identification
+      - dose-validity-and-reason-for-validity
+      - additional-optional-evaluation-information
       - recommendation
       - forecast-group-structure
+      - vaccine-type-and-forecast-initiation
+      - status-in-immunization-series
+      - reasons-for-recommendation
+      - dose-timing-earliest-recommended-overdue-latest
+      - additional-optional-forecast-details
+      - preferred-and-contraindicated-vaccine-types
+      - immunization-event-with-evaluation
       - forecast
+      - z32-return-complete-immunization-history
       - z42-return-evaluated-immunization-history-and-forecast
 
   - id: self-administered-flumist

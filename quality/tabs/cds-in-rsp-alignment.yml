@@ -1,0 +1,359 @@
+# Comparison: TAB "CDS in RSP Alignment" (September 2026) and this guide. Fields: see ack-messaging.yml.
+
+tab: cds-in-rsp-alignment
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  Section 4.7 (Clinical Decision Support) is built on this TAB and follows its structure: evaluations in the vaccination
+  history order groups, one forecast order group last, a forecast for every standard series, and the LOINC requirements of
+  Tables 2 and 3. Three statements contradict the TAB: the guide lets an IIS omit dose validity (the TAB and IGAMT require
+  it), recommends sending the legacy "Vaccines due next" LOINC (the TAB says SHOULD NOT, and IGAMT does not allow it), and
+  forbids the component vaccine type LOINC only as the first forecast OBX (the TAB says SHALL NOT return it at all). The
+  guide also leaves out the TAB's status concepts (SHALL support Complete and On schedule, SHOULD support Overdue and Too
+  old), the requirement that forecast CVX codes be unique, the Table 4 answer codes, and the documentation of local status
+  codes.
+
+items:
+  # ---------------------------------------------------------------- scope and CDS requirements
+  - id: tab-cds-01
+    section: Scope (footnote 1); RSP Example
+    page: 2, 9
+    verb: MAY, SHALL
+    tab: >-
+      Evaluation and forecast information MAY be returned in a Z32 and SHALL be returned in a Z42. If it is returned in a
+      Z32, these specifications apply.
+    result: partial
+    guide: [z42-return-evaluated-immunization-history-and-forecast, z32-return-complete-immunization-history, clinical-decision-support]
+    note: >-
+      The Z42 section says the response includes evaluation and forecast results, but no statement requires them, and
+      nothing says a Z32 may carry them or that section 4.7 then applies. The IGAMT Z32 profile does allow a forecast group.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Add to 4.7: "A Z42 response SHALL include evaluation and forecast information. A Z32 response MAY include it; when it
+      does, the requirements of this section apply."
+
+  - id: tab-cds-02
+    section: "Clarifications and Conformance Expectations: CDS requirements"
+    page: 4
+    verb: SHALL, MAY
+    tab: >-
+      The RSP SHALL include evaluation and forecast results for standard (routine, age-based) recommendations, and MAY
+      include them for risk recommendations.
+    result: covered
+    guide:
+      - jurisdictional-clinical-policy--s1
+      - standard-recommendations-and-series-coverage--s1
+      - standard-recommendations-and-series-coverage--s2
+      - risk-based-recommendations--s1
+      - risk-based-recommendations--s2
+    note: The guide adds shared clinical decision making (SCDM) recommendations as a MAY; the TAB puts them out of scope.
+
+  # ---------------------------------------------------------------- organization
+  - id: tab-cds-03
+    section: "Organization requirements: Vaccination history/evaluation"
+    page: 4
+    verb: SHALL
+    tab: >-
+      The vaccination history section SHALL include all complete vaccinations on the IIS consolidated record, without
+      filtering or exclusion, including those with no evaluation (for example, Japanese encephalitis).
+    result: covered
+    guide: [overall-structure-of-cds-in-the-rsp--s3, overall-structure-of-cds-in-the-rsp--s1]
+
+  - id: tab-cds-04
+    section: "Organization requirements: Vaccination history/evaluation"
+    page: 4
+    verb: SHALL
+    tab: >-
+      Each order group SHALL have zero or more evaluations, one for every vaccine group evaluated. All vaccinations that may
+      complete a standard series SHALL have evaluation observations. Combination vaccinations evaluated in more than one
+      vaccine group SHALL have a separate set of observations for each vaccine group.
+    result: prose
+    guide:
+      - standard-recommendations-and-series-coverage--s1
+      - vaccine-type-and-component-identification
+      - immunization-event-with-evaluation
+    note: >-
+      The first two are covered by 4.7.5 s1. The combination-vaccine rule is described (Pediarix as three evaluated groups)
+      but is not a conformance statement.
+    owner: narrative
+    recommendation: Add to 4.7.7.2 "A combination vaccination evaluated for more than one vaccine group SHALL have a separate evaluated group for each."
+
+  - id: tab-cds-05
+    section: "Organization requirements: Non-CDS Order Groups; Forecast"
+    page: 5
+    verb: SHALL, SHOULD
+    tab: >-
+      Non-CDS order groups (refusals, contraindications, adverse reactions, history of disease, immunities) SHALL follow the
+      vaccination history. A forecast SHALL be included for all vaccines that may complete a standard series. All forecasts
+      SHOULD appear after the immunization history and after other order groups.
+    result: reworded
+    guide:
+      - overall-structure-of-cds-in-the-rsp--s2
+      - forecast-group-structure--s3
+      - "overall-structure-of-cds-in-the-rsp#fig-30"
+    note: >-
+      The guide makes the position of the forecast group a SHALL (the TAB says SHOULD), and states the order of the
+      non-CDS groups only in narrative and figure 30.
+    severity: note
+    owner: decision
+    recommendation: Confirm that the guide means to raise the forecast position from SHOULD to SHALL.
+
+  # ---------------------------------------------------------------- evaluation (Table 2)
+  - id: tab-cds-06
+    section: Evaluation observations
+    page: 5
+    verb: SHALL
+    tab: >-
+      Evaluation information SHALL be communicated with OBX segments using the LOINC codes in Table 2, and the observations
+      SHALL be linked by an identical value in OBX-4.
+    result: prose
+    guide: [obx-4-observation-sub-id, immunization-event-with-evaluation, evaluation]
+    note: >-
+      For forecasts, OBX-4 linking is a statement (4.7.8.1 s2). For evaluations, the guide says only that shared OBX-4
+      values group "related evaluation or recommendation observations" (4.4.2.4), with no SHALL.
+    owner: narrative
+    recommendation: >-
+      Add to 4.7.7: "The OBX segments of each evaluated group SHALL share an OBX-4 value."
+
+  - id: tab-cds-07
+    section: "Table 2: 30956-7 Vaccine type; 38890-0 Component vaccine type"
+    page: 5
+    verb: SHALL, SHOULD NOT
+    tab: >-
+      30956-7 SHALL be returned first, before all other evaluation OBX segments, with a CVX in OBX-5. 38890-0 SHOULD NOT be
+      returned (it is being deprecated in favor of 30956-7; IIS using it should plan a transition).
+    result: covered
+    guide:
+      - evaluation-future-work--s1
+      - evaluation-future-work--s2
+      - evaluation-future-work--s3
+      - evaluation-future-work--s4
+      - vaccine-type-and-component-identification
+    note: >-
+      Covered, but these four statements sit under the second "Future work" heading (4.7.7.3) instead of 4.7.7.2, Vaccine
+      Type and Component Identification, where they belong. Likewise the first "Future work" (4.7.7.1) holds two
+      evaluation statements. Each "Future work" sub-heading in the Word draft has captured the statements of the section
+      before or after it.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Move the statements to 4.7.7.2 and 4.7.7.4 (or make "Future work" a paragraph rather than a heading), and keep a
+      single "Future work" section.
+
+  - id: tab-cds-08
+    section: "Table 2: 59781-5 Dose validity"
+    page: 5
+    verb: SHALL, SHOULD
+    tab: >-
+      Dose validity SHALL be returned, SHOULD come right after 30956-7 and before the other evaluation OBX segments, and
+      SHALL be 'Y' if valid and 'N' if not. Only doses that are valid and count toward the final series are 'Y'; extraneous
+      doses (CDSi) are 'N'.
+    result: conflict
+    guide:
+      - dose-validity-and-reason-for-validity--s3
+      - future-work--s2
+      - dose-validity-and-reason-for-validity--s2
+    note: >-
+      The guide says "If dose validity cannot be determined or is unavailable at query time, the dose-validity OBX ... SHALL
+      be omitted" (stated twice, in 4.7.7.4 s3 and in 4.7.7.1 "Future work" s2). The TAB requires dose validity for every
+      evaluation, and so does IGAMT (59781-5 is R in the Z42 evaluation group). The Y/N rule matches; the order after the
+      vaccine type is in narrative only.
+    severity: issue
+    owner: decision
+    recommendation: >-
+      Remove the omission rule (both copies), or take it to SISC as a change to the TAB and to IGAMT. Move the two statements
+      in "Future work" (4.7.7.1) to the sections they belong to; that card is otherwise about future guidance.
+
+  - id: tab-cds-09
+    section: "Table 2: 30982-3 Reason for validity; optional observations"
+    page: 5-6
+    verb: SHOULD, SHALL, MAY
+    tab: >-
+      Reason for validity SHOULD be returned when the dose is 'N', and SHALL repeat in additional OBX segments for multiple
+      reasons. Series name, total doses in series, dose number, and schedule used MAY be returned.
+    result: covered
+    guide:
+      - dose-validity-and-reason-for-validity--s4
+      - dose-validity-and-reason-for-validity--s5
+      - additional-optional-evaluation-information--s1
+      - additional-optional-evaluation-information--s2
+      - additional-optional-evaluation-information--s3
+      - additional-optional-evaluation-information--s4
+
+  # ---------------------------------------------------------------- forecast (Table 3)
+  - id: tab-cds-10
+    section: Forecast observations
+    page: 6
+    verb: SHALL
+    tab: >-
+      The forecast order group SHALL be a single ORC/RXA pair where RXA-3 is the date of the forecast, RXA-5.1 is '998', and
+      RXA-20 is 'NA'. The OBX types SHALL be repeated for every age-based recommendation, and linked by an identical OBX-4.
+    result: partial
+    guide:
+      - forecast-group-structure--s1
+      - forecast-group-structure--s2
+      - forecast-group-structure--s3
+      - overview-of-loinc-and-obx-usage-in-immunization-messaging
+    note: >-
+      Single group, one forecast per series, and OBX-4 linking are statements. The ORC/RXA values are described only for
+      patient-level groups in general (4.4.1), which says RXA-3 "can be populated with the current date but does not convey
+      clinical timing". The TAB requires RXA-3 to be the date of the forecast.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Add to 4.7.8.1 the TAB's rule for the forecast ORC/RXA: RXA-3 the forecast date, RXA-5.1 '998', RXA-20 'NA'.
+
+  - id: tab-cds-11
+    section: "Table 3: 30956-7 Vaccine type"
+    page: 6
+    verb: SHALL
+    tab: >-
+      30956-7 SHALL be returned first, before all other associated OBX, with a CVX in OBX-5; the CVX returned SHALL be unique
+      for all forecasts.
+    result: partial
+    guide: [vaccine-type-and-forecast-initiation--s1, vaccine-type-and-forecast-initiation--s4]
+    note: The guide does not say that each forecast's vaccine type CVX must be unique within the forecast group.
+    severity: warning
+    owner: narrative
+    recommendation: Add "The CVX in the vaccine type OBX SHALL be unique among the forecasts in the forecast order group."
+
+  - id: tab-cds-12
+    section: "Table 3: 30979-9 Vaccines due next"
+    page: 6
+    verb: SHOULD NOT
+    tab: 30979-9 (Vaccines due next) SHOULD NOT be returned.
+    result: conflict
+    guide: [vaccine-type-and-forecast-initiation--s3, vaccine-type-and-forecast-initiation]
+    note: >-
+      The guide says "If needed to support legacy systems, IIS SHOULD include the legacy LOINC 30979-9 (Vaccines Due Next)
+      after LOINC 30956-7", the opposite of the TAB. IGAMT agrees with the TAB: 30979-9 is not in the Z42 forecast
+      co-constraints, so a message that includes it does not conform.
+    severity: issue
+    owner: narrative
+    recommendation: Replace s3 with "IIS SHOULD NOT return LOINC 30979-9 (Vaccines Due Next)."
+
+  - id: tab-cds-13
+    section: "Table 3: 38890-0 Component vaccine type"
+    page: 6
+    verb: SHALL NOT
+    tab: 38890-0 (Component vaccine type) SHALL NOT be returned in the forecast.
+    result: partial
+    guide: [vaccine-type-and-forecast-initiation--s2]
+    note: >-
+      The guide only forbids using 38890-0 "to initiate a forecast", which reads as allowing it later in the forecast group.
+      The TAB forbids it anywhere in the forecast, as does IGAMT (not in the forecast co-constraints).
+    severity: warning
+    owner: narrative
+    recommendation: '"LOINC 38890-0 (Component Vaccine Type) SHALL NOT be returned in the forecast order group."'
+
+  - id: tab-cds-14
+    section: "Table 3: 59783-1 Status in the immunization series"
+    page: 6-7
+    verb: SHALL, SHOULD, MAY
+    tab: >-
+      59783-1 SHALL be returned, SHOULD come right after 30956-7 and before the other forecast OBX; OBX-5 SHOULD use LOINC
+      answer codes, MAY use equivalent local codes, and MAY use both.
+    result: covered
+    guide:
+      - status-in-immunization-series--s1
+      - status-in-immunization-series--s3
+      - status-in-immunization-series--s4
+    note: The guide leaves out the position (SHOULD follow the vaccine type), and adds that the LOINC code SHOULD come before a local code (s5).
+
+  - id: tab-cds-15
+    section: Status in immunization series (concepts)
+    page: 8
+    verb: SHALL, SHOULD, MAY
+    tab: >-
+      IIS SHALL support the concepts Complete and On schedule, SHOULD support Overdue and Too old, and MAY support others.
+    result: partial
+    guide: [status-in-immunization-series--s2, status-in-immunization-series]
+    note: >-
+      The guide requires only that the status distinguish "complete" from "another dose due". It does not require On
+      schedule as such, and does not mention Overdue or Too old as SHOULD.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      State the TAB's concept levels: SHALL Complete and On schedule; SHOULD Overdue and Too old; MAY others.
+
+  - id: tab-cds-16
+    section: Status in immunization series (local codes); Table 4
+    page: 8-9
+    verb: SHALL
+    tab: >-
+      IIS returning local codes SHALL document them in a Local Implementation Guide. Table 4 lists the LOINC answer codes:
+      LA13421-5 Complete and LA13422-3 On schedule (R, SHALL), LA13423-1 Overdue and LA13424-9 Too old (P, SHOULD),
+      LA27183-5 Immune, LA4216-3 Contraindicated, and LA4695-8 Not recommended (P, MAY).
+    result: missing
+    guide: [status-in-immunization-series]
+    note: >-
+      Neither the documentation requirement nor Table 4 is in the narrative; the guide points to the chapter 7 co-constraint
+      table for the answer codes. The codes are in an IGAMT value set, but without the TAB's usage (R or P) for each.
+    severity: warning
+    owner: narrative
+    recommendation: Add the local-code documentation SHALL to 4.7.8.3, and Table 4 (or a link to the value set with each code's usage).
+
+  - id: tab-cds-17
+    section: "Table 3: reasons, dates, and optional observations"
+    page: 7
+    verb: SHALL, MAY
+    tab: >-
+      Reason for recommendation MAY be returned, more than once. Earliest and recommended dates SHALL be returned when
+      59783-1 says another dose should be given (On schedule or Overdue); overdue and latest dates MAY be. Schedule used,
+      series name, total doses, and dose number MAY be returned.
+    result: covered
+    guide:
+      - reasons-for-recommendation--s1
+      - reasons-for-recommendation--s2
+      - dose-timing-earliest-recommended-overdue-latest--s1
+      - dose-timing-earliest-recommended-overdue-latest--s2
+      - dose-timing-earliest-recommended-overdue-latest--s3
+      - dose-timing-earliest-recommended-overdue-latest--s4
+      - additional-optional-forecast-details
+    note: >-
+      The guide says "when another dose is indicated" without naming the statuses (On schedule, Overdue) that mean another
+      dose is indicated, and makes multiple reasons a SHALL (separate OBX each).
+
+  - id: tab-cds-18
+    section: "Table 3: 93123-8 Preferred and 93122-0 Contraindicated vaccine type"
+    page: 7
+    verb: MAY, SHOULD NOT
+    tab: >-
+      Preferred vaccine type MAY be valued and repeated, and SHOULD NOT name a specific vaccination when any would do.
+      Contraindicated vaccine type MAY be valued and repeated.
+    result: covered
+    guide:
+      - preferred-and-contraindicated-vaccine-types--s1
+      - preferred-and-contraindicated-vaccine-types--s2
+    note: The guide adds a SHALL for CVX in OBX-5 (s3) and a SHOULD for consistency with the CDS logic and the Local IG (s4).
+
+  # ---------------------------------------------------------------- context
+  - id: tab-cds-19
+    section: Implications of Adopting This Guidance; Future considerations
+    page: 3
+    tab: >-
+      Meeting the SHALLs gives essential clinical support and readiness for AIRA's Measurement and Improvement (M&I) CDS
+      testing; the SHOULDs position IIS for future expansion. Some MAYs are expected to become SHOULDs (invalid dose reason,
+      dose numbering, validity codes, reasons for recommendations, status categories).
+    result: covered
+    guide: [intended-use-and-implementation-expectations, future-work, evaluation-future-work, recommendation]
+    note: >-
+      The guide refers to "interoperability measurement programs" without naming M&I. Its "Future work" text appears twice
+      (4.7.7.1 and 4.7.7.3), with the second copy covering forecasts as well as evaluations.
+
+  - id: tab-cds-20
+    section: RSP Example
+    page: 9-12
+    tab: >-
+      A Z32/Z42 example with a yellow fever dose returned without evaluation, a Twinrix dose evaluated for HepA and HepB, an
+      invalid HepA dose with a reason, and a forecast group with complete and on-schedule forecasts.
+    result: partial
+    guide: [z42-return-evaluated-immunization-history-and-forecast]
+    note: >-
+      The guide has a "History and Forecast" example, but not the TAB's teaching points (a vaccination with no evaluation,
+      a combination vaccine evaluated twice, an invalid dose with its reason). The TAB's own example uses 59778-3 for Latest
+      date, where its Table 3 (and the guide) has 59777-3; that is an error in the TAB, not the guide.
+    severity: note
+    owner: narrative
+    recommendation: Add the TAB's example (with 59777-3) to appendix A and link it from 4.7.
