@@ -1,0 +1,160 @@
+# Comparison: TAB "Messaging Phone and Email; Telecommunication Use Code and Equipment Type Values" (April 2024)
+# and this guide. Fields: see ack-messaging.yml.
+
+tab: phone-and-email
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  Section 4.5.4 (Phone and Email) follows this TAB: PRN and NET required, PH and CP for phones, other use codes optional
+  and ignorable, an empty first repetition when there is only an email, and the advice to treat phone numbers as cellular.
+  The differences: the guide says guardian contact goes in NK1-5, where the TAB says PID-13 may hold a guardian's contact
+  for a minor; it states the first-repetition rule for PID-13 only, not NK1-5 or QPD-9; and it leaves out the TAB's SHOULD
+  NOT for fax and internet equipment types. In IGAMT, ASN is not allowed although the TAB allows it, and QPD-9 cannot
+  repeat, so the TAB's email in a later QPD-9 repetition cannot be sent.
+
+items:
+  - id: tab-pe-01
+    section: Executive Summary; PID-13 Field Definition (Table 2)
+    page: 1, 3
+    verb: shall
+    tab: >-
+      The primary phone number, if known, shall be in the first repetition of PID-13, QPD-9, or NK1-5, with a use code from
+      HL70201 and an equipment type from HL70202. Each type of telecommunication shall be in its own repetition; if the
+      primary number is not sent, the first repetition is empty.
+    result: partial
+    guide: [general-principles--s2, general-principles--s3, general-principles--s4, general-principles]
+    note: >-
+      The guide's statements cover PID-13 only (s2: "The first repetition of PID-13 SHALL represent the primary contact
+      number"). The narrative mentions NK1-5; QPD-9 is not mentioned anywhere in 4.5.4.
+    severity: warning
+    owner: narrative
+    recommendation: Make s2 and s4 apply to PID-13, NK1-5, and QPD-9.
+
+  - id: tab-pe-02
+    section: PID-13 Field Definition (Table 2, clarification)
+    page: 3
+    tab: >-
+      PID-13 is intended to support contact with the patient, and may hold the contact information of the patient or the
+      patient's guardian; for a minor, the guardian's contact information should be here, and may also be in NK1-5.
+    result: conflict
+    guide: [general-principles--s1, general-principles--s5, phone-and-email]
+    note: >-
+      The guide says "Systems SHALL send patient contact information in PID-13 and guardian or next-of-kin contact
+      information in NK1-5", which reads as keeping a guardian's number out of PID-13. Its narrative (a newborn's number
+      may belong to a parent) and s5 agree with the TAB, so the statement is the problem.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Reword s1: "PID-13 SHALL carry the contact information used to reach the patient, which for a minor may be a
+      guardian's. Next-of-kin and guardian contact information SHALL be sent in NK1-5."
+
+  - id: tab-pe-03
+    section: Executive Summary; PID-13 Field Definition
+    page: 1
+    verb: shall
+    tab: >-
+      An email address, if known, shall be in a later repetition of PID-13, QPD-9, or NK1-5 with use code NET; no equipment
+      type is needed.
+    result: covered
+    guide: [telecommunication-use-codes-hl70201--s2, general-principles--s3, general-principles--s4]
+    note: >-
+      The guide does not say that no equipment type is needed for an email, or which XTN components carry the email (XTN-4)
+      and the phone number (XTN-6, XTN-7); IGAMT's XTN_IZ01 predicates do.
+
+  - id: tab-pe-04
+    section: QPD-9 compared with IGAMT
+    page: 1
+    tab: The email goes in a later repetition of QPD-9 (as for PID-13 and NK1-5).
+    result: conflict
+    guide: [general-principles]
+    note: >-
+      In IGAMT, QPD-9 (Patient Home Phone) is 0..1 in the Z34 and Z44 queries, so a query cannot carry a phone number and an
+      email. The TAB's rule cannot be followed for QPD-9 as profiled.
+    severity: warning
+    owner: decision
+    recommendation: >-
+      Decide whether QPD-9 should repeat (an IGAMT change) or whether a query carries only the primary phone, and say so in
+      4.5.4.
+
+  - id: tab-pe-05
+    section: Telecommunication Use Code (HL70201) Value Set (Table 3)
+    page: 3-4
+    verb: SHALL, MAY
+    tab: >-
+      PRN (R) SHALL be used for the primary phone number, landline or cellular. NET (R) SHALL be used for an email. ORN,
+      PRS, WPN, VHN, ASN, EMR, and BPN (P) MAY be used; IIS may ignore them and should continue to process the message.
+    result: covered
+    guide:
+      - telecommunication-use-codes-hl70201--s1
+      - telecommunication-use-codes-hl70201--s2
+      - telecommunication-use-codes-hl70201--s3
+      - telecommunication-use-codes-hl70201--s4
+      - telecommunication-use-codes-hl70201--s5
+
+  - id: tab-pe-06
+    section: Table 3 compared with the IGAMT value set
+    page: 3-4
+    tab: ASN (answering service number) is P, MAY be used.
+    result: conflict
+    guide: [telecommunication-use-codes-hl70201--s3]
+    note: >-
+      HL70201_IZ01 marks ASN as E (not allowed), so a message using it does not conform, although the TAB and the guide
+      (s3) allow it. The other codes match.
+    severity: warning
+    owner: igamt
+    recommendation: Change ASN to P in HL70201_IZ01.
+
+  - id: tab-pe-07
+    section: Telecommunication Equipment Type (HL70202) Value Set (Table 4)
+    page: 4
+    verb: SHALL, SHOULD NOT
+    tab: >-
+      PH (R) SHALL be used for a phone number, landline or cellular; CP (R) SHALL be used for a cellular phone. Internet,
+      X.400, and FX (P) SHOULD NOT be used, and IIS SHALL ignore them if sent.
+    result: partial
+    guide:
+      - telecommunication-equipment-type-codes-hl70202--s1
+      - telecommunication-equipment-type-codes-hl70202--s2
+      - telecommunication-equipment-type-codes-hl70202--s3
+    note: >-
+      PH and CP, and the IIS ignoring other types, are covered. The SHOULD NOT for senders (Internet, X.400, fax) is not.
+      IGAMT also lists TDD, TTY, MD, and BP as E, which the TAB does not mention; with s3 ("IIS SHALL ignore other equipment
+      types"), the guide treats as ignorable what the profile treats as an error.
+    severity: note
+    owner: narrative
+    recommendation: Add "Systems SHOULD NOT send equipment types Internet, X.400, or FX" to 4.5.4.3.
+
+  - id: tab-pe-08
+    section: Implications
+    page: 5
+    tab: >-
+      Phone numbers need not be designated landline or cellular. Systems should not rely on the designation; third-party
+      services can verify numbers and text capability. IIS should assume most numbers are cellular.
+    result: covered
+    guide:
+      - interpretation-and-operational-guidance--s1
+      - interpretation-and-operational-guidance--s2
+      - interpretation-and-operational-guidance--s3
+
+  - id: tab-pe-09
+    section: Examples
+    page: 5
+    tab: >-
+      PID-13 examples: primary phone; phone and email; primary, secondary, and email for a newborn's contact; email only
+      with an empty first repetition.
+    result: missing
+    guide: [general-principles]
+    note: The guide describes these cases but has none of the examples.
+    severity: note
+    owner: narrative
+    recommendation: Add the TAB's four PID-13 examples to 4.5.4.1 or appendix A.
+
+  - id: tab-pe-g01
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide: [general-principles--s5]
+    note: >-
+      "IIS SHALL accept and store contact information for either the patient or guardian, as appropriate." The TAB does not
+      require IIS to store contact information.
+    owner: decision
