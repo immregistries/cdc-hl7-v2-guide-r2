@@ -1,0 +1,319 @@
+                                                                        TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Scenarios for Updates and Queries
+
+Executive Summary
+
+Conformance expectations are provided for systems interfacing with immunization
+information systems (IIS) via VXU and/or QBP messaging.
+
+    • Systems submitting VXU messages to IIS SHALL follow expectations as indicated for
+         VXU message creation for submission to IIS. For example, when immunization(s) are
+         administered during an encounter, submitting systems SHALL trigger a VXU with
+         one vaccination if reporting each vaccination individually or SHALL trigger a VXU
+         with all vaccines given during the encounter if reporting the entire encounter at
+         once.
+
+    • Systems sending QBP messages to IIS SHALL follow expectations as indicated for
+         QBP message creation for querying IIS.
+
+Background
+
+The National IG indicates that the trigger for a system to create and send a VXU message to
+another system “may be an update or new record in the sending system” or may be “some
+other event.” Similarly, the description of the precondition for triggering the creation and
+sending of a QBP from one system to another is vague, indicating a QBP is initiated by “a
+user or other actor” requesting that the system send a query request.
+Since the publication of the National IG, the IIS and electronic health record (EHR)
+community have widely adopted a common understanding of what situations require VXU
+and QBP messages to be created and sent. This document aims to document these
+scenarios and conformance expectations.
+
+Scope
+In scope
+
+User and system actions to initiate the process of creating VXU and QBP messages to be
+sent to IIS—i.e., scenarios for systems to trigger VXU and QBP message creation for
+submission/sending to an IIS.
+Out of scope
+
+    • IIS enrollment and/or onboarding processes, which establish authorization and
+         access for HL7-based exchange with IIS
+
+    • Processes to queue and transmit VXU and QBP messages
+    • IIS processing and acknowledgment of/response to VXU and QBP messages
+
+          Research reported in this publication was supported by the National Center for Immunization and Respiratory 1
+
+              Diseases of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-
+              RFA-OT18-1802 Strengthening Public Health Systems and Services Through National Partnerships to
+              Improve and Protect the Nation’s Health. The content is solely the responsibility of the authors and does not
+              necessarily represent the official views of CDC.
+                                              TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                          for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Clarifications and Conformance Expectations
+
+Conformance expectations for systems that submit VXU messages are outlined in the
+section on submitting systems, and conformance expectations for systems that send QBP
+messages are outlined in the querying systems section.
+
+Submitting systems
+Submission/acknowledgment messaging supports the submission of immunization
+information to IIS. Systems supporting submission/acknowledgment messaging with IIS
+SHALL follow conformance expectations for triggering VXU messages to be sent to an IIS
+per Table 1. These scenarios describe events in the submitting system, with corresponding
+conformance expectations.
+
+Table 1. Submitting system conformance for triggering VXU messages
+
+Scenario                                  Conformance Expectation
+
+New vaccination event/encounter occurred
+
+Vaccination event(s) recorded in the      SHALL support one but SHALL NOT support
+medical record, with immunization(s)      both:
+administered during an encounter.
+                                              • SHALL trigger a VXU with one
+Evidence of immunity is recorded.                  vaccination if reporting each vaccination
+                                                   individually.
+
+                                              • SHALL trigger a VXU with all vaccines
+                                                   given during an encounter if reporting
+                                                   entire vaccination encounter.
+
+                                          MAY trigger a VXU message. MAY be sent in a
+                                          VXU message with other vaccination
+                                          information. SHALL coordinate with IIS to
+                                          confirm IIS support.
+
+Adverse reaction is recorded.             MAY trigger a VXU message. MAY be sent in a
+                                          VXU message with other vaccination
+                                          information. SHALL coordinate with IIS to
+                                          confirm IIS support.
+
+Contraindication is recorded.             MAY trigger a VXU message. MAY be sent in a
+                                          VXU message with other vaccination
+                                          information. SHALL coordinate with IIS to
+                                          confirm IIS support.
+
+Refusal or exemption is recorded.         MAY trigger a VXU message. MAY be sent in a
+                                          VXU message with other vaccination
+                                          information. SHALL coordinate with IIS to
+                                          confirm IIS support.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory 2
+
+Diseases of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-
+RFA-OT18-1802 Strengthening Public Health Systems and Services Through National Partnerships to
+Improve and Protect the Nation’s Health. The content is solely the responsibility of the authors and does not
+necessarily represent the official views of CDC.
+                                            TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                        for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Scenario                                Conformance Expectation
+
+Vaccination is anticipated to be administered in the future
+
+Patient is anticipated to receive a     SHALL NOT trigger a VXU.
+
+vaccination—e.g., an order for
+
+vaccination is recorded.
+
+Historical vaccination given elsewhere recorded
+
+Vaccination is transcribed from a       SHOULD trigger a VXU.
+
+historical record.
+
+Previously submitted vaccination event is modified
+
+Vaccination record is modified with     SHALL trigger a VXU delete (where RXA-21 is D),
+
+changes to one or more identifying      followed by a VXU add (where RXA-21 is A) with
+
+vaccination record fields.*             the updated information.
+
+Vaccination record is modified with     SHALL trigger a VXU update (where RXA-21 is
+
+changes to only non-identifying         U) with the updated information.
+
+vaccination record fields.*
+
+Vaccination record is viewed/opened SHALL NOT trigger a VXU.
+
+without changes to identifying or non-
+
+identifying vaccination record fields.
+
+Vaccination record is deleted.          SHALL trigger a VXU delete with same
+
+                                        information that was sent in the previous add
+
+                                        or update, except RXA-21 shall be D.
+
+Vaccination record not originally       SHALL NOT trigger a VXU. SHALL contact IIS
+
+reported by the submitting              directly to request record cleanup.
+
+organization is deleted.
+
+Patient demographic record is created/modified
+
+New patient record is created.          MAY trigger a VXU. SHALL coordinate with IIS
+                                        on acceptance and processing of VXUs with no
+Existing patient demographic record is  immunization information.
+modified.                               MAY trigger a VXU. SHALL coordinate with IIS
+Legal name is recorded for the first    on acceptance and processing of VXUs with no
+time for a newborn.                     immunization information.
+Legal name is modified.                 SHALL trigger a VXU containing patient’s
+                                        complete vaccination history.
+Qualifying event occurred               MAY trigger a VXU. SHALL coordinate with IIS
+                                        on acceptance and processing of VXUs with no
+                                        immunization information.
+
+System is submitting immunization       MAY trigger a VXU containing patient’s
+
+information to the IIS for the first time. complete vaccination history. SHALL coordinate
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory 3
+
+Diseases of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-
+RFA-OT18-1802 Strengthening Public Health Systems and Services Through National Partnerships to
+Improve and Protect the Nation’s Health. The content is solely the responsibility of the authors and does not
+necessarily represent the official views of CDC.
+                                    TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Scenario                        Conformance Expectation
+
+                                with IIS when submitting system information
+
+                                for the first time.
+
+*See Appendix. Identifying Vaccination Record Fields
+
+Querying systems
+Query/response messaging supports the retrieval of vaccination history and
+recommendations from IIS. Systems supporting query/response messaging with IIS SHALL
+follow conformance expectations for triggering QBP messages to be sent to an IIS per Table
+2. The scenarios describe events in the querying system, with corresponding conformance
+expectations.
+
+Table 2. Querying system conformance for triggering QBP messages
+
+Scenario                        Expected Conformance
+User-initiated
+                                SHALL trigger a QBP. SHALL allow user to initiate a
+User requests patient           manual query to the IIS for a single selected patient
+immunization record.            record as often as requested.
+
+User requests patient           MAY trigger a QBP after reporting vaccinations to the IIS.
+immunization record after
+reporting immunization          SHALL trigger a QBP. SHALL allow patient/guardian to
+information to the IIS.         query for a patient record a limited number of times per
+Patient/guardian requests       day. SHALL coordinate with IIS to define this limit. SHALL
+immunization record as part     have controls to prevent over-querying. SHOULD allow
+of patient portal/consumer      for re-query after too many matches found or no
+access.                         matches found.
+
+System-initiated
+
+System-initiated query, either  SHALL allow system to query for a patient record a
+per patient or bulk patients.   limited number of times per day. SHALL coordinate with
+                                IIS to define this limit. SHALL have controls to prevent
+System-initiated, per patient   over-querying.
+Patient schedules
+appointment.                    MAY trigger a QBP.
+
+Patient has appointment         MAY trigger a QBP.
+soon, either same day or next
+day.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory 4
+
+Diseases of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-
+RFA-OT18-1802 Strengthening Public Health Systems and Services Through National Partnerships to
+Improve and Protect the Nation’s Health. The content is solely the responsibility of the authors and does not
+necessarily represent the official views of CDC.
+                                     TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                 for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Scenario                         Expected Conformance
+Patient encounter begins.        MAY trigger a QBP.
+
+Patient encounter is             MAY trigger a QBP.
+complete.
+                                 MAY trigger a series of single queries to request and
+System-initiated, bulk patients  retrieve all patient records. SHALL coordinate with IIS
+Query for all patients in        before querying.
+sending system.                  MAY trigger a series of single queries to request and
+                                 retrieve a set of patient records. SHALL coordinate with
+Query for a limited cohort of    IIS before querying.
+patients in sending system.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory 5
+
+Diseases of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-
+RFA-OT18-1802 Strengthening Public Health Systems and Services Through National Partnerships to
+Improve and Protect the Nation’s Health. The content is solely the responsibility of the authors and does not
+necessarily represent the official views of CDC.
+                                              TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                          for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Appendix. Identifying Vaccination Record Fields
+
+IIS rely on certain identifying fields to uniquely identify the vaccination event and support
+deduplication processes. Per the conformance expectations in Table 1, if the vaccination
+record is modified with changes to:
+
+• Identifying field(s), submitting systems SHALL trigger a VXU delete (where RXA-21 is
+    D), followed by a VXU add (where RXA-21 is A) with the updated information
+
+• Only non-identifying field(s), submitting systems SHALL trigger a VXU update (where
+    RXA-21 is U) with the updated information
+
+Identifying fields are listed in Table 3, and non-identifying fields are listed in Table 4.
+
+Table 3. Identifying vaccination record fields in HL7 VXU messages
+
+Vaccination Record Fields                 HL7 Location
+Date of administration                    RXA-3
+
+Admin code                                RXA-5
+Vaccination event record type             RXA-9
+(administered/historical)
+Administered at location                  RXA-11.4
+
+Table 4. Non-identifying vaccination record fields in HL7 VXU messages
+
+Vaccination Record Fields                 HL7 Location
+Vaccine dose volume                       RXA-6
+
+Vaccine lot number                        RXA-15
+Vaccine expiration date                   RXA-16
+Vaccine manufacturer name                 RXA-17
+Vaccine route of administration           RXR-1
+Vaccine site of administration            RXR-2
+Vaccine information statement             OBX (LOINC 69764-9 in OBX-3)
+Vaccine information statement given date  OBX (LOINC 29769-7 in OBX-3)
+Vaccine funding source                    OBX (LOINC 30963-3 in OBX-3)
+Dose level eligibility                    OBX (LOINC 64994-7 in OBX-3)
+
+For further insights on Technical Advisory Bulletins, please refer to TAB Overview
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory 6
+
+Diseases of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-
+RFA-OT18-1802 Strengthening Public Health Systems and Services Through National Partnerships to
+Improve and Protect the Nation’s Health. The content is solely the responsibility of the authors and does not
+necessarily represent the official views of CDC.
+

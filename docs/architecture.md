@@ -133,3 +133,18 @@ base.
 
 Problems an example inherits from its base are reported once, on the base. Message-level and
 group-level conformance statements are not evaluated yet.
+
+## Technical Advisory Bulletins
+
+TABs are published community specifications that this guide is meant to fold in. The PDFs are kept in `tabs/` (they are
+public, unlike the other inputs) and listed in `data/tabs.yml` with the guide sections they affect. Each TAB is compared
+with the guide requirement by requirement in `quality/tabs/<id>.yml` (covered, in narrative only, reworded, partly covered,
+missing, conflict, or added by the guide). `tools/tab_review.py` checks that every reference to a section, statement, or
+figure exists, turns results that need attention into quality findings, and builds the **TAB Comparison** pages (below the
+line in the contents, one menu item per TAB). Sections a TAB affects link to it, and section 6.2 lists every TAB.
+
+## National ERR-5 code set
+
+`tools/import_err5.py` imports AIRA's National Set of ERR-5 Application Error Codes (xlsx, kept local) into
+`data/err5-codes.yml`. `tools/site_err5.py` publishes it as Appendix D, with each code's implementation priority, and marks
+which codes the IGAMT value set HL70533_IZ01 has.

@@ -1,0 +1,220 @@
+                                                                                TECHNICAL ADVISORY BULLETIN | April 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Additional “Unknown” Race and
+Ethnicity Codes
+
+Executive Summary
+
+An extension of the CDCREC value set is indicated, with additional codes to represent
+unknown race and/or ethnicity:
+
+    • UNK – Unknown
+    • ASKU – Asked but unknown
+    • PHC1175 – Refused to answer
+Submitting systems MAY submit these codes in a VXU to represent an unknown race and/or
+an unknown ethnicity, as appropriate. Receiving systems SHOULD process these codes and
+MAY translate to another value representing a similar concept for storage/saving.
+Additionally, receiving systems SHALL process VXU messages with or without valid race
+and/or ethnicity codes, unless prohibited by law or policy.
+
+Background
+
+Per the National IG, an unknown/undetermined patient race or ethnic group may be
+indicated by leaving the PID-10 or PID-22 field blank, respectively. The CDCREC value set,
+from which the patient race and ethnic group codes are sourced, does not include code(s)
+to indicate the concept of an “unknown” value.
+Some immunization information systems (IIS) have extended the value set to include
+additional code(s) to represent an unknown value. Codes representing the concept of an
+“unknown” or null value are found in the Fast Healthcare Interoperability Resources (FHIR)
+NullFlavor Value Set and the Public Health Information Network Vocabulary Access and
+Distribution System (PHIN VADS) Race Category including Null Flavor Value Set.
+This TAB aims to provide interim guidance on the use of additional codes that represent an
+unknown race and/or ethnic group in immunization messaging. This information may be
+superseded as new national guidance from the CDC, HL7 International, and/or the ONC is
+introduced, as this is an area under active discussion.
+
+Scope
+
+In scope
+Extension of the CDCREC value set to include additional codes to represent unknown race
+and unknown ethnic group. Conformance expectations for submission and processing of
+the additional “unknown” codes.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 1
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                TECHNICAL ADVISORY BULLETIN | April 2024
+
+                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Out of scope
+Conformance expectations for receiving systems to save/store the additional unknown
+codes or to return these codes in response to a query message.
+
+Clarifications and Conformance Expectations
+
+The additional codes representing unknown race and ethnicity and corresponding
+conformance expectations are provided in Tables 1 and 2 below, respectively. Clarification
+is also provided on processing a vaccination update (VXU) message when an invalid (i.e.,
+not recognized) code is submitted.
+
+Additional “unknown” race codes
+Table 1 indicates three additional codes to represent unknown race. In a VXU message,
+patient race is reported in PID-10, with PID-10.1 indicating the code, PID-10.2 indicating the
+human-readable text associated with the code, and PID-10.3 indicating the value set
+identifier. The value set identifier for the codes in Table 1 SHALL be “CDCREC.”
+
+Table 1. Additional “unknown” race codes: usage and conformance expectations
+
+Usage Code  Description Submitting System                     Receiving System
+                                 Conformance                  Conformance
+
+P  UNK      Unknown • MAY submit                              • SHOULD process
+
+                                                              • MAY translate to an
+
+                                                              empty value
+
+P  ASKU     Asked but • MAY submit                            • SHOULD process
+
+            unknown • SHALL NOT submit • MAY translate to UNK
+
+                    both ASKU and                             (“unknown”) or to an
+
+                    PHC1175 to a                              empty value
+
+                    receiving system
+
+P  PHC1175 Refused to • MAY submit                            • SHOULD process
+
+            answer  • SHALL NOT submit • MAY translate to UNK
+
+                    both ASKU and                             (“unknown”) or to an
+
+                    PHC1175 to a                              empty value
+
+                    receiving system
+
+Systems MAY adjust the code labels in so far as they do not alter the definition. (For
+
+example, a system may label PHC1175 as “prefer not to say.”)
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 2
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                TECHNICAL ADVISORY BULLETIN | April 2024
+
+                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Additional “unknown” ethnic group codes
+Table 2 indicates three additional codes to represent unknown ethnic group. In a VXU
+message, patient ethnic group is reported in PID-22, with PID-22.1 indicating the code, PID-
+22.2 indicating the human-readable text associated with the code, and PID-22.3 indicating
+the value set identifier. The value set identifier for the codes in Table 2 SHALL be “CDCREC.”
+
+Table 2. Additional “unknown” ethnic group codes: usage and conformance
+expectations
+
+Usage Code  Description Submitting System                     Receiving System
+                                 Conformance                  Conformance
+
+P  UNK      Unknown • MAY submit                              • SHOULD process
+
+                                                              • MAY translate to an
+
+                                                              empty value
+
+P  ASKU     Asked but • MAY submit                            • SHOULD process
+
+            unknown • SHALL NOT submit • MAY translate to UNK
+
+                    both ASKU and                             (“unknown”) or to an
+
+                    PHC1175 to a                              empty value
+
+                    receiving system
+
+P  PHC1175 Refused to • MAY submit                            • SHOULD process
+
+            answer  • SHALL NOT submit • MAY translate to UNK
+
+                    both ASKU and                             (“unknown”) or to an
+
+                    PHC1175 to a                              empty value
+
+                    receiving system
+
+Systems MAY adjust the code labels in so far as they do not alter the definition. (For
+
+example, a system may label PHC1175 as “prefer not to say.”)
+
+Processing a VXU with an unknown patient race and/or ethnic group
+HL7 v2 processing rules indicate that, if the value in a field is invalid (i.e., unknown to the
+receiving system), the receiving system SHALL raise an error but SHALL continue to process
+the message as if the field were not valued. Except where prohibited by law or policy:
+
+   • Receiving systems SHALL process VXU messages with or without valid race and
+       ethnicity codes. For example, if a receiving system does not recognize the code
+       submitted, the system SHALL continue to process the message as if the field were
+       not valued.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 3
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                                TECHNICAL ADVISORY BULLETIN | April 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Examples
+ASKU code for patient race
+
+A VXU for a patient who was asked to indicate their race but did not give any information
+(new code in bold):
+
+MSH|^~\&|Test EHR Application|X68||NIST Test Iz Reg|20120701082240-0500|
+     |VXU^V04^VXU_V04|NIST-IZ-001.00|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS
+
+PID|1||D26376273^^^NIST MPI^MR||Snow^Madelynn^Ainsley^^^^L|Lam^Morgan^^^^^M
+     |20070706|F||ASKU^asked but unknown^CDCREC
+     |32 Prescott Street
+     Ave^^Warwick^MA^02452^USA^L||^PRN^PH^^^657^5558563||||||||
+     |2186-5^non Hispanic or Latino^CDCREC
+
+PD1|||||||||||02^Reminder/Recall - any method^HL70215|||||A|20120701|20120701
+NK1|1|Lam^Morgan^^^^^L|MTH^Mother^HL70063
+
+     |32 Prescott Street Ave^^Warwick^MA^02452^USA^L|^PRN^PH^^^657^5558563
+
+UNK code for patient ethnic group
+A VXU for a patient where ethnicity information was never collected and so cannot be
+reported (new code in bold):
+
+MSH|^~\&|Test EHR Application|X68||NIST Test Iz Reg|20120701082240-0500|
+     |VXU^V04^VXU_V04|NIST-IZ-001.00|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS
+
+PID|1||D26376273^^^NIST MPI^MR||Snow^Madelynn^Ainsley^^^^L|Lam^Morgan^^^^^M
+     |20070706|F||2076-8^Native Hawaiian or Other Pacific Islander^CDCREC
+     |32 Prescott Street
+     Ave^^Warwick^MA^02452^USA^L||^PRN^PH^^^657^5558563||||||||
+     |UNK^Unknown^CDCREC
+
+PD1|||||||||||02^Reminder/Recall - any method^HL70215|||||A|20120701|20120701
+NK1|1|Lam^Morgan^^^^^L|MTH^Mother^HL70063
+|32 Prescott Street Ave^^Warwick^MA^02452^USA^L|^PRN^PH^^^657^5558563
+
+For further insights on Technical Advisory Bulletins, please refer to TAB Overview
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 4
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+

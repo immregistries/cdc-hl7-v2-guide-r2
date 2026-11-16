@@ -259,6 +259,49 @@ def broken_links(site: Path) -> list[str]:
     return sorted(bad)[:20]
 
 
+class TabReviewTest(unittest.TestCase):
+    """data/tabs.yml and quality/tabs/: every guide reference exists, and results that need attention become findings."""
+
+    def test_committed_comparisons(self):
+        import tab_review
+        by_id = {c.id: c for c in walk(load_tree(CARDS_DIR))}
+        data = tab_review.load(REPO, by_id)
+        for t in data["tabs"]:
+            self.assertTrue((REPO / t["file"]).exists(), t["file"])
+        found = tab_review.findings(data)
+        self.assertTrue(found)
+        self.assertTrue(all(f["card"] in by_id and f["category"] == "tab" for f in found))
+        self.assertEqual(len({f["id"] for f in found}), len(found))
+
+    def test_unknown_reference_fails(self):
+        import tab_review
+        by_id = {c.id: c for c in walk(load_tree(CARDS_DIR))}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "data").mkdir()
+            (root / "quality" / "tabs").mkdir(parents=True)
+            (root / "data" / "tabs.yml").write_text(yaml.safe_dump({"tabs": [
+                {"id": "t", "title": "T", "url": "u", "file": "t.pdf", "cards": []}]}), encoding="utf-8")
+            (root / "quality" / "tabs" / "t.yml").write_text(yaml.safe_dump({"items": [
+                {"id": "x", "result": "missing", "guide": ["err-5-application-error-code--s99"]}]}), encoding="utf-8")
+            with self.assertRaises(SystemExit):
+                tab_review.load(root, by_id)
+
+
+class Err5Test(unittest.TestCase):
+    def test_published_dates_and_data(self):
+        import import_err5
+        import site_err5
+        self.assertEqual(import_err5.published(43031), "2017-10-23")
+        self.assertEqual(import_err5.published("Proposed"), "Proposed")
+        data = site_err5.load(REPO)
+        if data:
+            codes = [c["code"] for c in data["codes"]]
+            self.assertEqual(len(codes), len(set(codes)))
+            self.assertTrue(all(site_err5._range_of(c, data["ranges"]) for c in codes))
+            self.assertTrue(all(c["priority"] in ("High", "Medium", "Low", "N/A") for c in data["codes"]))
+
+
 class SiteTest(unittest.TestCase):
     def test_minimd(self):
         import minimd

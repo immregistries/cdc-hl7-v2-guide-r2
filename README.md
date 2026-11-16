@@ -43,7 +43,8 @@ See [docs/architecture.md](docs/architecture.md) and the
 | `cards/` | The narrative as a tree of cards; [`cards/INDEX.md`](cards/INDEX.md) is the table of contents |
 | `examples/` | The example messages, one file per example, matched to sections; generated from CDC's list and the drafted samples |
 | `model/` | The IGAMT conformance export, normalized (profiles, segments, data types, value sets, constraints, co-constraints); generated, never edited |
-| `data/` | Key terms, glossary, references, and change history |
+| `data/` | Key terms, glossary, references, change history, the TAB list (`tabs.yml`), and the national ERR-5 codes (`err5-codes.yml`, imported) |
+| `tabs/` | The published Technical Advisory Bulletins (PDF), with extracted text; compared with the guide in `quality/tabs/` |
 | `quality/` | Quality-check settings, reviewer findings (including the narrative/IGAMT review), and decisions on findings |
 | `site/` | Theme and web assets (joint CDC/AIRA presentation) |
 | `tools/` | Conversion, checks, the site builder, and (to come) the document builder |
@@ -61,6 +62,7 @@ pip install -r requirements.txt
 python tools/convert_narrative.py
 python tools/import_igamt.py
 python tools/import_examples.py
+python tools/import_err5.py          # national ERR-5 code set (xlsx from AIRA)
 
 # Anyone: run the quality checks on the committed cards
 python tools/check_cards.py          # writes output/quality/report.md

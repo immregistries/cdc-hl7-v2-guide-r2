@@ -31,6 +31,8 @@ import site_structure  # noqa: E402
 import site_examples  # noqa: E402
 import site_about  # noqa: E402
 import filter_terms  # noqa: E402
+import tab_review  # noqa: E402
+import site_err5  # noqa: E402
 from structure_index import FIELD_RE, Model  # noqa: E402
 from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
 
@@ -60,6 +62,7 @@ RULE_HELP = {
     "long-statement": "Very long statements.",
     "manual": "Found by a reviewer.",
     **site_igamt.RULE_HELP,
+    **tab_review.RULE_HELP,
 }
 
 
@@ -173,7 +176,9 @@ def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
         evidence = ""
         if "text" in ev and not (loc and loc in anchors):
             evidence = f"<blockquote>{esc(ev['text'])}</blockquote>"
-        if any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
+        if ev.get("tab_id"):
+            evidence += tab_review.evidence_html(ev) + f'<p class="mini"><a href="{root}tabs/{esc(ev["tab_id"])}/index.html#{esc(ev["item"])}">See the TAB comparison</a></p>'
+        elif any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
             evidence += site_igamt.evidence_html(ev)
         disp = ""
         if i.get("disposition"):
@@ -354,6 +359,10 @@ def build(out: Path) -> dict:
         {"i": "glossary", "t": "Glossary and Abbreviations", "n": "B", "p": "glossary/index.html", "f": [0, 0, 0]},
         {"i": "resources", "t": "Resources", "n": "C", "p": "resources/index.html", "f": [0, 0, 0]},
     ]
+    err5 = site_err5.load(REPO)
+    if err5:
+        extra.append({"i": "err5-codes", "t": "National ERR-5 Application Error Codes", "n": "D", "p": "err5-codes/index.html",
+                      "f": [0, 0, 0], "k": ["ERR-5", "HL70533", "error code", "application error"]})
     # below the line: about the draft and the review tools (not part of the guide)
     meta = [
         {"i": "about", "t": "How this guide works", "n": "", "p": "about/index.html", "f": [0, 0, 0]},
@@ -364,10 +373,19 @@ def build(out: Path) -> dict:
         cmp_f = [f for f in findings if f["category"] in ("igamt", "igamt-export")]
         meta.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
                      "f": [sum(f["severity"] == s for f in cmp_f) for s in ("issue", "warning", "note")]})
-    page_anchors = {"quality": "quality/index.html", "quality-igamt": "quality/igamt/index.html",
+    tab_data = tab_review.load(REPO, by_id)
+    tab_nav, tab_anchors = tab_review.build_pages(
+        out, REPO, tab_data, by_id,
+        lambda path, title, body, anchor, root: write_text(path, shell(root=root, title=title, body=body, guide=guide, build=build_info,
+                                                                       card_id=anchor, review={"anchor": anchor, "title": title})))
+    tab_f = [f for f in findings if f["category"] == "tab"]
+    meta.append({"i": "tabs", "t": "TAB Comparison", "n": "", "p": "tabs/index.html",
+                 "f": [sum(f["severity"] == s for f in tab_f) for s in ("issue", "warning", "note")], "c": tab_nav})
+    page_anchors = {"quality": "quality/index.html", "quality-igamt": "quality/igamt/index.html", **tab_anchors,
                     "glossary": "glossary/index.html", "resources": "resources/index.html", "examples": "examples/index.html",
                     **structure_anchors}
     page_anchors["about"] = "about/index.html"
+    page_anchors["err5-codes"] = "err5-codes/index.html"
     nav = {"nodes": [node(r) for r in roots], "extra": extra, "meta": meta, "anchors": page_anchors}
     write_text(out / "assets" / "nav.js", "window.GUIDE_NAV=" + json.dumps(nav, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
@@ -435,6 +453,8 @@ def build(out: Path) -> dict:
 {figures_html(c, root)}
 {tables_html(c)}
 {refs_html}
+{site_err5.card_panel(c.id, err5, root)}
+{tab_review.card_panel(c.id, tab_data, root)}
 {children_html}
 {terms_html(card_terms.get(c.id, []))}
 {pager}
@@ -522,7 +542,9 @@ sections and conformance statements, the generated message structure, example me
                 extra_ev = "<p class='mini'>" + esc("; ".join(f"{k} ({v})" for k, v in ev["actors"].items())) + "</p>"
             elif "text" in ev:
                 extra_ev = f"<blockquote>{esc(ev['text'])}</blockquote>"
-            if any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
+            if ev.get("tab_id"):
+                extra_ev += tab_review.evidence_html(ev) + f'<p class="mini"><a href="../tabs/{esc(ev["tab_id"])}/index.html#{esc(ev["item"])}">See the TAB comparison</a></p>'
+            elif any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
                 extra_ev += site_igamt.evidence_html(ev)
             if not where and (f.get("location") or "").startswith("model:"):
                 where = f'<code class="mini">{esc(f["location"][6:])}</code> '
@@ -539,6 +561,8 @@ for duplication across sections will be added in a later build.</p>
 <p class="callout"><a href="igamt/index.html"><strong>Narrative and IGAMT structure comparison</strong></a>: does the text
 match the conformance profiles? Answers to the Word review comments, conflicts, change requests for IGAMT, and decisions for CDC.
 <a href="findings.csv">Download all findings (CSV)</a>.</p>
+<p class="callout"><a href="../tabs/index.html"><strong>TAB Comparison</strong></a>: does the guide fold in each published
+Technical Advisory Bulletin, without missing or contradicting anything? Requirement by requirement, one page per TAB.</p>
 <p class="stats">{len(findings)} findings: {sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes.</p>
 <table class="rules"><thead><tr><th>Check</th><th>What it looks for</th><th>Count</th></tr></thead><tbody>{rows}</tbody></table>
 {''.join(sections)}</article>"""
@@ -596,6 +620,11 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
                "<article class='page'><h1><span class='num'>A</span> Example Messages</h1><p class='empty'>No examples yet.</p></article>")
     write_text(out / "examples" / "index.html", shell(root="../", title="Example Messages", guide=guide, build=build_info, body=ex_body,
                                                        review={"anchor": "examples", "title": "Example Messages"}))
+    if err5:
+        write_text(out / "err5-codes" / "index.html",
+                   shell(root="../", title="National ERR-5 Application Error Codes", guide=guide, build=build_info, card_id="err5-codes",
+                         body=site_err5.page(err5, "../", by_id),
+                         review={"anchor": "err5-codes", "title": "National ERR-5 Application Error Codes"}))
 
     (out / ".nojekyll").write_text("", encoding="utf-8")
     return {"cards": len(cards), "findings": len(findings), "out": out}

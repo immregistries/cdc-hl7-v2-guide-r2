@@ -1,0 +1,230 @@
+                                                                               TECHNICAL ADVISORY BULLETIN | APRIL 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Messaging Phone and Email;
+Telecommunication Use Code and
+Equipment Type Values
+
+Executive Summary
+
+Specifications for the representation of patient and next-of-kin phone numbers and email
+addresses in VXU and QBP messages are provided.
+
+    • The patient's primary phone number, if known, shall be submitted in the first
+         sequence of the PID-13, QPD-9, or NK1-5 with a telecommunication use code from
+         HL70201 and a telecommunication equipment type code from HL70202.
+
+    • An email address, if known, shall be submitted in a subsequent sequence in PID-13,
+         QPD-9, or NK1-5 using the telecommunication use code 'NET' (network email
+         address) from HL70201 (no telecommunication equipment type code is needed for
+         an email address).
+
+    • The telecommunication use code values ‘PRN’ and ‘NET’ from HL70201 shall be
+         supported.
+
+    • The telecommunication equipment type values ‘PH’ and ‘CP’ from HL70202 shall be
+         supported.
+
+Additional detail on the PID-13 field definition, telecommunication use code value set, and
+telecommunication equipment type value set is also provided.
+
+Background
+
+Patient and next-of-kin phone and email information may be messaged in the following
+fields, using the Extended Telephone Number (XTN) data type:
+
+    • PID-13 (Phone Number – Home)
+    • QPD-9 (Patient home phone/PID-13: Patient home phone), and
+    • NK1-5 (Phone Number)
+There is a lack of clarity around how patient and next-of-kin phone types (landline, cellular
+phone) and email addresses should be messaged using the XTN data type. Usage of values
+within Telecommunication Use Code (HL70201) Value Set and the Telecommunication
+Equipment Type (HL70202) Value Set are not defined in the National IG.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 1
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                          TECHNICAL ADVISORY BULLETIN | APRIL 2024
+
+                                for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Scope
+
+In scope
+Use of the XTN data type in PID-13 and NK1-5 to communicate landlines, cellular phones,
+and email addresses for both patients and next-of-kins.
+
+Out of scope
+The processes and checks that systems may use to collect and/or verify phone numbers
+and/or email addresses.
+
+Clarifications and Conformance Expectations
+
+PID-13 Field Definition
+
+Clarification on the PID-13 definition is provided in Table 2.
+
+Table 2. PID-13 Definition
+
+Element National IG Definition                     Clarification
+
+PID-13  This field contains the patient’s          Intended to support contact
+        personal phone numbers. All personal       with the patient. May represent
+        phone numbers for the patient are          contact information for the
+        sent in the following sequence. The        patient or the patient’s guardian.
+        first sequence is considered the
+        primary number (for backward               E.g., if the patient is a minor, the
+        compatibility). If the primary number is   patient’s guardian’s contact
+        not sent, then a repeat delimiter is sent  information should be provided
+        in the first sequence. Each type of        here, which may also be shared
+        telecommunication shall be in its’ own     in NK1-5.
+        repetition. For example, if a person has
+        a phone number and an email address,
+        they shall each have a repetition.
+
+Telecommunication Use Code (HL70201) Value Set
+
+Usage for values within the HL70202 Value Set are indicated in Table 3, for use in the
+second component of the XTN data type (XTN-2) in fields PID-13, QPD-9, and NK1-5.
+
+Table 3. Telecommunication Use Code (HL70201) Value Set Conformance Expectations
+
+                     Conformance Expectations
+
+Code    Description  Usage Notes
+PRN
+        Primary      R          • SHALL be used to indicate a primary phone
+        residence
+        number                  number, which is a landline or cellular
+
+                                phone.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 2
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                        TECHNICAL ADVISORY BULLETIN | APRIL 2024
+
+                              for the v2.5.1 Implementation Guide for Immunization Messaging
+
+                           Conformance Expectations
+
+Code      Description      Usage Notes
+ORN       Other residence
+          number           P  • MAY be used to represent an additional
+PRS
+NET       Personal            phone number to be used for contact, which
+WPN
+VHN       Network (email)     is a landline or cellular phone.
+ASN       address
+EMR                        P  • MAY be used to represent a phone number,
+BPN
+                              which is a landline or cellular phone.
+
+                           R  • SHALL be used to indicate an email address.
+
+          Work number      P  • MAY be used. It is not normally expected that
+          Vacation home
+          number           P  submitters will send this information or that
+          Answering
+          service number      IIS will store this when sent. However,
+          Emergency
+          number           P  submitters may send it and if IIS receive it,
+          Beeper number
+                              they may ignore this information. If IIS do not
+
+                           P  need this information, they should continue
+
+                              to process the message.
+
+                           P
+
+Telecommunication Equipment Type (HL70202) Value Set
+
+Usage for values in the HL70202 Value Set are indicated in Table 4, for use in the third
+component of the XTN data type (XTN-3) in PID-13, QPD-9, and NK1-5.
+
+Table 4. Telecommunication Equipment Type (HL70202) Value Set Code Conformance
+Expectations
+
+                           Conformance Expectations
+
+Code      Description      Usage Note
+PH        Telephone
+CP                         R  • SHALL be used to indicate a phone number,
+          Cellular
+Internet  phone               which is a landline or cellular phone.
+X.400     Internet
+FX        address          R  • SHALL be used to indicate a phone number
+          X.400 email
+          address             for a cellular phone.
+          Fax
+                           P  • SHOULD NOT be used. IIS SHALL ignore if
+
+                              sent.
+
+                           P
+
+                           P  • SHOULD NOT be used. IIS SHALL ignore if
+
+                              sent.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 3
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                               TECHNICAL ADVISORY BULLETIN | APRIL 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Implications
+
+    • Phone numbers do not need to be designated as a landline or cellular phone.
+    • Systems should not rely on designation of whether a phone number is for a landline
+
+         or a cellular phone within an HL7 message. Third party services may be used to
+         support phone number verification and/or ability of a phone number to receive text
+         messages.
+    • IIS should assume that most phone numbers are for cellular phones, even if only
+         designated as telephone numbers.
+
+Examples
+
+Primary phone for the patient in PID-13:
+
+Primary phone for the patient:
+         |^PRN^PH^^^406^5557896|
+
+Primary phone and email for the patient in PID-13:
+
+Primary phone and email address for the patient:
+                   |^PRN^PH^^^406^5557896~^NET^^Elise.Wong@isp.com|
+
+Primary phone, secondary phone, and email address for a newborn baby in PID-
+13:
+
+Primary phone, secondary phone, and email address for the point of contact for a newborn
+baby in PID-13. This will usually be the same as information sent in NK1:
+
+         |^PRN^CP^^^406^5557896~^ORN^PH^^^406^5554566
+         ~^NET^^Elise.Wong@isp.com|
+
+Patient with no primary phone and an email address in PID-13:
+
+As specified in the National IG, the first repetition of PID-13 must be the primary phone
+number. If there is only an email, send an empty repetition (“~”) where the primary phone
+would otherwise be:
+
+         |~^NET^^Elise.Wong@isp.com|
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 4
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+

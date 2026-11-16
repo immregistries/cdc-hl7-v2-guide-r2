@@ -1,0 +1,133 @@
+                                                                          TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+About Technical Advisory Bulletins
+
+Overview
+
+Technical advisory bulletins are intended to provide additional clarity on national
+specifications to support the interoperability of immunization information between
+systems. These documents build on and further clarify specifications in the HL7 v2.5.1
+Implementation Guide (IG) for Immunization Messaging, Release 1.5 and Addendum,
+October 2018 (National IG).
+Each technical advisory bulletin (TAB) addresses a specific topic related to HL7 v2.5.1
+immunization data exchange. The documents are intended to:
+
+    • Address immediate questions related to the interpretation and implementation of
+         the HL7 v2.5.1 standard
+
+    • Apply the latest HL7 conformance methodology concepts to the National IG
+    • Provide technical specifications to support data exchange in alignment with the HL7
+
+         v2.5.1 standard
+These documents are developed through a community-driven process with review and
+approval by the American Immunization Registry Association (AIRA) Standards and
+Interoperability Steering Committee (SISC). TABs are SISC-approved technical resources,
+and implementers are expected to use them to support consistent implementation of the
+standards as outlined. These specifications address current issues related to the
+interoperability of immunization information.
+The information outlined in TABs will also inform and support the Centers for Disease
+Control and Prevention (CDC) in the development of the next version of the National HL7
+Implementation Guide for Immunization Messaging.
+
+Intended Use
+
+Implementers SHALL use TABs to support the development and maintenance of HL7
+exchange capabilities and interfaces in alignment with national standards. Unless
+otherwise indicated, organizations SHALL use the TAB specifications to support
+implementation as indicated, as soon as feasible, working with exchange partners as
+needed to test and/or confirm changes.
+Select TABs provide specifications to support new, optional functionality/capabilities.
+Organizations MAY choose to support these functionalities/capabilities as required by local
+and/or federal policy/regulation; if they do so, they SHALL implement in alignment with TAB
+specifications.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 1
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                          for the v2.5.1 Implementation Guide for Immunization Messaging
+
+TABs provide the technical specifications to support interoperability of immunization
+information between systems. Policy decisions and regulatory requirements are outside
+the scope of these documents.
+
+Conformance Expectations
+
+Conformance
+Implementers are expected to use TABs to support the implementation of specifications in
+conformance with requirements. Conformance expectations are conveyed using SHALL,
+SHOULD, and MAY verbiage, clarification of usage, and/or technical advisory language.
+Conformance verbs and their definitions are provided in Table 1; these are drawn from HL7
+Version 2 Conformance Methodology, Release 1 (September 2020).
+
+Table 1. Conformance verbs and definitions
+
+Verb                Definition
+
+SHALL               Required to implement. Deviation is not permitted if conformance to
+                    the specification is to be claimed.
+SHOULD              Recommended to implement.
+MAY                 Permissible to implement.
+MAY NOT             Permissible not to implement.
+
+SHOULD NOT          Recommended not to implement.
+SHALL NOT           Required not to implement. Deviation is not permitted if conformance
+                    to the specification is to be claimed.
+
+Value set specifications
+TABs may also provide additional specifications for value sets, specifically the usage of
+coded values within value sets. Usage of coded values within a value set was not addressed
+in the National IG; however, specifying this information is addressed in HL7 Version 2
+Conformance Methodology, Release 1 (September 2020). Specifying usage for values
+defines the scope of the values to be supported, considered for inclusion/exclusion, or
+excluded in a value set definition, as indicated in Table 2.
+
+Table 2. Coded value usage in value sets
+
+Usage Name          Conformance
+
+R        Required   The code SHALL be supported.
+
+P        Permitted  None; to be specified locally.
+
+E        Excluded   The code SHALL NOT be supported.
+
+Clarifying usage of value set values within the National IG supports transparency of current
+
+exchange practices and supports ease of implementation of new exchange capabilities
+
+and/or interfaces.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 2
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                          TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Local implementation guidance
+While these TABs provide clarity on national standards for HL7 exchange, implementers
+SHALL also review local implementation guides for immunization messaging published by
+jurisdictional public health agencies. Local implementation guides further constrain
+national specifications to support interoperability with specific IIS in alignment with
+jurisdictional laws, policies, and programmatic needs.
+
+For More Information
+
+TABs are developed by AIRA in collaboration with the CDC and the AIRA Standards and
+Interoperability Steering Committee. For more information or to get involved in this effort,
+please consider joining SISC and/or reach out to HL7vaxteam@cdc.gov.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 3
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+

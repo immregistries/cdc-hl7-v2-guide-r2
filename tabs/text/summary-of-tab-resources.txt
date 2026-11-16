@@ -1,0 +1,295 @@
+Summary of TAB Resources
+
+TAB Query Response Flexibility
+Clarification on use of the Return a List of Candidates (Z31 RSP) response is provided, with
+indication that a Z31 RSP MAY be returned in response to a Request Evaluated
+Immunization History and Forecast (Z44 QBP) query. With this clarification, a Z31 RSP MAY
+be returned in response to a Z44 QBP and in response to a Request a Complete
+Immunization History (Z34 QBP).
+
+TAB Additional “Unknown” Race and Ethnicity Codes
+An extension of the CDCREC value set is indicated, with additional codes to represent
+unknown race and/or ethnicity:
+
+    • UNK – Unknown
+    • ASKU – Asked but unknown
+    • PHC1175 – Refused to answer
+Submitting systems MAY submit these codes in a VXU to represent an unknown race
+and/or an unknown ethnicity, as appropriate. Receiving systems SHOULD process these
+codes and MAY translate to another value representing a similar concept for
+storage/saving. Additionally, receiving systems SHALL process VXU messages with or
+without valid race and/or ethnicity codes, unless prohibited by law or policy.
+
+TAB System Entry Date/Time (RXA-22) Definition
+A definition of the optional RXA-22 System Entry Date/Time field is provided for when an
+RXA is used to message an administered or historical immunization(s). In these instances,
+RXA-22 is defined as the most recent date/time when the administered or historical
+immunization information was last entered/updated in the submitting system.
+
+TAB Messaging Phone and Email; Telecommunication Use Code and Equipment Type
+Values
+Specifications for the representation of patient and next-of-kin phone numbers and email
+addresses in VXU and QBP messages are provided.
+
+    • The patient's primary phone number, if known, shall be submitted in the first
+         sequence of the PID-13, QPD-9, or NK1-5 with a telecommunication use code from
+         HL70201 and a telecommunication equipment type code from HL70202.
+
+    • An email address, if known, shall be submitted in a subsequent sequence in PID-13,
+         QPD-9, or NK1-5 using the telecommunication use code 'NET' (network email
+
+                                                                                                                              1
+         address) from HL70201 (no telecommunication equipment type code is needed for
+         an email address).
+    • The telecommunication use code values ‘PRN’ and ‘NET’ from HL70201 shall be
+         supported.
+    • The telecommunication equipment type values ‘PH’ and ‘CP’ from HL70202 shall be
+         supported. Additional details on the PID-13 field definition, telecommunication use
+         code value set, and telecommunication equipment type value set is also provided.
+
+TAB Returning IIS Patient Immunization Record Information in a Z32 and Z42 RSP
+This TAB reviews expectations for IIS for return of patient and immunization record
+information in a Z32 and Z42 response message, indicating information that
+shall/should/may/should not/shall not be returned, when a single patient match is found in
+response to a query request. For example, an IIS shall return ‘completed’ immunizations
+but shall not return ‘deleted’ immunizations. Updated Z32 and Z42 RSP specifications are
+provided in alignment with the return expectations.
+
+TAB Messaging Non-patient Person Names in HL7
+Updated specifications for messaging non-patient person names in HL7 v2.5.1 messages
+are provided, building on the IIS community work to update specifications for PID-5, patient
+name field. Non-patient person name fields addressed include:
+
+    • PID-6/QPD-5, Mother’s Maiden Name
+    • NK1-2, Responsible Person Name
+    • ORC-10, Entered By
+    • ORC-12, Ordering Provider
+    • RXA-10, Administering Provider
+
+For these non-patient person names, key specifications are as follows:
+    • Systems SHALL preserve space(s) and hyphen(s) in a person’s name.
+    • Systems SHALL support commonly used special characters in name components by
+         storing as is or, if necessary, downgrading commonly used special characters
+         according to transliterations provided for storage.
+
+In addition, for the NK1-2 responsible person name field:
+    • Submitting systems SHOULD send the most reliable and commonly used
+         responsible person name, preferably the responsible person’s official registry name
+         (name type code ‘L’). Sending systems SHALL populate the name type component
+         (NK1-2.7) to accurately reflect the type of name provided for the person responsible.
+
+                                                                                                                              2
+TAB Submission of Self-Administered FluMist Vaccine to IIS
+FluMist will be available for self- or caregiver-administration for the 2025-2026 influenza
+season. This document details expected specifications for the reporting of these doses
+from the Asembia Specialty Pharmacy Network (ASPN) to IIS, as facilitated by STChealth.
+Specifications are provided to support onboarding and ongoing interface monitoring. A
+summary of key specifications follows with additional detail provided below.
+
+    • The vaccine ship-to-address will inform routing for data submission to the
+         appropriate IIS.
+
+    • IIS will provide identifier values, as needed, including:
+              ▪ MSH-4, MSH-5, MSH-6, and MSH-22
+              ▪ ORC-17, RXA-11
+
+    • Patient-related information
+              ▪ PID-3, Patient identifier to represent an identifier from the ASPN system, with
+                   identifier type ‘MR’ for medical record number
+              ▪ PD1-12, Patient protection indicator to be populated as per jurisdictional
+                   requirements
+
+    • Vaccine-related information
+              ▪ ORC-10, Entered by, will not be populated
+              ▪ RXA-5, Administered code expected to be populated as per jurisdictional
+                   preferences for CVX and/or NDC
+              ▪ RXA-9, Immunization Information Source will be coded as administered (00’)
+              ▪ RXA-10, Administering provider expected to represent the patient, if self-
+                   administered, and the caregiver, if caregiver-administered, with identifier
+                   type ‘MR’
+              ▪ RXA-20, Completion status: only complete (CP’) administrations are expected
+              ▪ RXA-21, Action code expected to be add (‘A’), update (‘U’), or delete (‘D’) as
+                   needed
+              ▪ VIS information is expected to be submitted using three OBX segments
+              ▪ Vaccine funding source and vaccine funding program eligibility are expected
+                   to be submitted as ‘PHC70’ and ‘V01’
+              ▪ Contraindications and adverse reactions to FluMist are not expected
+
+TAB CDS in RSP Alignment (September 2025)
+This technical advisory bulletin (TAB) provides refined guidance for encoding Clinical
+Decision Support (CDS) information within HL7 v2 query response (RSP) messages. Building
+on the original Implementation Guide and LOINC guidance, this document reduces
+variability by establishing a more specific structure and encoding for immunization
+evaluations and forecasts. The key changes IIS and receiving systems should be aware of
+include:
+
+                                                                                                                              3
+    • Standardized grouping of forecast information: All forecast data must now be
+         grouped under a single ORC/RXA order group, eliminating the practice of sending
+         each forecast in separate order groups.
+
+    • Constrained OBX codes for evaluations and forecasts: The guidance
+         standardizes the observation/results (OBX) codes used, reducing variability and
+         aligning with the current practices of most IIS.
+
+    • Use of LOINC 59783-1 answer codes: This critical field or a local equivalent must be
+         used to signal immunization status, clarifying whether the next dose is due or if all
+         necessary doses have been completed.
+
+    • Specific guidance for M&I readiness: Systems should implement these
+         specifications to ensure readiness for AIRA’s Measurement and Improvement (M&I)
+         program testing.
+
+    • Future adjustments expected: While this TAB establishes a consistent baseline,
+         further refinements will be introduced as CDS standards continue to evolve.
+
+These updates are essential for ensuring accurate encoding and reliable reading of
+immunization recommendations.
+
+TAB Patient Name (PID-5) Updates to Support Patient Matching
+Updated specifications for PID-5, patient name, are provided to support improved
+representation of patient names in messaging and improved patient matching between
+systems. Specifications include the usage of coded values within the HL70200 value set,
+clarification on data type specifications by name type code, clarifications on what name
+type codes should be used in different circumstances, and requirements related to
+components within a patient name. Key requirements for patient name include:
+
+    • Systems SHALL support name type code ‘L’, i.e., submitting/querying systems SHALL
+         support population and submission of the ‘L’ name type code in VXU and QBP
+         messages and receiving/responding systems SHALL support recognition of this
+         name type code. Additionally,
+              ▪ Systems SHALL send the closest representation of the patient’s legal name
+                   with name type code ‘L’. I.e., systems SHALL NOT send a name that does not
+                   reflect the patient’s legal name with the name type code ‘L’.
+              ▪ Submitting/querying systems SHOULD send the ‘L’ name type in the first
+                   repetition of PID-5; however, receiving/responding systems SHALL accept this
+                   name in any repetition.
+
+    • Systems SHOULD support name type codes ‘M’, NB’, and ‘N’.
+    • Systems SHALL follow data type specifications for the name code used.
+    • Systems SHALL strive to accurately record and transmit patient name, e.g.:
+
+              ▪ Systems SHALL preserve space(s) and hyphen(s) in a patient’s name.
+              ▪ Systems SHALL support commonly used special characters in name
+
+                   components by storing as is or, if necessary, downgrading commonly used
+                   special characters according to transliterations provided for storage.
+
+                                                                                                                              4
+TAB Acknowledgment (ACK) Messaging: Updated Specifications and Guidance
+This Technical Advisory Bulletin (TAB) clarifies and expands specifications for HL7 v2.5.1
+immunization Acknowledgment (ACK) messaging in response to a submitted Unsolicited
+Vaccination Record Update (VXU) message. Specifically, this TAB addresses key concepts
+and provides definition for terms related to VXU message acceptance and processing by an
+immunization information system (IIS), as relayed in ACK messages, including:
+
+    • Core Intent: At their most fundamental level, IIS provide consolidated patient
+         immunization records, i.e., what shots were received and when for a given patient. A
+         submitted VXU serves to electronically update a patient’s immunization record
+         within an IIS. This TAB provides a baseline definition of core intent to mean whether
+         the submitted patient and their shot history could be associated/recorded in the IIS,
+         which serves as a framing to inform acknowledgment messaging:
+              ▪ Core intent fulfilled: patient and their shot record(s) updated
+              ▪ Core intent not fulfilled: patient and/or their shot record(s) not updated
+
+    • Whether the core intent was fulfilled informs acceptance and rejection of a
+         submitted VXU.
+              ▪ Accept: The IIS received the message; the submitted patient was
+                   associated/recorded and their shot(s), if submitted, were
+                   associated/recorded (core intent fulfilled). The submitted patient and their
+                   shot(s) are in the IIS.
+              ▪ Reject: The IIS received the message; however, the patient was not
+                   associated/recorded and/or one or more submitted shot(s) were not
+                   associated/recorded (core intent not fulfilled), warranting resubmission of a
+                   corrected message.
+
+    • An accepted VXU may be further characterized as successful or qualified successful:
+              ▪ Successful: Core intent fulfilled. No further action is required.
+              ▪ Qualified Successful: Core intent fulfilled; however, issue(s) requiring
+                   correction.
+
+    • A rejected VXU may also be referred to as an ‘unsuccessful’ submission:
+              ▪ Unsuccessful: Core intent not fulfilled; correction and resubmission are
+                   required.
+
+Additionally, the TAB clarifies specifications and guidance for ACKs, with key specifications
+as follows:
+
+    • IIS SHALL return MSA-1 Acknowledgment Code value ‘AE’ to convey VXU message
+         acceptance as a qualified successful transmission, (i.e., the ACK contains one or
+         more severity level ‘W’ error(s) but no severity ‘E’ error(s)).
+
+    • IIS SHALL return ‘AR’ to convey VXU rejection, i.e., unsuccessful processing of a
+         submitted VXU due to one or more severity ‘E’ error(s).
+
+                                                                                                                              5
+TAB Submission of Self-Administered FluMist Vaccine to IIS
+FluMist be available for self- or caregiver-administration for the 2025-2026 influenza
+season. This document details expected specifications for the reporting of these doses
+from the Asembia Specialty Pharmacy Network (ASPN) to IIS, as facilitated by STChealth.
+Specifications are provided to support onboarding and ongoing interface monitoring. A
+summary of key specifications follows with additional detail provided below.
+
+    • The vaccine ship-to-address will inform routing for data submission to the
+         appropriate IIS.
+
+    • IIS will provide identifier values, as needed, including:
+           ▪ MSH-4, MSH-5, MSH-6, and MSH-22
+           ▪ ORC-17, RXA-11
+
+    • Patient-related information
+           ▪ PID-3, Patient identifier to represent an identifier from the ASPN system, with
+                identifier type ‘MR’ for medical record number
+
+    • PD1-12, Patient protection indicator to be populated as per jurisdictional
+         requirements
+
+    • Vaccine-related information
+           ▪ ORC-10, Entered by, will not be populated
+           ▪ RXA-5, Administered code expected to be populated as per jurisdictional
+                preferences for CVX and/or NDC
+           ▪ RXA-9, Immunization Information Source will be coded as administered (00’)
+           ▪ RXA-10, Administering provider expected to represent the patient, if self-
+                administered, and the caregiver, if caregiver-administered, with identifier type
+                ‘MR’
+           ▪ RXA-20, Completion status: only complete (CP’) administrations are expected
+           ▪ RXA-21, Action code expected to be add (‘A’), update (U’), or delete (D’) as
+                needed
+           ▪ VIS information is expected to be submitted using three OBX segments
+           ▪ Vaccine funding source and vaccine funding program eligibility are expected to
+                be submitted as ‘PHC70’ and ‘V01’
+           ▪ Contraindications and adverse reactions to FluMist are not expected
+
+TAB CDS in RSP Alignment (September 2026)
+This technical advisory bulletin (TAB) provides refined guidance for encoding Clinical
+Decision Support (CDS) information within HL7 v2 query response (RSP) messages. Building
+on the original Implementation Guide and LOINC guidance, this document reduces
+variability by establishing a more specific structure and encoding for immunization
+evaluations and forecasts. The key changes IIS and receiving systems should be aware of
+include:
+
+                                                                                                                              6
+    • Standardized grouping of forecast information: All forecast data must now be
+         grouped under a single ORC/RXA order group, eliminating the practice of sending
+         each forecast in separate order groups.
+
+    • Constrained OBX codes for evaluations and forecasts: The guidance
+         standardizes the observation/results (OBX) codes used, reducing variability and
+         aligning with the current practices of most IIS.
+
+    • Use of LOINC 59783-1 answer codes: This critical field or a local equivalent must be
+         used to signal immunization status, clarifying whether the next dose is due or if all
+         necessary doses have been completed.
+
+    • Specific guidance for M&I readiness: Systems should implement these
+         specifications to ensure readiness for AIRA’s Measurement and Improvement (M&I)
+         program testing.
+
+    • Future adjustments expected: While this TAB establishes a consistent baseline,
+         further refinements will be introduced as CDS standards continue to evolve.
+
+These updates are essential for ensuring accurate encoding and reliable reading of
+immunization recommendations.
+
+                                                                                                                              7
+

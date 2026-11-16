@@ -1,0 +1,316 @@
+                                                                       TECHNICAL ADVISORY BULLETIN | September 2026
+
+                                                                                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Submission of Self-Administered
+FluMist Vaccine to IIS
+
+                     Summary of Changes from the July 2025 Baseline Document
+  This document reflected the FluMist self- or caregiver-administered vaccine for the Fall
+  2025/Spring 2026 Northern Hemisphere influenza vaccine season.
+  For FluMist self- or caregiver-administered vaccine for subsequent Northern Hemisphere
+  influenza vaccine seasons, see the summary of changes below:
+
+       • Fall 2026/Spring 2027
+                 o For RXA-5, Administered Code section: Continue to update CVX and NDC
+                     according to this CDC website: https://www.cdc.gov/iis/code-sets/
+                 o For health information systems that exchange immunization data with all 48
+                          contiguous states and the District of Columbia: Ready systems for data
+                          exchange due to expanded access to this vaccine in these jurisdictions.
+
+                                            July 2025 Baseline Document
+ Disclaimer: This baseline was originally created for the Fall 2025/Spring 2026 respiratory season.
+
+Executive Summary
+
+FluMist be available for self- or caregiver-administration for the 2025-2026 influenza
+season. This document details expected specifications for the reporting of these doses
+from the Asembia Specialty Pharmacy Network (ASPN) to IIS, as facilitated by STChealth.
+Specifications are provided to support onboarding and ongoing interface monitoring. A
+summary of key specifications follows with additional detail provided below.
+
+    • The vaccine ship-to-address will inform routing for data submission to the
+         appropriate IIS.
+
+    • IIS will provide identifier values, as needed, including:
+              o MSH-4, MSH-5, MSH-6, and MSH-22
+              o ORC-17, RXA-11
+
+    • Patient-related information
+              o PID-3, Patient identifier to represent an identifier from the ASPN system, with
+                   identifier type ‘MR’ for medical record number
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 1
+
+of the Centers for Disease Control and Prevention under award number 5 NH23IP922665-03-00 under CDC-RFA-IP-24-
+0079 Partnership to Enhance IISs. The content is solely the responsibility of the authors and does not necessarily
+represent the official views of CDC.
+                                                                       TECHNICAL ADVISORY BULLETIN | September 2026
+
+                                                                                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+              o PD1-12, Patient protection indicator to be populated as per jurisdictional
+                   requirements
+
+    • Vaccine-related information
+              o ORC-10, Entered by, will not be populated
+              o RXA-5, Administered code expected to be populated as per jurisdictional
+                   preferences for CVX and/or NDC
+              o RXA-9, Immunization Information Source will be coded as administered (‘00’)
+              o RXA-10, Administering provider expected to represent the patient, if self-
+                   administered, and the caregiver, if caregiver-administered, with identifier
+                   type ‘MR’
+              o RXA-20, Completion status: only complete (‘CP’) administrations are expected
+              o RXA-21, Action code expected to be add (‘A’), update (‘U’), or delete (‘D’) as
+                   needed
+              o VIS information is expected to be submitted using three OBX segments
+              o Vaccine funding source and vaccine funding program eligibility are expected
+                   to be submitted as ‘PHC70’ and ‘V01’
+              o Contraindications and adverse reactions to FluMist are not expected
+
+Background
+
+On September 20, 2024, the Food and Drug Administration approved AstraZeneca’s FluMist
+intranasal vaccine for self- or caregiver-administration, providing an in-home option for
+influenza vaccination among individuals age 2 through 49 years.1 Self- or caregiver
+administered FluMist vaccine is expected to be available in the contiguous United States for
+the 2025-2026 influenza season.
+
+Asembia Specialty Pharmacy Network (ASPN), an online national pharmacy headquartered
+in New Jersey, will facilitate patient vaccine requests, eligibility screening, dispensing,
+delivery, and follow-up for eligible patients. Text messaging between ASPN and the patient
+helps facilitate confirmation of vaccine administration.2
+
+ASPN will work with a contracted reporting service provider, STChealth, to facilitate
+immunization reporting for data submission between the ASPN system and IIS. ASPN and
+STChealth will work with individual IIS on onboarding to support this data exchange.
+
+This document outlines expected key HL7 specifications for the submission of self- or caregiver-
+administered FluMist vaccinations to IIS via STChealth for the 2025-2026 influenza season, in
+
+1 https://www.fda.gov/news-events/press-announcements/fda-approves-nasal-spray-influenza-
+vaccine-self-or-caregiver-administration
+2 See the April 15, 2025, presentation to the Advisory Committee on Immunization Practices
+on FluMist for Self or Caregiver Administration for additional information on expected workflows,
+at https://www.cdc.gov/acip/meetings/presentation-slides-april-15-16-2025.html.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 2
+
+of the Centers for Disease Control and Prevention under award number 5 NH23IP922665-03-00 under CDC-RFA-IP-24-
+0079 Partnership to Enhance IISs. The content is solely the responsibility of the authors and does not necessarily
+represent the official views of CDC.
+                                                                       TECHNICAL ADVISORY BULLETIN | September 2026
+
+                                                                                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+preparation for expected vaccine shipments in fall 2025. This information is intended to inform
+onboarding and ongoing monitoring of the interfaces used to submit these data to IIS.
+
+Scope
+
+In scope
+
+HL7 v2.5.1 messaging specifications to support sharing of information about self-
+administered FluMist between health IT systems and IIS. This includes use of existing code
+sets and VXU submission conventions and information about the expected population of
+key fields to facilitate interoperability of this information between systems.
+
+Out of scope
+
+    • Detail on the expected workflows related to self-administered FluMist, including
+         vaccine requests, eligibility screening, dispensing, delivery, and follow-up for eligible
+         patients.
+
+    • Extension of the HL7 v2.5.1 specifications for immunization submission to include
+         new code values or messaging constructs. Community experience may inform
+         future consensus-based guidelines for using HL7 v2.5.1 to report self- or caregiver-
+         administered vaccines to IIS, including potential for new requirements specific to
+         reporting these immunizations.
+
+Expected Interface Specifications
+
+The following outlines key expected HL7 v2.5.1 interface specifications to be used for
+submission of self- and caregiver-administered FluMist from ASPN to IIS, via STChealth. HL7
+fields not included below will be populated per the HL7 v2.5.1 National Implementation
+Guide for Immunization Messaging, Release 1.5 and Addendum.
+
+MSH Segment
+
+MSH-4, MSH-5, MSH-6, and MSH-22 identifier values are expected to be discussed with IIS
+as part of the onboarding process. Note, these MSH specifications will also be used for QBP
+messaging.
+MSH-3, Sending Application: IMMSLINK
+
+    • Represents the STChealth sending application
+
+MSH-4, Sending Facility: Identifier as assigned by IIS
+MSH-5, Receiving Application: Identifier as assigned by IIS
+MSH-6, Receiving Facility: Identifier as assigned by IIS
+MSH-22, Sending Responsible Organization: Identifier as assigned by IIS
+
+    • Expected to be representative of ASPN
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 3
+
+of the Centers for Disease Control and Prevention under award number 5 NH23IP922665-03-00 under CDC-RFA-IP-24-
+0079 Partnership to Enhance IISs. The content is solely the responsibility of the authors and does not necessarily
+represent the official views of CDC.
+                                                                       TECHNICAL ADVISORY BULLETIN | September 2026
+
+                                                                                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+PID Segment
+
+Represents self/caregiver-provided data.
+
+PID-3, Patient identifier: id^^^authority^MR
+    • Expected to represent a patient identifier from the ASPN system
+
+PID-10, Race: value^text^CDCREC
+    • Populated with 1 of 5 race values or ‘UNK’ for unknown
+
+PID-11, Address: street^^city^state^zip^country^P
+    • Represents vaccine ship-to address, which will inform routing to IIS
+
+PID-13, Phone/Email: ^PRN^PH^^^areacode^localnumber
+    • Phone number is expected to be sent
+
+PID-22, Ethnicity: value^text^CDCREC
+    • Populated with 1 of 2 ethnic group values or ‘UNK’ for unknown
+
+PD1 Segment
+
+PD1-12, Protection indicator
+    • Expected to be populated as per jurisdictional requirements
+
+NK1 Segment
+
+Expected to be submitted for patients who are minors (i.e., patients < 19 years).
+
+ORC Segment
+
+ORC-3, Filler order number: entityidentifier^namespaceid
+    • Expected to be populated with an identifier unique to the ASPN system
+
+ORC-10, Entered by, person
+    • Not expected to be populated
+
+ORC-12, Ordering provider, person:
+id^lastname^firstname^middlename^^^^^assigningauthority^L^^^^NPI
+
+    • Expected to be the pharmacist that confirms patient eligibility, submitted with an
+         NPI identifier
+
+ORC-17, Entering organization: Identifier as assigned by IIS
+
+RXA Segment
+
+RXA-3, Date/Time: yyyymmdd
+    • The date of the self/caregiver-administered dose was administered, as reported by
+         the patient or caregiver
+
+RXA-5, Administered Code:
+
+CVX: 333^Influenza, live, trivalent, intranasal, self/caregiver admin, PF^CVX
+NDC: 66019-0112-51^FLUMIST^NDC
+
+    • Expected to be populated as per jurisdictional preferences for CVX and/or NDC
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 4
+
+of the Centers for Disease Control and Prevention under award number 5 NH23IP922665-03-00 under CDC-RFA-IP-24-
+0079 Partnership to Enhance IISs. The content is solely the responsibility of the authors and does not necessarily
+represent the official views of CDC.
+                                                                       TECHNICAL ADVISORY BULLETIN | September 2026
+
+                                                                                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+    • NDC is expected to represent the unit of sale
+    • For CVX and NDC codes, refer to CDC’s Vaccine Data Codes
+
+RXA-6, Administered Amount: 0.2
+    • Note, a single dose of FluMist is 0.2 mL
+
+RXA-7, Units: mL^mL^UCUM
+RXA-9, Immunization information source: 00^New Record^NIP001
+
+    • Expected to be sent as ‘00’, to represent a new administration
+
+RXA-10, Administering provider:
+id^lastname^firstname^middlename^^^^^assigningauthority^L^^^^MR
+
+    • Expected to represent the patient, if self-administered, and expected to represent
+         the caregiver, if caregiver-administered, with identifier type ‘MR’
+
+    • If the vaccine is self-administered, this is expected to echo information provided in
+         PID-3
+
+RXA-11, Administered-at-location: Identifier as assigned by IIS
+RXA-15, Lot number
+
+    • Expected to be sent
+
+RXA-16, Expiration date: yyyymmdd
+    • Expected to be sent
+
+RXA-17, Manufacturer: MED^MedImmune, Inc. (AstraZeneca)^MVX
+RXA-20, Completion status: CP
+
+    • Only complete administrations are expected to be submitted
+
+RXA-21, Action code
+    • ‘A’ for new administrations; ‘U’ or ‘D’ for updates or deletes as needed.
+
+RXR Segment
+
+Note, FluMist is administered as a spray into each nostril, with approximately one half of
+the contents of the single-dose intranasal sprayer into each nostril.
+RXR-1, Route: C38284^Nasal^NCIT
+
+    • Expected to be sent
+
+RXR-2, Site
+    • Not expected to be populated
+
+OBX Segments
+
+OBXs for VIS Information
+    • Expected to be conveyed via three OBX segments:
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 5
+
+of the Centers for Disease Control and Prevention under award number 5 NH23IP922665-03-00 under CDC-RFA-IP-24-
+0079 Partnership to Enhance IISs. The content is solely the responsibility of the authors and does not necessarily
+represent the official views of CDC.
+                                                                       TECHNICAL ADVISORY BULLETIN | September 2026
+
+                                                                                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+    • An OBX to convey the vaccine type identifier, as indicated by LOINC '30956-7' in
+         OBX-3 and CVX 88 (Influenza, unspecified) in OBX-5
+
+    • An OBX to convey the VIS presentation/delivery date, as indicated by LOINC '29769-
+         7' in OBX-3 and the date in OBX-5
+
+    • An OBX to convey the VIS publication date, as indicated by LOINC '29768-9' and the
+         date in OBX-5
+
+OBXs for Vaccine Funding Source and Vaccine Funding Program Eligibility
+    • Expected values: ‘PHC70’ for vaccine funding source and ‘V01’ for vaccine funding
+         program eligibility
+    • Expected to be conveyed via two OBX segments:
+              o An OBX to convey the vaccine funding source, as indicated with the LOINC
+                   '30963-3' in OBX-3 and ‘PHC70’ in OBX-5
+              o An OBX to convey the vaccine funding program eligibility, as indicated with
+                   LOINC '64994-7' in OBX-3 and ‘V01’ in OBX-5
+
+Other
+    • Contraindications and adverse reactions to FluMist are not expected to be
+         submitted.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 6
+
+of the Centers for Disease Control and Prevention under award number 5 NH23IP922665-03-00 under CDC-RFA-IP-24-
+0079 Partnership to Enhance IISs. The content is solely the responsibility of the authors and does not necessarily
+represent the official views of CDC.
+

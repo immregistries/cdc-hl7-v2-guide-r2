@@ -1,0 +1,634 @@
+                                                                           TECHNICAL ADVISORY BULLETIN | October 2025
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Patient Name (PID-5) Updates to
+Support Patient Matching
+
+Executive Summary
+
+Updated specifications for PID-5, patient name, are provided to support improved
+representation of patient names in messaging and improved patient matching between
+systems. Specifications include the usage of coded values within the HL70200 value set,
+clarification on data type specifications by name type code, clarifications on what name
+type codes should be used in different circumstances, and requirements related to
+components within a patient name.
+
+Key requirements for patient name include:
+
+    • Systems SHALL support name type code ‘L’, i.e., submitting/querying systems SHALL
+         support population and submission of the ‘L’ name type code in VXU and QBP
+         messages and receiving/responding systems SHALL support recognition of this
+         name type code. Additionally,
+              o Systems SHALL send the closest representation of the patient’s legal name
+                   with name type code ‘L’. I.e., systems SHALL NOT send a name that does not
+                   reflect the patient’s legal name with the name type code ‘L’.
+              o Submitting/querying systems SHOULD send the ‘L’ name type in the first
+                   repetition of PID-5; however, receiving/responding systems SHALL accept this
+                   name in any repetition.
+
+    • Systems SHOULD support name type codes ‘M’, NB’, and ‘N’.
+    • Systems SHALL follow data type specifications for the name code used.
+    • Systems SHALL strive to accurately record and transmit patient name, e.g.:
+
+              o Systems SHALL preserve space(s) and hyphen(s) in a patient’s name.
+              o Systems SHALL support commonly used special characters in name
+
+                   components by storing as is or, if necessary, downgrading commonly used
+                   special characters according to transliterations provided for storage.
+
+Background
+
+The PID-5 field identifies the name of a patient in HL7 messaging, with field repetitions to
+indicate different instances of the name of a given patient. According to the National IG,
+Release 1.5 (2018), the first repetition of the PID-5 field in a VXU “shall contain the legal
+name,” indicated by name type code ‘L’. This requirement supports backward compatibility
+to HL7 v2.2. The AIRA Guidance on Messaging Preferred Name of Patient adds to the
+National IG specifications by indicating that a patient’s preferred name be sent with name
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 1
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                           TECHNICAL ADVISORY BULLETIN | October 2025
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+type code ‘N’, which aligns with the HL7 concept of nickname or ‘Nickname/”Call me”
+Name/Street Name’.
+The specifications in this TAB remove the requirement to support backward compatibility.
+In addition, new specifications are added that define usage for additional name type codes,
+specify data type requirements by name type code, provide requirements for the
+messaging of name type codes that SHALL and SHOULD be supported, and indicate
+requirements for name components, such as special characters, hyphens, spaces, and
+length. Included are recommended specifications for messaging temporary newborn
+names using the name type code ‘NB.’ While support for this code is encouraged, it is not
+required.
+These specifications are intended to support accurate representation of patient names in
+HL7 messaging, which in turn supports improved record matching between systems.
+
+Scope
+
+In scope
+
+    • Messaging patient name in HL7 to facilitate record lookup and matching between
+         systems, primarily patient name in submitted VXU messages and patient name in
+         queried QBP messages and, where indicated, return of patient name in RSP
+         messages
+
+    • By extension, requirements for storage of patient name in EHR/health IT systems
+         and, in some cases, requirements for storage of patient names in IIS to support
+         representation of patient name in HL7 messaging as indicated
+
+Out of scope
+
+    • Specific naming policies and protocols for birthing hospitals/facilities for unnamed
+         newborns; however, these facilities are strongly encouraged to implement best
+         practices for distinct identification of unnamed newborns, as discussed in
+         referenced guidance documents1
+
+    • Specific requirements for patient matching algorithms; however, specifications
+         provided should be used to inform these requirements
+
+    • Business rules associated with deduplication and consolidation of patient records,
+         which may influence storage and return of patient name
+
+1 Joint Commission-accredited hospitals and critical access hospitals that provide labor and delivery services are required to
+use distinct methods of identification for newborn patients (Joint Commission, Newborn Identification, 2018). The American
+Health Information Management Association (AHIMA) Naming Policy Framework 2023: Essential Person Demographic Data
+Elements for Electronic Health Information details guidelines and examples for the implementation of distinct newborn
+naming conventions.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 2
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                 TECHNICAL ADVISORY BULLETIN | October 2025
+
+                          for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Clarifications and Conformance Expectations
+
+Name type code (HL70200) Value Set usage for PID-5
+
+System requirements for supporting name type codes in the HL70200 Value Set for
+inclusion in PID-5 follow. In the context of immunization messaging, “support” refers to the
+ability of submitting/querying systems (e.g., EHR systems) to store and send patient names
+with these name type codes in VXU and QBP messages and the ability of
+receiving/responding systems (i.e., IIS) to recognize these name type codes as valid values
+(and not return a severity ‘E’ error due to presence of the code) in submitted messages.
+
+    • Systems SHALL support name type code ‘L’.
+    • Systems SHOULD support name type codes ‘M’, ‘NB’ and ‘N’.
+    • Systems MAY support name type codes ‘A’, ‘B’, ‘C’, ‘T’, ‘REL’, ‘MSK’, ‘NOUSE’, and ‘U’.
+    • The other name type codes in Table 1 SHOULD NOT or SHALL NOT be supported for
+
+         PID-5.
+
+Table 1. Name type code (HL70200) Value Set usage for PID-5
+
+Code   HL7 Definition     Description                    Conformance Expectations
+    L  Official Registry                                 Usage Notes
+       Name               Formal name which
+   M                      corresponds to patient’s          R SHALL support
+   NB  Maiden Name        legal name, as recorded on
+       Newborn Name       official documentation.            P SHOULD support
+    N                     Patient’s previous name            P
+    A  Nickname           before marriage2
+       Assigned Name      Temporary name assigned            P
+       (previous: Alias)  at birth, e.g., “Baby Smith”,      P MAY support
+                          to facilitate record-keeping
+                          before a name is chosen.
+                          Preferred name, i.e. “Call
+                          me” name/street name.
+                          Assigned by an
+                          organization due to not
+                          knowing the patient’s
+                          name or to maintain
+                          anonymity. May be an
+                          “alias” name.
+
+2 The ‘M’ name type code specifically refers to the patient’s previous name before marriage. The broader concept of “previous
+name” is not in the HL70200 value set. However, IIS may choose to map a submitted ‘M’ name to any previous name.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 3
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                   TECHNICAL ADVISORY BULLETIN | October 2025
+
+                            for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Code   HL7 Definition       Description                  Conformance Expectations
+                                                         Usage Notes
+    C  Adopted Name         Acquired by adoption
+    B  Birth Name           Given name at birth that         P
+    T                       may have changed later           P
+  MSK  Indigenous/ Tribal   e.g., Chief Red Cloud
+       Masked               Indicates information            P
+NOUSE                       exists but withheld due to       P
+  REL  No Longer to Be      privacy, security, or other
+    U  Used                 reasons                          P
+       Religious            Not to be used anymore
+  NAV  Unknown              for personal reasons             P
+ TEMP  (previous:           e.g., Sister Mary Francis        P
+  BAD  Unspecified)         Unknown
+       Temporarily                                           P SHOULD NOT
+    D  Unavailable          Not available but expected               support
+       Temporary Name       later
+    F  Bad Name                                              P
+    I  Customary Name       Wrongly used in the past         P
+    K  (previous: Display)  Known as/conventional/the        P
+    P                       one you use. May also be
+       Father’s Name        known as a preferred             E SHALL NOT
+       Licensing Name       name.                            E support
+       Business Name                                         E
+                            Used in professional/
+       Name of              business context                 E
+       Partner/Spouse       For backward compatibility
+
+Data type specifications by name type code
+
+The data type specifications for a patient name vary depending on the name type code.
+
+    • Name type codes ‘L’ and ‘NB’ SHALL have a data type of XPN.
+    • Name type codes ‘M’, ‘N’, ‘A’, and ‘U’ SHALL have a data type of XPN_[Flavor].3
+
+3 The flavor name will be defined in the next version of the National Implementation Guide for Immunization Messaging.
+Note, the flavor name is not necessary for the implementation of these specifications.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 4
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                     TECHNICAL ADVISORY BULLETIN | October 2025
+
+                              for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Refer to Table 2 for specifications for these data types as they relate to the name types.
+
+Table 2. Usage for name components, by name type
+
+Name Type          Data Type  Given (First)  Second/    Family        Type
+(Name Type                    Name           Further
+Code)                         XPN.2          Given      (Last) Name Code
+                                             (Middle)
+                                      R      Name       XPN.1         XPN.7
+                                             XPN.3
+• Official           XPN                                R             R
+    registry                                        RE
+    name (‘L’)      XPN_
+                   [Flavor]   RE                  RE    R when        R
+• Newborn
+    name (‘NB’) 4                                       first/given
+
+• Maiden                                                name is not
+    name (‘M’) 5
+                                                        valued,
+• Nickname
+    (‘N’)
+
+                                                        otherwise RE
+
+Scenarios for submission of name(s) in PID-5
+
+Scenarios for the submission of name types that SHALL and SHOULD be supported for
+immunization messaging are outlined below. See local IIS specifications for requirements
+related to submission of additional name types that may be supported locally.
+
+4 Joint Commission-accredited hospitals and critical access hospitals that provide labor and delivery services are required to
+use distinct methods of identification for newborn patients (Joint Commission, Newborn Identification, 2018). The American
+Health Information Management Association (AHIMA) Naming Policy Framework 2023: Essential Person Demographic Data
+Elements for Electronic Health Information provides guidelines and examples for the implementation of distinct newborn
+naming conventions.
+5 Note, this is the patient’s maiden name, which is different from patient’s mother’s maiden name (PID-6) and will have a
+different data type than XPN_M. (For XPN_M, first and middle name are optional and last name is required).
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 5
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                           TECHNICAL ADVISORY BULLETIN | October 2025
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+When the patient’s name is known and can be submitted:
+
+    • Systems SHALL send the closest representation of the patient’s legal name with
+         name type code ‘L’.
+              o Submitting/querying system SHOULD send the official registry name (name
+                   type code ‘L’) in the first repetition.
+              o Receiving/responding system SHALL accept the official registry name (name
+                   type code ‘L’) sent in any repetition of PID-5. I.e., if the ‘L’ name type code is
+                   not submitted in the first repetition of PID-5, the receiving/responding
+                   system shall still accept and process the message and return this ‘L’ name in
+                   a response message.
+              o Submitting/querying systems SHALL NOT send a name that does not
+                   represent the official registry name with the name type code ‘L’.
+
+    • In addition to sending the ‘L’ name, when known and if applicable,
+         submitting/querying systems:
+              o SHOULD send the patient’s maiden name with name type code ‘M’ in a
+                   separate PID-5 repetition. Receiving systems SHOULD accept and process
+                   names with name type code ‘M’.
+              o SHOULD send a nickname/preferred name using the name type code ‘N’ in a
+                   separate PID-5 repetition. Receiving systems SHOULD accept and process
+                   names with name type code ‘N’.
+
+When the patient’s name is not known and the patient is an unnamed newborn
+baby:
+
+    • Submitting systems SHALL NOT send a placeholder temporary newborn name with
+         the name type code ‘L’.
+
+    • If the ‘NB’ name type is used, submitters SHALL follow these specifications:
+              o Submitting systems SHALL send a placeholder temporary newborn name
+                   (named using distinct methods for identification within the submitting
+                   system6) for unnamed newborn babies with newborn immunizations, using
+                   name type code ‘NB’.
+              o Once the newborn is named, the submitting system SHALL send the closest
+                   representation of the patient’s legal name using name type code ‘L’ and the
+                   newborn name using name type code ‘NB’ in the same PID-5 field.7
+
+6 Joint Commission-accredited hospitals and critical access hospitals that provide labor and delivery services are required to
+use distinct methods of identification for newborn patients (Joint Commission, Newborn Identification, 2018). The American
+Health Information Management Association (AHIMA) Naming Policy Framework 2023: Essential Person Demographic Data
+Elements for Electronic Health Information provides guidelines and examples for the implementation of distinct newborn
+naming conventions.
+7 Per the Scenarios TAB, the recording of a patient’s legal name for the first time SHALL trigger a VXU containing the patient’s
+complete vaccination history for submission to the IIS. This may be an ‘add’ or ‘update’ message (as indicated in RXA-21).
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 6
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                           TECHNICAL ADVISORY BULLETIN | October 2025
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+              o After sending both the official registry name and newborn name in the same
+                   PID-5 field, submitting/querying systems MAY continue sending the newborn
+                   name along with the patient’s legal/official registry name.
+
+Name requirements
+
+The following specifications provide further clarity on requirements related to name
+components. In the context of immunization messaging, “support” refers to the ability of
+submitting/querying systems (e.g., EHR systems) to store and send patient names with
+these characteristics in VXU and QBP messages and the ability of receiving/responding
+systems (i.e., IIS) to process, store, and return patient names as stated below.8
+
+    • Systems SHALL support preservation of space(s) and hyphen(s) in a patient’s name
+         (i.e., if the patient has a hyphenated last name, the system SHALL support
+         representation of the hyphenated last name).
+
+    • Systems SHALL support preservation of name components in a patient name (i.e., if
+         the patient has two first names, the system SHALL support representation of both
+         first names in the first name field).
+
+    • Systems SHALL support commonly used special characters (as identified in Table 3)
+         in name components by either:
+              o Preserving commonly used special characters in stored names or
+              o Downgrading special characters by following transliteration
+                   recommendations in Table 3 for stored names
+
+    • Systems SHOULD support preservation of case in a patient’s name.
+    • Systems SHOULD support names with up to 64 characters in the first, middle, and
+
+         last name components.9
+    • Systems MAY support other special characters (not listed in Table 3) in name
+
+         components.
+
+Additionally, IIS MAY have additional validation requirements related to acceptance of
+patient names, e.g., reject what appear to be placeholder/inaccurate names, require at
+least 2-character first and/or last names, etc. If an accurate name is submitted to the IIS,
+but the name is not accepted (i.e., rejected) for data quality issues, the IIS SHALL offer
+submitters an alternate (non-HL7) process to ensure the record is accurately reflected in
+the IIS.
+
+8 Support for name components up to 64 characters is intended to support instances of long names. However, if a submitter
+is consistently sending names of this length, follow-up is warranted to determine if there is a data quality issue.
+9 Informed by International Civil Aviation Organization Standards for Machine-Readable Travel Documents, Part 3,
+Specifications Common to all MRTDs
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 7
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                 TECHNICAL ADVISORY BULLETIN | October 2025
+
+                          for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Table 3. Commonly used special characters and transliterations
+
+Description   Special     Recommended Transliteration,
+              Character*  if necessary*
+
+A acute       á           a
+
+A circumflex  â           a
+
+A grave       à           a
+
+E acute       é           e
+
+E circumflex  ê           e
+
+E diaeresis   ë           e
+
+E grave       è           e
+
+I acute       í           i
+
+I circumflex  î           i
+
+I diaeresis   ï           i
+
+O acute       ó           o
+
+O circumflex  ô           o
+
+U acute       ú           u
+
+U circumflex  û           u
+
+U diaeresis   ü           u
+
+U grave       ù           u
+
+C cedilla     ç           c
+
+N tilde       ñ           n
+
+*Lowercase is indicated for illustrative purposes, but uppercase may also apply.
+
+Examples
+
+Examples showing population of the PID-5 field with various name types:
+
+Official registry name
+    • Patient: Madelynn Ainsley Snow
+    • Note: Systems SHALL support the ‘L’ name type code. The ‘L’ name type code
+         SHOULD be submitted in the first repetition; however, it SHALL be supported in any
+         repetition.
+
+         |Snow^Madelynn^Ainsley^^^^L|
+
+Official registry name and preferred first name
+    • Patient: Madelynn Ainsley Snow, goes by first name ‘Maddie’
+    • Note: Systems SHALL support the ‘L’ name type code. Systems SHOULD support the
+         ‘N’ name type code for nickname/preferred name.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 8
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                           TECHNICAL ADVISORY BULLETIN | October 2025
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+         |Snow^Madelynn^Ainsley^^^^L~^Maddie^^^^N|
+Official registry name and preferred last name
+
+    • Patient: Madelynn Ainsley Snow, goes by last name ‘Harris’
+    • Note: Systems SHALL support the ‘L’ name type code. Systems SHOULD support the
+
+         ‘N’ name type code for nickname/preferred name.
+         |Snow^Madelynn^Ainsley^^^^L~Harris^^^^^N|
+Official registry name and preferred first and last name
+    • Patient: Madelynn Ainsley Snow, goes by first name ‘Maddie’ and last name ‘Harris’
+    • Note: Systems SHALL support the ‘L’ name type code. Systems SHOULD support the
+         ‘N’ name type code for nickname/preferred name.
+         |Snow^Madelynn^Ainsley^^^^L~Harris^Maddie^^^^N|
+Official registry name and maiden name
+    • Patient: Madelynn Ainsley Snow, maiden last name ‘Jones’
+    • Note: Systems SHALL support the ‘L’ name type code. Systems SHOULD support the
+         ‘M’ name type code for maiden name.
+         |Snow^Madelynn^Ainsley^^^^L~Jones^Madelynn^^^^M|
+Official registry name, preferred name, and maiden name
+    • Patient: Madelynn Ainsley Snow, goes by ‘Maddie Harris’, maiden last name ‘Jones’
+    • Note: Systems SHALL support the ‘L’ name type code. Systems SHOULD support the
+         ‘M’ name type code for maiden name and SHOULD support the ‘N’ name type code
+         for nickname/preferred name.
+         |Snow^Madelynn^Ainsley^^^^L~Harris^Maddie^^^^N~Jones^Madelynn^^^^M|
+
+Temporary newborn baby name, single birth
+    • Patient Mother’s First Name: Katherine; Patient Mother’s Last Name: Smith
+    • Note: Systems SHOULD support the ‘NB’ name type code.
+
+Temporary newborn name. (Note, XPN.2 is recommended to include an indication of the baby’s
+sex, with ‘Girl’, ‘Boy’ or ‘Baby’ for undetermined as follows)
+
+         |Smith^GirlKatherine^^^^^NB|
+         |Smith^BoyKatherine^^^^^NB|
+         |Smith^BabyKatherine^^^^^NB|
+Official registry name and temporary newborn name for the same patient
+
+         |Smith^Olivia^Lucía^^^^L~Smith^GirlKatherine^^^^^NB|
+         |Smith^Noah^Liam^^^^L~Smith^BoyKatherine^^^^^NB|
+         |Smith^Rowan^Adrian^^^^L~Smith^BabyKatherine^^^^^NB|
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 9
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                           TECHNICAL ADVISORY BULLETIN | October 2025
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Temporary newborn names, twin birth
+    • Twins: Girl, Boy. Patient Mother’s First Name: Katherine; Patient Mother’s Last
+         Name: Smith.
+    • Note: Systems SHOULD support the ‘NB’ name type code.
+
+Temporary newborn names. (Note, XPN.2 is recommended to include an indication of the baby’s
+sex, with ‘Girl’, ‘Boy’ or ‘Baby’ for undetermined and an indication of the birth order, as follows)
+Twin baby 1 temporary newborn name
+
+         |Smith^Girl1Katherine^^^^^NB|
+Twin baby 2 temporary newborn name
+
+         |Smith^Boy2Katherine^^^^^NB|
+Twin baby 1 official registry name and temporary newborn name
+
+         |Smith^Olivia^Lucía^^^^L~Smith^Girl1Katherine^^^^^NB|
+Twin baby 2 official registry name and temporary newborn name
+
+         |Smith^Noah^Liam^^^^L~Smith^Boy2Katherine^^^^^NB|
+Example of special characters:
+
+    • Patient name: José González
+    • VXU PID-5 submission: |González^José^^^^^L|
+    • RSP PID-5 response:
+
+              o |González^José^^^^^L|
+                   -- or --
+
+              o |Gonzalez^Jose^^^^^L|
+
+Implications: Frequently Asked Questions
+
+Does the name indicated as the ‘L’ name need to match official government
+documentation?
+
+         The use of the ‘L’ name type code indicates that the name is the patient’s formal
+         name, which may correspond to legal name but may not be a 1:1 match to the legal
+         name as indicated on government documentation. However, it SHALL be the closest
+         possible representation of that legal name, e.g., with special characters, spaces,
+         and/or hyphens if applicable.
+Does the ‘L’ name type always need to be in the first repetition of the PID-5 field?
+         These specifications remove the requirement that the official registry name must be
+         in the first repetition; however, it is good practice to continue sending the ‘L’ name
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 10
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                           TECHNICAL ADVISORY BULLETIN | October 2025
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+         type in the first repetition. Per these specifications, the order of ‘L’ name type code
+         in PID-5 would no longer be enforced by health IT certification processes.
+         Additionally, IIS must demonstrate they can read and understand name type,
+         including ‘L’ name type, in any repetition.
+
+         Depending on the circumstances, the PID-5 field may not contain the ‘L’ name type.
+         For example, if the patient is an unnamed newborn baby, the PID-5 field may
+         contain the temporary newborn name, with name type code ‘NB’ and no official
+         registry name/legal name (name type code ‘L’).
+
+Are IIS required to accept patient records submitted without the name type code ‘L’’?
+
+         Acceptance and processing of patient records submitted without the name type
+         code ‘L’ is a local determination based on jurisdictional policies and needs. For
+         example, while the specifications indicate how the newborn name type code ‘NB’
+         can be used to support messaging of a patient’s newborn temporary name, the
+         specifications do not require an IIS to accept and store a record without a legal
+         name.
+
+Why should an IIS accept an ‘NB’ name?
+
+         Submitting systems and receiving systems are encouraged to support name type
+         code ‘NB’, to accurately represent this type of name in an HL7 message. The ‘NB’
+         name type code provides a mechanism for this information to be exchanged and
+         understood between systems. For newborn babies that do not yet have a legal
+         name, use of the ‘NB’ name type code allows for timely submission of immunization
+         administration information to an IIS.
+
+         Withholding submission of this information until the patient has a legal name
+         recorded is a non-HL7-based strategy that systems may employ; however, this may
+         have implications for timeliness of immunization reporting, vaccine stock
+         decrementing, and vaccine program accountability and reporting.
+
+         Additionally, capture of the record can support overall IIS data completeness.
+         Specifications are provided to facilitate updating to the official registry name/legal
+         name once the baby is named. IIS can also monitor records and address through
+         reconciliation efforts.
+
+          Use of the ‘NB’ name type code allows for this information to be submitted in a
+         timely and accurate manner to an IIS. An IIS may choose not to accept patient
+         records without the name type code ‘L’. In that case, the record would be accepted
+         once the official registry name/legal name is submitted.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 11
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                           TECHNICAL ADVISORY BULLETIN | October 2025
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Must IIS store other names besides the patient’s legal name?
+         No, these specifications do not require that IIS store other names besides a patient’s
+         official registry name (‘L’). However, storage of additional names is encouraged to
+         support use in patient matching/deduplicaiton and consolidation.
+
+What are the minimum components for submitting a patient’s name to an IIS?
+         The required components depend on the name type submitted:
+         • Official registry name/legal name (name type code ‘L’): first and last name are
+              required.
+         • Temporary newborn name (name type code ‘NB’): first and last name are
+              required.
+         • Preferred name/nickname (name type code ‘N’): first or last name must be
+              valued
+         • Maiden name (name type code ‘M’): first or last name must be valued
+
+How can IIS tell if a submitted name is accurate? E.g., if the patient has two first names
+or if the middle name happened to be submitted as part of the first name?
+
+         IIS rely on submitters to transmit accurate information. According to this TAB
+         guidance, systems SHALL strive to accurately record and transmit names. IIS assume
+         accuracy of the information submitted unless there is reason to believe otherwise.
+         This may be information from other sources, such as vital records and/or other
+         provider submissions. It may also be information gleaned from reviewing a
+         submitter’s messages and looking for patterns, e.g., an unusually high proportion of
+         their patients are submitted with two first names and no middle names.
+
+         Deduplication and consolidation of records is out of scope for this document;
+         however, the Consolidating Demographic Records Guide provides useful discussion
+         of this topic. In particular, see “BR201, Information needed to make consolidation
+         decisions" and "BR901, Use information with highest confidence level."
+Are IIS required to save names with special characters?
+         No, IIS are not required to store names with special characters. If an IIS cannot store
+         names with special characters, the IIS SHALL downgrade the special characters
+         following the transliteration recommendations provided.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 12
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+

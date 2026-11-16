@@ -1,0 +1,165 @@
+                                                                                TECHNICAL ADVISORY BULLETIN | JULY 2025
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Messaging Non-patient Person
+Names in HL7
+
+Executive Summary
+
+Updated specifications for messaging non-patient person names in HL7 v2.5.1 messages
+are provided, building on the IIS community work to update specifications for PID-5, patient
+name field. Non-patient person name fields addressed include:
+
+    • PID-6/QPD-5, Mother’s Maiden Name
+    • NK1-2, Responsible Person Name
+    • ORC-10, Entered By
+    • ORC-12, Ordering Provider
+    • RXA-10, Administering Provider
+For these non-patient person names, key specifications are as follows:
+    • Systems SHALL preserve space(s) and hyphen(s) in a person’s name.
+    • Systems SHALL support commonly used special characters in name components by
+
+         storing as is or, if necessary, downgrading commonly used special characters
+         according to transliterations provided for storage.
+In addition, for the NK1-2 responsible person name field:
+    • Submitting systems SHOULD send the most reliable and commonly used
+         responsible person name, preferably the responsible person’s official registry name
+         (name type code ‘L’). Sending systems SHALL populate the name type component
+         (NK1-2.7) to accurately reflect the type of name provided for the responsible person.
+
+Background
+
+The IIS community recently collaborated on updated specifications for the patient name
+field (PID-5). The PID-5 specifications discuss name type code usage, name type placement
+in the field when repetitions are present, and requirements related to messaging special
+characters, spaces, and hyphens in a patient’s name. This TAB indicates the applicability of
+the updated PID-5 specifications to messaging other non-patient person name fields.
+
+Scope
+
+In Scope
+These specifications apply to the non-patient person name fields listed in Table 1. This
+table also indicates the applicability of each field within a VXU, QBP, and RSP message.
+
+                                                                                                                              1
+                                            TECHNICAL ADVISORY BULLETIN | JULY 2025
+
+                                for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Table 1. Applicability of non-patient person names across message types
+
+Field                                VXU     QBP                         RSP
+
+PID-6  Mother’s Maiden Name          ✓       ✓                           ✓
+
+                                          (QPD-5)
+
+NK1-2 Responsible Person Name        ✓       n/a                         ✓
+
+ORC-10 Entered By                    ✓       n/a                         ✓
+
+ORC-12 Ordering Provider             ✓       n/a                         ✓
+
+RXA-10 Administering Provider        ✓       n/a                         ✓
+
+Out of Scope
+    • Name type code value usage as it relates to valid values for NK1-2 (i.e., what values
+         beyond ‘L’ are expected to be supported for use in NK1-2)
+    • Business rules associated with deduplication and consolidation of patient and
+         immunization records, which may influence storage and return of non-patient
+         person names
+
+Clarifications and Conformance Expectations
+
+For the following non-patient person names:
+
+• PID-6/QPD-5, Mother’s Maiden Name
+• NK1-2, Responsible Person Name
+• ORC-10, Entered By
+• ORC-12, Ordering Provider
+• RXA-10, Administering Provider
+
+Specifications are as follows:
+
+• Systems SHALL preserve space(s) and hyphen(s).
+• Systems SHALL support commonly used special characters by storing as is or, if
+
+    necessary, downgrading commonly used special characters according to
+    transliterations provided for storage (Table 2).
+• Systems SHOULD support preservation of case.
+• Systems SHOULD support names with up to 64 characters in the first, middle, and
+    last name components.
+
+Table 2. Commonly used special characters and transliterations
+
+Description   Special           Recommended Transliteration,8
+              Character*        if necessary*
+A acute
+A circumflex             á                                        a
+                         â                                        a
+
+                                                                                             2
+                             TECHNICAL ADVISORY BULLETIN | JULY 2025
+
+                 for the v2.5.1 Implementation Guide for Immunization Messaging
+
+A grave       à  a
+
+E acute       é  e
+
+E circumflex  ê  e
+
+E diaeresis   ë  e
+
+E grave       è  e
+
+I acute       í  i
+
+I circumflex  î  i
+
+I diaeresis   ï  i
+
+O acute       ó  o
+
+O circumflex  ô  o
+
+U acute       ú  u
+
+U circumflex  û  u
+
+U diaeresis   ü  u
+
+U grave       ù  u
+
+C cedilla     ç  c
+
+N tilde       ñ  n
+
+*Lowercase is indicated for illustrative purposes, but uppercase may also apply.
+
+Additional specifications for the NK1-2 field, responsible person name, include:
+
+    • Submitting systems SHOULD send the most reliable and commonly used
+         responsible person name, preferably the responsible person’s official registry name
+         (name type code ‘L’).
+
+    • Submitting systems SHALL populate the name type component (NK1-2.7) to
+         accurately reflect the type of name provided for the responsible person within an
+         NK1-2 repetition.
+
+Implications
+
+    • Updated specifications for the patient name field (PID-5) are extended to other non-
+         patient person name fields where applicable.
+
+    • For NK1-2, these specifications remove the requirement that the ‘L’ name type must
+         be in the first repetition. The requirement to indicate the ‘L’ name type in the first
+         repetition supports backward compatibility to HL7 v2.2. Backward compatibility to
+         v2.2 will no longer be supported in the new version of the National IG.
+
+Please refer to the Technical Advisory Bulletin (TAB) Resources to see a TAB Overview and
+additional TAB documents.
+
+                                                                                           3
+

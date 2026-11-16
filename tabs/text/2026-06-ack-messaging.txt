@@ -1,0 +1,916 @@
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Acknowledgment (ACK) Messaging:
+Updated Specifications and Guidance
+
+Table of Contents
+
+Acknowledgment (ACK) Messaging: Updated Specifications and Guidance ............................ 1
+Table of Contents .......................................................................................................................... 1
+Executive Summary ....................................................................................................................... 2
+Background .................................................................................................................................... 3
+Scope .............................................................................................................................................. 3
+Transport-Level Failures ............................................................................................................... 4
+Summary: What Can Be Inferred from the ACK? ........................................................................ 6
+Acceptance and Processing Terms .............................................................................................. 7
+
+   IIS Core Intent: Provide Consolidated Immunization Records ............................................... 7
+   Successful, Qualified Successful, and Unsuccessful Transmissions ...................................... 8
+Clarified Specifications and Guidance ......................................................................................... 9
+   MSA-1 Acknowledgment Code.................................................................................................. 9
+   ERR-2: Error Location............................................................................................................... 11
+   ERR-4 Severity Code................................................................................................................. 12
+   ERR-5: Application Error Code ................................................................................................ 16
+   ERR-8: User Message ............................................................................................................... 18
+Appendices................................................................................................................................... 19
+   Appendix A. Conveying transport/connectivity-layer issues using ACKs ............................ 19
+   Appendix B. Core intent and acknowledgment messaging: Examples ............................... 19
+
+                                                                                                                              1
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Executive Summary
+
+This Technical Advisory Bulletin (TAB) clarifies and expands specifications for HL7 v2.5.1
+immunization Acknowledgment (ACK) messaging in response to a submitted Unsolicited
+Vaccination Record Update (VXU) message. Specifically, this TAB addresses key concepts
+and provides definition for terms related to VXU message acceptance and processing by an
+immunization information system (IIS), as relayed in ACK messages, including:
+
+    • Core Intent: At their most fundamental level, IIS provide consolidated patient
+         immunization records, i.e., what shots were received and when for a given patient. A
+         submitted VXU serves to electronically update a patient’s immunization record
+         within an IIS. This TAB provides a baseline definition of core intent to mean whether
+         the submitted patient and their shot history could be associated/recorded in the IIS,
+         which serves as a framing to inform acknowledgment messaging:
+              o Core intent fulfilled: patient and their shot record(s) updated
+              o Core intent not fulfilled: patient and/or their shot record(s) not updated
+
+    • Whether the core intent was fulfilled informs acceptance and rejection of a
+         submitted VXU.
+              o Accept: The IIS received the message; the submitted patient was
+                   associated/recorded and their shot(s), if submitted, were
+                   associated/recorded (core intent fulfilled). The submitted patient and their
+                   shot(s) are in the IIS.
+              o Reject: The IIS received the message; however, the patient was not
+                   associated/recorded and/or one or more submitted shot(s) were not
+                   associated/recorded (core intent not fulfilled), warranting resubmission of a
+                   corrected message.
+
+    • An accepted VXU may be further characterized as successful or qualified successful:
+              o Successful: Core intent fulfilled. No further action is required.
+              o Qualified Successful: Core intent fulfilled; however, issue(s) requiring
+                   correction.
+
+    • A rejected VXU may also be referred to as an ‘unsuccessful’ submission:
+              o Unsuccessful: Core intent not fulfilled; correction and resubmission are
+                   required.
+
+Additionally, the TAB clarifies specifications and guidance for ACKs, with key specifications
+as follows:
+
+    • IIS SHALL return MSA-1 Acknowledgment Code value ‘AE’ to convey VXU message
+         acceptance as a qualified successful transmission, (i.e., the ACK contains one or
+         more severity level ‘W’ error(s) but no severity ‘E’ error(s)).
+
+    • IIS SHALL return ‘AR’ to convey VXU rejection, i.e., unsuccessful processing of a
+         submitted VXU due to one or more severity ‘E’ error(s).
+
+                                                                                                                              2
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+    • IIS SHALL NOT use ACKs to convey transport or connectivity issues; therefore, IIS
+         SHALL NOT use ‘AR’ for the reason ‘Unable to process for reasons unrelated to
+         format or content’.
+
+Background
+
+Over a decade ago, AIRA released Guidance for HL7 Acknowledgment Messages to Support
+Interoperability. Prior to this guidance, ACKs were often ignored by receiving systems due to
+inconsistent usage and limited actionable content. It was difficult to determine whether
+submitted data had been accepted by an Immunization Information System (IIS), leading to
+confusion and poor visibility into interface performance. Since the publication of that
+guidance and its widespread adoption, most IIS now produce more structured and useful
+ACK messages. This has significantly increased the value of ACKs for both submitters and
+IIS, making it easier to determine whether messages were processed successfully and what
+follow-up actions may be required.
+However, there is still room for improvement. Submitters and implementers have asked for
+clearer, more detailed feedback in ACKs to support troubleshooting and data quality
+monitoring. Some work has already been done in this area, such as expanding the use of
+ERR-5 values to describe specific issues in more detail.
+This TAB incorporates that work into a broader effort to improve the expressiveness and
+interpretability of ACK messages. The guidance is intended to help submitters and
+receivers understand broad questions about the state of an interface (i.e., what percentage
+of submitted messages are being accepted by the IIS?) and provide clear, actionable
+information about each transaction to facilitate follow-up and troubleshooting if necessary.
+Optimizing ACK messages to directly support this kind of tracking benefits all parties:
+submitters gain better visibility and accountability, and IIS benefit from improved data
+quality and system monitoring.
+
+For additional information about Technical Advisory Bulletins and conformance verbs (i.e.,
+SHALL, SHOULD) and their definitions, see the TAB Overview.
+
+Scope
+
+This guidance defines how to clearly communicate message processing outcomes in
+VXU/ACK transactions by further clarifying and standardizing the use of five key elements:
+MSA-1 Acknowledgment Code, ERR-2 Error Location, ERR-4 Severity Code, ERR-5 Application
+Error Code, and ERR-8 User Message.
+In scope
+This guidance applies specifically to production VXU/ACK transactions and includes
+requirements for:
+
+                                                                                                                              3
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+    • Use of MSA-1 Acknowledgment Code to summarize message processing outcome.
+    • Use of ERR-2 Error Location to identify the specific location of issues in the message.
+    • Use of ERR-4 Severity Code to assign severity levels that guide submitter follow-up.
+    • Use of ERR-5 Application Error Code to specify the nature of the issue using
+
+         standardized codes.
+    • Use of ERR-8 User Message to provide clear, non-technical user-facing messages.
+
+Out of scope
+This guidance does not define:
+
+    • QBP/RSP message processing or responses.
+    • Jurisdiction-specific policies that determine what messages an IIS will accept or
+
+         reject. This TAB focuses solely on how to report processing outcomes within the ACK
+         message, not on the policy decisions that drive those outcomes.
+    • Transport-level behaviors, such as SOAP fault handling, endpoint availability, or
+         security exceptions, which are governed by other specifications (e.g., CDC WSDL).
+    • Jurisdictional onboarding practices and policies associated with VXUs (which may
+         place additional requirements on conformance and quality of submitted VXUs).
+    • Advanced ACK proposals under discussion, including: new MSA-1 values, new ERR-4
+         values, MSH-21 profile identifier changes, and the ability to distinguish between ‘full
+         rejection’ and ‘partial rejection’ (i.e., the ability to indicate, within an ACK conveying
+         rejection, specific elements that may have been processed/stored and those that
+         may have been rejected).
+
+Transport-Level Failures
+
+The guidance in this TAB applies to application-level acknowledgments (ACKs)—responses
+to HL7 message processing—not to transport or broader connectivity issues. Transport and
+connectivity issues prevent a VXU from being submitted to the IIS and/or prevent the IIS
+from returning an ACK message in response to a VXU. Therefore:
+
+IIS SHALL NOT use ACKs to convey transport or connectivity issues, i.e., IIS SHALL NOT use
+an ACK to convey the following types of issues:
+
+         • Connectivity issue: DNS lookup fault, timeout (network outage)
+         • SOAP-related issue: unknown operation, invalid SOAP message, SOAP message
+
+              too large
+         • Security issue: e.g., certificate failure, TLS authentication failure, or invalid
+
+              credentials/tokens
+         • Other routing/connectivity issue
+
+When encountered, these prevent message delivery and must be investigated and resolved
+before retrying HL7 messaging. Using HL7 ACKs to indicate these problems is unreliable
+and misleading to submitters.
+
+                                                                                                                              4
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Note, there are cases when an intermediary supporting data exchange between an IIS and
+a submitter may need to communicate an IIS transport issue back to the submitter via an
+ACK. See Appendix A for additional guidance when this applies.
+
+                                                                                                                              5
+                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Summary: What Can Be Inferred from the ACK?
+
+This section is provided as a summary and reference for key specifications noted in this
+TAB. Subsequent sections provide additional detail on key terms and use of specific fields.
+
+Table 1. ACK Interpretation Summary
+
+VXU          VXU Processing          MSA-1  ERR-4 Severity Required
+Acceptance/  Outcome
+Rejection                                   Presence      Actions
+
+Accept:      Successful processing   AA     N/A, no ERR       None
+Core intent                                  segments
+fulfilled                            AA            I          None
+                                             (no W or E)
+             Qualified successful                         Convey and
+                                                  W          correct
+             processing; issue(s)    AE         (no E)
+
+             requiring correction
+
+Reject:      Unsuccessful
+
+Core intent not processing,          AR     E             Convey, correct,
+                                                           and resubmit
+fulfilled    resubmission
+
+             required
+
+Key Takeaways
+    • MSA-1 values AA and AE indicate acceptance, i.e., that the IIS associated/created the
+         patient and updated their shot records.
+              o MSA-1 value AA indicates no further action is required.
+              o MSA-1 value AE indicates correction is required due to issue(s) encountered.
+    • MSA-1 value AR indicates rejection (i.e., unsuccessful processing); correction and re-
+         submission is required as the core intent was not fulfilled.
+    • Similarly, the presence of ERR-4 = E severity issue(s) indicates rejection.
+    • For a rejected (unsuccessful) VXU, the expectation is for the submitter to correct the
+         issue(s) and re-submit the full message. Submitters shall not attempt to ascertain if
+         certain elements of the patient’s IIS record were updated. There is no standardized
+         mechanism for an IIS to convey which elements of the submitted message may have
+         been processed/recorded by the IIS. For example, for a rejected VXU:
+              o An IIS might associate the patient and update their demographics but reject
+                   all immunizations.
+              o An IIS might store one immunization but reject the rest.
+              o An IIS might store nothing at all.
+              o Across each of these examples, the VXU would be rejected, and the submitter
+                   would need to re-send a corrected message in its entirety.
+    • A VXU rejection shall not be interpreted as an indicator to automatically stop
+         submission and processing of additional VXU messages.
+
+                                                                                             6
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+    • Within an ERR segment, the ERR-2, ERR-4, ERR-5, and ERR-8 fields are key fields to
+         understand and interpret the issue reported:
+              o ERR-2: Where the issue was in the submitted message
+              o ERR-4: The severity of the issue (which drives required follow-up action)
+              o ERR-5: What the issue is, conveyed using a national set of error codes
+              o ERR-8: A plain language indication of the issue
+
+Acceptance and Processing Terms
+
+This section defines the key concepts used throughout this guidance to establish a shared
+vocabulary and to support precise and consistent implementation and interpretation.
+
+IIS Core Intent: Provide Consolidated Immunization Records
+
+IIS acknowledgment messaging is informed by the core intent of the IIS and whether that
+intent was fulfilled for a submitted VXU. While IIS provide a myriad of functions and a
+wealth of data, at their most fundamental level, IIS provide an electronic version of a
+patient’s consolidated immunization records, i.e., an electronic version of a patient’s paper
+immunization record card (see Figure 1). Whether recorded on paper or available in an IIS,
+the documentation of an individual’s shot history – what shots were received and
+when – provides a consolidated, longitudinal record for reference.
+The submission of a VXU serves to electronically update a patient’s record within an IIS.
+Considering whether this core intent was fulfilled (i.e., was the patient
+associated/created and were their shot(s) recorded) serves as a useful framing to
+inform acknowledgment messaging:
+
+    • VXU submitted - > patient was associated/created and their shot history (if
+         submitted) was recorded: Intent fulfilled; therefore, the VXU is accepted.
+
+    • VXU submitted -> patient was not associated/created and/or their shot history (if
+         submitted) was not recorded: Intent not fulfilled; therefore, the VXU is rejected.
+
+Therefore, accept and reject mean the following in ACK messaging:
+    • Accept: The IIS received the message; the core intent of associating/updating the
+         patient’s IIS record was fulfilled.
+    • Reject: The IIS received the message; the core intent of associating/updating the
+         patient’s IIS record was not fulfilled, resubmission of a corrected message is needed.
+
+Local business rules
+By defining core intent, this TAB establishes a baseline standard for acceptance versus
+rejection. However, implementation-specific business rules—such as those governing VXU
+processing, record matching, and de-duplication—drive how an IIS operationalizes and
+arrives at those outcomes.
+
+                                                                                                                              7
+                                           TECHNICAL ADVISORY BULLETIN | June 2026
+
+                               for the v2.5.1 Implementation Guide for Immunization Messaging
+
+For example, consider a VXU with a missing patient address sent to two IIS with different
+business rules related to patient address:
+
+• ‘IIS A’ business rules require patient address to associate/create a patient record.
+• ‘IIS B’ business rules do not require patient address to associated/create a patient
+
+    record.
+
+In the case of ‘IIS A’, the lack of patient address in the VXU would prevent the IIS from
+associating/updating the IIS record; therefore, the VXU would be rejected. In the case of ‘IIS
+B’, the lack of patient address in the VXU does not prevent association/update of the
+patient’s IIS record; therefore, the VXU would be accepted.
+
+The specifications outlined in this TAB standardize how the outcome of applying these local
+rules is conveyed. Regardless of local policy, whether the VXU was accepted or rejected
+depends on if the core intent of associating/persisting the submitted patient and their
+immunizations was fulfilled. Additional examples illustrating core intent are provided in
+Appendix B.
+
+Successful, Qualified Successful, and Unsuccessful Transmissions
+
+ACKs may also be used to convey the relative success of a submitted VXU message
+transmission:
+
+• Successful: Core intent fulfilled: patient and submitted immunization(s) persisted;
+    No further action is required.
+
+• Qualified Successful: Core intent fulfilled: patient and submitted immunization(s)
+    persisted; however, issue(s) requiring correction.
+
+• Unsuccessful: Core intent NOT fulfilled: patient and/or submitted immunization(s)
+    NOT persisted; correction and resubmission are required.
+
+Both ‘successful’ and ‘qualified successful’ VXU messages are characterized as ‘accepted’ by
+the IIS, with no resubmission required. Conversely, ‘unsuccessful’ VXU messages are
+characterized as ‘rejected’ given the need for resubmission of a corrected message. Table 2
+highlights these relationships.
+
+Table 2. Relationship between ACK acceptance/rejection and VXU processing
+outcome
+
+VXU Acceptance/Rejection       VXU Processing Outcome
+
+Accept  The IIS received the   Successful  No further action is required.
+        message and the        processing
+        patient and their
+        shot(s) if submitted,
+
+                                                                                           8
+                                          TECHNICAL ADVISORY BULLETIN | June 2026
+
+                              for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Reject  were associated/      Qualified     Issue(s) require correction.
+        recorded in the IIS.  successful
+                              processing    Correction and resubmission
+        The IIS received the                are required.
+        message; the patient  Unsuccessful
+        and/or their          processing
+        submitted shot(s)
+        were not associated/
+        recorded in the IIS,
+        warranting
+        resubmission of a
+        corrected message.
+
+Clarified Specifications and Guidance
+
+MSA-1 Acknowledgment Code
+
+The MSA-1 field in the ACK message provides a summary of the overall processing
+outcome for the submitted VXU message. As a reminder, IIS receipt of the submitted VXU is
+a precursor to acknowledgment messaging; therefore, ACKs SHALL NOT be used to indicate
+transport/connectivity issues.
+
+Once the IIS receives and processes a VXU, the ACK MSA-1 value is derived from the most
+severe1 ERR-4 value present in any ERR segment. While systems build the ACK by first
+assigning severities to individual issues using ERR-4, the MSA-1 value is constructed after
+the fact to reflect the message-wide disposition.
+
+MSA-1 Values
+The MSA-1 value supports submitters and receivers in understanding message-level status
+by looking at a single field, by rolling up issue-level severities into a coherent summary.
+Values for MSA-1 include:
+
+    • AA - Application accept
+    • AE - Application error
+    • AR - Application reject
+
+MSA-1 Specifications
+Each MSA-1 value carries implicit constraints on what ERR-4 severities may appear in the
+ACK. The relationship between MSA-1 and ERR-4 is outlined in Table 3.
+
+Table 3. Conformance relationship between MSA-1 and the presence of ERR-4 severity
+code in the ACK
+
+1 ‘E’ is highest ERR-4 severity, followed by ‘W’, then ‘I’.
+
+                                                                                                                              9
+                             TECHNICAL ADVISORY BULLETIN | June 2026
+
+                 for the v2.5.1 Implementation Guide for Immunization Messaging
+
+MSA-1  ERR-4     ERR-4        ERR-4
+AA     Info (I)  Warning (W)  Error (E)
+       MAY       SHALL NOT    SHALL NOT
+
+AE     MAY       SHALL        SHALL NOT
+
+AR     MAY       MAY          SHALL
+
+For population of MSA-1:
+
+    • MSA-1 value ‘AA’
+              o SHALL be returned to indicate VXU acceptance with no issues requiring
+                   correction/resubmission.
+              o SHALL NOT be returned when there is an ERR-4 severity ‘W’ or ‘E’ error.
+
+    • MSA-1 value ‘AE’
+              o SHALL be returned when the ERR-4 severity is ‘W’ and there are no severity ‘E’
+                   error(s).
+              o SHALL NOT be returned when there is an ERR-4 severity ‘E’ error.
+
+    • MSA-1 value ‘AR’
+              o SHALL be returned to convey VXU rejection when core intent is not fulfilled;
+                   I.e., SHALL be returned when there is an ERR-4 severity ‘E’ error.
+
+MSA-1 Guidance
+    • Per these specifications, an MSA-1 value of ‘AE’ indicates the VXU was accepted as a
+         qualified successful transmission.
+              o Previously, interpretation of ‘AE’ was ambiguous, with additional inspection
+                   of ERR-4 value(s) in ERR segment(s) needed to determine whether the VXU
+                   was accepted or rejected.
+              o This guidance limits use of ‘AE’ to when there are severity ‘W’ error(s) but no
+                   severity ‘E’ error(s).
+    • An MSA-1 value of ‘AR’ indicates the VXU was unsuccessful (i.e., rejected).
+              o Previously, ‘AR’ was reserved for the following use cases:
+                         Unsupported message type,
+                         Unsupported event code,
+                         Unsupported processing ID, and
+                         Unable to process for reasons unrelated to format or content.
+              o This guidance removes “Unable to process for reasons unrelated to format
+                   or content” as a reason to return ‘AR’ as this is a transport/connectivity issue.
+    • MSA-1 (and ACKs more generally) cannot be used to convey transport/connectivity
+         issues.
+
+                                         10
+                                         TECHNICAL ADVISORY BULLETIN | June 2026
+
+                             for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Table 4 indicates the historical, previous relationship between MSA-1 value and VXU
+processing outcome and acceptance when use of ‘AR’ is tightly limited. Table 5 indicates
+this relationship when use of ‘AR’ is expanded to indicate additional reasons that indicate
+core intent has not been fulfilled.
+
+Table 4. Historical relationship between MSA-1 and VXU processing outcome and
+acceptance
+
+VXU Processing  VXU Accept/  MSA-1  MSA-1  MSA-1
+Outcome         Reject         AA     AE     AR
+
+Successful      Accept       ✔      n/a    n/a
+
+Qualified       Accept       n/a    ✔      n/a
+Successful      Reject
+Unsuccessful                 n/a    ✔      ✔
+
+Historically, the interpretation of the MSA-1 value ‘AE’ has been ambiguous, as it can
+indicate either acceptance (qualified successful processing with issue(s) that require
+correction) or rejection (unsuccessful processing requiring correction and resubmission).
+
+Table 5. Updated relationship between MSA-1 and VXU processing outcome and
+acceptance
+
+VXU Processing  VXU Accept/  MSA-1  MSA-1  MSA-1
+Outcome         Reject         AA     AE     AR
+
+Successful      Accept       ✔      n/a    n/a
+
+Qualified       Accept       n/a    ✔      n/a
+Successful      Reject
+Unsuccessful                 n/a    n/a    ✔
+
+As per the specifications in this TAB, IIS shall 1) reserve MSA-1 value ‘AE’ to indicate VXU
+acceptance, specifically, qualified successful processing with issue(s) that require
+correction, and 2) use MSA-1 value ‘AR’ to indicate rejection, i.e., unsuccessful processing
+requiring correction and resubmission. This disambiguation supports clarity in interpreting
+the ACK MSA-1 value.
+
+ERR-2: Error Location
+
+The ERR-2 field identifies the specific location in the message where an issue was identified.
+
+ERR-2 Specifications
+    • When populated/returned, SHALL indicate a single location for understanding and
+         resolving the issue.
+
+                                                                                             11
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+ERR-2 Guidance
+    • Use the HL7 ERL format, not shorthand: ERR-2 uses the HL7 ERL data type format,
+         which differs from the commonly used shorthand to indicate location within an HL7
+         message. For example, if the error location is the patient’s name field (commonly
+         referred to as the ‘PID-5’ field, the error location is noted per the ERL data type as
+         PID^1^5).
+    • Be specific: ERR-2 should point to the most helpful location for understanding and
+         resolving the issue. For repeating segments (e.g., multiple RXA or OBX segments) in
+         a submitted VXU, it is especially important to identify which repeat the error applies
+         to.
+    • Reference one location: If an issue involves multiple fields (e.g., a vaccination date
+         that precedes the patient’s date of birth), ERR-2 can reference only one location.
+         Two approaches are acceptable:
+              a. Return a single ERR segment pointing to the most relevant field (e.g., the
+                   RXA segment with the problematic vaccination date), with the error
+                   description in ERR-5 or ERR-8 describing the conflict between the birth date
+                   and vaccination date.
+              b. Return two ERR segments, one for each field involved in the conflict, each
+                   with its own ERR-2 and explanatory context.
+    • For a missing segment, reference the group it would have appeared in: Some
+         issues arise from an entire segment being absent, such as a missing OBX. In this
+         case, ERR-2 cannot point to the missing segment directly. Instead, reference the
+         segment group it would have appeared in. For example, if an OBX segment is
+         missing under a vaccination event, ERR-2 should point to the associated ORC group
+         by referencing the ORC segment (e.g., ORC^2).
+    • Leave ERR-2 blank if the issue is not tied to a specific segment/field: Some
+         issues are not tied to a specific segment or field—such as “Patient not consented” or
+         a message-level success confirmation. In these cases, ERR-2 should be left blank.
+         ERR-2 is a RE (Required but may be empty) field; it is valid to omit it when there is no
+         specific location to reference.
+
+Accurate use of ERR-2 enhances the interpretability of ACK messages for both technical and
+clinical users. It helps implementers troubleshoot efficiently and ensures that data quality
+issues can be precisely identified and resolved. Getting ERR-2 right is not just a technical
+requirement—it directly supports effective interface monitoring, data quality management,
+and national interoperability efforts.
+
+ERR-4 Severity Code
+
+Each issue identified in an ACK message includes a severity code in the ERR-4 field. These
+severities are not limited to reporting failures. ERR segments may also indicate success,
+informational notices, or business rule constraints. For example, an ERR segment may
+confirm that an immunization was successfully added to the IIS record or may notify the
+
+                                                                                                                             12
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+sender that a deletion was not permitted due to jurisdiction policy. Overall, the ERR-4
+severity communicates the required level of response for that individual issue noted in the
+ERR segment.
+
+ERR-4 Values
+Values for ERR-4 include:
+
+    • Information (I): A positive or neutral statement—no required follow-up action
+         needed.
+
+    • Warning (W): An issue that requires correction.
+    • Error (E): An issue that requires correction and resubmission.
+
+ERR-4 Specifications
+For use of ERR-4:
+
+    • IIS SHOULD implement different validation rules based on the submitter or
+         submitter class, to align with operational priorities and needs. E.g., providers
+         participating in vaccine programs may be subject to stricter data quality
+         requirements. For these submitters, an issue flagged as a warning (W) for general
+         providers might escalate to an error (E).
+
+For ERR-4 severity values:
+
+    • ERR-4 severity ‘E’
+              o IIS SHALL return to convey when core intent is not fulfilled (correction and re-
+                   submission is required).
+              o IIS SHALL NOT return for conformance violations (e.g., segment mis-ordering,
+                   missing required delimiters), unless the issue prevents the IIS from fulfilling
+                   the core intent.
+              o IIS SHALL NOT return for a requested update or delete action from a
+                   conformant VXU that was not applied (e.g., deletion not honored).
+              o Systems SHALL NOT automatically block the transmission or processing of
+                   subsequent messages for other patients/immunizations due to a severity ‘E’
+                   error.
+
+    • ERR-4 severity ‘W’
+              o IIS SHALL return to convey an issue requiring correction.
+
+    • ERR-4 severity ‘I’
+              o IIS SHALL return to convey an issue that does not require correction (e.g.,
+                   submitted precaution not stored, VIS information not stored).
+              o IIS SHOULD return to convey that a requested update or delete action from a
+                   conformant VXU was not applied.
+              o IIS MAY return to convey a positive or neutral statement (no follow-up is
+                   required).
+
+                                                                                                                             13
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+              o Systems SHALL NOT use informational errors to determine what data may
+                   need to be re-submitted.
+
+ERR-4 Guidance
+    • Informational feedback
+              o IIS may choose to include informational-level ERR segment(s) (ERR-4 = I) to
+                   confirm what was accepted. For example: "Patient record accepted." Or "3 of
+                   4 immunizations accepted."
+              o IIS are encouraged to generate and return informational errors if they can be
+                   generated consistently and clearly.
+              o These messages can assist with interface troubleshooting and provide insight
+                   to technical users; however: they do not override the requirement to
+                   resubmit, they are not actionable by clinical users, and they carry no
+                   expectations of actions for the submitter.
+    • Error Severity ‘E’: aka Hard Error, Fatal Error
+              o An error with severity ‘E’ may also be referred to as a ‘hard error’ or ‘fatal
+                   error’. These terms relay that the issue resulted in rejection of the submitted
+                   VXU due to core intent not being fulfilled, with correction and resubmission
+                   required.
+
+ERR-4 Actions: Convey, Correct, Resubmit
+There are three key actions that define the expected follow-up when issues are identified in
+the ACK message: convey, correct, and resubmit.
+
+    • Convey: Communicate the issue to the appropriate user/audience, ensuring it is
+         available, accessible, and presented in a way that is understandable and actionable
+         by the intended user/audience. I.e., this issue shall be presented in the context of a
+         specific transaction and shall be presented in an aggregate format.
+
+    • Correct: Address the issue in the source system and/or the originating workflow, if
+         possible. This typically refers to improving the underlying patient record or
+         immunization history—for example, correcting demographic information, filling in
+         missing fields, or fixing invalid codes. In some cases, the issue may be outside the
+         control of the system (e.g., missing data at the time of vaccination), and the system
+         may not be able to update the existing record. In those cases, the focus should be
+         on improving upstream workflows or processes so that the issue does not recur.
+         Importantly, the "Correct" action refers to correcting the original source of truth and
+         does not necessarily imply that a revised message must be submitted to the IIS.
+
+    • Resubmit: Send an updated (i.e., corrected) message to the IIS. This action is
+         required when the IIS is unable to associate/persist the submitted patient and/or
+         their shot history. In many cases, the issue originates in the submitting system (e.g.,
+         an invalid or missing CVX code, malformed patient data, or missing identifiers).
+
+                                                                                                                             14
+                                TECHNICAL ADVISORY BULLETIN | June 2026
+
+                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+   However, in some cases, the problem lies in the IIS itself—for example, a valid CVX
+   code may be incorrectly rejected due to outdated or misconfigured code tables.
+
+Table 6 shows how each ERR-4 severity level maps to the expected follow-up action.
+
+Table 6. Expected actions associated with ERR-4 severity values
+
+ERR-4  Label        Convey  Correct                              Resubmit
+
+I      Information  SHOULD  MAY                                  MAY
+
+W      Warning      SHALL   SHALL                                SHOULD
+
+E      Error        SHALL   SHALL                                SHALL
+
+The actions are cumulative and hierarchical, i.e., each higher action includes the
+responsibilities of the lower ones. Furthermore, these actions apply only to the individual
+issue described in the ERR segment. The overall message disposition is calculated
+separately, based on the most severe issue present in the message, for return in MSA-1.
+
+ACK Integration into Submitting and Receiving Systems
+Each ERR segment with a severity of W (Warning), or E (Error) shall be conveyed (i.e., parsed
+and available/accessible) to appropriate users as determined by the submitting system, not
+as raw HL7, but as structured, understandable information—e.g., individual error rows in a
+user interface, report, and/or workflow-integrated feedback view. This presentation should
+make use of information from ERR-2, ERR-4, ERR-5, and ERR-8 to support the required
+follow-up action.
+
+Additional information on ACK integration and use is available in the Healthcare
+Information and Management Systems Society (HIMSS) Aggregate Immunization
+Acknowledgment Message Reports Guidance White Paper.
+
+Correction and Resubmission for Rejected (Unsuccessful) VXUs
+
+Resubmission is not merely a retransmission of the original data; it is the culmination of
+identifying and correcting the issue—regardless of where it originated—to ensure complete
+data submission to the IIS. Resubmitting the same message without correction is not
+appropriate and can overload IIS systems. Correct and resend.
+
+The ACK message does not distinguish between sender-side and receiver-side faults, nor
+can it reliably determine at runtime which system must take corrective action. Therefore,
+any message requiring resubmission signals that at least one system must resolve the
+issue, and the appropriate operators—on either or both sides—must investigate and
+determine where the correction is needed. Once resolved, the updated message must be
+resent to ensure the IIS has a complete and accurate record.
+
+                                                                                    15
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+ERR-5: Application Error Code
+
+The ERR-5 field is used to communicate the specific issue encountered during the
+processing of a message. It supplements ERR-2 (where the issue occurred) and ERR-4
+(which specifies the severity), by answering the key question: what was the problem?
+
+ERR-5 Values
+The identification of the issue identified is provided in the form of an ERR-5 code from a
+national code set, as provided in the National Set of ERR-5 Application Error Codes for
+Immunization ACK Messaging. These codes are organized into ranges based on the type of
+issue:
+
+    • 1–7: Legacy HL7 codes (e.g., Invalid Value, Required Data Missing) – use only when
+         no more specific code exists.
+
+    • 2000–2099: Conflicting Data – fields that contradict each other (e.g., date of birth
+         after date of death).
+
+    • 2100–2199: Inappropriate Data – data present but inappropriate (e.g., future date).
+    • 2200–2299: Invalid Data – syntactically or semantically wrong (e.g., unrecognized
+
+         code system).
+    • 2300–2399: Lookup Failures – values could not be matched (e.g., no matching
+
+         vaccine dose).
+    • 2400–2499: Message Construction – structural or message format issues.
+    • 2500–2599: Missing Data – required or expected data was not included.
+    • 2600–2699: Processing Errors – system-level or runtime issues (e.g., data
+
+         truncation).
+    • 2700–2799: Data Sharing or Consent – patient record restricted by policy.
+    • 3001–3499: Missing Endorsed Data Elements – one code for each core data element.
+    • 3501–3999: Invalid Endorsed Data Elements – present but incorrect, for each data
+
+         element.
+    • 5000-5999: Processing results
+
+These codes use matching endings across the missing/invalid ranges to clearly pair each
+data element.
+
+ERR-5 Specifications
+For ERR-5:
+
+    • IIS SHALL implement High priority codes
+    • IIS SHOULD implement Medium priority codes
+    • IIS MAY implement Low priority codes
+
+For implementation of the optional ERR-5 code 5044:
+
+    • IIS MAY support code 5044, Patient identifying information saved, IIS identifier for
+         patient is {1}. If implemented, IIS SHALL adhere to the following constraints to
+         ensure consistency and interoperability:
+
+                                                                                                                             16
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+              o This code MAY be used by an IIS only when the patient record was:
+                         Newly created in the IIS, or
+                         Matched to an existing patient and successfully updated.
+
+              o When used in ERR-5, the IIS SHALL include the corresponding internal patient
+                   identifier in ERR-6 (Application Error Parameter).
+                         The identifier returned in ERR-6 SHALL be suitable for use in a future
+                             QBP^Q11 query as a State Registry ID (SR) or Local Registry (LR). That
+                             is, it must be a valid and query-able identifier recognized by the IIS for
+                             record retrieval. It may be combined with other identifiers in QPD-3,
+                             e.g.: |D26376273^^^NIST MPI^MR~1234567^^^IIS^SR|
+
+ERR-5 Guidance
+Detection
+To implement a code means that if the IIS detects a condition matching that code, it returns
+it in ERR-5. This guidance does not specify how the IIS should treat the underlying data
+(e.g., whether to accept or reject it) or what ERR-4 severity to assign the issue; those
+decisions are governed by local policy. For example:
+
+    • Code 2001 "Conflicting Date of Birth and Date of Death" is marked as High priority.
+         The IIS shall return this code if this situation is detected, but it is up to the
+         jurisdiction whether this condition results in storage of one date or results in
+         rejection of both dates, and the ERR-4 severity to return.
+
+    • Code 3002 "Ethnicity is missing" is indicated as medium priority. The IIS should
+         return this code if the situation is detected. The severity (Error, Warning, etc.), as
+         determined by the IIS, is independently specified in ERR-4.
+
+Extensibility and Coordination
+If a concept needed by an IIS is not already in the national set, implementers should
+contact AIRA. New codes can be added quickly in coordination with the community. There
+is no requirement for jurisdictions to invent local codes; in fact, doing so is discouraged, as
+it increases burden and inconsistency across interfaces.
+
+IIS are encouraged to implement codes as needed, and submitters should expect that ERR-
+5 will contain new values as the set is expanded and new data quality issues are identified.
+
+Optional Use of Code 5044 – Patient Identifier Returned
+ERR-5 code 5044 – Patient identifying information saved, IIS identifier for patient is {1} – is
+defined to enable IIS systems to return the internal IIS patient identifier (commonly
+referred to as the State Registry ID or SR) assigned to the patient record that was created
+or updated as a result of the incoming VXU message. Use of ERR-5 code 5044 provides a
+standard way for an IIS to communicate the resolved patient identifier, aiding downstream
+systems in reliably querying and reconciling patient records without requiring out-of-band
+processes.
+
+                                                                                                                             17
+                                                                                 TECHNICAL ADVISORY BULLETIN | June 2026
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+ERR-6 remains optional in the broader guidance, but its presence is required when used in
+conjunction with ERR-5 code 5044.
+
+ERR-8: User Message
+
+The ERR-8 field provides a human-readable explanation of the issue described in an ERR
+segment.
+ERR-8 Specifications
+When an ERR segment is returned, ERR-8:
+
+    • SHALL indicate a locally specified, clear, non-technical message intended for display
+         to end users without HL7 expertise that describes the issue noted in the ERR
+         segment in plain language.
+
+    • SHOULD NOT reference an HL7 segment/field/component (e.g., “PID-5").
+    • SHOULD NOT include information about the overall message processing outcome
+
+         (e.g., “message rejected”).
+ERR-8 Guidance
+The ERR-8 field is intended for end users, e.g., clinical or operational, not interface
+developers. Its primary function is to clearly and concisely describe the problem using plain
+language, without requiring knowledge of HL7 syntax or message structures. Additional
+guidance for ERR-8 includes the following:
+
+    • Write for end users: ERR-8 should use plain, non-technical language that is
+         understandable by individuals responsible for addressing data quality issues.
+         Example: "Patient first name is missing" (avoid: "PID-5.2 is not populated").
+
+    • Avoid repeating structured data: ERR-8 should not duplicate information already
+         present in ERR-2 (location), ERR-4 (severity), or ERR-5 (classification). These values
+         are available separately and should be exposed by the submitting system in their
+         own appropriate fields. For example, there is no need to include phrases like
+         “Required field” or “Message rejected” in ERR-8. The severity is clearly indicated by
+         ERR-4 (e.g., E for errors requiring resubmission), and the overall disposition is
+         reflected in MSA-1.
+
+                                                                                                                             18
+                                     TECHNICAL ADVISORY BULLETIN | June 2026
+
+                         for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Appendices
+
+Appendix A. Conveying transport/connectivity-layer issues using ACKs
+
+This guidance scopes out transport because transport issues are handled at the
+transport/connectivity layer (e.g., CDC WSDL). However, when intermediaries support data
+exchange between a submitter and an IIS, there may be a need for the intermediary to
+communicate what an IIS is indicating as a transport-layer issue back to the submitter via
+an ACK message. In this case, the intermediary should communicate this issue to the
+submitter using enhanced mode acknowledgments, with MSA-1 value ‘CR’ indicating
+Commit Reject. The intermediary should not communicate the issue to the submitter using
+MSA-1 value ‘AR’ to avoid issues in interpretation of the ACK.
+
+Appendix B. Core intent and acknowledgment messaging: Examples
+
+Additional examples illustrating core intent and its relationship to acknowledgment
+messaging are provided.
+
+Table 7. Core intent and VXU acceptance/rejection scenarios
+
+Scenario                 Result in IIS                         Core       Accept/
+Patient has no name                                            Intent     Reject
+                         IIS unable to create/associate        Not        Reject
+                         patient record without a name.        Fulfilled
+
+Patient with             IIS unable to create/associate this   Not        Reject
+immunizations            patient record.                       Fulfilled  Accept
+submitted, but name                                                       Reject
+has characters IIS will  IIS able to create/associate patient  Fulfilled  Accept
+not accept               record and record immunization
+                         but problem with phone number is
+Patient phone number     detected.
+was invalid
+
+Administered             IIS has policy to only accept         Not
+immunization             administered vaccinations from VFC    Fulfilled
+submitted by VFC         providers that meet VFC program
+program participant      guidelines, including lot number
+without a valid lot      requirements.
+number
+                         IIS creates/associates the patient    Fulfilled
+Patient submitted with   record.
+no immunizations
+
+                                                                                     19
+                                    TECHNICAL ADVISORY BULLETIN | June 2026
+
+                        for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Patient submitted with  IIS can accept one but not all,  Not           Reject
+three immunizations                                                    Accept
+                        because of problems in the data for Fulfilled
+
+                        two of the immunizations.
+
+Immunization and TB     IIS accepts the immunization but as Fulfilled
+skin test result        a policy, does not store TB skin test
+                        results.
+
+                                                                               20
+

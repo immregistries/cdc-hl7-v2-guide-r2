@@ -1,0 +1,335 @@
+      TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Returning IIS Patient Immunization
+Record Information in a Z32 and Z42
+RSP
+
+Executive Summary
+
+This TAB reviews expectations for IIS for return of patient and immunization record
+information in a Z32 and Z42 response message, indicating information that
+shall/should/may/should not/shall not be returned, when a single patient match is found in
+response to a query request. For example, an IIS shall return ‘completed’ immunizations
+but shall not return ‘deleted’ immunizations. Updated Z32 and Z42 RSP specifications are
+provided in alignment with the return expectations.
+
+Background
+
+The National IG reviews the goals of the Z32 and Z42 RSP message, with the Z32 aiming to
+return a complete immunization history and the Z42 aiming to return an evaluated
+immunization history and forecast. Since the focus of a Z42 is on returning an evaluated
+immunization history and forecast, per the National IG, it is “not intended to return all the
+details expected of a complete immunization history.” On the other hand, in reviewing
+capabilities of IIS as responding systems, the IIS Functional Guide, Volume 1: Query and
+Response does not differentiate between the Z32 and Z42 RSP, indicating that, regardless of
+the query profile, IIS should “return as much data as the Responding System is allowed to
+return per local policy and to always include the clinical decision support (i.e., evaluation
+and forecast).”
+
+An additional AIRA guidance document, Security Guidance Considerations for Immunization
+Information Systems, indicates that IIS should “return only what is minimally necessary” in a
+response message when a single patient match is found and “never send back information
+like Social Security number, mother’s maiden name, or an alternative/potential address
+located in the IIS.”
+
+This TAB seeks to harmonize and clarify guidance for IIS for return of patient and
+immunization information in Z32 and Z42 RSP messages.
+
+Scope
+
+In scope
+This TAB covers IIS patient demographic and vaccination event record information to
+return in a Z32 and Z42 RSP when there is a single patient match found in response to a
+
+Information provided in this bulletin was supported by the National Center for Immunization and Respiratory Diseases of the  1
+
+Centers for Disease Control and Prevention under award number 6 NU38OT000291-05-01. The content is solely the
+
+responsibility of the authors and does not necessarily represent the official views of CDC.
+                                               TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                         for the v2.5.1 Implementation Guide for Immunization Messaging
+
+query request. This assumes the IIS, as a responding system, has the information available
+to return and is permitted to return the information, per jurisdictional law/policy.
+
+Out of scope
+    • QBP message processing, i.e., errors in an RSP
+    • Z31 RSP messages to return a list of candidate matches
+    • Z33 RSP messages, to return an acknowledgment with no person records found
+    • Structure and formatting of the immunization evaluation and forecasting
+         information in a Z32 and Z42 RSP (see the CDS in RSP Alignment TAB)
+    • How the querying system handles information returned in RSP (i.e., reconcile,
+         ingest)
+    • Messaging how an IIS patient immunization record may have changed over time
+         (e.g., due to immunization deletes, record merges, etc.)
+
+Clarifications and Conformance Expectations
+
+Conformance expectations for IIS on the return of patient and immunization information in
+Z32 and Z42 response messages are listed in Table 1. Tables 2 and 3 provide updated
+usage specifications for the Z32 and Z42 profiles, in alignment with the return expectations.
+
+IIS return expectations
+Table 1. IIS return expectations for Z32 and Z42 RSP messages
+
+                                                   Conformance Expectation
+
+Patient types
+
+Patient who is not “protected”                     SHALL return
+
+(Patient processed as PD1-12 not valued ‘Y’; when
+
+PD1-12 valued ‘Y’, return as Z33)
+
+Deceased patient                                   MAY return
+
+Immunization types
+
+Completed immunization(s)                          SHALL return
+
+(Processed as ‘CP’)
+
+Partially administered immunization(s)             SHOULD return
+
+(Processed as ‘PA’)
+
+Refused immunization(s)                            SHOULD return
+
+(Processed as ‘RE’)
+
+Deleted immunization(s)                            SHALL NOT return
+
+(Processed as action code ‘D’)
+
+Observations associated with an immunization administration
+
+Vaccine funding program eligibility and            MAY return
+
+vaccine funding source
+
+Information provided in this bulletin was supported by the National Center for Immunization and Respiratory Diseases of the  2
+
+Centers for Disease Control and Prevention under award number 6 NU38OT000291-05-01. The content is solely the
+
+responsibility of the authors and does not necessarily represent the official views of CDC.
+                                           TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Vaccine information statement (VIS)                 MAY return
+
+information
+
+Adverse reaction: associated with a specific        MAY return
+
+administration (processed as ‘CP’ or ‘PA’ and
+
+LOINC 31044-1 + value)
+
+Observations associated with a patient (non-administration event)
+
+Contraindication: vaccine-specific                  SHOULD return
+(processed as ‘NA’, contraindicated product, and
+LOINC 30945-0 + value)                              SHOULD return
+Contraindication: not vaccine-specific
+(processed as ‘NA’, product ‘998’ and LOINC         SHOULD return
+30945-0 + value)                                    SHOULD return
+Disease with serological evidence of immunity       MAY return
+(processed as ‘NA’ and LOINC 75505-8 + value)
+Disease with presumed immunity (processed           Z32 RSP: MAY return
+as ‘NA’ and LOINC 59784-9 + value)                  Z42 RSP: SHALL return
+Adverse reaction: not associated with a             Z32 RSP: MAY return
+specific administration (processed as ‘NA’ and      Z42 RSP: SHALL return
+LOINC 31044-1 + value)
+Clinical decision support
+Evaluated immunization history
+
+Immunization forecast
+
+Updated RSP Z32 and Z42 specifications
+Updated usage specifications for Z32 and Z42 RSP messages are noted in Tables 2 and 3.
+Note, the updated specifications apply to both the Z32 and Z42 RSP profile.
+
+Table 2. Updated Z32 and Z42 RSP message-level specifications (segment usage)
+
+                        National IG Usage                                                    Updated Conformance
+
+Segment                 Z32                    Z42                                           Usage  Notes
+
+PD1                     RE                     X                                             O      MAY be returned
+
+NK1                     RE                     X                                             O      MAY be returned
+
+Information provided in this bulletin was supported by the National Center for Immunization and Respiratory Diseases of the  3
+
+Centers for Disease Control and Prevention under award number 6 NU38OT000291-05-01. The content is solely the
+
+responsibility of the authors and does not necessarily represent the official views of CDC.
+                                             TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                       for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Table 3. Updated Z32 and Z42 RSP segment-level specifications (field usage)
+
+                        National IG Usage                                                    Updated Conformance
+
+Field  Element          Z32            Z42                                                   Usage  Notes
+PID-6  Mother’s maiden
+       last name        RE             O                                                     O      SHOULD NOT be
+PID-   Race
+10                                                                                                  returned
+PID-   Patient address
+11                      RE             O                                                     O      MAY be returned
+PID-   Phone number –
+13     home             RE             RE                                                    O      MAY be returned
+PID-   Ethnic group
+22                      RE             O                                                     O      MAY be returned
+RXA-   Immunization
+9      information      RE             O                                                     O      MAY be returned
+       source
+RXA-                        C(R/O)         C(R/O)                                            O      MAY be returned
+20     Completion       R when RXA-    R when RXA-
+RXA-   status            20 value is    20 value is          R                                      SHALL be
+21     Action code                                                                                  returned
+                         ‘CP’ or ‘PA’   ‘CP’ or ‘PA’         R                                      SHALL be
+RXA-   Administering                                                                                returned, SHALL
+10     provider                RE             RE        C(RE/X)                                     return as ‘A’
+       (person)                                        RE when                                      When RXA-20
+RXA-                    O              O                 RXA-20                                     value is ‘CP’ or
+15     Lot number                                     value is ‘CP’                                 ‘PA’: SHALL be
+                          C(RE/O)        C(RE/O)                                                    returned if
+RXA-   Expiration date  RE when 00     RE when 00        or ‘PA’                                    known.
+16                      and RXA-20     and RXA-20       C(RE/X)                                     When RXA-20
+                        value is ‘CP’  value is ‘CP’   RE when                                      value is not ‘CP’
+                                                         RXA-20                                     or ‘PA’: SHALL
+                           or ‘PA’        or ‘PA’     value is ‘CP’                                 NOT be returned.
+                                              O          or ‘PA’
+                           C(R/O)                       C(RE/X)
+                        R when 00             O        RE when
+                        and RXA-20                       RXA-20
+                        value is ‘CP’                 value is ‘CP’
+                                                         or ‘PA’
+                           or ‘PA’
+
+                          C(RE/O)
+                        RE when 00
+                        and RXA-20
+                        value is ‘CP’
+
+                           or ‘PA’
+
+Information provided in this bulletin was supported by the National Center for Immunization and Respiratory Diseases of the  4
+
+Centers for Disease Control and Prevention under award number 6 NU38OT000291-05-01. The content is solely the
+
+responsibility of the authors and does not necessarily represent the official views of CDC.
+                                           TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+RXA- Administered-at    C(RE/O)        C(RE/O)        C(RE/X)
+11 location           RE when 00     RE when 00      RE when
+                      and RXA-20     and RXA-20        RXA-20
+RXA- Manufacturer     value is ‘CP’  value is ‘CP’  value is ‘CP’
+17 name
+                         or ‘PA’        or ‘PA’        or ‘PA’
+ORC-  Ordering                                        C(RE/X)
+12    provider           C(R/O)         C(R/O)       RE when
+      (person)        R when 00      R when 00         RXA-20
+                      and RXA-20     and RXA-20     value is ‘CP’
+                      value is ‘CP’  value is ‘CP’     or ‘PA’
+                                                      C(RE/X)
+                         or ‘PA’        or ‘PA’      RE when
+                                                       RXA-20
+                        C(RE/O)             O       value is ‘CP’
+                      RE when 00                       or ‘PA’
+                      and RXA-20
+                      value is ‘CP’
+
+                         or ‘PA’
+
+Implications
+
+Although IIS are population-based databases, it is not always the case that all information
+known to an IIS about a given patient’s demographic information needs to be returned in a
+Z32 or Z42 response message, per the tables above. IIS are not intended to serve as
+repositories of current patient identifying information; therefore, jurisdictions may choose
+whether to return certain information. For example, regardless of whether the IIS stores
+the information contained in the PD1 segment, the NK1 segment, and PID fields (including
+those conveying the patient’s race, ethnic group, address, and phone number/email
+address), a jurisdiction may choose whether or not to return this information in a Z32 and
+Z42 RSP per the updated specifications.
+
+On the other hand, when the IIS contains information about the patient’s immunization
+history, it is generally expected that this information will be returned in a Z32 or Z42 RSP.
+The updated specifications clarify that completed immunizations shall be returned and
+partial administrations should be returned with the action code (RXA-21) value ‘A’. When
+immunization events are returned, population of the RXA-9 field, immunization information
+source, is optional, as this field is defined in the context of a VXU but not in the context of
+an RSP. Finally, when a completed or partial immunization is returned, information
+associated with the vaccination event (e.g., administering provider, lot number, expiration
+date, administered-at location, manufacturer name, and ordering provider) shall be
+returned if known.
+
+As a final note, where the expectation is that an IIS shall return the information as
+indicated, it follows that an IIS shall have the information available to return, as the
+
+Information provided in this bulletin was supported by the National Center for Immunization and Respiratory Diseases of the  5
+
+Centers for Disease Control and Prevention under award number 6 NU38OT000291-05-01. The content is solely the
+
+responsibility of the authors and does not necessarily represent the official views of CDC.
+                                   TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                             for the v2.5.1 Implementation Guide for Immunization Messaging
+
+querying system shall expect/depend on this information to be returned. Where the
+expectation is that an IIS should return the information as indicated, it should be
+considered good practice to have the information available to return. Table 4 reviews the
+interpretation and implications of the conformance indications.
+
+Table 4. Interpretation and implications of conformance indications for return of
+information in Z32 and Z42 RSP messages
+
+Conformance Definition       Interpretation:        Implications                             Implications
+                             testing/standard       for sender of                            for receiver of
+                                                    RSP (i.e., IIS)                          RSP (querying
+                                                                                             system)
+SHALL       Required to      Expectation of         SHALL have the                           SHALL
+SHOULD      implement        testing. Must pass     information                              expect/depend
+MAY                          test to be             available to                             on this
+            Recommended      considered on          return. (If                              information
+            to implement     standard.              information is                           being returned.
+                                                    not available,
+            Permissible to   May be considered a    can’t pass test.)                        SHOULD NOT
+            implement        future standard.                                                expect/depend
+                             Good practice to       Good practice                            on this
+                             implement.             to have the                              information
+                             Exploratory testing    information                              being returned.
+                             to monitor.            available to
+                             Optional. Left up to   return.                                  SHOULD NOT
+                             IIS to make decisions                                           expect/depend
+                             on implementation.                                              on this
+                                                                                             information
+SHOULD NOT  Recommended      May be considered a    Even if the                              being returned.
+SHALL NOT   not to           future standard.       information is                           SHOULD NOT
+            implement        Good practice not to   available, good                          expect/depend
+                             implement.             practice not to                          on this
+            Required not to                         return.                                  information
+            implement        Expectation of                                                  being returned.
+                             testing. Must pass     Even if the                              SHALL NOT
+                             test to be             information is                           expect/depend
+                             considered on          available, the                           on this
+                             standard.              IIS SHALL NOT                            information to
+                                                    return.                                  be returned.
+
+Information provided in this bulletin was supported by the National Center for Immunization and Respiratory Diseases of the  6
+
+Centers for Disease Control and Prevention under award number 6 NU38OT000291-05-01. The content is solely the
+
+responsibility of the authors and does not necessarily represent the official views of CDC.
+

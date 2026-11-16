@@ -1,0 +1,87 @@
+                                                                            TECHNICAL ADVISORY BULLETIN | January 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+System Entry Date/Time (RXA-22)
+Definition
+
+Executive Summary
+
+A definition of the optional RXA-22 System Entry Date/Time field is provided for when an
+RXA is used to message an administered or historical immunization(s). In these instances,
+RXA-22 is defined as the most recent date/time when the administered or historical
+immunization information was last entered/updated in the submitting system.
+
+Background
+
+In the National IG, RXA-22 System Entry Date/Time is an optional field with no definition
+provided. The RXA segment is used in a VXU message to convey immunization information
+associated with a patient.
+Two competing definitions have emerged for the RXA-22 field:
+
+    • The initial date/time of entry in the submitting system
+    • The most recent date/time of entry in the submitting system (i.e., potentially the
+
+         date/time of an update)
+
+The HL7 2.5.1 base standard, from which the National IG was derived, defines RXA-22 as
+“[d]ate/time the administration information was entered into the source system.” This may
+imply that the value represents the initial date/time of entry and that perhaps it is not
+expected to be changed when updates are made.
+
+However, some immunization information systems (IIS) interpret this as the most recent
+date/time of entry, which may represent the initial date/time of entry or the date/time the
+entry in the submitting system was updated. These IIS use the value in RXA-22 to support
+matching and deduplication of submitted immunization information.
+
+Scope
+
+In scope
+A definition for the RXA-22 System Entry Date/Time field as it relates to messaging an
+administered or historical immunization.
+Out of scope
+
+    • Definition of RXA-22 as it relates to an RXA conveying a vaccine refusal, a specific
+         vaccine contraindication, or a patient-level observation.
+
+    • Usage of the RXA-22 field.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 1
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                             TECHNICAL ADVISORY BULLETIN | January 2024
+
+                     for the v2.5.1 Implementation Guide for Immunization Messaging
+
+• Whether and how IIS use the RXA-22 value, e.g., in their vaccination deduplication
+    process.
+
+Clarifications and Conformance Expectations
+
+RXA System Entry Date/Time remains an optional field, i.e.:
+
+• Submitting systems MAY choose to send RXA-22.
+• Receiving systems MAY choose to process RXA-22.
+
+RXA-22 field definition
+Clarification on the RXA-22 definition for immunization messaging is provided in Table 1.
+
+Table 1. RXA-22 definition
+
+Element National IG Definition Clarification
+
+RXA-22 Not provided  For administered and historical immunizations,
+                     the most recent date/time the immunization
+                     information was last entered/updated in the
+                     submitting system
+
+For further insights on Technical Advisory Bulletins, please refer to TAB Overview
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 2
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+

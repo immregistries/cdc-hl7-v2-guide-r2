@@ -1,0 +1,198 @@
+# Technical Advisory Bulletins (TABs) for the v2.5.1 Implementation Guide for Immunization Messaging.
+#
+# TABs are published community specifications (AIRA and CDC, approved by SISC). This guide is meant to
+# fold them in. The PDFs are kept in tabs/ (with extracted text in tabs/text/) and the
+# comparison of each TAB with the guide is recorded in quality/tabs/<id>.yml.
+#
+# Fields:
+#   id        stable ID, used in URLs (tabs/<id>/) and finding IDs; never reuse
+#   title     title as published
+#   date      publication date on the TAB (YYYY-MM)
+#   url       the published PDF on the AIRA repository
+#   file      the copy in tabs/
+#   summary   one or two sentences
+#   cards     guide sections the TAB affects (a "Technical Advisory Bulletins" panel links them)
+#   kind      tab (default) | overview (about TABs in general) | summary (an index of TABs; not compared)
+#
+# Source page: https://repository.immregistries.org/resource/tab-resources/
+
+page: https://repository.immregistries.org/resource/tab-resources/
+list_on: technical-advisory-bulletins   # this section lists every TAB
+
+tabs:
+  - id: ack-messaging
+    title: "Acknowledgment (ACK) Messaging: Updated Specifications and Guidance"
+    date: 2026-06
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_acknowledgment__ack__messaging_updated_specifications_and_guidance__1_.pdf
+    file: tabs/2026-06-ack-messaging.pdf
+    summary: >-
+      Defines core intent and what acceptance and rejection mean, ties MSA-1 to the most severe ERR-4 value, and sets
+      requirements for ERR-2, ERR-4, ERR-5 (the national set of application error codes, with implementation priorities)
+      and ERR-8.
+    cards:
+      - acknowledgement-ack-message-profile
+      - iis-core-intent-and-message-disposition
+      - application-level-scope-of-ack-messages
+      - issue-level-reporting-using-err-segments
+      - err-2-error-location
+      - err-4-severity-code
+      - required-follow-up-actions
+      - err-5-application-error-code
+      - optional-use-of-code-5044-patient-identifier-returned
+      - err-8-user-message
+      - msa-1-derivation-of-message-level-disposition
+      - msa-1-guidance
+      - use-of-acks-in-interface-monitoring
+      - acknowledgement-processing-overview
+
+  - id: cds-in-rsp-alignment
+    title: CDS in RSP Alignment
+    date: 2026-09
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_cds_in_rsp_alignment.pdf
+    file: tabs/2026-09-cds-in-rsp-alignment.pdf
+    summary: >-
+      Refines how evaluations and forecasts are encoded in a Z42 response: one ORC/RXA order group for all forecasts,
+      a constrained set of OBX codes, and use of LOINC 59783-1 to say whether a next dose is due or the series is complete.
+    cards:
+      - clinical-decision-support
+      - evaluation
+      - recommendation
+      - forecast-group-structure
+      - forecast
+      - z42-return-evaluated-immunization-history-and-forecast
+
+  - id: self-administered-flumist
+    title: Submission of Self-Administered FluMist Vaccine to IIS
+    date: 2026-09
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_submission_of_self-administered_flumist_vaccine_to_iis.pdf
+    file: tabs/2026-09-self-administered-flumist.pdf
+    summary: >-
+      Expected VXU content for self- or caregiver-administered FluMist reported by the Asembia Specialty Pharmacy Network
+      through STChealth. Specific to one submitter and season, so most of it is outside the scope of this guide.
+    cards: []
+
+  - id: patient-name-pid-5
+    title: Patient Name (PID-5) Updates to Support Patient Matching
+    date: 2025-10
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_patient_name__pid-5__final.pdf
+    file: tabs/2025-10-patient-name-pid-5.pdf
+    summary: >-
+      Name type codes (L required; M, NB, and N recommended), data type rules by name type, and preservation of spaces,
+      hyphens, and special characters in patient names.
+    cards:
+      - patient-and-other-names
+      - patient-names
+      - official-registry-name
+      - important-names
+      - optional-name-types
+      - data-type-and-structure
+      - unnamed-newborns
+      - special-characters
+      - formatting-and-case-preservation
+      - name-consistency-and-matching-expectations
+
+  - id: non-patient-person-names
+    title: Messaging Non-patient Person Names in HL7
+    date: 2025-07
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_non-patient_person_names.pdf
+    file: tabs/2025-07-non-patient-person-names.pdf
+    summary: >-
+      Extends the patient name work to mother's maiden name (PID-6, QPD-5), responsible person (NK1-2), and the
+      provider names in ORC-10, ORC-12, and RXA-10.
+    cards:
+      - non-patient-person-names
+      - special-characters
+
+  - id: phone-and-email
+    title: "Messaging Phone and Email; Telecommunication Use Code and Equipment Type Values"
+    date: 2024-04
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_messaging_phone_and_email.pdf
+    file: tabs/2024-04-phone-and-email.pdf
+    summary: >-
+      Primary phone first in PID-13, QPD-9, or NK1-5, email in a later repetition with use code NET, and the
+      HL70201 and HL70202 values that systems shall support.
+    cards:
+      - phone-and-email
+      - general-principles
+      - telecommunication-use-codes-hl70201
+      - telecommunication-equipment-type-codes-hl70202
+      - interpretation-and-operational-guidance
+
+  - id: unknown-race-ethnicity
+    title: Additional "Unknown" Race and Ethnicity Codes
+    date: 2024-04
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_20unknown_20race_20ethnicity.pdf
+    file: tabs/2024-04-unknown-race-ethnicity.pdf
+    summary: >-
+      Adds UNK, ASKU, and PHC1175 to CDCREC for unknown, asked-but-unknown, and refused race and ethnicity, and requires
+      receivers to process VXUs with or without valid race and ethnicity.
+    cards:
+      - race-and-ethnicity
+      - value-sets-and-field-usage
+      - unknown-and-refused-values
+
+  - id: returning-record-in-rsp
+    title: Returning IIS Patient Immunization Record Information in a Z32 and Z42 RSP
+    date: 2024-01
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_returning_patient_vaccination_record_information_in_an_rsp__1_.pdf
+    file: tabs/2024-01-returning-record-in-rsp.pdf
+    summary: >-
+      What an IIS shall, should, may, should not, and shall not return in a Z32 or Z42 response when a single patient
+      is matched, for example completed immunizations but not deleted ones.
+    cards:
+      - response-rsp-profiles
+      - z32-return-complete-immunization-history
+      - z42-return-evaluated-immunization-history-and-forecast
+      - information-disclosure-constraints
+      - vaccinations-returned-in-query-responses-rsp
+
+  - id: scenarios-for-updates-and-queries
+    title: Scenarios for Updates and Queries
+    date: 2024-01
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_scenarios_for_updates_and_queries__1_.pdf
+    file: tabs/2024-01-scenarios-for-updates-and-queries.pdf
+    summary: Conformance expectations for systems that exchange VXU and QBP messages with an IIS, by scenario.
+    cards:
+      - vxu-submission-scenarios
+      - scenarios-that-trigger-qbp-messages
+
+  - id: query-response-flexibility
+    title: "Query Response Flexibility: Z31 Response for Z34 and Z44 Queries"
+    date: 2024-01
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_20query_20response_20flexibility.pdf
+    file: tabs/2024-01-query-response-flexibility.pdf
+    summary: A Z31 list of candidates MAY be returned for a Z44 query as well as for a Z34 query.
+    cards:
+      - unified-z34-and-z44-profile-model
+      - selecting-a-candidate-match
+      - z31-return-a-list-of-candidates
+
+  - id: system-entry-date-time-rxa-22
+    title: System Entry Date/Time (RXA-22) Definition
+    date: 2024-01
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_system_entry_date_time__rxa-22_.pdf
+    file: tabs/2024-01-system-entry-date-time-rxa-22.pdf
+    summary: >-
+      For administered and historical immunizations, RXA-22 is the most recent date and time the immunization was
+      entered or updated in the submitting system.
+    cards: []
+
+  - id: tab-overview
+    kind: overview
+    title: About Technical Advisory Bulletins
+    date: 2024-01
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_20overview_20_1_.pdf
+    file: tabs/2024-01-tab-overview.pdf
+    summary: What TABs are, how they are developed and approved, and the conformance verbs they use.
+    cards:
+      - technical-advisory-bulletins
+
+  - id: summary-of-tab-resources
+    kind: summary
+    title: Summary of TAB Resources
+    url: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/summary_of_tab_resources.pdf
+    file: tabs/summary-of-tab-resources.pdf
+    summary: >-
+      A one-paragraph summary of each TAB. Published before the latest TABs and not kept current, so it is listed here
+      but not compared.
+    cards: []

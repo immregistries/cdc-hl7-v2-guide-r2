@@ -1,0 +1,62 @@
+                                                                          TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+Query Response Flexibility: Z31
+Response for Z34 and Z44 Queries
+
+Executive Summary
+
+Clarification on use of the Return a List of Candidates (Z31 RSP) response is provided, with
+indication that a Z31 RSP MAY be returned in response to a Request Evaluated
+Immunization History and Forecast (Z44 QBP) query. With this clarification, a Z31 RSP MAY
+be returned in response to a Z44 QBP and in response to a Request a Complete
+Immunization History (Z34 QBP).
+
+Background
+
+The National IG indicates that a Return a List of Candidates (Z31 RSP) may be returned in
+response to a Request a Complete Immunization History Z34 QBP. However, it does not
+indicate that a Z31 RSP may be returned in response to a Request Evaluated Immunization
+History and Forecast Z44 QBP. It is unclear why a Z31 response was not indicated for a Z44
+query. There is no documented history or reasoning to support this decision. Furthermore,
+several immunization information systems (IIS) return a Z31 for both queries.
+
+Scope
+
+In scope
+Return of a Z31 response message for either a Z34 or Z44 query.
+Out of scope
+Whether an IIS will return a Z31 response for a Z34 or Z44 query and the contents of a Z31
+response. These are determined by IIS policy and business rules.
+
+Clarifications and Conformance Expectations
+
+SHALL requirements:
+    • The querying system SHALL be prepared to receive a Z31 response to either a Z34
+         or Z44 query.
+
+MAY requirements:
+    • IIS that return a Z31 response to both a Z34 and Z44 query MAY continue to do so.
+    • IIS that return a Z31 response only for a Z34 query MAY also return a Z31 response
+         for a Z44 query.
+    • IIS that do not return a Z31 response for a Z34 query MAY also not return a Z31
+         response for a Z44 query.
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 1
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+                                                                          TECHNICAL ADVISORY BULLETIN | JANUARY 2024
+
+                                                                                    for the v2.5.1 Implementation Guide for Immunization Messaging
+
+    For further insights on Technical Advisory Bulletins, please refer to TAB Overview
+
+Research reported in this publication was supported by the National Center for Immunization and Respiratory Diseases 2
+
+of the Centers for Disease Control and Prevention under award number NU38OT000291 under CDC-RFA-OT18-1802
+Strengthening Public Health Systems and Services Through National Partnerships to Improve and Protect the Nation’s Health.
+The content is solely the responsibility of the authors and does not necessarily represent the official views of CDC.
+

@@ -1,0 +1,522 @@
+# Comparison: TAB "Acknowledgment (ACK) Messaging: Updated Specifications and Guidance" (June 2026) and this guide.
+#
+# One item per requirement or piece of guidance in the TAB, in TAB order, then the guide's own additions.
+# Fields:
+#   id        stable item ID (tab-ack-NN, tab-ack-gNN for guide additions); never reuse
+#   section   TAB heading;  page: TAB page number
+#   verb      conformance verb(s) in the TAB, if any
+#   tab       what the TAB says (quoted, or closely paraphrased when long)
+#   result    covered | prose | reworded | partial | missing | conflict | guide-adds | out-of-scope
+#               covered      the guide says the same thing
+#               prose        the guide says it, but in narrative rather than as a numbered conformance statement
+#               reworded     the guide says it differently; check the meaning is unchanged
+#               partial      some of it is in the guide
+#               missing      not in the guide
+#               conflict     the guide (or IGAMT) says something different
+#               guide-adds   a requirement in the guide that the TAB does not have
+#   guide     where the guide covers it: card IDs or statement IDs (<card>--sN), or figure IDs (<card>#fig-N)
+#   note      the reviewer's explanation
+#   severity  issue | warning | note  (for results other than covered; defaults by result)
+#   owner     narrative | igamt | both | decision  (who acts)
+#   recommendation
+
+tab: ack-messaging
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide has folded in this TAB closely. Almost every requirement is in the ACK sections (3.3), often word for word, and
+  figures 11 and 13 reproduce the TAB's tables. The main gaps are the national ERR-5 code set (named and published by the
+  TAB, but neither named nor included in the guide, and mostly missing from the IGAMT value set), the rule that a rejected
+  message is corrected and resent in full, and the core-intent scenarios in Appendix B. The guide also adds several
+  requirements of its own, and recasts core intent in terms of "Critical Data", a term the TAB does not use.
+
+items:
+  # ---------------------------------------------------------------- transport
+  - id: tab-ack-01
+    section: Transport-Level Failures
+    page: 4
+    verb: SHALL NOT
+    tab: >-
+      IIS SHALL NOT use ACKs to convey transport or connectivity issues: connectivity (DNS lookup fault, timeout),
+      SOAP-related (unknown operation, invalid SOAP message, message too large), security (certificate or TLS failure,
+      invalid credentials or tokens), and other routing or connectivity issues.
+    result: covered
+    guide:
+      - application-level-scope-of-ack-messages--s1
+      - application-level-scope-of-ack-messages--s2
+      - transport-level-vs-message-level-responses
+    note: >-
+      The guide's list leaves out "SOAP message too large" and puts "Other routing/connectivity issue" on the same line as
+      the SOAP item, which looks like a conversion artifact of a nested list.
+    severity: note
+    owner: narrative
+
+  - id: tab-ack-02
+    section: Executive Summary; MSA-1 Guidance
+    page: 3, 10
+    verb: SHALL NOT
+    tab: IIS SHALL NOT use 'AR' for the reason "Unable to process for reasons unrelated to format or content".
+    result: prose
+    guide: [msa-1-guidance]
+    note: >-
+      The guide explains that this reason is removed, but has no conformance statement for it. The TAB states it as a
+      SHALL NOT in its executive summary.
+    recommendation: Add a statement to 3.3.4.1 MSA-1 Guidance.
+    owner: narrative
+
+  # ---------------------------------------------------------------- what can be inferred
+  - id: tab-ack-03
+    section: "Summary: What Can Be Inferred from the ACK? (Key Takeaways)"
+    page: 6
+    verb: shall not
+    tab: >-
+      For a rejected (unsuccessful) VXU, the submitter corrects the issue(s) and resubmits the full message. Submitters
+      shall not attempt to ascertain whether certain elements of the patient's IIS record were updated; there is no
+      standardized way for an IIS to say which elements were stored.
+    result: partial
+    guide: [iis-core-intent-and-message-disposition--s4, required-follow-up-actions]
+    note: >-
+      The guide says rejection does not imply that nothing was stored (s4), and that resubmission means a corrected message.
+      It never says the whole message is resent, or that submitters should not try to work out what was stored, which is
+      the practical consequence the TAB draws from s4.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Add to 3.3.1: "After a rejection, the submitting system SHALL correct and resubmit the complete message and SHALL NOT
+      attempt to determine which parts of it were stored."
+
+  - id: tab-ack-04
+    section: "Summary: What Can Be Inferred from the ACK? (Key Takeaways)"
+    page: 6
+    verb: shall not
+    tab: A VXU rejection shall not be interpreted as an indicator to automatically stop submission and processing of additional VXU messages.
+    result: covered
+    guide: [err-4-severity-code--s5, transport-level-vs-message-level-responses]
+
+  - id: tab-ack-05
+    section: "Summary: What Can Be Inferred from the ACK? (Table 1)"
+    page: 6
+    tab: >-
+      Table 1, ACK interpretation summary: AA with no ERR or only I (accepted, no action); AE with W and no E (accepted,
+      convey and correct); AR with E (rejected, convey, correct, and resubmit).
+    result: covered
+    guide: [msa-1-derivation-of-message-level-disposition, "required-follow-up-actions#fig-11", "msa-1-derivation-of-message-level-disposition#fig-13"]
+    note: The guide spreads Table 1 across figures 11 and 13 and the MSA-1 text rather than giving the one-table summary.
+
+  # ---------------------------------------------------------------- core intent
+  - id: tab-ack-06
+    section: "Acceptance and Processing Terms: IIS Core Intent"
+    page: 7
+    tab: >-
+      Accept: the IIS received the message; the patient was associated or created and their shot(s), if submitted, were
+      recorded. Reject: the patient was not associated or created and/or one or more submitted shots were not recorded;
+      a corrected message must be resubmitted.
+    result: reworded
+    guide:
+      - iis-core-intent-and-message-disposition--s1
+      - iis-core-intent-and-message-disposition--s2
+      - iis-core-intent-and-message-disposition
+    note: >-
+      The guide's narrative repeats the TAB's definition, but its statements define acceptance and rejection through
+      "Critical Data", a term the TAB does not use: accepted when the patient is associated "and all submitted Critical Data
+      is processed and stored". The two agree if Critical Data means the patient's identity plus each submitted
+      vaccination; the TAB's examples (one of three immunizations stored: reject; TB result not stored: accept) fit that
+      reading. Because Critical Data is otherwise left to local policy (see tab-ack-g03), the statements can be read more
+      broadly than the TAB.
+    severity: note
+    owner: decision
+    recommendation: >-
+      Confirm that Critical Data is meant to equal the TAB's core intent, and say so in the Critical Data key term, or
+      phrase s1 and s2 in the TAB's terms (patient associated or created, each submitted vaccination recorded).
+
+  - id: tab-ack-07
+    section: Local business rules
+    page: 7-8
+    tab: Local business rules (matching, de-duplication) decide how an IIS arrives at the outcome; the patient address example.
+    result: covered
+    guide: [iis-core-intent-and-message-disposition]
+
+  - id: tab-ack-08
+    section: Successful, Qualified Successful, and Unsuccessful Transmissions
+    page: 8
+    tab: >-
+      Defines Successful (core intent fulfilled, no action), Qualified Successful (core intent fulfilled, issues need
+      correction), and Unsuccessful (core intent not fulfilled, correct and resubmit); successful and qualified successful
+      are accepted, unsuccessful is rejected (Table 2).
+    result: partial
+    guide: [msa-1-guidance, acknowledgement-ack-message-profile]
+    note: >-
+      The guide uses "qualified successful" and "unsuccessful" in 3.3.4 and 3.3.4.1 but never defines the three terms. Key
+      Terms (1.3) define Core Intent and Rejection, but not Accept or these three outcomes.
+    severity: note
+    owner: narrative
+    recommendation: Add Successful, Qualified Successful, and Unsuccessful to Key Terms, or define them in 3.3.1.
+
+  # ---------------------------------------------------------------- MSA-1
+  - id: tab-ack-09
+    section: MSA-1 Acknowledgment Code
+    page: 9
+    tab: The MSA-1 value is derived from the most severe ERR-4 value in any ERR segment (E, then W, then I), after severities are assigned.
+    result: covered
+    guide: [msa-1-derivation-of-message-level-disposition, "msa-1-derivation-of-message-level-disposition#fig-13"]
+
+  - id: tab-ack-10
+    section: MSA-1 Specifications (Table 3)
+    page: 9-10
+    verb: SHALL, SHALL NOT, MAY
+    tab: >-
+      AA SHALL be returned for acceptance with no issues requiring correction, and SHALL NOT be returned with a W or E.
+      AE SHALL be returned when there is a W and no E, and SHALL NOT be returned with an E. AR SHALL be returned to convey
+      rejection, i.e. when there is an E. Table 3 allows I with any value and W with AR.
+    result: partial
+    guide:
+      - msa-1-derivation-of-message-level-disposition--s1
+      - msa-1-derivation-of-message-level-disposition--s2
+      - "msa-1-derivation-of-message-level-disposition#fig-13"
+    note: >-
+      All of it is there, and figure 13 matches Table 3, but the statements lost their subject in conversion: s1 reads
+      "SHALL be returned to indicate VXU acceptance..." and s2 "SHALL be returned when the ERR-4 severity is 'W'..." without
+      saying which MSA-1 value. The three other rules (AA SHALL NOT, AE SHALL NOT, AR SHALL) are left in the narrative and are
+      not numbered statements.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Write the five rules as five complete statements ("MSA-1 SHALL be 'AA' when...", and so on). The Word draft nests them
+      under the MSA-1 value; check the conversion of that list too.
+
+  - id: tab-ack-11
+    section: MSA-1 Guidance
+    page: 10-11
+    tab: >-
+      AE now means accepted as qualified successful; AR means unsuccessful (rejected). AR was previously limited to four
+      cases, and this guidance removes "unable to process for reasons unrelated to format or content". MSA-1 cannot convey
+      transport issues. (Tables 4 and 5 show the historical and updated relationships.)
+    result: covered
+    guide: [msa-1-guidance, msa-1-derivation-of-message-level-disposition]
+
+  # ---------------------------------------------------------------- ERR-2
+  - id: tab-ack-12
+    section: ERR-2 Specifications
+    page: 11
+    verb: SHALL
+    tab: When populated, ERR-2 SHALL indicate a single location for understanding and resolving the issue.
+    result: prose
+    guide: [err-2-error-location]
+    note: The SHALL is in the narrative of 3.3.3.1, which has no numbered statements.
+    owner: narrative
+    recommendation: Make it statement s1 of 3.3.3.1.
+
+  - id: tab-ack-13
+    section: ERR-2 Guidance
+    page: 12
+    tab: >-
+      Use the ERL format (PID^1^5), not shorthand; be specific, especially for repeating segments; for a missing segment,
+      reference the group it would have appeared in (ORC); leave ERR-2 blank when the issue is not tied to a location.
+    result: covered
+    guide: [err-2-error-location]
+
+  - id: tab-ack-14
+    section: ERR-2 Guidance
+    page: 12
+    tab: >-
+      "If an issue involves multiple fields ... ERR-2 can reference only one location." Return one ERR segment pointing to
+      the most relevant field, or two ERR segments, one per field.
+    result: reworded
+    guide: [err-2-error-location]
+    note: >-
+      The guide says "ERR-2 can reference only one location per segment". "Per segment" can be read as one location per
+      message segment involved, which is not what the TAB means (one location per ERR segment).
+    severity: note
+    owner: narrative
+    recommendation: Say "only one location per ERR segment", or drop "per segment".
+
+  # ---------------------------------------------------------------- ERR-4
+  - id: tab-ack-15
+    section: ERR-4 Values
+    page: 13
+    tab: I = positive or neutral, no follow-up; W = requires correction; E = requires correction and resubmission.
+    result: covered
+    guide: [err-4-severity-code]
+
+  - id: tab-ack-16
+    section: ERR-4 Specifications
+    page: 13
+    verb: SHOULD
+    tab: IIS SHOULD implement different validation rules based on the submitter or submitter class.
+    result: covered
+    guide: [err-4-severity-code--s1]
+
+  - id: tab-ack-17
+    section: ERR-4 Specifications (severity E)
+    page: 13
+    verb: SHALL, SHALL NOT
+    tab: >-
+      IIS SHALL return E when core intent is not fulfilled; SHALL NOT return E for conformance violations unless they prevent
+      core intent; SHALL NOT return E for an update or delete from a conformant VXU that was not applied. Systems SHALL NOT
+      automatically block later messages because of an E.
+    result: covered
+    guide:
+      - err-4-severity-code--s2
+      - err-4-severity-code--s3
+      - err-4-severity-code--s4
+      - err-4-severity-code--s5
+      - use-of-acks-in-interface-monitoring--s2
+
+  - id: tab-ack-18
+    section: ERR-4 Specifications (severities W and I)
+    page: 13-14
+    verb: SHALL, SHOULD, MAY, SHALL NOT
+    tab: >-
+      IIS SHALL return W for an issue requiring correction. IIS SHALL return I for an issue not requiring correction,
+      SHOULD return I when a requested update or delete was not applied, and MAY return I for a positive or neutral
+      statement. Systems SHALL NOT use informational errors to decide what to resubmit.
+    result: covered
+    guide:
+      - err-4-severity-code--s6
+      - err-4-severity-code--s7
+      - err-4-severity-code--s8
+      - err-4-severity-code--s9
+      - err-4-severity-code--s10
+    note: >-
+      The guide's s6 adds "that does not prevent core intent from being fulfilled", which is consistent with the TAB. The
+      headings "For ERR-4 severity 'E':" (and 'W', 'I') in the narrative are left with nothing under them, because the
+      statements they introduce are listed separately.
+
+  - id: tab-ack-19
+    section: ERR-4 Guidance
+    page: 14
+    tab: >-
+      IIS may include informational ERR segments to confirm what was accepted ("Patient record accepted", "3 of 4
+      immunizations accepted"), and are encouraged to if they can do it consistently; these carry no expected action. An E
+      is also called a hard or fatal error.
+    result: covered
+    guide: [issue-level-reporting-using-err-segments, err-4-severity-code]
+    note: The guide does not repeat the encouragement or the examples.
+
+  - id: tab-ack-20
+    section: "ERR-4 Actions: Convey, Correct, Resubmit (Table 6)"
+    page: 14-15
+    tab: >-
+      Definitions of convey, correct, and resubmit, and Table 6: I = convey SHOULD, correct MAY, resubmit MAY;
+      W = SHALL, SHALL, SHOULD; E = SHALL, SHALL, SHALL. Actions are cumulative and apply to the individual issue.
+      Convey: the issue "shall be presented in the context of a specific transaction and shall be presented in an
+      aggregate format".
+    result: covered
+    guide: [required-follow-up-actions, "required-follow-up-actions#fig-11"]
+    note: >-
+      Figure 11 matches Table 6. The guide's definition of convey says "both in the context of the specific transaction
+      and in aggregate" without the TAB's "shall".
+
+  - id: tab-ack-21
+    section: ACK Integration into Submitting and Receiving Systems
+    page: 15
+    verb: shall
+    tab: >-
+      Each ERR segment with severity W or E shall be conveyed to appropriate users, not as raw HL7 but as structured,
+      understandable information, using ERR-2, ERR-4, ERR-5, and ERR-8. Further guidance is in the HIMSS Aggregate
+      Immunization Acknowledgment Message Reports white paper.
+    result: prose
+    guide: [required-follow-up-actions, use-of-acks-in-interface-monitoring]
+    note: >-
+      The SHALL is in the narrative of 3.3.3.3 and is not a numbered statement. The HIMSS white paper is cited [6] in 3.3.5,
+      not here.
+    owner: narrative
+    recommendation: Make it a statement of 3.3.3.3, with the actor (submitting systems), and cite [6] there.
+
+  - id: tab-ack-22
+    section: Correction and Resubmission for Rejected (Unsuccessful) VXUs
+    page: 15
+    tab: >-
+      Resubmission is not retransmission: correct and resend. Resending an uncorrected message can overload the IIS. The ACK
+      does not say which side is at fault; operators on either side investigate.
+    result: covered
+    guide: [required-follow-up-actions]
+
+  # ---------------------------------------------------------------- ERR-5
+  - id: tab-ack-23
+    section: ERR-5 Values
+    page: 16
+    tab: >-
+      ERR-5 carries a code from the national code set "as provided in the National Set of ERR-5 Application Error Codes for
+      Immunization ACK Messaging".
+    result: missing
+    guide: [err-5-application-error-code]
+    note: >-
+      The narrative refers to "a national code set" but never names it, links to it, or includes it. The guide's own SHALL,
+      SHOULD, and MAY (implement High, Medium, and Low priority codes) cannot be followed without it, because the narrative
+      does not say which codes have which priority. The value set bound to ERR-5 in chapter 7 (HL70533_IZ01) is the 2017
+      code list plus 5044 and has no priorities. This site now shows the set (version 2026-07-06, pending publication by
+      AIRA) as Appendix D, linked from 3.3.3.4; the narrative still needs to name and cite it.
+    severity: issue
+    owner: both
+    recommendation: >-
+      Name and cite the national set in 3.3.3.4 and Resources (once AIRA posts it), and carry Appendix D, the codes with
+      their priorities, into the guide.
+
+  - id: tab-ack-24
+    section: ERR-5 Values (code ranges)
+    page: 16
+    tab: >-
+      Codes are organized into ranges: 1-7 legacy (use only when nothing more specific exists), 2000-2099 conflicting,
+      2100-2199 inappropriate, 2200-2299 invalid, 2300-2399 lookup failures, 2400-2499 message construction, 2500-2599
+      missing data, 2600-2699 processing errors, 2700-2799 data sharing or consent, 3001-3499 missing endorsed data
+      elements, 3501-3999 invalid endorsed data elements, 5000-5999 processing results.
+    result: partial
+    guide: [err-5-application-error-code]
+    note: >-
+      The guide lists the categories in a sentence, without their number ranges, leaves out "processing results"
+      (5000-5999) ("among others"), and does not say to use the legacy codes 1-7 only when no more specific code exists.
+    severity: warning
+    owner: narrative
+    recommendation: Give the ranges as a table in 3.3.3.4, including 5000-5999 and the rule for codes 1-7.
+
+  - id: tab-ack-25
+    section: ERR-5 Specifications
+    page: 16
+    verb: SHALL, SHOULD, MAY
+    tab: IIS SHALL implement High priority codes, SHOULD implement Medium priority codes, and MAY implement Low priority codes.
+    result: conflict
+    guide:
+      - err-5-application-error-code--s1
+      - err-5-application-error-code--s2
+      - err-5-application-error-code--s3
+    note: >-
+      The narrative matches the TAB, but the profiles do not allow it. HL70533_IZ01 is marked closed and has 67 codes
+      (1-7, 2000-2701, and 5044). The national set (Appendix D) has 280: 213 of them, including 16 of the 20 High priority
+      codes (such as 2018, vaccination date before birth, and 3019, date of birth missing), are not in the value set, so an
+      IIS that meets the SHALL sends ERR-5 values the profile does not allow. The value set also still lists 2202, 2203, and
+      2502, which the national set has deprecated.
+    severity: issue
+    owner: igamt
+    recommendation: >-
+      Update HL70533_IZ01 in IGAMT to the national set (or make it open and point to the national set), and record the
+      version of the set that the guide adopts.
+
+  - id: tab-ack-26
+    section: ERR-5 Specifications (code 5044)
+    page: 16-17
+    verb: MAY, SHALL
+    tab: >-
+      IIS MAY support 5044. If it does: only when the patient was newly created or matched and updated; ERR-6 SHALL carry
+      the internal patient identifier, suitable for a later QBP^Q11 query as SR or LR, and may be combined with other
+      identifiers in QPD-3 (example |D26376273^^^NIST MPI^MR~1234567^^^IIS^SR|). ERR-6 is otherwise optional.
+    result: covered
+    guide:
+      - optional-use-of-code-5044-patient-identifier-returned--s1
+      - optional-use-of-code-5044-patient-identifier-returned--s2
+      - optional-use-of-code-5044-patient-identifier-returned--s3
+      - optional-use-of-code-5044-patient-identifier-returned--s4
+    note: The guide leaves out the QPD-3 example. IGAMT makes ERR-6 required when ERR-5.1 is 5044 (see the IGAMT review).
+
+  - id: tab-ack-27
+    section: "ERR-5 Guidance: Detection"
+    page: 17
+    tab: >-
+      Implementing a code means returning it when the condition is detected; it does not decide how the data is treated or
+      the ERR-4 severity (examples: 2001 High, 3002 Medium).
+    result: covered
+    guide: [err-5-application-error-code]
+    note: The guide leaves out the two examples.
+
+  - id: tab-ack-28
+    section: "ERR-5 Guidance: Extensibility and Coordination"
+    page: 17
+    tab: >-
+      If a needed concept is not in the national set, contact AIRA; new codes can be added quickly. Inventing local codes is
+      discouraged. Submitters should expect new values as the set grows.
+    result: reworded
+    guide: [err-5-application-error-code]
+    note: The guide says to coordinate with "the guide's maintaining organization" instead of naming AIRA, which maintains the code set.
+    severity: note
+    owner: narrative
+    recommendation: Name AIRA as the maintainer of the national ERR-5 code set and say how to request a code.
+
+  # ---------------------------------------------------------------- ERR-8
+  - id: tab-ack-29
+    section: ERR-8 Specifications and Guidance
+    page: 18
+    verb: SHALL, SHOULD NOT
+    tab: >-
+      ERR-8 SHALL be a locally specified, clear, non-technical message for end users without HL7 expertise; SHOULD NOT
+      reference a segment, field, or component; SHOULD NOT describe the overall outcome. Write for end users, and do not
+      repeat ERR-2, ERR-4, or ERR-5.
+    result: covered
+    guide: [err-8-user-message--s1, err-8-user-message--s2, err-8-user-message--s3, err-8-user-message]
+
+  # ---------------------------------------------------------------- appendices
+  - id: tab-ack-30
+    section: "Appendix A: Conveying transport/connectivity-layer issues using ACKs"
+    page: 19
+    tab: >-
+      An intermediary that must relay an IIS transport-layer issue to a submitter should use an enhanced-mode
+      acknowledgment with MSA-1 'CR' (Commit Reject), not 'AR'.
+    result: covered
+    guide: [application-level-scope-of-ack-messages]
+
+  - id: tab-ack-31
+    section: "Appendix B: Core intent and acknowledgment messaging examples (Table 7)"
+    page: 19-20
+    tab: >-
+      Scenarios: no patient name (reject); name with characters the IIS will not accept (reject); invalid phone number
+      (accept); VFC dose without a valid lot number where policy requires one (reject); patient with no immunizations
+      (accept); one of three immunizations stored (reject); immunization stored but TB skin test result not stored (accept).
+    result: missing
+    guide: [iis-core-intent-and-message-disposition]
+    note: >-
+      The guide has the address example but not this table, which is the clearest illustration of where core intent draws
+      the line. The ACK examples in appendix A show AA, AE, and AR messages but not these scenarios.
+    severity: warning
+    owner: narrative
+    recommendation: Add Table 7 to 3.3.1, or as example messages linked from it.
+
+  # ---------------------------------------------------------------- the guide's additions
+  - id: tab-ack-g01
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide: [application-level-scope-of-ack-messages--s3]
+    note: >-
+      "An IIS SHALL generate exactly one application-level ACK in response to each successfully received VXU message." The
+      TAB has no such requirement (section 2.5 says the same in prose).
+    owner: decision
+
+  - id: tab-ack-g02
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide: [application-level-scope-of-ack-messages--s4]
+    note: '"ACK messages SHALL summarize the processing outcome of the submitted message, not intermediate workflow states." Not in the TAB.'
+    owner: decision
+
+  - id: tab-ack-g03
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide: [iis-core-intent-and-message-disposition--s5, iis-core-intent-and-message-disposition--s3]
+    note: >-
+      Critical Data, and "IIS MAY expand the definition of Critical Data through jurisdictional policy, provided that such
+      expansion is documented in local messaging specifications". The TAB leaves the rules to local policy too, but does
+      not define Critical Data or require local documentation (see tab-ack-06).
+    owner: decision
+
+  - id: tab-ack-g04
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide: [issue-level-reporting-using-err-segments--s1, issue-level-reporting-using-err-segments--s4]
+    note: >-
+      "Each discrete issue ... SHALL be represented by a separate ERR segment" and "The absence of ERR segments with Warning
+      or Error severity SHALL indicate that no corrective action is required." Both follow from the TAB but are not stated
+      in it.
+    owner: decision
+
+  - id: tab-ack-g05
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide: [use-of-acks-in-interface-monitoring--s1, use-of-acks-in-interface-monitoring--s3]
+    note: >-
+      "IIS SHALL ensure that severities ... accurately reflect expected follow-up actions" and "Submitting systems SHALL
+      analyze ACK feedback in aggregate to identify recurring data quality patterns." The TAB asks for issues to be conveyed
+      in aggregate, but does not require submitters to analyze them.
+    owner: decision

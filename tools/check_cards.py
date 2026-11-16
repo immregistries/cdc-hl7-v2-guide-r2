@@ -27,6 +27,7 @@ from guidecards import (  # noqa: E402
 )
 import compare_structure  # noqa: E402
 import example_checks  # noqa: E402
+import tab_review  # noqa: E402
 
 QUALITY_DIR = REPO / "quality"
 SEVERITIES = ("issue", "warning", "note")
@@ -38,6 +39,7 @@ CATEGORIES = {
     "conversion": "Conversion",
     **compare_structure.CATEGORIES,
     **example_checks.CATEGORY,
+    **tab_review.CATEGORY,
 }
 EXAMPLES_DIR = REPO / "examples"
 MODEL_DIR = REPO / "model"
@@ -305,6 +307,9 @@ def run_checks_full(cards_dir: Path, data_dir: Path, quality_dir: Path, model_di
                 "severity": m.get("severity", "note"), "card": m.get("card"),
                 "location": m.get("location"), "message": m["message"]}
         f.items.append(item)
+
+    # ---------------------------------------------------------------- Technical Advisory Bulletins
+    f.items.extend(tab_review.findings(tab_review.load(cards_dir.parent, {c.id: c for c in cards})))
 
     # ---------------------------------------------------------------- dispositions
     dispositions = read_yaml(quality_dir / "dispositions.yml", {}) or {}
