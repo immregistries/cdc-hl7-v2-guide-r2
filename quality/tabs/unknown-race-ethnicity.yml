@@ -1,0 +1,133 @@
+# Comparison: TAB "Additional 'Unknown' Race and Ethnicity Codes" (April 2024) and this guide. Fields: see ack-messaging.yml.
+
+tab: unknown-race-ethnicity
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  Section 4.5.5.2 (Unknown and Refused Values) adopts this TAB by name and cites it: UNK, ASKU, and PHC1175, MAY for
+  senders, accepted by IIS, and translatable to UNK or empty. IGAMT has the three codes in both bound value sets. The
+  differences: the TAB's SHALL NOT send both ASKU and PHC1175 is a SHOULD in the guide; the TAB requires the coding system
+  "CDCREC" for the three codes, which the guide does not say and IGAMT contradicts (NULLFL, and CDCPHINVS for PHC1175 in
+  race); and the general rule that a VXU is processed when a race or ethnicity code is not recognized is missing.
+
+items:
+  - id: tab-re-01
+    section: Executive Summary; Tables 1 and 2
+    page: 1, 3-4
+    verb: MAY
+    tab: >-
+      CDCREC is extended with UNK (Unknown), ASKU (Asked but unknown), and PHC1175 (Refused to answer) for race (PID-10) and
+      ethnic group (PID-22). Submitting systems MAY send them in a VXU.
+    result: covered
+    guide:
+      - unknown-and-refused-values--s1
+      - unknown-and-refused-values--s3
+      - multiple-race-reporting--s4
+      - ethnicity-reporting--s3
+      - unknown-and-refused-values
+
+  - id: tab-re-02
+    section: Tables 1 and 2 (submitting system conformance)
+    page: 3-4
+    verb: SHALL NOT
+    tab: Submitting systems SHALL NOT submit both ASKU and PHC1175 to a receiving system.
+    result: conflict
+    guide: [unknown-and-refused-values--s2]
+    note: >-
+      The guide says sending systems "SHOULD select and consistently implement either ASKU or PHC1175 ... but not both", a
+      SHOULD where the TAB has SHALL NOT.
+    severity: warning
+    owner: narrative
+    recommendation: '"Sending systems SHALL NOT send both ASKU and PHC1175 to the same receiving system; they SHALL choose one."'
+
+  - id: tab-re-03
+    section: Additional "unknown" race and ethnic group codes
+    page: 3-4
+    verb: SHALL
+    tab: >-
+      In PID-10 and PID-22, component 1 is the code, component 2 the text, and component 3 the value set identifier, which
+      SHALL be "CDCREC" for these codes (for example ASKU^asked but unknown^CDCREC).
+    result: conflict
+    guide: [unknown-and-refused-values, value-sets-and-field-usage]
+    note: >-
+      The guide does not say which coding system the three codes use. IGAMT gives them as NULLFL (UNK, ASKU, and, for
+      ethnicity, PHC1175) and CDCPHINVS (PHC1175 for race), so the TAB's own examples carry a coding system the profiles do
+      not list. The value sets are open, so a validator would probably warn rather than fail.
+    severity: warning
+    owner: decision
+    recommendation: >-
+      Decide which coding system identifier these codes carry (the TAB says CDCREC), state it in 4.5.5.2, and make the
+      IGAMT value sets match.
+
+  - id: tab-re-04
+    section: Tables 1 and 2 (receiving system conformance)
+    page: 3-4
+    verb: SHOULD, MAY
+    tab: >-
+      Receiving systems SHOULD process these codes. They MAY translate UNK to an empty value, and ASKU or PHC1175 to UNK or
+      an empty value.
+    result: reworded
+    guide: [unknown-and-refused-values--s4, unknown-and-refused-values--s5, unknown-and-refused-values--s6]
+    note: >-
+      The guide makes it a SHALL (IIS SHALL accept the codes, SHALL NOT reject messages because of them), stronger than the
+      TAB's SHOULD. It does not mention translating UNK to an empty value.
+    severity: note
+    owner: decision
+    recommendation: Confirm that the guide means to raise acceptance from SHOULD to SHALL.
+
+  - id: tab-re-05
+    section: Tables 1 and 2
+    page: 3-4
+    verb: MAY
+    tab: Systems MAY adjust the code labels if the definition is unchanged (for example, PHC1175 as "prefer not to say").
+    result: missing
+    guide: [unknown-and-refused-values]
+    severity: note
+    owner: narrative
+    recommendation: Add the TAB's sentence on labels to 4.5.5.2.
+
+  - id: tab-re-06
+    section: Processing a VXU with an unknown patient race and/or ethnic group
+    page: 4
+    verb: SHALL
+    tab: >-
+      If a race or ethnicity code is not recognized, the receiving system raises an error but SHALL continue to process the
+      message as if the field were not valued. Except where law or policy prohibits it, receiving systems SHALL process VXU
+      messages with or without valid race and ethnicity codes.
+    result: partial
+    guide: [race-and-ethnicity, unknown-and-refused-values--s6, value-sets-and-field-usage]
+    note: >-
+      The guide says IIS must accommodate unknown and refused responses "without rejecting valid immunization messages",
+      and must not reject the three unknown codes, but has no statement for a code the IIS does not recognize (an invalid
+      code).
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Add to 4.5.5.1: "Except where prohibited by law or policy, IIS SHALL process a VXU with or without valid race and
+      ethnicity codes; an unrecognized code is reported in the ACK and the field treated as not valued."
+
+  - id: tab-re-07
+    section: Out of scope
+    page: 3
+    tab: Storing the unknown codes, and returning them in a query response, are out of scope.
+    result: covered
+    guide: [omb-2024-directive-and-forward-compatibility]
+    note: The guide says querying systems SHOULD NOT assume race or ethnicity is returned in an RSP.
+
+  - id: tab-re-08
+    section: Examples
+    page: 5
+    tab: Two VXU examples, ASKU for race and UNK for ethnic group.
+    result: missing
+    guide: [unknown-and-refused-values]
+    severity: note
+    owner: narrative
+    recommendation: Add the two examples to appendix A, with the coding system decided in tab-re-03.
+
+  - id: tab-re-g01
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide: [unknown-and-refused-values--s7]
+    note: '"IIS SHALL NOT define additional local unknown codes." The TAB does not say this.'
+    owner: decision

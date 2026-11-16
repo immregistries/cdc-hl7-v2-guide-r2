@@ -149,6 +149,9 @@ tabs:
       - race-and-ethnicity
       - value-sets-and-field-usage
       - unknown-and-refused-values
+      - multiple-race-reporting
+      - ethnicity-reporting
+      - omb-2024-directive-and-forward-compatibility
 
   - id: returning-record-in-rsp
     title: Returning IIS Patient Immunization Record Information in a Z32 and Z42 RSP
