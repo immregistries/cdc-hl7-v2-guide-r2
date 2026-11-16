@@ -37,6 +37,21 @@ class CompareTest(unittest.TestCase):
         z31 = [r for r in self.res["rows"] if r["aspect"] == "segment" and "Z31" in r["profiles"]]
         self.assertFalse([r for r in z31 if "RESPONSE" in r["element"]])
 
+    def statement(self, sid):
+        return next(s for s in self.res["statements"] if s["id"] == sid)
+
+    def test_statement_changed_by_assertion(self):
+        s = self.statement("IZ-42")  # MSH-15: ER in Release 1.5, NE now
+        self.assertEqual(s["status"], "changed")
+
+    def test_statement_split_into_parts(self):
+        s = self.statement("IZ-17")
+        self.assertEqual((s["status"], s["new_id"]), ("split", "IZ-17a, IZ-17b, IZ-17c"))
+        self.assertFalse([x for x in self.res["statements"] if x["id"] == "IZ-17a"])
+
+    def test_wording_only_is_not_a_change(self):
+        self.assertEqual(self.statement("IZ-12")["status"], "same")  # only "(Case Sensitive)" differs
+
     def test_external_codes_and_placeholders_not_compared(self):
         for c in self.res["code_changes"]:
             self.assertNotIn(c["value_set"], {"CVX", "MVX", "NDC"})

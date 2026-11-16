@@ -34,9 +34,9 @@ PRIOR_MODEL = REPO / "prior" / "release-1.5" / "model"
 CONFIG = REPO / "quality" / "r15" / "config.yml"
 PROFILE_ORDER = ["Z22", "Z23", "Z34", "Z44", "Z31", "Z32", "Z33", "Z42"]
 USAGE_RANK = {"B": 1, "O": 1, "C": 2, "RE": 3, "R": 4}  # for "tightened"/"loosened"; X is handled separately
-ASPECTS = ["segment", "element", "usage", "cardinality", "datatype", "length", "binding", "codes"]
+ASPECTS = ["segment", "element", "usage", "condition", "cardinality", "datatype", "length", "binding", "codes"]
 ASPECT_LABEL = {
-    "segment": "Segment", "element": "Element", "usage": "Usage", "cardinality": "Cardinality",
+    "segment": "Segment", "element": "Element", "usage": "Usage", "condition": "Condition", "cardinality": "Cardinality",
     "datatype": "Data type", "length": "Length", "binding": "Value set", "codes": "Codes",
 }
 
@@ -159,9 +159,14 @@ def compute(repo: Path = REPO) -> dict:
         if path:
             r["paths"].add(path)
 
-    def compare_el(profile, path, label, name, eo, en, depth):
+    def compare_el(profile, path, label, name, eo, en, depth, pro, prn):
+        """pro/prn: predicates from the context, keyed by path relative to this element; () is its own."""
+        po, pn = pro.get(()), prn.get(())
         if eo.get("usage") != en.get("usage"):
-            add(profile, label, name, "usage", eo.get("usage"), en.get("usage"), path=path)
+            note = f"condition: {predicate_text(pn)}" if en.get("usage") == "C" else ""
+            add(profile, label, name, "usage", eo.get("usage"), en.get("usage"), note, path)
+        elif eo.get("usage") == "C" and predicate_key(po) != predicate_key(pn):
+            add(profile, label, name, "condition", predicate_text(po), predicate_text(pn), path=path)
         if (eo.get("min"), eo.get("max")) != (en.get("min"), en.get("max")) and "min" in eo:
             add(profile, label, name, "cardinality", card(eo), card(en), path=path)
         if base_dt(eo.get("datatype")) != base_dt(en.get("datatype")):
@@ -196,9 +201,12 @@ def compute(repo: Path = REPO) -> dict:
         if depth < 2 and constrained:
             dto, dtn = old.datatypes.get(eo.get("datatype")), new.datatypes.get(en.get("datatype"))
             if dto and dtn and base_dt(dto["xml_id"]) == base_dt(dtn["xml_id"]):
-                compare_children(profile, path, label, dto["components"], dtn["components"], depth + 1)
+                # the context's predicates for the components win over the data type's own
+                compare_children(profile, path, label, dto["components"], dtn["components"], depth + 1,
+                                 {**predicates(dto), **{k: v for k, v in pro.items() if k}},
+                                 {**predicates(dtn), **{k: v for k, v in prn.items() if k}})
 
-    def compare_children(profile, path, label, co, cn, depth):
+    def compare_children(profile, path, label, co, cn, depth, pro, prn):
         sep = "-" if depth == 1 else "."
         no = {c["position"]: c for c in co}
         nn = {c["position"]: c for c in cn}
@@ -212,7 +220,8 @@ def compute(repo: Path = REPO) -> dict:
             elif a["usage"] == "X" and b["usage"] == "X":
                 continue
             else:
-                compare_el(profile, path, lab, b["name"], a, b, depth)
+                compare_el(profile, path, lab, b["name"], a, b, depth,
+                           {k[1:]: v for k, v in pro.items() if k[0] == pos}, {k[1:]: v for k, v in prn.items() if k[0] == pos})
 
     for code in PROFILE_ORDER:
         if code not in old.profiles or code not in new.profiles:
@@ -238,7 +247,7 @@ def compute(repo: Path = REPO) -> dict:
             if a.get("group") or b["usage"] == "X":
                 continue
             seg_o, seg_n = old.segments[a["ref"]], new.segments[b["ref"]]
-            compare_children(code, label, b["segment"], seg_o["fields"], seg_n["fields"], 1)
+            compare_children(code, label, b["segment"], seg_o["fields"], seg_n["fields"], 1, predicates(seg_o), predicates(seg_n))
 
     out = sorted(rows.values(), key=lambda r: (_el_sort(r["element"]), ASPECTS.index(r["aspect"]), str(r["old"])))
     for r in out:
@@ -247,6 +256,7 @@ def compute(repo: Path = REPO) -> dict:
         r["kind"] = _kind(r)
     return {
         "rows": out,
+        "statements": compare_statements(old, new),
         "length_dropped": sorted(((el, name, sorted(p, key=PROFILE_ORDER.index)) for (el, name), p in length_dropped.items()),
                                  key=lambda x: _el_sort(x[0])),
         "code_changes": sorted(({**c, "elements": [(el, sorted(p, key=PROFILE_ORDER.index))
@@ -255,6 +265,100 @@ def compute(repo: Path = REPO) -> dict:
         "external": sorted(external),
         "counts": Counter(r["aspect"] for r in out),
     }
+
+
+def predicates(owner: dict) -> dict[tuple, dict]:
+    """A segment's or data type's predicates by the path they apply to: (5,) for field 5, (5, 4) for its component 4."""
+    out = {}
+    for p in owner.get("predicates", []):
+        steps = re.findall(r"(\d+)\[", p.get("target_path", ""))
+        if steps:
+            out[tuple(int(x) for x in steps)] = p
+    return out
+
+
+
+def _norm_text(text: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"\s*\(Case Sensitive\)", "", text or "")).strip().rstrip(".")
+
+
+def _norm_assertion(a):
+    """An assertion for comparison: occurrence wildcards ([*] vs [1]) do not change the meaning in these profiles."""
+    if isinstance(a, dict):
+        return {k: _norm_assertion(v) for k, v in a.items()}
+    if isinstance(a, list):
+        return [_norm_assertion(v) for v in a]
+    if isinstance(a, str):
+        return a.replace("[*]", "[1]")
+    return a
+
+
+def predicate_key(p):
+    return None if p is None else (p.get("true_usage"), p.get("false_usage"), json.dumps(_norm_assertion(p.get("assertion")), sort_keys=True))
+
+
+def predicate_text(p) -> str:
+    if p is None:
+        return "(no condition stated)"
+    return f"{_norm_text(p.get('description', ''))}: {p.get('true_usage')}, otherwise {p.get('false_usage')}"
+
+
+def compare_statements(old: Model, new: Model) -> list[dict]:
+    """Conformance statements, matched by ID (the IZ-nn numbers carry over) and compared by their assertion.
+
+    status: same, reworded (same assertion, different wording), changed, renumbered (same assertion, different ID:
+    the data type constraints are named after their flavors), split (IZ-17 became IZ-17a, IZ-17b, ...), removed, added
+    """
+    def collect(m: Model) -> dict[str, dict]:
+        out: dict[str, dict] = {}
+        for kind, things in (("segment", m.segments.values()), ("datatype", m.datatypes.values()), ("profile", m.profiles.values())):
+            for t in things:
+                for c in t.get("constraints", []):
+                    e = out.setdefault(c["id"], {"id": c["id"], "strength": c.get("strength"), "description": c.get("description", ""),
+                                                 "assertion": c.get("assertion"), "contexts": set()})
+                    e["contexts"].add(t.get("name") or t.get("code") or t.get("label"))
+        return out
+
+    o, n = collect(old), collect(new)
+    rows = []
+    for sid in sorted(set(o) | set(n), key=lambda x: (re.sub(r"\d+", "", x), int(re.sub(r"\D", "", x) or 0))):
+        a, b = o.get(sid), n.get(sid)
+        if a is None:
+            status = "added"
+        elif b is None:
+            status = "removed"
+        elif json.dumps(_norm_assertion(a["assertion"]), sort_keys=True) == json.dumps(_norm_assertion(b["assertion"]), sort_keys=True):
+            status = "same" if _norm_text(a["description"]) == _norm_text(b["description"]) else "reworded"
+        else:
+            status = "changed"
+        rows.append({"id": sid, "new_id": sid if b else "", "status": status,
+                     "old": a["description"] if a else "", "new": b["description"] if b else "",
+                     "strength": (b or a)["strength"], "_assertion": (a or b)["assertion"],
+                     "contexts": sorted((a or {}).get("contexts", set()) | (b or {}).get("contexts", set()))})
+    # pair what is left over by the test it makes
+    key = lambda r: json.dumps(_norm_assertion(r["_assertion"]), sort_keys=True)  # noqa: E731
+    added = {}
+    for r in rows:
+        if r["status"] == "added":
+            added.setdefault(key(r), []).append(r)
+    for r in rows:
+        if r["status"] == "removed" and added.get(key(r)):
+            b = added[key(r)].pop(0)
+            r.update(status="renumbered", new_id=b["id"], new=b["new"], contexts=sorted(set(r["contexts"]) | set(b["contexts"])))
+            b["status"] = None
+    # IZ-17 -> IZ-17a, IZ-17b, IZ-17c
+    by_id = {r["id"]: r for r in rows if r["status"]}
+    for r in rows:
+        m = re.match(r"^(.+\d)([a-z])$", r["id"])
+        base = by_id.get(m.group(1)) if m and r["status"] == "added" else None
+        if base and base["status"] in ("removed", "split"):
+            if base["status"] == "removed":
+                base.update(status="split", new_id="", new="")
+            base["new_id"] = ", ".join(x for x in (base["new_id"], r["id"]) if x)
+            base["new"] = "\n".join(x for x in (base["new"], f'{r["id"]}: {r["new"]}') if x)
+            base["contexts"] = sorted(set(base["contexts"]) | set(r["contexts"]))
+            r["status"] = None
+    return [{k: v for k, v in r.items() if not k.startswith("_")} for r in rows if r["status"]]
 
 
 def _el_sort(label: str):
@@ -289,6 +393,11 @@ def to_csv(result: dict) -> str:
                     " ".join(r["profiles"]), r["note"], "; ".join(r["paths"])])
     for el, name, profiles in result["length_dropped"]:
         w.writerow([el, name, "Length", "(set)", "(not set)", "changed", " ".join(profiles), "length not stated", ""])
+    for st in result["statements"]:
+        if st["status"] != "same":
+            ids = st["id"] if st["new_id"] in ("", st["id"]) else f'{st["id"]} -> {st["new_id"]}'
+            w.writerow([ids, ", ".join(st["contexts"]), "Conformance statement", st["old"] or "-", st["new"] or "-",
+                        st["status"], "", st["strength"], ""])
     for c in result["code_changes"]:
         for el, profiles in c["elements"]:
             w.writerow([el, "", "Codes", "removed: " + ", ".join(c["removed"]) if c["removed"] else "-",

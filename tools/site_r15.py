@@ -16,6 +16,17 @@ from guidecards import write_text
 
 NIST_TOOL = "https://tools.valitheus.com/immunization-edition2/#/doc"
 CDC_PAGE = "https://www.cdc.gov/iis/technical-guidance/hl7.html"
+STATUS_LABEL = {"changed": "Changed", "removed": "Removed", "added": "Added", "reworded": "Reworded",
+                "renumbered": "Renumbered", "split": "Split", "same": "Same"}
+STATUS_HELP = {
+    "changed": "Same ID, different test",
+    "removed": "In Release 1.5, not in this guide",
+    "added": "New in this guide",
+    "reworded": "Same test, different wording",
+    "renumbered": "Same test, different ID",
+    "split": "Divided into several statements (IZ-17a, IZ-17b, ...)",
+    "same": "Unchanged",
+}
 KIND_LABEL = {"tightened": "Tightened", "loosened": "Loosened", "added": "Added", "removed": "Removed", "changed": "Changed"}
 LONG = 12  # code lists longer than this are folded
 
@@ -98,6 +109,19 @@ def page(data: dict, root: str) -> str:
         f'<tr><td><code>{esc(c["value_set"])}</code></td><td>{_codes(c["added"])}</td><td>{_codes(c["removed"])}</td>'
         f'<td>{", ".join(_el_link(el, root) for el, _ in c["elements"])}</td></tr>' for c in data["code_changes"])
 
+    # conformance statements
+    st = data["statements"]
+    st_counts = {k: sum(1 for x in st if x["status"] == k) for k in STATUS_LABEL}
+    st_html = "".join(
+        f'<tr id="st-{esc(x["id"])}" class="s-{esc(x["status"])}"><td class="sid"><code>{esc(x["id"])}</code>'
+        + (f'<br><span class="mini">now</span> <code>{esc(x["new_id"])}</code>' if x["new_id"] not in ("", x["id"]) else "")
+        + '</td>'
+        f'<td><span class="r15-status s-{esc(x["status"])}">{esc(STATUS_LABEL[x["status"]])}</span></td>'
+        f'<td>{esc(x["old"]) or "—"}</td><td>{esc(x["new"]).replace(chr(10), "<br>") or "—"}</td>'
+        f'<td class="mini">{esc(", ".join(x["contexts"]))}</td></tr>'
+        for x in st if x["status"] != "same")
+    same = ", ".join(f"<code>{esc(x['id'])}</code>" for x in st if x["status"] == "same")
+
     # lengths
     dropped = data["length_dropped"]
     len_list = ", ".join(f"<code>{esc(el)}</code>" for el, _, _ in dropped)
@@ -122,7 +146,10 @@ only a change in which of them a field uses is shown.</p>
 <h2>Summary</h2>
 <ul class="r15-summary">
 <li>{counts.get("segment", 0)} changes to message structure (segments and groups)</li>
+<li>Conformance statements: {st_counts["changed"]} changed, {st_counts["removed"]} removed, {st_counts["added"]} added,
+{st_counts["reworded"]} reworded, {st_counts["renumbered"]} renumbered, {st_counts["split"]} split into parts, {st_counts["same"]} unchanged</li>
 <li>{counts.get("usage", 0)} usage changes: {kinds["tightened"]} tightened, {kinds["loosened"]} loosened, the rest changed in other ways</li>
+<li>{counts.get("condition", 0)} changed conditions (predicates) for conditional (C) elements</li>
 <li>{counts.get("cardinality", 0)} cardinality changes and {counts.get("datatype", 0)} data type changes</li>
 <li>{counts.get("binding", 0)} changes to the value sets fields use, and {len(data["code_changes"])} changes to the codes in them</li>
 <li>{counts.get("length", 0)} changed lengths; {len(dropped)} elements no longer state a length</li>
@@ -137,6 +164,14 @@ components are compared two levels deep. A change that is the same in several pr
 <h2 id="fields">Fields and components</h2>
 <p class="mini">By segment: {seg_index}</p>
 {"".join(seg_sections)}
+
+<h2 id="statements">Conformance statements</h2>
+<p>Matched by ID (the IZ numbers carry over) and compared by the test each one makes, not its wording.
+{"; ".join(f"{esc(STATUS_LABEL[k])}: {esc(STATUS_HELP[k].lower())}" for k in ("changed", "reworded", "renumbered", "split"))}.
+A split statement should be checked to see that its parts together test the same thing.</p>
+<table class="r15"><thead><tr><th>ID</th><th>Status</th><th>Release 1.5</th><th>This guide</th><th>Where</th></tr></thead>
+<tbody>{st_html}</tbody></table>
+<details><summary>Unchanged ({st_counts["same"]})</summary><p class="mini">{same}</p></details>
 
 <h2 id="codes">Codes in value sets</h2>
 <p>Codes allowed in Release 1.5 and not in this guide (removed), and the reverse (added), for the fields that use each

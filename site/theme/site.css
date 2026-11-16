@@ -414,6 +414,14 @@ pre.hl7 .f:hover { background: var(--guide-blue-light); }
 .r15-kind { display: inline-block; font-size: .72rem; font-weight: 700; border-radius: 4px; padding: 1px 6px; margin-left: 4px; }
 .r15-kind.k-tightened { background: #fbe3d6; color: #8a3200; }
 .r15-kind.k-loosened { background: var(--guide-blue-light); color: var(--guide-blue); }
+.r15-status { display: inline-block; font-size: .72rem; font-weight: 700; border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
+.r15-status.s-changed { background: #fbe3d6; color: #8a3200; }
+.r15-status.s-removed { background: #f6d5d5; color: #8b1a1a; }
+.r15-status.s-added { background: #dcefdc; color: #1f5f1f; }
+.r15-status.s-reworded { background: var(--guide-blue-pale); color: var(--guide-muted); }
+.r15-page td.sid { overflow-wrap: anywhere; min-width: 7em; max-width: 12em; }
+.r15-status.s-split, .r15-status.s-renumbered { background: var(--guide-blue-pale); color: var(--guide-muted); }
+.r15-page tr:target { outline: 2px solid var(--guide-blue); }
 @media (max-width: 720px) {
   .r15-page table.r15 { display: block; overflow-x: auto; }
 }
