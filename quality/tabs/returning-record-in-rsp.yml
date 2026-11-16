@@ -151,7 +151,8 @@ items:
       required in responses, or that RXA-21 is 'A'.
     severity: warning
     owner: narrative
-    recommendation: Add to 4.6.2.6: "In an RSP, RXA-20 SHALL be populated, and RXA-21 SHALL be 'A'."
+    recommendation: >-
+      Add to 4.6.2.6: "In an RSP, RXA-20 SHALL be populated, and RXA-21 SHALL be 'A'."
 
   - id: tab-rr-10
     section: "Table 3: vaccination event fields"
