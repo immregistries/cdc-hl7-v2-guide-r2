@@ -157,6 +157,22 @@ def _counts(review: dict | None) -> Counter:
     return Counter(it["result"] for it in (review or {}).get("items", []))
 
 
+def _sev_counts(review: dict | None) -> list[int]:
+    """Issues, warnings, and notes: the same counts as the findings (and the contents menu)."""
+    f = [0, 0, 0]
+    for it in (review or {}).get("items", []):
+        sev = severity(it)
+        if sev and it.get("guide"):
+            f[("issue", "warning", "note").index(sev)] += 1
+    return f
+
+
+def _sev_summary(review: dict | None) -> str:
+    parts = [f'<span class="sev-chip sev-{s}">{n} {s}{"s" if n != 1 else ""}</span>'
+             for s, n in zip(("issue", "warning", "note"), _sev_counts(review)) if n]
+    return " ".join(parts) or '<span class="mini">No findings</span>'
+
+
 def _badge(result: str) -> str:
     return f'<span class="tab-result r-{esc(result)}" title="{esc(RESULTS[result][2])}">{esc(RESULTS[result][0])}</span>'
 
@@ -174,7 +190,8 @@ def index_page(data: dict, by_id: dict, root: str) -> str:
         if t["kind"] == "summary":
             status = '<span class="mini">Not compared (an index of TABs, not kept current)</span>'
         elif t.get("review"):
-            status = " ".join(f'{_badge(r)} <span class="n">{cnt[r]}</span>' for r in RESULT_ORDER if cnt[r])
+            status = (f'<p>{_sev_summary(t["review"])}</p><p class="mini">'
+                      + " · ".join(f'{esc(RESULTS[r][0])} {cnt[r]}' for r in RESULT_ORDER if cnt[r]) + "</p>")
         else:
             status = '<span class="mini">Not yet compared</span>'
         title = (f'<a href="{root}tabs/{esc(t["id"])}/index.html">{esc(t["title"])}</a>' if t["kind"] != "summary"
@@ -209,12 +226,14 @@ def tab_page(t: dict, by_id: dict, root: str) -> str:
         body = '<p class="callout">This TAB has not been compared with the guide yet.</p>'
     else:
         cnt = _counts(review)
-        counts = " ".join(f'{_badge(r)} <span class="n">{cnt[r]}</span>' for r in RESULT_ORDER if cnt[r])
+        counts = (f'Findings: {_sev_summary(review)}<br><span class="mini">Results: '
+                  + " · ".join(f'{esc(RESULTS[r][0])} {cnt[r]}' for r in RESULT_ORDER if cnt[r]) + "</span>")
         rows = []
         for it in review.get("items", []):
             guide = ", ".join(_guide_link(r, by_id, root) for r in it.get("guide", []) or []) or "—"
             sev = severity(it) if it["result"] != "covered" or it.get("severity") else None
-            finding = (f' <a class="mini" href="{root}quality/index.html#qf-{esc(it["id"])}">finding</a>'
+            finding = (f' <a class="sev-chip sev-{sev}" href="{root}quality/index.html#qf-{esc(it["id"])}" '
+                       f'title="Quality finding qf-{esc(it["id"])}">{esc(sev.capitalize())}</a>'
                        if sev and it.get("guide") else "")
             extra = ""
             if it.get("note"):

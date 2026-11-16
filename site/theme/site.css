@@ -367,9 +367,7 @@ pre.hl7 .f:hover { background: var(--guide-blue-light); }
 .tab-result { display: inline-block; font-size: .72rem; font-weight: 700; border-radius: 4px; padding: 2px 6px; margin: 1px 2px 1px 0;
   border: 1px solid var(--guide-border); background: var(--guide-surface); color: var(--guide-text); white-space: nowrap; }
 .tab-result.r-covered { border-color: var(--guide-teal); color: var(--guide-teal); }
-.tab-result.r-conflict { background: var(--finding-issue); border-color: var(--finding-issue); color: #fff; }
-.tab-result.r-missing, .tab-result.r-partial { background: var(--finding-warning); border-color: var(--finding-warning); color: #fff; }
-.tab-result.r-reworded, .tab-result.r-prose, .tab-result.r-guide-adds { border-color: var(--finding-note); color: var(--finding-note); }
+.tabs a.sev-chip { text-decoration: none; }
 .tab-verb { font-size: .72rem; font-weight: 700; letter-spacing: .04em; color: var(--guide-muted); margin-right: 4px; }
 .tab-where { margin: 0 0 4px; font-size: .78rem; color: var(--guide-muted); }
 .tab-note, .tab-rec { margin: 6px 0 0; }
