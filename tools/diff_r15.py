@@ -33,7 +33,7 @@ from guidecards import REPO, read_yaml, write_text  # noqa: E402
 PRIOR_MODEL = REPO / "prior" / "release-1.5" / "model"
 CONFIG = REPO / "quality" / "r15" / "config.yml"
 PROFILE_ORDER = ["Z22", "Z23", "Z34", "Z44", "Z31", "Z32", "Z33", "Z42"]
-USAGE_RANK = {"X": 0, "O": 1, "C": 2, "RE": 3, "R": 4}  # for "tightened"/"loosened"
+USAGE_RANK = {"B": 1, "O": 1, "C": 2, "RE": 3, "R": 4}  # for "tightened"/"loosened"; X is handled separately
 ASPECTS = ["segment", "element", "usage", "cardinality", "datatype", "length", "binding", "codes"]
 ASPECT_LABEL = {
     "segment": "Segment", "element": "Element", "usage": "Usage", "cardinality": "Cardinality",
@@ -266,6 +266,8 @@ def _el_sort(label: str):
 
 def _kind(r) -> str:
     """tightened / loosened / changed, for usage and cardinality (what an implementer most needs to know)."""
+    if r["aspect"] == "usage" and "X" in (r["old"], r["new"]):
+        return "loosened" if r["old"] == "X" else "tightened"  # X: not allowed
     if r["aspect"] == "usage" and r["old"] in USAGE_RANK and r["new"] in USAGE_RANK:
         d = USAGE_RANK[r["new"]] - USAGE_RANK[r["old"]]
         return "tightened" if d > 0 else "loosened" if d < 0 else "changed"
