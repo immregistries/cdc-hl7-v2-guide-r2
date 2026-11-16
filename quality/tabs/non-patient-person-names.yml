@@ -1,0 +1,87 @@
+# Comparison: TAB "Messaging Non-patient Person Names in HL7" (July 2025) and this guide. Fields: see ack-messaging.yml.
+
+tab: non-patient-person-names
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  Section 4.5.2.11 (Non-Patient Person Names) carries this short TAB over almost word for word: spaces and hyphens,
+  special characters, case, 64 characters, and the NK1-2 name type rules, with the 'L'-first requirement retired. IGAMT
+  agrees (NK1-2.7 is required). One error: the guide lists "ORC-1 Entered By"; Entered By is ORC-10. The TAB's table of
+  which fields apply to VXU, QBP, and RSP is not carried over.
+
+items:
+  - id: tab-npn-01
+    section: Scope (Table 1)
+    page: 2-3
+    tab: >-
+      The fields covered: PID-6 Mother's Maiden Name (VXU, QBP as QPD-5, RSP), NK1-2 Responsible Person Name, ORC-10
+      Entered By, ORC-12 Ordering Provider, and RXA-10 Administering Provider (VXU and RSP).
+    result: conflict
+    guide: [non-patient-person-names]
+    note: >-
+      The guide's list has "ORC-1 Entered By". ORC-1 is the Order Control code; Entered By is ORC-10. The other four
+      fields are right. The guide does not say which message types each field applies to.
+    severity: warning
+    owner: narrative
+    recommendation: Change "ORC-1" to "ORC-10", and add the TAB's Table 1 (field by VXU, QBP, RSP).
+
+  - id: tab-npn-02
+    section: Clarifications and Conformance Expectations
+    page: 3
+    verb: SHALL
+    tab: For these five fields, systems SHALL preserve spaces and hyphens.
+    result: covered
+    guide: [non-patient-person-names--s1]
+
+  - id: tab-npn-03
+    section: Clarifications and Conformance Expectations (Table 2)
+    page: 3-4
+    verb: SHALL
+    tab: >-
+      Systems SHALL support commonly used special characters by storing them as is or, if necessary, downgrading them
+      following the transliterations in Table 2 (the same 18 characters as the PID-5 TAB).
+    result: covered
+    guide: [non-patient-person-names--s2, special-characters--s1, special-characters--s2, special-characters--s4]
+    note: >-
+      The guide says "commonly used diacritics or transliterations" and relies on 4.5.2.8 (Special Characters), which
+      covers "a patient or person name", for the list and the table.
+
+  - id: tab-npn-04
+    section: Clarifications and Conformance Expectations
+    page: 3
+    verb: SHOULD
+    tab: Systems SHOULD support preservation of case, and names with up to 64 characters in the first, middle, and last name components.
+    result: covered
+    guide: [non-patient-person-names--s3]
+
+  - id: tab-npn-05
+    section: Additional specifications for NK1-2
+    page: 4
+    verb: SHOULD, SHALL
+    tab: >-
+      Submitting systems SHOULD send the most reliable and commonly used responsible person name, preferably the official
+      registry name ('L'), and SHALL populate NK1-2.7 to reflect the type of name in each NK1-2 repetition.
+    result: covered
+    guide: [non-patient-person-names--s4]
+    note: >-
+      The guide says "SHOULD use the official registry ('L') name when known", without "the most reliable and commonly used
+      name". IGAMT makes NK1-2.7 required (XPN_IZ01), which matches the SHALL.
+
+  - id: tab-npn-06
+    section: Implications
+    page: 4
+    tab: >-
+      The PID-5 specifications extend to these fields where applicable. For NK1-2, 'L' no longer has to be in the first
+      repetition (backward compatibility to HL7 v2.2 is dropped).
+    result: covered
+    guide: [non-patient-person-names]
+
+  - id: tab-npn-07
+    section: Out of Scope
+    page: 3
+    tab: Which name type codes beyond 'L' are valid in NK1-2, and deduplication rules, are out of scope.
+    result: covered
+    guide: [non-patient-person-names]
+    note: >-
+      The guide is likewise silent on NK1-2 name types. In IGAMT, NK1-2 uses XPN_IZ01, the official registry name flavor
+      (given and family name required) for every repetition, whatever its name type; the TAB does not address this.
