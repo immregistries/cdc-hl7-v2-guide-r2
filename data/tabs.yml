@@ -167,6 +167,11 @@ tabs:
       - z42-return-evaluated-immunization-history-and-forecast
       - information-disclosure-constraints
       - vaccinations-returned-in-query-responses-rsp
+      - z33-return-a-response-with-no-person-records
+      - query-and-response-behavior
+      - use-of-administered-vs-historical-on-output
+      - use-of-immunity-information-in-forecasting
+      - adverse-events-associated-with-a-specific-vaccination
 
   - id: scenarios-for-updates-and-queries
     title: Scenarios for Updates and Queries
