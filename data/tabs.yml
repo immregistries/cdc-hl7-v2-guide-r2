@@ -106,6 +106,9 @@ tabs:
       - special-characters
       - formatting-and-case-preservation
       - name-consistency-and-matching-expectations
+      - alignment-with-broader-health-standards
+      - ongoing-data-quality-and-monitoring
+      - official-registry-name-recorded-for-a-newborn
 
   - id: non-patient-person-names
     title: Messaging Non-patient Person Names in HL7

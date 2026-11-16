@@ -1,0 +1,288 @@
+# Comparison: TAB "Patient Name (PID-5) Updates to Support Patient Matching" (October 2025) and this guide.
+# Fields: see ack-messaging.yml.
+
+tab: patient-name-pid-5
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  Section 4.5.2 (Patient and Other Names) is built on this TAB: the 'L' name rules, 'M', 'N', and 'NB' as SHOULD, the
+  newborn scenario, spaces, hyphens, special characters with the same transliteration table, case, and 64 characters are
+  all there, mostly as statements. The gaps are in the details. The guide forbids IIS from detecting placeholder names by
+  pattern, where the TAB lets IIS reject them; it weakens the TAB's SHALL NOT for the Father's, Licensing, Business, and
+  Partner name types to a SHOULD NOT; it leaves out the SHOULD NOT list (NAV, TEMP, BAD, D), the data type requirements by
+  name type (as statements), and the IIS's duty to offer another way to correct a rejected accurate name. In IGAMT, the
+  name type value set lacks REL, MSK, and NOUSE, and allows D.
+
+items:
+  # ---------------------------------------------------------------- name types (Table 1)
+  - id: tab-pn-01
+    section: Name type code (HL70200) Value Set usage for PID-5
+    page: 4
+    verb: SHALL
+    tab: >-
+      Systems SHALL support name type code 'L'. "Support" means submitting and querying systems can store and send names
+      with the code in VXU and QBP, and IIS recognize it as valid (no severity 'E' because of the code).
+    result: covered
+    guide: [official-registry-name--s1, official-registry-name--s4, important-names--s4]
+    note: The guide does not define "support" as the TAB does.
+
+  - id: tab-pn-02
+    section: Name type code (HL70200) Value Set usage for PID-5
+    page: 4
+    verb: SHOULD
+    tab: Systems SHOULD support name type codes 'M', 'NB', and 'N'.
+    result: reworded
+    guide: [important-names--s1, important-names--s4, alignment-with-broader-health-standards--s2]
+    note: >-
+      Systems SHOULD support them (s1), as in the TAB, but receiving systems SHALL recognize and process them without error
+      (4.5.2.3 s4), and IIS SHALL recognize 'NB' (4.5.2.6 s2). The TAB makes recognition by the IIS part of a SHOULD.
+    severity: note
+    owner: decision
+    recommendation: Confirm that the guide means to make recognition of M, N, and NB a SHALL for IIS.
+
+  - id: tab-pn-03
+    section: Name type code (HL70200) Value Set usage for PID-5
+    page: 4-5
+    verb: MAY
+    tab: Systems MAY support 'A', 'B', 'C', 'T', 'REL', 'MSK', 'NOUSE', and 'U'.
+    result: covered
+    guide: [optional-name-types--s1, optional-name-types--s2]
+    note: >-
+      The guide names Assigned, Birth, Adopted, Indigenous/Tribal, and Religious as examples, not the full list. Its s4,
+      "IIS SHALL NOT process unsupported name types if received", is unclear: it can be read as rejecting the message,
+      where the TAB's point is only that unsupported names need not be stored.
+
+  - id: tab-pn-04
+    section: "Name type code (HL70200) Value Set usage for PID-5 (Table 1)"
+    page: 4-5
+    verb: SHOULD NOT, SHALL NOT
+    tab: >-
+      'NAV' (temporarily unavailable), 'TEMP', 'BAD', and 'D' (customary) SHOULD NOT be supported. 'F' (Father's name),
+      'I' (Licensing), 'K' (Business), and 'P' (Partner/Spouse) SHALL NOT be supported.
+    result: conflict
+    guide: [optional-name-types--s3]
+    note: >-
+      The guide says "Systems SHOULD NOT send names with ambiguous or administrative meaning such as Business,
+      Partner/Spouse, or Licensing names", a SHOULD NOT where the TAB says SHALL NOT, and it does not mention Father's
+      name or the SHOULD NOT codes.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Replace s3 with the TAB's two lists: SHOULD NOT NAV, TEMP, BAD, D; SHALL NOT F, I, K, P. Better, add Table 1 to
+      4.5.2.1.
+
+  - id: tab-pn-05
+    section: "Table 1 compared with the IGAMT value set"
+    page: 4-5
+    tab: Table 1 gives the usage of each HL70200 code for PID-5 (R for L; P for the others allowed; E for F, I, K, P).
+    result: conflict
+    guide: [patient-names]
+    note: >-
+      HL70200_IZ01 (closed) does not include REL, MSK, or NOUSE, which the TAB allows (MAY), so they cannot be sent. It
+      allows D (P), which the TAB says SHOULD NOT be supported, and leaves out NAV, TEMP, BAD, F, and K. It also has R and S
+      (both E), which are not in the TAB's table.
+    severity: warning
+    owner: igamt
+    recommendation: Align HL70200_IZ01 with Table 1, including its usage for each code.
+
+  # ---------------------------------------------------------------- data types (Table 2)
+  - id: tab-pn-06
+    section: Data type specifications by name type code (Table 2)
+    page: 5-6
+    verb: SHALL
+    tab: >-
+      Systems SHALL follow the data type for the name type. 'L' and 'NB' names are XPN: given R, middle RE, family R, type
+      R. 'M', 'N', 'A', and 'U' names are XPN_[Flavor]: given RE, middle RE, family R when given is not valued (otherwise
+      RE), type R. The flavor is to be named in the next national guide.
+    result: partial
+    guide: [data-type-and-structure]
+    note: >-
+      The guide describes this in narrative ("official registry and newborn names must contain both a family and given
+      name, while other types ... may have only one component") and says two flavors "will be defined", but this is the
+      guide that was to define them. There is no statement, no component table, and no flavor names. In IGAMT, the two XPN
+      flavors exist but are applied by slicing the whole PID segment, so 'NB' names are not held to the family-and-given
+      rule (see the IGAMT review, qf-igamt-c36-name-flavors).
+    severity: warning
+    owner: both
+    recommendation: >-
+      Name the flavors (XPN_IZ01, XPN_IZ02), add Table 2 and a SHALL statement to 4.5.2.5, and resolve the IGAMT slicing
+      finding so the rule applies per repetition.
+
+  # ---------------------------------------------------------------- scenarios
+  - id: tab-pn-07
+    section: "Scenarios: when the patient's name is known"
+    page: 7
+    verb: SHALL, SHOULD, SHALL NOT
+    tab: >-
+      Systems SHALL send the closest representation of the legal name with 'L'. Submitting and querying systems SHOULD
+      send it in the first repetition; receiving and responding systems SHALL accept it in any repetition, process the
+      message, and return the 'L' name in a response. Systems SHALL NOT send a name that is not the official registry name
+      with 'L'.
+    result: covered
+    guide:
+      - official-registry-name--s1
+      - official-registry-name--s2
+      - official-registry-name--s3
+      - official-registry-name--s4
+      - name-consistency-and-matching-expectations--s1
+    note: >-
+      The guide adds that systems SHOULD NOT send an empty first repetition to hold a place for 'L' (s3), and that IIS
+      SHOULD match on the 'L' name when it is available (s5).
+
+  - id: tab-pn-08
+    section: "Scenarios: maiden name and nickname"
+    page: 7
+    verb: SHOULD
+    tab: >-
+      When known, submitting and querying systems SHOULD send the maiden name ('M') and a nickname or preferred name ('N')
+      in separate PID-5 repetitions; receiving systems SHOULD accept and process them.
+    result: covered
+    guide: [important-names--s1, important-names--s2, important-names--s3]
+
+  - id: tab-pn-09
+    section: "Scenarios: unnamed newborn"
+    page: 7-8
+    verb: SHALL NOT, SHALL, MAY
+    tab: >-
+      Submitting systems SHALL NOT send a placeholder newborn name with 'L'. If 'NB' is used, they SHALL send the
+      placeholder name with 'NB'; once the baby is named, SHALL send the legal name ('L') and the newborn name ('NB') in the
+      same PID-5 field (which, per the Scenarios TAB, triggers a VXU with the complete history); and MAY continue sending the
+      'NB' name with the legal name.
+    result: covered
+    guide:
+      - unnamed-newborns--s2
+      - unnamed-newborns--s3
+      - unnamed-newborns--s5
+      - unnamed-newborns--s6
+      - alignment-with-broader-health-standards--s1
+      - official-registry-name-recorded-for-a-newborn
+
+  - id: tab-pn-10
+    section: "Examples: temporary newborn names"
+    page: 10-11
+    tab: >-
+      Recommended placeholder format: family name, and in XPN.2 'Girl', 'Boy', or 'Baby', the birth order for multiple
+      births, and the mother's first name (Smith^GirlKatherine, Smith^Girl1Katherine).
+    result: partial
+    guide: [unnamed-newborns, alignment-with-broader-health-standards--s4]
+    note: >-
+      The guide refers to Joint Commission and AHIMA conventions but says it "does not prescribe" a format, and gives none of
+      the TAB's examples. The TAB's format is a recommendation, so this is a gap in guidance rather than a conflict.
+    severity: note
+    owner: narrative
+    recommendation: Add the TAB's recommended format and the PID-5 examples to 4.5.2.7 or appendix A.
+
+  # ---------------------------------------------------------------- name requirements
+  - id: tab-pn-11
+    section: Name requirements
+    page: 8
+    verb: SHALL
+    tab: >-
+      Systems SHALL preserve spaces and hyphens, and name components (for example, two first names in the first name
+      field).
+    result: covered
+    guide: [formatting-and-case-preservation--s1]
+
+  - id: tab-pn-12
+    section: Name requirements (Table 3)
+    page: 8-9
+    verb: SHALL, MAY
+    tab: >-
+      Systems SHALL support the commonly used special characters in Table 3 by preserving them or by transliterating them as
+      Table 3 recommends; MAY support others. An IIS that cannot store them SHALL downgrade them following the
+      transliterations (FAQ).
+    result: covered
+    guide:
+      - special-characters--s1
+      - special-characters--s2
+      - special-characters--s3
+      - special-characters--s5
+      - name-consistency-and-matching-expectations--s4
+    note: The guide adds that IIS SHALL NOT reject a message only because one of these characters appears (s4).
+
+  - id: tab-pn-13
+    section: Name requirements
+    page: 8
+    verb: SHOULD
+    tab: Systems SHOULD preserve case, and SHOULD support up to 64 characters in the first, middle, and last name components.
+    result: covered
+    guide: [formatting-and-case-preservation--s2, formatting-and-case-preservation--s4, formatting-and-case-preservation--s3]
+    note: >-
+      The guide adds that an IIS "SHALL NOT alter the capitalization in transmitted data" (s3), stronger than the TAB's
+      SHOULD preserve case. The TAB's note that consistently long names warrant data quality follow-up is not carried over.
+
+  - id: tab-pn-14
+    section: Name requirements (IIS validation)
+    page: 8
+    verb: MAY, SHALL
+    tab: >-
+      IIS MAY have additional validation, for example rejecting what appear to be placeholder or inaccurate names, or
+      requiring at least two characters. If an accurate name is rejected for data quality reasons, the IIS SHALL offer
+      submitters another (non-HL7) way to make sure the record is accurate in the IIS.
+    result: conflict
+    guide: [alignment-with-broader-health-standards--s3, name-consistency-and-matching-expectations--s3]
+    note: >-
+      The guide says "IIS SHALL NOT rely on textual pattern detection (e.g., "Baby Boy") to infer that a record represents a
+      newborn", which rules out the placeholder check the TAB allows (and that the national ERR-5 code 2201, Invalid Name
+      (Baby), exists for). The IIS's SHALL to offer an alternate process when an accurate name is rejected is not in the
+      guide.
+    severity: warning
+    owner: decision
+    recommendation: >-
+      Narrow 4.5.2.6 s3 to "IIS SHALL NOT treat a name as a newborn placeholder only because of its text when it is
+      submitted with name type 'L'", or remove it; and add the TAB's alternate-process SHALL to 4.5.2.12 or 4.5.2.10.
+
+  - id: tab-pn-15
+    section: "FAQ: accepting records without 'L'; storing other names"
+    page: 12-13
+    tab: >-
+      Accepting a patient without an 'L' name is a local decision; an IIS may wait for the legal name. IIS are not required
+      to store names other than 'L', but are encouraged to, for matching and consolidation. 'L' may be absent from PID-5
+      (for an unnamed newborn).
+    result: covered
+    guide: [official-registry-name, important-names--s5]
+    note: The guide makes storing or evaluating the other names a SHOULD (4.5.2.3 s5), stronger than the TAB's encouragement.
+
+  - id: tab-pn-16
+    section: "FAQ: how can IIS tell if a name is accurate?"
+    page: 13
+    verb: SHALL
+    tab: >-
+      Systems SHALL strive to accurately record and transmit names. IIS assume the submitted name is accurate unless other
+      sources or submission patterns suggest otherwise.
+    result: covered
+    guide: [ongoing-data-quality-and-monitoring--s2, ongoing-data-quality-and-monitoring--s1, name-consistency-and-matching-expectations]
+
+  - id: tab-pn-17
+    section: Examples
+    page: 9-11
+    tab: >-
+      PID-5 examples: 'L' alone; 'L' with a preferred first, last, or full name ('N'); 'L' with a maiden name ('M'); all
+      three; newborn names for single and twin births, alone and with the legal name; and José González sent with accents
+      and returned with or without them.
+    result: missing
+    guide: [patient-names]
+    note: The guide has figure 22 of the name types but none of these PID-5 examples.
+    severity: note
+    owner: narrative
+    recommendation: Add the TAB's examples to appendix A, linked from 4.5.2.
+
+  # ---------------------------------------------------------------- the guide's additions
+  - id: tab-pn-g01
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide: [name-consistency-and-matching-expectations--s2, name-consistency-and-matching-expectations--s3]
+    note: >-
+      "IIS SHALL accept minor variations in name spelling, case, or special characters when evaluating matches" and "IIS
+      SHALL NOT require submitting systems to alter or 'correct' names to match the registry's stored spelling". The TAB
+      leaves matching out of scope.
+    owner: decision
+
+  - id: tab-pn-g02
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide: [formatting-and-case-preservation--s5]
+    note: '"IIS MAY define local policies for reconciling capitalization ... but must retain a version of the name as originally submitted." The TAB does not require IIS to keep the submitted form.'
+    owner: decision
