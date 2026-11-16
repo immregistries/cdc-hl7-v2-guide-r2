@@ -22,3 +22,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 ~$*
+
+# The Release 1.5 PDF is linked, not committed (prior/release-1.5/README.md)
+prior/**/*.pdf

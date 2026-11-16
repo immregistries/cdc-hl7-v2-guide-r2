@@ -1,0 +1,1804 @@
+[
+ {
+  "id": "z22",
+  "code": "Z22",
+  "igamt_id": "686d86a8e4b0d97f07abb8ad_67ab57a7e4b0a4d63f76a630_66eaf715857aba00062a5436",
+  "name": "Z22 - SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU",
+  "title": "Send Unsolicited Immunization Update Using a VXU",
+  "message_type": "VXU",
+  "event": "V04",
+  "structure": "VXU_V04",
+  "description": "VXU - Unsolicited vaccination record update",
+  "children": [
+   {
+    "kind": "segment",
+    "ref": "MSH_IZ01_2-7-1",
+    "segment": "MSH",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "SFT",
+    "segment": "SFT",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "segment",
+    "ref": "PID_IZ01",
+    "segment": "PID",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "PD1_IZ",
+    "segment": "PD1",
+    "usage": "RE",
+    "min": 0,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "NK1_IZ",
+    "segment": "NK1",
+    "usage": "RE",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "group",
+    "xml_id": "66eaf715857aba00062a5436-6",
+    "name": "PATIENT",
+    "usage": "O",
+    "min": 0,
+    "max": 1,
+    "constraints": [],
+    "predicates": [],
+    "children": [
+     {
+      "kind": "segment",
+      "ref": "PV1",
+      "segment": "PV1",
+      "usage": "R",
+      "min": 1,
+      "max": 1
+     },
+     {
+      "kind": "segment",
+      "ref": "PV2",
+      "segment": "PV2",
+      "usage": "O",
+      "min": 0,
+      "max": 1
+     }
+    ]
+   },
+   {
+    "kind": "segment",
+    "ref": "GT1",
+    "segment": "GT1",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "group",
+    "xml_id": "66eaf715857aba00062a5436-8",
+    "name": "INSURANCE",
+    "usage": "O",
+    "min": 0,
+    "max": "*",
+    "constraints": [],
+    "predicates": [],
+    "children": [
+     {
+      "kind": "segment",
+      "ref": "IN1_IZ",
+      "segment": "IN1",
+      "usage": "R",
+      "min": 1,
+      "max": 1
+     },
+     {
+      "kind": "segment",
+      "ref": "IN2",
+      "segment": "IN2",
+      "usage": "O",
+      "min": 0,
+      "max": 1
+     },
+     {
+      "kind": "segment",
+      "ref": "IN3",
+      "segment": "IN3",
+      "usage": "O",
+      "min": 0,
+      "max": 1
+     }
+    ]
+   },
+   {
+    "kind": "group",
+    "xml_id": "66eaf715857aba00062a5436-9",
+    "name": "ORDER",
+    "usage": "RE",
+    "min": 0,
+    "max": "*",
+    "constraints": [
+     {
+      "id": "IZ-23",
+      "strength": "SHALL",
+      "description": "If RXA-20 is valued \"CP\" or \"PA\" and the first occurrence of RXA-9.1 (Administration Note.code) is \"00\" then the message SHALL include an OBX segment associated with the RXA with OBX-3.1 shall equal \"64994-7\" .",
+      "references": [
+       "RXA-9.1",
+       "RXA-20",
+       "OBSERVATION",
+       "OBSERVATION.OBX-3.1"
+      ],
+      "assertion": {
+       "op": "IMPLY",
+       "args": [
+        {
+         "op": "AND",
+         "args": [
+          {
+           "op": "AND",
+           "args": [
+            {
+             "op": "Presence",
+             "path": "3[1].9[1].1[1]"
+            },
+            {
+             "op": "PlainText",
+             "ignoreCase": "false",
+             "path": "3[1].9[1].1[1]",
+             "text": "00"
+            }
+           ]
+          },
+          {
+           "op": "AND",
+           "args": [
+            {
+             "op": "Presence",
+             "path": "3[1].20[1]"
+            },
+            {
+             "op": "StringList",
+             "cSV": "CP,PA",
+             "path": "3[1].20[1]"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "op": "AND",
+         "args": [
+          {
+           "op": "Presence",
+           "path": "5[1]"
+          },
+          {
+           "op": "PlainText",
+           "atLeastOnce": "true",
+           "ignoreCase": "false",
+           "path": "5[*].1[1].3[1].1[1]",
+           "text": "64994-7"
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "id": "IZ-45",
+      "strength": "SHALL",
+      "description": "If ORDER.RXA-20 (Completion Status) contains the value 'NA' (Case Sensitive). then ORDER.ORC-3.1 (Entity Identifier) shall contain the value '9999' (Case Sensitive).",
+      "references": [
+       "RXA-20",
+       "ORC-3.1"
+      ],
+      "assertion": {
+       "op": "IMPLY",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "FAIL",
+         "path": "3[1].20[1]",
+         "text": "NA"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "FAIL",
+         "path": "1[1].3[1].1[1]",
+         "text": "9999"
+        }
+       ]
+      }
+     },
+     {
+      "id": "IZ-24",
+      "strength": "SHALL",
+      "description": "If RXA-20 is valued 'CP' or 'PA' and the first occurrence of RXA-9.1 is valued '00' and RXA-5.1 is valued with a CVX code from table PHVS_VISVaccines_IIS (See Appendix A) then for each vaccine information statement that was shared there SHALL be:[one OBX segment with OBX-3.1 valued '69764-9' (bar coded) and one OBX with OBX-3.1 valued '29769-7' (presentation or delivery date) associated. Both OBX shall have the same value in OBX-4] OR [one OBX segment with OBX-3.1 valued '30956-7' (vaccine type) and one OBX segment with OBX-3.1 valued '29768-9' (version date) and one OBX with OBX-3.1 valued '29769-7' (presentation or delivery date) associated. All three OBX shall have the same value in OBX-4]",
+      "references": [
+       "RXA-20",
+       "RXA-9.1",
+       "RXA-5"
+      ],
+      "assertion": {
+       "op": "IMPLY",
+       "args": [
+        {
+         "op": "AND",
+         "args": [
+          {
+           "op": "AND",
+           "args": [
+            {
+             "op": "OR",
+             "args": [
+              {
+               "op": "PlainText",
+               "ignoreCase": "false",
+               "path": "3[1].20[1]",
+               "text": "CP"
+              },
+              {
+               "op": "PlainText",
+               "ignoreCase": "false",
+               "path": "3[1].20[1]",
+               "text": "PA"
+              }
+             ]
+            },
+            {
+             "op": "PlainText",
+             "ignoreCase": "false",
+             "path": "3[1].9[1].1[1]",
+             "text": "00"
+            }
+           ]
+          },
+          {
+           "op": "ValueSet",
+           "bindingLocation": "1",
+           "bindingStrength": "R",
+           "path": "3[1].5[1]",
+           "valueSetID": "PHVS_VISVaccines_IIS"
+          }
+         ]
+        },
+        {
+         "op": "Plugin",
+         "qualifiedClassName": "gov.nist.healthcare.hl7.v2.iz.plugins.IZ24Constraint"
+        }
+       ]
+      }
+     }
+    ],
+    "predicates": [
+     {
+      "description": "If (The first occurrence of ORDER.RXA-9.1 (Identifier) contains the value '00' (Case Sensitive) AND ORDER.RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA'] (Case Sensitive))",
+      "target": "ORC-12",
+      "target_path": "1[1].12[1]",
+      "true_usage": "RE",
+      "false_usage": "O",
+      "references": [
+       "RXA-9.1",
+       "RXA-20"
+      ],
+      "assertion": {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "FAIL",
+         "path": "3[1].9[1].1[1]",
+         "text": "00"
+        },
+        {
+         "op": "StringList",
+         "cSV": "CP,PA",
+         "ignoreCase": "false",
+         "notPresentBehavior": "FAIL",
+         "path": "3[1].20[1]"
+        }
+       ]
+      }
+     }
+    ],
+    "children": [
+     {
+      "kind": "segment",
+      "ref": "ORC_IZ01",
+      "segment": "ORC",
+      "usage": "R",
+      "min": 1,
+      "max": 1
+     },
+     {
+      "kind": "group",
+      "xml_id": "66eaf715857aba00062a5436-9.2",
+      "name": "TIMING",
+      "usage": "O",
+      "min": 0,
+      "max": "*",
+      "constraints": [],
+      "predicates": [],
+      "children": [
+       {
+        "kind": "segment",
+        "ref": "TQ1",
+        "segment": "TQ1",
+        "usage": "R",
+        "min": 1,
+        "max": 1
+       },
+       {
+        "kind": "segment",
+        "ref": "TQ2",
+        "segment": "TQ2",
+        "usage": "O",
+        "min": 0,
+        "max": "*"
+       }
+      ]
+     },
+     {
+      "kind": "segment",
+      "ref": "RXA_IZ01_CVX",
+      "segment": "RXA",
+      "usage": "R",
+      "min": 1,
+      "max": 1
+     },
+     {
+      "kind": "segment",
+      "ref": "RXR_IZ",
+      "segment": "RXR",
+      "usage": "RE",
+      "min": 0,
+      "max": 1
+     },
+     {
+      "kind": "group",
+      "xml_id": "66eaf715857aba00062a5436-9.5",
+      "name": "OBSERVATION",
+      "usage": "RE",
+      "min": 0,
+      "max": "*",
+      "constraints": [
+       {
+        "id": "IZ-20",
+        "strength": "SHALL",
+        "description": "ORDER.OBSERVATION.OBX-1 (Set ID - OBX) shall be valued sequentially starting with the value '1'.",
+        "references": [
+         "OBX-1"
+        ],
+        "assertion": {
+         "op": "SetID",
+         "path": "1[1].1[1]"
+        }
+       }
+      ],
+      "predicates": [],
+      "children": [
+       {
+        "kind": "segment",
+        "ref": "OBX_IZ01",
+        "segment": "OBX",
+        "usage": "R",
+        "min": 1,
+        "max": 1
+       },
+       {
+        "kind": "segment",
+        "ref": "NTE_IZ",
+        "segment": "NTE",
+        "usage": "O",
+        "min": 0,
+        "max": "*"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-43",
+    "strength": "SHALL",
+    "description": "( MSH-21.1 (Entity Identifier) shall contain the value 'Z22' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier)",
+    "references": [
+     "MSH-21",
+     "MSH",
+     "SFT"
+    ],
+    "assertion": {
+     "op": "SubContext",
+     "maxOccurrence": "1",
+     "minOccurrence": "1",
+     "path": "1[1].21[*]",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1]",
+         "text": "Z22"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "2[1]",
+         "text": "CDCPHINVS"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-46",
+    "strength": "SHALL",
+    "description": "PID-1 (Set ID - PID) shall contain the value '1' (Case Sensitive).",
+    "references": [
+     "PID-1"
+    ],
+    "assertion": {
+     "op": "PlainText",
+     "ignoreCase": "false",
+     "notPresentBehavior": "PASS",
+     "path": "3[1].1[1]",
+     "text": "1"
+    }
+   },
+   {
+    "id": "IZ-17",
+    "strength": "SHALL",
+    "description": "( MSH-9.1 (Message Code) shall contain the value 'VXU' (Case Sensitive). AND ( MSH-9.2 (Trigger Event) shall contain the value 'V04' (Case Sensitive). AND MSH-9.3 (Message Structure) shall contain the value 'VXU_V04' (Case Sensitive). ) )",
+    "references": [
+     "MSH-9.1",
+     "MSH-9.2",
+     "MSH-9.3"
+    ],
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "PlainText",
+       "ignoreCase": "false",
+       "notPresentBehavior": "PASS",
+       "path": "1[1].9[1].1[1]",
+       "text": "VXU"
+      },
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].2[1]",
+         "text": "V04"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].3[1]",
+         "text": "VXU_V04"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "predicates": []
+ },
+ {
+  "id": "z23",
+  "code": "Z23",
+  "igamt_id": "686d86a8e4b0d97f07abb8ad_67ab57a7e4b0a4d63f76a630_66eaf715857aba00062a5c31",
+  "name": "Z23 - RETURN AN ACKNOWLEDGEMENT",
+  "title": "Return an Acknowledgement",
+  "message_type": "ACK",
+  "event": "Varies",
+  "structure": "ACK",
+  "description": "General Acknowledgment Message",
+  "children": [
+   {
+    "kind": "segment",
+    "ref": "MSH_IZ02_2-7-1",
+    "segment": "MSH",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "SFT",
+    "segment": "SFT",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "segment",
+    "ref": "MSA_IZ01",
+    "segment": "MSA",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "ERR_IZ",
+    "segment": "ERR",
+    "usage": "RE",
+    "min": 0,
+    "max": "*"
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-51",
+    "strength": "SHALL",
+    "description": "( MSH-9.1 (Message Code) shall contain the value 'ACK' (Case Sensitive). AND ( ( MSH-9.2 (Trigger Event) shall contain the value 'V04' (Case Sensitive). OR MSH-9.2 (Trigger Event) shall contain the value 'Q11' (Case Sensitive). ) AND MSH-9.3 (Message Structure) shall contain the value 'ACK' (Case Sensitive). ) )",
+    "references": [
+     "MSH-9.1",
+     "MSH-9.2",
+     "MSH-9.3"
+    ],
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "PlainText",
+       "ignoreCase": "false",
+       "notPresentBehavior": "PASS",
+       "path": "1[1].9[1].1[1]",
+       "text": "ACK"
+      },
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "OR",
+         "args": [
+          {
+           "op": "PlainText",
+           "ignoreCase": "false",
+           "notPresentBehavior": "PASS",
+           "path": "1[1].9[1].2[1]",
+           "text": "V04"
+          },
+          {
+           "op": "PlainText",
+           "ignoreCase": "false",
+           "notPresentBehavior": "PASS",
+           "path": "1[1].9[1].2[1]",
+           "text": "Q11"
+          }
+         ]
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].3[1]",
+         "text": "ACK"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-54",
+    "strength": "SHALL",
+    "description": "( MSH-21.1 (Entity Identifier) shall contain the value 'Z23' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier)",
+    "references": [
+     "MSH-21",
+     "SFT",
+     "MSH"
+    ],
+    "assertion": {
+     "op": "SubContext",
+     "maxOccurrence": "1",
+     "minOccurrence": "1",
+     "path": "1[1].21[*]",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "2[1]",
+         "text": "CDCPHINVS"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1]",
+         "text": "Z23"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "predicates": []
+ },
+ {
+  "id": "z34",
+  "code": "Z34",
+  "igamt_id": "686d86a8e4b0d97f07abb8ad_67ab57a7e4b0a4d63f76a630_673e206e8b87bc00073292bf",
+  "name": "Z34 - REQUEST A COMPLETE IMMUNIZATION HISTORY",
+  "title": "Request a Complete Immunization History",
+  "message_type": "QBP",
+  "event": "Q11",
+  "structure": "QBP_Q11",
+  "description": "QBP - Query by parameter requesting an RSP segment pattern response",
+  "children": [
+   {
+    "kind": "segment",
+    "ref": "MSH_IZ01_2-7-1",
+    "segment": "MSH",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "SFT",
+    "segment": "SFT",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "segment",
+    "ref": "QPD_#IZ01_Z34",
+    "segment": "QPD",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "RCP_IZ01",
+    "segment": "RCP",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "DSC",
+    "segment": "DSC",
+    "usage": "X",
+    "min": 0,
+    "max": 0
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-55",
+    "strength": "SHALL",
+    "description": "( MSH-9.1 (Message Code) shall contain the value 'QBP' (Case Sensitive). AND ( MSH-9.2 (Trigger Event) shall contain the value 'Q11' (Case Sensitive). AND MSH-9.3 (Message Structure) shall contain the value 'QBP_Q11' (Case Sensitive). ) )",
+    "references": [
+     "MSH-9.1",
+     "MSH-9.2",
+     "MSH-9.3"
+    ],
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "PlainText",
+       "ignoreCase": "false",
+       "notPresentBehavior": "PASS",
+       "path": "1[1].9[1].1[1]",
+       "text": "QBP"
+      },
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].2[1]",
+         "text": "Q11"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].3[1]",
+         "text": "QBP_Q11"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-56",
+    "strength": "SHALL",
+    "description": "( MSH-21.1 (Entity Identifier) shall contain the value 'Z34' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier)",
+    "references": [
+     "MSH-21",
+     "SFT",
+     "MSH"
+    ],
+    "assertion": {
+     "op": "SubContext",
+     "maxOccurrence": "1",
+     "minOccurrence": "1",
+     "path": "1[1].21[*]",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "2[1]",
+         "text": "CDCPHINVS"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1]",
+         "text": "Z34"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "predicates": []
+ },
+ {
+  "id": "z44",
+  "code": "Z44",
+  "igamt_id": "686d86a8e4b0d97f07abb8ad_67ab57a7e4b0a4d63f76a630_673e25c98b87bc000735ff6a",
+  "name": "Z44 - REQUEST EVALUATED IMMUNIZATION HISTORY AND FORECAST QUERY",
+  "title": "Request Evaluated Immunization History And Forecast Query",
+  "message_type": "QBP",
+  "event": "Q11",
+  "structure": "QBP_Q11",
+  "description": "QBP - Query by parameter requesting an RSP segment pattern response",
+  "children": [
+   {
+    "kind": "segment",
+    "ref": "MSH_IZ01_2-7-1",
+    "segment": "MSH",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "SFT",
+    "segment": "SFT",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "segment",
+    "ref": "QPD_#IZ01_Z44",
+    "segment": "QPD",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "RCP_IZ01",
+    "segment": "RCP",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "DSC",
+    "segment": "DSC",
+    "usage": "X",
+    "min": 0,
+    "max": 0
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-55",
+    "strength": "SHALL",
+    "description": "( MSH-9.1 (Message Code) shall contain the value 'QBP' (Case Sensitive). AND ( MSH-9.2 (Trigger Event) shall contain the value 'Q11' (Case Sensitive). AND MSH-9.3 (Message Structure) shall contain the value 'QBP_Q11' (Case Sensitive). ) )",
+    "references": [
+     "MSH-9.2",
+     "MSH-9.3",
+     "MSH-9.1"
+    ],
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].2[1]",
+         "text": "Q11"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].3[1]",
+         "text": "QBP_Q11"
+        }
+       ]
+      },
+      {
+       "op": "PlainText",
+       "ignoreCase": "false",
+       "notPresentBehavior": "PASS",
+       "path": "1[1].9[1].1[1]",
+       "text": "QBP"
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-64",
+    "strength": "SHALL",
+    "description": "( MSH-21.1 (Entity Identifier) shall contain the value 'Z44' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier)",
+    "references": [
+     "MSH-21",
+     "SFT",
+     "MSH"
+    ],
+    "assertion": {
+     "op": "SubContext",
+     "maxOccurrence": "1",
+     "minOccurrence": "1",
+     "path": "1[1].21[*]",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "2[1]",
+         "text": "CDCPHINVS"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1]",
+         "text": "Z44"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "predicates": []
+ },
+ {
+  "id": "z31",
+  "code": "Z31",
+  "igamt_id": "686d86a8e4b0d97f07abb8ad_67ab57a7e4b0a4d63f76a630_6786ac88857aba000755b162",
+  "name": "Z31 - RETURN A LIST OF CANDIDATES",
+  "title": "Return a List of Candidates",
+  "message_type": "RSP",
+  "event": "K11",
+  "structure": "RSP_K11",
+  "description": "RSP - Segment pattern response in response to QBP^Q11",
+  "children": [
+   {
+    "kind": "segment",
+    "ref": "MSH_IZ02_2-7-1",
+    "segment": "MSH",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "SFT",
+    "segment": "SFT",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "segment",
+    "ref": "MSA_IZ01",
+    "segment": "MSA",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "ERR_IZ",
+    "segment": "ERR",
+    "usage": "RE",
+    "min": 0,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "QAK_IZ",
+    "segment": "QAK",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "QPD_#IZ01_Z34",
+    "segment": "QPD",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "group",
+    "xml_id": "6786ac88857aba000755b162-7",
+    "name": "RESPONSE",
+    "usage": "R",
+    "min": 1,
+    "max": 1,
+    "constraints": [],
+    "predicates": [],
+    "children": [
+     {
+      "kind": "group",
+      "xml_id": "6786ac88857aba000755b162-7.1",
+      "name": "PATIENT_IDENTIFIER",
+      "usage": "R",
+      "min": 1,
+      "max": "*",
+      "constraints": [
+       {
+        "id": "IZ-72 ",
+        "strength": "SHALL",
+        "description": "RESPONSE.PATIENT_IDENTIFIER.PID-1 (Set ID - PID) shall be valued sequentially starting with the value '1'.",
+        "references": [
+         "PID-1"
+        ],
+        "assertion": {
+         "op": "SetID",
+         "path": "1[1].1[1]"
+        }
+       }
+      ],
+      "predicates": [],
+      "children": [
+       {
+        "kind": "segment",
+        "ref": "PID_IZ01",
+        "segment": "PID",
+        "usage": "R",
+        "min": 1,
+        "max": 1
+       },
+       {
+        "kind": "segment",
+        "ref": "PD1",
+        "segment": "PD1",
+        "usage": "O",
+        "min": 0,
+        "max": 1
+       },
+       {
+        "kind": "segment",
+        "ref": "NK1_IZ",
+        "segment": "NK1",
+        "usage": "O",
+        "min": 0,
+        "max": "*"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-59",
+    "strength": "SHALL",
+    "description": "( MSH-9.1 (Message Code) shall contain the value 'RSP' (Case Sensitive). AND ( MSH-9.2 (Trigger Event) shall contain the value 'K11' (Case Sensitive). AND MSH-9.3 (Message Structure) shall contain the value 'RSP_K11' (Case Sensitive). ) )",
+    "references": [
+     "MSH-9.1",
+     "MSH-9.3",
+     "MSH-9.2"
+    ],
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "PlainText",
+       "ignoreCase": "false",
+       "notPresentBehavior": "PASS",
+       "path": "1[1].9[1].1[1]",
+       "text": "RSP"
+      },
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].3[1]",
+         "text": "RSP_K11"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].2[1]",
+         "text": "K11"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-61",
+    "strength": "SHALL",
+    "description": "( MSH-21.1 (Entity Identifier) shall contain the value 'Z31' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier)",
+    "references": [
+     "MSH-21",
+     "SFT",
+     "MSH"
+    ],
+    "assertion": {
+     "op": "SubContext",
+     "maxOccurrence": "1",
+     "minOccurrence": "1",
+     "path": "1[1].21[*]",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "2[1]",
+         "text": "CDCPHINVS"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1]",
+         "text": "Z31"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "predicates": []
+ },
+ {
+  "id": "z32",
+  "code": "Z32",
+  "igamt_id": "686d86a8e4b0d97f07abb8ad_67ab57a7e4b0a4d63f76a630_673e2d478b87bc00073a188f",
+  "name": "Z32 - RETURN COMPLETE IMMUNIZATION HISTORY",
+  "title": "Return Complete Immunization History",
+  "message_type": "RSP",
+  "event": "K11",
+  "structure": "RSP_K11",
+  "description": "RSP - Segment pattern response in response to QBP^Q11",
+  "children": [
+   {
+    "kind": "segment",
+    "ref": "MSH_IZ02_2-7-1",
+    "segment": "MSH",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "SFT",
+    "segment": "SFT",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "segment",
+    "ref": "MSA_IZ01",
+    "segment": "MSA",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "ERR_IZ",
+    "segment": "ERR",
+    "usage": "RE",
+    "min": 0,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "QAK_IZ",
+    "segment": "QAK",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "QPD_#IZ01_Z34",
+    "segment": "QPD",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "PID_IZ01",
+    "segment": "PID",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "PD1_IZ",
+    "segment": "PD1",
+    "usage": "O",
+    "min": 0,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "NK1_IZ",
+    "segment": "NK1",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "segment",
+    "ref": "PV1",
+    "segment": "PV1",
+    "usage": "O",
+    "min": 0,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "IN1_IZ",
+    "segment": "IN1",
+    "usage": "O",
+    "min": 0,
+    "max": 1
+   },
+   {
+    "kind": "group",
+    "xml_id": "673e2d478b87bc00073a188f-12",
+    "name": "ORDER",
+    "usage": "RE",
+    "min": 0,
+    "max": "*",
+    "constraints": [],
+    "predicates": [],
+    "children": [
+     {
+      "kind": "segment",
+      "ref": "ORC_IZ01",
+      "segment": "ORC",
+      "usage": "R",
+      "min": 1,
+      "max": 1
+     },
+     {
+      "kind": "segment",
+      "ref": "RXA_IZ02",
+      "segment": "RXA",
+      "usage": "R",
+      "min": 1,
+      "max": 1
+     },
+     {
+      "kind": "segment",
+      "ref": "RXR_IZ",
+      "segment": "RXR",
+      "usage": "RE",
+      "min": 0,
+      "max": 1
+     },
+     {
+      "kind": "group",
+      "xml_id": "673e2d478b87bc00073a188f-12.4",
+      "name": "OBSERVATION",
+      "usage": "RE",
+      "min": 0,
+      "max": "*",
+      "constraints": [],
+      "predicates": [],
+      "children": [
+       {
+        "kind": "segment",
+        "ref": "OBX_IZ01",
+        "segment": "OBX",
+        "usage": "R",
+        "min": 1,
+        "max": 1
+       },
+       {
+        "kind": "segment",
+        "ref": "NTE_IZ",
+        "segment": "NTE",
+        "usage": "O",
+        "min": 0,
+        "max": 1
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-60",
+    "strength": "SHALL",
+    "description": "( MSH-21.1 (Entity Identifier) shall contain the value 'Z32' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier)",
+    "references": [
+     "MSH-21",
+     "MSH",
+     "SFT"
+    ],
+    "assertion": {
+     "op": "SubContext",
+     "maxOccurrence": "1",
+     "minOccurrence": "1",
+     "path": "1[1].21[*]",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1]",
+         "text": "Z32"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "2[1]",
+         "text": "CDCPHINVS"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-59",
+    "strength": "SHALL",
+    "description": "( MSH-9.1 (Message Code) shall contain the value 'RSP' (Case Sensitive). AND ( MSH-9.2 (Trigger Event) shall contain the value 'K11' (Case Sensitive). AND MSH-9.3 (Message Structure) shall contain the value 'RSP_K11' (Case Sensitive). ) )",
+    "references": [
+     "MSH-9.1",
+     "MSH-9.2",
+     "MSH-9.3"
+    ],
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "PlainText",
+       "ignoreCase": "false",
+       "notPresentBehavior": "PASS",
+       "path": "1[1].9[1].1[1]",
+       "text": "RSP"
+      },
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].2[1]",
+         "text": "K11"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].3[1]",
+         "text": "RSP_K11"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-46",
+    "strength": "SHALL",
+    "description": "PID-1 (Set ID - PID) shall contain the value '1' (Case Sensitive).",
+    "references": [
+     "PID-1"
+    ],
+    "assertion": {
+     "op": "PlainText",
+     "ignoreCase": "false",
+     "notPresentBehavior": "PASS",
+     "path": "7[1].1[1]",
+     "text": "1"
+    }
+   }
+  ],
+  "predicates": []
+ },
+ {
+  "id": "z33",
+  "code": "Z33",
+  "igamt_id": "686d86a8e4b0d97f07abb8ad_67ab57a7e4b0a4d63f76a630_67881928857aba00076c08a4",
+  "name": "Z33 - RETURN AN ACKNOWLEDGEMENT WITH NO PERSON RECORDS",
+  "title": "Return an Acknowledgement with No Person Records",
+  "message_type": "RSP",
+  "event": "K11",
+  "structure": "RSP_K11",
+  "description": "RETURN AN ACKNOWLEDGEMENT WITH NO PERSON RECORDS",
+  "children": [
+   {
+    "kind": "segment",
+    "ref": "MSH_IZ02_2-7-1",
+    "segment": "MSH",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "SFT",
+    "segment": "SFT",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "segment",
+    "ref": "MSA_IZ01",
+    "segment": "MSA",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "ERR_IZ",
+    "segment": "ERR",
+    "usage": "RE",
+    "min": 0,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "QAK_IZ",
+    "segment": "QAK",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "QPD_#IZ01_Z33",
+    "segment": "QPD",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-63",
+    "strength": "SHALL",
+    "description": "( MSH-21.1 (Entity Identifier) shall contain the value 'Z33' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier)",
+    "references": [
+     "MSH-21",
+     "MSH",
+     "SFT"
+    ],
+    "assertion": {
+     "op": "SubContext",
+     "maxOccurrence": "1",
+     "minOccurrence": "1",
+     "path": "1[1].21[*]",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1]",
+         "text": "Z33"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "2[1]",
+         "text": "CDCPHINVS"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-59",
+    "strength": "SHALL",
+    "description": "( MSH-9.1 (Message Code) shall contain the value 'RSP' (Case Sensitive). AND ( MSH-9.2 (Trigger Event) shall contain the value 'K11' (Case Sensitive). AND MSH-9.3 (Message Structure) shall contain the value 'RSP_K11' (Case Sensitive). ) )",
+    "references": [
+     "MSH-9.1",
+     "MSH-9.2",
+     "MSH-9.3"
+    ],
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "PlainText",
+       "ignoreCase": "false",
+       "notPresentBehavior": "PASS",
+       "path": "1[1].9[1].1[1]",
+       "text": "RSP"
+      },
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].2[1]",
+         "text": "K11"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].3[1]",
+         "text": "RSP_K11"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "predicates": []
+ },
+ {
+  "id": "z42",
+  "code": "Z42",
+  "igamt_id": "686d86a8e4b0d97f07abb8ad_67ab57a7e4b0a4d63f76a630_6862f14734c3f20006251d5f",
+  "name": "Z42 - RETURN EVALUATED HISTORY AND FORECAST",
+  "title": "Return Evaluated History And Forecast",
+  "message_type": "RSP",
+  "event": "K11",
+  "structure": "RSP_K11",
+  "description": "RETURN EVALUATED HISTORY AND FORECAST",
+  "children": [
+   {
+    "kind": "segment",
+    "ref": "MSH_IZ02_2-7-1",
+    "segment": "MSH",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "SFT",
+    "segment": "SFT",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "segment",
+    "ref": "MSA_IZ01",
+    "segment": "MSA",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "ERR_IZ",
+    "segment": "ERR",
+    "usage": "RE",
+    "min": 0,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "QAK_IZ",
+    "segment": "QAK",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "QPD_#IZ01_Z44",
+    "segment": "QPD",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "PID_IZ02",
+    "segment": "PID",
+    "usage": "R",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "PD1_IZ",
+    "segment": "PD1",
+    "usage": "O",
+    "min": 0,
+    "max": 1
+   },
+   {
+    "kind": "segment",
+    "ref": "NK1_IZ",
+    "segment": "NK1",
+    "usage": "O",
+    "min": 0,
+    "max": "*"
+   },
+   {
+    "kind": "group",
+    "xml_id": "6862f14734c3f20006251d5f-10",
+    "name": "IMMUNIZATION_HISTORY_AND_FORECAST",
+    "usage": "R",
+    "min": 1,
+    "max": "*",
+    "constraints": [
+     {
+      "id": "IZ-45",
+      "strength": "SHALL",
+      "description": "If IMMUNIZATION_HISTORY_AND_FORECAST.RXA-20 (Completion Status) contains the value 'NA' (Case Sensitive) then IMMUNIZATION_HISTORY_AND_FORECAST.ORC-3.1 (Entity Identifier) shall contain the value '9999' (Case Sensitive).",
+      "references": [
+       "RXA-20",
+       "ORC-3.1"
+      ],
+      "assertion": {
+       "op": "IMPLY",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "FAIL",
+         "path": "2[1].20[1]",
+         "text": "NA"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "FAIL",
+         "path": "1[1].3[1].1[1]",
+         "text": "9999"
+        }
+       ]
+      }
+     }
+    ],
+    "predicates": [],
+    "children": [
+     {
+      "kind": "segment",
+      "ref": "ORC_IZ02",
+      "segment": "ORC",
+      "usage": "R",
+      "min": 1,
+      "max": 1
+     },
+     {
+      "kind": "segment",
+      "ref": "RXA_IZ02",
+      "segment": "RXA",
+      "usage": "R",
+      "min": 1,
+      "max": 1
+     },
+     {
+      "kind": "segment",
+      "ref": "RXR_IZ",
+      "segment": "RXR",
+      "usage": "RE",
+      "min": 0,
+      "max": 1
+     },
+     {
+      "kind": "group",
+      "xml_id": "6862f14734c3f20006251d5f-10.4",
+      "name": "OBSERVATION",
+      "usage": "R",
+      "min": 1,
+      "max": "*",
+      "constraints": [
+       {
+        "id": "IZ-20",
+        "strength": "SHALL",
+        "description": "IMMUNIZATION_HISTORY_AND_FORECAST.OBSERVATION.OBX-1 (Set ID - OBX) shall be valued sequentially starting with the value '1'.",
+        "references": [
+         "OBX-1"
+        ],
+        "assertion": {
+         "op": "SetID",
+         "path": "1[1].1[1]"
+        }
+       }
+      ],
+      "predicates": [],
+      "children": [
+       {
+        "kind": "segment",
+        "ref": "OBX_IZ02",
+        "segment": "OBX",
+        "usage": "R",
+        "min": 1,
+        "max": 1
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "constraints": [
+   {
+    "id": "IZ-59",
+    "strength": "SHALL",
+    "description": "(MSH-9.1 (Message Code) shall contain the value 'RSP' (Case Sensitive) AND (MSH-9.2 (Trigger Event) shall contain the value 'K11' (Case Sensitive) AND MSH-9.3 (Message Structure) shall contain the value 'RSP_K11' (Case Sensitive)))",
+    "references": [
+     "MSH-9.3",
+     "MSH-9.2",
+     "MSH-9.1"
+    ],
+    "assertion": {
+     "op": "AND",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].3[1]",
+         "text": "RSP_K11"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1].9[1].2[1]",
+         "text": "K11"
+        }
+       ]
+      },
+      {
+       "op": "PlainText",
+       "ignoreCase": "false",
+       "notPresentBehavior": "PASS",
+       "path": "1[1].9[1].1[1]",
+       "text": "RSP"
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-65",
+    "strength": "SHALL",
+    "description": "(MSH-21.1 (Entity Identifier) shall contain the value 'Z42' (Case Sensitive) AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive)) IN exactly one occurrence of MSH-21 (Message Profile Identifier)",
+    "references": [
+     "MSH-21",
+     "SFT",
+     "MSH"
+    ],
+    "assertion": {
+     "op": "SubContext",
+     "maxOccurrence": "1",
+     "minOccurrence": "1",
+     "path": "1[1].21[*]",
+     "args": [
+      {
+       "op": "AND",
+       "args": [
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "2[1]",
+         "text": "CDCPHINVS"
+        },
+        {
+         "op": "PlainText",
+         "ignoreCase": "false",
+         "notPresentBehavior": "PASS",
+         "path": "1[1]",
+         "text": "Z42"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "IZ-46",
+    "strength": "SHALL",
+    "description": "PID-1 (Set ID - PID) shall contain the value '1' (Case Sensitive).",
+    "references": [
+     "PID-1"
+    ],
+    "assertion": {
+     "op": "PlainText",
+     "ignoreCase": "false",
+     "notPresentBehavior": "PASS",
+     "path": "7[1].1[1]",
+     "text": "1"
+    }
+   }
+  ],
+  "predicates": []
+ }
+]
