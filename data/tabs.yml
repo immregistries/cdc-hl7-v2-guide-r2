@@ -218,7 +218,10 @@ tabs:
     summary: >-
       For administered and historical immunizations, RXA-22 is the most recent date and time the immunization was
       entered or updated in the submitting system.
-    cards: []
+    cards:
+      - updates-and-deletes
+      - iis-matching-and-correction-processing
+      - reinterpretation-of-base-standard-semantics
 
   - id: tab-overview
     kind: overview

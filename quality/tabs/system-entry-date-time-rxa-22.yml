@@ -1,0 +1,55 @@
+# Comparison: TAB "System Entry Date/Time (RXA-22) Definition" (January 2024) and this guide. Fields: see ack-messaging.yml.
+
+tab: system-entry-date-time-rxa-22
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  This TAB defines RXA-22 for administered and historical immunizations as the most recent date and time the
+  immunization was entered or updated in the submitting system, and keeps the field optional. The guide does not mention
+  RXA-22 at all, so the definition is missing. IGAMT has RXA-22 as optional (O) in every RXA, which matches, but gives no
+  definition.
+
+items:
+  - id: tab-rxa22-01
+    section: "Executive Summary; Table 1: RXA-22 definition"
+    page: 1-2
+    tab: >-
+      For administered and historical immunizations, RXA-22 is the most recent date and time the immunization information
+      was entered or updated in the submitting system. This replaces the base standard's reading (the date and time it was
+      first entered), which some IIS do not follow because they use RXA-22 for matching and deduplication.
+    result: missing
+    guide:
+      - reinterpretation-of-base-standard-semantics
+      - iis-matching-and-correction-processing
+      - updates-and-deletes
+    note: >-
+      RXA-22 is not mentioned anywhere in the guide, and IGAMT has no definition for it. A submitter reading the HL7 base
+      standard would send the first entry date, and an update would carry the same value as the original add.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Add the TAB's definition to 4.6 (Immunization Information), for example in 4.6.4 next to updates: "For administered
+      and historical immunizations, RXA-22 is the most recent date and time the immunization information was entered or
+      updated in the submitting system." List it in 5.11.3 (Reinterpretation of Base Standard Semantics), since it differs
+      from the base definition.
+
+  - id: tab-rxa22-02
+    section: Clarifications and Conformance Expectations
+    page: 2
+    verb: MAY
+    tab: RXA-22 remains optional. Submitting systems MAY send it, and receiving systems MAY process it.
+    result: covered
+    guide: [updates-and-deletes]
+    note: >-
+      IGAMT has RXA-22 as O in every RXA flavor (RXA_IZ01 and its administered, historical, refusal, contraindication, and
+      not-vaccinated slices) and in RXA_IZ02 and RXA_IZ03. The narrative has no statement, but the usage matches.
+
+  - id: tab-rxa22-03
+    section: Out of scope
+    page: 1-2
+    tab: >-
+      The meaning of RXA-22 in an RXA for a refusal, a contraindication, or a patient-level observation, and whether and how
+      IIS use the value (for example in deduplication), are out of scope.
+    result: covered
+    guide: [iis-matching-and-correction-processing]
+    note: The guide also leaves vaccination-level deduplication to IIS, with a pointer to MIROW.
