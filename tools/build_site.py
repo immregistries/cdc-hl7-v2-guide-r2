@@ -32,6 +32,7 @@ import site_examples  # noqa: E402
 import site_about  # noqa: E402
 import filter_terms  # noqa: E402
 import tab_review  # noqa: E402
+import ta_review  # noqa: E402
 import site_err5  # noqa: E402
 import site_proposals  # noqa: E402
 import site_r15  # noqa: E402
@@ -65,6 +66,7 @@ RULE_HELP = {
     "manual": "Found by a reviewer.",
     **site_igamt.RULE_HELP,
     **tab_review.RULE_HELP,
+    ta_review.RULE: ta_review.RULE_HELP,
 }
 
 
@@ -162,6 +164,13 @@ def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id
 # =========================================================================== fragments
 
 
+def review_evidence(ev: dict, root: str) -> str:
+    """The evidence of a comparison finding, with a link to the comparison."""
+    if ev.get("collection") == ta_review.KEY:
+        return ta_review.evidence_with_link(ev, root)
+    return tab_review.evidence_with_link(ev, root)
+
+
 def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
     if not items:
         return ""
@@ -179,7 +188,7 @@ def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
         if "text" in ev and not (loc and loc in anchors):
             evidence = f"<blockquote>{esc(ev['text'])}</blockquote>"
         if ev.get("tab_id"):
-            evidence += tab_review.evidence_with_link(ev, root)
+            evidence += review_evidence(ev, root)
         elif any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
             evidence += site_igamt.evidence_html(ev)
         disp = ""
@@ -291,6 +300,8 @@ def build(out: Path) -> dict:
     xref = (structure or {}).get("xref", {})
     cards = list(walk(roots))
     by_id = {c.id: c for c in cards}
+    ta_data = ta_review.load(REPO, by_id)  # local builds only: the TA records are never committed
+    findings = findings + ta_review.findings(ta_data)
     by_card = defaultdict(list)
     general = []
     for f in findings:
@@ -392,6 +403,14 @@ def build(out: Path) -> dict:
         set_f = [f for f in findings if f["category"] == key]
         meta.append({"i": "tabs" if key == "tab" else coll.out_dir, "t": coll.title, "n": "", "p": f"{coll.out_dir}/index.html",
                      "f": [sum(f["severity"] == s for f in set_f) for s in ("issue", "warning", "note")], "c": set_nav})
+    if ta_data:
+        ta_nav, ta_anchors = ta_review.build_pages(
+            out, ta_data, by_id,
+            lambda path, title, body, root: write_text(path, shell(root=root, title=title, body=body, guide=guide, build=build_info)))
+        tab_anchors.update(ta_anchors)
+        ta_f = [f for f in findings if f["category"] == ta_review.KEY]
+        meta.append({"i": ta_review.OUT_DIR, "t": ta_review.TITLE, "n": "", "p": f"{ta_review.OUT_DIR}/index.html",
+                     "f": [sum(f["severity"] == s for f in ta_f) for s in ("issue", "warning", "note")], "c": ta_nav})
     proposals = site_proposals.load(REPO)
     if proposals:
         meta.append({"i": "proposals", "t": "Proposed Analyses", "n": "", "p": "quality/proposals/index.html", "f": [0, 0, 0]})
@@ -471,7 +490,7 @@ def build(out: Path) -> dict:
 {tables_html(c)}
 {refs_html}
 {site_err5.card_panel(c.id, err5, root)}
-{tab_review.card_panel(c.id, tab_data, root)}{tab_review.card_panel(c.id, sisc_data, root)}{tab_review.card_panel(c.id, mirow_data, root)}
+{tab_review.card_panel(c.id, tab_data, root)}{tab_review.card_panel(c.id, sisc_data, root)}{tab_review.card_panel(c.id, mirow_data, root)}{ta_review.card_panel(c.id, ta_data, root)}
 {children_html}
 {terms_html(card_terms.get(c.id, []))}
 {pager}
@@ -560,7 +579,7 @@ sections and conformance statements, the generated message structure, example me
             elif "text" in ev:
                 extra_ev = f"<blockquote>{esc(ev['text'])}</blockquote>"
             if ev.get("tab_id"):
-                extra_ev += tab_review.evidence_with_link(ev, "../")
+                extra_ev += review_evidence(ev, "../")
             elif any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
                 extra_ev += site_igamt.evidence_html(ev)
             if not where and (f.get("location") or "").startswith("model:"):
