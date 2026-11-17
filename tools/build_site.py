@@ -371,6 +371,10 @@ def build(out: Path) -> dict:
         {"i": "quality", "t": "Quality Review", "n": "", "p": "quality/index.html",
          "f": [sum(f["severity"] == s for f in findings) for s in ("issue", "warning", "note")]},
     ]
+    r15 = site_r15.load(REPO, by_id)
+    if r15:  # first under Quality Review
+        meta.append({"i": "r15", "t": "Changes from Release 1.5", "n": "", "p": "r15/index.html", "f": [0, 0, 0],
+                     "k": ["Release 1.5", "2018", "NIST", "changes"]})
     if structure:
         cmp_f = [f for f in findings if f["category"] in ("igamt", "igamt-export")]
         meta.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
@@ -391,10 +395,6 @@ def build(out: Path) -> dict:
     proposals = site_proposals.load(REPO)
     if proposals:
         meta.append({"i": "proposals", "t": "Proposed Analyses", "n": "", "p": "quality/proposals/index.html", "f": [0, 0, 0]})
-    r15 = site_r15.load(REPO, by_id)
-    if r15:
-        meta.append({"i": "r15", "t": "Changes from Release 1.5", "n": "", "p": "r15/index.html", "f": [0, 0, 0],
-                     "k": ["Release 1.5", "2018", "NIST", "changes"]})
     page_anchors = {"quality": "quality/index.html", "quality-igamt": "quality/igamt/index.html", **tab_anchors,
                     "glossary": "glossary/index.html", "resources": "resources/index.html", "examples": "examples/index.html",
                     **structure_anchors}
@@ -575,6 +575,9 @@ sections and conformance statements, the generated message structure, example me
 draft may be unclear, inconsistent, or hard to use, for the authors to consider. Each finding has a permanent ID, and it
 also appears on the section it concerns. The example messages are checked against the IGAMT profiles too. A check
 for duplication across sections will be added in a later build.</p>
+<p class="callout"><a href="../r15/index.html"><strong>Changes from Release 1.5</strong></a>: what changed from the 2018
+guide, element by element in the conformance profiles and item by item in the narrative and field notes, with what was not
+carried forward.</p>
 <p class="callout"><a href="igamt/index.html"><strong>Narrative and IGAMT structure comparison</strong></a>: does the text
 match the conformance profiles? Answers to the Word review comments, conflicts, change requests for IGAMT, and decisions for CDC.
 <a href="findings.csv">Download all findings (CSV)</a>.</p>

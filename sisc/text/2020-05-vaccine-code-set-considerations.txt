@@ -1,0 +1,940 @@
+Vaccine
+Code Set
+Considerations
+
+If Only It Were Rocket Science
+
+May 21, 2020
+Executive Summary ..............................................................................................................................2
+Introduction ...........................................................................................................................................3
+IIS Code Sets in Action ..........................................................................................................................5
+
+   Current state ........................................................................................................................................5
+   Supporting immunization program operations ...............................................................................8
+
+      Immunization program operations tools....................................................................................10
+IIS Code Set Management Challenges.............................................................................................10
+
+   Challenge #1: Change management ...............................................................................................10
+   Challenge #2: Synchronization.........................................................................................................11
+   Challenge #3: Timeliness ..................................................................................................................11
+   Challenge #4: The need for supporting data..................................................................................13
+Impact of Challenges on Stakeholders ...........................................................................................14
+Strategies to Advance Code Set Management..............................................................................15
+   Vaccine code set supporting data and specifications....................................................................15
+
+      Specification of Code Set Model ..................................................................................................16
+      Code set and supporting data......................................................................................................16
+      Test cases .......................................................................................................................................16
+   Vaccine Code Set Management System (VCSMS)...........................................................................18
+   Terminology service ..........................................................................................................................19
+Conclusion.............................................................................................................................................19
+Appendix A: References .....................................................................................................................21
+Appendix B: Technical Resources ....................................................................................................22
+Appendix C: Acknowledgements......................................................................................................23
+Appendix D: Graphics .........................................................................................................................25
+
+                                                                                                                                     1
+Executive Summary
+
+Immunization information systems (IIS) have evolved over time to become a critical
+component of immunization program operations. They not only document vaccine doses
+administered for all ages but can also provide important reports and analyses to support
+decision making for various stakeholders. IIS-generated reports can support immunization
+program staff as well as clinical and population health information needs, while official
+immunization certificates inform consumers, schools, and childcare facilities of important
+vaccination status.
+A cornerstone of IIS infrastructure is the use of vaccine code sets to facilitate the
+documentation and electronic data exchange of consolidated immunization record
+information between IIS and other health information systems like electronic health
+records (EHRs). A code set “lists acceptable values in tables supported by a standards
+organization such as HL7 or CDC.”1 Since the first publication of vaccine administered (CVX)
+and manufacturer (MVX) code sets by the Centers for Disease Control and Prevention (CDC)
+in 1999,2 more code sets have been incorporated into regular use by IIS. CVX and MVX,
+along with the national drug code (NDC) published by the Food and Drug Administration
+(FDA), are examples of standard code sets used to record immunizations in health
+information systems. Use of these and other code sets has resulted in a complex grid of
+relationships between code sets.
+This document will provide a general overview of vaccine code sets and also briefly
+describe how code sets are used in support of multiple and varied IIS functions, including
+electronic data exchange with EHRs and other health information systems, and vaccine
+ordering and inventory management. The key challenges and issues that impact the
+implementation and management of vaccine code sets will be described, along with how
+those challenges may affect IIS stakeholders. Those challenges include: (1) change
+management, (2) synchronization, (3) timeliness of implementation, and (4) the need for
+supporting data. Considerations for code set management process improvement and
+building upon the critical role of vaccine code sets in IIS operations will be also highlighted.
+
+                                                                                                                                     2
+Introduction
+
+Standardized code sets and vocabulary are critical to supporting and maintaining high-
+quality data and facilitating standardized electronic data exchange between health
+information systems. They are a core component of the IIS consolidated immunization
+record. Code sets most commonly leveraged by the IIS community are vaccine
+administered (CVX) and manufacturer (MVX), published by the Centers for Disease Control
+and Prevention (CDC), and the national drug code (NDC), published by the Food and Drug
+Administration (FDA). These codes capture important information about vaccine
+administrations necessary to support successful Health Level 7 (HL7) data exchange, which
+is dependent on accurate and continuous management of code sets.
+
+CVX identifies vaccine type, MVX identifies vaccine manufacturer, and NDC identifies
+vaccine product, manufacturer, and packaging information.2 Another code set that may be
+used to document a vaccine administration is the current procedural terminology (CPT®),
+which is developed and maintained by the American Medical Association (AMA). However,
+since CPT codes are not preferred, when health information systems send data to IIS using
+CPT codes, the IIS then maps them to a CVX code.3 CDC maintains tables for managing
+relationships between code sets and other data sources used in health care and by health
+information systems, including IIS and electronic health record (EHR) systems. Examples of
+these tables include product name mapped to CVX/MVX, NDC unit of use and unit of sale
+crosswalk tables, CPT mapped to CVX, and CVX mapped to vaccine group. A vaccine group
+is a set of individual vaccines that when grouped together may vaccinate against one or
+more than one disease (e.g., HepA, MMR, and DTaP).4
+
+Early on, most immunizations were recorded by direct data entry into the IIS. This began as
+a primarily manual process with providers mailing or faxing in paper forms to be entered
+into the IIS, followed by providers eventually entering their own data through an online
+user interface.5 Over time, IIS were also able to consume data extracted from provider
+systems and processed into the IIS through batch files. As formal standards for data
+exchange were adopted and meaningful use initiatives (now referred to as Promoting
+Interoperability Programs) were implemented, IIS focused efforts on developing
+capabilities to support real-time, bidirectional data exchange of vaccine doses administered
+from other health information systems (primarily EHRs). In the current state, the majority
+of immunization data is sent electronically to IIS from provider EHRs through HL7
+interfaces. This evolution has highlighted the need for EHRs and IIS to leverage the same
+vaccine code sets to ensure accurate interoperability.
+
+                                                                                                                                     3
+In 2018, AIRA’s Joint Development and Implementation (JDI) Advisory Workgroup launched
+a project to examine vaccine code set management practices across the IIS community to
+begin to describe the existing processes in place and identify challenges and issues that
+may impede the processes at any given point. It was also important to better understand
+the nuanced differences in the ways IIS programs and IIS stakeholders address common
+challenges related to code set management. To gather information on these different
+perspectives, AIRA conducted an informal survey and engaged several IIS subject matter
+experts (SMEs) in discussions to zero in on the most pressing challenges of this complex
+topic. Valuable information on vaccine code set management was also gathered during the
+AIRA 2019 National IIS Meeting.
+
+Four challenges that impact the management of vaccine code sets will be explored in this
+document. The topics are listed in the order in which stakeholders generally experience the
+most challenges:
+
+    1. Change management – Maintaining awareness of code set changes as they are
+         published and the process for implementing those changes
+
+    2. Synchronization – Keeping multiple IIS environments current with updates
+
+    3. Timeliness of implementation – Identifying processes and expectations for timely
+         code set updates across IIS and EHRs
+
+    4. The need for supporting data – Identifying additional data points and
+         interpretation needed to augment and more fully leverage vaccine code set data
+
+It is important to begin to better understand these challenges from the perspective of how
+they impact IIS and other health information systems. These dependencies should be
+considered when identifying potential solutions.
+
+In addition to an overview of code set management challenges, the impacts these
+challenges have on IIS stakeholders will be described. This will help to delineate specific
+areas where targeted solutions to improve efficiency could be identified. Finally, this
+document will outline ideas for moving forward by exploring potential opportunities to
+address challenges by leveraging existing solutions, like the CDC Vaccine Code Set
+Management Service (VCSMS). CDC developed VCSMS to inform IIS and other data partners
+of new code updates. VCSMS has three primary functions: (1) maintain CDC’s vaccine code
+sets, (2) publish code set data for use by health information systems, and (3) answer
+questions about the use of code set data.
+
+                                                                                                                                     4
+IIS Code Sets in Action
+
+The use of standards has always been important in the IIS community but took on a more
+central role within IIS operations upon release of the first HL7 Implementation Guide (IG)
+for Immunization Messaging. This HL7 IG included references to CVX and MVX code sets
+which are still maintained and updated by CDC today and used throughout the IIS
+community.6 Since that time, the use of code sets and the complex environment in which
+they must be managed has grown as the scope of IIS has expanded to support many core
+immunization program operations.
+
+As a result, there is a need to recognize the continuous support for standards adoption
+within the IIS community and conversely to identify the challenges that have developed
+over the years as code use and complexity have expanded. This is the first and arguably
+the most important step. Before solutions can be identified or strategies proposed, we
+must better understand how different stakeholders approach code set management. Once
+there is a common knowledge of what is working and what is not, the next step can be to
+analyze the challenges and begin to identify opportunities where process improvements
+can be made. This document aims to shine a light on some of the persistent challenges
+affecting code sets and to set the stage for IIS community-wide collaboration to tackle
+those challenges.
+
+Current state
+
+Information gathering on the current processes used by IIS stakeholders to manage code
+sets has been ongoing since the initiation of this exploratory effort. In 2019, an informal
+survey was conducted to gather targeted feedback from IIS on several aspects of code set
+management. Responses were received from 38 unique IIS, or approximately 60% of the 63
+active IIS across the country. High-level topics covered included identifying (a) the primary
+owners of IIS code set changes, (b) the amount of time it takes to implement changes, (c)
+estimates of staff resources needed to implement code set changes, (d) suggestions on
+how to improve current processes, and (e) process-related pain points. Responses to these
+and other questions provided the building blocks to begin constructing a picture of the
+overall complexity of code set management within an IIS and the systems with which they
+interface.
+
+A recurring theme that was present throughout the responses was variability across
+platforms and implementations. There is a high degree of familiarity with the CDC Code Set
+web page, and a majority of respondents subscribe to email notifications of changes.
+Although there is common knowledge regarding CDC resources available, there was
+
+                                                                                                                                     5
+variability in the supporting resources respondents use to check for code updates. Other
+survey takeaways include:
+
+    • Variability in who takes the lead in managing code sets for the IIS. In many
+         cases it is a coordinated effort between IIS program and IIS vendor staff. IIS program
+         staff may primarily manage NDCs through the IIS user interface (UI), and IIS vendor
+         staff may manage other code set changes, such as CVX, MVX, and other
+         relationships between code sets. Seventeen respondents (45%) said their vendor
+         has primary responsibility for code set updating, while 13 respondents (34%) said it
+         was the primary responsibility of IIS staff. Four respondents said it was a joint effort
+         between the IIS staff and their vendor, while two respondents said health
+         department central IT staff are responsible for code set updates.
+
+    • Management of code set changes in systems is overwhelmingly manual. Some
+         respondents indicated that they download code sets in an Excel format when
+         updates are made, but the process most used is to “look up information on the
+         website and make manual changes to my system.”
+
+The code set tables referenced in the survey are maintained by CDC. These nine CDC-
+maintained code set tables support a network of IIS program operations that could be
+described as being held together by the connection of codes from one functional area to
+another. The most frequently used CDC-maintained code sets identified in the survey are
+depicted in Table 1.
+
+Table 1. Commonly used CDC code set tables
+
+Table                           % of Respondents Referencing Its Use
+CVX                             89%
+NDC Crosswalk                   79%
+Product Name Mapped to CVX/MVX  74%
+MVX                             68%
+CPT Mapped to CVX               63%
+CVX Mapped to Vaccine Group     53%
+
+Information was not gathered on all available CDC code set resources, but it is worth
+noting that the following code set resources are also available on the CDC Code Set web
+page related to NDC code management:
+
+                                                                                                                                     6
+     • NDC Lookup Crosswalk
+     • NDC Unit of Use
+     • NDC Unit of Sale
+     • Vaccine NDC Linker
+     • NDC11 to NDC10 Crosswalk Reference
+
+In addition to the survey, there were other methods used to gather information on code
+set management within the IIS community. Other information gathering efforts included
+one-on-one discussions with IIS subject matter experts, review of IIS technical guidance and
+current code set tables, discussions with the JDI Workgroup, and at roundtable discussions
+at the AIRA 2019 National Meeting. Outcomes from each of the efforts are reflected
+throughout the document and in many cases supported the findings from the survey, but
+there were several notable points that arose throughout the interviews.
+
+    • The range in timing cited for code set updates extended from 15 minutes (if the IIS
+         staff was solely responsible for the update) to many months (if dependencies and
+         multiple handoffs were involved). In one case where a vendor managed code set
+         updates, a two-month minimum time period was referenced from the
+         announcement of a code set change to full implementation. Some updates had to
+         coincide with a patch or release, which affected timing.
+
+    • The manual process of updates was cited as a pain point by multiple SMEs,
+         particularly because of the number of environments (test, training, production, etc.)
+         and the number of tables (import, forecast, reports, etc.) that must be updated.
+         Automation of code set updates was referenced repeatedly as a way to improve
+         both timeliness and accuracy of code set changes and the ability to synchronize
+         across systems. That being said, there may still be a need to test new codes or
+         updates in a test environment prior to going live in production, so any automated
+         solutions to improve synchronicity need to be balanced with testing needs.
+
+    • Several SMEs noted that. even if their IIS implementation and mapping of code sets
+         was timely and efficient, there was limited opportunity to exercise control over the
+         codes submitted by clinicians, EHRs, health information exchanges (HIEs), and
+         others, highlighting that vaccine code set management is a shared responsibility
+         across all data exchange partners.
+
+To illustrate the complexities of vaccine code set assignment
+and use, including the number of stakeholders engaged, AIRA
+and our community partners developed two graphics to
+illustrate this process. One is focused on the pipeline for a
+
+                                                                                                                                     7
+new vaccine, and the other is focused on the many uses of vaccine codes in IT systems.
+These can be found in Appendix D.
+
+Supporting immunization program operations
+
+Code sets are embedded in the fabric of each IIS and are a critical component of most core
+IIS functionality. Adding to the complex nature of maintaining code sets is the fact that
+most functional areas have a one-to-many relationship with code sets. Rarely is there only
+one code set used to support these functions throughout the system.
+
+A review of several functional areas within an IIS quickly highlights the interconnectedness
+of these system components.
+
+Administered vaccinations
+
+The CVX and MVX code sets are used for documenting the vaccine and manufacturer,
+respectively, of vaccine doses administered in the IIS. NDC and CPT may also be used to
+document an administered vaccine, so it is important for IIS to be able to map between
+code sets when varying code sets can be received by the IIS to document an administered
+vaccine. As part of meaningful use Stage 3 preparation, IIS are expected to be able to
+support HL7 version 2.5.1, Release 1.5. A component of that includes the ability to accept
+NDC for new vaccine administrations.7 This requirement, along with the use of NDC as a
+critical component of vaccine ordering and inventory management, highlights the
+importance of keeping this code set current in the system. There are relationship tables
+available to link the code sets that are needed to document an administered vaccine.
+
+Historical vaccinations
+
+It is also important for IIS to be able to document historical vaccine doses administered or
+immunization history data for inactive codes. This introduces an added layer of complexity
+when it comes to managing these as well as currently active codes.
+
+The Interoperability Standards Advisory (ISA) managed by the Office of the National
+Coordinator for Health IT (ONC) provides guidance on representing administered and
+historical immunizations in health information systems and also calls out specific
+considerations for IIS regarding code sets that should be used.8 It is important to note that,
+currently within the IIS community, CVX codes are the preferred method for documenting
+historical vaccine doses.
+
+                                                                                                                                     8
+Interoperability
+
+There are many code sets that are necessary to facilitate successful data exchange
+between IIS and other health information systems like EHRs and HIEs. In addition to data
+on administered vaccines, HL7 messages sent to an IIS will include many other data points
+related to demographics, immunization route and site, lot numbers, etc. Data queried from
+an IIS may also contain vaccines due and past due, in addition to the consolidated record.
+Ensuring uniform code sets is essential for accurate interoperability.
+
+Vaccine ordering and inventory management
+
+Functionality to support vaccine ordering and inventory management of publicly purchased
+vaccine in the IIS has steadily developed and become more robust over the years. The
+implementation of NDC to order vaccine was one of the factors that catapulted this code
+set into widespread use in the IIS. It also introduced the concept of accommodating and
+documenting NDC Unit of Use (UoU) and NDC Unit of Sale (UoS). The UoU is typically the
+NDC that is found on the individual vial or syringe, while the UoS is typically the NDC
+associated with the entire pack or box of the vaccine. Taken together with other related
+features such as tracking of vaccine returns and wastage, use of these code sets facilitates
+immunization program vaccine accountability efforts. The variation in NDCs poses a
+challenge when managing inventory. The following guidance for managing varied vaccine
+lot numbers was developed by AIRA in partnership with CDC: Vaccine Lot Number Patterns:
+Unit of Sale/Unit of Use Guidance. In addition, CDC has published guidance acknowledging
+that providers may submit either unit of use or unit of sale NDCs as part of their workflow,
+recommending that IIS must be ready to receive either.9
+
+Clinical decision support
+
+Providing evaluation and forecasting services is a core tenet of an IIS. The results from a clinical
+decision support engine are used for direct patient care, coverage reports, reminder/recall
+efforts, and even responding to the IIS Annual Report (IISAR). At this time, CVX codes are
+typically used to identify the vaccines for evaluation and forecasting purposes. When NDC is
+used to document a vaccination event, in most cases NDC currently must be mapped to CVX
+codes for the CDS engine. Furthermore, each CVX code must be compared to the Advisory
+Committee on Immunization Practices (ACIP) schedule to determine when the CVX code would
+be valid or invalid based on several factors, such as the age at administration and spacing from
+other vaccination events. The Clinical Decision Support for Immunization (CDSi) project could
+also be leveraged for this process.
+
+                                                                                                                                     9
+Immunization program operations tools
+
+In addition to the functional areas referenced, code sets for immunizations are also
+leveraged by the following key areas across the IIS community:
+
+    • National Institute of Standards and Technology (NIST) Immunization Test Suite
+    • NIST Forecasting for Immunization Test Suite
+    • Message Quality Evaluation (MQE) Tool
+    • AIRA Aggregate Analysis Reporting Tool (AART)
+    • AIRA Measurement and Improvement Project
+
+IIS Code Set Management Challenges
+
+Several recurring themes present as challenges to efficient code set management. These
+challenges have some measure of impact across IIS stakeholders. The topics highlighted
+have been curated from the various data collection methods referenced in this document.
+The overview of each challenge will describe the processes currently in place and some of
+the known gaps related to each particular aspect of the management process.
+
+Challenge #1: Change management
+
+Description: With multiple vaccine code sets used to support immunization program
+operations, there are a number of resources from which this information can be gathered.
+Email notifications of CDC code set updates are a critically important resource for staying
+abreast of upcoming changes to core code sets. Some code set managers (e.g., IIS staff, IIS
+vendor staff, EHR staff, central IT staff) find it necessary to also consult other resources for
+awareness of current and upcoming changes. Examples of other resources IIS stakeholders
+use include manufacturer websites, the CDC Federal Vaccines List, FDA licensing and supply
+lists, online search of vaccine package descriptions, My Flu Vaccine, American Academy of
+Pediatrics (AAP), Morbidity and Mortality Weekly Report (MMWR), ACIP, and sometimes
+other IIS.
+
+Current implementation process: The most widely used approach to maintain awareness
+of code set changes is to subscribe to all available email notifications for the code sets
+implemented in the system. This is also often supported through manually checking the
+CDC code set web page. Sometimes IIS become aware of changes to the current codes
+because there has been a data exchange issue and provider EHRs may be sending codes
+that have not yet been added in the IIS. This scenario requires a reactive response and
+introduces the added task of cleaning up the rejected data that came in prior to the codes’
+being available in the IIS production environment.
+
+                                                                                                                                   10
+Process improvement opportunities: The availability of CDC code set update emails and
+the addition of the VCSMS web service and content management client have helped
+substantially to keep code sets current. However, further automation of the code
+notification and update process was referenced several times as a desired solution to
+challenges related to change management. Identifying how this might be done and which
+parts of the process, some or all, could be automated, requires additional analysis. Areas
+that could be explored are automatically pushing code set changes to IIS or creating a
+single location to update codes in the system for all supporting IIS functions.
+
+Challenge #2: Synchronization
+
+Description: The IIS production environment is the externally facing system that users
+interact with, but there are typically several other environments that are updated with code
+set changes as well. A jurisdiction may have several environments to update and keep
+synchronized. Although these will vary by jurisdiction, they may include production, testing
+or user acceptance testing (UAT), training, development, and/or quality assurance (QA).
+Many times, the changes to each environment are done manually and must be repeated,
+creating inefficiencies.
+
+Current implementation process: Manually implementing code changes in multiple
+systems introduces a time constraint and potentially a resource burden. There is also the
+risk that all environments will not be updated consistently. The extent of the burden may
+depend on who is primarily responsible for managing code set changes, which may be IIS
+program staff, immunization program staff, IIS vendor staff, or a combination of all.
+Although the current process for maintaining synchronization varies by IIS vendor platform
+and jurisdiction, a commonality is that the code set update process is likely repeated
+separately for each environment.
+
+Process improvement opportunities: A possible approach for improvement could be to
+automate the process of implementing updates to IIS production and other environments.
+This could be helped in part by having a central reference table for code sets across all
+environments. Additional analysis would be beneficial to identify IIS that may have already
+automated this process and could share implementation strategy and best practices. As
+mentioned above, there may still be a need to test new codes or updates in a test
+environment prior to going live in production, so any automated solutions to improve
+synchronicity need to be balanced with testing needs.
+
+Challenge #3: Timeliness
+
+Description: Similar to many facets of code set management, there is considerable
+variation among IIS—and between IIS and their EHR counterparts—on the time frame for
+
+                                                                                                                                   11
+updating systems with new or updated code information. Based on an inquiry of some IIS
+stakeholders, implementation time estimates range from a few hours to a few months. The
+disparity is largely dependent on the type of change, with those updates made through the
+IIS UI (typically new NDCs) generally taking less time than primarily back-end system
+changes, such as updates to or introductions of new CVX codes. There is also an added
+complexity of implementing changes related to the mapping of NDC unit of use and unit of
+sale that might not be reflected in the overall time frame as a separate process step.
+
+A shared challenge is the expectation of and sometimes delay in updated or new codes’
+being available in the provider EHR to send or being available in the IIS to receive when
+messaged from an EHR. A mismatch here results in a failed message to the IIS, which
+triggers an alternate set of steps to get the missing immunization data into the IIS.
+
+Current implementation process: The first few steps of implementing vaccine code
+changes are generally similar across IIS: (1) receive notification of update to code sets from
+email subscription or review of website, followed by (2) identify and communicate changes
+to the appropriate staff who will initiate changes to the system. This may be IIS program
+staff, IIS vendor staff, or health department central IT staff. At this point, the number of
+steps diverges depending on the primary code-change implementer. The level of
+involvement of IIS program staff in this process varies. It may require little to no
+involvement beyond UAT and approval of changes, or it may need a collaborative handoff
+between multiple stakeholders with each taking the lead at different points in the process.
+
+    • IIS vendor-managed changes may be slated for a predefined patch cycle and
+         involve minimal IIS staff involvement until the testing phase.
+
+    • IIS program staff-managed changes may be done in close coordination with central
+         IT or IIS technical staff.
+
+    • Coordinated IIS vendor/IIS program staff-managed changes require an added
+         coordination effort to ensure effective communication of current and upcoming
+         code set changes and engagement by all actors in their primary role in the overall
+         process.
+
+A bottleneck in one step can have downstream impact when a change is implemented in
+the production environment.
+
+Process improvement opportunities: Reduce manual steps where possible. One of the
+suggestions from the informal survey was to create a more automated process which could
+include importing code set files into IIS through flat files or through automated services.
+Any increase in automation could have potential time savings for those currently manually
+entering code set updates through the UI or in database tables. Feasibility and potential
+
+                                                                                                                                   12
+risk related to this approach must be considered from several angles. One such
+consideration is that IIS would need to be able to import the code set file(s), which could
+require a development effort. Beyond the initial import, the IIS would need to develop and
+implement rigorous business rules to define where new codes would need to be added,
+what existing codes they may need to be mapped to, and what specific functions may be
+directly or indirectly affected by these new codes.
+
+To achieve true gains in timeliness, a similar automated process would need to be adopted
+and implemented by EHR partners as well, and we recommend that EHR partners be fully
+engaged in future vaccine code set work.
+
+Challenge #4: The need for supporting data
+
+Description: Some code sets don’t have all of the data elements necessary to manage the
+processing of code changes. Mature vocabularies have additional “meta data” or
+“supporting data” that helps to provide information needed to properly use a vocabulary
+term. A good example of this is any English dictionary. The dictionary not only defines the
+term but also gives additional information such as part of speech, pronunciation, word
+origin, alternative spellings, and related concepts.
+
+Immunizations are complicated and require similar types of information, particularly if the
+goal is to automate the use of immunization information.
+
+Most information that changes rapidly in the vaccine code sets is updated by CDC, but to
+allow for automation, additional information on the interpretation of that information is
+needed. Associated with the CDC-coded values are guidance documents, best practices,
+and other supporting documents. These are useful resources that still must be interpreted
+for implementation in the IIS or another health information system, which can be time-
+consuming and inconsistent across systems.
+
+In addition to IIS, the Message Quality Evaluation (MQE) Tool also uses vaccine code set
+supporting data. The MQE Tool is an open-source application “designed to assist sites in
+consistently evaluating and improving the quality of data coming into their IIS.”10 There are
+several meta data the MQE Tool uses that are not currently provided but are updated with
+input from the IIS community. Extended supporting data used in the MQE Tool include
+Status, Valid Start, Valid End, and Notes.11
+
+Current implementation process: Many IIS rely on industry knowledge to implement
+code changes. More analyses are needed to determine how IIS are currently approaching
+this challenge as it relates to active and inactive dates and other supporting data.
+
+                                                                                                                                   13
+Process improvement opportunities: The immunization community needs the current
+CDC Code Set project to include additional supporting information to match the type of
+support given by the Clinical Decision Support for Immunizations (CDSi) project. Expanding
+this project to build out full specifications would allow significantly more automation of
+vaccine code set updates.
+
+Additional materials for vaccine code sets may include:
+
+• Specification of Code Set Model – This model would explain the current code sets,
+    elaborate on additional modeling concepts, and formally connect the code sets to other
+    projects such as CDC’s CDSi project and the vaccine deduplication best practices
+    published by AIRA’s Modeling of Immunization Registry Operations Workgroup
+    (MIROW). In particular, vaccine groups used for ACIP recommendations need to be aligned
+     with the code sets provided by VCSMS.
+
+• Code set and supporting data – Consistent with the specification, this would provide
+    specific guidance and classification of all coded elements within the specification
+    framework. The supporting data would be updated as new coded concepts are created.
+
+• Test cases – Based on the supporting data, specific test cases would be created with
+    expectations about how IIS and immunizing systems (such as EHRs) should support
+    specific code set data. These test cases would be updated as new codes are created.
+
+More information on this approach is included in a later section.
+
+Impact of Challenges on Stakeholders
+
+Challenges related to code set management may be common across IIS stakeholders, but
+their impact varies. This is evident by the differences in roles that stakeholders take on in
+the combined code set management process. The combined process includes some degree
+of collaboration between IIS program and IIS vendor staff to ensure that codes are
+updated, added, and linked. There is also collaboration between the EHR vendor and
+provider to ensure provider systems are up to date with the current codes to send to IIS.
+This complex process with multiple actors and many parallel actions speaks to how
+delayed implementation in one system may impact the other. A high-level overview of
+impacts to different stakeholders include:
+
+IIS program
+In their response to the AIRA informal survey, several IIS noted a pain point related to not
+being able to easily identify which codes within the code set were added or changed. This
+may have an impact on efficiency and may cause IIS to implement inaccurate information.
+
+                                                                                                                                   14
+Another area that impacts IIS processes for managing code sets is the maintenance of local
+codes in the IIS, or internal immunization IDs. These internal IIS codes add another layer of
+mapping within the IIS infrastructure and another potential point of error in updates or
+mapping. These codes are likely to be maintained by the IIS vendor.
+
+IIS vendors
+IIS vendor staff in many cases collaborate with IIS program staff on code set management.
+As a first step, there may be reliance on the IIS program to provide information on code
+updates. This dependency and the back and forth needed to test and approve changes
+have an impact on the timeline in which an IIS vendor can complete code changes and
+update customer environments.
+
+EHR vendors
+Sometimes there is a time gap between becoming aware of upcoming code changes and
+the publication of those changes. This has an impact on the code set management update
+process and may result in changes being ready for implementation but not released for
+use. There is also the issue of messages being rejected by the IIS. In some cases, this may
+be due to codes not yet being updated in the IIS, but this can also be the result of incorrect
+or deprecated codes being sent to the IIS or not all necessary codes sets being updated
+(e.g., NDC unit of use, NDC unit of sale).
+
+Strategies to Advance Code Set Management
+
+There will not be one perfect solution to address the various challenges that IIS
+stakeholders experience with code set management. The more likely scenario is one where
+there are several approaches to solving different components of the issue that, when taken
+together, improve code set management processes for respective stakeholders. Several
+survey respondents and IIS SME discussion participants highlighted the desire for more
+automated code set management processes. A good first step may be to explore
+opportunities to best leverage existing tools, such as the VCSMS and Fast Healthcare
+Interoperability Resources (FHIR) Terminology Services, along the path to more automated
+processes. VCSMS will likely continue to be the primary author for vaccine code set
+additions/modifications, recognizing that the code sets could then be published in multiple
+locations, including with the Value Set Authority Center (VSAC).
+
+Vaccine code set supporting data and specifications
+
+As mentioned above, there is a need for vaccine code set specifications similar to the
+Clinical Decision Support for Immunizations (CDSi) specifications created by CDC. In the
+same way that CDSi specifications support the automation of CDS engines, supporting data
+
+                                                                                                                                   15
+for vaccine code sets would support automation of vaccine code set updates as well as the
+analysis and use of vaccine code sets overall. The audience for these resources would be
+business and technical implementers of vaccine code set data and supporting functionality.
+These implementers would include both EHRs and IIS. These resources could be
+implementation-neutral and would facilitate the use of various vaccine code sets in an
+unambiguous manner while improving the uniform representation of vaccines.
+
+As outlined above, this set of resources should consider three key components:
+
+Specification of Code Set Model
+
+This model would explain the current code sets, elaborate additional modeling concepts,
+and formally connect the code sets to other projects, such as CDSi and vaccination
+deduplication.
+
+Code set and supporting data
+
+Consistent with the specification, this would provide specific guidance and classification of
+all coded elements within the specification framework. The supporting data would be
+updated as new coded concepts are created.
+
+Test cases
+
+Based on the supporting data, specific test cases would be created with expectations about
+how IIS and immunizing systems (such as EHRs) should support specific code set data.
+These test cases would be updated as new codes are created.
+
+These resources could meet multiple goals across the IIS and EHR community, including
+improving the process of updating vaccine code sets, increasing the accuracy of vaccine
+code set information exchanged across systems, and improving the process of developing
+functionality that leverages vaccine code set data. Other countries have already embarked
+on similar vaccine code set specification efforts, such as Canada’s Vaccine Catalogue
+project, and may serve as a good model for the aspects of this project that can be built out
+moving forward.
+
+A critical part of ensuring accuracy in the update process is the creation of test cases that
+verify that a system can test for new code changes and also that a system has properly
+implemented these changes. There are currently gaps between what is being documented
+and what expectations can be tested in regard to vaccine code sets. For example, below are
+recently published code set release notes that need more guidance for testing. Information
+on the questions below may be available in various documents, but typically these
+documents include human readable English and cannot be unambiguously interpreted.
+
+                                                                                                                                   16
+Example code set updates and accompanying questions:
+
+Release Notes                                 Questions in need of computable guidance
+
+NDC Influenza Season Update: Sanofi           • Should IIS accept this code now? Is there any
+Product FLUZONE High-Dose Quadrivalent           need for the IIS to notice that this code is not
+was previously introduced and described          yet valid and issue a warning? EHR systems
+for the influenza season 2019/2020. The          should not be reporting this now, right? If
+correct influenza season for this product is     they do report under these NDC, then what
+2020/2021. The NDC descriptions have             should the IIS do with that information?
+been updated to reflect this correction. The     Keep it? Reject it?
+notes for the associated CVX code 197 and
+the CDC Product have also been updated        • When should IIS start to be able to receive
+to reflect the correct starting season for       this code and process it? The guidance
+this new product.                                indicates “flu season,” but the start of this is
+                                                 not defined. Can we always assume July 1?
+NDC Codes Retired: The following NDC
+codes have been retired from the FDA files    • After flu season in 2021, should this code no
+received.                                        longer be used? What should an IIS do if it
+                                                 receives data in the fall of 2021 with the
+                                                 code on it?
+
+                                              • Is there a definition for how to handle
+                                                 “retired” codes in general? What does this
+                                                 mean exactly?
+
+                                              • What should IIS do when they receive
+                                                 “retired” codes? Should they try to store
+                                                 these vaccinations or issue an error?
+
+                                              • When should the “retirement” take effect? As
+                                                 of 02/12/2020? Or is product still in
+                                                 circulation for some time to come?
+
+                                              • What should an IIS do with old data stored
+                                                 with these NDC? Does any of it need to be
+                                                 updated with newer codes since these are
+                                                 no longer valid? Or are the codes on older
+                                                 reported vaccinations still valid?
+
+                                              • Can IIS still accept reports of older
+                                                 vaccinations using these NDC?
+
+One of the key components missing from our current tools is specific guidance that defines the
+terms used in English and explains how they must be operationalized using computer
+algorithms. To incorporate these codes quickly, IIS need computable guidance. To date, training
+has substituted for computable guidance, but if we are dependent on more training to
+answer these questions, then we are expecting the process to always include a trained
+expert who translates the requirements for code set updates into an operational system. If
+we want to remove these experts and have automatic updates, then these questions have
+
+                                                                                                                                   17
+to be answered by a structured set of data and a set of requirements on how that data is to
+be used. This would allow for the process of automating these updates.
+
+The CDC-developed VCSMS discussed below could be the primary resource for accessing
+vaccine code set supporting data. Use and availability of this tool are evolving. Defining the
+specifications for this supporting data would likely include an in-depth analysis of the
+challenges IIS and other stakeholders are experiencing with interpreting the code sets
+currently available. This would be followed by identifying the gaps that exist between the
+information available and the information that is needed regarding vaccine codes to allow
+for computable guidance. A final step would be to develop this guidance along with best
+practices to support consistent implementation and interpretation of code sets across
+stakeholders.
+
+Vaccine Code Set Management System (VCSMS)
+
+In an effort to inform IIS and other data partners of new code updates and to ensure that
+IIS have easy access to code sets, CDC developed VCSMS. The current VCSMS has three
+primary functions: (1) maintain CDC’s vaccine code sets, (2) publish code set data for use by
+health information systems, and (3) answer questions about the use of code set data. The
+VCSMS offers three options for accessing code set data.
+
+    1. Content cloud agent
+         A desktop application provided by CDC that allows users to manually search for and
+         review content for code set updates. The content cloud agent provides the ability to
+         browse and subscribe to content and then receive automated notifications of
+         updates to flagged content. Once configured, the content cloud agent will manage
+         subscriptions and download new packages as soon as they are published.
+
+    2. Content cloud web services
+         Provides opportunities for individual system customization and would allow for a
+         more automated process for accessing code set updates and integration of the code
+         set data back into the system. The back-end services used by the content cloud
+         agent are available for direct use and allow users to review code set updates.
+
+    3. Download updates from CDC website
+         The CDC will continue to update the public website with code set updates. Users
+         may subscribe to and receive email notifications of updates to the code sets.
+
+Every IIS and EHR team should familiarize itself with these code set resources and leverage
+them as fully as possible. However, with all three options, it is still dependent upon each
+system to write business rules for how to handle the information and define the
+
+                                                                                                                                   18
+relationships between the different code sets. The specifications and supporting data
+referenced above could expand VCSMS and make the data and information supplied by
+CDC more accessible through automation. Supporting the automation of vaccine updates
+would improve both timeliness and efficiency of vaccine code set updates.
+
+Terminology service
+
+A terminology service “lets healthcare applications make use of codes and value sets”12 and
+could serve as a central resource for accessing vaccine code sets. A FHIR terminology
+service could potentially build on the HL7 FHIR framework, which is not yet broadly used by
+IIS. There are a number of commercially available health care terminology services in the
+current marketplace. These services cover a breadth of concepts and code sets, including ICD,
+CPT, SNOMED, LOINC, etc., and are used widely by EHR and other health IT vendors. Research
+is needed to determine the feasibility of this approach and if it potentially constitutes a
+duplication of effort.
+
+One example of a current implementation of a FHIR terminology service is the FHIR
+Terminology Service for Value Set Authority Center (VSAC) Resources. There are a number
+of code sets available in this service, including CVX and CPT.13 Gathering information on
+strategic approaches and lessons learned from implementing a terminology service would
+provide useful information for decision making on feasibility.
+
+Conclusion
+
+The management of vaccine code sets is a process with multiple stakeholders. Each
+stakeholder is charged with managing its own process for updating vaccine codes in its
+own system and then interacting with others to support immunization program operations,
+such as facilitating the documentation of vaccination administrations, forecasting, and
+vaccine ordering and inventory management. There are similar challenges experienced by
+all related to the steps taken to update and add new codes, as well as the need for several
+resources to move the process along. The agencies and organizations that develop and
+publish code sets are also critical to the code set management process among IIS
+stakeholders because the release of code changes initiates the process that a system must
+undergo every time an update is released.
+
+The key in moving forward may be to take a standardized approach to vaccine code set updates
+as opposed to asking people to build code to use a proprietary API or install products on
+servers. The added benefit to a standardized approach would be that it would be easier for
+both IIS and EHRs to work this into their systems. That being said, it is important to recognize
+recent improvements. Although the current process is complex to maintain, efficiencies
+
+                                                                                                                                   19
+have been realized, and many IIS programs and IIS vendors collaborate to manage code set
+updates.
+To continue to move forward and make progress will require maximizing the use of tools
+already available and exploring ways to leverage new resources to build on what’s already
+in place. It may also be appropriate to conduct broader focus groups among expanded IIS
+stakeholders, EHR vendors, and other health care organizations to be more representative.
+This would also allow for the identification of code set management best practices and
+identification of specifications and useful supporting data that are not currently available to
+inform automated tools. Future projects should consider the suggestions above to
+continue to improve and automate the process of managing vaccine code sets across the
+IIS and EHR communities.
+
+                                                                                                                                   20
+Appendix A: References
+
+1. HL7 Version 2.5.1 Implementation Guide for Immunization Messaging.
+    https://repository.immregistries.org/files/resources/5bef530428317/hl7_2_5_1_release_
+    1_5__2018_update.pdf
+
+2. Understanding the Rules for Creating CVX and MVX Codes.
+    https://www.cdc.gov/vaccines/programs/iis/downloads/business-rules.pdf
+
+3. CPT Codes Mapped to CVX Codes.
+     https://www2.cdc.gov/vaccines/iis/iisstandards/vaccines.asp?rpt=cpt#cpt
+
+4. IIS: HL7 Standard Code Set Mapping CVX to Vaccine Groups.
+    https://www2.cdc.gov/vaccines/iis/iisstandards/vaccines.asp?rpt=vg
+
+5. IIS Technology Over Time: Impact and Changing Roles.
+    https://phii.org/sites/default/files/iis_history_spotlight-_technology.pdf
+
+6. Balancing Autonomy and Collaboration: The Evolution of IIS Standards.
+    https://phii.org/sites/default/files/iis_s_history_spotlight-
+    _autonomy_and_community.pdf
+
+7. Preparing for Meaningful Use Stage 3 – An Overview.
+    https://repository.immregistries.org/files/resources/5851a34a99e61/meaningful_use_st
+    age_3_overview.pdf
+
+8. Interoperability Standards Advisory: Representing Immunizations-Historical.
+    https://www.healthit.gov/isa/representing-immunizations-historical
+
+9. Updated Guidance for Documenting Vaccine National Drug Codes (NDCs) and Lot Numbers
+     in IISs and EHRs, June 2017. Accessed 4/19/2020:
+     https://www.cdc.gov/vaccines/programs/iis/2d-vaccine-barcodes/downloads/guidance-
+     documenting-ndc.pdf
+
+10. IIS: Current HL7 Standard Code Set CVX – Vaccine Administered.
+    https://www2.cdc.gov/vaccines/iis/iisstandards/vaccines.asp?rpt=cvx
+
+11. Message Quality Evaluation (MQE) Tool. https://www.immregistries.org/message-
+    quality-evaluation-mqe-tool
+
+12. Overview and Functional Requirements: The Message Quality Evaluation (MQE) Tool.
+    https://repository.immregistries.org/files/resources/5bb3b8af72a2e/mqe_overview_and
+    _functional_requirements.pdf
+
+13. HL7 FHIR Terminology Service. http://hl7.org/fhir/terminology-service.html
+14. NIH Value Set Authority Center National U.S. National Library of Medicine FHIR
+
+    Terminology Service for VSAC Resources. https://cts.nlm.nih.gov/fhir/
+
+                                                                                                                                   21
+Appendix B: Technical Resources
+
+• Centers for Disease Control and Prevention Immunization Information System Code
+    Sets. https://www.cdc.gov/vaccines/programs/iis/code-sets.html
+
+• U.S. Food and Drug Administration National Drug Code Directory.
+     https://www.fda.gov/drugs/drug-approvals-and-databases/national-drug-code-directory
+
+• American Medical Association Category I Vaccine Codes. https://www.ama-
+     assn.org/amaone/cpt-current-procedural-terminology
+
+• American Immunization Registry Association MQE Project Tools and Documents.
+     https://repository.immregistries.org/resource/mqe-project-tools-and-documents/
+
+• National Institute of Standards and Technology Immunization Test Suite. https://hl7v2-iz-
+     r1.5-testing.nist.gov/iztool/#/home
+
+• Centers for Medicare and Medicaid Services Promoting Interoperability Programs.
+     https://www.cms.gov/Regulations-and-
+     Guidance/Legislation/EHRIncentivePrograms/index?redirect=/EHRIncentivePrograms/30_Me
+     aningful_Use.asp
+
+• Centers for Disease Control and Prevention Advisory Committee on Immunization
+    Practices. https://www.cdc.gov/vaccines/acip/index.html
+
+• Centers for Disease Control and Prevention Clinical Decision Support for Immunization.
+     https://www.cdc.gov/vaccines/programs/iis/cdsi.html
+
+• My Flu Vaccine. http://www.myfluvaccine.com/about-mfv/about-myfluvaccine.html
+
+                                                                                                                                   22
+Appendix C: Acknowledgements
+
+Special thanks and appreciation are extended to the following individuals for providing
+their expertise and experience throughout various stages of development of this
+document.
+
+• Centers for Disease Control and Prevention (CDC)
+    o Kafayet Adeniyi, Public Health Project Manager
+    o Stuart Myerburg, Informatics Team Lead
+    o Millie Malai, Deloitte Consulting, CDC Contractor
+
+• American Immunization Registry Association (AIRA)
+    o Nathan Bunker, Senior Technical Project Manager
+    o Eric Larson, Senior Technical Project Manager
+    o Mary Beth Kurilo, Policy & Planning Director
+    o Maureen Neary, Senior Project Manager
+    o Kristi Siahaya, Senior Project Manager
+    o Ulrica Andujar, AIRA Consultant
+    o Danielle Reader-Jolley, AIRA Consultant
+    o Chris Sorenson, AIRA Consultant
+
+• IIS Expert Contributors
+    o Aaron Bieringer, Minnesota
+    o Mike Bin, Washington
+    o BJ Bloom, Office Practicum
+    o Ernad Klipic, Nebraska
+    o Sue Kressly, MD, Office Practicum
+    o Michael Powell, California
+    o Steve Murchie, Envision Technology Partners
+    o Kevin Snow, Envision Technology Partners
+    o Kim Tichy, Iowa
+    o Joey Zehner, Iowa
+    o Matt Verdon, Minnesota
+     o Mary Woinarowicz, North Dakota
+
+• Joint Development and Implementation (JDI) Advisory Workgroup
+    o Kafayet Adeniyi, CDC
+    o Noam Arzt, HLN
+    o Mike Bin, Washington
+    o Bill Brand, PHII
+    o Tricia Charles, Massachusetts
+    o Aras Islam, Philadelphia
+                                                                                                                                   23
+o Millie Malai, Deloitte
+o Mike Marini, Deloitte
+o Judy Merritt, STC
+o Amy Metroka, New York City
+o Steve Murchie, Envision Technology Partners
+o Miriam Muscoplat, Minnesota
+o Stuart Myerburg, CDC
+o Teri Nicholson, Illinois
+o Michael Powell, California
+o Tina Scott, Michigan
+o Gary Wheeler, DXC
+
+                                                                                                                              24
+Appendix D: Graphics
+26
+

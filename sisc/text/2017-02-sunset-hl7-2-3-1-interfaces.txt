@@ -1,0 +1,43 @@
+                                                                                                  AIRA Position Statement
+                                                                                    Sunset Date for HL7 2.3.1 Interfaces
+
+                                                                                                          February 27, 2017
+
+Position:
+
+The AIRA Standards and Interoperability Steering Committee (SISC) recommends that:
+
+    1) The HL7 2.3.1 messaging standard should no longer be used to develop new immunization
+         messaging interfaces between Immunization Information Systems (IIS) and Electronic Health
+         Records (EHRs) or other authorized submitters (e.g. pharmacies); whenever possible, the 2.5.1
+         release 1.5 messaging standard should be used;
+
+    2) All trading partners should make efforts to transition existing 2.3.1 interfaces to a more recent
+         messaging standard;
+
+    3) By June 30, 2018, trading partners should plan to end support for HL7 2.3.1 interfaces,
+         transitioning any final remaining interfaces to a more current standard.
+
+Background and Context:
+
+The original guide on Immunization Data Transactions using the HL7 2.3 Standard Protocol was first
+published in May, 1997, although broader adoption was seen with the 2.1 version of the
+Implementation Guide for Immunization Data Transactions published in September, 2002. The most
+recent published and supported 2.3.1 guide is the 2.2 version, dated June 2006. The current guide
+promoted by AIRA and CDC is the HL7 2.5.1 version 1.5 Implementation Guide, published October 2014
+(along with an addendum published July 2015). This version is also cited by the Centers for Medicaid and
+Medicare Services (CMS) in Meaningful Use rules as well as by the Office of the National Coordinator
+(ONC) in 2015 Certified Electronic Health Record Technology rules.
+
+The AIRA SISC also recently voted to move forward with balloting the HL7 Immunization Implementation
+Guide through the HL7 Organization, and is drafting a version 2.8.2 guide as a step in this process.
+
+In an effort to best utilize resources throughout the health information exchange ecosystem, the SISC
+recognizes that it is in the community’s best interest to limit ongoing support of outdated standards. It is
+the hope of SISC that a unified position statement will support a stronger commitment among IIS and
+their partners/stakeholders to efficiently sunset all 2.3.1 interfaces by the date cited above.
+
+Please email Craig Newman, SISC Co-Chair, at yuo9@cdc.gov, Mary Woinarowicz, SISC Co-Chair, at
+mary.woinarowicz@nd.gov, or Mary Beth Kurilo, AIRA Policy and Planning Director, at
+mbkurilo@immregistries.org with any comments or questions.
+

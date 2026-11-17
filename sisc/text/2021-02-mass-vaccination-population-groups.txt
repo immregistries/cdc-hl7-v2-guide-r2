@@ -1,0 +1,547 @@
+Preliminary
+Guidance on
+Reporting Mass
+Vaccination Event
+Population Groups
+and Tiers
+
+Vocabulary and HL7 Guidance for
+Mass Vaccination Event Data
+Capture
+
+February 2021
+Table of Contents
+
+Background .................................................................................................................................... 2
+Scope of Guidance......................................................................................................................... 2
+
+   In scope....................................................................................................................................... 2
+   Out of scope ............................................................................................................................... 2
+Keywords........................................................................................................................................ 3
+Guidance ........................................................................................................................................ 3
+   Available standards ................................................................................................................... 4
+   Population group and tier HL7 exchange ................................................................................ 4
+   Interaction between population group and tier...................................................................... 6
+Appendix A: Items for Future Discussion .................................................................................... 7
+Appendix B: Proposal for Managing Code Sets .......................................................................... 8
+   Mass vaccination........................................................................................................................ 8
+   Population group ....................................................................................................................... 8
+   Tier .............................................................................................................................................. 8
+Appendix C: Examples and Test Cases ........................................................................................ 9
+   Use Case 1: patient (client) level mass vaccination identification.......................................... 9
+
+      Use Case 1 example ............................................................................................................... 9
+   Use Case 2: patient mass vaccination vaccine administration .............................................. 9
+
+      Use Case 2 example ............................................................................................................. 10
+Appendix D: Proposed Priority Group Codes............................................................................ 11
+
+      Locally created codes........................................................................................................... 12
+Appendix E: References .............................................................................................................. 13
+Appendix F: Acknowledgements ................................................................................................ 14
+
+      SISC Small Group.................................................................................................................. 14
+      American Immunization Registry Association (AIRA) ........................................................ 14
+
+                                                                                                                              1
+Background                                           Preliminary Guidance
+
+A workgroup of subject matter experts convened       This guidance was published in
+over the course of several weeks in 2020 to          preliminary format to assist IIS, EHR
+determine the technical requirements for an IIS to   vendors, and other stakeholders in
+receive and store messages containing population     preparing for the technical
+group and tier allocation during a mass              requirements of the COVID-19
+vaccination event. Mass vaccination events are       response. This document will be
+events where many people receive immunizations;      updated as necessary over the
+this could be in response to a pandemic, natural     course of the response. See
+disaster, or routine immunization campaign, such     Appendix A for items that have not
+as annual flu. This effort was initiated to address  been clarified and still require
+proactively the potential need for IIS to support    community discussion.
+vaccine allocation in response to the severe acute
+respiratory syndrome coronavirus 2 (SARS-CoV-2),
+the virus that causes COVID-19.
+
+The Centers for Disease Control and Prevention (CDC) has developed a targeting strategy
+for the effective allocation and administration of vaccine during a pandemic. Every person
+in the United States will be included in at least one population group based on their
+occupation, age, or risk level. These population groups will be assigned to tiers based on
+the severity of the pandemic. Population groups can be assigned to different tiers through
+the course of the pandemic, and persons can move into and out of population groups.
+
+The purpose of this guide is to cover the technical aspects of how an electronic health
+record (EHR) captures an individual’s population group and tier and communicates that
+information to an IIS. This information may be exchanged at the patient or vaccination
+level.
+
+Scope of Guidance
+
+In scope
+
+The scope of this Preliminary Reporting Mass Vaccination Population Groups and Tiers
+guidance includes the receipt and reporting of population group and tiers in Health Level 7
+(HL7) messaging. This document will present vocabulary terms and guidance for IIS to
+receive population group and tier classifications at the patient and vaccination level.
+
+Out of scope
+
+The scope of this guidance does not extend to:
+
+    • The creation of population groups and tiers
+    • The workflow of assigning an individual to one or more population groups
+    • Vaccine allocation and distribution based on group or tier classification
+    • Importing lists of patients of specific population groups into the IIS in a non-HL7
+
+         format (e.g., importing a list of employees who need to be vaccinated as a group)
+
+                                                                                            2
+• The use of priority groups and tiers in forecasting logic
+• IIS reminder/recall functionality based on population groups or tiers
+• Reports an IIS may generate to report on population groups or tiers
+• Storage and management of the population and tier groups of individuals over time
+• Reporting the population group or tier information in a query response (RSP)
+
+    message
+
+Keywords
+
+This document will use keywords defined by IETF RFC 2119
+(https://tools.ietf.org/html/rfc2119). Briefly, the keywords used in this document include:
+
+    • Must This word and the terms “required” or “shall” mean that the definition is an
+         absolute requirement of the specification.
+
+    • Should This word and the adjective “recommended” mean that there may exist valid
+         reasons in particular circumstances to ignore a particular item but the full
+         implications must be understood and carefully weighed before choosing a different
+         course.
+
+Guidance                 Definition                      Example
+                         Large scale vaccination         Annual influenza clinic for a
+Table 1 – Vocabulary     event.                          college campus, COVID-19
+ Term                                                    pandemic vaccine, or
+ Mass vaccination event  Groups of individuals           vaccination campaign in
+                         targeted for vaccination and    response to a natural
+ Population group        defined by occupation, age,     disaster or bioterrorism
+                         or risk level. Individuals can  threat
+ Tier/priority group     be in more than one             Front line health care
+                         population group (e.g.,         workers, emergency
+                         front-line health care          response, adults over 65
+                         worker who is pregnant).        years, pregnant women
+                         They can move in and out
+                         of population groups as         Tier 1, Tier 2, Tier 3…
+                         time progresses.
+                         Priority designation for
+                         vaccine allocation and
+
+                                                                                        3
+Term               Definition                      Example
+Effective date
+                   administration for
+                   population groups. All
+                   groups designated for
+                   vaccination within a tier will
+                   have equal priority for
+                   vaccination. Tier/priority
+                   designation of population
+                   groups will vary depending
+                   on pandemic severity.
+
+                   The date the individual was
+                   assessed by the
+                   administering provider for
+                   population group and tier
+                   for a mass vaccination
+                   event.
+
+Available standards
+
+HL7, AIRA, and CDC have published or are developing several interoperability standards
+and guides which may be relevant to the exchange of population group and tier data. The
+following standards may be relevant to the remainder of the document.
+
+• HL7 Version 2.5.1 Implementation Guide for Immunization Messaging
+         o This is the current implementation guide for immunization messaging and
+              contains guidance on transmitting mass vaccination event data elements.
+         o https://repository.immregistries.org/files/resources/5bef530428317/hl7_2_5_
+              1_release_1_5__2018_update.pdf
+
+Population group and tier HL7 exchange
+
+Individuals will be assigned to population groups and these groups to tiers based on CDC
+or local guidance. Using HL7 2.5.1 Release 1.5 standards, these data fields can be captured
+and communicated in the observation (OBX) segment at the patient and the vaccination
+level.
+
+Table 2 – Message type and data location
+
+Message Type       Location
+Patient level      Grouped under an ORC/RXA combination where RXA-3 indicates
+                   “998^No vaccine administered^CVX,” following the same pattern as
+Vaccination level  reporting patient related information, such as reporting
+                   contraindications or precautions.
+                   Grouped under an ORC/RXA that reports the administration of the
+                   vaccination related to the mass vaccination event.
+
+                                                                                         4
+Each OBX segment is a question and an answer, where Observation Identifier (OBX-3)
+indicates the question and Observation Value (OBX-5) indicates the answer.
+
+Table 3 – Concept and message location
+
+Concept                 Location  LOINC Details in OBX-3
+Mass vaccination event  OBX-5     Where OBX-3 indicates:
+Population group        OBX-5     90064-7^Public health emergency event name^LN
+Tier                    OBX-5     Where OBX-3 indicates:
+Effective date          OBX-14    95715-9^ Population group^LN
+                                  Where OBX-3 indicates:
+                                  95793-6^ Immunization priority tier^LN
+                                  The preceding OBX segments must all indicate the
+                                  same effective date.
+
+The Observation Identifier (OBX-3) and Observation Value (OBX-5) must be assigned coded
+values. Additional community discussion will be needed to determine how the answers in
+Observation Value (OBX-5) will be coded.
+
+In order to communicate a complete set of information, the information in Table 4 must be
+communicated.
+
+Table 4 – Concept communication
+
+Concept           Status                     Details
+Mass vaccination  Required
+event                                        Population group and tier assignment
+                  Required if known but      occurs within the context of a specific
+Population group  may be omitted if tier is  event, and this must be indicated to
+                  indicated                  both differentiate from other events
+Tier                                         and provide meaning to the other
+                  Required if known but      concepts.
+                  may be omitted if          In order to communicate any of the
+                                             following concepts, the mass
+                                             vaccination event must be indicated.
+
+                                             Population group must be indicated if
+                                             known. If it is not known or was not
+                                             determined, then it must be omitted. A
+                                             person can be in more than one
+                                             population group.
+                                             If the tier is omitted, then the
+                                             population group is required.
+
+                                             Tier must be indicated if known. If it is
+                                             not known or was not determined, it
+                                             must be omitted.
+
+                                                                                        5
+Concept         Status                 Details
+Effective date  population group is    If the population group is omitted,
+                indicated              then the tier is required.
+                Required if known but
+                may be empty           Each OBX segment described above
+                                       must indicate the effective date of
+                                       patient assignment in OBX-14. If the
+                                       effective date cannot be determined
+                                       or is unknown, then OBX-14 must be
+                                       left empty.
+
+Interaction between population group and tier
+
+The guidance from the CDC indicates that, as the severity of a pandemic changes,
+population groups may be reassigned to new tiers. For example, in low severity, a certain
+population might not be indicated to receive a vaccination but will in a high-severity
+situation. The guidance for messaging this information is:
+
+    • Senders must always communicate the population group and/or tier as it was
+         determined to be as of the effective date.
+
+    • Receivers must assume that patients may move in and out of population groups
+         based on personal status changes (e.g., employment changes).
+
+    • Receivers must be prepared for population groups to be reassigned to tiers as a
+         pandemic progresses.
+
+                                                                                           6
+Appendix A: Items for Future Discussion
+
+Below is the list of additional questions that were asked by Standards and Interoperability
+Steering Committee (SISC) reviewers and need further discussion by SISC or a future SISC
+Small Work Group. These are being documented here as a starting point for further
+discussion on future versions of this guidance.
+Patient versus vaccination level data exchange:
+
+    • Do we really need to distinguish between patient and vaccination level group/tier
+         data exchange?
+
+    • Will an IIS save the data differently depending on the context in which the
+         assignment was made?
+
+    • Does it matter if the assignment was made as part of a vaccination event? Is the
+         patient level about the overall patient assignment and the vaccination level the
+         “why” the vaccine was administered?
+
+    • Is there a difference? Do providers really need to rationalize their decision to
+         vaccinate?
+
+Mass vaccination event (MVE):
+    • Should MVE information be incorporated into priority group or tier code?
+    • Is there a need to be able to analyze patient categorization tiers across MVEs?
+
+Multiple population groups:
+    • How should an individual’s multiple population groups be communicated?
+    • Is the recommendation for vaccination made at the tier level?
+    • If so, does the recommendation change because a population group is moved to a
+         new tier?
+
+MVE event data storage:
+    • Should a patient have only one active tier/group per MVE?
+    • If a new tier/group is received by the IIS, should this be stored?
+              o If so, how should it be stored or merged?
+
+Proposed code set
+    • Review proposed code set in Appendix B and D.
+
+                                                                                                                              7
+Appendix B: Proposal for Managing Code Sets
+
+The codes for each of these sets will need to be defined by the authority overseeing the
+pandemic. For a US-wide pandemic, the federal level would be responsible for assigning
+and publishing these code sets. For state declared/managed pandemics/disasters, this
+would be managed by the state.
+
+Mass vaccination
+
+For mass vaccination, the following format is recommended:
+    • Nationally: YYYY-[Event], e.g. 2020-COVID
+    • State: YYYY-ST-[Event], e.g. 2017-TX-Harvey (Hurricane Harvey hit Texas in 2017)
+    • Code Set: 99MVE
+
+A state would define a mass vaccination event code only if the event is local and not
+defined nationally. A national event would be used as is by all states and does not need to
+be redefined locally.
+
+Population group
+
+For population group, the following format is recommended:
+    • Nationally: [DISEASE]-nn, e.g. COVID-01, or FLU-07
+    • State: [DISEASE]-ST-nn, e.g. COVID-TX-01
+    • Code Set: 99PG
+
+A state would use national codes if available and define local ones only if no national match
+could be found. Messaging could be a mix of both national and local codes. For example, a
+local event could use a mixture of both nationally defined population groups and locally
+defined ones.
+
+Tier
+
+For tier, the following format is recommended:
+    • T1...T9 for Priority 1 to Priority 9 (if needed)
+    • NT for Not Targeted
+    • Code Set: 99TIER
+
+Tier groups will most likely not need to be dynamically updated. In most cases only a few
+tiers are needed, and it is most natural to have them numbered. Having a static set of tiers
+that are used for all events will be easier to message and manage.
+
+                                                                                                                              8
+Appendix C: Examples and Test Cases
+
+Warning: The HL7 examples shown in this appendix are preliminary and not yet tested or
+verified.
+
+The use cases below describe situations an IIS must be prepared for. The following format
+will be used:
+
+Use case name
+
+    • Actors: Who is establishing the process or using the process
+    • Description: Description of the process
+    • Expected outcome: Describes the expected output of the process
+    • General messaging guidance: Describes how to submit mass vaccination event
+
+         (population groups, tier, and effective date) in an HL7 message
+
+Use Case 1: patient (client) level mass vaccination identification
+
+    • Actors: provider, patient, submitting system, receiving system.
+    • Description: Provider identifies the population group and/or tier the patient is in for
+
+         the mass vaccination event and records that information in the submitting system.
+    • Expected outcome: The provider’s system sends the mass vaccination event
+
+         information as well as the patient’s population group and/or tier into the IIS.
+    • General messaging guidance:
+
+              o No vaccine administered RXA segment
+              o OBX group submission
+
+                         Mass vaccination event information
+                         Population group information
+                         Tier information
+
+Use Case 1 example
+RXA|0|1|20200605||998^No Vaccine Administered^CVX|999||||||||||||||NA|A
+
+OBX|1|CE|90064-7^Public health emergency event name^LN |1|2020-COVID^2020
+COVID-19^999 ||||||F|||20200524
+
+OBX|2|CE|95715-9^ Population group^LN |1| COVID-01^Deployed \T\ mission essential
+personnel^999||||||F|||20200654
+
+OBX|3|CE|95793-6^ Immunization priority tier^LN |1|T1^Tier 1^999||||||F|||20200524
+
+Use Case 2: patient mass vaccination vaccine administration
+
+    • Actors: provider, patient, submitting system, receiving system.
+    • Description: Provider identifies the population group and/or tier the patient is in for
+
+         the mass vaccination event and records that information in the submitting system.
+         Patient is identified as being in the population group and/or tier that is being
+         vaccinated currently. Patient receives the vaccine available for the mass vaccination
+         event.
+
+                                                                                                                              9
+    • Expected outcome: The provider’s system sends the mass vaccination event
+         information as well as the population group and/or tier the patient is in to the IIS as
+         well as the vaccine information that was administered to the patient.
+
+    • General messaging guidance:
+              o Vaccine administered RXA segment
+              o OBX group submission
+                         Mass vaccination event information
+                         Population group information
+                         Tier information
+
+Use Case 2 example
+RXA|0|1|20200524||135^Influenza, high dose
+seasonal^CVX|0.5|mL^mL^UCUM||00^New
+Record^NIP001|7824^Jackson^Lily^Suzanne^^^^^NIST-PI-1^L^^^PRN|^^^NIST-Clinic-
+1||||315841|20201216|PMC^Sanofi Pasteur^MVX|||CP|A
+RXR|C28161^Intramuscular^NCIT|RD^Right Deltoid^HL70163
+OBX|1|CE|64994-7^Vaccine funding program eligibility category^LN|1|V05^VFC eligible -
+Federally Qualified Health Center Patient (under-
+insured)^HL70064||||||F|||20200524|||VXC40^Eligibility captured at the immunization
+level^CDCPHINVS
+OBX|2|CE|30956-7^vaccine type^LN|2|88^Influenza, unspecified
+formulation^CVX||||||F
+OBX|3|TS|29768-9^Date vaccine information statement
+published^LN|2|20120702||||||F
+OBX|4|TS|29769-7^Date vaccine information statement
+presented^LN|2|20200524||||||F
+OBX|5|CE|90064-7^Public health emergency event name^LN |3|2020-COVID^2020
+COVID-19^999 ||||||F|||20200524
+OBX|6|CE|95715-9^ Population group^LN |3| COVID-01^Deployed \T\ mission essential
+personnel^999||||||F|||20200654
+OBX|7|CE|95793-6^ Immunization priority tier^LN |3|T1^Tier 1^999||||||F|||20200524
+
+                                                                                                                             10
+Appendix D: Proposed Priority Group Codes
+
+The Priority Group Preliminary Guidance document outlines the format of reporting priority
+groups and tiers through HL7 messaging; the authority overseeing the pandemic defines
+the code sets for these categories. This appendix proposes a code set based on the
+Advisory Committee on Immunization Practices (ACIP) priority groups and tiers as of the
+December 20, 2020, meeting. Communicating priority group is not currently a national
+COVID-19 requirement; IIS are encouraged to adopt these national values where they align
+with local definitions. The goal of this guidance document is to aid jurisdictions that request
+this information from their partners.
+
+These proposed codes based on the ACIP recommendations should be communicated in
+the OBX-3 segment as outlined in this guide.
+
+Concept                 Proposed Code  Definition
+Mass vaccination event  COVID19        SARS-CoV-2 pandemic
+Priority group          HCP            Health care personnel*
+                        LTCR           Long-term care facility resident
+Tiers                   FEW            Frontline essential workers**
+                        AGE75          Persons aged ≥75 years
+                        OEW            Other essential workers as defined
+                                       by ACIP
+                        AGE65          Persons aged 65–74 years
+                        1A             Phase 1a of vaccine allocation
+                        1B             Phase 1b of vaccine allocation
+                        1C             Phase 1c of vaccine allocation
+                        2              Phase 2 of vaccine allocation
+
+* ACIP uses the following definition for health care personnel (HCP): all paid and unpaid
+persons serving in health care settings who have the potential for direct or indirect
+exposure to patients or infectious materials, including body substances (e.g., blood, tissue,
+and specific body fluids); contaminated medical supplies, devices, and equipment;
+contaminated environmental surfaces; or contaminated air. These HCP may include, but
+are not limited to, emergency medical service personnel, nurses, nursing assistants,
+physicians, technicians, therapists, phlebotomists, pharmacists, students and trainees,
+contractual staff not employed by the health care facility, and persons (e.g., clerical, dietary,
+environmental services, laundry, security, maintenance, engineering and facilities
+management, administrative, billing, and volunteer personnel) not directly involved in
+patient care but potentially exposed to infectious agents that can be transmitted from HCP
+and patients. For this update, HCP does not include dental health care personnel, autopsy
+personnel, and laboratory personnel, as recommendations to address occupational
+infection prevention and control (IPC) services for these personnel are posted elsewhere.
+
+                                                                                  11
+** ACIP defines the following essential workers as frontline: firefighters, police officers,
+corrections officers, food and agricultural workers, Postal Service workers, manufacturing
+workers, grocery store workers, public transit workers, those who work in the education
+sector (teachers and support staff), as well as daycare workers.
+Locally created codes
+The recommendation for jurisdictions that are creating their own codes is to keep their
+code set as simple as possible and in line with the ACIP recommendations.
+Local jurisdictions should use the national codes whenever possible but must create local
+codes for priority groups that are defined differently in the locale. Local jurisdictions must
+not redefine or change the meaning of nationally defined codes. To ensure that all codes
+for a pandemic are unique nationally, local codes must be prefixed with their grantee
+assigning authority code and a dash. (See table 0363 in the CDC IG v.1.5 Appendix A for a
+list of grantee assigning authority codes.)
+It is recommended that the codes selected be human readable and short, as it is likely that
+implementation of these coded values will require data entry and handling directly by
+users. The code after the prefix is completely under the control of the local jurisdiction and
+can be determined by what will best meet operational needs of the IIS and those that
+report to the IIS.
+For example, if the state of Alaska wished to request a higher level of detail on the OEW
+(Other essential workers), it could create these more specific codes:
+
+    • AKA-FIRE “Firefighters”
+    • AKA-POLICE “Police Officers”
+    • AKA-CORR “Corrections Officers”
+
+                                                                                                                             12
+Appendix E: References
+
+    • IETF RFC 2119: https://tools.ietf.org/html/rfc2119
+    • HL7 Version 2.5.1 Implementation Guide for Immunization Messaging:
+
+         https://repository.immregistries.org/files/resources/5bef530428317/hl7_2_5_1_relea
+         se_1_5__2018_update.pdf
+    • CDC Flu Pandemic Resource Guide: https://www.cdc.gov/flu/pandemic-
+         resources/pdf/2018-Influenza-Guidance.pdf
+    • CDC Vaccination of Tier 1 at All Pandemic Severities:
+         https://www.cdc.gov/flu/pandemic-resources/national-strategy/planning-
+         guidance/pandemic-severities-tier-1.html
+    • CDC Roadmap https://www.cdc.gov/flu/pandemic-
+         resources/pdf/roadmap_panflu.pdf
+    • CDC Table of Categories, Population Group, Tiers:
+         https://www.cdc.gov/flu/pandemic-resources/national-strategy/planning-
+         guidance/guidance_508.html#table-1
+    • LOINC Code Sets
+         https://loinc.org/downloads/loinc-table/
+
+                                                                                                                             13
+Appendix F: Acknowledgements
+
+Special thanks and appreciation are extended to the following individuals for providing
+their expertise and experience throughout various stages of development of this
+document.
+SISC Small Group
+
+    • Chrissy Miner, CDC
+    • Jackie Logan, Tennessee
+    • Jason Suchon, Metastar, Wisconsin
+    • Jim Huberty, DXC
+    • Kristine Rosancrans, Pennsylvania
+    • Mary Woinarowicz, North Dakota
+    • Shannon Coleman, STC
+American Immunization Registry Association (AIRA)
+    • Nathan Bunker, Senior Technical Project Manager
+    • Assiatou Diallo, Senior Technical Analyst
+    • Kristi Siahaya, Director of Standards and Analytics
+
+                                                                                                                             14
+

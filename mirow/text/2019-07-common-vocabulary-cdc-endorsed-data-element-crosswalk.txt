@@ -1,0 +1,198 @@
+MIROW Common
+Vocabulary
+
+CDC Endorsed Data Element
+Crosswalk Report
+
+Version 1.0
+July 18, 2019
+Version 1.0
+
+Project  MIROW Common Vocabulary
+
+Version  1.0
+
+Date     July 18, 2019
+
+Description CDC Endorsed Data Element terms that are a match to a MIROW Common
+                   Vocabulary term, either directly or indirectly
+
+This report contains two parts. Both parts are listed in alphabetical order of the CDC
+Endorsed Data Element terms:
+
+    • Part One – The first part of the report lists CDC Endorsed Data Element terms that
+         are considered a direct match to a term in the MIROW Common Vocabulary.
+
+    • Part Two – The second part of the report lists CDC Endorsed Data Element terms
+         that are not a direct match but are otherwise related to a MIROW Common
+         Vocabulary term, also known as a “fuzzy match.”
+
+                                                                                          i
+Table of Contents
+
+Version 1.0.............................................................................................................................................i
+Part 1: Direct Match ............................................................................................................................1
+Part 2: Fuzzy Match .............................................................................................................................4
+Part 1: Direct Match
+
+CDC Endorsed Data Element terms that are considered a direct match to a term in the MIROW Common Vocabulary.
+
+CDC Endorsed Data Element                              MIROW Common               Definition
+                                                       Vocabulary Term
+
+Contraindications/precautions: A reason(s) to          Immunization               a condition in a patient that greatly
+                                                                                  increases the chance of a serious adverse
+consider not giving a patient a vaccine proposed for Contraindication             reaction and renders a vaccination
+                                                                                  inadvisable for a patient
+administration.
+
+Exemptions/refusals of Vaccine: The reason for         Immunization Exemption a non-medical reason permitting a
+an exemption/refusal.                                                                         patient to be excluded from a vaccination
+
+IIS patient ID: The unique identifier assigned by IIS IIS Patient ID              a unique identifier assigned to a patient
+to each patient.                                                                  by IIS
+
+Patient Date of Birth: The patient’s date of birth. Date of Birth                 the birth date of the patient
+
+Patient Gender: The patient’s gender.                  Gender                     the patient’s gender
+
+Patient ID: Type: The ID type (e.g., medical record    Alternate Patient ID Type  a data element of an alternate patient ID
+number, birth certificate ID, etc.) of the associated                             group that identifies the kind of alternate
+patient ID.                                                                       patient ID that is assigned
+
+Patient ID: Unique identifier assigned by IIS-AO       Alternate Patient ID       a data element of an alternate patient ID
+(Data Source) to each patient.                                                    group that is a unique identifier for a
+                                                                                  patient
+
+Patient Name: First: The patient’s first name.         Patient First Name         the patient’s first name
+
+Patient Name: Last: The patient’s last name.           Patient Last Name          the patient’s last name
+
+Patient Name: Middle: The patient’s middle name. Patient Middle Name              the patient’s middle name
+
+                                                                                                                                         1
+Patient Status Indicator-Provider Level: The        Patient Status at Provider a patient status with respect to a provider
+current active/inactive status of the patient in
+relation to the provider organization.              Organization Level         organization
+
+Patient Status Indicator-Jurisdiction Level: The    Patient Status at          a patient status with respect to an
+patient/geographic jurisdiction status determined   Geographic Jurisdiction    immunization program
+from address information when the patient’s         Level
+address within the jurisdiction is known.
+                                                    Vaccination Event Date the date of the vaccination event
+Vaccination Administration Date: The date the
+vaccination event occurred.
+
+Vaccination Event Record Type: Indicates            Administered/Historical    the state of the association between a
+whether the vaccination event is based on a         Indicator                  vaccination event and a provider
+historical record or was given by the administered                             organization indicating whether the
+at location.                                                                   provider organization administered the
+                                                                               vaccination event or is submitting the
+Vaccine Expiration Date: The expiration date of     Lot Number Expiration      vaccination event on behalf of another
+the vaccine administered.                           Date                       provider organization
+
+                                                                               the date at which the vaccine is no longer
+                                                                               considered potent
+
+Vaccine Funding Source: The funding source of       Dose-Level Public/Private  The indicator of the source of funding
+the vaccine administered.                           Indicator                  that paid for a vaccine, assigned by the
+                                                                               provider organization
+
+                                                                                                                            2
+Vaccine Lot Number: The lot number of the  Lot Number  an identifier assigned by a manufacturer
+vaccine administered.                                  to a specific batch of vaccine product
+                                                       type
+Vaccine Manufacturer Name: The manufacturer MVX Code
+of the vaccine that was administered                   an identifier established and maintained
+                                                       by the CDC that describes a
+                                                       manufacturer
+
+                                                                                                 3
+Part 2: Fuzzy Match
+
+CDC Endorsed Data Element terms that are not a direct match but are related to a term, also known as a “fuzzy match.”
+
+CDC Endorsed Data Element X-Walk                                        Term               Definition
+
+Administered at Location: The facility name/identifier of the facility  Provider           an organization that has any
+that administered the immunization.                                     Organization (PO)  combination of the following
+                                                                                           characteristics:
+
+                                                                        Vaccinator             • provides vaccination
+                                                                                                    services
+
+                                                                                               • responsible for an entity
+                                                                                                    that provides
+                                                                                                    vaccination services
+
+                                                                                               • manages inventory for
+                                                                                                    an entity that provides
+                                                                                                    vaccination services
+
+                                                                                           an IIS-AO that vaccinates a
+                                                                                           patient
+
+Exemptions/Refusals Date: The date that the refusal or deferral was Vaccination            the date of a vaccination
+                                                                                           encounter
+recorded.                                                               Encounter Date
+
+Patient Address: County of Residence: County component of the           Address            the place where a party is
+patient’s address.                                                                         located or may be reached
+Patient Address: City: City component of the patient’s address.
+Patient Address: Country: Country component of the patient’s
+address.
+Patient Address: State: State component of the patient’s address.
+Patient address: Street: Street component of the patient’s address.
+Patient address: Zip Code: Zip code of the patient’s address.
+
+                                                                                                                             4
+Patient Alias Name: First: First name of a patient’s alternate or also-  Patient          a person who is the actual or
+known-as name.                                                                            potential recipient of a vaccine
+Patient Alias Name: Last: Last name of a patient’s alternate or also-
+known-as name.
+Patient Alias Name: Middle: Middle name of a patient’s alternate or
+also-known-as name.
+Patient Name: First: Patient’s first name.
+Patient Name: Last: Patient’s last name.
+Patient Name: Middle: Patient’s middle name.
+
+Reminder/Recall Status: Whether or not a person wishes to be             Reminder/Recall  a set of conditions (filters) used
+contacted in a reminder or recall situation. (Publicity Code)            Criteria         to produce the list of R/R
+                                                                                          candidates
+
+Responsible Organization: The identifier of the organization that        IIS-AO ID        a unique identifier assigned by
+originated and is accountable for the content of the record May be                        an IIS to represent an IIS-AO
+referenced as IIS-AO ID.
+
+Responsible Person Name: First: First name of the person                 Responsible Party a person responsible for a
+responsible for the patient. Multiple names for the same person are                                  patient
+allowed.
+Responsible Person Name: Last: Last name of the person
+responsible for the patient. Multiple names for the same person are
+allowed.
+Responsible Person Name: Middle: Middle name of the person
+responsible for the patient. Multiple names for the same person are
+allowed.
+Responsible Person Relationship to Patient: Actual personal
+relationship that the responsible person has to the patient.
+
+                                                                                                                              5
+Sending Organization: The identifier of the organization that     Submitter        an IIS-AO that submits
+connects to the IIS and submits the record.                                        information to an IIS or an
+                                                                  Vaccination      intermediary submitter with an
+Vaccination Event ID: The vaccination event’s unique identifier   Event (VE)       IIS as the final destination
+assigned by the submitting system.                                Vaccine Product
+                                                                  Type             a medical occurrence of
+Vaccine Product: The vaccine type that may be administered,       Vaccine Type     administering one vaccine to a
+historical or refused, and is messaged using the NDC or CVX code                   patient
+sets.
+                                                                                   a classification that describes
+                                                                                   the manufacturer, and
+                                                                                   presentation of a vaccine type
+
+                                                                                   a classification of vaccines that
+                                                                                   describes the disease to which
+                                                                                   it provides immunity
+
+                                                                                                                      6
+

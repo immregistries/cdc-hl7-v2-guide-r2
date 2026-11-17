@@ -1,0 +1,125 @@
+                                       Guidance on Indicating Clinical Trial
+                                                                      Vaccines
+
+                                                                                  Published December 8, 2021
+
+Background
+
+Release 1.5 of the Implementation Guide (IG) for Immunization Messaging outlines the technical details of messaging
+vaccination events. While the current IG includes technical details of messaging vaccination events, it does not have a
+mechanism to identify a vaccination event that occurred as part of a clinical trial. Many in the ecosystem (e.g., IIS, EHRs,
+clinicians) may find value in knowing if a vaccination event was part of a clinical trial. Knowing a vaccination event was
+part of a clinical trial could:
+
+    • Improve data quality checking. For example, health IT systems might find a vaccination event given
+         before FDA Emergency Use Authorization (EUA) or full Biologics License Application (BLA) as acceptable
+         if they knew it was done in a clinical trial.
+
+    • Improve clinical care by clinicians who may want to know a vaccine reported by IIS is from a clinical trial.
+    • Enable enhanced Clinical Decision Support should the Centers for Disease Control and Prevention’s
+
+         Advisory Committee on Immunization Practice (ACIP) ever makes rules that differentiate by trial vaccine.
+
+Scope of Guidance
+In Scope
+
+This document will describe the technical mechanism for constructing a message for clinical trial vaccination events and
+provide additional considerations outside of the technical HL7 requirements.
+
+Out of Scope
+
+The conditions under which a clinical trial vaccine should be exchanged, or which clinical trial vaccine can count towards
+U.S. vaccination requirements.
+
+Expectations of Support
+
+This document does not require that systems conformant to release 1.5 of the Implementation Guide support the ability
+to send or receive a clinical trial OBX segment. It merely outlines the method for sending this data when both trading
+partners agree there is value in exchanging vaccines that are part of a clinical trial.
+A sending system should not assume that the receiving system is capable of receiving clinical trial OBX segments. Both
+system – sending and receiving – must agree to exchanging clinical trial vaccines prior to actual exchanges.
+
+Structure of the Unsolicited Immunization Update – Z22 message
+
+A conformant Z22 message will contain one order segment group per vaccination event. The content of this order
+segment group is documented in the HL7 IG and other AIRA guidance documents but is summarized below for basic
+orientation specific to OBX segments where clinical trial vaccines will be noted.
+
+                                                                                                                                      1|Page
+                                       Guidance on Indicating Clinical Trial
+                                                                      Vaccines
+
+                                                                                  Published December 8, 2021
+
+Within an immunization event order segment group, RXA-5 shall indicate the vaccine administered and RXA-20 shall be
+PA or CP indicating an administered dose. The following OBX segment types are relevant:
+
+    • Patient eligibility status - LOINC code 64994-7
+    • Vaccine funding source - LOINC code 30963-3
+    • Vaccine Information Statements (VIS) - LOINC codes 69764-9 and 29769-7
+    • Adverse reactions where the reaction can be directly attributable to the specific immunization event - LOINC
+
+         code 31044-1
+
+To indicate a vaccination event was part of clinical trial an additional OBX segment must be added. In addition to the
+standard requirements for an OBX segment set forth in the implementation guide, the contents of this OBX segment
+would be as follows:
+
+    • OBX-2 SHALL be valued “ID” to indicate the datatype used in OBX-5
+    • OBX-3 SHALL indicate the “question” of the vaccination event “Did this vaccination event occur as part of a
+
+         clinical trial”?
+              o A specific LOINC code has been created to be used in OBX-3
+                        ▪ 99500-1 (Clinical trial vaccine received)
+
+    • OBX-5 SHALL indicate the “answer” and be populated with “Y” if the vaccination event occurred as part of a
+         clinical trial.
+
+In messages where this OBX segment is not present, it was agreed to assume the vaccination event was NOT part of a
+clinical trial given nearly all vaccination events occur outside of clinical trials. There is no expectation or requirement
+that all messages must include this new OBX segment and set OBX-5 to “N” to indicate this. If it is later found the
+vaccination event was part of a clinical trial, an update to the record can be made.
+
+Additional Considerations
+
+This same approach can be used in RSP messages (Z32, Z42) to indicate a vaccination event was part of a clinical trial.
+
+A clinical trial research center pushing data to an IIS may wish to declare they administered (RXA-9 = “00”) the vaccine.
+This is a proper use of the administered code but does come with some considerations for the IIS. A clinical trial vaccine
+(or the research center) may not have the following key data elements as is customary with an administered dose.
+
+    • NDC
+    • Lot Number
+    • Expiration Date
+    • Vaccine Eligibility
+    • Funding Source
+    • VIS data
+
+While a clinical trial research center might not have certain data elements, it must have a valid CVX code and ideally an
+MVX code.
+
+                                                                                                                                      2|Page
+                                       Guidance on Indicating Clinical Trial
+                                                                      Vaccines
+
+                                                                                  Published December 8, 2021
+
+It should also be noted that clinical trials often use a placebo or comparator vaccine as part of clinical trials. While a
+placebo is not of interest to IIS, the comparator vaccine is. The comparator vaccine can be identified as being part of a
+clinical trial vaccine in the same manner as defined above (OBX segment).
+
+Example
+
+A vaccination event for Madelynn Snow is being transmitted to an IIS. Madelynn received this vaccination event as part
+of a clinical trial. The green highlighted section of the message below indicates the vaccination event was part of a
+clinical trial.
+MSH|^~\&|Test EHR Application|X68||NIST Test Iz Reg|20120701082240-0500||VXU^V04^VXU_V04|IZ-
+123.45|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS
+PID|1||D26376273^^^NIST MPI^MR||Snow^Madelynn^Ainsley^^^^L|Lam^Morgan^^^^^M|20070706|F
+ORC|RE||IZ-783274^NDA
+RXA|0|1|20200814||208^ COVID-19, mRNA, LNP-S, PF, 30 mcg/0.3 mL
+dose^CVX|999|||00^Administered^NIP001||||||||PFR^Pfizer^MVX|||CP|A
+OBX|1|ID|99500-1^Clinical trial vaccine received^LN|1|Y||||||F
+
+                                                                                                                                      3|Page
+

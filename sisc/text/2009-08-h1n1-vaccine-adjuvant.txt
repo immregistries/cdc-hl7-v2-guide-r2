@@ -1,0 +1,92 @@
+Techniques for recording and messaging H1N1‐09 possible vaccine adjuvant for IIS
+                                               8/7/09
+
+Purpose of Document:
+The purpose of this document is to give guidance on electronic messaging of the adjuvant lot number and
+manufacturer for the H1N1 vaccine. In addition, it gives suggestions on updating applications to allow
+capture of adjuvant lot number in electronic systems. It is still unknown if an adjuvant will be used in the
+vaccine. Should the adjuvant be needed this technical guidance can be used to expedite system and
+electronic reporting changes.
+
+Audience:
+The intended audience for this guidance document includes Immunizations Information Systems (IIS)
+managers and technical staff, Electronic Health Record system technical staff and immunization program
+managers.
+
+One of the uncertainties heading into the fall regarding vaccine recommendations for Novel Influenza
+H1N1‐09 vaccine is whether adjuvant will be recommended in the vaccine. For planning purposes,
+Immunization Information Systems (IIS) and others with electronic health record systems should be
+prepared to capture lot number and manufacturer of the adjuvant component. Tracking lot numbers may
+be important. Tracking of this second lot number (for the adjuvant) may necessitate modifications to the
+database and user interface. In addition, systems that use electronic data exchange will need to be able to
+carry the information in the message that they exchange. The current CVX codes assume that either
+injectable formulation will have similar recommendations regarding adjuvant. That is, either the vaccine will
+both be given with adjuvant or neither will be given with adjuvant. If this is not the case, additional CVX
+codes are likely. This document will give specifications for the messaging and suggestions for the system
+modifications.
+
+Messaging Guidance
+
+HL7 anticipates medication administration that is composed of more than one product. The RXA segment,
+which carries the data on an immunization event includes fields for both lot number and manufacturer.
+Both of these fields allow repeats. Specifically, more than one lot number may be entered into the lot
+number field. These are separated by the tilde (~) character, which separates repeats in a field. The
+Manufacturer field is handled in a similar style. Systems need to have the ability to accept and process
+repetitions in these fields to support this functionality.
+
+Lot Number (Reported in the RXA‐15 Substance Lot Number field)
+
+Data Type              String (ST)
+Repeats allowed        Yes
+Vaccine lot number     Shall be the first repetition
+Adjuvant lot number    Shall be the second repetition
+
+Manufacturer (Reported in the RXA‐17 Substance Manufacturer field)
+
+Data Type              Coded entry (CE)
+Repeats allowed        Yes
+Vaccine manufacturer   Shall be the first repetition
+Adjuvant manufacturer  Shall be the second repetition
+
+                       1
+The following example RXA segment shows an immunization with novel H1N1‐09, preservative free. The
+vaccine was manufactured by GSK with a lot number of 33k2a. The adjuvant was manufactured by Novartis
+with a lot number of 99e431. Note the tilde (~) separating each repetition.
+
+RXA|0|1|20091015132511|20091015132511|126^Novel H1N1-09 preservativefree^CVX|999|||||||||33k2a~99e43|
+|SKB^GlaxoSmithKline^MVX~NOV^Novartis^MVX <CR>
+
+Suggestions On Capturing Adjuvant Lot Number in Electronic Systems
+
+Most IIS or Electronic Health Record systems (EHR) can capture a unique lot number with each vaccination.
+The Adjuvant component of the H1N1 vaccine may be manufactured by a different company than the
+vaccine manufacturer. It may also be added at the time of administration. Tracking the lot numbers is very
+important for clinical documentation and patient safety tracking.
+
+Each immunization that included adjuvant should be able to be associated with the lot number for that
+adjuvant. At the simplest, a new field may be added to the table storing immunizations that allows a string
+to be entered that indicates the lot number. While this will be the simplest to accomplish, it has a number
+of weaknesses. Hand keying the lot number for each immunization will add time to the recording effort and
+slow things down in a mass clinic. In addition, hand keyed text is prone to typographic errors, putting the
+data quality at risk.
+
+Using pre‐populated pull downs speeds things up and prevents the risk of typographic errors. This requires
+more modifications to the application capturing the data. First the user interface for recording
+immunizations must allow for selection of the adjuvant lot number. Since it is not clear how much advance
+notice there will be regarding specific lots to be used in a clinic, systems should not rely on backend
+database management processes to set up the pull downs. A better approach would be to have a simple
+user interface that allows the end user to enter the list of adjuvant lot numbers at the clinic. It would be
+good practice to allow the user to filter or otherwise constrain the current lot numbers to those in use at
+the specific clinic. A simple flag in the table that can be set to active or inactive is one way to accomplish
+this.
+
+For systems with robust inventory management capabilities, a more sophisticated approach is possible.
+Setting up a table that is similar to the table for vaccine lots will allow capture of more information and will
+allow for ordering and transfers. It could also allow for real time tracking of inventory on hand. In this case,
+there would need to be a user interface for setting up lots, perhaps at the clinic. In addition there would
+need to be modifications to the user interface for entering immunizations that presents the user with the
+opportunity to select the correct lot number for the adjuvant.
+
+1 Note that these are hypothetical examples only.
+                                                                 2
+

@@ -1,0 +1,1397 @@
+HL7 FAQ
+
+Frequently Asked Questions Series
+Reviewed and Approved by AIRA
+and CDC Staff
+
+Last Updated: 12/09/2021
+Update History
+    • Created 09/20/2016
+    • Updated 12/12/2016
+    • Updated 07/20/2017
+    • Updated 09/10/2017
+    • Updated 12/20/2019
+    • Updated 12/09/2021
+
+Organization of this Document
+This document is organized by topics, which are listed on the next page 2. The
+topics are followed by the list of questions which link to the full question and
+answer.
+
+Implementation Resources
+The current HL7 2.5.1 Rel. 1.5 IG is here:
+https://www.cdc.gov/vaccines/programs/iis/technical-
+guidance/downloads/hl7guide-1-5-2014-11.pdf
+The addendum is here:
+https://www.cdc.gov/vaccines/programs/iis/technical-
+guidance/downloads/hl7guide-addendum-7-2015.pdf
+A consolidated version of the HL7 2.5.1 Rel. 1.5 IG with the Addendum applied:
+http://repository.immregistries.org/files/resources/5bef530428317/hl7_2_5_1_relea
+se_1_5__2018_update.pdf
+Testing tool to ensure the messages are meeting the HL7 standard including some
+test cases:
+https://hl7v2-iz-r1.5-testing.nist.gov/iztool/#/home
+
+                                                                                                                               1
+Contents
+
+1. Data Types ................................................................................................................................8
+    1.1 What is a data type flavor? ................................................................................................ 8
+    1.2 What is an HD (Hierarchic Designator) datatype? .......................................................... 8
+    1.3 How should I implement the TS (Time Stamp) data type? ............................................ 9
+    1.4 How should I implement the XTN (Extended Telecommunications Number) data
+
+   type? ...............................................................................................................................................9
+    1.5 What are the possible variations in XTN fields?............................................................10
+    1.6 What HL7 field (XPN-6 Degree or XPN-14 Professional Suffix) is used for Vaccine
+
+   Administering Provider Suffix and does it use free-text?.......................................................10
+2. Value Sets ...............................................................................................................................11
+
+    2.1 What is the future of the NIP004 (Serological Evidence) value set that was part of
+   the HL7 v2.3.1 IG? .......................................................................................................................11
+
+    2.2 How are LOINC codes described in NIP003 supposed to be used with respect to
+   individual profiles?......................................................................................................................11
+
+    2.3 Does the CVX value set include a code for animal Rabies vaccines? .........................11
+    2.4 How should non-US vaccines be handled? ...................................................................12
+    2.5 Can an IIS code values in their system from one inactive to code to the proper
+   active code? .................................................................................................................................12
+    2.6 In the HL7 2.5.1 Rel. 1.5 IG there are 6 concept codes for Serologic Evidence of
+   Immunity. Are there concept codes for any additional diseases, specifically Polio, Hib and
+   Tetanus? ....................................................................................................................................... 13
+    2.7 How can serologic evidence of immunity be messaged?............................................13
+    2.8 How should an IIS process NDC and CVX when they don’t match? ...........................13
+    2.9 What is the correct Concept Code for Mumps (Finding)?............................................13
+    2.10 How should doses administered with a needle-free method be coded?................14
+    2.11 Why does the IG not support a full list of HL7 route codes? ....................................14
+    2.12 What to do with Gender X? ...........................................................................................14
+    2.15 How should an IIS map two values, “sublingual” and “intranasal”, that an EHR
+   vendor is sending? ......................................................................................................................15
+    2.16 We have got the NDC codes for COVID vaccines, e.g., Pfizer-BioNTech: 59267-
+   1000-01. Are these codes valid/accepted as CDC Immunization Administered Code”?.....15
+3. Scope Definition ....................................................................................................................16
+    3.1 Are TB test results in scope? ...........................................................................................16
+
+                                                                                                                               2
+    3.2 When should a submitting system trigger a VXU message? .......................................16
+    3.3 When will v2.8.2 roll out? .................................................................................................16
+4. Populating a Message ..........................................................................................................17
+    4.1 What should a sending system do if a message triggering event is hit but the
+   system does not have enough data to build a fully conformant message? ........................17
+    4.2 Is it reasonable to expect a submitting EHR to populate PID-3 with a State Registry
+   Number (with PID-3.5 equal to SR)? .........................................................................................17
+    4.3 Is a patient’s Social Security Number (SSN) an acceptable patient identifier to use?
+
+         17
+    4.4 What is the meaning of a Completion Status (RXA-20) of PA (Partially
+   Administered)? ............................................................................................................................18
+    4.5 When submitting an NDC code or lot number, should the VXU message contain the
+   Unit of Sale (package) or Unit of Use (vial/syringe) value?.....................................................18
+    4.6 When sending multiple immunities (either presumed or serological) in a single
+   message, how should they be grouped underneath the ORC/RXA segments? Does there
+   need to be a separate ORC/RXA pair of segments for each immunity or can multiple
+   immunity OBX segments be grouped under a single ORC/RXA pair? ..................................19
+    4.7 How should free text comments be messaged? ..........................................................19
+    4.8 How should a baby with no first name be recorded?..................................................19
+    4.9 How should I implement time zone in MSH-7? ............................................................20
+    4.10 How to message alias information in HL7?.................................................................20
+    4.11 Where should patient’s county of residence be populated in the PID segment?
+   PID-11.9 or PID-12?.....................................................................................................................20
+    4.12 To report adverse effect, is it necessary to first have a record for vaccination
+   already reported (via RXA) for the vaccine receiver? As we understand adverse event
+   needs to be mandatorily reported with RXA segment. ..........................................................21
+    4.13 What resources are available to check if a message to report adverse effect is
+   correct? ........................................................................................................................................21
+    4.14 If adverse event is reported directly with RXA segment, then will the vaccination
+   record be created along with the adverse effect record, if one does not exist?.................21
+    4.15 How do we send immunization records to the CDC? ................................................22
+    4.16 What should IISs do when multiple refusals are received for the same event?
+   What about if a refusal is deleted in an EHR?..........................................................................22
+
+                                                                                                                               3
+    4.17 If a patient does not consent to share their immunization data, what should be
+  sent to the IIS? Should a message still be sent with PD1-12 populated to indicate that the
+  patient data should be protected, or should a message not be sent at all? .......................22
+
+    4.18 How do I populate an HL7 message to indicate that a particular dose needs
+   privacy protection? .....................................................................................................................22
+
+    4.19 How widespread is the usage of ORC-14 (Provider Call Back Phone Number) by
+   IIS? 23
+
+    4.20 Is it possible to send both CVX and NDC codes in RXA-5 (Administered Code)? ....23
+    4.21 When and how should RXA-18 (Substance/ Treatment Refusal Reason) be
+   populated? ...................................................................................................................................23
+    4.23 If an EHR sends our IIS a value for Substance Refusal Reason that we do not
+   accept, should we send an error back?....................................................................................24
+    4.24 When should OBXs containing VIS data be included in a VXU message? ...............24
+    4.25 RXA-20 (Completion Status) has a usage of RE. What happens if a VXU message
+   does not include a value for this data element? .....................................................................24
+    Sending systems must indicate this and an IIS may reject data that it is not properly
+   designated as complete. Conversely, IISs may accept this data while assuming it’s a
+   complete and finished immunization to support legacy systems that are not yet
+   compliant with the latest guide.................................................................................................24
+    4.26 How should non-standard dose amounts be recorded in the IIS? ..........................24
+    4.27 We would expect to see the maiden name in the last name of the XPN field, since
+   patient's maiden name is a repetition coming in PID-5 if two values are sent anyway, as in
+   the PID message fragment below:............................................................................................25
+    If only one last name is sent, I would assume just take that as the maiden name. .........25
+    4.28 Can the date of eligibility (OBX-14) be different than the immunization
+   administration date (RXA-3)? .....................................................................................................25
+5. Demographics Only ..............................................................................................................26
+    5.1 What is the right way to transmit demographic data about a patient when there is
+   no associated immunization event? .........................................................................................26
+    5.2 How should IISs handle multiple reported races?........................................................26
+6. Query/Response....................................................................................................................27
+    6.1 What data should be used to populate patient demographics in an RSP response
+   message? .....................................................................................................................................27
+    6.2 Is it permitted to send an ERR segment and an MSA-1 value of AE within a Z31, Z32
+   or Z42 message? .........................................................................................................................27
+
+                                                                                                                               4
+ 6.3 The RSP message only allows for a single ERR segment. What should I do if more
+than one error is generated?.....................................................................................................28
+
+ 6.4 How should ORC-3 (Filler Order Number) be populated in the RSP message? ........28
+ 6.5 How should ORC-17 (Entering Organization) be populated if the administration was
+entered into the IIS by IIS staff from a paper record? Should it reflect the organization
+who submitted the paper record or the IIS who entered it? .................................................29
+ 6.6 Which of the three different LOINC codes for “vaccine type” (30956-7, Vaccine Type;
+30979-9, Vaccines Due Next; or 38890-0, Component Vaccine Type) should be used when
+constructing an RSP message?..................................................................................................29
+ 6.7 When transmitting a recommendation, should the RSP contain the CVX code for
+the vaccine group or for a specific vaccine? ............................................................................29
+ 6.8 What is the best way to handle a scenario where the database does not contain
+discrete or parseable Administered Amount data with which to populate RXA-6 and RXA-
+7? 30
+ 6.9 How many patients can be returned in a query response? ........................................30
+ 6.10 Should a responding system ever filter the doses returned in a query response?
+Should the IIS filter administrations returned as part of a query response such that doses
+contributed by the querying system are not returned?.........................................................30
+ 6.11 Should the IIS filter administrations returned as part of a query response such
+that for protected patients only doses submitted by the querying system are returned?31
+ 6.12 When would a refusal be sent in an RSP message?...................................................31
+ 6.13 How should I submit a re-query after Z31 RSP? .........................................................31
+ 6.14 How do I indicate disease with presumed immunity when full observation date is
+not known....................................................................................................................................32
+ 6.15 Why is dose validity not required for all vaccinations?..............................................32
+ 6.16 Why are error segments in the RSP only 0..1?............................................................32
+ 6.17 What to send back when there is an error in a query. ..............................................32
+ 6.18 What is the best approach for returning the information to the requestor when
+presented with a query request (QBP) for vaccine history, given the requesting facility
+was the one who administered the vaccine or even the one who reported it? ..................33
+ 6.19 Should patient first name, last name or DOB be a hard rejection (AR) and the
+message rejected completely since these are crucial data elements?.................................34
+ 6.20 We don't really reject any message if RXA is missing required fields that we deem
+need to be there. However, we would want to send back an AE and error warning
+severity of W so the provider would fix the transaction since there is a loss of
+information. ................................................................................................................................. 34
+
+                                                                                                                            5
+    6.21 We will not store a vaccination with a bad date but we may still accept the patient
+   information on the same message. Should we indicate this as AE or AW at the error level?
+
+         35
+
+    6.22 Anything that would be error warning of severity of I would be an AA response. 35
+
+    6.23 One jurisdiction has not allowed insurance companies to use QBP/RSP on the
+   MIIS due to state legislation. Should insurance companies be allowed to query the
+   registry like normal providers or should we set up a specific specification for insurance
+   companies? .................................................................................................................................. 35
+
+    6.24 Is it appropriate for an IIS to return an invalid code in an RSP, if it was in the
+   original VXU message that was sent? Should the IIS only include valid HL7 codes in the
+   RSP or is it appropriate to return whatever is in the patient record (valid or invalid)? ......36
+
+    6.25 While reactions go with the vaccine, should there be a RXA with 998 (no vaccine),
+   followed by comment OBXs? This is how we are sending it the in Z22 message. ..............36
+
+    6.26 For the LOINC codes 30956-7 Vaccine Type and 38890-0 Component type we are
+   sending the CVX for “unspecified formula”. For COVID, we would like to use the specific
+   vaccine CVX (currently 207 and 208) and not use 213. ..........................................................36
+
+    6.27 How can we retrieve complete immunization history of the same record we just
+   inserted? The QPD segment, does not seem to have any unique identifier. ......................37
+
+    6.28 Is it permitted to respond with a Z42 message in response to either a Z34 or Z44
+   query and let the Provider decide whether to consume the forecast or not? ....................37
+
+7. Transport ................................................................................................................................38
+    7.1 With the CDC WSDL, should the same endpoint be used for both VXU/ACK and
+
+   QBP/RSP messages or should there be two separate end points? ......................................38
+
+    7.2 Which webservice protocol is recommended, REST or SOAP? ...................................38
+
+8. Constraining Local Profiles.................................................................................................39
+    8.1 Where can I find guidance for local guide authors about how R, RE, O, and X usages
+
+   can be changed in a local IG? ....................................................................................................39
+
+    8.2 Can a derived specification use data elements with an Optionality of B (backwards
+   compatible) or W (withdrawn)? .................................................................................................39
+
+    8.3 Profile Z31 in the HL7 2.5.1 Rel 1.5 IG provides information about what needs to be
+   done in case there are a list of potential matches for a query. Is there any standard for
+   the threshold of the maximum number of potential matches that an IIS sends?..............40
+
+9. Evaluating Conformance.....................................................................................................41
+    9.1 When should the receiving system apply Conformance Statements and other
+
+   requirements from the HL7 2.5.1 Rel. 1.5 IG? .........................................................................41
+
+10. Emergency Response........................................................................................................42
+
+                                                                                                                               6
+ 10.1 During emergency responses, it may be important to track and share vaccination
+information for priority groups, such as those in with particular risk factors or those in a
+specific line of work. Is there a way of doing so? ....................................................................42
+
+ 10.2 Is there any additional information on documenting COVID OBXs specifically
+eligibility and funding codes at this time?................................................................................42
+
+ 10.3 Regarding the CVRS, where should providers place VTrckS Provider PIN in their
+HL7 messages to IISs? ................................................................................................................42
+
+                                                                                                                            7
+  1. Data Types
+
+1.1 What is a data type flavor?
+
+A standard set of restrictions on a standard data type. When HL7 v2.x implementation guides
+are developed, data types often are (and should be) constrained to suit a particular use for a
+message element. Therefore, multiple specializations of a data type are required that
+necessitates a distinct specification and identifier. Each specialization becomes a data type
+flavor. However, HL7 datatype should never be transmitted in an HL7 message.
+Data type flavors are not indicated directly in HL7 messages, rather they are a concept that is
+used in implementation guides to indicate how data should be structured in an HL7 message.
+When a guide specific flavor is specified, OBX-2 of the message should be populated with the
+base HL7 data type for that flavor. For example, if DT_IZ01 is used to for OBX-5, then the data
+type in OBX-2 will be DT. For OBX messages, where the data type used in OBX-5 is indicated in
+OBX-2, the data type is used and not the data type flavor. For example, if an implementation
+guide specifies that DT_IZ01 should be used for a specific OBX-5 then the value of DT should
+be placed in OBX-2, not DT_IZ01. The data type flavor is an artefact for use in the guide and is
+never referred to directly in the HL7 message.
+
+1.2 What is an HD (Hierarchic Designator) datatype?
+
+The HD data type is one of the most complex and confusing data types in HL7 version 2. Keep
+in mind the HD data type is sometimes used for fields (e.g., MSH-4) and other times used for
+components (e.g., CX.4 as used in PID-3). In the examples below, we demonstrate HD usage
+using component-based scenarios, but the same suggestions and rules apply for field level HD
+usage as well.
+
+The HD data type is divided into 3 elements:
+        • The Namespace
+        • The Universal ID
+        • The Universal ID Type
+
+                                                                                                                             8
+The last two elements work together to define an ID along with the appropriate ID Type and
+the Release 1.5 IG constrains the Universal ID to be an OID and constrains the Universal ID
+Type to the value “ISO”. The Namespace and the OID should be synonyms for each other. That
+is, the HD element should NOT be populated such that the Namespace is a value in the value
+set specified by the OID.
+The Release 1.5 IG allows for 3 valid “flavors” of the HD data:
+
+        • Namespace&& (ideally without the trailing ampersands)
+        • Namespace&<OID>&ISO
+        • &<OID>&ISO
+The Name space is widely used today; and support for sending and receiving the Namespace
+is highly encouraged for all vendors. The OID can be used in addition to the Namespace, but
+we do not encourage replacing the Namespace with the OID. That is, while the third flavor
+above is valid, we don’t endorse the use of it due to the current extensive use of Namespace.
+Future releases of the IG may tighten the Usage of the Namespace to Required (R) while still
+supporting the use of OIDs.
+
+1.3 How should I implement the TS (Time Stamp) data type?
+
+For data elements where the time component is optional, the receiving system may decide to
+support using the time or not. If the receiving system chooses not to use the time, and if it is
+formatted correctly, an error/warning should not be returned for sending a time.
+
+1.4 How should I implement the XTN (Extended Telecommunications Number)
+data type?
+
+Currently when sending a phone number, the Area/City Code (XTN.6) has a usage of RE while
+the Local Number (XTN.7) has a usage of “R”.
+
+    Legacy data in the IIS (or EHR) may exist without an area code. The ability to still
+        message this data is needed, which is why the area code is “RE”.
+
+    IIS can further constrain the usage of the area code if local needs require it.
+    Future releases of the IG will maintain the current usages.
+
+                                                                                                                             9
+1.5 What are the possible variations in XTN fields?
+
+The large number of Conditional Usages makes the XTN data type a complex one. It can be
+used to send either phone numbers or email addresses, but each of those looks quite
+different.
+
+    • A maximally populated phone number looks like this:
+              o ^PRN^CP^^^406^5557896
+
+    • As noted above, it is also valid to send a phone number without an area code, when the
+         area code is not known:
+              o ^PRN^PH^^^^5552236
+
+    • An email address looks like this:
+              o ^NET^^warren.jackson@example.com
+
+    • When populating a field with both phone numbers and an email address, they are
+         separated by the repetition (~) delimiter. For example, the PID-14 value for a patient
+         with a home phone, cell phone and email address would look like this:
+              o ^PRN^CP^^^406^5557896~^PRN^PH^^^^5552236~^NET^^warren.jackson@exa
+                   mple.com
+
+1.6 What HL7 field (XPN-6 Degree or XPN-14 Professional Suffix) is used for
+Vaccine Administering Provider Suffix and does it use free-text?
+
+         Professional suffix can be sent is RXA-10 “Administering Provider”, which has a data type
+         of XCN. Within XCN, XCN-21 contains information on professional suffix and is a string
+         field. Therefore, there are no associated codes with this field.
+
+         There are many caveats to receiving professional suffix information from EHRs. First,
+         RXA-10 “Administering Provider” is a RE field and may be empty for completed or
+         partially administered non-historical doses. Second, even if RXA-10 is received, XCN-21
+         is an optional field. Thus, most EHRs are not certified to indicate professional suffix
+         information and the information is not likely to be populated in messages.
+
+                                                                                                                            10
+  2. Value Sets
+
+2.1 What is the future of the NIP004 (Serological Evidence) value set that was part
+of the HL7 v2.3.1 IG?
+
+In the HL7 2.3.1 IG, the NIP004 value set was designed to document Vaccination
+contraindications/precautions (LOINC code 30945-0). Values included allergies, medical
+observations (pregnancy, fever, chronic illness, etc.) and immunities. Because the newer v2.5.1
+IG no longer uses NIP004, that value set is not being maintained.
+
+The HL7 2.5.1 IG Rel. 1.5 uses the PHVS_VaccinationContraindication_IIS value set for
+contraindications/precautions and documents different LOINC codes for Presumed Immunity
+(59784-9) and Serological Immunity (75505-8) with their own value sets of
+PHVS_EvidenceOfImmunity_IIS and PHVS_SerologicalEvidenceOfImmunity_IIS respectively. The
+NIP004 value set is not part of the HL7 2.5.1 messaging standard. However, if a system is not
+using the most recent v2.5.1, then IG needs to exchange concepts not included in NIP004, and
+local codes may be added to expand the NIP004 value set.
+
+IISs that have not yet updated to HL7 2.5.1 IG should consider pre-adopting newer code sets
+to support current HL7 messaging standards.
+
+2.2 How are LOINC codes described in NIP003 supposed to be used with respect
+to individual profiles?
+
+AIRA has published Guidance on Detailed Message Structure and Use of Specific LOINC Codes
+describing in more detail the message structure of VXU and RSP messages including guidance
+on LOINC codes which are appropriate to use in different sections of the message.
+
+2.3 Does the CVX value set include a code for animal Rabies vaccines?
+
+The CVX value set only covers human vaccines.
+
+                                                                                                                            11
+2.4 How should non-US vaccines be handled?
+
+CVX codes exist for several vaccines which are not available in the United States but may be
+part of a patient’s history. Receiving systems should be prepared to support receipt of these
+non-US vaccines given to a patient, regardless of where they might have received them as they
+may be included in messages as part of a patient’s immunization record. IISs are responsible
+for collecting complete immunization histories, including doses that may not count towards
+immunity in the US.
+
+        • Pentavalente is a vaccine available in Mexico. In 2007, the formulation of the vaccine
+             changed from DTP/HEP B/Hib to DTaP/Polio/Hib (Pentavalente Acellular). Separate
+             CVX codes exist for each formulation (102 and 170 respectively).
+
+        • Hep A, live attenuated vaccine (CVX code 169) is never recommended by ACIP and
+             does not count towards Hep A completion. IIS should record this but not count it as
+             a valid dose.
+
+        • Two versions of a killed, oral cholera vaccine now have CVX codes (172 and 173).
+        • PCV10 (CVX code 177) is valid but recommendations are that all patients have at
+
+             least one dose of PCV13.
+        • Several new CVX codes (178 and 179) have been created for bivalent and
+
+             monovalent OPV vaccines. The trivalent formation is no longer available as of April
+             2016. Bivalent and monovalent OPV vaccines do not count towards polio completion.
+
+2.5 Can an IIS code values in their system from one inactive to code to the proper
+active code?
+
+IISs are responsible for storing and reporting vaccinations under the CVX code that best
+represents the concept. An IIS has the freedom to update the codes in their database to reflect
+the correct representation of what really happened.
+
+                                                                                                                            12
+2.6 In the HL7 2.5.1 Rel. 1.5 IG there are 6 concept codes for Serologic Evidence
+of Immunity. Are there concept codes for any additional diseases, specifically Polio,
+Hib and Tetanus?
+
+Concept codes for these three diseases do not exist because ACIP does not recognize
+evidence of immunity for these diseases. If a provider claimed these, there would be no effect
+on the recommendations. The patient would still need to be vaccinated if they haven’t been.
+
+2.7 How can serologic evidence of immunity be messaged?
+
+Serologic evidence of immunity is messaged using an OBX segment using the value of “75505”
+for OBX-3.1. Values for OBX-5 can be found in the “PHVS_SerologicalEvidenceOfImmunity_IIS”
+value set. Example OBX segment:
+OBX|1|CE|75505-8^Disease with serological evidence of immunity^LN|3|
+76902006^Tetanus^SCT||||||F|||20201027
+Please be aware of nuances of using values for diseases not included in the
+“PHVS_SerologicalEvidenceOfImmunity_IIS” value set, as it may not be proven that there is
+serological evidence of immunity for the disease.
+
+2.8 How should an IIS process NDC and CVX when they don’t match?
+
+The HL7 2.5.1 Rel. 1.5 IG does not give direction on which code to give priority or whether the
+IIS should accept this data or not. The order of the codes in the CE data type do not signify
+which concept should be given priority. They should be describing the same concept, although
+one code might be more specific than the other and thus carry more detail. The receiver of the
+data can read either code to understand the concept. Two community guides give further
+guidance on processing this data in an IIS:
+
+    • https://repository.immregistries.org/resource/iis-functional-guide/
+    • https://repository.immregistries.org/resource/iis-data-quality-practices-to-monitor-and-
+
+         evaluate-data-at-rest/
+
+2.9 What is the correct Concept Code for Mumps (Finding)?
+
+Value Set Error Corrections in HL7 2.5.1 Release 1.5
+    • Value Set Name – Serological Evidence of Immunity - IIS
+
+                                                                                                                            13
+              o Concept Code 341112003 (Mumps Finding) should be 371112003
+
+2.10 How should doses administered with a needle-free method be coded?
+
+Existing route codes should cover non-needle administrations and, depending on the
+mechanism, valid options could include percutaneous, subcutaneous, etc. For a full list of
+route-of-administration codes, please see "HL7-defined Table 0162 - Route of administration"
+in the 2.5.1 IG.
+
+2.11 Why does the IG not support a full list of HL7 route codes?
+
+The IG constrains the base standard to only those route codes that would be used in an
+immunization context. EHR and IIS should and do implement these constraints. Please see
+"HL7-defined Table 0162 - Route of administration" for the list of constrained codes.
+
+2.12 What to do with Gender X?
+
+Non-binary gender has been discussed at HL7 and SISC (for more information see
+https://confluence.hl7.org/display/VOC/The+Gender+Harmony+Project) and in response, HL7
+has added “X” as a value to table 0001 (Administrative Sex) to represent non-binary gender.
+For immunizations, the value of “X” has not been added to the 2.5.1, as of now. This does not
+preclude two organizations agreeing to extend the values in HL7001 table to include “X” and
+messaging the value of “X” when appropriate. However, please note, that it can cause issues
+for other organizations outside of the agreement that have not extended the value set of
+HL7001, as there is no current guidance on what HL7001 values to message instead of “X”
+when one organization cannot receive “X”.
+
+2.14 What to do with NDCs that are not on the CDC website?
+
+The preferred NDC is the Unit of Use. If an NDC is listed on manufacturer's website but is not
+showing on the CDC code set resources, then the CDC Code Set project should be contacted
+at iisinfo@cdc.gov.
+
+                                                                                                                            14
+CDC works to release NDC codes as soon as they receive information from proper sources.
+Please contact iisinfo@cdc.gov, if you see NDCs used for vaccines that are not on the current
+lists.
+Additional Resources:
+IIS | Code Sets | NDC | Vaccines | CDC
+IIS | NDC Table Access | Code Sets | HL7 Data | Vaccines | CDC
+IIS | NDC Crosswalk tables | Code Sets | HL7 Data | Vaccines | CDC
+
+2.15 How should an IIS map two values, “sublingual” and “intranasal”, that an EHR
+vendor is sending?
+
+Because there is a larger value set for route of administration, IISs may receive values that
+are not included in the 2.5.1 IG. As such values can be mapped to the value in the 2.5.1 IG
+that is the closest approximation of the value sent by the EHR. For example, “intranasal” could
+be mapped to “nasal” and “sublingual” could be mapped to “oral”.
+
+2.16 We have got the NDC codes for COVID vaccines, e.g., Pfizer-BioNTech:
+59267-1000-01. Are these codes valid/accepted as CDC Immunization
+Administered Code”?
+
+NDC and CVX are both acceptable for the date range for which they are applicable.
+
+                                                                                                                            15
+  3. Scope Definition
+
+3.1 Are TB test results in scope?
+
+The Immunization Guide does not cover TB test results. At one time a CVX code was created
+for PPD because it is injected like vaccinations, but the use case of reporting this via VXU is
+not supported by the current guide. Similarly, PPD is not a vaccine and not supported for
+sending to IIS.
+
+3.2 When should a submitting system trigger a VXU message?
+
+See the HL7 2.5.1 Rel 1.5 IG for information on trigger events.
+
+3.3 When will v2.8.2 roll out?
+
+The updated CDC HL7 resources page (https://www.cdc.gov/vaccines/programs/iis/technical-
+guidance/hl7.html) discusses the v2.8.2 IG being reserved for future release, with there being
+no current release date.
+
+                                                                                                                            16
+  4. Populating a Message
+
+4.1 What should a sending system do if a message triggering event is hit but the
+system does not have enough data to build a fully conformant message?
+
+If key data elements such are vaccine type, administration date and a link to a patient are
+available, it is permissible to send the message and let the receiving system determine if it is
+willing to accept a non-conformant message. The sending system may still populate MSH-21
+with the profile ID they are intending to meet even if the message itself is not conformant
+with the profile.
+In general, the following principles should be followed:
+
+        • Non-conformance should not stop the exchange of usable data.
+        • Local business rules still determine if the data is usable.
+        • It is OK to put a profile in MSH-21 even if the sending system knows the message is
+
+             not conformant.
+
+4.2 Is it reasonable to expect a submitting EHR to populate PID-3 with a State
+Registry Number (with PID-3.5 equal to SR)?
+
+While this method would be supported by the guide, it is not specifically defined in the HL7
+2.5.1 Rel. 1.5 IG and EHR certification is not testing EHR systems for the ability to behave in
+this way. In addition, certification does not require EHR systems to be able to store or report
+the state registry ID. Many IISs require the Medical Record Number to be sent in PID-3 and
+most (if not all) EHR systems are able to do this.
+
+4.3 Is a patient’s Social Security Number (SSN) an acceptable patient identifier to
+use?
+
+The answer depends on local regulations, laws, and policies. Perhaps some IISs collect SSN
+and use it for patient matching, but there is at least one IIS that forbids EHR’s from sending
+SSN. The HL7 2.5.1 Rel 1.5 IG does not require that SSN specifically be used as a patient
+identifier, certification does not require EHRs to send SSN when known, and IIS validation
+does not expect IISs to be able to receive or store SSN. In general, IISs have or are moving
+away from using SSN for patient identification.
+
+                                                                                                                            17
+4.4 What is the meaning of a Completion Status (RXA-20) of PA (Partially
+Administered)?
+
+A Partially Administered status, or PA, is used to indicate when less than a fully potent dose of
+vaccine was administered. It could mean that less than the full volume of a potent dose was
+administered (e.g., the patient moved unexpectedly and only a portion of the dose was
+actually administered) or it could mean that the dose was sub-potent (e.g., there was a
+manufacturing issue or a cold-chain break). Different IISs have different requirements for
+sending partial administrations, therefore it is critical to talk to your trading partner to
+determine their expectations. Regardless, it is important to include partially administered
+doses in any testing workflows to ensure that both systems deal with the PA completion
+status appropriately. It is important that partially administered doses do NOT get counted as
+full and valid doses. This applies to both VXU and RSP messages. This topic will be elaborated
+on more fully in future versions of the implementation guide.
+
+4.5 When submitting an NDC code or lot number, should the VXU message
+contain the Unit of Sale (package) or Unit of Use (vial/syringe) value?
+
+The HL7 IG is silent on this topic, but the CDC has indicated that a provider may capture the
+NDC or lot number on the Unit of Use OR Unit of Sale, depending on the established clinical
+workflow. Note that “recording” and “sending” are different; a provider could record the Unit
+of Use in the EHR and send the Unit of Sale if the sending system maintains a mapping. The
+IIS should be prepared to receive either Unit of Use or Unit of Sale value.
+
+Many IISs need the Unit of Sale for inventory reconciliation purposes; however, it is not
+always possible to derive the Unit of Sale from the Unit of Use (some vaccines such as
+Prevnar 13 use the same Unit of Use NDC for different packaging). Therefore, if the Unit of
+Sale is not sent, all IIS functionality may not be available to the EHR users. We recommend,
+when documenting administered vaccines requiring reconstitution, that the sending system
+record and send the NDC from the lyophilized vaccine even when the vaccine contains an
+antigen containing diluent (such as Menveo or Pentacel).
+
+For EHR certification, all possible NDC codes for a vaccine are considered valid. Note that for
+a Vaqta and Engerix-B certification, limited it to NDCs for pediatric formulations because of
+the age of the patient. Guidance clarifying these points was sent by the CDC in June, 2017 and
+can be found in the AIRA repository.
+
+                                                                                                                            18
+4.6 When sending multiple immunities (either presumed or serological) in a
+single message, how should they be grouped underneath the ORC/RXA segments?
+Does there need to be a separate ORC/RXA pair of segments for each immunity or
+can multiple immunity OBX segments be grouped under a single ORC/RXA pair?
+
+The use of ORC/RXA segments to encapsulate patient-level OBX observations has no
+semantic meaning and are only present to conform to HL7 message structure expectations.
+Senders can group all patient-level observations under a single ORC/RXA pair, receivers
+should process patient-level observations grouped under one or more ORC/RXA pair without
+distinction.
+
+4.7 How should free text comments be messaged?
+
+First, it is important to note only clinically relevant comments which can’t be discretely
+messaged elsewhere should be included as part of the HL7 message. For example, don’t send
+patient immunity data as a free text comment, rather send it as an observation using the
+appropriate LOINC code. Release 1.5 indicates that free text comments can be sent as an
+occurrence of RXA-9 (Administration Notes), however, because this field is also used to
+transmit the Information Source (i.e., new or historical vaccination event), the SISC has
+reconsidered this approach and will make recommendations concerning this topic in future
+versions of the implementation guide to send free text comments in an OBX segment using
+LOINC code 48767-8 (Annotation Comment).
+Lastly, EHR systems have not been certified to send notes and IISs are not expected to
+process them. It is expected, in many situations, that these notes will be ignored. Sending and
+accepting notes would be a locally negotiated functionality.
+
+4.8 How should a baby with no first name be recorded?
+
+When patient really has no first name, the recommendation is to give the patient the first
+name of "Baby" as this would be a signal to the underlying matching system that this patient
+did not have a real first name.
+Additional Resources:
+https://www.cdc.gov/vaccines/programs/iis/activities/downloads/TAD-MIROW-Interactive-Workshop-
+2016.pdf
+
+                                                                                                                            19
+https://repository.immregistries.org/files/resources/59d677eb1b908/aira_mirow_consolidatin
+g_demographic_rec_updated.pdf
+
+4.9 How should I implement time zone in MSH-7?
+
+Sending systems can express time in any time zone
+   Not required that sending system use correct time zone
+   Offset indicates difference from UTC
+
+Receiving system
+   Must read time zone offset when reading/understanding time
+   Should not require a time zone to be used
+   IIS may require that messages should be created in the future
+
+Consider having some leeway to account for
+   Minor differences in exact time set (at least 1 minute?)
+   Mistakes in using time zone (at least 65 minutes?)
+
+4.10 How to message alias information in HL7?
+
+It was permissible to only message first or last name if it is all that is known. IISs may, or may not
+accept this data, but should process the remainder of the message normally regardless.
+Additional Resource:
+https://repository.immregistries.org/files/resources/59d677eb1b908/aira_mirow_consolidating_d
+emographic_rec_updated.pdf
+
+4.11 Where should patient’s county of residence be populated in the PID segment?
+PID-11.9 or PID-12?
+
+EHRs are not required to submit patient’s county of residence, however, if they collect and send a
+patient’s county of residence, PID-11.9 should be populated. When submitting county of
+residence, the five-digit FIPS county code is preferred (FIPS codes
+https://www.census.gov/geographies/reference-files/2019/demo/popest/2019-fips.html)
+IISs are highly encouraged to use address standardization software to derive the county of
+residence for a patient’s address. More information can be found in the IIS Functional Guide, vol. 2
+
+                                                                                                                            20
+(https://repository.immregistries.org/files/resources/5a83216a1d369/aira_functional_guide_vol2_final.
+pdf)
+
+4.12 To report adverse effect, is it necessary to first have a record for vaccination
+already reported (via RXA) for the vaccine receiver? As we understand adverse event
+needs to be mandatorily reported with RXA segment.
+
+The CDC IG 1.5 does not require an adverse event to be associated with a vaccination given, nor
+is it a requirement that the vaccination must be reported to the IIS first before reporting the
+adverse event. Reporting could be associated to only the fact an adverse event occurred, and no
+vaccination. (See Appendix B excerpt above.) With or without a vaccination it does have to be
+messaged under an RXA. This is because there is no other way to message an OBX without
+sending it under an RXA in this version of the standard. So, if this is not associated with a
+vaccination event, a “dummy” RXA should be sent with the value in RXA-5 being “998^No vaccine
+administered^CVX” as in the example from the guide above.
+
+4.13 What resources are available to check if a message to report adverse effect is
+correct?
+
+You should always verify all examples pass with the NIST tooling.
+
+4.14 If adverse event is reported directly with RXA segment, then will the vaccination
+record be created along with the adverse effect record, if one does not exist?
+
+An adverse event can be reported separately or with an administered vaccination. The IIS will
+only record a vaccination record if it is submitted to the IIS. It will not assume an administration
+from a reported adverse event. There may be some confusion as an adverse event can only be
+transmitted if sent after an ORC/RXA segment. If this adverse event is related to a known
+vaccination, then that vaccination event can be reported in ORC/RXA with the adverse event in
+the OBX segment(s). Otherwise, the ORC/RXA segment should indicate that no vaccine was given
+with CVX 998 in RXA-5.
+
+                                                                                                                            21
+4.15 How do we send immunization records to the CDC?
+
+IISs are operated by states and local jurisdictions. Providers using the software should contact
+their local jurisdiction about steps in integrating software. CDC does not normally accept
+immunization records directly. They first go to the local IIS.
+
+4.16 What should IISs do when multiple refusals are received for the same event?
+What about if a refusal is deleted in an EHR?
+
+Currently, there is no national guidance on how IISs should process multiple or deleted
+refusals, and it is unlikely that most IISs merge or delete refusals. Some IISs may not store
+refusals at all. If an EHR would like to reverse a reported refusal, they should reach out to the
+IIS to discuss how to handle the reversal.
+
+4.17 If a patient does not consent to share their immunization data, what should
+be sent to the IIS? Should a message still be sent with PD1-12 populated to
+indicate that the patient data should be protected, or should a message not be
+sent at all?
+
+The appropriate course of action depends on local policy and regulations. Some jurisdictions
+accept messages with PD1-12 populated appropriately, while others may request that
+messages be suppressed in this scenario. Be sure to discuss this topic with your trading
+partners in order to understand the local requirements.
+
+4.18 How do I populate an HL7 message to indicate that a particular dose needs
+privacy protection?
+
+The HL7 2.5.1 Rel. 1.5 IG describes how to use PD1-12 to send a Protection Indicator to
+message the patient’s privacy preference (to share data or not). The IG does not indicate how
+to override the patient level Protection Indicator for specific doses of vaccine. For example, a
+teen may wish to apply privacy protection to a dose of HPV. While several options exist, there
+is not currently any community agreement on how to message this.
+
+                                                                                                                            22
+4.19 How widespread is the usage of ORC-14 (Provider Call Back Phone Number)
+by IIS?
+
+In most cases, this field is completely ignored. There may be some IISs that store this data, but
+we are not aware of any IIS that expects data to be sent. To date, there has been no
+discussions related to this data by IISs, and the current national IG only mentions the field
+without providing an additional description (which is done for all fields IIS normally care
+about.) So, there is little evidence this field is used by any IIS today.
+
+4.20 Is it possible to send both CVX and NDC codes in RXA-5 (Administered
+Code)?
+
+RXA-5 has 2 triplets of components. RXA-5.1 is one code, RXA-5.4 can be another code. The
+codes must be essentially equivalent, so you can send CVX in one and NDC in the other. Each
+triplet consists of a code, free text, and a code system identifier. If the code is populated, you
+must indicate the code system. The national IG does not have preference for the order in
+which the codes are sent. Receiving systems should rely on the code system (in RXA-5.3 and
+RXA-5.6) to determine the nature of the code and not assume that code types will always
+appear in a consistent order.
+
+4.21 When and how should RXA-18 (Substance/ Treatment Refusal Reason) be
+populated?
+
+If RXA-20 (Completion Status) is indicated as “RE”, then RXA-18 is required. Use table NIP002
+as the value set.
+
+ 4.22 Do we need to accept and store all refusal reasons listed in the value set?
+
+ You do not need to store all refusal reasons listed in the value set. IISs should ignore any
+ refusal reason they will not store, but still process the rest of the message normally.
+
+ IISs can constrain, but not add to, any value set listed in the IG. However, before
+ constraining any value set, the IIS should evaluate whether the values might be useful for
+ any purpose in the future.
+
+                                                                                                                            23
+4.23 If an EHR sends our IIS a value for Substance Refusal Reason that we do not
+accept, should we send an error back?
+
+If your IIS does not accept a substance refusal reason, then an error of warning (“W”) or
+informational (“I”) should be sent back in the ACK message to the EHR. The information in the
+error segment will provide the EHR information for which the value is not accepted.
+
+4.24 When should OBXs containing VIS data be included in a VXU message?
+
+There is a conformance statement (IZ-24) and value set (in appendix A), which indicates that if
+the CVX code in RXA-5 is in the PHVS_VISVaccine_IIS value set, then VIS OBX segments are
+required. This means submitting systems must include VIS information for all vaccines
+typically administered in the US for healthy children and adults. Administered vaccines
+submitted without VIS information are technically in violation of the current guidance.
+However, in most situations IISs are not required to collect VIS information; so in practice, this
+requirement is not enforced. Senders should send this information when it’s available.
+Regardless, the administered information should still be submitted to the IIS without VIS
+information.
+
+4.25 RXA-20 (Completion Status) has a usage of RE. What happens if a VXU
+        message does not include a value for this data element?
+
+Sending systems must indicate this and an IIS may reject data that it is not properly
+designated as complete. Conversely, IISs may accept this data while assuming it’s a complete
+and finished immunization to support legacy systems that are not yet compliant with the
+latest guide.
+
+4.26 How should non-standard dose amounts be recorded in the IIS?
+
+Technically speaking, an IIS should be able to store any valid mL amount. While 0.7 mL might
+not be the correct amount for a vaccination, the amount given is the amount that should be
+recorded in the IIS.
+
+                                                                                                                            24
+4.27 We would expect to see the maiden name in the last name of the XPN field,
+since patient's maiden name is a repetition coming in PID-5 if two values are sent
+anyway, as in the PID message fragment below:
+PID|1||1129949^^^^MR||TEST^PATIENT^^^^^L~MaidenName^First name of
+patient^^^^^M|
+If only one last name is sent, I would assume just take that as the maiden name.
+
+This question refers to a patient’s maiden name; and should not be confused with the
+mother’s maiden name (PID-6). The guide requires the patient’s legal name to be sent in the
+first repetition of PID-5, subsequently allowing for a list of other possible names for the
+patient; to include the patient’s maiden name. This is not a data element recognized by the
+CDC and it’s unclear how many IISs potentially accept this name. Still, it can be messaged in
+the current standards and might be useful for improving matches.
+While the data type does require the first name, a sending system may decide to only send
+the last name. As long as the EHR indicates “M” for Maiden in PID-5.7, then the IIS may read
+PID-5.1 as being the patient’s maiden last name; and without regard to whether other fields,
+such as patient’s maiden first name, are completed.
+
+4.28 Can the date of eligibility (OBX-14) be different than the immunization
+administration date (RXA-3)?
+
+Depending on the workflow of the clinic, the date of eligibility (OBX-14) could be different
+than the administration date (RXA-3).
+Additional Resource:
+Information about populating OBX-14, please see:
+https://repository.immregistries.org/files/resources/5d782f0f88b83/observation_date-
+time_guidance_document_v1_0.pdf
+
+                                                                                                                            25
+  5. Demographics Only
+
+5.1 What is the right way to transmit demographic data about a patient when
+there is no associated immunization event?
+
+The HL7 2.5.1 Rel. 1.5 IG includes demographics-only messages as a use case while not fully
+elaborating on how to accomplish the use case. One option is to send a VXU message without
+an Order Group (the Order group has a cardinality of [0..*] which indicates that it is valid to
+send a VXU message without any ORC/RXA/RXR/OBX segments). Alternatively, in other
+interoperability domains, ADT messages are typically used to transmit patient demographic
+data. Based on discussions by SISC, future versions of the implementation guide will provide
+guidance on using an ADT message in this use case. In the meantime, be sure to discuss this
+use case with your trading partners to decide on a message format and the events which
+trigger a demographics-only message.
+
+5.2 How should IISs handle multiple reported races?
+
+Since PID-10 field is repeatable, IISs should accept all races sent.
+
+                                                                                                                            26
+  6. Query/Response
+
+6.1 What data should be used to populate patient demographics in an RSP
+response message?
+
+When generating an RSP message, the IIS should echo back the QPD segment received in the
+QBP query message. This is the patient demographic data sent by the querying system, and it
+should be returned as it was sent. Other segments in the RSP (PID, PD1, NK1) should be
+populated with data from the responding system’s database. Querying systems may use this
+data to validate patient selection. Demographic data sent by the querying system in the QPD
+segment should not be used to populate the PID, PD1 or NK1 segments. The patient ID in
+QPD-3 should echo what was submitted in the query, but PID-3 can repeat so it can be
+populated with more than one identifier including:
+
+        • The querying system’s MR for the patient.
+        • The IIS ID using a value of “SR” in PID-3.5
+
+6.2 Is it permitted to send an ERR segment and an MSA-1 value of AE within a
+Z31, Z32 or Z42 message?
+
+The IG lists the usage of ERR as RE (required but may be empty) in all profiles, including the
+Z42 profile required by Meaningful Use. This is at odds with Figures 41 and 44 in the national
+IG, which appear to constrain MSA-1 to AA in the absence of serious errors. The figures were
+not meant to indicate message constraints (although that is not clear from the figures) and
+we feel it’s acceptable for Z31, Z32 and Z42 messages to support both the AE and the AA
+values in MSA-1. One could conceive of a situation where a trivial error would not prevent a
+response but could warrant an error message along with a value of AE in MSA-1. We suspect
+that this would be relatively rare and unimportant. We do agree that a usage of RE in the Z31,
+Z32 and Z42 profiles is probably more than we need and may change the usage in future
+releases to O (Optional). Until then, the ERR segment should be supported in all profiles.
+Additional Resource:
+AIRA has published a new guidance document providing more detail about allowed values for
+MSA-1, QAK-2 and ERR-4. Please consult this document for additional guidance.
+
+                                                                                                                            27
+6.3 The RSP message only allows for a single ERR segment. What should I do if
+more than one error is generated?
+
+The HL7 base standard only allows a single ERR segment in an RSP^K11 message. We have
+worked with HL7 to submit a proposal to allow ERR to repeat, however, this will not be
+available in the base standard until version 2.9. At this time, we don’t have required guidance
+on how to prioritize errors, but strongly recommend that your local business rules prioritize
+errors according to severity and return the most severe error found.
+Additional Resource:
+guidance_for_hl7_acknowledgement_messages_to_support_interoperability_.pdf
+(immregistries.org)
+
+6.4 How should ORC-3 (Filler Order Number) be populated in the RSP message?
+
+For a given dose, there are really three types of “immunizations IDs” an IIS might know about
+for a particular immunization:
+
+    • Querying System Immunization ID
+              o This is the ID sent in the VXU (if the querying system has sent a message for
+                   dose) and is the unique identifier for the dose from the system querying the IIS.
+
+    • Other External System Immunization ID
+              o This is the ID sent in the VXU but was from a different provider. That is, this
+                   immunization was reported by someone other than the system who is doing
+                   the query.
+
+    • IIS Immunization ID
+              o This is the IIS internal ID (usually automatically assigned upon insert into the DB
+                   (e.g., the primary key)
+
+When replying to a query:
+    • ORC-3 should be the Querying System Immunization ID when known
+              o This ID may not be known with UI entry or in the case where the immunization
+                   was submitted by someone other than the querying system.
+              o Otherwise the IIS Immunization ID
+    • ORC-3 should not be the Other External System Immunization ID
+    • e.g., The IIS wouldn’t return Dr. Alpha’s Immunization ID in Dr. Beta’s RSP.
+
+                                                                                                                            28
+6.5 How should ORC-17 (Entering Organization) be populated if the
+administration was entered into the IIS by IIS staff from a paper record? Should it
+reflect the organization who submitted the paper record or the IIS who entered it?
+
+The HL7 base standard defines ORC-17 as “This field identifies the organization that the
+enterer belonged to at the time he/she enters/maintains the order, such as medical group or
+department.”
+This could refer to any number of organizations, such as: the one that gave the dose, the one
+that reported it electronically to the IIS (which may not be the one that gave it), the one that
+reported it via paper to the IIS or the IIS itself if they are the first to electronically capture the
+data.
+
+6.6 Which of the three different LOINC codes for “vaccine type” (30956-7, Vaccine
+       Type; 30979-9, Vaccines Due Next; or 38890-0, Component Vaccine Type)
+       should be used when constructing an RSP message?
+
+The HL7 2.5.1 Rel. 1.5 IG notes that 30956-7 is preferred over 38890-0. 30956-7 is used in
+2015 EHR certification testing. To ensure consistency, we recommend using 30956-7 over
+both 38890-0 and 30979-9. Future versions of the implementation guide will provide
+additional guidance on which LOINC codes are appropriate in a given context.
+
+6.7 When transmitting a recommendation, should the RSP contain the CVX code
+      for the vaccine group or for a specific vaccine?
+
+This is an area where “just enough Information” is likely better than prescriptive “give exactly
+this product”. That said, sometimes giving more information is warranted because the ACIP
+schedule dictates a specific vaccine should be given based on previous administrations. In
+those cases, you may want to get more prescriptive. From a conformance perspective, any
+CVX is technically legal. In most cases, the CVX for the vaccine group is usually the most
+appropriate, whereas recommendations for specific vaccines are only appropriate for a few
+cases. However, this is managed by the CDS engine that produces the recommendation and
+is not constrained by the messaging standard which allows for any CVX. The message should
+accurately reflect the vaccine the CDS engine is recommending. Please see the CDSi project
+for more information on how CDS engines should properly generate recommendations.
+
+                                                                                                                            29
+6.8 What is the best way to handle a scenario where the database does not
+contain discrete or parseable Administered Amount data with which to populate
+RXA-6 and RXA-7?
+
+While dealing with older data, or data being submitted by organizations which do not adhere
+to HL7 2.5.1. Rel 1.5 IG requirements for VXU messages, it is possible to have data that can’t
+be used to populate the administered amount (RXA-6) and units (RXA-7) in a reliable manner.
+In this case, rather than sending questionable data in the RSP message, we recommend that
+RXA-6 be populated with 999 and RXA-7 be left blank. This is how these fields will be
+populated for historical vaccination events. We do not believe a lack of data in these fields will
+be a serious impediment to quality patient care on the part of the clinician receiving the RSP
+message.
+
+6.9 How many patients can be returned in a query response?
+
+In response to a Z34 query, if the jurisdiction is allowed by local regulation, law, and policy to
+indicate that multiple patients were found, the maximum number allowed to be returned
+using the Z31 profile is the lower of the maximum number requested (via RCP-2 in the query
+message) and the maximum number that the receiving system is capable of returning.
+In response to a Z44 query only a single patient may be returned using the Z42 response
+profile because RCP-2 is fixed to a value of 1 record. If multiple matching patients are found,
+the Z33 profile is used to indicate that a single high threshold match was not found.
+
+6.10 Should a responding system ever filter the doses returned in a query
+response? Should the IIS filter administrations returned as part of a query
+response such that doses contributed by the querying system are not returned?
+
+Some providers are reporting problems with reconciling administered doses since the IIS
+query response includes doses already included in the provider’s EHR system. In some cases,
+the EHR is not able to filter doses appropriately in the display, consequently creating
+duplicates.
+We strongly recommend that IISs do NOT filter the query response in any way.
+
+                                                                                                                            30
+6.11 Should the IIS filter administrations returned as part of a query response
+such that for protected patients only doses submitted by the querying system are
+returned?
+
+We strongly recommend that IISs do NOT filter the query response in any way. Returning a
+partial history for a patient is problematic for many reasons. Special care should be taken if
+local policy requires any kind of filtering of immunization history.
+
+6.12 When would a refusal be sent in an RSP message?
+
+Refusals can be returned in an RSP message. However, consideration of the following is
+recommended:
+
+    • CDS engines should not consider refusals
+    • Doses due will continue to be forecasted regardless of previous refusals
+    • IIS should work closely with trading partners to ensure that, if sent, refusals will be
+
+         handled appropriately by the receiving system
+
+6.13 How should I submit a re-query after Z31 RSP?
+
+When a provider queries for a patient, the IIS might return a Z31 (Return Candidate Clients) if
+the IIS is unsure exactly who the provider is looking for. Note: Not all jurisdictional policies
+allow for multiple patients to be returned.
+The provider selects the proper patient from the Z31 and issues a re-query to the IIS:
+
+         • The EHR should re-query with data found in Z31 RSP, NOT with data from EHR
+         • IIS should leverage the SR ID to improve the matching score
+NOTE: This is NOT a patient matching problem where the provider believes the IIS hasn’t
+properly merged. The two or more records presented to the provider are indeed unique
+people.
+Additional Resource:
+Further guidance on queries and managing multiple matches can be found in the IIS
+Functional Guide, Vol.1: Query and Response.
+
+                                                                                                                            31
+6.14 How do I indicate disease with presumed immunity when full observation
+date is not known
+
+Sending on OBX with history of disease (LOINC 59784-9) OBX-14 is required when the date of
+the observation is known. A recent decision by SISC clarifies this as “If the appropriate value is
+not known, OBX-14 should remain empty – it is an RE field and is not required in every
+message instance.” If the sender does not know the full date, and only knows the year and
+month, there are two options:
+
+    1. Do not send a value in OBX-14, leave it blank
+    2. Send only the YYYYMM in OBX-14
+Option #2 is technically a conformance violation, but may be done if the submitter wishes to
+allow systems capable of accepting a partial data to receive this information. Receiving
+systems that cannot accept this value should continue to process the message as OBX-14 is an
+RE field. A conformance issue here should cause that system to treat this field as a blank.
+
+6.15 Why is dose validity not required for all vaccinations?
+
+Dose validity may not be applicable to all vaccinations, therefore it can't be required.
+However, IISs should send dose validity for all vaccinations that are evaluated.
+
+6.16 Why are error segments in the RSP only 0..1?
+
+This is a limitation of the base HL7 standard with guidance on how to pick the one error to
+return when multiple errors might exist.
+Additional Resource:
+guidance_for_hl7_acknowledgement_messages_to_support_interoperability_.pdf
+(immregistries.org)
+
+6.17 What to send back when there is an error in a query.
+
+An RSP^Z33 should be used instead of an RSP^Z23.
+
+                                                                                                                            32
+6.18 What is the best approach for returning the information to the requestor
+        when presented with a query request (QBP) for vaccine history, given the
+        requesting facility was the one who administered the vaccine or even the one
+        who reported it?
+
+We know of no requirement for which an IIS should report “00” administered vaccinations as
+being administered. The use of this field is primarily to support EHR reporting to the IIS and to
+differentiate the vaccinations that might need to be decremented and represent a primary
+source of the record. I think many IISs return the information source flag as sent in. However,
+this is changing because IISs are now reporting to other IISs; and the current recommendation
+for those entities is for the IIS to report and receive all vaccinations from other IISs as being
+“historical”.
+Getting into more details I would say the following is correct:
+
+    • An IIS can represent administered vaccinations as either administered or historical.
+         There is no general guidance that the IIS must do one or the other.
+
+    • An IIS should send all the information it has (unless prevented by policy or law). So,
+         send the administered amount when known.
+
+    • Any information you might send with an administered vaccination can also be sent with
+         a historical record. You do not have to limit the information of an administered dose if
+         you represent it as a historical.
+
+    • You could look at reporting a different information source code such as 08, but we
+         have not seen anyone do this and it will likely lead to confusion and problems for
+         others.
+
+Having a policy of simply always reporting the vaccinations as historical seems to be a very
+practical solution, unless you can find a good business reason why your partners need to
+know the distinction.
+Additional Resource:
+https://repository.immregistries.org/files/resources/5a83216a1d369/aira_functionalguidevol1_
+final.pdf
+
+                                                                                                                            33
+6.19 Should patient first name, last name or DOB be a hard rejection (AR) and the
+message rejected completely since these are crucial data elements?
+
+No, these should be “AE”. HL7 V2 (the base international standard) is very specific that “AR” –
+unfortunately – can only be used in very limited situations. See the ACK Guidance document
+for discussion/definition on this. These examples would be “AE” with a Severity of “E”.
+Historically, some IISs define a concept of “hard rejection” and use “AR” to signal this. However,
+this is not a concept defined in the IG, and the use of “AR” this way is not consistent with the
+current guide or recent ACK Guidance. The correct response should be “AE” to indicate the
+data needs to be corrected and resubmitted. Application reject (AR) can only be used in very
+limited situations. See the ACK Guidance document for discussion/definition on this.
+Additional Resource:
+IIS Health Level 7 (HL7) Implementation | CDC
+
+6.20 We don't really reject any message if RXA is missing required fields that we
+deem need to be there. However, we would want to send back an AE and error
+warning severity of W so the provider would fix the transaction since there is a loss
+of information.
+
+If the message doesn’t justify the provider (or EHR) to take action and resubmit, the ACK would
+contain either “AA” (with no err segments), “AA” with only “I” level severity, or “AE” with “W”
+level ERR segments. No “E” level ERR segments here.
+If important information has been lost, and you would like to request the submitter to fix and
+resend, then you must indicate this with a warning severity of “E”. You are still free to process
+as much or as little of the message as your business rules allow. For example, you could
+process the other vaccinations while indicating one of them has a problem and requires
+resubmission of the entire message.
+Additional Resource:
+https://repository.immregistries.org/resource/guidance-for-hl7-acknowledgement-messages-
+to-support-interoperability/
+
+                                                                                                                            34
+6.21 We will not store a vaccination with a bad date but we may still accept the
+       patient information on the same message. Should we indicate this as AE or
+       AW at the error level?
+
+In this situation, you can still store any information in the message that is good, while still
+rejecting the message for correction and resubmission. That is, you can map the patient and
+issue an AE + E for the RXA errors. An AE + E is an indication to the EHR that errors must be
+corrected and resubmitted. Of course, on resubmission you’ll get the patient again, but this
+approach allows you to store as much good data as possible while the IIS should be
+deduplicating duplicate reports anyhow. For example, if a message contained five vaccination
+events with four of them being good and one of them being bad, you can store the patient in
+order to maintain the four good immunizations; and reject the bad with an AE + E for
+correction and resubmission. The EHR might resubmit the entire five vaccination events again,
+but that shouldn’t be a problem for the IIS.
+Additional Resource:
+American Immunization Registry Association | Resource Repository (immregistries.org)
+
+6.22 Anything that would be error warning of severity of I would be an AA
+response.
+
+This is correct, provided there are no “W” or “E” severity errors.
+
+6.23 One jurisdiction has not allowed insurance companies to use QBP/RSP on
+the MIIS due to state legislation. Should insurance companies be allowed to query
+the registry like normal providers or should we set up a specific specification for
+insurance companies?
+
+This inquiry is a policy question. The IG defines a QBP/RSP mechanism but does not define
+who the IIS may authorize to use the functionality. There is nothing technically preventing you
+from using the same QBP/RSP. However, are there demographics or other data that you
+return to providers which wouldn’t be able to be returned to insurance companies? If so, then
+you probably have a couple options.
+
+                                                                                                                            35
+6.24 Is it appropriate for an IIS to return an invalid code in an RSP, if it was in the
+         original VXU message that was sent? Should the IIS only include valid HL7
+         codes in the RSP or is it appropriate to return whatever is in the patient
+         record (valid or invalid)?
+
+We recommend not returning invalid codes. The system that sent the data may be able to
+understand it (since they sent it), but many other receiving systems may struggle to
+understand the code; and this could have unintended consequences. This approach would
+work for many fields, but not all fields; especially for those fields with are considered more
+critical which can potentially change the meaning of the overall data.
+
+6.25 While reactions go with the vaccine, should there be a RXA with 998 (no
+vaccine), followed by comment OBXs? This is how we are sending it the in Z22
+message.
+
+If the IIS decides to report this back out on a query, then they would report it as you have
+shown below, under a CVX 998 code. This is the same location to which CDS recommendations
+are sent. There is no need to put this contraindication under its own RXA/ORC. It can be placed
+with other “patient level” observations. Other than being used to indicate that the following
+OBX segments don’t apply to a specific vaccination (therefore being at the patient level), there
+is no meaning assigned to the ORC/RXA segment when CVX 998 is sent.
+
+Additional Resource:
+
+https://repository.immregistries.org/files/resources/5938386822754/message_structure_guida
+nce_document_v1_1__formatted.pdf
+
+6.26 For the LOINC codes 30956-7 Vaccine Type and 38890-0 Component type
+we are sending the CVX for “unspecified formula”. For COVID, we would like to use
+the specific vaccine CVX (currently 207 and 208) and not use 213.
+
+ • Evaluation should always use the unspecified code. The specifics of the vaccine type
+    administered are found in the RXA segment.
+
+ • Forecasting should use the unspecified code until the IIS knows dose one. Given current
+    ACIP recommendations, it then seems logical (and recommended by ACIP and documented
+    in CDSi) to forecast a specific second dose. Obviously, this can/will change as ACIP
+    recommendations change, so it should be configurable to plan for the future. This does
+    happen occasionally in other cases (e.g., MenB), though rare and almost never (that I can
+    think of) happening prior to the first dose. In general, using the Unspecified code is
+    preferred so as not to cause confusion (e.g., recombivax is forecasted, but the provider
+    doesn’t have that in stock, Can they use another product?).
+
+                                                                                                                            36
+6.27 How can we retrieve complete immunization history of the same record we
+just inserted? The QPD segment, does not seem to have any unique identifier.
+
+QPD-3 PatientList is equivalent to the PID-3 Patient Identifier List. You should put your MRN in
+this field, just as you would in PID-3. Most IISs require this field to be populated and use your
+MRN as a strong indicator of which patient to return.
+
+6.28 Is it permitted to respond with a Z42 message in response to either a Z34 or
+Z44 query and let the Provider decide whether to consume the forecast or not?
+
+This approach isn’t standard per the HL7 2.5.1 Rel 1.5 IG. The IG defines a set of transactions
+related (see tables 7-2 and 11-2). Responding with a Z32 message upon receiving a Z42
+message is inconsistent with the national IG and should be avoided. Because the national IG
+does not exclude particular LOINC codes from a given profile, a forecast may be included in
+both Z32 and Z42 messages so they – in essence – overlap, but each meet the requirements of
+their respective profiles. For MU3, EHRs will be required to consume and display a Z42
+response. The IIS will need to declare readiness for returning a Z42.
+
+                                                                                                                            37
+  7. Transport
+
+7.1 With the CDC WSDL, should the same endpoint be used for both VXU/ACK
+and QBP/RSP messages or should there be two separate end points?
+
+The HL7 2.5.1 Rel. 1.5 IG is silent on the transport mechanism, but we recommend
+implementing the CDC WSDL. Currently, a single endpoint is the arrangement used by all
+known IISs. Requiring partners to use two separate URLs will likely cause interoperability
+headaches and barriers.
+
+7.2 Which webservice protocol is recommended, REST or SOAP?
+
+In 2011, a panel of industry experts concluded that SOAP Web Services was the best fit for
+meeting the needs of transmitting immunization data via HL7 messaging. The experts also
+defined a WSDL for all trading partners to implement, with the goal that all trading partners
+implement at least the nationally specified WSDL. This doesn’t preclude IISs and others from
+supporting additional transport layers.
+It’s important to note that the top priority for transport is to support sending of HL7 messages.
+Any transport protocol that the sender and submitter can each support is acceptable for
+sending immunization data in production system. The SOAP standard is recommended by the
+community and has been widely adopted by nearly every IIS. Systems that can support this
+protocol have at least one common transport mechanism that will work seamlessly with
+most/all IISs and EHR systems working in the immunization space.
+Additional Resources:
+
+    • https://www.cdc.gov/vaccines/programs/iis/technical-guidance/soap/services.html
+    • Transport 101
+    • SOAP WSDL 101
+
+                                                                                                                            38
+  8. Constraining Local Profiles
+
+8.1 Where can I find guidance for local guide authors about how R, RE, O, and X
+usages can be changed in a local IG?
+
+Some basic rules for constraining the national IG are documented in the conformance chapter
+(Chapter 2B starting in version 2.6) of the HL7 base standard. While Chapter 2B makes its first
+appearance in version 2.6, the content is applicable to all versions of HL7. We recommend
+examining the most recent version (2.8.2) of the base HL7 standard when reading Chapter 2B.
+In general, a local IG is only allowed to add constraints to the national IG, not loosen them. For
+example, an RE (required but allowed to be empty) usage can be tightened to be R (Required)
+but cannot be loosened to O (Optional).
+When expanding value sets used in a local IG, consider the following:
+
+         • Where possible be very specific about which values in a value set you require to be
+              supported by a trading partner.
+
+         • Consider any functional implications for the new value(s). Some new values may
+              impose a new requirement for functionality or workflow in the trading partner
+              system.
+
+         • If the concept being added to the value set is already represented by a permitted
+              value in the value set that permitted value must be used.
+
+         • A local code cannot be added to an open value set to represent an explicitly
+              excluded concept already listed in the value set.
+
+         • Once a value is included in a value set, it cannot be redefined. For instance, once B
+              is defined as Blue, it cannot be redefined as Baby Blue. A new code must be created
+              for the new concept.
+
+8.2 Can a derived specification use data elements with an Optionality of B
+(backwards compatible) or W (withdrawn)?
+
+Per Chapter 2b (Conformance) of the base standards, derived specifications can still use
+Backwards Compatible data elements (they can be assigned a Usage of R, RE, O or C (a/b)).
+
+Elements in the base standards with an Optionality of W (withdrawn) can only be given a
+Usage of X in a derived specification.
+
+                                                                                                                            39
+8.3 Profile Z31 in the HL7 2.5.1 Rel 1.5 IG provides information about what needs
+to be done in case there are a list of potential matches for a query. Is there any
+standard for the threshold of the maximum number of potential matches that an
+IIS sends?
+
+No, the IIS maximum is a local policy decision. Keep in mind the sending system also uses RCP-
+2 to set an upper limit on the number of candidates it will accept in response to a query. It
+expects that a responding system will send no more candidates than this number. The
+maximum number of candidate patients should be no more than the lower of these two
+numbers.
+
+                                                                                                                            40
+  9. Evaluating Conformance
+
+9.1 When should the receiving system apply Conformance Statements and other
+requirements from the HL7 2.5.1 Rel. 1.5 IG?
+
+Receiving systems should apply business rule checks that align with IIS policies for quality of
+incoming data and only verify conformance statements supporting those IIS policies. IISs are
+not required to verify HL7 conformance for every received message, and if they do, they
+should indicate the severity of violations consistent with IIS policy. IISs should focus on
+receiving good data, not on enforcing every conformance rule.
+
+                                                                                                                            41
+  10. Emergency Response
+
+10.1 During emergency responses, it may be important to track and share
+vaccination information for priority groups, such as those in with particular risk
+factors or those in a specific line of work. Is there a way of doing so?
+
+Yes, AIRA has been working on guidance for reporting information on specific population
+groups and tiers (see: https://repository.immregistries.org/resource/priority-group-
+preliminary-guidance/) for HL7 messaging. Population groups could be categorized based on:
+occupation, risk factors, or other information about the person; and in accordance with CDC
+or local guidance.
+This information would then be messaged in an OBX segment at either the patient or
+vaccination level:
+
+         OBX|2|CE|95715-9^ Population group^LN |1| COVID-01^Deployed \T\ mission
+         essential personnel^999||||||F|||20200654
+
+10.2 Is there any additional information on documenting COVID OBXs specifically
+eligibility and funding codes at this time?
+
+COVID OBXs were discussed on the October 2020 SISC call. Most participants on the call
+thought the proposed solution of coding funding source as Public (VXC50) and Eligibility as Not
+VFC Elig (V01) would be workable.
+This solution is workable for now, and when it is no longer federally funded, the COVID
+vaccines should be coded as appropriate.
+
+10.3 Regarding the CVRS, where should providers place VTrckS Provider PIN in
+their HL7 messages to IISs?
+
+EHR providers are not being asked to put VTrckS pin anywhere, not even RXA-11.4.2. That
+might be something for reporting to CVRS, but it’s not directly related to what EHR’s are
+sending to IISs. EHR systems should follow and meet the requirements of the current guide
+whereas IISs are responsible for meeting the additional reporting requirements that CVRS
+maintains.
+
+                                            Questions about this FAQ?
+                                Contact the AIRA Technical Assistance Team
+                     Using either this weblink, or email info@immregistries.org.
+
+                                                                                                                            42
+

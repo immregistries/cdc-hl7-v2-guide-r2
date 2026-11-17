@@ -1,0 +1,873 @@
+Preliminary
+Guidance on
+Serologic Testing
+
+Vocabulary and HL7 Guidance for
+Mass Vaccination Event Data
+Capture
+
+September 2020
+Contents
+
+Background ......................................................................................................................................2
+Scope of Guidance............................................................................................................................2
+
+   In scope..........................................................................................................................................2
+   Out of scope ..................................................................................................................................4
+Guidance............................................................................................................................................ 5
+   Available standards ......................................................................................................................5
+   Lab result workflow and content ................................................................................................ 6
+   Sources of data .............................................................................................................................7
+   VXU^V04 message structure ....................................................................................................... 8
+   ORU^R01 message structure ......................................................................................................8
+   Common important data elements..........................................................................................10
+   Processing and storing data ......................................................................................................13
+   Code sets .....................................................................................................................................14
+   New codes ...................................................................................................................................14
+Appendix A: Examples and Test Cases ........................................................................................16
+Appendix B: Items for Future Discussion ....................................................................................18
+
+      Queries .....................................................................................................................................18
+Appendix C: Vocabulary and Acronyms.......................................................................................19
+
+   Vocabulary ...................................................................................................................................19
+   Acronyms .....................................................................................................................................19
+Appendix D: References and Technical Resources.....................................................................20
+Appendix E: Acknowledgements ..................................................................................................21
+
+      SISC Small Group ....................................................................................................................21
+      American Immunization Registry Association (AIRA)..........................................................21
+
+                                                                                                                               1
+Background
+
+A workgroup of subject matter experts was convened          Preliminary Guidance
+over the course of several weeks in 2020 to determine
+the technical requirements for an IIS receiving and         This guidance was published in
+storing messages containing serologic results as proof      preliminary format to assist IIS, EHR
+of immunity. The effort was initiated proactively to        vendors, and other stakeholders in
+address the potential need for IIS to support               preparing for the technical
+documentation of serologic proof of immunity to             requirements of the COVID-19
+severe acute respiratory syndrome coronavirus 2             response. This document will be
+(SARS-CoV-2), the virus that causes COVID-19.               updated as necessary over the
+                                                            course of the response. See
+Serologic testing may be used to determine an               Appendix A for items that have not
+individual’s immunity to a specific pathogen. The           been clarified and still require
+Advisory Committee on Immunization Practices (ACIP)         community discussion.
+recognizes serologic testing, reflecting the belief that a
+
+therapeutic response may qualify an individual as
+
+immune. Test types may vary, and therapeutic response may require a specific threshold
+
+or a qualitative result indicating immunity.
+
+A precedent exists for IIS to receive and store serologic proof of immunity for chickenpox,
+hepatitis B, and other diseases. A survey conducted by the Centers for Disease Control and
+Prevention with all 64 US and US territory immunization programs indicated that most IIS
+had some capacity for capturing assertions of serologic proof of immunity. Research of
+public health laboratory practices related to the receipt and storage of serologic test results
+indicated persistent use of HL7 messaging to transport this information between electronic
+health systems and registries.
+
+Policies regarding the acceptability of serologic testing as proof of immunity to COVID-19
+may vary among jurisdictions. Many factors may influence the validity of serologic tests,
+including the uncertainty that the presence of antibodies, even at a level deemed
+“therapeutic,” confirms lasting immunity to COVID-19. This guide does not address the
+clinical, policy, or interpretive elements related to testing or test results.
+
+The purpose of this guide is to cover the technical aspects of the receipt and storage of
+serologic test results in an IIS. While this guidance uses COVID-19 as the primary use case
+example, this document is intended to provide general guidance. Two additional examples
+of when this could be used are dengue fever (new vaccine under review) and varicella. The
+scope of this effort is described below.
+
+Scope of Guidance
+
+In scope
+
+The scope of work of the Documenting Serologic Immunity in the IIS Guide includes
+managing the receipt of HL7 messages including negative, positive, and unknown serologic
+
+                                                                                            2
+test results, both qualitative and quantitative test values, and the date the test results were
+confirmed. The test type is currently not in scope but may be inherent in the response type.
+Reference materials include a link to a modeling document produced by Logica Health
+where various test types can be found.
+
+The table below provides additional explanation for what is included within the scope of
+the guide.
+
+Table 1 – In scope
+
+Description             In Scope                        Notes
+Data submission         HL7 messages containing         Annual influenza clinic for a
+                        test date, test type, and test  college campus, COVID-19
+Serologic test date     results of serologic tests      pandemic vaccine, or
+                                                        vaccination campaign in
+Serologic test result   Date of observation (sample     response to a natural disaster
+types                   collection)                     or bioterrorism threat.
+                        Date of analysis (test run)
+Lack of serologic test                                  The IIS should receive and store
+results                 Quantitative – Examples:        the date the test results were
+                        single value (ml), range of     documented by the health care
+Type of serologic test  values                          provider to confirm an
+                        Qualitative – Examples:         individual was tested and test
+                        positive, negative, detected,   results are available.
+                        not detected
+                                                        The IIS should have the capacity
+                        May be included as part of      to receive and store both
+                        the messaging in                quantitative and qualitative test
+                        observation result (ORU)        result values in order to
+                        segments                        accommodate the various test
+                                                        types using each value.
+                                                        The IIS will accept the values as
+                                                        sent, without clinical
+                                                        interpretation.
+
+                                                        The IIS should differentiate
+                                                        between a test given with any
+                                                        result (including negative or
+                                                        indeterminate) and lack of a
+                                                        test so that the IIS can support
+                                                        an individual’s test status as
+                                                        unknown.
+
+                                                        A variety of serologic tests exist,
+                                                        and differentiating test type
+                                                        supports the validation of the
+                                                        test result values.
+
+                                                                                             3
+Out of scope
+
+The scope of the guidance does not extend to detailed information about the various test
+types. Manufacturer, trade name, and lot number are not likely to be available from ORU
+messages and, therefore, are out of scope for the guidance. Viral tests are used to
+diagnose COVID-19. These tests indicate infection but do not infer immunity. The receipt
+and storage of diagnostic test results are not included in the guidance. At this time, the
+capability of the IIS to query for serologic test results or to be queried for serologic test
+results is not included in the guide.
+
+The table below provides additional explanation for what is not included within the scope
+of the guide.
+
+Table 2 – Out of scope
+
+Description               Out of Scope                    Notes
+Query                     Inclusion of known              All may be useful in the
+                          serologic test results for a    future, but the urgency of
+Diagnostic testing        patient as part of a query by   this guidance prohibits the
+Manufacturing details of  parameter (QBP) message         inclusion of querying of and
+tests                     from a provider.                by the IIS for serologic test
+Use of test results       Health system query of the      data, which is out of scope
+                          IIS for response (RSP)          for this project.
+                          containing serologic testing
+                          results.                        At this time, ACIP does not
+                          IIS query of other systems      indicate that diagnostic
+                          to obtain serologic testing     testing for COVID-19 can be
+                          results.                        used to infer immunity for
+                          Diagnostic testing does not     COVID-19.
+                          substitute for serologic        These data are not available
+                          testing as a source for         from ORU messages and
+                          inferring immunity.             will not be included in HL7
+                                                          messages.
+                          Manufacturer                    Whether or not immunity is
+                          Trade name                      included in the forecasting
+                          Lot number                      recommendations will
+                                                          ultimately be decided by
+                          The downstream uses,            ACIP, and implementation
+                          including use of the data in    guidance will be covered by
+                          forecasting, of the test        CDSi Logic Guidance.
+                          result data once it is stored.
+
+                                                                                               4
+Guidance
+
+Available standards
+
+HL7, AIRA, and CDC have published or are developing a number of interoperability
+standards and guides which may be relevant to the exchange of patient-level serologic
+data. The following standards may be relevant to the remainder of the document.
+
+    • HL7 Version 2.5.1 Implementation Guide for Immunization Messaging
+              o This is the current implementation guide (IG) for immunization messaging
+                   and contains guidance on transmitting non-discrete serologic and presumed
+                   immunity data elements. It is expected that additional functionality regarding
+                   discrete lab results will be required in addition to the current requirements in
+                   the current IG.
+              o https://repository.immregistries.org/files/resources/5bef530428317/hl7_2_5_
+                   1_release_1_5__2018_update.pdf
+
+    • AIRA Guidance on Detailed Message Structure and the Use of Specific LOINC Codes
+              o This document clarifies the use of LOINC codes within the messages defined
+                   by the Release 1.5 IG. It provides a more thorough description of exchanging
+                   serologic evidence of immunity and presumed evidence of immunity as part
+                   of a patient-level set of observations.
+              o https://repository.immregistries.org/files/resources/5938386822754/messag
+                   e_structure_guidance_document_v1_1__formatted.pdf
+
+    • HL7 Version 2.5.1 Implementation Guide: Electronic Laboratory Reporting to Public
+         Health
+              o This is the IG that many electronic health records (EHRs) and lab systems
+                   have implemented for exchanging reportable results with Public Health. This
+                   standard is currently being used to electronically exchange COVID-19 lab
+                   results. Note that several versions of this IG exist, although the basic
+                   requirements for the lab results message are the same regardless of version.
+                   Also note that the most recent version of this standard was incorporated as a
+                   “Public Health Reporting” profile in the context of the larger Laboratory
+                   Results Interface (LRI) implementation guide. At this point, we expect that
+                   most implementations of reporting to Public Health are using one of the
+                   earlier (ELR) specifications rather than the newer LRI specification.
+              o HL7 Version 2.5.1 Implementation Guide: Electronic Laboratory Reporting to
+                   Public Health, Release 1 (US Realm)
+              o HL7 Version 2.5.1 Implementation Guide: Electronic Laboratory Reporting to
+                   Public Health, Release 2 (US Realm)
+              o HL7 Version 2.5.1 Implementation Guide: Laboratory Results Interface, Release 1
+                   STU Release 3 - US Realm
+
+    • HL7 Logica Implementation Guide: Covid-19
+              o Logica is developing a Fast Healthcare Interoperability Resources (FHIR)
+                   implementation guide for the purpose of producing information models and
+
+                                                                                                                               5
+                   terminology to support exchange of COVID-19 related data. While we don’t
+                   expect systems to use FHIR to exchange this type of data any time soon, the
+                   lab result observation profiles defined by this document may be helpful in
+                   associating tests with the relevant LOINC code and result data type.
+              o https://covid-19-ig.logicahealth.org/index.html
+
+Lab result workflow and content
+
+The lab result workflow typically begins with a clinician ordering a test from a catalog of
+tests offered by the lab. A test ordered may be for a single analyte test, or it may represent
+a “panel” of tests. For example, when a lipid panel is ordered, it typically results in
+measurements of total cholesterol, HDLs, LDLs, and triglycerides. Once placed, the order is
+conveyed from the ordering clinician to the lab which will perform the tests. Depending on
+the nature of the relationship between the ordering organization and the performing lab,
+the exchange of order information may be paper based (i.e., a lab requisition form) or
+electronic, and the amount of metadata (i.e., demographics) about the patient conveyed
+will vary. Once the test is performed and the results verified, the results will typically be
+returned electronically to the ordering clinician’s EHR system. It is this electronic result
+message which contains the discrete data potentially of interest to an IIS.
+
+In many workflows, it is possible to cancel a previously placed order, but typically this is
+allowed only prior to the delivery of test results. That is, once a test is performed and a
+result captured, the test can no longer be canceled. Because we do not expect IIS to be
+notified when a test is placed, the cancellation workflow is not of primary importance here.
+
+It is important to understand that lab results can be reported for a patient multiple times.
+When reporting to the clinician’s EHR, preliminary results are often reported followed by an
+updated message when the results are finalized. Further, even final results may be
+updated to a status of corrected. This is in contrast to vaccination messages where
+observations are typically only “final” and are not updated. When consuming lab result
+messages, it will be important that IIS allow for the update of lab results. As well, the same
+test may be performed for a given patient multiple times using multiple, independently
+collected specimens. For example, a serologic test may be ordered and a new specimen
+collected for a given patient over time to measure if immunity is persisting. It is important
+for a system to be able to distinguish an updated test result from a repeat of the test for
+the same patient.
+
+Most discrete lab result results are exchanged as observations using a “question and
+answer” format. In HL7 v2, this equates to an observation (OBX) segment where the
+“question” is found in OBX-3 (usually as a LOINC code, although local codes are also
+possible) and the “answer” is found in OBX-5.
+
+We expect that the data type of the answer in OBX-5 (as indicated in OBX-2) will vary by the
+test performed, although it should be consistent for any given test. We expect that most
+COVID-19 related tests will be reported as either a qualitative or quantitative result.
+Qualitative results will likely use a coded data v2 data type (CE, CWE, etc.) with values such
+
+                                                                                                                               6
+as positive/negative or detected/not detected/inconclusive. Quantitative results will use a
+numeric data type (NM or SN).
+
+Being relatively rare, the SN (structured numeric) data type may not be familiar to many
+people, but it is important to be prepared to receive this data type in the OBX segment, as
+the use of a ratio may be common when using serologic tests. The SN data type is used to
+exchange discrete numeric results with qualifications. For example, SN is used to indicate a
+result as a ratio (e.g., 1:2), range (e.g., 5-6), or open-ended range (e.g., <5). When used in
+OBX-5, the SN data type may be composed of up to four elements consisting of:
+
+    • Comparator (=, >, <, <=, >= or <>)
+    • Number
+    • Separator (+, -, / or :)
+    • Number
+
+For example, a value of <5 in OBX-5 appears as <^5 while a ratio of 1:2 appears a ^1^:^2
+
+If receiving data in the SN data type format, it is important that the receiving system
+understand how the results will be used downstream and be prepared to store the data
+elements either discretely or as a string depending on subsequent needs. Please review the
+HL7 base standard for a more thorough description of the SN data type.
+
+Regardless of the context in which an OBX segment is found, the content of the segment
+itself is expected to be very similar, if not identical. That is, it doesn’t matter if the OBX
+segment containing a lab result is part of a vaccination event message (VXU) or a lab result
+message (ORU); the OBX itself should be consistently formatted and populated.
+
+A further discussion of data elements in the OBX segment which can be expected in a
+typical lab result can be found in the Common Important Data Elements section later in the
+document.
+
+Sources of data
+
+Lab tests can be run by laboratories certified under the Clinical Laboratory Improvement
+Amendments of 1988 (CLIA), 42 U.S.C. §263a. This includes either high or medium
+complexity tests. Additionally, tests can be run in patient care settings that are operating
+under a CLIA Certificate of Waiver. When lab tests are run by high or medium complexity
+laboratories, the patient sample may be collected in a patient care setting, and test results
+may be returned to the patient care provider.
+
+As a result, there are two main sources of first-party data:
+
+    • CLIA-certified laboratories (electronic laboratory reporting (ELR) systems)
+    • Patient care providers (including physicians with EHR systems and other non-
+
+         traditional providers such as pharmacies or nursing services)
+
+Additionally, third-party data may be available from:
+
+    • Public Health
+
+                                                                                                                               7
+              o State or jurisdictional disease surveillance systems
+              o State-to-state IIS data exchange
+    • Health information exchanges (HIEs)
+    • Payors, such as Medicaid/Medicare or private health plans
+
+It is important not to add burden to existing systems and data feeds. One option to allow
+the IIS to receive data without increasing the burden on lab systems would be to split the
+feed that is directed to the state or jurisdiction disease surveillance system. With this
+approach, an ORU would be redirected to the IIS, and the IIS could consume it as an ORU or
+convert it to a VXU (vaccination record update) and then consume.
+
+VXU^V04 message structure
+
+Most readers of this document will be familiar with the basic structure of the VXU message
+type; however, a brief summary will be provided to facilitate a comparison to the ORU
+message type typically used for lab results.
+
+For the purposes of reporting vaccination events, the key segments within the VXU
+message as defined by the Release 1.5 IG are:
+
+    • MSH – Message header
+    • PID – Patient identifier
+    • PD1 – Patient demographics
+    • NK1 – Next of kin
+    • ORC – Order request
+    • RXA – Administration
+    • RXR – Route
+    • OBX - Observation result
+
+The data central to the vaccination event is contained with the ORC/RXA/RXR group, but
+additional related data may be included as observations in repetitions of the OBX segment.
+Where the observation is associated with a vaccination event (e.g., the patient’s eligibility
+status or an adverse reaction), the OBX segment follows the ORC/RXA/RXR group
+describing that vaccination event. However, some observations, such as evidence of
+immunity, are not linked to a vaccination event and are grouped as part of a set of patient-
+level observations as described in the AIRA Guidance on Detailed Message Structure and the
+Use of Specific LOINC Codes. It is expected that any discrete laboratory results transmitted in
+a VXU message would be exchanged as OBX segments in the patient-level group.
+
+ORU^R01 message structure
+
+Typically, lab results are exchanged using an ORU^R01. This message structure shares
+many segments with the VXU message and should look familiar to most readers. For the
+purposes of reporting laboratory results, the key segments within the ORU message as
+defined by the HL7 Version 2.5.1 Implementation Guide: Electronic Laboratory Reporting to
+Public Health are:
+
+    • MSH – Message header
+
+                                                                                                                               8
+    • PID – Patient identifier
+    • NK1 – Next of kin
+    • PV1 – Patient visit
+    • ORC – Order request
+    • OBR – Observations request
+    • TQ1 – Timing/quantity
+    • OBX – Observation result
+    • NTE – Notes and comments
+    • SPM – Specimen
+
+While the ORU message does contain several types of segments not found in a VXU
+message (e.g., PV1, TQ1, and SPM), we expect that these segments will not significantly
+impact the logic executed by an IIS when considering the impact of COVID-19 test results
+on vaccine recommendations.
+
+The OBR segment in the ORU message in many ways is akin to the RXA
+(pharmacy/treatment administration) segment of the VXU message. The OBR segment will
+typically contain both the placer and filler identifiers associated with the order (note that
+these are also found in the ORC segment) as well as the test ordered (be it a panel or an
+individual test). One OBX segment should be present for each individual test performed. To
+return to the lipid panel example from above, the OBR segment will contain a code in OBR-
+4 representing the lipid panel that was ordered, and the message would be expected to
+contain four OBX segments, one for each analyte (total cholesterol, LDL, HDL, and
+triglycerides). For expected IIS purposes, it is the content of the OBX segments (the actual
+results) and not the OBR segment (the test orders) which will be of importance.
+
+While less common, it is also possible that an NTE segment may follow an OBX segment.
+When this happens, the NTE typically contains a comment relating to the result in the
+preceding OBX segment. The comment may describe a particularly complex reference
+range for the test or provide additional data about the result. Regardless of the exact
+content of the NTE, this segment is unlikely to contain discrete data useful for automated
+forecasting functions. When implementing the ability to receive lab results, it is worth
+exploring the contents of the NTE segment for the specific use cases being implemented.
+
+As will be described in the following section, the contents of the core PID, ORC, and OBX
+segments are expected to be relatively similar between the VXU and ORU message types.
+
+It is important to note that, while many labs and EHRs have implemented support for the
+ELR standard, not all reportable result messages flowing to Public Health strictly abide by
+this standard and that there may be local variation in message content. However, we
+expect that the core data element used for patient matching (in PID) and the discrete lab
+result (in OBX) will be found in most messages. Still, receiving systems should be validating
+the completeness of the results received.
+
+                                                                                                                               9
+Common important data elements
+
+As noted above, the contents of the critical message segments (PID and OBX) should be
+relatively similar between the VXU and PID message types.
+
+It is expected that the contents of the PID segment will primarily be used for patient
+matching purposes. Most of the demographic elements used for this purpose are included
+in both message types. It should be noted that, depending on the workflow that transmits
+ordering information from the clinician to the lab, sometimes only minimal patient
+demographic data will be available in the result (ORU) message. This may impact the IIS’s
+ability to perform patient matching. Based on past experience and input from commercial
+labs, we expect that most result messages will consistently contain the patient name, date
+of birth, and gender and that additional demographics, such as address and phone
+number, will be included when they are available to the lab.
+
+Table 3 - PID data elements
+
+PID Data Element      VXU Profile  ORU Profile  Comments
+                      Usage        Usage
+PID-3 (patient        R [1..*]     R [1..*]     The patient ID received
+identifier)                                     from vaccination
+                                   R [1..*]     submitters and the lab
+PID-5 (patient name) R [1..*]      RE [0..1]    might not be the same
+                                                for a given patient.
+PID-6 (mother’s       RE [0..1]    RE [0..1]
+                                   RE [0..1]    Mother’s maiden name
+maiden name)                       RE [0..*]    is less likely to be
+                                   RE [0..*]    available on a lab result.
+                                   RE [0..*]
+PID-7 (date/time of   R [1..1]     RE [0..*]
+birth)                             O [0..1]
+PID-8                 RE [0..1]    O [0..1]
+(administrative sex)
+PID-10 (race)         RE [0..*]
+PID-11 (address)      RE [0..*]
+PID-13 (home          RE [0..*]
+phone)
+PID-22 (ethnic        RE [0..1]
+group)
+PID-24 (multiple      RE [0..1]
+birth order)
+PID-25 (birth order)  RE [0..1]
+
+                                                                                       10
+The ORC segment from the lab result message should contain similar data elements as
+found in VXU messages. This order-level information is important for deduplication of test
+results.
+
+Table 4 – ORC data elements
+
+ORC Data Element VXU Profile Usage  ORU Profile Usage  Lab Results
+ORC-1 (control code) R [1..1]       R [1..1]           Comments
+                                                       VXU messages and
+ORC-2 (placer order  RE [0..1]      RE [0..1]          the majority of ORU
+number)              R [1..1]       R [1..1]           messages will have
+ORC_3 (filler order                                    a value of “RE” in
+number)                             RE [0..1]          ORC-1, but cancel
+                                    O [0..1]           messages are
+                                                       included in the
+                                                       scope of the
+                                                       exchange (see
+                                                       above); values of
+                                                       “CA” or “OC” may be
+                                                       possible.
+
+                                                       Different orders will
+                                                       have different filler
+                                                       IDs. An update to a
+                                                       previous result
+                                                       should have the
+                                                       same filler ID.
+
+ORC-12 (ordering     RE [0..1]
+provider)            RE [0..1]
+ORC_17 (entering
+organization)
+
+The OBX segment from the lab result message will likely contain additional data elements
+not typically found in VXU messages; however, the core OBX fields should be similar.
+
+                                                       11
+Table 5 – OBX data elements
+
+OBX Data Element     VXU Profile  ORU Profile  Lab Results Comments
+OBX-2 (value type)   Usage        Usage
+                     R [1..1]     R [1..1]     This indicates the data type of
+                                  R [1..1]     the result in OBX-5.
+OBX-3 (observation   R [1..1]     RE [0..1]    This will contain the test code,
+identifier)          R [1..1]                  typically using LOINC.
+OBX-4 (sub-ID)                    R [1..1]     This may be present only when
+                                               a single message contains
+OBX-5 (value)        R [1..1]     RE [0..1]    multiple OBX segments with
+                                  RE [0..1]    the same OBX-3 value.
+OBX-6 (units of      RE [0..1]                 OBX-5 may be empty, and for
+measure)             O [0..1]     RE [0..*]    IIS purposes this is meaningful
+                                               on an update to clear a
+OBX-7 (reference                  R [1..1]     previous value.
+range)                            RE [0..1]    This should be populated only
+                                               for quantitative results where
+OBX-8 (abnormal      O [0..1]     RE [0..1]    OBX-2 is NM or SN.
+flag)                                          This indicates the “normal”
+                                               range of test results. This is
+OBX-11 (result       R [1..1]                  more common for quantitative
+status)              RE [0..1]                 tests.
+OBX-14 (observation                            This indicates the “normalcy”
+date/time)                                     of the result. Typically only
+                                               “abnormal” results are flagged
+OBX-17 (observation O [0..1]                   using OBX-8.
+method)                                        E.g., final, preliminary
+
+                                               This is typically the time the
+                                               specimen was collected. This
+                                               field can be used to help
+                                               distinguish an “updated” result
+                                               from a “new” result for a given
+                                               patient. An “updated” result
+                                               should always have the same
+                                               OBX-14 value as a previous
+                                               result.
+                                               Some tests in OBX-3 can be
+                                               performed via different
+                                               methods.
+
+                                               12
+OBX Data Element    VXU Profile  ORU Profile  Lab Results Comments
+                    Usage        Usage
+OBX-19 (analysis    O [0..1]     RE [0..1]    Time the testing was
+date/time)                                    performed.
+OBX-23 (performing  O [0..1]     R [1..1]     Who performed the test (note
+organization)                                 that the lab’s address and
+                                              medical director are also
+                                              provided in OBX-24 and OBX-
+                                              25).
+
+Processing and storing data
+
+Currently, IIS receive, process, and store data observations for contraindications,
+precautions, indications, and immunity that impact the patient immunization
+recommendations. The general immunity scenarios, based on laboratory evidence of
+immunity, are supported with the following two codes from the NIP003 CDC-defined code
+table for observation identifiers:
+
+    • 59784-9: Disease with presumed immunity
+    • 75505-8: Serologic evidence of immunity
+
+The current identifiers provide only for the sending and storing of a positive result. In order
+to store additional detail about the result, including the type of test and either a qualitative
+or quantitative result, the IIS will need the following:
+
+    • Data model to store this information
+              o IIS should store the test result and the test date as received.
+                         The IIS can infer a meaning from a quantitative result but should store
+                             the original values, as the implications for immunity on a quantitative
+                             result may change as more is learned.
+              o The IIS should be able to store multiple test results, on different dates, for
+                   the same test type and patient.
+                         As not all immunity results confer lifetime immunity, the patient’s
+                             immunity may change over time.
+                         The IIS should support updates to a test and differentiate an update
+                             from a new test for the same patient. This can be done by storing the
+                             order number as a unique identifier for the test or by comparing the
+                             specimen collection date/time.
+              o Lack of immunity information should not be treated as a negative result, so
+                   the IIS should support differentiating between a negative result and “test not
+                   given” in the business logic.
+              o The HL7 specification provides for two dates: the date of sample collection
+                   and the date the analysis was performed. If the IIS chooses to record only
+                   one date, the date of sample collection should be used.
+
+                                              13
+• Business logic to incorporate patient immunity into the immunization
+    recommendations
+         o This will be based on the ACIP guidance for COVID-19 (and any additional
+              vaccine where the patient’s immunity status is significant, such as dengue
+              fever).
+
+Code sets
+
+NIP003 (values supported in the HL7 2.5.1 specification)
+
+Table 6 - LOINC codes
+
+LOINC    Description    Corresponding  Corresponding Observation Value
+Code                    Data Type      (OBX-5)
+59784-9  Disease with   (OBX-2)
+         presumed       (CE)           Value Set OID -
+75505-8  immunity                      2.16.840.1.114222.4.11.3293
+                        (CE)           Value Set Code:
+         Serologic                     PHVS_EvidenceOfImmunity_IIS
+         evidence of                   For COVID-19, use 840535000 (Antibody
+         immunity                      to SARS-CoV-2).
+                                       Value Set OID -
+                                       2.16.840.1.114222.4.11.7245
+                                       Value Set Code:
+                                       PHVS_SerologicalEvidenceOfImmunity_IIS
+                                       For COVID-19, use 840535000 (Antibody
+                                       to SARS-CoV-2).
+
+New codes
+
+COVID-19 tests are currently authorized under Emergency Use Authorizations (EUA) by the
+FDA. This list is still actively updated and is available here: https://www.fda.gov/medical-
+devices/emergency-situations-medical-devices/emergency-use-authorizations#covid19ivd.
+
+Additionally, guidance for COVID-19 LOINC codes has been created and is available here:
+https://loinc.org/sars-coronavirus-2/.
+
+While both sources contain both diagnostic and antibody tests, it is expected that IIS would
+support receiving antibody tests only for the purposes of representing immunity.
+
+This table is for example purposes only and is not a comprehensive list of possible codes.
+
+Table 7 – COVID-19 LOINC codes
+
+LOINC Code Description                 Corresponding Observation Value
+                                       (OBX-5)
+94507-1  SARS-CoV-2 IgG rapid          (qualitative)
+         immunoassay
+
+                                                                                          14
+94762-2  SARS-CoV-2 antibody (non-       (qualitative)
+         specific) immunoassay
+94769-7
+         SARS-CoV-2 antibody (non-       (quantitative)
+94563-4  specific) immunoassay
+94505-5
+94547-7  SARS-CoV-2 IgG immunoassay (qualitative)
+
+         SARS-CoV-2 IgG immunoassay      (quantitative)
+                                         Units: ml
+         SARS-CoV-2 IgG + IgM (does not
+         distinguish between the two)    (qualitative)
+         immunoassay                     https://covid-19-
+                                         ig.logicahealth.org/ValueSet-covid19-
+                                         det-not-det-inconclusive-vs.html
+                                         260415000Not detected (qualifier
+                                         value)
+                                         419984006Inconclusive (qualifier value)
+                                         260373001Detected (qualifier value)
+
+94661-6  SARS-CoV-2 antibody             (qualitative)
+         interpretation
+
+                                                         15
+Appendix A: Examples and Test Cases
+
+Warning: The HL7 examples shown in this appendix are preliminary and not yet tested or
+verified.
+
+Use Case 1: Serological Evidence of Immunity Test Case 1: Send VXU Z22 Evidence of Immunity
+
+This use case covers the existing functionality within the Release 1.5 IG for sending
+immunity. The example shows how COVID-19 immunity would be sent.
+
+MSH|^~\&|NISTEHRAPP|NISTEHRFAC|NISTIISAPP|NISTIISFAC|20191120142514-
+0500||VXU^V04^VXU_V04|NIST-IZ-
+1.1_EI_Send_VXU_V04_Z22|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS|NISTEHRFAC^C
+DCPHINVS|NISTIISFAC|NISTIISFAC
+
+PID|1||14445^^^NIST-MPI-
+1^MR||Jackson^Hazel^^^^^L|Willis^^^^^^M|19900312|F||2131-1^Other
+race^CDCREC|2501 Duval
+Street^^Austin^TX^78704^USA^P||^PRN^PH^^^512^5559812|||||||||2186-
+5^Not Hispanic or Latino^CDCREC||N|1|||||N
+
+PD1|||||||||||07^Recall only - no
+calls^HL70215|N|20091120|||A|20091120|20091120
+
+ORC|RE|3598^NIST-AA-IZ-2|9999^NIST-AA-IZ-
+2|||||||9914^Hill^Spencer^Tyler^^^^^wcEHR^L^^^PRN||724^Jordan^Vivian^S
+arah^^^^^wcEHR^L^^^MD|||||wcEHR^West Clinic^HL70362
+
+RXA|0|1|20091120|20091120|998^No vaccine
+administered^CVX|999||||||||||||||NA
+
+OBX|1|CWE|75505-8^Disease with serological evidence of
+immunity^LN|1|840535000^Antibody to SARS-CoV-2^SCT||||||F|||20091120
+
+Use Case 1: Serological Evidence of Immunity Test Case 2: Send VXU/ELR-OBX Z22-covid-lab
+Evidence of Immunity - Quantitative Positive
+
+This use case shows both a quantitative result and a qualitative result (interpretation of the
+quantitative result).
+
+MSH|^~\&|NISTEHRAPP|NISTEHRFAC|NISTIISAPP|NISTIISFAC|20191120142514-
+0500||VXU^V04^VXU_V04|NIST-IZ-
+1.1_EI_Send_VXU_V04_Z22|P|2.5.1|||ER|AL|||||Z22-covid-
+lab^CDCPHINVS|NISTEHRFAC^CDCPHINVS|NISTIISFAC|NISTIISFAC
+
+PID|1||14445^^^NIST-MPI-
+1^MR||Jackson^Hazel^^^^^L|Willis^^^^^^M|19900312|F||2131-1^Other
+race^CDCREC|2501 Duval
+Street^^Austin^TX^78704^USA^P||^PRN^PH^^^512^5559812|||||||||2186-
+5^Not Hispanic or Latino^CDCREC||N|1|||||N
+
+PD1|||||||||||07^Recall only - no
+calls^HL70215|N|20091120|||A|20091120|20091120
+
+                                                                                                                             16
+ORC|RE|3598^NIST-AA-IZ-2|9999^NIST-AA-IZ-
+2|||||||9914^Hill^Spencer^Tyler^^^^^wcEHR^L^^^PRN||724^Jordan^Vivian^S
+arah^^^^^wcEHR^L^^^MD|||||wcEHR^West Clinic^HL70362
+
+RXA|0|1|20091120|20091120|998^No vaccine
+administered^CVX|999||||||||||||||NA
+
+OBX|1|SN|94505-5^SARS-CoV-2 IgG SerPl IA-aCnc^LN^^^^2.44^^Novel 2019
+Coronavirus IgG
+Ratio|1|^1.3|^^^^^^^^[arb’U]|||||F|||20200428103000|||^^^^^^^^EuroImmu
+n Anti-SARS-CoV-2 ELISA (IgG)||20200429173600||||STATE HYGIENIC
+LABORATORY AT THE UNIVERSITY
+OFIOWA^L^^^^CLIA&2.16.840.1.113883.4.7&ISO^FI^^^16D0648109|2490
+Crosspark Road^University of Iowa Research Park^Coralville^IA^52241-
+4721^USA^B^^19103|^Pentella^Michael^^^^^^^L
+
+OBX|2|CWE|94563-4^SARS-CoV-2 IgG SerPl Ql
+IA^LN^^^^2.44^^Interpretation|1|10828004^Positive^SCT^^^^^^Elevated|||
+|||F|||20200428103000|||^^^^^^^^EuroImmunAnti-SARS-CoV-2 ELISA
+(IgG)||20200429173600||||STATE HYGIENIC LABORATORY AT THE UNIVERSITY
+OF IOWA^L^^^^CLIA&2.16.840.1.113883.4.7&ISO^FI^^^16D0648109|2490
+Crosspark Road^University of Iowa Research Park^Coralville^IA^52241-
+4721^USA^B^^19103|^Pentella^Michael^^^^^^^L
+
+Use Case 2: Presumed Immunity Test Case 1: Send VXU Z22 Evidence of Immunity
+
+This use case covers the existing functionality within the Release 1.5 IG for sending
+immunity. The example shows how COVID-19 immunity would be sent.
+
+MSH|^~\&|NISTEHRAPP|NISTEHRFAC|NISTIISAPP|NISTIISFAC|20191120142514-
+0500||VXU^V04^VXU_V04|NIST-IZ-
+1.1_EI_Send_VXU_V04_Z22|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS|NISTEHRFAC^C
+DCPHINVS|NISTIISFAC|NISTIISFAC
+
+PID|1||14445^^^NIST-MPI-
+1^MR||Jackson^Hazel^^^^^L|Willis^^^^^^M|19900312|F||2131-1^Other
+race^CDCREC|2501 Duval
+Street^^Austin^TX^78704^USA^P||^PRN^PH^^^512^5559812|||||||||2186-
+5^Not Hispanic or Latino^CDCREC||N|1|||||N
+
+PD1|||||||||||07^Recall only - no
+calls^HL70215|N|20091120|||A|20091120|20091120
+
+ORC|RE|3598^NIST-AA-IZ-2|9999^NIST-AA-IZ-
+2|||||||9914^Hill^Spencer^Tyler^^^^^wcEHR^L^^^PRN||724^Jordan^Vivian^S
+arah^^^^^wcEHR^L^^^MD|||||wcEHR^West Clinic^HL70362
+
+RXA|0|1|20091120|20091120|998^No vaccine
+administered^CVX|999||||||||||||||NA
+
+OBX|1|CWE|59784-9^Disease with presumed immunity
+^LN^LN|1|840535000^Antibody to SARS-CoV-2^SCT||||||F|||20091120
+
+                                                                                                                             17
+Appendix B: Items for Future Discussion
+
+This section identifies additional considerations that are not in scope for this guidance
+document but may be good to consider for future guidance.
+
+Queries
+
+    • What system or entity would perform the query (IIS, HIE, EHR, etc.)?
+    • Should immunity be returned as part of the RSP?
+    • Can immunity be sent as part of the QBP for purposes of providing an observation
+
+         that will be considered in the forecast?
+    • Would a registry store information sent in an OBX from a query (QBP)?
+
+                                                                                                                             18
+Appendix C: Vocabulary and Acronyms
+
+Vocabulary
+
+Antibody test: An antibody test determines the presence of antibodies against a specific
+microorganism.
+
+Diagnostic test: A diagnostic test is used to gather information for purposes of making a
+clinical decision. For COVID-19, diagnostic tests determine a current infection.
+
+Serology: Examination of blood serum, especially with regard to the response of the
+immune system.
+
+IgG: Antibody that is mostly responsible for long-term immunity after an infection or
+vaccination.
+
+IgM: First response to a microbial infection/antigen invasion. May indicate active disease.
+
+Clinical Laboratory Improvement Amendment: A high or medium complexity test will be done
+at a CLIA lab. A low-complexity test (point of care test) may be CLIA-waived.
+
+Acronyms  Definition
+          Clinical Laboratory Improvement Amendment
+ Acronym  Electronic laboratory reporting
+ CLIA     Immunization information system
+ ELR
+ IIS
+
+                                                                                             19
+Appendix D: References and Technical Resources
+
+    • HL7 Version 2.5.1 Implementation Guide for Immunization Messaging.
+         https://repository.immregistries.org/files/resources/5bef530428317/hl7_2_5_1_relea
+         se_1_5__2018_update.pdf
+
+    • Centers for Disease Control and Prevention Testing for COVID-19.
+         https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/testing.html
+
+    • Centers for Disease Control and Prevention Immunization Information System Code
+         Sets. https://www.cdc.gov/vaccines/programs/iis/code-sets.html
+
+    • Guidance for mapping to SARS-CoV-2 LOINC terms. https://loinc.org/sars-
+         coronavirus-2/
+
+    • Logica Implementation Guide for Covid-19. https://covid-19-ig.logicahealth.org/
+    • HL7 2.5.1 Electronic Laboratory Reporting Documentation.
+
+         https://www.cdc.gov/elr/technicalstandards.html
+
+                                                                                                                             20
+Appendix E: Acknowledgements
+
+Special thanks and appreciation are extended to the following individuals for providing
+their expertise and experience throughout various stages of development of this
+document.
+
+SISC Small Group
+
+    • Brandy Altstadter, STC
+    • Caleb Shoemaker, Amazon CTPS Gives
+    • Craig Newman, Altarum
+    • Eric Schuh, DXC
+    • Jan Hicks-Thomson, CDC
+    • Kevin Snow, Envision
+    • Laura Barrett, Kentucky
+    • Rob Snelick, NIST
+    • Sheryl Taylor, NIST
+    • Tim Baker, Amazon
+
+American Immunization Registry Association (AIRA)
+
+    • Assiatou Diallo, Senior Technical Analyst
+    • Kristi Siahaya, Director of Standards and Analytics
+    • Nathan Bunker, Senior Technical Project Manager
+
+                                                                                                                             21
+

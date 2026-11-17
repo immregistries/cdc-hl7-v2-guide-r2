@@ -1,0 +1,55 @@
+=== Sheet: Issues List ===
+Issue	Page/Section	Priority	Project Size	Sooner or Later?
+Apply all changes from the Release 1.5 addendum to the document proper		high	small	Sooner
+The last line in Table 7.2 should indicate an ACK with errors (see Z23) be returned for an HL7 message level error	Table 7.2 (p 140)	med	small	Sooner
+Overhaul tables 7.2 and 11.2 to make sure they all have the same concepts and the response messages are clear and consistent	Table 7.2 (p 140)	med	small	Sooner
+The RCP-2 description indicates that this is the max number of records to return but that batching and DSC segments are not allowed. How will a queried system respond if they have more records than can be returned?	RCP-2 description	low	medium	Later
+From the provisional requirements defined for the optional IN1 segment NIST recommends that an optional profile component is created. Implementers who wish to support the IN1 could then claim conformance to this profile component (and declare that claim in MSH.21).	IN1 segment	low	large	Later
+Need to sync error definitions with those put together by other V2 implementation guides so that vendors have a consistent understanding of how to handle errors.	Table 0516	low	medium	Later
+Review data types to make sure we are consistent with HL7 base and our data type flavors are consistent with other V2 Igs so that vendors have a consistent understanding of data types	whole guide	med	medium	Sooner
+There are multiple value sets listed for use in HD.1. The value set which is to be used depends on the field. We need data type flavors for HD.	HD data type	med	large	Sooner
+We need a consistent way to specify the length. In HL7 2.7, a min/max length can be specified. Prior to that the “Conformance Length” could be specified.	whole guide	low	large	Later
+Need to look at creating a profile that covers the unsolicited push of complete patient history between organizations (ie a query-less query profile). This could be important for inter-IIS exchange, pre-population of a new EHR system based and handling of reminders and recalls in EHR systems	new profile	med	large	Later
+Do we want to continue to include text that assigns usage to a particular occurrence of a field? For example, the legal name goes in the first occurrence of PID-5	whole guide	med	medium	Sooner
+Need to decide how to handle the case where the RSP sender has detected multiple errors but is restricted to sending just a single ERR segment	RSP profiles	med	large	Sooner
+Should CVX and/or NDC become a required code set for RXA-5 and OBX-5?	whole guide	medium	medium	Sooner
+Need to determine which segments are required per profile: Should NTE be added as O on the Z42 profile? Shoule PD1 be added as O on the Z42? (may have been discussed already) Remove PV1 from Z32	whole guide	low	medium	Sooner
+We need equivalent terminology to "placer" and "filler" system in the lab world to clearly distinguish the roles of the two systems. For a VXU would "recording" and "accepting" systems work? For queries would "querying" and "responding" systems work?	whole guide	low	large	Sooner
+The conformance statement requiring "Z22^CDCPHNVS" and other related values is a bit at odds with the EI data type definition as they don't account for the sending of EI.3 and Ei.4 in place of EI.2	MSH-21	low	medium	Later
+We need to be explicit about how to message series status in RSP (Z32 and Z42) messages. How will we link the status to a series when there isn't a forecast for completed series. Do we need to even message a series status when there is a forecast (ie - it's clearly incomplete)? Do we need to have message a series status for series like tetanus and influenza which are understood to never be complete?	RSP messages	med	large	Later
+Need to harmonize the responses when a patient is found but is not sharing data. Do we just send back a PID but no data or a "patient not found" message?	Use Cases	med	medium	Sooner
+Look at sending admin notes as an NTE after the RXA rather than in RXA-9.2. This would likely take a change to the base standard. Could also look at sending as an NTE after the PID (preadopt 2.8). Get rid of CE_TX	message structure	low	large	Later
+Three LOINC codes are specified to send CVX codes. It's not clear how the third one should be used. 30956-7 38890-0 30979-9	LOINC code usage	low	small	Sooner
+The delete immunization example needs to be updated. The diagram is inaccurate. Initial send should have an action code (RXA-21). It is now required unless the CVX is 998.	Delete section	low	small	Sooner
+Should there be a requirement for the EHR to store the IIS ID for a patient? This is a functional guide issue.	ID maintenance	high	large	Later - functional guide
+Language is optional in the IG but a core element IISs have to support. We should review the core data elements and make sure they are at least RE in the IG. The 2013-2017 Core Data Elements supersede the 2007 IIS Recommended Core Data Elements and accompany revised IIS Functional Standards for 2013-2017. Also compare to Appendix A of the inter-jurisdictional memorandum of understanding document from the network for public health law	PID segments	med	med	Sooner
+Define our policy on using profiles (stated in MSH-21) defined outside of the IG. Is it OK for local integrations to define their own profiles and use them so long as they don't conflict with the profiles in the IG?		low	med	Sooner
+How to handle patients without a legal name. Newborns, John Does		med	med	Later
+Discuss the minimum granularity of all the different date fields. Is a Date always required or is a year and/or year/month sufficient for some concepts (ie expiration date)		med	small	Sooner
+Discuss sending and receiving demographic updates (and adds) along with patient observations (new allergies) outside the context of an admnistration workflow. What are the triggers and what sort of volumes are we talking about		low	large	Later
+Discuss the use of MSH versus RXA-11 versus RXA-27/28 (2.7 and beyond) when communicating the location of the administration and the system sending it.		med	med	Later
+Clarify sending adverse reactions in VXU and RSP messages including CVX code to use (general or specific), order group usage, other observations to send, how to update or retract an adverse reaction		high	med	Sooner
+Clarify sending evidence of immunity in VXU and RSP messages including order group usage and how to retract an immunity		high	med	Sooner
+Clarify sending contraindications in VXU and RSP messages including CVX code to use (general or specific), order group usage		high	med	Sooner
+Clarify sending special indications in VXU and RSP messages including CVX code to use (general or specific), order group usage		high	med	Sooner
+NIP002 contains "other" which requires specific text in CE.2		low	small	Sooner
+Move the IG from v2.5.1 to v2.8.x or 2.9 to access the use of OBX segments after PID (for allergies, contraindications, etc), PRT segments and access segments		low	large	Later
+Proposal to make RXA-20 required and ORC-2/-3 conditional based on RXA-20		med	small	Sooner
+Remove adjuvant/multiple lot numbers from IG or expand it to give examples. As it is now, it's ambiguous. The use case (influenza) may no longer exist		med	med	Sooner
+Clarify MSH-10 usage. Propose that it should not change even if the message passes through an intermediary		low	small	Sooner
+Clarify if query responses include refusals and other data types		low	small	Sooner
+Confirm which data elements are required for the QPD segment		high	med	Sooner
+The decsription of PID-11 calls out the use of an NK1 segment with a relationship of "self" for sending patient address. Can this be removed? Or is this required of a compliant system.	Z22 PID/NK1 segments	med	small	Sooner
+Discuss the use of PD1-3 and the concept of the Medical Home or PCP location. What concepts are needed by the IIS and what are the options for sending it?		low	med	Later
+Clarify that the ultimate end point (MSH-23) should be the source of the response message (ACK or RSP) and that systems along the way (HIE, etc) that may pass along the message or consume it should not be the ones responding. This needs to include a discussion of MSH-10 which needs to come back in MSA-2.	new section	high	med	Sooner
+Confirm that when sending combination vaccines that history observations (schedule, dose number, etc) should be repeated for each vaccine type. Also confirm that the order isn't mandated but recommend a best practice of starting each related set of OBXs with the vaccine type LOINC code	evaluated history and forecast	med	small	Sooner
+How are LOINC codes 30979-9 (Vaccines due next) and 30956-7 (Vaccine type) used when sending forecast data		low	small	Sooner
+We should try and settle on a mechanism for a response when the query finds a patient who is not sharing data Options include: no patient found message minimal response message with demographics and some flag that they aren't sharing	Both query profiles	med	med	Sooner
+We need to clarify which LOINC codes are valid for the history portion of the message and which are valid for the forecast portion	Z42 response	low	small	Sooner
+Need to sync up the detailed query table (7-6) to make sure that the usage syncs up with the data types and to make sure we know what is a minimum data set for a query	Both query profiles	med	med	Sooner
+OBX segments are currently required for all order groups, but some vaccinations such as Rabies and smallpox are not evaluated or forecast, so it is legitimate that they don't have OBX segments.	Z42 profile	high	small	Sooner
+a Z31 should be a valid response to a Z44 query which finds mulitple matching patients. This would be a re-review of a previous SISC discussion	Z44 profile	med	small	Sooner
+If NDC codes are sent (as per MU stage 3 regulations), there is a problem with IZ-24 because it only references CVX codes	IZ-24	med	med	Later
+The QPD segment sections have special text to describe the query parameters, but they lack the standard text to describe QPD-1 and -2	QPD segments	med	small	Sooner
+The conditional predicates are off for the ERL data type. In particular, the usage of ELR.3 shouldn't be dependent on whether or not a field can repeat (ERL.4). Similarly ERL.4 shouldn't be dependent on ELR.5 as some field can repeat but don't have components	ERL data type defintion	med	small	Sooner
+

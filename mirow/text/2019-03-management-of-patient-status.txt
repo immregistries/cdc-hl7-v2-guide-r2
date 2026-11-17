@@ -1,0 +1,2983 @@
+MANAGEMENT OF
+PATIENT STATUS
+IN IMMUNIZATION
+INFORMATION SYSTEMS
+
+RECOMMENDATIONS OF THE AMERICAN
+IMMUNIZATION REGISTRY ASSOCIATION (AIRA)
+MODELING OF IMMUNIZATION REGISTRY
+OPERATIONS WORKGROUP (MIROW)
+
+ VERSION 3.0 — MARCH 2019
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+EXECUTIVE SUMMARY
+
+      An important question in medical care and public health is “Who is the party
+      responsible or accountable for the immunization of a patient?”
+
+This relationship is documented as the “patient status,” and it indicates responsibility for vaccination
+of a patient at a provider organization or geographic jurisdiction level. Active status of a patient
+with a provider organization or geographic jurisdiction indicates that the provider organization or
+geographic jurisdiction has responsibility for vaccination of that patient.
+From the public health perspective, it is important to maintain status for a patient at both provider
+organization and geographic jurisdiction levels to ensure there is always a party responsible for
+immunization of every patient. For example, if a patient has moved within a jurisdiction and does
+not have active status with any provider organization, then the public health authority where the
+patient resides would be responsible for the patient’s vaccination.
+Immunization information systems (IIS) may use one of two common approaches to designate the
+responsibility of a provider organization for vaccinating a patient.
+
+  zz Some IIS allow only one provider organization to have responsibility for a patient at a time
+      (1–1 approach).
+
+  zz Other IIS allow more than one provider organization to have responsibility for a patient
+      simultaneously (1 to many, or 1–M approach).
+
+Patient status is used to determine which patients to include in assessments and to decide which
+patients receive reminder/recall notifications. Inconsistent definitions among IIS could result in poor
+data comparability and data quality issues. As data sharing increases among IIS programs at the
+federal and state level, there is a need to use consistent and agreed upon patient status definitions
+and rules to promote the integrity of the information contained in IIS.
+This guide was developed by the Modeling of Immunization Registry Operations Workgroup
+(MIROW), and the purpose of this guide is to define best practices regarding the assignment of
+patient status related to selection of patients to include in reminder/recalls and assessments.
+In addition to best practice recommendations, the guidelines contain operational scenarios with
+resolutions for typical and challenging situations and descriptions of implementation considerations,
+including how to use HL7 specifications to transmit electronic data necessary to determine patient status.
+
+  i Executive Summary
+                                     MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                 From the public health
+                 perspective, it is important to
+                 maintain status for a patient
+                 at both provider organization
+                 and geographic jurisdiction
+                 levels to ensure there is
+                 always a party responsible for
+                 immunization of every patient.
+
+ii Executive Summary
+                       MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+TABLE OF
+CONTENTS
+
+EXECUTIVE SUMMARY                        i   3 P ATIENT STATUS                   13
+
+                                             PRINCIPLES
+
+1 INTRODUCTION                           1                                        18
+
+Background                               3   4	PATIENT STATUS                       20
+                                                 BUSINESS RULES                      21
+Purpose and scope                        5
+                                                  Nomenclature of statuses
+Audience                                 5
+                                                  Business rules
+Methodology of guide development         5
+
+2	PATIENT STATUS                        7   5	USING PATIENT STATUS              30
+
+FUNDAMENTALS                                 FOR REMINDER/RECALLS
+
+Patient status hierarchy                 8   AND ASSESSMENT REPORTS
+
+Patient status at the provider               Reminder/recall at the provider
+
+organization level                       8   organization level                   33
+
+1–1 and 1–M approaches                   8   Reminder/recall at the geographic
+
+Moving from one status to another 10         jurisdiction level                   33
+
+Identification of a person as a patient      Assessment report at the provider
+
+of a provider organization               10  organization level                   34
+
+Identification of a person as NOT            Assessment report at the geographic
+
+a patient of a provider organization 10      jurisdiction level                   35
+
+Direct and indirect assignment of
+
+patient status                           11
+
+Patient status at the geographic
+
+jurisdiction level                       12
+
+Out-of-jurisdiction patients             12
+
+Opt-out of IIS or reminder/recall        12
+
+iii Table of Contents
+                       MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+TABLE OF
+CONTENTS
+
+36 6 OPERATIONAL SCENARIOS                           7	IMPLEMENTATION                               52
+
+Place of residence              40                   CONSIDERATIONS
+
+Changing provider organization  41                   Messaging patient status                        55
+
+Service from more than one                           Patient status at the provider
+
+provider organization           42                   organization level                              55
+
+Service from out-of-state                            Patient status at the geographic
+
+provider organization           43                   jurisdiction level                              58
+
+Acceptable provider organization type 43             Patient status in assessment reports 60
+
+Acceptable vaccination encounter type 46             Assessment report at the provider
+
+Indirect assignment of status   48                   organization level                              60
+
+Direct assignment of status     51                   Implementation considerations for
+
+                                                     pre-assessment review                           61
+
+                                                     Assessment report at the geographic
+
+                                                     jurisdiction level                              62
+
+                                                     Opt-outs and patient privacy                    62
+
+REVISION HISTORY
+
+VERSION DATE               CHANGES/UPDATES           LOCATION
+                                                     AIRA Archives
+1.0  Dec 2005              Initial version of
+                           published document        AIRA Archives
+2.0  July 2015
+                           Replacement of 2005       https://repository.immregistries.org/resource/
+3.0  March 2019            MIROW guidelines          management-of-patient-status-in-immunization-
+                                                     information-systems
+                           Repackaging and renaming
+                           of PAIS MIROW guide
+
+iv Table of Contents
+                 MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDICES
+
+APPENDIX A                           65     APPENDIX E                               73
+ABBREVIATIONS                               SCOPE
+
+                                            Focus                                    73
+
+APPENDIX B                                  Integration with other initiatives       73
+VOCABULARY AND
+                                     66     Including (in scope)                     74
+
+DOMAIN DIAGRAMS                             Excluding (out of scope)                 74
+
+                                            Operational-level analysis requirements
+
+                                            vs. implementation-level design solutions 75
+
+APPENDIX C                           71     APPENDIX F
+READING PATHS                               PATIENT STATUS DIAGRAM
+
+                                                                                     77
+
+APPENDIX D                           72     APPENDIX G                               79
+SELECTED REFERENCES
+                                        72  ROSTER OF PARTICIPANTS
+  Previously developed MIROW guides     72
+  or related materials
+  General references
+
+                                            APPENDIX H                               81
+                                            ACKNOWLEDGEMENTS
+
+v Appendices
+                               MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+FIGURES AND
+TABLES
+
+FIGURE 1                                  4   TABLE 6                                 35
+
+Diagram showing patient status hierarchy      Assessment report at the
+                                              geographic jurisdiction level
+
+FIGURE 2                                  9                                           40
+
+Key points for 1–1 and 1–M                    TABLE 7
+
+                                              Operational scenarios
+
+TABLE 1                                   15                                          56
+
+Principles for patient status                 TABLE 8
+
+                                              Direct coding of patient status at the
+
+FIGURE 3                                  20  provider organization level in HL7 messages
+
+List of patient statuses                                                              69
+
+                                              FIGURE 4
+
+TABLE 2                                   22  High-level domain diagram depicting
+
+Business rules for patient status             categories of terms defined in this document
+
+TABLE 3                                   33  FIGURE 5                                70
+
+Reminder/recall (RR) at the                   Detailed domain diagram depicting
+provider organization level
+                                              relationship of terms defined in this document
+
+TABLE 4                                   33  FIGURE 6                                76
+
+Reminder/recall (RR) at the                   Operational-level concepts vs.
+geographic jurisdiction level                 implementation‑level design solutions
+
+TABLE 5                                   34  FIGURE 7                                78
+
+Assessment report at the                      Patient status diagram
+provider organization level
+
+vi Figures and Tables
+1 INTRODUCTION
+                                     MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                 “Patient status” is a
+                 term used to describe
+                 having responsibility or
+                 accountability for the
+                 vaccination of a patient.
+
+2 Chapter 1 | Introduction
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+1 INTRODUCTION                                                 A provider organization
+                                                               has responsibility for
+BACKGROUND                                                     ensuring the vaccination
+                                                               of its patient. Similarly, a
+“Patient status” is a term used to describe having             public health organization
+responsibility or accountability for the vaccination of a      has responsibility for
+patient. A provider organization has responsibility for        ensuring the vaccination
+ensuring the vaccination of its patient. Similarly, a public   of a patient within its
+health organization has responsibility for ensuring the        geographic jurisdiction.
+vaccination of a patient within its geographic jurisdiction
+Patient status should be maintained at provider-organization
+and geographic-jurisdiction levels to ensure there is always
+a party responsible for immunization of every individual.
+If a patient does not have active status with any provider
+organization within a geographic jurisdiction, then a
+public health authority is responsible for the individual’s
+immunization. Figure 1 depicts the different patient statuses
+presented in this guide.
+
+3 Chapter 1 | Introduction
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Figure 1 | Diagram showing patient status hierarchy
+
+    PATIENT STATUS                                     ACTIVE       No Longer
+      AT PROVIDER                                    INACTIVE        a Patient
+                                                     DECEASED
+ORGANIZATION LEVEL                                                    Lost to
+                                                                    Follow-Up
+
+                                                                   Unspecified
+
+  PATIENT STATUS                                          ACTIVE      No Address
+  AT GEOGRAPHIC                                        INACTIVE:    or Vaccination
+JURISDICTION LEVEL                                      OUTSIDE
+                                                     JURISDICTION   No Activity for
+                                                       UNKNOWN     Extended Period
+                                                        DECEASED
+                                                                         of Time
+
+4 Chapter 1 | Introduction
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+   Consistent and comparable designation of patient status is important to:
+    zz Determine which patients to include in coverage assessments
+    zz Decide which patients receive reminder/recall notifications
+    zz Promote data quality
+    zz Promote data comparability
+
+Inconsistent definitions among immunization information systems (IIS) could result in poor data
+comparability and data quality issues. Consistent definitions and rules for patient status are
+important to ensure accurate communication between electronic health records (EHRs) to IIS via
+electronic data exchange (EDE) and comparability between IIS.
+
+PURPOSE AND SCOPE
+
+The purpose of this guide is to define best practices regarding the assignment of patient status
+related to selection of patients to include in reminder/recall and assessments, emphasizing:
+
+  zz Electronic data exchange between immunization provider organizations and immunization
+      information systems
+
+  zz Integration of CDC’s Assessment, Feedback, Incentives, and eXchange (AFIX) program
+      functionality into IIS
+
+  zz Assignment of patient status related to conducting assessments and reminder/recall activities
+Appendix E: Scope provides more detail about the scope of this document.
+
+AUDIENCE
+
+The primary audience for this guide includes programmatic, technical, and operational personnel
+involved in creating or maintaining an IIS; awardee immunization program staff; as well as vendors
+of health care information systems and providers of immunization services. This guide can also be
+used by IIS for staff training, operational documentation, and communication purposes and for
+providing guidance for vendors and users of EHR applications. Specific reading paths have been
+identified based on audience role and can be found in Appendix C: Reading Paths.
+
+  5 Chapter 1 | Introduction
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+METHODOLOGY OF GUIDE DEVELOPMENT
+
+This guide has been developed using the Modeling of Immunization Registry Operations
+Workgroup (MIROW) Development Process. For more details on this process, please see the
+MIROW and the Best Practice Development Process document [1.11]. Domain diagrams and
+definitions for selected terms used in this guide can be found in Appendix B: Vocabulary and
+Domain Diagrams, and subject matter experts (SMEs) that contributed to this project can be
+found in Appendix G: Roster of Participants.
+
+  6 Chapter 1 | Introduction
+2 PATIENT STATUS
+
+FUNDAMENTALS
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+2 PATIENT STATUS FUNDAMENTALS
+
+      Patient status characterizes the association between one patient and one party
+      responsible for the patient’s vaccinations.
+
+A provider organization has responsibility for ensuring the vaccination of its patients. Similarly, a public
+health organization has responsibility for ensuring the vaccination of a patient within its geographic
+jurisdiction. Key concepts that guide designation and use of patient status are described below.
+
+PATIENT STATUS HIERARCHY
+
+There are two levels of patient status—at the provider level and at the geographic jurisdiction level.
+Maintaining a patient status at the geographic jurisdiction level ensures that there will always be
+a party responsible for a patient’s vaccinations, even if the patient is not active with any provider
+organization. To maintain the responsibility of at least one party for the vaccination of a patient, a
+more rigid approach is used in assigning non-active status at the geographic jurisdiction level than at
+the provider organization level.
+
+PATIENT STATUS AT THE PROVIDER
+ORGANIZATION LEVEL
+
+1–1 AND 1–M APPROACHES
+
+IIS may use one of two common approaches to designate the responsibility of a provider
+organization for vaccinating a patient.
+
+  zz Some IIS allow only one provider organization to have responsibility for a patient at a time
+      (1–1 approach).
+
+  zz Other IIS allow more than one provider organization to have responsibility for a patient
+      simultaneously (1 to many, or 1–M approach).
+
+  8 Chapter 2 | Patient Status Fundamentals
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+In this guide, icons are used to identify when something is signifying the 1–1 approach or the
+1–M approach. If no icon appears, then the principle, business rule, or scenario can apply to
+both approaches.
+
+Figure 2 | Key points for 1–1 and 1–M
+
+1–1 1–1 APPROACH                                 1–M 1–M APPROACH
+
+zz Maintains one provider organization           zz May support modern population trends
+    with clear responsibility for the patient.       better than a 1–1 approach. Many
+                                                     individuals, especially adults, do not have
+zz Focuses resources for reminder/recalls            a single primary vaccination provider.
+    and assessments on a single provider
+    organization.                                zz May hold more provider organizations
+                                                     accountable for each patient’s
+zz May result in association of a patient with       vaccinations. Since several provider
+    a provider organization that is most likely      organizations may have responsibility
+    to see the patient on an ongoing basis.          for a patient, there may be more
+                                                     opportunity to ensure that the patient is
+Notes:                                               appropriately vaccinated.
+If an IIS uses the 1–1 approach, a patient is
+included in reminder/recall notifications and    zz May result in multiple provider
+assessment reports for only one provider             organizations devoting resources to the
+organization at a point in time. Routinely,          same efforts, such as reminder/recalls.
+the provider organization that administered
+the most recent vaccination is documented        Notes:
+as the one provider organization bearing         If an IIS uses the 1–M approach, a patient
+responsibility for that patient.                 can be included in reminder/recall
+                                                 notifications and assessment reports for
+                                                 more than one provider organization at the
+                                                 same time.
+
+Several operational scenarios presented in Chapter 6: Operational Scenarios of this document
+illustrate basic differences between the 1–1 and 1–M approaches.
+
+9 Chapter 2 | Patient Status Fundamentals
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+MOVING FROM ONE STATUS TO ANOTHER
+
+The initial status for a relationship between a patient and a provider organization is unassigned,
+meaning that no relationship exists. From the initial unassigned status, a patient can move to active,
+inactive, or deceased statuses as illustrated in Figure 7. Designation of patient status at the provider
+organization level differs between the 1–1 and 1–M approaches as detailed in BR402A, BR402B,
+BR404A, and BR404B in Chapter 4: Patient Status Business Rules.
+
+IDENTIFICATION OF A PERSON AS A PATIENT OF A                     Active patient status
+PROVIDER ORGANIZATION                                            identifies patients of a
+                                                                 provider organization for
+Active patient status identifies patients of a provider          purposes of assessments
+organization for purposes of assessments and reminder/           and reminder/recalls.
+recalls. A provider organization identifies its active patients
+via EDE or through a direct IIS user interface. An IIS can
+directly or indirectly identify active patients of a provider
+organization through documentation, such as a provider
+organization conducting a vaccination event for the patient
+or creating or updating a patient record.
+
+IDENTIFICATION OF A PERSON AS NOT A PATIENT OF A PROVIDER ORGANIZATION
+
+A patient is not an active patient of a provider organization for purposes of reminder/recall and
+assessments if:
+
+  zz The patient is deceased
+  zz The relationship between a provider organization and a patient is terminated because the
+
+      patient has gone/transferred to another provider organization or the patient moved out of
+      the area
+  zz The patient has received a more recent immunization from another provider organization
+      (only for 1–1)
+  zz The provider organization is not an acceptable type—meaning it does not conduct assessment
+      reports or reminder/recall (e.g., a mass immunization clinic)
+  zz The vaccination encounter type is not an acceptable type—meaning it would not generally
+      generate reminder/recalls or inclusion in assessments (e.g., influenza or travel vaccines)
+
+10 Chapter 2 | Patient Status Fundamentals
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+PROVIDER ORGANIZATION IS NOT AN ACCEPTABLE TYPE                  Patient status will not
+Patient status will not change if a vaccination is administered  change if a vaccination
+by an organization that is not of an acceptable type. Each       is administered by an
+IIS determines if a particular provider organization is one      organization that is not
+that conducts reminder/recalls or assessment reports (i.e.,      of an acceptable type.
+a provider organization of an acceptable type). Pharmacies       Each IIS determines if
+and schools are examples of provider organizations that          a particular provider
+might not conduct reminder/recalls or assessment reports;        organization is one that
+however, provider organizations are evolving, with some          conducts reminder/recalls
+now performing reminder/recalls and assessment reports           or assessment reports
+that did not in the past. Pharmacies are beginning to offer      (i.e., a provider organization
+a wider range of vaccinations, and some IIS may consider         of an acceptable type).
+them to be provider organizations of an acceptable type.
+Acceptable-type organization also may vary based on the age
+of the patient; for example, a pharmacy might do reminder/
+recalls for adults but not for children.
+
+VACCINATION ENCOUNTER IS NOT AN ACCEPTABLE TYPE
+Type of immunization is a major factor in determining whether to change patient status. Some
+vaccination encounters do not indicate that the provider organization is responsible for the patient’s
+ongoing vaccinations. In general, patient status should not be set to active for a mass vaccination
+event, for example, H1N1, flu-only clinics, Tdap in schools, and walk-in treatment centers with one-
+time events. Each IIS makes its own determination if a vaccination encounter is not of an acceptable
+type and has unique ways not to associate the patient with the provider of these types of vaccinations.
+
+DIRECT AND INDIRECT ASSIGNMENT OF PATIENT STATUS
+
+Patient status at the provider organization level may be assigned by the provider organization or
+by the IIS. Patient status can be set directly by a provider in any submission to the IIS or through a
+direct user interface or by the IIS based on documented evidence. Patient status can be implied and
+set indirectly by the IIS for a provider organization based on documented information. IIS should
+actively monitor indirect information on patient status at the provider organization level and update
+patient status in a timely manner. For example, a change in address could trigger a change in patient
+status. Any explicit assignment of patient status by a provider organization supersedes any previous
+patient status with that provider organization and an indirect designation of patient status by an IIS.
+
+11 Chapter 2 | Patient Status Fundamentals
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+PATIENT STATUS AT THE GEOGRAPHIC
+JURISDICTION LEVEL
+
+The initial status for a relationship between a patient and    A patient should maintain
+a provider organization is unassigned, meaning that no         active status at a geographic
+relationship exists. From the initial unassigned status, a     jurisdiction level until any of
+patient can move to active, inactive (outside jurisdiction),   the following occurs:
+unknown, or deceased.
+                                                                zz Patient moves out of
+Patient status at the geographic jurisdiction level may be         geographic jurisdiction
+assigned only by the IIS.
+                                                                zz Patient is deceased
+OUT-OF-JURISDICTION PATIENTS
+                                                                zz IIS has not received
+Specific rules apply to patients who reside outside the            information about this
+geographic jurisdiction. Patient status is maintained at           patient for an extended
+the provider organization level for a patient who resides          period of time
+outside the geographic jurisdiction but is associated with
+the provider organization. Patient status is not active at
+the geographic jurisdiction level for a patient who resides
+outside the geographic jurisdiction level even if the patient
+is associated with a provider organization within the
+geographic jurisdiction.
+
+OPT-OUT OF IIS OR REMINDER/RECALL
+
+Opting out of IIS or reminder/recall does not impact patient status. Opt-outs can be handled through
+mechanisms separate from patient status and considered when selecting patients for assessments
+and reminder/recalls.
+
+12 Chapter 2 | Patient Status Fundamentals
+3 PATIENT STATUS
+      PRINCIPLES
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+3 PATIENT STATUS PRINCIPLES
+
+      A principle (P) is a high-level business rule. It is a high-level direction that helps to capture
+      institutional knowledge and to guide the development of more specific business rules.
+
+There are 11 principles that relate to patient status. The concepts described in Chapter 2: Fundamentals,
+were used to shape the principles that are listed below and in tabular format in Table 1.
+
+      Principles are presented in Table 1 in the following order:
+
+        P301. Patient status scope: association between one patient and one party
+        P302. Patient status hierarchy
+        P303. Avoid having individuals fall through the cracks
+        P304. Who may assign patient status
+        P305. Make information available about patient status changes
+        P308. Supremacy of patient status explicit assignment
+        P309. Same rules for public and private provider organizations
+        P310. Out-of-state patients
+        P311. Patient status should be maintained for patients of all ages
+        P312. Any submission should include patient status
+        P313. Opt-out from IIS
+        P314. Opt-out from reminder/recall
+
+ 14 Chapter 3 | Patient Status Principles
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Table 1 | Principles for patient status
+
+PRINCIPLES                                                     NOTES
+P301. Patient status scope: association between one
+patient and one party                                          References
+Each patient status should characterize the association
+between one patient and one party responsible for the          yy P313. Opt-out from IIS
+patient’s vaccinations.                                        yy P314. Opt-out from reminder/recall
+                                                               yy BR401. Nomenclature of statuses at the provider
+P302. Patient status hierarchy
+Statuses for a patient should be maintained in a                 organization level
+hierarchical manner, specifically:                             yy BR411. Nomenclature of statuses at the geographic
+ yy At the provider organization level (lower level of the
+                                                                 jurisdiction level
+    hierarchy)
+ yy At the geographic jurisdiction level(s) (higher levels of  Example
+
+    the hierarchy)                                             yy Examples of the geographic jurisdiction level(s) of
+P303. Avoid having patients fall through the cracks              the hierarchy include state, city, county, and other
+A more rigid approach should be used in assigning non-           geographic area covered by a local public health
+active status at the geographic jurisdiction level than at       authority.
+the provider organization level.
+                                                               References
+P304. Who may assign patient status
+Patient status at the provider organization level may be       yy BR413. Inactive patient status at the geographic
+assigned by any of the following parties:                        jurisdiction level (reason code outside jurisdiction)
+ yy Provider organization
+ yy Immunization program (at state, city, or county levels)    yy BR415. Unknown patient status at the geographic
+Patient status at the geographic jurisdiction level may be       jurisdiction level (reason code no activity for extended
+assigned only by the immunization program (at state, city,       period of time)
+or county levels).
+P305. Make information available about patient status          yy BR421. Deceased patient status at the provider
+changes.                                                         organization and geographic jurisdiction levels
+IIS should make available to a provider organization the
+information about changes it makes to a status maintained      References
+for a patient associated with that provider organization.
+                                                               yy BR413. Inactive status at the geographic jurisdiction
+                                                                 level (reason code outside jurisdiction)
+
+15 Chapter 3 | Patient Status Principles
+            MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+PRINCIPLES                                                   NOTES
+
+P308. Supremacy of patient status explicit assignment Exception
+
+Any explicit assignment of patient status by a provider      yy A date of death received by IIS from Vital Records
+organization of an acceptable type should supersede both       supersedes a status set by a provider organization. IIS
+                                                               should communicate such information to the provider
+ yy Previous patient status with that provider organization    organization.
+ yy Patient status that can be indirectly implied by IIS
+                                                             Examples
+    based on the information available up to this moment
+
+                                                             yy For 1–1 and 1–M approaches, if a provider organization
+                                                               directly sets patient status to inactive, the status should
+                                                               be considered as inactive regardless of any vaccination
+                                                               events the provider organization conducted for the
+                                                               patient. However, future vaccination events conducted
+                                                               by the provider organization for the patient may result
+                                                               in the patient status being changed to active.
+
+                                                             yy If a provider organization submits information about a
+                                                               vaccination event that it conducted and the submission
+                                                               has a patient status of inactive, the status should be
+                                                               considered inactive.
+
+                                                             yy If a provider organization has not conducted any
+                                                               vaccination events for the patient but sets patient
+                                                               status to active, the status should be considered active.
+
+                                                             yy For the 1–1 approach, setting patient status to active
+                                                               by one provider may affect the patient status with other
+                                                               provider organizations
+                                                               –– For example, if provider organization A gave the most
+                                                                  recent vaccination but provider organization B claims
+                                                                  a patient by setting the patient status to “active,”
+                                                                  then the patient status should be considered “active”
+                                                                  with provider organization B and “inactive” with
+                                                                  provider organization A. In other words, in the 1–1
+                                                                  approach, the provider organization that gave the last
+                                                                  shot “wins”; i.e., most recent immunization trumps.
+                                                                  It should be a rare occurrence that two providers
+                                                                  vaccinate the same patient on the same day.
+
+                                                             yy A provider organization may submit a status for a
+                                                               patient it expects to see on an upcoming date but who
+                                                               has not yet received vaccination services from that
+                                                               provider organization.
+
+                                                             References
+
+                                                             yy S801. Patient demographics and historical
+                                                               immunizations, existing record: 1–1
+
+16 Chapter 3 | Patient Status Principles
+                             MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+PRINCIPLES                                                     NOTES
+
+P309. Same rules for public and private provider
+organizations
+
+Rules for status assignment should be the same for
+public and private provider organizations.
+
+P310. Out-of-state patients                                    References
+
+Status should be maintained at the provider organization       yy S101. Patient moved out of state but uses in-state
+level for a patient who resides outside the geographic           provider organization
+jurisdiction served by the IIS but is associated with a
+provider organization within that geographic jurisdiction.     yy S102. Patient moved out of state and ceased to use
+                                                                 in-state provider organizations
+Status may never be active at the geographic jurisdiction
+level for a patient who resides outside the geographic         yy S103. Patient address not known, patient receives
+jurisdiction served by the IIS but is associated with a          services within state
+provider organization within that geographic jurisdiction.
+                                                               yy S401. In-state patient uses out-of-state provider
+                                                                 organization
+
+P311. Patient status should be maintained for patients
+of all ages
+
+Patient status should be maintained for patients of all ages.
+
+P312. Any submission should include patient status
+
+Patient status should be included in any submission from
+a provider organization to the IIS.
+
+P313. Opt-out from IIS
+
+Opting out of IIS should not impact patient status. Rather,
+it should be handled as an additional consideration (filter)
+for selecting a cohort for reminder/recalls and coverage
+assessments.
+
+P314. Opt-out from reminder/recall
+
+Opting out of reminder/recall notifications should not
+impact patient status. Rather, it should be handled as an
+additional consideration (filter) for selecting a cohort for
+reminder/recall.
+
+17 Chapter 3 | Patient Status Principles
+4 PATIENT STATUS
+
+BUSINESS RULES
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                    Patient status is
+                    defined at two
+                    levels—at the
+                    provider organization
+                    level and at
+                    the geographic
+                    jurisdiction level.
+
+19 Chapter 4 | Patient Status Business Rules
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+4 PATIENT STATUS BUSINESS RULES
+
+NOMENCLATURE OF STATUSES
+
+Patient status is defined at two levels—at the provider organization level and at the geographic
+jurisdiction level. Since a geographic jurisdiction can contain another geographic jurisdiction, these
+definitions cover a hierarchical structure of statuses at provider organization, city, county, and state
+levels (see Appendix B: Vocabulary and Domain Diagrams).
+
+Figure 3 | List of patient statuses
+
+PATIENT STATUS VALUES AT                      PATIENT STATUS VALUES AT
+THE PROVIDER ORGANIZATION                     THE GEOGRAPHIC JURISDICTION
+LEVEL INCLUDE:                                LEVEL INCLUDE:
+
+  zz Active                                     zz Active
+  zz Inactive, with the following               zz Inactive, with the following
+
+      reason codes:                                 reason codes:
+
+      || No longer a patient                        || Outside jurisdiction
+      || Lost to follow-up
+      || Unspecified                            zz Unknown, with the following
+                                                    reason codes:
+  zz Deceased
+                                                    || No address – no vaccination
+                                                    || No activity for extended
+
+                                                        period of time
+
+                                                zz Deceased
+
+Descriptions of these statuses and conditions for transitioning from one status to another are presented
+with business rules in Table 2 and are shown in Figure 7 in Appendix F: Patient Status Diagrams.
+
+20 Chapter 4 | Patient Status Business Rules
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+BUSINESS RULES
+
+      Business rules (BR) represent specific requirements and decision-making
+      logic for IIS processes and operations. Specific recommendations are
+      presented in Table 2, where business rules are shown in the following order:
+
+        BR401. Nomenclature of statuses at the provider organization level
+        BR402A. Active status at the provider organization level: 1–1
+        BR402B. Active status at the provider organization level: 1–M
+        BR404A. Patient status at the provider organization level: inactive: no longer a patient: 1–1
+        BR404B. Patient status at the provider organization level: inactive: no longer a patient: 1–M
+        BR405. Patient status at the provider organization level: inactive: lost to follow-up
+        BR406. Patient status at the provider organization level: inactive: unspecified
+        BR411. Nomenclature of statuses at the geographic jurisdiction level
+        BR412. Active status at the geographic jurisdiction level
+        BR413. Patient status at the geographic jurisdiction level: inactive: outside jurisdiction
+        BR414. Patient status at the geographic jurisdiction level: Unknown: no address,
+
+                  no vaccination
+        BR415. Patient status at the geographic jurisdiction level: Unknown: no activity for
+
+                  extended period of time
+        BR421. Deceased status at the provider-organization and geographic jurisdiction levels
+
+ 21 Chapter 4 | Patient Status Business Rules
+                             MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Table 2 | Business rules for patient status
+
+BUSINESS RULES                                         NOTES
+Provider organization level
+
+BR401. Nomenclature of statuses at the provider        References
+organization level
+                                                       yy P301. Patient status scope: association between one patient
+Patient status at the provider organization level may    and one party
+have only one of the following designations:
+
+yy Active
+yy Inactive, with one of the following reason codes:
+
+  –– No longer a patient
+  –– Lost to follow-up
+  –– Unspecified
+yy Deceased
+
+         BR402A. Active status at the provider         Exception
+1–1 organization level: 1–1                            yy Updates to an existing patient record in IIS (i.e., submission
+
+For the 1–1 approach, patient status with a or entry of a patient demographic-only information or
+
+provider organization should be considered historical-only immunization information to IIS) does not
+
+active only if the provider organization is of result in active status in the 1–1 approach.
+
+an acceptable type and any of the following            Examples
+is true:
+                                                       yy Vaccine type should not impact patient status determination.
+yy Provider organization directly identifies           yy Patient status with a provider organization should be set to
+  the individual as a patient.
+                                                         inactive when patient status for this patient is set to active
+yy Provider organization indirectly identifies           with another provider organization.
+  the individual as a patient.                         yy Patient status should remain active when a provider
+                                                         organization conducts a vaccination event for a patient who
+yy Provider organization has conducted the               already has active status with that provider organization.
+  most recent vaccination event during the
+  vaccination encounter of an acceptable
+
+type for the patient.                                  References
+
+yy Provider organization has created new               yy P308. Supremacy of patient status direct identification
+  patient record in IIS (i.e., submitted               yy S101. Patient moved out of state but uses in-state provider
+  or entered patient demographic-
+  only information or historical-only                    organization
+  immunization information for a patient               yy S301. Patient lives with divorced parents: 1–1
+  not already in IIS).                                 yy S501. Provider organization of an acceptable type: 1–1
+                                                       yy S504. Birth dose submitted by hospital, acceptable type
+
+                                                       yy S601. Vaccination encounter of an acceptable type: 1–1
+
+                                                       yy S701. Patient demographics received with no address and
+
+                                                       no vaccination: 1–1
+
+                                                       yy S703. Patient demographics and historical immunizations,
+
+                                                       no existing record
+
+                                                       yy S704. Patient demographics and historical immunizations,
+
+                                                       existing record: 1–1
+
+                                                       yy S706. Patient demographics and historical immunizations,
+
+                                                       no existing record; not acceptable provider type: 1–1
+
+                                                       yy S801. Patient demographics and historical immunizations,
+
+                                                       existing record: 1–1
+
+22 Chapter 4 | Patient Status Business Rules
+                             MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+BUSINESS RULES                                       NOTES
+Provider organization level
+
+1–M  BR402B. Active status at the provider           Example
+     organization level: 1–M
+                                                     yy Vaccine type should not impact patient status
+     For the 1–M approach, patient status with a       determination.
+     provider organization should be considered
+     active only if the provider organization is of  yy Patient status should remain active when a provider
+     an acceptable type and any of the following       organization conducts a vaccination event for a patient who
+     is true:                                          already has active status with that provider organization.
+
+     yy Provider organization directly identifies    References
+       the individual as a patient.
+                                                     yy S101. Patient moved out of state but uses in-state provider
+     yy Provider organization indirectly identifies    organization
+       the person as a patient in any of the
+       following ways:                               yy S302. Patient lives with divorced parents: 1–M
+       –– Provider organization conducted a          yy S502. Provider organization of an acceptable type: 1–1
+          vaccination event during a vaccination     yy S504. Birth dose submitted by hospital, acceptable type
+          encounter of an acceptable type for the    yy S602. Vaccination encounter of an acceptable type: 1–M
+          patient.                                   yy S702. Patient demographics received with no address and
+       –– Provider organization has created
+          new or updated an existing patient           no vaccination: 1–M
+          record in IIS (i.e., submitted or entered  yy S703. Patient demographics and historical immunizations,
+          patient demographic-only information
+          or historical-only immunization              no existing record
+          information for a patient).                yy S705. Patient demographics and historical immunizations,
+
+                                                       existing record: 1–M
+                                                     yy S706. Patient demographics and historical immunizations,
+
+                                                       no existing record; not acceptable provider type: 1–1
+
+23 Chapter 4 | Patient Status Business Rules
+                             MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+BUSINESS RULES                                   NOTES
+Provider organization level
+
+         BR404A. Patient status at the provider  Remarks
+1–1 organization level: inactive: no longer a
+                                                 yy There may be overlap in the criteria elements (i.e., criteria
+         patient: 1–1                              elements are not mutually exclusive).
+
+For the 1–1 approach, patient status at          yy The criterion “moved out of area” should be locally defined.
+
+the provider organization level should be yy There are cases when a patient has moved but still receives
+
+considered inactive (reason code no longer immunizations from the provider organization. In some
+
+a patient) only if any of the following is true: areas, it is not unusual for a patient to continue receiving
+
+yy Relationship between a provider                 services from a provider organization that is a long distance
+  organization and a patient has been              away. Therefore, criteria should be established by each IIS
+  terminated by either party, for example:         based on local circumstances to define when a patient’s
+  –– Patient has gone/transferred to another       move should result in inactive status with a provider
+     provider organization                         organization. The key factor should be that a provider
+  –– Patient has moved out of the area             organization does not recognize an individual as a patient.
+  –– Patient has received a more recent          yy A provider organization may choose to code patients who
+     immunization from another provider            have not been seen for an extended period of time as
+     organization                                  inactive: no longer a patient.
+
+                                                 Example
+
+                                                 yy Examples include notations in a patient’s chart that the
+                                                   patient is moving or a record release that indicates the
+                                                   patient is seeing a different provider organization.
+
+                                                 References
+
+                                                 yy P308. Supremacy of patient status explicit assignment
+                                                 yy S102. Patient moved out of state and ceased to use in-state
+
+                                                   provider organizations
+                                                 yy S201. Transfer of medical records
+                                                 yy S301. Patient lives with divorced parents: 1–1
+                                                 yy S501. Provider organization of an acceptable type: 1–1
+                                                 yy S601. Vaccination encounter of an acceptable type: 1–1
+                                                 yy S801. Patient demographics and historical immunizations,
+
+                                                   existing record: 1–1
+
+24 Chapter 4 | Patient Status Business Rules
+                             MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+BUSINESS RULES                                      NOTES
+Provider organization level
+
+1–M  BR404B. Patient status at the provider         Remarks
+     organization level: inactive: no longer a
+     patient: 1–M                                   yy There may be overlap in the criteria elements (i.e., criteria
+                                                      elements are not mutually exclusive).
+     For the 1–M approach, patient status at
+     the provider organization level should be      yy The condition “moved out of area” should be locally defined.
+     considered inactive (reason code no longer       There are cases when a patient has moved but still receives
+     active) only if any of the following is true:    immunizations from the provider organization. In some
+                                                      areas, it is not unusual for a patient to continue receiving
+     yy Relationship between a provider               services from a provider organization that is a long distance
+       organization and a patient has been            away. Therefore, criteria should be established by each IIS
+       terminated by either party, for example:       based on local circumstances to define when a patient’s
+       –– Patient has gone/transferred to another     move should result in inactive status with a provider
+          provider organization                       organization. The key factor should be that a provider
+       –– Patient has moved out of the area           organization does not recognize an individual as a patient.
+
+                                                    yy A provider organization may choose to code patients
+                                                      who have not been seen in an extended period of time as
+                                                      inactive: no longer a patient.
+
+                                                    Examples
+
+                                                    yy Examples include notations in a patient’s chart that the
+                                                      patient is moving or a record release indicating that the
+                                                      patient is seeing another provider organization.
+
+                                                    References
+
+                                                    yy P308. Supremacy of patient status explicit assignment
+                                                    yy S102. Patient moved out of state and ceased to use in-state
+
+                                                      provider organizations
+                                                    yy S201. Transfer of medical records
+
+25 Chapter 4 | Patient Status Business Rules
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+BUSINESS RULES                                            NOTES
+
+Provider organization level                               Remarks
+
+BR405. Patient status at the provider organization        yy In the absence of any state guideline, after 90 days and a
+level: inactive: lost to follow-up                          minimum of three unsuccessful attempts to contact a patient,
+                                                            patient status at the provider organization level should be set
+Patient status at the provider organization level           to inactive (reason code lost to follow-up) and remain active
+should be considered inactive (reason code lost to          at the geographic jurisdiction level.
+follow-up) only if any of the following is true:
+                                                          yy This is an update to BR802 from the 2009 MIROW
+yy Attempts to contact the patient have been                Reminder/Recall guide (1.4, p. 50).
+  documented, but no documented response has
+  been received                                           yy Consider following the escalation principle P802 from the
+                                                            MIROW Reminder/Recall guide (1.4, p. 49) to increase
+yy Provider organization has no means to contact            likelihood of successful contact:
+  patient, e.g. no address, no cell phone                   –– “After an unsuccessful RR attempt, if the RR process is not
+                                                               ended, consider a different RR Notification method. For
+                                                               example, escalation from a postcard to a telephone call.”
+
+                                                          References
+
+                                                          yy P802 in the 2009 MIROW Reminder/Recall guide (1.4, p. 49)
+                                                          yy P803 in the 2009 MIROW Reminder/Recall guide (1.4, p. 49)
+
+BR406. Patient status at the provider organization        Remarks
+level: inactive: unspecified
+                                                          yy BR406 should be used only by provider organizations that
+Patient status at the provider organization level should    are technically not able to specify a reason, (e.g., EHR
+be considered inactive (reason code unspecified) only       system is in transition).
+if patient’s information has been submitted to an IIS
+via an electronic interface with inactive status without  yy Provider organizations should not set the inactive
+a reason code being specified.                              unspecified status arbitrarily but, rather, base it on rules
+                                                            defined in this guide.
+
+Geographic jurisdiction level
+
+BR411. Nomenclature of statuses at the
+geographic jurisdiction level
+
+Patient status at the geographic jurisdiction level
+may have only one of the following designations:
+
+yy Active
+yy Inactive, with the following reason code:
+
+  –– Outside jurisdiction
+yy Unknown, with the following reason codes:
+
+  –– No address, no vaccination
+  –– No activity for extended period of time
+yy Deceased
+
+26 Chapter 4 | Patient Status Business Rules
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+BUSINESS RULES                                            NOTES
+
+Geographic jurisdiction level                             Remarks
+
+BR412. Active status at the geographic                    yy Status should not be set to active at the geographic jurisdiction
+jurisdiction level                                          level for an individual who received an immunization from a
+                                                            provider organization within the geographic jurisdiction and
+Individual status with a geographic jurisdiction            has an address outside of that jurisdiction.
+should be considered active only if any of the
+following is true:                                        References
+
+yy Individual residence within the geographic             yy BR413. Inactive status at the geographic jurisdiction level
+  jurisdiction has been confirmed.                          (reason code outside jurisdiction)
+
+yy Individual received an immunization from a             yy S103: Patient address not known, patient receives services
+  provider organization within the geographic               within state
+  jurisdiction, and individual’s address is not
+  known (this condition applies only to highest level     yy S401. In-state patient uses out-of-state provider organization
+  geographic jurisdiction, such as state or city).        yy S504. Birth dose submitted by hospital, acceptable type
+                                                          yy S505. Birth dose submitted by hospital, not an acceptable type
+                                                          yy S703. Patient demographics and historical immunizations,
+
+                                                            no existing record
+                                                          yy S706. Patient demographics and historical immunizations,
+
+                                                            no existing record, not acceptable provider type: 1–1
+
+BR413. Patient status at the geographic                   Examples
+jurisdiction level: inactive: outside jurisdiction
+                                                          yy Individual once had a valid address in the jurisdiction but
+Patient status at the geographic jurisdiction level         now has a known address outside the jurisdiction.
+should be considered inactive (reason code outside
+jurisdiction) only if the patient does not reside in the  yy Individual has a known residence outside the highest level
+geographic jurisdiction.                                    geographic jurisdiction (such as state) but receives health
+                                                            care within the state.
+                                                            –– In this specific example (not all cases of this scenario),
+                                                               the patient will be active with at least one provider
+                                                               organization at the provider organization level.
+
+                                                          yy Change of address received in a submission from a provider
+                                                            organization may include a partial address, such as when
+                                                            only the patient’s state of residence is known (in which case
+                                                            the individual status is inactive: outside jurisdiction), and if
+                                                            there is an address-unknown flag (in which case it cannot be
+                                                            concluded that patient has moved outside of the geographic
+                                                            jurisdiction and the status remains active at the geographic
+                                                            jurisdiction level).
+
+                                                          References
+
+                                                          yy S101. Patient moved out of state but uses in-state provider
+                                                            organization
+
+                                                          yy S102. Patient moved out of state and ceased to use in-state
+                                                            provider organizations
+
+27 Chapter 4 | Patient Status Business Rules
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+BUSINESS RULES                                        NOTES
+Geographic jurisdiction level
+
+BR414. Patient status at the geographic jurisdiction  Examples
+level: Unknown: no address, no vaccination
+                                                      yy Demographic data received with no address.
+Individual status at the geographic jurisdiction      yy Birth record where child is up for adoption and no birth dose.
+level should be considered unknown: no address,       yy Patient may be homeless (and has not received immunization).
+no vaccination only if the IIS has never received
+an address and has never received vaccination         Remarks
+information about the individual.
+                                                      yy Other types of contact information (e.g., email address)
+                                                        might be available, which can be used to attempt contact.
+                                                        IIS should consider using other sources (e.g., health
+                                                        information exchange) to find contact information.
+
+                                                      yy IIS should use reliable data sources and must be careful
+                                                        about what sources they authorize to provide data (i.e., IIS
+                                                        should avoid situations in which they have no address and
+                                                        no immunization).
+
+                                                      yy This BR applies to incoming data. An IIS might have existing
+                                                        data that was not coded as required by this BR.
+
+                                                      References
+
+                                                      yy Table 6, Assessment report at the geographic jurisdiction level.
+                                                      yy S701. Patient demographics received with no address and
+
+                                                        no vaccination: 1–1
+                                                      yy S702. Patient demographics received with no address and
+
+                                                        no vaccination: 1–M
+
+BR415. Patient status at the geographic               Remarks
+jurisdiction level: Unknown: no activity for
+extended period of time                               yy The SME panel had extensive discussions about defining
+                                                        “extended period of time” and was not able to provide a
+Patient status at the geographic jurisdiction           specific (numeric) recommendation.
+level should be considered unknown: no
+activity for extended period of time only if the      yy Extended period of time could be different for different age
+IIS has not received demographic and/or                 cohorts. For example, adults might not be eligible for anything
+immunization information for a patient for an           other than flu vaccination for an extended period of time.
+extended period of time.
+                                                      yy Each IIS should (1) document its practices and the specific
+                                                        (numeric) period of time used to determine unknown status
+                                                        at the geographic jurisdiction level (reason code no activity
+                                                        for extended period of time) and (2) share the documented
+                                                        practices with AIRA to ensure transparency and to inform a
+                                                        future recommendation for a specific (numeric) period of time.
+
+                                                      yy Some IIS currently require seven years of inactivity to classify
+                                                        someone as unknown. Other IIS never assign inactive status
+                                                        due to lack of activity at the jurisdictional level.
+
+                                                      References
+
+                                                      yy Table 6, Assessment report at the geographic jurisdiction level.
+
+28 Chapter 4 | Patient Status Business Rules
+                MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+BUSINESS RULES                                       NOTES
+
+Both provider organization and geographic jurisdiction levels
+
+BR421. Deceased status at the provider               Remarks
+organization and geographic jurisdiction levels
+                                                     yy For a deceased patient, patient status should be changed
+Patient status at the provider organization and        to deceased at both the provider organization level and the
+geographic jurisdiction levels should be considered    geographic jurisdiction level.
+inactive with the reason code deceased only if a
+patient’s death is confirmed.                        yy Patient status at both levels—geographic jurisdiction and
+                                                       provider organization—should be coordinated (i.e., if status
+                                                       is set to deceased at the geographic jurisdiction level, it
+                                                       should also be set to deceased at the provider organization
+                                                       level for all provider organizations associated with the
+                                                       patient, and vice versa).
+
+                                                     Examples
+
+                                                     yy Examples of confirmation include a family member
+                                                       informing the IIS or provider organization, or a notification
+                                                       from Vital Records.
+
+29 Chapter 4 | Patient Status Business Rules
+5 USING PATIENT STATUS FOR
+   REMINDER/RECALLS AND
+     ASSESSMENT REPORTS
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+5 USING PATIENT STATUS FOR REMINDER/
+   RECALLS AND ASSESSMENT REPORTS
+
+      This chapter provides recommendations on using patient statuses, defined in
+      Appendix B: Vocabulary and Domain Diagrams, when selecting a cohort for
+      reminder/recalls and assessment reports.
+
+Note that a variety of factors other than patient status affect selection of a patient cohort. For example,
+depending on the assessment report or reminder/recall purpose, a cohort may be composed of patients
+of a certain age range, residence location, and/or specific types of vaccine. The recommendations
+presented here focus only on the impact of patient status on the population cohort selection.
+Note that patient status at the provider organization level and geographic jurisdiction level are defined
+by different business rules. For example, a provider organization may indicate a patient as inactive: lost
+to follow-up, but lost to follow-up is not a reason for a geographic jurisdiction to assign inactive status.
+
+      Rules for including patients in reminder/recalls and assessment reports are
+      documented in the following decision tables:
+
+        Table 3. Reminder/recall at the provider organization level
+        Table 4. Reminder/recall at the geographic jurisdiction level
+        Table 5. Assessment report at the provider organization level
+        Table 6. Assessment report at the geographic jurisdiction level
+
+ 31 Chapter 5 | Using Patient Status for Reminder/Recalls and Assessment Reports
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                                                          The top half of each table reflects the conditions used to
+                                                          determine whether a patient is included in the process.
+                                                          The bottom half reflects the recommended actions. Each
+                                                          column represents a scenario indicating what the resulting
+                                                          action should be for specific conditions. For example, in
+                                                          Table 4, Scenario A, if a patient has active status, he/she
+                                                          should be included in reminder/recall. In Scenario B, if a
+                                                          patient has inactive or deceased status, he/she should be
+                                                          excluded from reminder/recall notification.
+                                                          The following notes apply to each table in this section:
+
+                                                             zz For considerations regarding patients who have
+                                                                 opted out, refer to principles P313. Opt-out from IIS,
+                                                                 and P314. Opt-out from reminder/recall.
+
+                                                             zz Inactive includes all inactive reason codes.
+                                                             zz Unknown applies to both unknown reasons.
+                                                             zz Patients with an initial unassigned status should not
+
+                                                                 be included in the assessment reports and reminder/
+                                                                 recalls. Figure 7 illustrates the initial unassigned
+                                                                 patient status.
+                                                             zz If a method of contact that is not based on the
+                                                                 patient address is available, the IIS may choose
+                                                                 to include the patient in the cohort and send a
+                                                                 reminder/recall notification using the available
+                                                                 contact method. For example, an IIS may continue
+                                                                 trying to contact individuals with patient status at the
+                                                                 geographic jurisdiction level “unknown: no activity for
+                                                                 extended period of time” and “unknown: no address,
+                                                                 no vaccination” using available contact methods
+                                                                 other than an address.
+
+32 Chapter 5 | Using Patient Status for Reminder/Recalls and Assessment Reports
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+REMINDER/RECALL AT THE PROVIDER
+ORGANIZATION LEVEL
+
+In general, no reminder/recall notifications should be sent to a patient who opts out of reminder/
+recall notifications, subject to local policies and laws. Some IIS do allow reminder/recall notifications
+to be sent to individuals who opted out of reminder/recall notifications (e.g., in case of a disease
+outbreak). Some IIS do not allow individuals to opt out of reminder/recall notifications (P314).
+
+Table 3 | Reminder/Recall (RR) at the provider organization level
+
+CONDITIONS                                                         SCENARIO A               SCENARIO B
+Patient status at the provider organization level                      Active                  Inactive
+                                                                                              Deceased
+Actions                                                                   X
+1. Include in provider organization RR                                                             X
+2. Exclude from provider organization RR
+
+REMINDER/RECALL AT THE GEOGRAPHIC
+JURISDICTION LEVEL
+
+Table 4 | Reminder/Recall (RR) at the geographic jurisdiction level
+
+CONDITIONS                                           SCENARIO A                SCENARIO B   SCENARIO C
+Patient status at the geographic jurisdiction level      Active                   Inactive    Unknown
+                                                                                 Deceased
+Actions                                                     X                                      X
+1. Include in geographic jurisdiction RR                                              X
+2. Exclude from geographic jurisdiction RR
+3. IIS makes determination whether to include
+
+33 Chapter 5 | Using Patient Status for Reminder/Recalls and Assessment Reports
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ASSESSMENT REPORT AT THE PROVIDER
+ORGANIZATION LEVEL
+
+There is a great variety of provider organization level assessment reports conducted based on IIS
+data. Table 5 presents recommendations for selecting a population cohort for a generic assessment
+report at the provider organization level based on AFIX considerations. The recommendations
+replicate the decision logic presented in Table 3 for reminder/recall at the provider organization level.
+
+In order to satisfy needs of local immunization programs, an IIS may choose to modify the
+recommended decision logic to run various types of additional assessment reports at the provider
+organization level. However, each IIS should have functionality available to support best practice
+recommendations presented in Table 5.
+
+Table 5 | Assessment report at the provider organization level
+
+CONDITIONS                                                      SCENARIO A  SCENARIO B
+Patient status at the provider organization level                   Active     Inactive
+                                                                              Deceased
+Actions                                                                X
+1. Include in provider organization assessment report                              X
+2. Exclude from provider organization assessment report
+
+34 Chapter 5 | Using Patient Status for Reminder/Recalls and Assessment Reports
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ASSESSMENT REPORT AT THE GEOGRAPHIC
+JURISDICTION LEVEL
+
+Table 6 | Assessment report at the geographic jurisdiction level
+
+CONDITIONS                                                        SCENARIO A  SCENARIO B
+Patient status at the geographic jurisdiction level                   Active     Inactive
+                                                                                Deceased
+Actions                                                             Unknown
+1. Include in geographic jurisdiction assessment                                     X
+2. Exclude from geographic jurisdiction assessment                       X
+
+Be aware that use of the unknown status in Table 6 for an assessment at the geographic jurisdiction
+level is different from Table 4 for reminder/recall at the geographic jurisdiction level due to the
+nature of determining the information that is available—in many cases the patient address is not
+known (unknown status: no address, no vaccination).
+
+35 Chapter 5 | Using Patient Status for Reminder/Recalls and Assessment Reports
+6 OPERATIONAL
+   SCENARIOS
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                Patient status is relevant to three
+                aspects of IIS operations:
+                1. Information that an EHR (as
+
+                    well as a direct user interface)
+                    captures and transmits to
+                    an IIS. The information is a
+                    snapshot in time for the EHR.
+                2. How an IIS interprets
+                    information in incoming data.
+                3. How an IIS applies patient
+                    status recommendations to
+                    existing data in the IIS.
+
+37 Chapter 6 | Operational Scenarios
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+6 OPERATIONAL SCENARIOS
+
+      This chapter presents typical and challenging operational scenarios that illustrate
+      implementation of best practice recommendations.
+
+Using real situations to evaluate principles (Chapter 3:
+Principles), business rules (Chapter 4: Business Rules),
+diagrams, and decision tables for inclusion and exclusion
+of patients in reminder/recalls and assessment reports
+(Chapter 5: Reports) should help the user of this guide to
+test and explore best practice recommendations.
+Operational scenarios are presented in Table 7. These
+scenarios do not constitute an exhaustive set of all possible
+scenarios related to management of patient status. Rather,
+they are a limited set of some typical and challenging
+situations and recommended resolutions that are based on
+principles, business rules, and decision tables. This set of
+scenarios can be expanded by individual IIS for training and
+operational purposes.
+In reviewing these scenarios, keep in mind that patient status is
+relevant to three aspects of IIS operations:
+
+  1. Information that an EHR (as well as a direct user
+      interface) captures and transmits to an IIS. The
+      information is a snapshot in time for the EHR.
+
+  2. How an IIS interprets information in incoming data.
+  3. How an IIS applies patient status recommendations to
+
+      existing data in the IIS.
+
+ 38 Chapter 6 | Operational Scenarios
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Operational scenarios are grouped in the following categories that describe
+various situations with a patient:
+
+PLACE OF RESIDENCE                              ACCEPTABLE VACCINATION
+S101. P atient moved out of state but uses     ENCOUNTER TYPE
+                                                S601. V accination encounter of an
+        in-state provider organization
+S102. Patient moved out of state and ceased            acceptable type: 1–1
+                                                S602. V accination encounter of an
+        to use in-state provider organization
+S103. Patient address not known, patient               acceptable type: 1–M
+                                                S603. Vaccination encounter not of an
+        receives services within state
+                                                        acceptable type
+CHANGING PROVIDER ORGANIZATION
+S201. Transfer of medical records               INDIRECT STATUS DESIGNATION
+                                                S701. P atient demographics received with
+SERVICE FROM MORE THAN ONE
+PROVIDER ORGANIZATION                                   no address and no vaccination: 1–1
+S301. Patient lives with divorced parents: 1–1  S702. Patient demographics received with
+S302. Patient lives with divorced parents: 1–M
+                                                        no address and no vaccination: 1–M
+SERVICE FROM OUT-OF-STATE                       S703. Patient demographics and historical
+PROVIDER ORGANIZATION
+S401. In-state patient uses out-of-state               immunizations, no existing record
+                                                S704. P atient demographics and historical
+        provider organization
+                                                        immunizations, existing record: 1–1
+ACCEPTABLE PROVIDER                             S705. Patient demographics and historical
+ORGANIZATION TYPE
+S501. Provider organization of an                      immunizations, existing record: 1–M
+                                                S706. Patient demographics and historical
+        acceptable type: 1–1
+S502. Provider organization of an                      immunizations, no existing record,
+                                                        not acceptable provider type: 1–1
+        acceptable type: 1–M
+S503. P rovider organization not of an         DIRECT STATUS DESIGNATION
+                                                S801. P atient demographics and historical
+        acceptable type
+S504. B irth dose submitted by hospital,               immunizations, existing record: 1–1
+
+        acceptable type
+S505. B irth dose submitted by hospital,
+
+        not an acceptable type
+
+39 Chapter 6 | Operational Scenarios
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Table 7 | Operational scenarios
+
+  PLACE OF RESIDENCE
+  S101. Patient moved out of state but uses in-state provider organization
+
+          Description:
+          yy Patient moved out of the state but continues to use the services of a provider organization within the state.
+          Status:
+          yy Patient status at the geographic level (state) should be set to inactive: outside jurisdiction.
+          yy Patient status at the provider organization level should be set to active with that in-state provider organization.
+          Consequences:
+          yy Patient should be excluded from the geographic jurisdiction (state) reminder/recalls and assessment reports.
+          yy Patient should be included in the provider organization reminder/recalls and assessment reports.
+          References:
+          yy P310. Out-of-state patients
+          yy BR413. Patient status at the geographic jurisdiction level: inactive: outside jurisdiction
+          yy BR402A. Active status at the provider organization level: 1–1
+          yy BR402B. Active status at the provider organization level: 1–M
+  S102. Patient moved out of state and ceased to use in-state provider organizations
+          Description:
+          yy Patient moved out of the state and no longer receives services of a provider organization within the state.
+          Status:
+          yy Patient status at the geographic level (state) should be set to inactive: outside jurisdiction.
+          yy Patient status at the provider organization level should be set to “inactive: no longer a patient” for each
+
+             in‑state provider organization(s) that has an “active, inactive: lost to follow-up” or “inactive: unspecified
+             status” for that patient.
+          Consequences:
+          yy Patient should be excluded from the geographic jurisdiction reminder/recalls and assessment reports.
+          yy Patient should be excluded from the provider organization reminder/recalls and assessment reports.
+          References:
+          yy BR404A. Patient status at the provider organization level: inactive: no longer a patient: 1–1
+          yy BR404B. Patient status at the provider organization level: inactive: no longer a patient: 1–M
+          yy BR413. Patient status at the geographic jurisdiction level: inactive: outside jurisdiction
+
+ 40 Chapter 6 | Operational Scenarios
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+PLACE OF RESIDENCE
+S103: Patient address not known, patient receives services within state
+
+        Description:
+        yy Patient address is not known, and patient receives services from a provider organization within the state,
+
+           Provider Org A.
+        Status:
+        yy Patient status at the geographic jurisdiction level should be set to active.
+        yy Patient status at the provider organization level should be set to active with Provider Org A.
+        Consequences:
+        yy Patient should be included in the geographic jurisdiction reminder/recalls and assessment reports.
+        yy Patient should be included in Provider Org A provider organization reminder/recalls and assessment reports.
+        References:
+        yy P303. Avoid having people fall through the cracks
+        yy BR412. Active status at the geographic jurisdiction level
+        yy BR402A. Active status at the provider organization level: 1–1
+        yy BR402B. Active status at the provider organization level: 1–M
+
+CHANGING PROVIDER ORGANIZATION
+S201. Transfer of medical records
+
+        Description:
+        yy A patient has active status with Provider Org A. Provider Org A received a request to transfer the patient’s
+
+           medical records to Provider Org B. The IIS and provider organizations can infer that the patient is moving
+           from one provider organization to another.
+        Status:
+        yy Patient status should be set to inactive: no longer a patient for Provider Org A
+           (by the IIS or by Provider Org A).
+        yy Patient status should be set to active for Provider Org B (by the IIS or by Provider Org B).
+        Consequences:
+        yy Patient should be excluded from reminder/recalls and assessment reports for Provider Org A.
+        yy Patient should be included in reminder/recalls and assessment reports for Provider Org B.
+        References:
+        yy BR404A. Patient status at the provider organization level: inactive: no longer a patient: 1–1
+        yy BR404B. Patient status at the provider organization level: inactive: no longer a patient: 1–M
+
+41 Chapter 6 | Operational Scenarios
+     MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+SERVICE FROM MORE THAN ONE PROVIDER ORGANIZATION
+
+         S301. Patient lives with divorced parents: 1–1
+1–1
+
+                 Description:
+
+                 yy A patient (a child) lives interchangeably with each of his/her divorced parents (e.g., three months
+                    with one parent and then three months with the other parent). The patient switches back and forth
+                    (every three months) from Provider Org A to Provider Org B. Provider Org A and Provider Org B
+                    contribute equally to the patient’s immunizations. Provider Org A conducted the latest vaccination
+                    event for the patient. The IIS uses the 1–1 approach.
+
+                 Status:
+
+                 yy Patient status should be set to active for Provider Org A (by the IIS or by the Provider Org A).
+                 yy Patient status should be set to inactive: no longer a patient for Provider Org B (by the IIS).
+
+                 Consequences:
+
+                 yy The patient should be included in reminder/recalls and assessment reports for Provider Org A.
+                 yy The patient should be excluded from reminder/recalls and assessment reports for Provider Org B.
+                 yy The same should apply when the patient moves back from Provider Org B to Provider Org A.
+
+                 References:
+
+                 yy BR402A. Active status at the provider organization level: 1–1
+                 yy BR404A. Patient status at the provider organization level: inactive: no longer a patient: 1–1
+
+1–M  S302. Patient lives with divorced parents: 1–M
+
+             Description:
+
+             yy A patient (a child) lives interchangeably with each of his/her divorced parents (e.g., three months
+               with one parent and then three months with the other parent). The patient switches back and forth
+               (every three months) from Provider Org A to Provider Org B. Provider Org A and Provider Org B
+               contribute equally to the patient’s immunizations. Provider Org A conducted the latest vaccination
+               event for the patient. The IIS uses the 1–M approach.
+
+             Status:
+
+             yy Patient status should be set to active for Provider Org A (by the IIS or by the Provider Org A).
+             yy Patient status should be set to (or remain) active for Provider Org B (by the IIS).
+
+             Consequences:
+
+             yy The patient should be included in reminder/recalls and assessment reports for Provider Org A.
+             yy The patient should be included in reminder/recalls and assessment reports for Provider Org B.
+             yy The same should apply when the patient moves back from Provider Org B to Provider Org A.
+
+             References:
+
+             yy BR402B. Active status at the provider organization level: 1–M
+
+42 Chapter 6 | Operational Scenarios
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+SERVICE FROM OUT-OF-STATE PROVIDER ORGANIZATION
+S401. In-state patient uses out-of-state provider organization
+
+        Description:
+        yy A patient who resides within the IIS jurisdiction sees a provider organization outside the jurisdiction.
+        Status:
+        yy Patient status at the geographic level should be set to active.
+        yy There is no status at the provider organization level with the out-of-state provider organization.
+        Consequences:
+        yy The patient should be included in the geographic jurisdiction reminder/recalls and assessment reports.
+        References:
+        yy P310. Out-of-state patients
+        yy BR412. Active status at the geographic jurisdiction level
+
+ACCEPTABLE PROVIDER ORGANIZATION TYPE
+           S501. Provider organization of an acceptable type: 1–1
+
+  1–1
+                   Description:
+                   yy A patient has an active status with Provider Org A, where he/she regularly receives vaccinations. The
+                      patient receives a flu vaccination from Provider Org B, which is a pharmacy. The IIS uses the 1–1
+                      approach and considers the pharmacy (Provider Org B) as an acceptable provider organization type.
+                   Status:
+                   yy Patient status should be set to active for Provider Org B (pharmacy).
+                   yy Patient status should be set to inactive: no longer a patient for Provider Org A.
+                   Consequences:
+                   yy Patient should be included in reminder/recalls and assessment reports for Provider Org B.
+                   yy Patient should be excluded from reminder/recalls and assessment reports for Provider Org A.
+                   References:
+                   yy Chapter 2: Patient Status Fundamentals
+                   yy BR402A. Active status at the provider organization level: 1–1
+                   yy BR404A. Patient status at the provider organization level: inactive: no longer a patient: 1–1
+
+43 Chapter 6 | Operational Scenarios
+     MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ACCEPTABLE PROVIDER ORGANIZATION TYPE
+
+1–M  S502. Provider organization of an acceptable type: 1–M
+
+             Description:
+
+             yy A patient has an active status with Provider Org A, where he/she regularly receives vaccinations. The
+               patient receives a flu vaccination from Provider Org B, which is a pharmacy. The IIS uses the 1–M
+               approach and considers the pharmacy (Provider Org B) as an acceptable provider organization type.
+
+             Status:
+
+             yy Patient status should be set to active for Provider Org B (pharmacy).
+             yy Patient status should remain active for Provider Org A.
+
+             Consequences:
+
+             yy Patient should be included in reminder/recalls and assessment reports for Provider Org B.
+             yy Patient should be included in reminder/recalls and assessment reports for Provider Org A.
+
+             References:
+
+             yy Chapter 2: Patient Status Fundamentals
+             yy BR402B. Active status at the provider organization level: 1–M
+
+S503. Provider organization not of an acceptable type
+
+        Description:
+
+        yy A patient has an active status with Provider Org A, where he/she regularly receives vaccinations. The patient
+          received a flu vaccination from Provider Org B, which is a pharmacy. The IIS does not consider Provider Org B
+          (pharmacy) as an acceptable provider organization type.
+
+        Status:
+
+        yy Patient status should remain Active relative to Provider Org A.
+        yy Patient status should be unassigned with respect to Provider Org B. The initial status for a relationship
+
+          between a patient and a provider organization is unassigned.
+
+        Consequences:
+
+        yy Patient should be included in reminder/recalls and assessment reports for Provider Org A.
+        yy Patient should be excluded from reminder/recalls and assessment reports for Provider Org B.
+        yy Patients vaccinated by a provider organization not of acceptable type are excluded from all assessment
+
+          reports and reminder/recalls at the provider organization level.
+
+        References:
+
+        yy BR401. Nomenclature of statuses at the provider organization level
+        yy BR402A. Active status at the provider organization level: 1–1
+        yy BR402B. Active status at the provider organization level: 1–M
+        yy Figure 7: Patient status diagrams
+
+44 Chapter 6 | Operational Scenarios
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ACCEPTABLE PROVIDER ORGANIZATION TYPE
+
+S504. Birth dose submitted by hospital, acceptable type
+        Description:
+        yy A patient received birth doses of hepatitis B at the hospital. No patient record existed in the IIS prior to
+           the time the dose was reported to the IIS by the hospital. The patient address is within the geographic
+           jurisdiction. The IIS considers the hospital an acceptable provider organization type.
+        Status:
+        yy Patient status at the geographic jurisdiction level (state) should be set to active.
+        yy Patient status at the provider organization level should be set to active.
+        Consequences:
+        yy Patient should be included in reminder/recalls and assessment reports for the geographic jurisdiction.
+        yy Patient should be included in reminder/recalls and assessment reports for the hospital.
+        References:
+        yy BR412. Active status at the geographic jurisdiction level
+        yy BR402A. Active status at the provider organization level: 1–1
+        yy BR402B. Active status at the provider organization level: 1–M
+
+S505. Birth dose submitted by hospital, not an acceptable type
+        Description:
+        yy A patient received birth doses of hepatitis B at the hospital. No patient record existed in the IIS prior to
+           the time the dose was reported to the IIS by the hospital. The patient address is within the geographic
+           jurisdiction. The IIS does not consider the hospital an acceptable provider organization type.
+        Status:
+        yy Patient status at the geographic jurisdiction level (state) should be set to active.
+        yy Patient status should remain unassigned with respect to the hospital. The initial status for a relationship
+           between a patient and a provider organization is unassigned.
+        Consequences:
+        yy Patient should be included in reminder/recalls and assessment reports for the geographic jurisdiction.
+        yy Patient should be excluded from reminder/recalls and assessment reports for the hospital.
+        yy Patients vaccinated by a provider organization not of acceptable type are excluded from all provider
+           organization level assessment reports and reminder/recalls.
+        References:
+        yy BR401. Nomenclature of statuses at the provider organization level
+        yy BR411. Nomenclature of statuses at the geographic jurisdiction level
+        yy BR412. Active status at the geographic jurisdiction level
+
+45 Chapter 6 | Operational Scenarios
+     MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ACCEPTABLE VACCINATION ENCOUNTER TYPE
+
+         S601. Vaccination encounter of an acceptable type: 1–1
+1–1
+
+                 Description:
+
+                 yy The patient has an active status with Provider Org A, where he/she regularly receives vaccinations.
+                    Patient received a non-seasonal influenza (e.g., H1N1) vaccination from Provider Org B. The IIS uses
+                    the 1–1 approach. The IIS considers this vaccination encounter to be one of an acceptable type (not
+                    a mass vaccination). The IIS considers Provider Org B as an acceptable provider organization type.
+
+                 Status:
+
+                 yy Patient status should be set to active for Provider Org B.
+                 yy Patient status should be set to inactive: no longer a patient for Provider Org A.
+
+                 Consequences:
+
+                 yy Patient should be included in reminder/recalls and assessment reports for Provider Org B.
+                 yy Patient should be excluded from reminder/recalls and assessment reports for Provider Org A.
+
+                 References:
+
+                 yy BR402A. Active status at the provider organization level: 1–1
+                 yy BR404A. Patient status at the provider organization level: inactive: no longer a patient: 1–1
+                 yy Chapter 2: Patient Status Fundamentals
+
+1–M  S602. Vaccination encounter of an acceptable type: 1–M
+
+             Description:
+
+             yy The patient has an active status with Provider Org A, where he/she regularly receives vaccinations.
+               Patient received a non-seasonal influenza (e.g., H1N1) vaccination from Provider Org B. The IIS uses
+               the 1–M approach. The IIS considers this vaccination encounter to be one of an acceptable type (not
+               a mass vaccination). The IIS considers Provider Org B as an acceptable provider organization type.
+
+             Status:
+
+             yy Patient status should be set to active for Provider Org B.
+             yy Patient status should remain active for Provider Org A.
+
+             Consequences:
+
+             yy Patient should be included in reminder/recalls and assessment reports for Provider Org B.
+             yy Patient should be included in reminder/recalls and assessment reports for Provider Org A.
+
+             References:
+
+             yy Chapter 2: Patient Status Fundamentals
+             yy BR402B. Active status at the provider organization level: 1–M
+
+46 Chapter 6 | Operational Scenarios
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ACCEPTABLE VACCINATION ENCOUNTER TYPE
+S603. Vaccination encounter not of an acceptable type
+
+        Description:
+        yy A patient has active patient status with Provider Org A, where he/she regularly receives vaccinations. The
+
+           patient received a non-seasonal influenza (e.g., H1N1) vaccination from Provider Org B. The IIS considers
+           this vaccination encounter not of an acceptable type (e.g., a mass vaccination). The IIS considers Provider
+           Org B as an acceptable provider organization type.
+        Status (applies to both 1–1 and 1–M):
+        yy Patient status should remain active for Provider Org A.
+        yy Patient status should remain the same with respect to Provider Org B:
+           –– Unassigned, if patient had no prior relationship (i.e., has an initial unassigned status) with Provider Org B.
+           –– Active (in 1–M IIS) or inactive (in 1–1 and 1–M IIS) if patient had prior relationship (i.e., some assigned
+
+              status) with Provider Org B via a vaccination encounter of an acceptable type.
+        Consequences:
+        yy Patient should be included in reminder/recalls and assessment reports for Provider Org A.
+        yy Patient should be:
+
+           –– Excluded from reminder/recalls and assessment reports for Provider Org B if status is unassigned or inactive.
+           –– Included in reminder/recalls and assessment reports for Provider Org B if status is active (1–M IIS only).
+        References:
+        yy Chapter 2: Patient Status Fundamentals
+        yy BR401. Nomenclature of statuses at the provider organization level
+        yy BR402A. Active status at the provider organization level: 1–1
+        yy BR402B. Active status at the provider organization level: 1–M
+
+47 Chapter 6 | Operational Scenarios
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+INDIRECT ASSIGNMENT OF STATUS
+           S701: Patient demographics received with no address and no vaccination: 1–1
+
+  1–1
+                   Description:
+                   yy IIS received a demographic-only submission from Provider Org A. The IIS considers Provider Org A
+                      to be an acceptable provider organization type. A patient address is not provided in the submission.
+                      The IIS has never received vaccination data for the patient. The submission does not include patient
+                      status. The IIS uses the 1–1 approach.
+                   Status:
+                   yy Patient status at the geographic jurisdiction level (state) should be set to unknown: no address,
+                      no vaccination.
+                   yy If a new patient record is created in the IIS, patient status should be set to active for Provider Org A
+                      at the provider organization level.
+                   yy If an existing patient record is updated in the IIS, the patient status should remain the same with
+                      Provider Org A.
+                   Consequences:
+                   yy IIS makes determination whether to include patient in a geographic jurisdiction reminder/recall.
+                   yy Patient should be included in geographic jurisdiction assessment reports (unless other methods
+                      are used to control for denominator inflation; see Chapter 7, Assessment report at the geographic
+                      jurisdiction level).
+                   yy If a new patient record is created in the IIS (active status), the patient should be included in
+                      Provider Org A reminder/recalls and assessment reports.
+                   References:
+                   yy BR402A. Active status at the provider organization level: 1–1
+                   yy BR414. Patient status at the geographic jurisdiction level: unknown: no address, no vaccination
+
+48 Chapter 6 | Operational Scenarios
+     MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+INDIRECT ASSIGNMENT OF STATUS
+
+1–M  S702: Patient demographics received with no address and no vaccination: 1–M
+
+             Description:
+
+             yy The IIS received a demographic-only submission from Provider Org A. The IIS considers Provider Org A
+               to be of an acceptable provider organization type. A patient address is not provided in the submission.
+               The IIS has never received vaccination data for the patient. The submission does not include patient
+               status. The IIS uses the 1–M approach.
+
+             Status:
+
+             yy Patient status at the geographic jurisdiction level (state) should be set to unknown: no address,
+               no vaccination.
+
+             yy Patient status should be set to active at the provider organization level.
+
+             Consequences:
+
+             yy IIS makes determination whether to include the patient in the geographic jurisdiction reminder/recalls.
+             yy Patient should be included in the geographic jurisdiction assessment reports.
+             yy Patient should be included in Provider Org A reminder/recalls and assessment reports.
+
+             References:
+
+             yy BR402B. Active status at the provider organization level: 1–M
+             yy BR414. Patient status at the geographic jurisdiction level: unknown: no address, no vaccination
+
+S703. Patient demographics and historical immunizations, no existing record
+
+        Description:
+
+        yy Provider Org A submits patient demographic information (with a patient address inside the IIS geographic
+          jurisdiction or without address) and historical immunizations. The IIS considers Provider Org A as an
+          acceptable provider type. The submission does not indicate a patient status. The IIS does not have an
+          existing matching patient record.
+
+        Status (both 1–1 and 1–M):
+
+        yy Patient status at the geographic jurisdiction level should be set to active.
+        yy Patient status should be set to active for Provider Org A.
+
+        Consequences:
+
+        yy The patient should be included in geographic jurisdiction reminder/recalls and assessment reports.
+        yy Patient should be included in reminder/recalls and assessment reports for Provider Org A.
+
+        References:
+
+        yy BR402A. Active status at the provider organization level: 1–1
+        yy BR402B. Active status at the provider organization level: 1–M
+
+49 Chapter 6 | Operational Scenarios
+     MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+INDIRECT ASSIGNMENT OF STATUS
+
+         S704. Patient demographics and historical immunizations, existing record: 1–1
+1–1
+
+                 Description:
+
+                 yy The IIS has an existing patient record with active status for Provider Org A. Provider Org B submits
+                    patient demographics and historical immunizations for the same patient. The IIS considers
+                    Provider Org B as an acceptable provider type. The submission does not indicate a patient status.
+                    The IIS uses the 1–1 approach.
+
+                 Status:
+
+                 yy Patient status remains active for Provider Org A.
+                 yy Patient status remains unassigned for Provider Org B.
+
+                 Consequences:
+
+                 yy Patient should be included in reminder/recalls and assessment reports for Provider Org A.
+                 yy Patient should not be included in reminder/recalls and assessment reports for Provider Org B.
+
+                 References:
+
+                 yy BR401. Nomenclature of statuses at the provider organization level
+                 yy BR402A. Active status at the provider organization level: 1–1
+                 yy BR411. Nomenclature of statuses at the geographic jurisdiction level
+                 yy Figure 7: Patient status diagrams
+
+1–M  S705. Patient demographics and historical immunizations, existing record: 1–M
+
+             Description:
+
+             yy The IIS has an existing patient record with active status for Provider Org A. Provider Org B submits
+               patient demographics and historical immunizations for the same patient. The IIS considers
+               Provider Org B as an acceptable provider type. The submission does not indicate a patient status.
+               The IIS uses the 1–M approach.
+
+             Status:
+
+             yy Patient status should remain active for Provider Org A.
+             yy Patient status should be set to active for Provider Org B.
+
+             Consequences:
+
+             yy Patient should be included in reminder/recalls and assessment reports for Provider Org A.
+             yy Patient should be included in reminder/recalls and assessment reports for Provider Org B.
+
+             References:
+
+             yy BR402B. Active status at the provider organization level: 1–M
+
+50 Chapter 6 | Operational Scenarios
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+INDIRECT ASSIGNMENT OF STATUS
+           S706. Patient demographics and historical immunizations, no existing record, not acceptable provider type: 1–1
+
+  1–1
+                   Description:
+                   yy Provider Org A submits patient demographics and immunizations for a patient new to the IIS.
+                      Provider Org A is not an acceptable provider type. The submission does not indicate a patient
+                      status. The IIS uses the 1–1 approach.
+                   Status:
+                   yy Patient status should be set to active at the geographic jurisdiction level if there is no patient
+                      address or the patient address is within the jurisdiction.
+                   yy Patient status should remain unassigned at the provider organization level.
+                   Consequences:
+                   yy Patient should not be included in reminder/recalls and assessment reports for Provider Org A.
+                   yy Patient should be included in reminder/recalls and assessment reports at the geographic
+                      jurisdiction level.
+                   References:
+                   yy BR401. Nomenclature of statuses at the provider organization level
+                   yy BR411. Nomenclature of statuses at the geographic jurisdiction level
+                   yy Figure 7: Patient status diagrams
+
+DIRECT ASSIGNMENT OF STATUS
+           S801. Patient demographics and historical immunizations, existing record: 1–1
+
+  1–1
+                   Description:
+                   yy Provider Org A submits patient demographics and historical immunizations. The submission
+                      included an indication of active status. The IIS already has a matching patient record with active
+                      status for Provider Org B. The IIS uses the 1–1 approach.
+                   Status:
+                   yy Patient status should be set to active for Provider Org A.
+                   yy Patient status should be set to inactive: no longer a patient for Provider Org B.
+                   Consequences:
+                   yy Patient should be included in reminder/recalls and assessment reports for Provider Org A.
+                   yy Patient should not be included in reminder/recalls and assessment reports for Provider Org B.
+                   References:
+                   yy P308. Supremacy of patient status explicit assignment
+                   yy BR402A. Active status at the provider organization level: 1–1
+
+51 Chapter 6 | Operational Scenarios
+7 IMPLEMENTATION
+
+CONSIDERATIONS
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                 With EDE being the
+                 model for the present and
+                 future for collection of
+                 all immunization‑related
+                 data, including data used
+                 to determine patient
+                 status, considerations
+                 need to be taken for
+                 implementation of
+                 many of this guide’s
+                 recommendations.
+
+53 Chapter 7 | Implementation Considerations
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+7 IMPLEMENTATION CONSIDERATIONS
+
+      Although patient status does not directly impact clinical decision support algorithms
+      and thus the vaccinations that are recommended for administration, it does have a
+      direct impact on selection of patients for both reminder/recall and assessments.
+
+With EDE being the model for the present and future for collection of all immunization-related
+data, including data used to determine patient status, considerations need to be taken for
+implementation of many of this guide’s recommendations.
+
+IIS can maintain patient status in dedicated fields (patient status at the provider-organization level
+and patient status at the geographic jurisdiction level) or virtually by calculating it every time when
+it is needed (especially for the geographic jurisdiction level) (P305). The section “Operational-level
+analysis requirements vs. implementation-level design solutions” in Appendix E: Scope describes
+various implementation approaches that IIS can use to store and manage information related to
+determination of patient status.
+
+This section discusses in detail those implementation considerations and is organized
+as follows:
+
+   MESSAGING         HANDLING OF              OPT-OUT
+PATIENT STATUS  PATIENT IN REPORTS
+
+                   (REMINDER/RECALL,
+                       PATIENT LISTS)
+
+54 Chapter 7 | Implementation Considerations
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+MESSAGING PATIENT STATUS
+
+Provider organizations submit vaccination events and patient demographic information to IIS via
+EDE and IIS direct user interface. EDE is the interface through which data can be communicated
+electronically between a provider organization’s system, such as an EHR system, and the IIS.
+Electronic messages use Health Level Seven (HL7) specification, which is a nationally recognized
+standard for EDE between systems housing health care data. HL7 specifications define a syntax,
+or grammar, for formulating the messages that carry this information and describe a standard
+vocabulary that is used in these messages. Obtaining and interpreting the information from EDE is
+not always as straightforward as it should be. Instead of one single field in HL7 to represent patient
+status, there can be multiple fields that must be considered.
+
+PATIENT STATUS AT THE PROVIDER ORGANIZATION LEVEL
+
+DIRECT IDENTIFICATION
+Information about status of a patient at the provider organization level is a part of the overall
+information on vaccination events and patient demographics submitted by a provider organization
+to an IIS. It indicates if the provider organization considers itself responsible for that patient’s
+immunizations.
+Currently, the National HL7 Implementation Guide (IG) for Immunization Messaging states that fields
+PD1–16 (Immunization Registry Status) and PD1–17 (date associated with status) should be used to
+transmit the patient status information.
+PD1 is a segment in the VXU (unsolicited immunization update) message; it is required but may
+be empty (RE). (If there are data, PD1 is required—senders must be able to record it and send it, if
+populated.) PD1–16 is used by IIS to update the relationship between the patient and the provider
+organization in the IIS.
+The national IG also outlines the standardized set of codes that should be sent in PD1–16. Table 8
+demonstrates how the provider organization level patient status categories outlined in this document
+can be directly coded using the nationally recognized HL7 codes.
+
+ 55 Chapter 7 | Implementation Considerations
+                          MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Table 8 | Direct coding of patient status at the provider organization level in HL7 messages
+
+STATUSES FROM THE HL7 SPECIFICATION,                  CLARIFICATION OF PATIENT STATUS CATEGORIES
+USER-DEFINED TABLE 0441                               FOR PROVIDER ORGANIZATION LEVEL
+
+Value Description                                     Name                                    Reference
+
+A  Active                                             Active                                  BR402A
+
+                                                                                              BR402B
+
+I  Inactive: Unspecified                              Inactive: Unspecified                   BR406
+
+L  Inactive: Lost to follow-up (cannot contact)       Inactive: Lost to follow-up             BR405
+
+M  Inactive: Moved or gone elsewhere (transferred)    Inactive: No longer a patient BR404A
+
+                                                                                              BR404B
+
+P  Inactive: Permanently inactive (do not reactivate  Deceased (see Note 1 below) BR421
+
+   or add new entries to this record)
+
+U  Unknown                                            N/A                                     N/A
+
+Notes:
+
+  1. When status code “P” is received in an HL7 message, the patient status should not be updated
+      until there is a secondary confirmation of the death, either from the family, practice, or Vital
+      Records or if PID-30 is filled with “Y.”
+
+  2. Current (as of April 2015) HL7 codes/values for patient active/inactive statuses at the provider
+      organization level presented in the HL7 specification (HL7 Version 2.5.1: Implementation Guide
+      for Immunization Messaging, Release 1.5) are defined according to the 2005 MOGE guide.
+
+  3. Reason codes can be handled as sub-statuses of the inactive status (e.g., inactive: no longer a patient;
+      inactive: not acceptable provider type; inactive: lost to follow-up; inactive: unspecified) (BR401).
+
+  4. Some EHR systems might not provide a reason for inactive status, using an empty reason or
+      null value instead (BR406).
+
+  5. Interfaces should be set up to allow for a provider organization to message patient status for a
+      patient who has become inactive with this provider organization (P304).
+
+56 Chapter 7 | Implementation Considerations
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+In addition to the immunization registry status that can be passed in PD1 above, a separate death
+indicator can be sent in field PID‑30. PID-29 can also be sent that includes the patient’s date and
+time of death. This information in PID-29 is used to change the patient’s status at both the provider
+organization and geographic levels (BR421). The HL7 message should be considered a confirming
+message from the provider organization.
+An IIS program may want to consider turning off reminder/recall notifications if a “P“ is received
+without the PID-30 field filled in with a “Y.” The program can investigate the death notification further
+for confirmation, but it is important to prevent a notification from being sent to a family member if
+the individual is deceased (BR421).
+INDIRECT IDENTIFICATION
+In addition to the codes above, patient status for a provider
+organization can be determined indirectly by the IIS by
+using data in the RXA (Pharmacy/Treatment Administration).
+Fields RXA-3 (Date/Time Start of Administration), RXA-9
+(Administration Notes), and RXA‑11 (Administered-at Location
+LA2 data type) can also be used to infer which provider
+administered which immunizations. This information is used
+differently by IIS that use the 1–1 and 1–M approaches.
+RXA-3 is a required field in the HL7 message that indicates the
+date of the vaccine administration. This information is needed to
+determine the most recent acceptable vaccine encounter for IIS
+that use the 1–1 approach. RXA-9 is used to indicate whether the
+vaccine is newly administered or is a historical record. The record
+of whether a vaccine is newly administered or historical is used in
+determining the active status between the patient and provider
+organization if the 1–1 approach is used by the IIS. See also
+BR402A, and S704. RXA-11 is used to indicate the clinic or office
+site where the vaccine was administered. Other IIS enrollment
+information will be used to then determine whether the site
+(provider organization) listed in RXA-11 is an acceptable type.
+
+ 57 Chapter 7 | Implementation Considerations
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+PATIENT STATUS AT THE GEOGRAPHIC JURISDICTION LEVEL
+
+Data exchanged electronically should be used to update patient address information. Patient status
+at the geographic jurisdiction level can then be determined indirectly from address information
+obtained from an HL7 message. The HL7 message from a provider organization within the geographic
+jurisdiction is considered to be a confirmed address. HL7 VXU messages contain a required PID
+segment with a patient address field PID-11. If the address type is coded P (Permanent) or H (Home), it
+can be used to determine if a specific geographic jurisdiction is responsible for the patient.
+
+Active status at the geographic level should not depend on a confirmed address only. Business
+rule BR412 specifies the following conditions for assignment of active status at the geographic
+jurisdiction level in addition to a confirmed address:
+
+zz Residence within the geographic jurisdiction has been confirmed.
+zz Receipt of an immunization from a provider organization within the geographic jurisdiction
+
+    and the patient’s address is not known (this condition applies only to highest level geographic
+    jurisdiction, such as state or city).
+
+The majority of IIS currently do not have an actual field called
+
+“patient status at the geographic jurisdiction level”; however,    The majority of IIS
+
+many IIS derive this status from other data, primarily residence   currently do not have
+address. Having a separate field (data element) for patient        an actual field called
+status at the geographic jurisdiction level would represent a      “patient status at the
+more solid implementation approach (e.g., it could provide         geographic jurisdiction
+traceability and history of status changes) (BR411).
+
+In addition, patients with patient status “unknown: no activity    level”; however, many IIS
+for extended period of time” and “unknown: no address, no          derive this status from
+
+vaccination” at the geographic jurisdiction level might reflect    other data, primarily
+
+two sub-populations of individuals: (1) patients who reside in     residence address.
+the jurisdiction who have not received vaccinations for a long
+
+time or (2) patients who no longer reside in the jurisdiction but
+
+have not been identified as non-residents. Ideally, IIS should include patients in the first category in
+
+geographic jurisdiction level coverage assessment reports to ensure that assessment reports include
+
+the full population and should exclude patients in the second category. However, IIS might not be
+
+able to distinguish between these sub-populations. Therefore, it is recommended that IIS include
+
+individuals with unknown status in geographic jurisdiction level coverage assessment reports to
+
+ensure full capture of the geographic jurisdiction population.
+
+58 Chapter 7 | Implementation Considerations
+MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Note that IIS can employ other methods to reduce the        In some cases, based on the
+impact of biases resulting from the inadvertent inclusion   purpose of the assessment,
+of non-residents in the assessment. For example, IIS        an IIS may decide it is
+can use other reference sources, such as census data,       inappropriate to include
+to produce denominators for geographic jurisdiction         patients with unknown
+coverage assessment reports or to perform statistical       status at the geographic
+adjustments to IIS data to produce more accurate            jurisdiction level in the
+estimates of population denominators.                       coverage assessment.
+
+In some cases, based on the purpose of the assessment,
+an IIS may decide it is inappropriate to include patients
+with unknown status at the geographic jurisdiction level
+in the coverage assessment. If patients with unknown
+patient status are excluded from a geographic jurisdiction
+assessment, this should be clearly documented.
+
+59 Chapter 7 | Implementation Considerations
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+PATIENT STATUS IN ASSESSMENT REPORTS
+
+Keeping patient status history, including dates of changes and reason/entity making the change, would
+be helpful for assessment reports that are done retrospectively. IIS might consider implementing
+reports of patients whose information has not been updated over a specific time frame (per age
+cohort) as well as patients who have an “inactive” status but are receiving immunizations (P304).
+
+ASSESSMENT REPORT AT THE PROVIDER
+ORGANIZATION LEVEL
+
+Active status is a key factor used to determine if a patient should
+be included in an assessment report. There are some differences
+between definitions of active patient status in 1–1 and 1–M
+approaches (see BR402A and BR402B). Also, as described in
+section “1–1 and 1–M approaches” in Chapter 2, when the 1–1
+approach is used, a patient may be included in assessment
+reports for only one provider organization at a point in time, and
+when the 1–M approach is used, a patient may be included in
+assessment reports for many provider organizations at a point
+in time. Comparing assessment report data between an IIS using
+a 1–1 approach and another IIS using a 1–M approach presents
+statistical challenges. Note that the main focus of the AFIX
+program is to compare provider organizations within a single
+IIS. Each IIS should use either a 1–1 or 1–M method consistently.
+Special investigation methods should be used if the need to
+compare provider organizations across IIS arises, as there
+are many other factors beyond use of either the 1–1 or 1–M
+approach that impact the ability to compare data across IIS.
+Hypothetically, in the 1–M approach, a single, principal provider
+organization responsible for a patient could be selected among
+many provider organizations by using rules from the 1–1
+approach for assigning responsibility. Assigning responsibility
+to a single, principal provider organization for assessment
+report purposes in an IIS using the 1–M approach could allow
+assessment reports to be compared across IIS using 1–1 and
+1–M approaches.
+
+ 60 Chapter 7 | Implementation Considerations
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                                            IMPLEMENTATION CONSIDERATIONS FOR
+                                            PRE‑ASSESSMENT REVIEW
+
+                                                    Pre-assessment activities should include creation of a list
+                                                    of patients who can be related to a provider organization,
+                                                    followed by a review and verification of each candidate
+                                                    patient for inclusion/exclusion in the assessment.
+                                                    Immunization programs may use various ways to develop
+                                                    a list of patients considered for inclusion for the pre-
+                                                    assessment review.
+
+                                                    It is possible to support identification and management of
+                                                    such candidate patients through the functionality known in
+                                                    some IIS implementations as association. Some immunization
+                                                    programs may implement the association functionality in an
+                                                    all-inclusive manner with selection of all patients that might
+                                                    be considered as candidates for inclusion in the assessment
+                                                    report for a provider organization; other immunization
+                                                    programs may choose to use a more restrictive approach
+                                                    by including in the pre-assessment review only patients with
+                                                    an active patient status. A provider organization may take
+                                                    time during the pre-assessment activities to review every
+                                                    candidate patient identified via the association functionality
+                                                    and modify patient status for some of the candidate patients;
+                                                    immunization programs may assist in this effort as time
+                                                    allows. Actual inclusion or exclusion of candidate patients
+                                                    in the provider organization’s assessment report depends
+                                                    on the patient status for each patient after any adjustments
+                                                    made during the pre-assessment review process. Support
+                                                    for creating and managing a list of candidate patients for
+                                                    the pre-assessment review can be achieved with a variety
+                                                    of implementation approaches using predetermined or ad
+                                                    hoc queries, depending on specific policies and established
+                                                    practices of immunization programs.
+
+61 Chapter 7 | Implementation Considerations
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ASSESSMENT REPORT AT THE GEOGRAPHIC JURISDICTION LEVEL
+
+Patients with patient status unknown: no activity for extended period of time and unknown: no
+address, no vaccination at the geographic jurisdiction level might reflect two sub-populations of
+individuals: (1) patients who reside in the jurisdiction who have not received vaccinations for a
+long time or (2) patients who no longer reside in the jurisdiction but have not been identified as
+non‑residents. Ideally, IIS should include patients in the first category in geographic jurisdiction
+level coverage assessment reports to ensure that assessment reports include the full population
+and exclude patients in the second category. However, IIS might not be able to distinguish
+between these sub-populations. Therefore, it is recommended that IIS include individuals with
+unknown status in geographic jurisdiction level coverage assessment reports to ensure full
+capture of the geographic jurisdiction population.
+IIS can employ other methods to reduce the impact of biases resulting from the inadvertent inclusion
+of non-residents in the assessment. For example, IIS can use other reference sources such as census
+data to produce denominators for geographic jurisdiction coverage assessment reports or perform
+statistical adjustments to IIS data to produce more accurate estimates of population denominators.
+In some cases, based on the purpose of the assessment, an IIS may decide it is inappropriate
+to include patients with unknown status at the geographic jurisdiction level in the coverage
+assessment. If patients with unknown patient status are excluded from a geographic jurisdiction
+assessment, this should be clearly documented.
+
+OPT-OUTS AND PATIENT PRIVACY
+
+Laws and policies regarding opt-outs and limitations in sharing data vary significantly across
+registries (P313). Accordingly, there are many different ways in which registries must handle
+opt‑outs and limitations in sharing data, for example:
+
+  zz Some are required to purge any information once someone opts out.
+  zz Some allow only name and certain minimal demographic information to be stored
+
+      (so it can be matched if subsequent information is received).
+  zz Some still report all of the patient’s immunizations but don’t allow provider organizations
+
+      to access them.
+  zz Some do not create a record for the individual at all.
+  zz Some allow only the IIS to have access to the information, but it is hidden from all others.
+
+ 62 Chapter 7 | Implementation Considerations
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Based on local opt-out laws or policies, individuals who have opted out may be included in
+geographic jurisdiction assessments and reminder/recall. AFIX policies exclude from assessments
+individuals who have opted out of the IIS.
+Adoption is very similar to opt-out. Each IIS will be required to address adoption in accordance with
+varying state laws and policies, and the mechanism should (but might not be) separate from the patient
+status mechanism. Some IIS may use the “expanded” patient status concept to deal with adoptions.
+Publicity Code. The RE (required but may be empty) PD1 segment contains a publicity code,
+PD1–11, with RE usage. The code refers to how a person wishes to be contacted for reminder/recall
+notifications. The code set is in User-defined Table 0215 – Publicity code. This information may be
+used by the provider organization or geographic jurisdiction to determine additional exclusions from
+reminder/recall activities or to determine the manner of reminder/recall.
+Protection Indicator. PD1–12 is an RE (required but may be empty) field. It identifies whether a
+person’s information may be shared with others by the sending system. “Y” indicates the data are
+protected and should not be shared. “N” indicates it is not necessary to protect the data and sharing
+is permissible. How the data are protected is determined locally. See P313, P314.
+
+ 63 Chapter 7 | Implementation Considerations
+                                                   APPENDICES
+
+APPENDIX A                           65     APPENDIX E                               73
+ABBREVIATIONS                               SCOPE
+
+                                            Focus                                    73
+
+APPENDIX B                                  Integration with other initiatives       73
+VOCABULARY AND
+                                     66     Including (in scope)                     74
+
+DOMAIN DIAGRAMS                             Excluding (out of scope)                 74
+
+                                            Operational-level analysis requirements
+
+                                            vs. implementation-level design solutions 75
+
+APPENDIX C                           71     APPENDIX F
+READING PATHS                               PATIENT STATUS DIAGRAM
+
+                                                                                     77
+
+APPENDIX D                           72     APPENDIX G                               79
+SELECTED REFERENCES                         ROSTER OF PARTICIPANTS
+                                        72
+  Previously developed MIROW guides     72
+  or related materials
+  General references
+
+                                            APPENDIX H                               81
+                                            ACKNOWLEDGEMENTS
+                MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX A ABBREVIATIONS
+
+ABBREVIATION    FULL VERSION
+AFIX            Assessment, Feedback, Incentives, and eXchange
+AIRA            American Immunization Registry Association
+BR              Business Rule
+CDC             Centers for Disease Control and Prevention
+EMR/EHR         Electronic Medical Record/Electronic Health Record
+DOB             Date of Birth
+EDE             Electronic Data Exchange
+GJ              Geographic Jurisdiction
+HL7             Health Level Seven International
+IIS             Immunization Information System
+MIROW           Modeling of Immunization Registry Operations Workgroup
+MOGE            Moved or Gone Elsewhere
+N/A, NA, na     Not Applicable
+NCIRD           National Center for Immunization and Respiratory Diseases at CDC
+Org             Organization
+P               Principle (high-level business rule)
+Patient status  Patient Active/Inactive Status
+RR              Reminder/recall
+SME             Subject Matter Expert
+UI              User Interface
+VFC             Vaccines for Children
+Y/N             Yes/No
+
+65 Appendix A | Abbreviations
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX B	VOCABULARY AND
+                  DOMAIN DIAGRAMS
+
+      Below are selected terms and definitions used in this guide. For a more complete
+      list of MIROW terms, please see the MIROW Common Vocabulary materials [1.12].
+      The domain model that illustrates the relationship between these terms is shown in
+      Figure 4 and Figure 5.
+
+        Address is the place where a party is located or may be reached.
+        Administered/Historical Indicator is the state of the association between a vaccination
+        event and a provider organization indicating whether the provider organization
+        administered the vaccination event or is submitting the vaccination event on behalf of
+        another provider organization.
+        Assessment Report is an account of the degree to which a cohort is immunized
+        according to current recommendations.
+        Cohort is a group of people who share a common characteristic, such as age.
+        Contact Method is a manner in which to contact a patient.
+        Contact Method Primary Indicator is an indicator to denote the primary contact
+        method for a patient.
+        Contact Method Type is the mode of communication that will be used to contact a patient.
+
+ 66 Appendix B | Vocabulary and Domain Diagrams
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+      Date of Birth is the birth date of the patient.
+      Date of Death (DOD) is the date of the patient’s death.
+      Demographic Submission is a submission regarding a patient’s demographic information.
+      Electronic Data Exchange (EDE) is an interface in which data can be communicated
+      electronically between an IIS and another system, such as an electronic health record system.
+      Geographic Jurisdiction is a physical area identified by a governing authority.
+      IIS Direct User Interface is a software application that allows a person to enter data
+      directly into or retrieve data directly from an IIS.
+      Immunization History is a collection of information detailing vaccination events for a patient.
+      Immunization Information System (IIS) is a confidential, population-based,
+      computerized database for recording information, including vaccination history and
+      vaccine doses given by participating health care providers.
+      Immunization Program is a public health organization that coordinates public health
+      activities related to immunizations for a geographic jurisdiction.
+      Patient is a person who is the actual or potential recipient of a vaccine.
+      Patient Status is an indicator of an organization’s accountability for a patient’s
+      immunizations.
+      Patient Status at Geographic Jurisdiction Level is a patient status with respect to an
+      immunization program.
+      Patient Status at Provider Organization Level is a patient status with respect to a
+      provider organization.
+      PO Type/Sub-Type is a categorization assigned by an IIS to a provider organization based
+      on a combination of services provided and the cohort served by the provider organization.
+
+67 Appendix B | Vocabulary and Domain Diagrams
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+      Provider Organization (PO) is an organization that has any combination of the
+      following characteristics:
+
+         zz Provides vaccination services
+         zz Responsible for an entity that provides vaccination services
+         zz Manages inventory for an entity that provides vaccination services
+      Reminder/Recall Report is a report listing one or more patients with one or more
+      recommended vaccinations due now or in the future.
+      Residence is a location where a person resides.
+      Responsible Party is a person responsible for a patient.
+      Submission is a collection of information sent from an IIS-AO (authorized organization)
+      to an IIS.
+      Submission Date is the date a submission is received by an IIS.
+      Vaccination Encounter is an opportunity for one or more vaccination events to occur.
+      Vaccination Encounter Date is the date of a vaccination encounter.
+      Vaccination Encounter Type is a kind of vaccination encounter.
+      Vaccination Event (VE) is a medical occurrence of administering one vaccine to a patient.
+      Vaccination Event Date is the date of the vaccination event.
+      Vaccination Event Submission is a submission regarding a vaccination event(s).
+      Vaccine is a dose of substance administered during a vaccination event.
+      Vaccine Product Type is a classification that describes the manufacturer and
+      presentation of a vaccine type.
+      Vaccine Type is a classification of a vaccine that describes the disease to which it
+      provides immunity.
+
+68 Appendix B | Vocabulary and Domain Diagrams
+                  MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Figure 4 | High-level domain diagram depicting categories of terms defined in this document
+
+                             Immunization                 analyzes and uses result of
+                              Information
+                  serves      Systems (IIS)
+
+                                         offers
+
+Geographic                   Vaccine             tracked by                                  Immunization
+Jurisdiction                                           collects and stores                        History
+
+                                                                                             is conducted for
+
+                             receive
+                                   Patient
+
+                  reside at
+
+                          Legend for categories / colors
+
+Cohort / Patient  (IIS)          Geographic      Vaccinations                                Immunization
+                             Areas / Locations                                                   Tracking
+
+69 Appendix B | Vocabulary and Domain Diagrams
+                            MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Figure 5 | Detailed domain diagram depicting relationship of terms defined in this document
+
+ Revision date: 11-20-2018   produced for                                 Assessment                 produced for 
+                                                                               Report                 produced for 
+                Cohort
+a collection of                                                        Reminder/Recall
+                                                                               Report
+
+             belongs to 
+
+             can be            Contact Method                    is for 
+             contacted
+             via              Contact Method
+                              Primary Indicator
+                            Contact Method Type
+
+                  a proxy for Responsible Party                                    Address                        may contain 
+                                                                           based on 
+comprises                                                                                             Geographic
+                                                                                                       Jurisdiction
+Patient                     resides at                 location of       Residence     located in 
+
+Date of Birth               has                           indicates
+Date of Death                                              responsibility
+                                     Patient Status        of 
+                                      at Geographic                                   serves 
+                                   Jurisdiction Level               Immunization
+
+                                                                        Program
+
+             a type of                                                    has an 
+
+ Immunization                             maintains             Immunization
+      History                consolidates                        Information
+
+contains                                 maintains                  System (IIS)
+
+                                                           utilizes                 utilizes 
+
+                                                       Electronic Data     IIS Direct User
+                                                           Exchange           Interface
+
+has                                                   delivered via                delivered via 
+
+                 Patient Status                                         Submission
+
+                                                                 Submission Date
+
+             a type of                                    indicates       originates                 is reached at 
+                                                           responsibility
+                 Patient Status at Provider
+                      Organization Level                   of          Provider
+
+                                                                       Organization
+
+                                                                 PO Type/SubType
+
+                            Vaccine Encounter                                            a type of 
+
+                            Vaccine Encounter Date                         Vaccination Event Submission                 Demographic
+                            Vaccine Encounter Type                                                                       Submission
+                                                                                   Administered/Historical
+                                          occurs during                                      Indicator
+
+                               Vaccine Event                conducts       describes
+                            Vaccine Event Date
+vaccinated at 
+
+             is given during              classifies           Vaccine    classifies          Vaccine Type
+                              Vaccine
+                                                           Product Type
+
+                                                                                                                       describes
+
+70 Appendix B | Vocabulary and Domain Diagrams
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX C READING PATHS
+
+      The following reading paths represent a minimalistic approach. A curious reader
+      interested in detailed understanding of “who, what, why, where, when” aspects of
+      patient status should read the entire document, starting with the MIROW and the
+      Best Practice Development Process document [1.11].
+
+Program Managers:
+  zz Executive Summary
+  zz Chapter 2: Patient Status Fundamentals
+  zz Chapter 5: Using Patient Status for Reminder/Recalls and Assessment Reports
+
+Immunization Program Staff:
+  zz Chapter 2: Patient Status Fundamentals
+  zz Chapter 4: Patient Status Business Rules
+  zz Chapter 5: Using Patient Status for Reminder/Recalls and Assessment Reports
+  zz Chapter 6: Operational Scenarios
+  zz Chapter 7: Implementation Considerations
+
+Technical Developers:
+  zz Chapter 4: Patient Status Business Rules
+  zz Chapter 5: Using Patient Status for Reminder/Recalls and Assessment Reports
+  zz Chapter 6: Operational Scenarios
+  zz Chapter 7: Implementation Considerations
+  zz Requirements vs. implementation section of Appendix E: Scope
+  zz Appendix B: Vocabulary and Domain Diagrams
+
+ 71 Appendix C | Reading Paths
+                 MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX D SELECTED REFERENCES
+
+PREVIOUSLY DEVELOPED MIROW GUIDES OR RELATED MATERIALS
+
+For complete list of MIROW materials go to: https://www.immregistries.org/mirow.
+
+CITATION  TITLE                                                                     DATE RELEASED
+1.1
+1.2       Management of Patient Active/Inactive Status in Immunization Information Systems March 2019
+1.3
+1.4       Vaccine Level Deduplication in Immunization Information Systems           Dec 2006
+1.5
+          Data Quality Assurance in IIS: Incoming Data                              Feb 2008
+1.6
+1.7       Reminder/Recall in Immunization Information Systems                       April 2009
+1.8
+1.9       Immunization Information System Collaboration with Vaccines for Children  April 2011
+1.10      Program and Grantee Immunization Programs
+1.11
+1.12      Immunization Information System Inventory Management Operations           June 2012
+
+          Data Quality Assurance in Immunization Information Systems: Selected Aspects May 2013
+
+          Lot Number Validation Best Practices (Micro-Guide)                        May 2014
+
+          Decrementing Inventory via Electronic Data Exchange                       March 2016
+
+          Consolidating Demographic Records and Vaccination Event Records           Oct 2017
+
+          MIROW and the Best Practice Development Process                           2019
+
+          MIROW Common Vocabulary                                                   2019
+
+GENERAL REFERENCES
+
+CITATION  TITLE AND URL
+2.1
+2.2       Immunization Information System (IIS) Functional Standards
+2.3       http://www.cdc.gov/vaccines/programs/iis/func-stds.html
+2.4
+2.5       AFIX Program Policies and Procedures Guide for Awardees
+2.6       https://www.cdc.gov/vaccines/programs/afix/downloads/standards-guide.pdf
+2.7
+          IPOM: Immunization Program Operations Manual
+          http://www.cdc.gov/vaccines/imz-managers/guides-pubs/index.html
+
+          VFC Operations Guide http://www.cdc.gov/vaccines/programs/vfc/index.html
+
+          HL7 Version 2.5.1: Implementation Guide for Immunization Messaging, Release 1.5:
+          http://www.cdc.gov/vaccines/programs/iis/technical-guidance/hl7.html
+
+          Epidemiology and Prevention of Vaccine-Preventable Diseases (the Pink Book): Course Textbook
+          http://www.cdc.gov/vaccines/pubs/pinkbook/index.html
+
+          Meaningful Use Definition and Objectives
+          http://www.healthit.gov/providers-professionals/meaningful-use-definition-objectives
+
+72 Appendix D | Selected References
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX E SCOPE
+
+FOCUS
+
+There are many types of associations that could be tracked by IIS. This document focuses on the status
+that characterizes associations of individuals/patients with immunization providers and public health
+authorities related to selecting a cohort for reminder/recalls and assessment reports. However, other
+associations and their characteristics (statuses) outside of the scope of this document could be (and
+are) tracked by IIS.
+
+INTEGRATION WITH OTHER INITIATIVES
+
+Development of this guide was coordinated with efforts to integrate the AFIX program functionality
+(the provider assessment functions) into IIS. AIRA convened a panel of subject matter experts
+to develop “AFIX-IIS Integration Operational and Technical Guidance for Implementing IIS-Based
+Coverage Assessment – Phase 1” (AFIX-IIS panel). This document supports the AFIX-IIS panel’s
+recommendations by defining patient status used to select cohorts for AFIX assessment reports.
+
+ 73 Appendix E | Scope
+                                      MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+  INCLUDING (IN SCOPE)
+
+     zz Patient status definition at the following levels:
+         || Provider Organization—health care/clinical level
+         || Geographical Jurisdiction—population/public health levels (such as state, city, county, region)
+
+     zz Establishing status indirectly (i.e., if status information is missing from submissions) based
+         on other data available
+
+     zz Impact of patient status on immunization coverage assessments
+         || Primary: AFIX assessments
+         || Secondary: other assessments (e.g., jurisdiction-level coverage: state/county/city/
+             zip code) as time permits
+
+     zz Impact of patient status on reminder/recall notifications
+     zz All age cohorts: children, adolescents, adults
+
+  EXCLUDING (OUT OF SCOPE)
+
+     zz The impact of patient status on other areas of immunization programs, beyond selecting
+         a cohort for assessments and reminder/recall, for example, Vaccines for Children (VFC)
+         profiles of provider organizations as they relate to vaccine ordering and pre-assessment
+         review of candidate patients for AFIX and other assessments. Opt-out from IIS has a much
+         larger (global) scope and is out of scope for this topic.
+
+     zz Implementation specifics (e.g., design solutions, technology-specific considerations, HL7
+         v2.5.1 specifications) (see Chapter 7: Implementation Considerations).
+
+     zz VFC and AFIX programmatic-level recommendations, such as recommendations regarding AFIX
+         coverage assessment, other than directly related to patient status (all other recommendations
+         regarding AFIX coverage assessments are included in the AFIX‑IIS Integration Operational and
+         Technical Guidance for Implementing IIS-based Coverage Assessment – Phase 1).
+
+     zz Data quality considerations, including deduplication (patients are assumed to be deduplicated).
+
+74 Appendix E | Scope
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+OPERATIONAL-LEVEL ANALYSIS REQUIREMENTS VS. IMPLEMENTATION-LEVEL
+DESIGN SOLUTIONS
+
+Best practice recommendations described in this document should reflect results of requirements
+analysis performed at the operational level. Design solutions that an IIS employs to implement the
+concept of patient status are out of scope for this document. The MIROW subject matter experts do
+not endorse or recommend any particular implementation-level design over any other design.
+A sketch in Figure 6 depicts three functional areas where a patient status concept characterizing
+associations between patients and provider organizations are commonly employed by IIS:
+
+  zz Reminder/recall and assessment reports
+  zz Pre-assessment review (evaluation of “candidate” patients for inclusion/exclusion in the cohort
+
+      for assessment); see section implementation considerations for pre-assessment review in
+      Chapter 7: Implementation Considerations of this guide
+  zz Inventory control (determination of current and future vaccine ordering needs for both
+      provider organizations and immunization programs)
+Operational-level recommendations for these functional areas (top part of the sketch) can be
+satisfied with a variety of implementation approaches (bottom part of the sketch). In principle, each
+of the three functional areas can be supported with implementation of its own status, designated
+exclusively for one area (Design No. 1). Some of the existing IIS design solutions “stretch” the patient
+status concept to support other functional areas, such as pre-assessment review and inventory
+control, with a single data field that is common for all three areas. Designs No. 2 and No. 3, shown
+at the lower part of the sketch, illustrate such “expanded” implementation of the patient status. All
+of these design solutions are capable of supporting best practice recommendations for a “narrowly”
+defined area of reminder/recall and assessment reports described in this guide. An additional
+step of screening patients with “broadly” defined active status or execution of additional logic is
+employed by these implementation solutions.
+
+ 75 Appendix E | Scope
+                       MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Figure 6 | Operational-level concepts vs. implementation-level design solutions
+
+                      STATUS CONCEPTS SUPPORTING VARIOUS FUNCTIONAL AREAS
+
+            Status:                             Status:                                    Status:
+Pre-assessment review                 RR and Assessments                           Inventory control
+
+MIROW recommendations for status supporting RR and Assessments functional area are formulated at
+the conceptual level and can be satisfied with various implementation approaches, as shown below.
+
+    DESIGN NUMBER 1                               DESIGN NUMBER 2
+
+    Each status concept                   All status concepts implemented with
+  implemented with one                one common data structure (e.g., data field)
+designated data structure
+                                       Status:            Additional step of screening/filtering
+       (e.g., data field)  Pre-assessment review          of patients with “active” status needed
+                                                          for inclusion/exclusion in the RR and
+               Status:      RR and Assessments            Assessment report
+   Pre-assessment review       Inventory control
+
+               Status:
+     RR and Assessments
+
+        Status:                       Screening/                                             Status:
+Inventory control                      filtering                                   RR and Assessments
+
+                                   DESIGN NUMBER 3
+
+All status concepts implemented with two common data structures (e.g., data field)
+
+            Status:           Additional step of executing some logic may be       Supporting data field:
+Pre-assessment review      needed (depending on specific implementation) to        Pre-assessment review
+                           determine patients with “active” status for inclusion/
+ RR and Assessments                                                                 RR and Assessments
+    Inventory control            exclusion in the RR and Assessment report             Inventory control
+
+                              Logic             Status:
+                           execution  RR and Assessments
+
+76 Appendix E | Scope
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX F PATIENT STATUS DIAGRAM
+
+      The diagrams in Figure 7 represent the decision making used to determine
+      patient status.
+
+The rectangles in the diagrams represent patient status. The arrows between the rectangles represent
+the patient’s transition from one status to another. The arrows are associated with the business rules
+used to move a patient from one status to another. These diagrams graphically represent the decision-
+making process used to change patient status at each level (provider organization or geographic
+jurisdiction) relative to assessment or reminder/recall.
+When interpreting the diagrams, it is often useful to talk your way through each one. For example,
+when interpreting the diagram “Patient status at the provider organization level” at left, begin at the
+starting point at the top and move down the left-hand side: If Provider Org A sends demographic
+and immunization information for an individual to the IIS and identifies that individual as a patient,
+then business rule BR402A or BR402B would be applied and the status would be set to active with
+Provider Org A. If contact with the patient is subsequently lost and documented attempts have been
+made to locate/contact the patient with no response, then business rule BR405 would be applied
+and the patient may be moved from active status with Provider Org A to inactive status, with the
+reason code lost to follow-up. However, if the IIS can determine that the patient in question is
+receiving immunizations elsewhere (BR404A, 1–1 approach), then the patient status may be changed
+to inactive with Provider Org A, with the reason code no longer a patient.
+Assigning a status to a patient should, therefore, be the result of systematically employing the
+business rules (Table 2) that govern an individual’s relationship with a provider organization or
+geographic jurisdiction.
+
+   Note: In Figure 7, the initial status for a relationship between a patient and a party
+   (provider organization or geographic jurisdiction) is “unassigned,” meaning that no
+   relationship (with respect to reminder/recall and assessment) between a patient and a
+   provider organization/geographic jurisdiction exists.
+
+ 77 Appendix F | Patient Status Diagram
+        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Figure 7 | Patient status diagram
+
+PATIENT STATUS AT PROVIDER ORGANIZATION LEVEL
+
+                                                 START (“unassigned”)
+
+                                   BR402A                              BR404A
+                                   BR402B                              BR404B
+                                                                        BR406
+
+                                                 BR402A BR402B
+
+ACTIVE                                    BR404A BR404B BR405 BR406                     INACTIVE
+
+        BR421                                    DECEASED              BR421
+
+PATIENT STATUS AT GEOGRAPHIC JURISDICTION LEVEL
+
+                                                 START (“unassigned”)
+
+                                   BR412         BR414                 BR413
+
+ACTIVE                                    BR412                               INACTIVE
+                                          BR413
+
+                                   BR412         UNKNOWN BR413         BR421
+                                   BR415
+                                                      BR421                             BR421
+                                   BR421
+
+                                                 DECEASED
+
+78 Appendix F | Patient Status Diagram
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX G ROSTER OF PARTICIPANTS
+
+      The following section identifies the list of participants from this MIROW topic.
+
+A (*) denotes contributing members of the Modeling of Immunization Registry Operations
+Workgroup (MIROW) who also served on the MIROW Steering Committee.
+MIROW CO-CHAIRS
+
+  zz *Warren Williams, MPH, Lead Public Health Analyst, Immunization Information System
+      Support Branch, Centers for Disease Control and Prevention
+
+  zz *Elaine Lowery, JD, MSPH, Senior Public Health Consultant, Public Health Informatics Institute
+AMERICAN IMMUNIZATION REGISTRY ASSOCIATION (AIRA)
+
+  zz *Rebecca Coyle, MEd, Executive Director
+  zz Nichole Lambrecht, MSc, Sr. Project Manager
+BUSINESS ANALYSIS AND FACILITATION
+  zz *David Lyalin, PhD, Public Health Analyst, Immunization Information System Support Branch,
+
+      Centers for Disease Control and Prevention
+
+ 79 Appendix G | Roster of Participants
+                                        MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+SUBJECT MATTER EXPERTS
+  zz Hanan Awwad, MS, Public Health Advisor Program Operations Branch, Centers for Disease
+      Control and Prevention
+  zz *Frank Caniglia, RHIA, Chief, Pennsylvania Statewide Immunization Information System
+  zz Nathan Crawford, MPH, Public Health Advisor Program Operations Branch, Centers for
+      Disease Control and Prevention
+  zz Erich Daub, Senior Public Health Advisor, Consumer Health Lead, Scientific Technologies
+      Corporation
+  zz *Amanda Harris, Nevada WebIZ Manager, NV State Immunization Program
+  zz *Lisa McKeown, MPH, Senior Program Analyst, National Association of County and City Health
+      Officials (NACCHO), Until December 2014: KIDS Plus Coordinator Immunization Program,
+      Philadelphia Department of Public Health
+  zz *Megan Meldrum, Research Scientist, New York State Immunization Information System (NYSIIS)
+  zz Miriam Muscoplat, MPH, Assistant MIIC Manager, Minnesota Immunization Information
+      Connection
+  zz Laura Pabst, MPH, Health Scientist, Immunization Information System Support Branch,
+      Centers for Disease Control and Prevention
+  zz Bianca Perri, MPH, Field Operations Coordinator, VFC Program, New York City Department of
+      Health and Mental Hygiene
+  zz Deborah Richards, Data Quality Coordinator, Oregon ALERT IIS
+  zz Kim Salisbury-Keith, MBA, KIDSNET Development Manager, Center for Health Data & Analysis,
+      Rhode Island Department of Health
+  zz Stephanie Sanchez, AFIX Coordinator, MDCH Division of Immunization
+
+ 80 Appendix G | Roster of Participants
+                   MANAGEMENT OF PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX H ACKNOWLEDGEMENTS
+
+Members of the Modeling of Immunization Registry Operations Workgroup (MIROW)
+appreciate and acknowledge the following:
+
+zz External reviewers for their willingness to read and constructively critique the materials. Their
+    efforts benefited this document significantly:
+
+|| Nate Czarnota   || Mary Beth Kurilo     || Cynthia Rawn
+|| Kris Dupuis     || Eric Larson          || Bea Salada
+|| Damon Ferlazzo  || Tamara Lewis         || Susan Salkowitz
+|| Therese Hoyle   || Tracy Little         || Rob Savage
+|| Shirley Huie    || Dr. Marlene M. Lugg  || Cherie Thomas
+
+zz Facilitation support provided during the in-person meeting in Decatur, Georgia (June 17–20,
+    2014) by the team from Advanced Strategies, Inc.—Kahil Branton, Gail DeCosta, Diane
+    Gazaway, and Faith Bradberry.
+
+zz Editorial support—Ginger Redmon, Writer/Editor at the Centers for Disease Control and
+    Prevention (CDC).
+
+zz Administrative support of the AIRA staff—Jennifer Bank—for organizing modeling sessions.
+zz Contributions of the following organizations, which provided materials on patient active/
+
+    inactive status issues to help frame the topic and prepare for the modeling sessions:
+
+    || Michigan Care Improvement Registry (MCIR)
+    || Minnesota Immunization Information System—Minnesota Immunization Information
+
+        Connection (MIIC)
+    || Nevada State Immunization Information System (NV WebIZ)
+    || New York Citywide Immunization Registry (CIR)
+    || New York State Immunization Information System (NYSIIS)
+    || Oregon State Immunization Information System Oregon Immunization ALERT
+    || Pennsylvania Statewide Immunization Information System
+    || Philadelphia Immunization Information System KIDS Plus
+    || KIDSNET – Rhode Island’s Integrated Child Information System
+    || Scientific Technologies Corporation
+
+zz AFIX-IIS project team—Danielle Reader-Jolley, Ruth Gubernick, and Susan Salkowitz—for
+    sharing materials and accommodating requests from the MIROW project team.
+
+81 Appendix H | Acknowledgements
+

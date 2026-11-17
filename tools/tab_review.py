@@ -62,8 +62,10 @@ published guidance documents, with CDC, that clarified how to implement Release 
 build on them. These pages check, requirement by requirement, whether this guide folds each one in, so that nothing
 implementers rely on is dropped by accident.</p>
 <p>Two related documents are compared elsewhere. The 2023 draft guidance on a national set of error codes became part of the
-<a href="{root}tabs/ack-messaging/index.html">ACK TAB</a>. The 2015 MIROW micro-guide on validating lot numbers was replaced by
-the unit of sale and unit of use lot number guidance listed here.</p>""",
+<a href="{root}tabs/ack-messaging/index.html">ACK TAB</a>; the 2017 version listed here is compared only for what the TAB did not
+carry over. The 2015 MIROW micro-guide on validating lot numbers was replaced by the unit of sale and unit of use lot number
+guidance listed here. A few related documents published by AIRA or the Immunization Integration Program, rather than SISC,
+are listed here too; each one's page says so.</p>""",
 )
 
 COLLECTIONS = {c.key: c for c in (TAB, SISC)}

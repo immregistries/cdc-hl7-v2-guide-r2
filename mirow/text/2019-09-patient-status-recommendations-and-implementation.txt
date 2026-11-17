@@ -1,0 +1,2603 @@
+PATIENT STATUS
+IN IMMUNIZATION
+INFORMATION
+SYSTEMS
+
+RECOMMENDATIONS AND
+IMPLEMENTATION STRATEGIES
+
+SEPTEMBER 2019
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+EXECUTIVE SUMMARY
+
+      The focus of this guide is patient status management within the immunization
+      information system (IIS).
+
+The main purpose is to bridge the gap between currently published guidance on patient status
+and its actual implementation by IIS.1 As such, this guide offers practical guidelines for providers,
+public health entities, and IIS to use in implementing and managing patient status. Patient status is a
+concept that defines responsibility for vaccination of a specific patient at a provider organization or
+geographic jurisdiction level. From the public health perspective, it is important to maintain status
+for a patient at both provider organization and geographic jurisdiction levels to ensure there is
+always a party responsible for vaccination of every patient. Active status of a patient with a provider
+organization or geographic jurisdiction indicates that the provider organization or geographic
+jurisdiction has responsibility for vaccination of that patient. For example, if a patient has moved
+within a jurisdiction and does not have active status with any provider organization, then the public
+health authority where the patient resides is usually responsible for the patient’s vaccination,
+whether through outreach, reminder/recall activities, or actual administration of doses.
+Patient status plays a role in determining whom to include in reminder/recall lists and assessments.
+For example, having the ability to easily exclude patients with a deceased status from a mailed
+reminder/recall facilitates appropriate mailing and avoids causing distress to the families of
+deceased patients. Likewise, excluding patients with a status of “outside jurisdiction” or “no activity
+for extended period of time” can produce more accurate assessment results.
+
+1 This guide expands upon the published guidance found in the AIRA Modeling of Immunization Registry Operations Workgroup (MIROW) Best
+  Practices Guide, Management of Patient Status in Immunization Information Systems, Version 3.
+  https://repository.immregistries.org/resource/management-of-patient-status-in-immunization-information-systems/
+
+  i Executive Summary
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+There are several challenges to implementation of patient status within an IIS. To determine
+current practices and barriers, surveys of IIS and electronic health record (EHR) partners and in-
+depth interviews with IIS staff were conducted. A workgroup of subject matter experts (SMEs)
+then provided valuable input on their real-life experiences in managing patient status and made
+consensus-based recommendations included in the guide. One of the major challenges is connected
+to the growing number of provider organizations that submit data through electronic data exchange
+(EDE) from EHRs. Currently, there are notable limitations in the ability of EHRs to submit up-to-
+date patient status information. In addition, manual data entry of patient status often does not fit
+into a provider organization’s workflow yet is necessary, at least until EHRs can provide a solution.
+This guide presents strategies for IIS to use in assisting providers to find feasible methods for
+patient status entry. For example, a list of questions related to provider workflow and location of
+patient status data is offered to help guide discussions with providers. Also, a template for provider
+guidance is included that IIS can use for educating providers about patient status.
+
+Challenges and recommendations related to IIS functionality, ease of use, implementation, and
+policy are described for both provider organization and geographic jurisdiction level issues.
+Although few IIS have implemented geographic jurisdiction level patient status as specific fields in
+their IIS, many are able to derive needed values from existing data in the system on an ad hoc basis
+for specific reports. It is considered a best practice to have discrete fields for geographic jurisdiction
+status. This will help ensure accuracy, consistency, and comparability of reports over time. The guide
+also describes the importance of getting death data from the local vital records agency on a regular
+basis and offers practical steps for doing so. A summary of all challenges and recommendations can
+be found in Appendix G: Summary of Challenges and Recommendations.
+
+A secondary purpose of the guide is to address the issue of denominator inflation experienced
+by many IIS. This inflation is the result of an expanding number of patient records in the IIS that
+incorrectly reflect the actual population. Patient status management can provide a tool for more
+accurate calculations of vaccination coverage rates. The guide describes strategies for IIS population
+record management, including recommendations for inactivation at the geographic jurisdiction level
+based on age and length of time since activity on a record.
+
+The primary audiences for the guide include IIS managers, IIS staff, and immunization program staff
+who work with providers, such as in Vaccines for Children (VFC) and quality improvement work. The
+document may also be valuable to the Centers for Disease Control and Prevention (CDC) National
+Center for Immunizations and Respiratory Diseases (NCIRD), immunization program managers,
+IIS vendors, EHR vendors, jurisdiction-specific information technology staff, national organizations
+supporting IIS, health care providers, and other partners and policy makers.
+
+  ii Executive Summary
+                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+TABLE OF
+CONTENTS
+
+EXECUTIVE SUMMARY                    i   23 3	GEOGRAPHIC JURISDICTION
+                                             LEVEL ISSUES
+
+1 INTRODUCTION                       1   Current use                             26
+
+Background                           2   Geographic jurisdiction level
+
+Purpose                              4   challenges and recommendations          27
+
+Scope of work                        5   IIS functionality                       28
+
+Out of scope                         5   IIS need for implementation guidance 29
+
+Audience                             6   Policy/rules regarding deceased
+
+Methodology for guide development    6   records                                 35
+
+Primary resource materials reviewed
+
+for this topic include               7   4	IIS POPULATION                       38
+                                             MANAGEMENT
+
+2	PROVIDER LEVEL ISSUES             8   Current use                             40
+
+Current use                          12  Recommendations and
+
+Provider level challenges and            implementation strategies               41
+
+recommendations                      14  High-level assumptions                  41
+
+IIS functionality                    14  Challenges/recommendations
+
+Provider usage                       18  per age group                           42
+
+IIS need for additional guidance     20  Implementation process for changes
+
+Policy/rules regarding provider          to status of unknown - no activity for
+
+entry of deceased data               21  extended period                         46
+
+                                         Step 1: Make the decision to
+
+                                         implement an inactivation process 46
+
+                                         Step 2: Determine parameters to use 46
+
+                                         Step 3: Decide on method for
+
+                                         producing status change                 47
+
+                                         Step 4: Determine frequency
+
+                                         of process                              47
+
+                                         CONCLUSION                              48
+
+iii Table of Contents
+                       PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDICES
+
+APPENDIX A             51  APPENDIX F                                  61
+ABBREVIATIONS              EXAMPLE OF GEOGRAPHIC
+
+                           JURISDICTION STRUCTURE
+
+APPENDIX B             52  APPENDIX G                                  62
+GLOSSARY OF TERMS          SUMMARY OF CHALLENGES
+
+55 APPENDIX C              AND RECOMMENDATIONS
+
+RESOURCES AND REFERENCES   Provider level challenges and
+
+                           recommendations                             62
+
+                           Geographic jurisdictional level challenges
+
+57 APPENDIX D              and recommendations                         65
+
+EHR IMPLEMENTATION GAPS    IIS population management                   70
+
+APPENDIX E             58  APPENDIX H                                  74
+TEMPLATE FOR PROVIDER      ACKNOWLEDGEMENTS
+
+GUIDANCE ON PATIENT
+
+STATUS MANAGEMENT
+
+iv Appendices
+1 INTRODUCTION
+                                                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+SECTION 1 INTRODUCTION
+
+BACKGROUND
+
+       Patient status is a concept used in immunization information systems (IIS) to
+       describe responsibility for the vaccination of a patient at a provider organization or
+       geographic jurisdiction level.
+
+A patient’s active status with a provider signifies that the provider is responsible for ensuring the
+vaccination of that patient. Accordingly, patients with an active status are included in the provider’s
+reminder/recall process and provider-specific coverage reports. At the geographic jurisdiction level,
+patient status helps local public health entities ensure that patients without a provider receive the
+vaccinations they need. In addition, geographic jurisdiction level data allows for the production of
+public health reports, such as community vaccination coverage assessments. The information can
+be used to ensure complete saturation in an IIS and accurate reporting of vaccination coverage data.
+
+The Modeling of Immunization Registry Operations Workgroup (MIROW) within the American
+Immunization Registry Association (AIRA) first developed best practice guidance related to patient
+status in 2005 in a document titled Management of Moved or Gone Elsewhere (MOGE) Status and other
+Patient Designations in Immunization Information Systems (MIROW Patient Status guide).2 Revisions to
+the content were made in 2015 and titled Management of Patient Active/Inactive Status in Immunization
+Information Systems: Replacement of 2005 Guidelines,3 and repackaging of the guide was conducted in
+2019, which was then titled Management of Patient Status in Immunization Information Systems, Version
+3 (hereinafter referred to as “the MIROW guide”).4 The MIROW 2019 guide is the guide that should
+now be used. The MIROW guide identifies several standard patient status designations that IIS are
+recommended to use when classifying patients at the provider and geographic jurisdiction levels
+(see Figure 1 for MIROW-defined patient status designations and hierarchy). As identified during
+this project, the guidance is inconsistently applied within IIS, and many immunization providers and
+electronic health record (EHR) systems are unfamiliar with the guidance and are not required to
+follow it.
+
+2 Guide replaced with 2015 MIROW Patient Active/Inactive Status (PAIS) guide and has been archived.
+3 Management of Patient Active/Inactive Status in Immunization Information Systems: Replacement of 2005 Guidelines. AIRA Modeling of
+
+   Immunization Registry Operations Workgroup (eds). Atlanta, GA: American Immunization Registry Association. April 2015.
+   https://repository.immregistries.org/resource/management-of-patient-active-inactive-status-in-immunization-information-systems-1/
+4 Management of Patient Status in Immunization Information Systems. AIRA Modeling of Immunization Registry Operations Workgroup (eds). Atlanta,
+   GA: American Immunization Registry Association. Version 3.0. July 2019. https://repository.immregistries.org/resource/management-of-patient-
+   status-in-immunization-information-systems
+
+  2 Section 1 | Introduction
+                            PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Figure 1 | Diagram showing patient status designations and hierarchy defined in the MIROW guide5
+
+    PATIENT STATUS            ACTIVE       No Longer
+      AT PROVIDER           INACTIVE        a Patient
+                            DECEASED
+ORGANIZATION LEVEL                           Lost to
+                                           Follow-Up
+
+                                          Unspecified
+
+  PATIENT STATUS                 ACTIVE      No Address
+  AT GEOGRAPHIC               INACTIVE:    or Vaccination
+JURISDICTION LEVEL             OUTSIDE
+                            JURISDICTION   No Activity for
+                              UNKNOWN     Extended Period
+                               DECEASED
+                                                of Time
+
+5 Some IIS allow patients to opt out of the IIS and have created functionality that treats opt-out as a patient status. However, laws, rules, and
+  processes vary by jurisdiction. The MIROW Patient Status guide, BR316, states that opting out of IIS should not impact patient status but should be
+  handled as an additional consideration (filter) for selecting a cohort for reminder/recalls and coverage assessments.
+
+3 Section 1 | Introduction
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+The shift from user-interface entry to submission through electronic data exchange (EDE) from
+EHRs has contributed to a gap in the capture of patient status data. This is at least partly due to
+inconsistent practices used among IIS and EHRs. EDE also inherently complicates the processing
+and standardization of the data because there are multiple data fields that can either directly or
+indirectly impact how patient status is interpreted. Lastly, it is not always clear that the data being
+submitted through EDE provides the most up-to-date information: EHR-specific workflows can
+trigger the submitting of data upon certain events at the clinical practice but not all patient events.
+See Appendix D. EHR Implementation Gaps for more details on EHR implementation gaps. Although
+the MIROW guide identified best practices for the management of patient status data, additional
+guidance is needed for uniform implementation and management of this data.
+
+PURPOSE
+
+The primary purpose of this project is to bridge the gap
+between currently published guidance on patient status
+and its actual implementation by IIS, with a focus on
+challenges that can be tackled at both the provider and the
+geographic jurisdiction levels. Accordingly, this Patient Status in
+Immunization Information Systems guide (hereinafter referred to
+as “the guide”) offers practical guidelines for providers, public
+health entities, and IIS to use in patient status management.
+Emphasis is placed on identification of the highest-priority
+patient status categories as well as practical implementation
+strategies that reflect the real-world limitations of resources at
+both the IIS and provider levels.
+
+A secondary purpose of this guide is to address the issue of
+denominator inflation experienced by many IIS. This inflation
+is the result of an expanding number of patient records that
+incorrectly reflect the actual population. Strategies for IIS
+population record management are described, including
+recommendations for inactivation at the geographic jurisdiction
+level based on patient age, time since last vaccination, and
+other parameters, in order to reduce inflated denominators.
+
+  4 Section 1 | Introduction
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+SCOPE OF WORK
+
+The scope of work includes prioritization of patient status categories used at both the provider
+and geographic jurisdiction level, defining geographic jurisdiction level functionality and how to
+implement it, and development of a specific strategy at the IIS level to inactivate patient records to
+address denominator inflation.
+
+Although the MIROW guide defined patient status categories that IIS should use, many IIS either
+have not implemented all of the 2015 categories or have not made changes to their predefined
+categories. This guide aims to prioritize which patient status categories should be implemented for
+core standardized practices across IIS. It will build upon previous guidance to bring clarity to the
+importance of patient status and provide practical implementation strategies.
+
+The MIROW guide states that an individual should be marked with an “active” status at the
+geographic jurisdiction level unless a few conditions are met. One of those conditions is when
+the “IIS has not received information about the individual for an extended period of time.” In this
+case, records can be marked with an “unknown” status with a subcategory (i.e., reason code) of “no
+activity for extended period of time.” However, the 2015 MIROW group was unable to come to a
+consensus on how to define “extended period of time.” This guide will provide more guidance on
+criteria to use for inactivation of these records.
+
+OUT OF SCOPE
+
+Findings from the initial survey/interview phase of the project revealed that significant gaps exist
+in the capability to capture and transmit patient status information both from EHRs and in the IIS.
+EHR workflows, data capture, and data transmission consistency need significant assessment and
+adaptations. Promotion of changes within the EHR community will need much more collaboration
+than this project can provide and has been deemed out of scope. For a more detailed synopsis of
+EHR implementation gaps identified, please see Appendix D. EHR Implementation Gaps.
+
+AIRA leadership recognizes the importance of EDE and IIS-EHR collaboration for this topic. In that
+light, AIRA plans to explore the potential of another entity to take on a project that brings EHRs, IIS,
+and providers together to develop standardized workflow practices that best capture patient status
+data from immunization providers while utilizing standardized patient status designations.
+
+  5 Section 1 | Introduction
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+AUDIENCE
+
+The primary audiences for the guide include IIS managers, IIS staff, and immunization program staff
+who work with providers, such as in Vaccines for Children (VFC) and quality improvement work. The
+document may also be valuable to the Centers for Disease Control and Prevention (CDC) National
+Center for Immunizations and Respiratory Diseases (NCIRD), immunization program managers, IIS
+staff members, IIS vendors, EHR vendors, jurisdiction-specific information technology staff, national
+organizations supporting IIS, health care providers, and other partners and policy makers.
+
+METHODOLOGY FOR GUIDE DEVELOPMENT
+
+To develop this guide, AIRA implemented a series of surveys, conducted subject matter expert
+(SME) interviews, and assembled a virtual SME workgroup composed of individuals from the
+IIS community, CDC partners, public health consultants, American Academy of Pediatrics (AAP)
+representatives, and AIRA staff (see list of participants in Appendix H. Acknowledgements section).
+During the initial phase of the project, existing IIS materials were gathered and reviewed to identify
+current patient status practices and processes. The results of the surveys and interviews provided a
+framework for prioritizing issues. Forty IIS out of the 64 IIS awardees (63%) responded to the survey.
+Representatives of 10 IIS were also interviewed. Seven EHR representatives of seven different EHR
+products responded to the EHR-specific survey out of 57 individuals contacted from 18 different EHR
+products. Though few in number, EHR respondents represented five large, well known EHR products
+and two smaller, lesser known products.
+
+  6 Section 1 | Introduction
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+With support from a public health consultant and an AIRA
+project manager, the workgroup met via telephone from May
+2019 through July 2019. The workgroup reviewed materials and
+developed recommendations for the guide while the consultant
+drafted and revised the guidelines based on input and feedback
+from the workgroup and others. Finally, the document was
+reviewed by AIRA staff, the AIRA board of directors, and the IIS
+community and then published.
+
+PRIMARY RESOURCE
+MATERIALS REVIEWED FOR
+THIS TOPIC INCLUDE:
+
+   A IRA Modeling of Immunization Registry Operations
+      Workgroup (MIROW) Best Practices Guides:
+       Management of Moved or Gone Elsewhere (MOGE)
+           Status and other Patient Designations in Immunization
+           Information Systems, 20056
+       Management of Patient Active/Inactive Status in
+           Immunization Information Systems, 20157
+       Management of Patient Status in Immunization
+           Information Systems, 20198
+
+   H L7 Version 2.5.1 Implementation Guide for Immunization
+      Messaging, release 1.5 and Addendum9
+
+   C DC IIS Functional Standards, version 4.010
+
+6 2005 Guide replaced with 2015 MIROW PAIS guide and no longer available.
+7 2015 Guide – https://repository.immregistries.org/resource/management-of-patient-active-inactive-status-in-
+
+   immunization-information-systems-1/
+8 2019 Guide – https://repository.immregistries.org/resource/management-of-patient-status-in-immunization-
+
+   information-systems/
+9 HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, release 1.5, November 2014, and
+
+   Addendum. July 2015.
+   https://www.cdc.gov/vaccines/programs/iis/technical-guidance/hl7.html
+10 IIS Functional Standards, v4.0. January 2018 https://www.cdc.gov/vaccines/programs/iis/functional-standards/
+   func-stds-v4-0.html
+
+  7 Section 1 | Introduction
+2 PROVIDER LEVEL
+            ISSUES
+PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+SECTION 2 PROVIDER LEVEL ISSUES
+
+Patient status at the provider level identifies which provider organizations are
+responsible for vaccination of individual patients.
+
+According to the MIROW guide, active status      CDC core data elements
+of a patient with a provider organization           P atient status indicator provider level
+indicates that the provider organization has        P atient status-jurisdiction level
+responsibility for vaccination of that patient.
+In addition, patient status is included in the   Patient status designation is important to:
+list of CDC Core Data Elements.11                   D etermine which patients to include in
+                                                       coverage assessments
+The CDC Functional Standards for IIS stipulate      D ecide which patients receive
+that an IIS must maintain patient status at            reminder/recall notifications
+the provider level and allow an IIS user to         P romote data quality
+update the patient status through the user          P romote data comparability
+interface (UI) or via Health Level 7 (HL7)
+message.12 Accurate and complete patient
+status information at the provider level is
+used to determine which patients to include
+in the provider organization’s own reminder/
+recall notifications and internal vaccination
+coverage assessments. High-quality patient
+status data is especially important for CDC’s
+Immunization Quality Improvement for
+Providers (IQIP) program, which replaced
+CDC’s AFIX (Assessment, Feedback, Incentives,
+eXchange) program in July 2019.13
+
+11 CDC. Core Data Elements for IIS Functional Standards v4.0. https://www.cdc.gov/vaccines/programs/iis/core-data-elements.html
+12 IIS Functional Standards, v4.0. January 2018. https://www.cdc.gov/vaccines/programs/iis/functional-standards/func-stds-v4-0.html
+13 CDC. (IQIP) Immunization Quality Improvement for Providers. https://www.cdc.gov/vaccines/programs/iqip/index.html
+
+  9 Section 2 | Provider Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+    Standard 11 of the IIS Functional Standards, v.4.0 states:
+    The IIS manages patient status at the provider organization and jurisdiction levels.
+
+        1 1.1 The IIS maintains patient “active” or “inactive” status (PAIS) at the provider site level.
+        1 1.2 The IIS assigns PAIS to an individual at one or more jurisdictional levels.
+        1 1.3 The IIS user can update PAIS through the user interface or via HL7 message.
+        1 1.4 The IIS user can generate a roster of active patients from the IIS for a provider site.
+        1 1.5 The IIS assigns PAIS to a patient for a provider site based on information in the IIS.
+
+Most IIS have a UI that allows providers to view and/or edit the patient status. Occasionally, IIS
+have additional methods for providers to view and edit patient status, such as via patient lists and
+reports. These methods offer providers a more efficient approach for managing patient status
+than individually opening and editing each patient’s record. Additionally, almost all IIS are able to
+automatically assign active status based on the patient’s most recent immunization.
+
+To satisfy the HL7 component of this functional standard, IIS should have the ability to accept
+patient status data through HL7 interfaces. IIS have implemented a mix of strategies for this. Some
+accept specific patient status data submitted from an EHR through HL7 messages while other IIS
+derive active status based on a recently administered vaccination without referring to a designated
+patient status field within an HL7 message. Multiple data fields submitted through HL7 can either
+directly or indirectly impact the patient status. The fields in an HL7 message that directly identify the
+patient status and date are PD1-16 and PD1-17, respectively. In addition, there are distinct HL7 fields
+for the death indicator with date (PID-30 and PID-29, respectively). Indirectly, vaccination encounter
+data (RXA segment) and opt-out status (PD1-11 and PD1-12) can also be used to infer patient status.14
+
+The MIROW Patient Status guide describes three statuses (i.e., active, inactive, and deceased) that
+should be utilized at the provider organization level, as well as three subcategories of patient status
+(i.e., no longer a patient, lost to follow-up, and unspecified). See Figure 1 for a visual depiction of the
+patient status designation hierarchy. The definitions are taken from the MIROW guide.15
+
+14 https://www.cdc.gov/vaccines/programs/iis/technical-guidance/hl7.html
+15 Management of Patient Status in Immunization Information Systems, 2019. https://repository.immregistries.org/resource/management-of-patient-
+
+   status-in-immunization-information-systems/
+
+ 10 Section 2 | Provider Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+    PROVIDER LEVEL PATIENT STATUS DEFINITIONS
+
+    Active
+        P rovider organization has directly or indirectly (through submission of vaccination
+           event or new patient demographic record) identified the individual as a patient.staff
+           can account for an increased spike in errors and warnings.
+
+    Inactive
+        P rovider organization is no longer the responsible party for vaccination of the patient.
+            Inactive subcategories
+               Inactive - no longer a patient – Relationship between a provider organization
+                  and a patient has been terminated by either party. For example, patient has gone/
+                  transferred to another provider organization or patient has moved out of the area.
+               Inactive - lost to follow-up – Attempts to contact the patient have been
+                  documented, but no documented response has been received or provider
+                  organization has no means to contact patient, e.g., no address, no phone.
+                  In the absence of any state guideline, after 90 days and a minimum of three
+                  unsuccessful attempts to contact a patient, patient status at the provider
+                  organization level should be set to inactive - lost to follow-up
+                  and remain active at the geographic jurisdiction level. (In some cases, the provider
+                  may have its own guidelines for inactive, and IIS should request documentation.)
+               Inactive - unspecified – Should be used only by provider organizations that are
+                  technically not able to specify a reason, (e.g., they are submitting data via HL7 and
+                  do not have the capacity to send the specific reason).
+
+    Deceased:
+        Patient has died.
+
+11 Section 2 | Provider Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+CURRENT USE
+
+The IIS survey found that all respondents except one have implemented some degree of patient
+status tracking (whether in their UI, HL7 interface, or both).16 Sixty percent reported having all
+three of the inactive subcategories in their UI, while some include only the generic inactive status.
+Nearly half of survey respondents indicated they use status designations outside of the latest
+MIROW recommendations, either based on the original 2005 MIROW nomenclature or on their own
+IIS-specific terminology. All reported having the status of deceased, though they sometimes use
+another term, such as inactive - permanently. In some IIS, deceased status is located in a section of
+the IIS separate from other statuses.
+Almost all IIS offer users the ability to view and edit patient status on the UI patient demographic
+screen. About half offer patient management tools, such as parameter-based patient lists, that
+make it easier for providers to inactivate patient records. Additionally, most IIS automatically assign
+active status based on a provider’s having administered an immunization to the patient. In many
+jurisdictions, use of patient status fields by providers is inconsistent. Although 75% of IIS reported
+that providers edit patient status occasionally or frequently, this activity is usually associated with a
+
+16 The single IIS without patient status functionality is currently in the process of developing it.
+
+ 12 Section 2 | Provider Level Issues
+                                      PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+quality improvement visit (e.g., IQIP) and does not occur on an ongoing basis. Many survey
+respondents indicated a need for clear and simple training materials for providers, especially with
+regard to status definitions and how to determine them. It is worth noting that some IIS do not allow
+providers to update the patient status field to deceased, permitting updates only by a vital records
+source or an IIS level user with special permissions.
+
+The EHR survey provided additional information from the EHR vendor point of view on current
+capabilities and challenges for the exchange of patient status information. EHRs present
+considerable variation in functionality and ability for providers to record patient status. Slightly more
+than half of survey respondents stated there is a distinct field for patient status in both the EHR UI
+and in the database. The remainder identified (1) the presence of a distinct field in the database not
+visible in the UI; (2) no distinct field but the ability to derive status from data within the system; or (3)
+no ability to capture or derive patient status at all.
+
+Among the responding EHRs with a distinct field in the UI, most said provider users can change the
+patient status. However, one said that change cannot be made at the provider level but requires
+an edit in the practice management system, not in the EHR.17 All EHR respondents stated their
+system captures the patient status of active, and more than half capture inactive - unspecified and
+deceased. Few capture other subcategories of inactive.
+
+EHR responses varied on both the ability to send           A DT messages are a type of HL7
+patient status and the specific patient statuses             message used for transmitting
+currently being sent. Seventy percent said they              demographic-only data, such as
+send active status, and of the ones that capture             patient name, birthdate, address.
+inactive - unspecified, most send that status to an IIS.
+Respondents noted a major caveat: patient status           V XU messages are a type of HL7
+is sent only if an administered immunization is also         message used for transmitting
+included. None of the respondents indicated they             vaccination event information
+currently send any ADT messages (Admit, Discharge,           (i.e., type of vaccination, date
+Transfer), and EHRs rarely send a VXU message                of vaccination), along with
+without a vaccination event. EHR respondents                 demographic data.
+brought up provider workflow as a major concern
+
+17 Practice management systems are a category of medical practice software that captures billing data such as insurance payers and patient
+   demographics and also may perform billing tasks, appointment scheduling, and report generation. An EHR, on the other hand, is geared toward
+   documenting and storing a patient’s medical information.
+
+13 Section 2 | Provider Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+for their ability to input patient status. Many large practices (e.g., hospital systems and multiple
+facility organizations) have a separate admission/registration process where patient address and
+other demographic information is captured. This often occurs in a part of the EHR separate from
+clinical data—or in the practice management system—and is unlikely to trigger an update to the
+IIS. A provider’s interaction with the patient record often includes only clinical information, such
+as vaccination administration if it occurs. The actual clinician might never have access to updated
+demographic information during the patient visit.
+
+PROVIDER LEVEL
+CHALLENGES AND
+RECOMMENDATIONS
+
+Gaps and challenges in the area of provider level
+status are related to four main areas:
+
+   IIS functionality
+   P rovider usage
+   IIS need for additional guidance
+   P olicy/rules regarding deceased data
+
+Specific challenges under each of the four areas are
+described below, along with recommendations for
+addressing them.
+
+ IIS FUNCTIONALITY
+
+The majority of IIS have some degree of provider level patient status functionality, but it is often
+limited. For example, the subcategories of inactive status are frequently missing from the IIS user
+interface (see Functionality Challenge 1). A few IIS have well functioning, well used systems for
+patient status but with status terms that do not always match exactly with the MIROW classifications
+(see Functionality Challenge 2). In addition, IIS tools and processes for providers to manually
+change patient status may be cumbersome. There is a need for tools that make it easier for
+providers to update status (see Functionality Challenge 3).
+
+ 14 Section 2 | Provider Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                    FUNCTIONALITY CHALLENGE 1:
+                  Missing patient status categories
+                    Recommendation(s)
+  All IIS should include, at a minimum, the three main patient status designations: active, inactive,
+  and deceased. Having these patient status categories available is essential for the IIS to produce
+  accurate reports at the provider level. The three inactive subcategories (no longer a patient,
+  lost to follow-up, and unspecified) are desirable but not required. They are nice to have so that
+  providers can document the reason a patient was inactivated and in case the IIS or providers
+  make decisions based on this information.
+
+                    FUNCTIONALITY CHALLENGE 2:
+                  Variability in patient status nomenclature
+                    Recommendation(s)
+  Many patient status naming conventions exist across the IIS community. Questions have
+  arisen about the importance of changing terminology to align with the MIROW terms. The
+  project’s SME group determined that, as long as terminology variations can be mapped to
+  the minimum recommended patient status designations (i.e., active, inactive, deceased), it is
+  not necessary for IIS to change their nomenclature. For example, an IIS using the designation
+  “MOGE,” which historically has been known as “moved or gone elsewhere,” can continue to use
+  it, assuming that it can be mapped to inactive or inactive - no longer a patient. Rationale for this
+  recommendation stems from the time it would take to reeducate providers about changes in
+  terminology, as well as potential system costs of the changes, for questionable benefit overall.
+
+                    FUNCTIONALITY CHALLENGE 3:
+                   Need for efficient status update tools for providers
+                    Recommendation(s)
+                      In order to make patient status easier for providers to manage, it is recommended
+  that IIS automate the updating of patient status wherever possible and create easy-to-use tools
+  to facilitate manual updates. These two strategies are described in more detail below.
+
+15 Section 2 | Provider Level Issues
+                                      PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Automation of patient status                            Designation of patient status at the
+All IIS should have the ability to automatically        provider organization level differs
+update a patient record to active when a provider       between IIS with the 1–1 and 1–M
+submits a newly administered vaccination event          approaches.
+or creates or updates a patient demographic
+record. For IIS with a 1–Many (1–M) approach,              1 –1 – only one provider at a time
+the automatic update to active status will usually            responsible for each patient
+occur regardless of whether the vaccination event
+is administered or historical, recent, or in the past.     1 –M – multiple providers can be
+For IIS with a 1–1 approach, the automatic update             responsible a single patient
+to active will usually occur when the vaccination is
+the most recent vaccination event. Likewise, with       The MIROW guide’s business rules
+the 1–1 approach, the patient’s status with the         BR402A, BR402B, BR404A, and BR404B
+previous provider should change to inactive - no        detail how the different approaches
+longer my patient when another provider submits         can be managed.
+the most recent vaccination. On the other hand,
+the 1–M IIS will usually not automatically change
+the status to inactive when a second provider
+submits a vaccination.18
+
+In either case, it is essential that patient status
+of an inactive patient revert to active for a given
+provider whenever a new immunization record is
+submitted by that provider, with the exception of
+deceased patients (discussed in Section 3 under
+Policy/rules regarding deceased records). This
+automation of status change should occur for
+records that are entered both through a direct
+user interface and through EDE and without forcing
+the submission of the patient status field itself.
+
+18 Management of Patient Status in Immunization Information Systems, 2019. Chapter 3. https://repository.immregistries.org/resource/management-
+   of-patient-status-in-immunization-information-systems/
+
+16 Section 2 | Provider Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+As stipulated in the MIROW guide’s business rules, patient status should not change if a vaccination
+is administered by an organization that is not of an “acceptable type” or if the vaccination encounter
+type is not of an “acceptable type.” Acceptable provider type is determined by the IIS and generally
+excludes those that do not conduct reminder/recall or assessment reports (e.g., often schools,
+sometimes pharmacies). An acceptable vaccination type is one that is indicative of a provider’s
+ongoing responsibility for the patient’s routine vaccinations, i.e., vaccinations in the routine schedule
+defined by the Advisory Committee on Immunization Practices (ACIP). Patient status usually should
+not be set to active for a mass vaccination event. Examples include flu-only clinics and one-off
+events, such as the H1N1 clinics in the past. “Each IIS makes its own determination if a vaccination
+encounter is not of an acceptable type and has unique ways to not associate the patient with the
+provider of these types of vaccinations.”19
+
+Multiple patient inactivation reports
+IIS should provide tools that allow for easy
+inactivation of patient records at the provider level.
+Such tools still require hands-on work by a provider
+organization but make the work more efficient. Tools
+can include report or list functions that permit groups
+of records to be inactivated rather than requiring
+the selection of each patient individually. A “select
+all” function is highly desirable. However, IIS should
+consider the appropriateness of this approach based
+on the purpose of the inactivation.
+
+Inactivation reports should allow provider
+organizations to select from a list of their active
+patients by the following parameters:
+
+   A ge or birthdate range
+   L ast vaccination date (or years since last
+
+      vaccination)
+   L ast update of a patient record
+
+19 Chapter 2. https://repository.immregistries.org/resource/management-of-patient-status-in-immunization-information-systems/
+
+ 17 Section 2 | Provider Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+The ability to exclude patients with documented vaccine refusal is helpful to avoid inactivating
+patients who have chosen not to vaccinate. These reports can be used to prepare for a provider
+organization’s internal review of its patient population’s vaccination completeness. Additionally,
+these reports can be incorporated into the IQIP visit. Inactivation tools and reports should be
+available to providers regardless of how their data enters the IIS—whether by EHR interface or
+manual data entry. In addition to the three parameters listed above, it is helpful to offer parameters
+that allow the selection of manageable groups of patients, such as first letter of last name or
+the date patient status was last changed. Finally, it could be especially useful for providers to be
+able to generate lists of patients who have been marked as inactive - outside jurisdiction at the
+geographic jurisdiction level but who are still active with the provider organization. Such lists would
+allow providers, including local health department staff, to check their own records to determine if
+patients have indeed gone elsewhere, bearing in mind that patients may be outside the jurisdiction
+but still be patients of the provider.
+
+ PROVIDER USAGE
+
+Obtaining and entering the patient status in an IIS or EHR is outside the normal workflow for most
+provider staff. As such, it can be time-consuming, especially since patient status information might
+not be easily available. With increased use of EHRs nationwide, staff in some practices no longer
+directly access the IIS on a regular basis. It may be challenging for the IIS to ask provider staff to
+change their normal workflow to include entering patient status-related data into the IIS. In addition,
+even when willing, these staff might not have access to the needed information in their own EHR
+or other internal systems. Often, staff with appropriate permissions to modify (or even view) EHR
+demographic data are limited to those with admission-like roles, not those providing direct patient
+care. These factors mean that significant changes in established workflow may need to be made in
+order for staff first to access their system’s patient demographic information and second to enter
+the relevant data in the IIS. One approach that has seen success in some areas is incentivizing
+providers to improve their vaccination practices and coverage rates. Health plans and other
+immunization partners in the community have created incentives, financial or otherwise, to engage
+providers in improving their vaccination coverage rates. This strategy may prove advantageous to
+getting patient status data into the IIS (see Provider Usage Challenge 1).
+
+ 18 Section 2 | Provider Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                    PROVIDER USAGE CHALLENGE 1:
+                  Entering patient status in an IIS is outside the
+                  normal workflow for provider staff
+                    Recommendation(s)
+  Workflow and IIS usage at each practice vary significantly, making it hard to offer specific
+  recommendations. Nonetheless, until more EHRs send patient status updates, IIS should
+  continue to encourage providers to take the time to manually enter patient status or update
+  addresses when address changes are known. Since their patients automatically default to active
+  based on data entered or updated, the focus for providers should be on identifying patients who
+  are no longer active at their provider organization. This may mean exploring with provider staff
+  best strategies for accessing appropriate information in their EHRs. As part of onboarding and
+  ongoing check-ins with providers, IIS should strongly recommend that designated provider staff
+  be assigned IIS user accounts for the purpose of overall quality control. In addition to checking
+  for import and export errors, these staff can be asked to compare their IIS active patient lists to
+  their internal system list and to update records accordingly.
+
+  To ease the burden of additional work and provider staff time, IIS may want to explore
+  partnerships with other immunization-related organizations that may offer support for these
+  efforts. Engaging with local chapters of the American Academy of Pediatrics (AAP), health plans,
+  and immunization action coalitions may lead to creative solutions to the resource challenge.
+
+  In discussions with provider organization staff, it may be
+  helpful to ask about access to demographic information.
+  Staff designated as responsible for entering patient status
+  in the IIS might be:
+  1. M embers of the clinical staff who have access to
+
+      patient demographic information in the practice
+      management or EHR system
+  2. A dministrative staff outside of the provider’s office
+      who deal with patient demographics on a regular basis
+  3. A dmissions or medical record staff responsible for
+      responding to medical record requests and updating
+      patient status in the EHR
+
+19 Section 2 | Provider Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+    The following questions can then be used to help provider staff identify how best to enter the
+    data into the IIS:
+    1. D o patients usually notify the provider when they are moving out of the area or to a new
+
+        provider?
+          a. If so, is there a procedure for recording them as inactive in the EHR or elsewhere?
+          b. If a patient mentions it during a medical visit, does the provider have a place to record
+               the information?
+
+    2. How is the information processed? Where is it recorded?
+    3. Medical record requests can be an indication that the patient has moved:
+
+          a. How are medical record requests handled?
+          b. B y whom?
+          c. Where are medical record requests recorded?
+          d. Is a record request ever used to indicate in the EHR that the person is no longer a
+
+               patient?
+          e. Are there ways to determine if it is a temporary “away-from-home” situation, not a
+
+              permanent move?
+    4. Is there a place in the process where it makes sense for the IIS to be updated?
+
+ IIS NEED FOR IMPLEMENTATION GUIDANCE
+
+IIS staff have identified a need for provider level guidance that is clear, concise, and easy to
+understand. Specifically, they requested information that will help providers understand how, when,
+and why to inactivate patients in the IIS (see Additional Guidance Challenge 1).
+
+ 20 Section 2 | Provider Level Issues
+                                      PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                  ADDITIONAL GUIDANCE CHALLENGE 1:
+                 Need for provider level guidance
+
+                  Recommendation(s)
+                    AIRA has developed a one-page template for IIS to use with providers (see
+Appendix E. Template for Provider Guidance on Patient Status Management) that highlights the
+importance of patient status and can be used alongside training materials. The basic information
+in the template can be included in instructions to providers about the use of the patient status
+field. The intent is to provide a short, easy-to-understand explanation of patient status and
+management. Each IIS should adopt the wording to fit its own situation and terminology and
+can add instructions for changing patient status in the IIS. The template includes:
+   Definitions of patient status categories in clear, easy-to-understand language
+   Why it is important to keep patient status updated
+   When to update patient status
+
+ POLICY/RULES REGARDING PROVIDER                                F or more information on
+ ENTRY OF DECEASED DATA                                           geographic policies on
+                                                                  deceased data see Policy/
+Having accurate and timely death data is important both to        rules regarding deceased
+maintain accurate information in the IIS and to avoid mailing     records in Section 3.
+reminders to families of deceased individuals. Some IIS do
+not allow providers to change patient status to deceased (see
+
+Deceased Records Challenge 1), and some IIS limit providers’
+
+ability to view records with a status of deceased. The primary reason for limiting provider access to
+
+this information is concern about confidentiality and privacy. Such concern may result from rules
+
+put in place by the jurisdictional vital records department. More information about death data best
+
+practices is provided in the geographic jurisdiction section.
+
+21 Section 2 | Provider Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                    DECEASED RECORDS CHALLENGE 1:
+                  Allowing providers to enter death data
+                    Recommendation(s)
+                      It is a best practice to allow providers to change a record status to deceased.
+                      This should be allowed both through manual data entry and through EDE.
+  Even with successful vital records exchange, not all deaths occur in-state, so not all death
+  events will be received from the vital records office. In some cases, providers may have the
+  information before the vital records data is received. In order to ensure timely and complete
+  entry of deceased status, it is important to offer multiple paths for the data to come into
+  the IIS, such as through both providers and vital records feeds. A date-of-death field should
+  be available in the UI but should not be required for the manual entry of a deceased status.
+  Providers may learn of a death from a trusted member of the family or from another provider,
+  who does not know the date of death. The importance of recording the death outweighs the
+  importance of having the date. It should be noted that the HL7 Implementation Guide does
+  require additional information confirming a death and this is not a recommendation to change
+  that rule. Requiring two fields for EDE helps avoid inadvertently marking thousands of records
+  as deceased due to a coding error. Entry errors through the UI (i.e., manual data entry one
+  record at a time) would likely affect only a single record and thus carry significantly less risk.
+  Nonetheless, IIS can minimize possible user error by offering one of these two strategies in
+  their systems:
+      P rovide a “pop-up” dialog that warns users they are about to mark a patient as deceased
+        for the entire IIS and asks if they are sure they want to do this. Such a feature can serve as
+        an added safeguard or double-check on the status change.
+      F or those that remain concerned about allowing a provider to mark a record as deceased,
+        the IIS could provide an interim step that allows a provider to flag a record without
+        changing the status. The flag then prompts review/confirmation by IIS staff. Automatically
+        withholding these provisionally deceased records from reminder/recall activities should
+        be considered until the official death record is received or until another vaccination is
+        added. In addition, a security level could be available that allows only approved provider
+        users to enter death data.
+
+22 Section 2 | Provider Level Issues
+3 GEOGRAPHIC
+
+JURISDICTION
+LEVEL ISSUES
+                                                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+SECTION 3 GEOGRAPHIC JURISDICTION
+                LEVEL ISSUES
+
+       Patient status at the geographic jurisdiction level identifies how the IIS classifies
+       patients with regard to the public health jurisdiction’s responsibility for
+       their vaccinations.
+
+According to the CDC Functional Standards, IIS should assign patient status at one or more
+jurisdictional levels.20 From a public health perspective, it is important to maintain the status of a
+patient at both provider and geographic levels to ensure there is always a party responsible for the
+vaccination of every patient.21 If a patient lives within a geographic jurisdiction and does not have
+active status with any provider organization, then the public health authority where the patient
+resides is usually responsible for ensuring that patient’s vaccination, either directly or indirectly. This
+function of public health is often known as “the safety net.”
+Few IIS have implemented all of the recommended patient status categories defined at the
+geographic jurisdiction level within MIROW guide. However, many IIS are able to derive the needed
+values from existing data in the system in order to produce assessments and other reports. Patient
+status at the geographic jurisdiction level should be assigned only by the IIS or IIS-approved parties
+and should not be editable through the provider UI or EDE. However, it could be helpful to provide
+functionality that captures out-of-state addresses at the time of data entry or shortly thereafter, in
+order to flag it at the geographic jurisdiction level.
+
+20 https://www.cdc.gov/vaccines/programs/iis/functional-standards/func-stds-v4-0.html
+21 https://repository.immregistries.org/resource/management-of-patient-status-in-immunization-information-systems/
+
+ 24 Section 3 | Geographic Jurisdiction Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+The MIROW guide describes five statuses (active, inactive - outside of jurisdiction, unknown - no
+address/no vaccination, unknown - no activity for extended period of time, and deceased) that
+should be utilized at the geographic jurisdiction level. (See Figure 1 for a visual depiction of the
+patient status designation hierarchy).22 The MIROW guide also stipulates that a patient’s status
+should remain active at the geographic jurisdiction level until any of the following occurs:
+
+   Patient moves out of geographic jurisdiction.
+   Patient is deceased.
+   IIS has not received information about this patient for an extended period of time.
+
+     GEOGRAPHIC JURISDICTION LEVEL PATIENT STATUS DEFINITIONS
+      Active
+
+      The individual’s residence within the geographic jurisdiction has been confirmed, or the
+      individual received an immunization from a provider organization within the geographic
+      jurisdiction and the individual’s address is not known (this condition applies only to
+      highest-level geographic jurisdiction, such as state or city).
+      Inactive - outside jurisdiction
+      The individual does not reside in the geographic jurisdiction.
+      Unknown - no address, no vaccination
+      The IIS has never received an address and has never received vaccination information
+      about the individual.
+      Unknown - no activity for extended period of time
+      The IIS has not received demographic and/or immunization information for a patient for
+      an extended period of time.
+      Deceased
+      Patient has died.
+
+22 See the 2019 MIROW Guide, BR 412, 413, 414, and 421
+
+ 25 Section 3 | Geographic Jurisdiction Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                              CURRENT USE
+
+                                                             The IIS survey found that 25% of IIS have no designated
+                                                             fields for geographic jurisdiction level patient status.
+                                                             In the absence of these fields, and with a need to run
+                                                             geographic-based reports, survey respondents reported
+                                                             deriving some values from existing data, such as patient
+                                                             address, vaccination history, or provider level patient
+                                                             status. About 60% of IIS have active status available—
+                                                             which is sometimes the only geographic jurisdiction
+                                                             status available in the IIS. Some IIS have both active
+                                                             and deceased patient statuses available but no others.
+                                                             Less than half include the status of inactive - outside
+                                                             jurisdiction, despite the high value of this information.
+                                                             Only 20% said they have one or both of the unknown
+                                                             subcategories. All reported having the status of
+                                                             deceased, though they sometimes use another term,
+                                                             such as “inactive - permanently.”
+                                                             As echoed in the responses to provider-level
+                                                             status questions, many IIS have geographic status
+                                                             designations that vary from the latest MIROW
+                                                             recommendations—either based on the original 2005
+                                                             MIROW nomenclature or on their own IIS-specific
+                                                             terminology. They question the need to change the
+                                                             terminology they are using.
+
+26 Section 3 | Geographic Jurisdiction Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+Thirty-six percent use address data to update geographic
+jurisdiction level patient status. Of those that do, a few
+mentioned the value of using address cleansing and
+address correction services, such as United States Postal
+Service (USPS), SmartyStreets,23 and other geocoders.
+Although acquiring deceased records from vital records
+offices is a best practice, not all IIS are able to do so. As
+for the actual use of geographic jurisdiction level patient
+status where it is available, less than half of IIS reported
+that all patient statuses in the IIS were used. Although
+not all IIS recognized a need for geographic jurisdiction
+level patient status as a distinct data element, most
+would like to implement it and expressed an interest in
+more information on its benefits and uses as well as the
+need for more guidance on how to implement its use.
+
+GEOGRAPHIC JURISDICTION LEVEL
+CHALLENGES AND RECOMMENDATIONS
+
+Gaps and challenges in geographic jurisdiction level
+status relate to three main areas:
+
+   IIS functionality
+   IIS need for implementation guidance
+   Jurisdictional level policy
+
+Specific challenges under each of the three areas are
+described below, along with recommendations
+for addressing them.
+
+23 AIRA. IIS Reintegration of Cleansed Addresses and Geocodes. September 30, 2018. https://repository.immregistries.org/resource/iis-reintegration-
+   of-cleansed-addresses-and-geocodes/
+
+ 27 Section 3 | Geographic Jurisdiction Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ IIS FUNCTIONALITY
+
+There are two primary gaps related to functionality in geographic jurisdiction level status. First, a
+significant number of IIS lack all or most patient status categories and subcategories at this level
+(see Functionality Challenge 1). Second, IIS use a variety of terms for the geographic jurisdiction
+status designations (see Functionality Challenge 2).
+
+                      FUNCTIONALITY CHALLENGE 1:
+                    Missing patient status categories
+                      Recommendation(s)
+                        All IIS should include, at a minimum, the patient status designations at the
+    geographic jurisdiction level of active, inactive - outside jurisdiction, and deceased. Having these
+    patient status categories available is necessary to produce accurate reports at the geographic
+    level. The SME workgroup determined that the two unknown categories (no address/no
+    vaccination and no activity for extended period of time) are highly desirable but should not be
+    viewed as required at this time. The unknown categories are especially helpful when running
+    coverage assessments and reminder/recall, as they assist public health to identify patients to
+    include and exclude in outreach and follow-up. It should be noted that, without the unknown
+    categories, patients will remain as active at the geographic jurisdiction level until they are known
+    to have moved outside the jurisdiction or known to be deceased.
+
+                      FUNCTIONALITY CHALLENGE 2:
+                    Variability in patient status nomenclature
+                      Recommendation(s)
+                        Many patient status naming conventions exist across the IIS community.
+    Questions have arisen about the importance of changing terminology to align with the MIROW
+    terms. The project’s SME group determined that, as long as terminology variations can be
+    mapped to the minimum recommended patient status designations (i.e., active, inactive -
+    outside jurisdiction, deceased), it is not necessary for IIS to change their nomenclature. For
+    example, an IIS using the designation “permanently inactive” can continue using this term, as
+    long as it can be mapped to “deceased.” However, IIS in the process of developing geographic
+    jurisdiction level functionality for the first time are encouraged to use the standard terms as
+    currently defined in the MIROW guide.
+
+ 28 Section 3 | Geographic Jurisdiction Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ IIS NEED FOR IMPLEMENTATION GUIDANCE
+
+Not all IIS recognize the value of geographic jurisdiction status functionality. Some survey respondents
+requested details on benefits and prioritization justification (see Implementation Guidance Challenge 1).
+Some also identified a lack of adequate guidelines and guidance for implementing and managing patient
+status at the geographic jurisdiction level. Interest is high for practical strategies on how to obtain
+relevant data, such as “out of jurisdiction” address information, and how to use the two unknown statuses
+when conducting reminder/recall and assessment. Specific topics of interest covered below include:
+
+   B enefits of patient status at geographic jurisdiction level (see Implementation Guidance Challenge 1)
+   Implementing a distinct data field for patient status (see Implementation Guidance Challenge 2)
+   D etermining and designing the appropriate hierarchy of geographic jurisdictional levels in the
+
+      IIS (see Implementation Guidance Challenge 3)
+   Implementing strategies for obtaining the most accurate and up-to-date address, e.g., out-of-
+
+      state (see Implementation Guidance Challenge 4)
+   E stablishing rules for classifying patients as unknown - no activity for extended period of time
+
+      (see Implementation Guidance Challenge 5)
+   D etermining which statuses to include when running reminder/recall and assessment reports
+
+      (see Implementation Guidance Challenge 6)
+
+                 IMPLEMENTATION GUIDANCE CHALLENGE 1:
+               Benefits of patient status at geographic jurisdiction level
+                 Recommendation(s)
+    Understanding the benefits of this functionality is an important first step to adopting it. Some of
+    the benefits to maintaining a discrete geographic jurisdiction level status include the ability to:
+     P roduce more accurate coverage assessment reports at the geographic jurisdiction level
+     F acilitate age appropriate reminder/recall information mailings
+     Identify those patients active at the geographic jurisdiction level but not at the provider level
+       for safety net service by public health
+     M eet national functional standards
+     M ore easily produce certain reports, such as the Immunization Information System Annual
+       Report (IISAR)
+
+    This level of functionality allows IIS reports to easily exclude out-of-jurisdiction, deceased records,
+    and those with no activity for an extended period of time, without evaluating all patient records every
+    time a report is needed. Sharing the benefits with IIS and immunization program staff, including
+    decision makers, may be helpful in promoting the development and use of this functionality.24
+
+     24 It should be noted that, at the time of this guide’s publication, CDC requires the inclusion of “no activity for an extended period of time”
+         in the IISAR coverage assessments.
+
+ 29 Section 3 | Geographic Jurisdiction Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                    IMPLEMENTATION GUIDANCE CHALLENGE 2:
+                  Implementing a distinct data field for patient status
+                    Recommendation(s)
+                      IIS should have a distinct field designating geographic jurisdictional level patient
+  status for each patient record. Having a separate field (i.e., data element) for patient status
+  at the geographic jurisdiction level enables traceability and the ability to view patient status
+  changes.25 Reports, such as coverage assessments, can then easily be tailored to specific needs,
+  including or excluding certain patient status designations.
+
+  For IIS that face major barriers or delays to implementing this functionality, status may be
+  maintained virtually by calculating it whenever it is needed. In this situation, the definitions
+  provided here and in the MIROW guide should be used every time a report is run. Each report
+  should include a clear statement of its parameters and definitions. Although this implementation
+  methodology is acceptable, it is not recommended due to the time it may take some IIS to
+  process this type of calculation (i.e., days for some IIS) because it depends on the number of
+  patient records being analyzed.
+
+                    IMPLEMENTATION GUIDANCE CHALLENGE 3:
+                  Determining and designing the appropriate hierarchy of
+                  geographic levels in the IIS
+                    Recommendation(s)
+                      At a minimum, the IIS should capture
+  patient status at the highest level of the geographic
+  jurisdiction covered by the IIS (e.g., the state, city,
+  county, or territory). Additional levels are used
+  by some IIS and are based on the organizational
+  structure and roles of public health within the IIS
+  coverage area. For example, a statewide IIS may
+  have additional tiers of public health, such as city
+  or county, depending on how public health is
+  organized in that specific state.
+
+   25 See BR 411 in the MIROW guide.
+       https://repository.immregistries.org/resource/management-of-patient-status-in-immunization-information-systems/
+
+30 Section 3 | Geographic Jurisdiction Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                                                          Maintaining patient status at lower geographic
+                                                          jurisdictional levels can be useful to assist public health
+                                                          with its safety net functions and to facilitate vaccination
+                                                          coverage assessments and reminder/recall. Assessment
+                                                          done at these more granular levels can help to identify
+                                                          pockets of need, monitor local coverage rates over
+                                                          time, and provide valuable information for prioritizing
+                                                          resources. In some states, patient status is so well
+                                                          integrated into their IIS that status at the provider
+                                                          level affects a variety of geographic jurisdictional level
+                                                          reports and functions. For example, a patient who is
+  no longer a patient at the provider level would not show up on provider reports for reminder/
+  recall but would show up on geographic jurisdictional level reports, as follow-up then falls to
+  the jurisdiction. In determining how to structure the geographic jurisdiction levels in an IIS,
+  IIS staff should think ahead to the ways that patient status can support various IIS and public
+  health functions. It may be helpful to consider the following:
+
+  1. T he organizational and geographic structure of the public health authority within the
+      jurisdictional area of coverage.
+
+  2. T he role of public health as a safety net in the geographic jurisdiction, with attention to
+      these specifics:
+         a. Does public health at any level—state, county, city, or other—have a responsibility for
+             follow-up of individuals without an immunization home (i.e., patients who are not active
+             with any provider)? If yes, what are those geographic jurisdiction levels?
+         b. D o local public health entities administer vaccinations, i.e., function as a vaccination
+             provider?
+
+  3. T he need to run coverage reports specific to public health units (areas) within the overall
+      coverage area.
+
+  4. B ased on the answers to the above questions, is there a public health need the IIS can fill to
+     assist with these functions?
+
+  It may be helpful to look at how other IIS have set up their structure and functionality to meet
+  their specific jurisdictional and environmental needs. An example of how one IIS has designed
+  its structure is provided in Appendix F. Examples of geographic jurisdiction structure.
+
+31 Section 3 | Geographic Jurisdiction Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                    IMPLEMENTATION GUIDANCE CHALLENGE 4:
+                  Implementing strategies for obtaining the most accurate and
+                  up-to-date address (e.g., out-of-jurisdiction addresses)
+                    Recommendation(s)
+  A proven method for obtaining updated addresses for IIS patient records is the United States
+  Postal Service (USPS) National Change of Address (NCOA) service.26 NCOA is a secure pre-
+  mailing process that allows mailers to submit name and address data to attempt to match to
+  a change-of-address record to find a new address. Third-party vendors are often involved in
+  assisting IIS with the address submission process. Use of NCOA helps IIS to identify persons
+  who have moved out of the jurisdiction within the previous 48 months. Another tool available
+  through the USPS is its Address Correction Service (ACS), which is a post-mailing process that
+  determines the correct disposition of a mail piece and generates address correction back
+  to the mailer. As there are differences in the matching processes used by NCOA and ACS,
+  IIS need to carefully consider which best meets their needs. Updating addresses in this way
+  can ensure that mailings go to the correct households and can help with IIS deduplication
+  efforts and geographic-based vaccination coverage analysis. Improved address quality may
+  help to reconcile the denominator of patients in the IIS with the actual census population by
+  identifying individuals who have moved out of the jurisdiction. It is especially effective when
+  combined with a public health function such as reminder/recall mail campaigns. Several IIS
+  have used NCOA and ACS for reminder/recall mailings to specific age groups, such as 19- to
+  35-month-old and 11- to 12-year-old patients.27
+
+   26 Woinarowicz, M. Conducting Statewide Recall Using the NDIIS. Presented at AIRA National Conference, 2015, and personal
+       communication with Ms. Woinarowicz, NDIIS Manager. February 14, 2018.
+
+   27 For examples, see Appendix F of AIRA’s IIS Data Quality Practices: To Monitor and Evaluate Data at Rest. https://repository.
+       immregistries.org/resource/iis-data-quality-practices-to-monitor-and-evaluate-data-at-rest/
+
+32 Section 3 | Geographic Jurisdiction Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+  Address cleansing is a related component of improving address data quality. Address cleansing
+  focuses on standardizing and validating addresses to conform with USPS requirements. It does
+  not, by itself, provide person-specific information on address correctness. For best results, it is
+  used in conjunction with the NCOA and/or ACS. SmartyStreets28 is an example of one address
+  cleansing service that is currently available to AIRA members.29 There are costs involved in
+  using address cleansing and address correction services. Expenses include contracting with the
+  USPS or third-party vendors, postage costs when doing mailings, and the cost of developing
+  the capacity to export import data files. However, offsets to the cost include improved mailing
+  success by avoiding sending to invalid addresses, decreased cost of unnecessary postage, and
+  discounted USPS bulk mailing rates.
+
+                    IMPLEMENTATION GUIDANCE CHALLENGE 5:
+                  Establishing rules for classifying patients as unknown -
+                  no activity for extended period of time
+                    Recommendation(s)
+  Section 4. IIS Population Management includes a community consensus-based approach on
+  when records can be considered unknown - no activity for extended period of time. Parameters
+  to support such rules include patient age, length of time since last vaccination, and record last
+  edited date.
+
+   28 https://repository.immregistries.org/resource/iis-reintegration-of-cleansed-addresses-and-geocodes/
+   29 IIS Reintegration of Cleansed Addresses and Geocodes Issued on September 30, 2018 by AIRA.
+
+       https://repository.immregistries.org/resource/iis-reintegration-of-cleansed-addresses-and-geocodes/
+
+33 Section 3 | Geographic Jurisdiction Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                     IMPLEMENTATION GUIDANCE CHALLENGE 6:
+                    Determining which statuses to include when running
+                    reminder/recall and assessment reports
+                     Recommendation(s)
+    The utility of patient status designations becomes clear when examining their actual application to
+    certain IIS activities. Specifically, vaccination coverage assessments and reminder/recall activities
+    can be tailored to a specific need by using patient status as a filter. Typically, vaccination coverage
+    assessments and reminder/recall at the geographic jurisdiction level will include all patients with
+    a status of active and exclude all with inactive - outside jurisdiction or deceased status. However,
+    the decision to include those with one of the unknown statuses is a little more complicated and is
+    discussed below under the respective activities of reminder/recall and assessment.
+
+Reminder/recall
+Patients with the status of unknown - no address/no vaccination necessarily will be excluded from
+a mailing campaign but might be included for telephone follow-up if a contact number is available.
+On the other hand, the decision to include the status of unknown - no activity for extended period
+of time depends on various factors, such as the age range targeted, whether previous attempts
+to contact have been made, and the risk of reaching a deceased person’s home. The mailing and
+printing costs of including those more likely to be unreachable needs to be weighed against the
+potential benefit of reaching individuals who just need a nudge to get vaccinated. The decision to
+include the “no activity” group also may depend on whether or not the IIS plans to use an address
+correction service and on potentially getting a new address for a patient (but only if a move has
+taken place in the preceding 4 years).
+
+Vaccination coverage assessments
+With any assessment, it is important to ascertain the purpose in order to determine the rules for
+inclusion/exclusion. Consistency over time with the rules and parameters used will make it easier to
+track change. The guidelines outlined in Section 4. IIS Population Management offer a consensus-
+based approach on when records can be considered unknown – no activity for extended period of
+time. Although the SME workgroup agreed each IIS should be allowed to determine when to include
+or exclude the unknown – no activity patient records for vaccine coverage assessments, at a high level
+it was recommended that these records be excluded from geographic jurisdiction level assessments.
+
+ 34 Section 3 | Geographic Jurisdiction Level Issues
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ POLICY/RULES REGARDING DECEASED DATA
+
+Not all IIS get deceased records from Vital Records. Local
+rules, laws, and policies play a role in this. Yet it is important
+for IIS to have a system that accurately flags deceased
+patients. This is critical when it comes to sending reminder/
+recall notices in order to avoid causing family distress upon
+receiving notice for a deceased person, especially a child.
+Recording deceased status is also important for maintaining
+the IIS denominator at a reasonable approximation of the
+actual population.
+
+Many IIS have implemented data exchange systems for
+death data with their vital records departments and routinely
+receive electronic data. Others have been unsuccessful in
+this effort due to technical or legal barriers (see Deceased
+Records Challenge 1). Some IIS encourage providers to enter
+deceased status for their patients who have died, although
+there is variation in whether date of death is required. A few
+IIS do not allow providers to enter death data at all (for more
+details, see Section 2. Provider Level Issues).
+
+When death data is received whether by manual input, HL7
+feed, or vital records source, there is significant variation
+in how such records are handled by IIS. Some completely
+remove deceased-patient records from their systems
+while others keep the record but limit viewing to IIS level
+users with special permission. Still others maintain the full
+record as viewable by all. At a minimum, keeping the record
+available on the back end facilitates reactivation if an error
+is discovered. It is also useful for running reports for periods
+prior to a patient’s death (see Deceased Records Challenge 2).
+
+A deceased status entry at the geographic jurisdiction level
+should always promote to the provider level and vice versa.
+
+ 35 Section 3 | Geographic Jurisdiction Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                    DECEASED RECORDS CHALLENGE 1:
+                  Obtaining death data from vital statistics office
+                    Recommendation(s)
+                      It is a best practice for IIS to have a regular, ongoing process for receiving death
+  data feeds from the vital statistics program or agency. Below are a few suggestions to achieve
+  this recommendation.
+      B ecome familiar with your state or geographic jurisdiction’s regulations for the sharing
+        of data. Work with your vital statistics office. Most states base their own rules on The
+        Model State Vital Statistics Act, which allows for the sharing of vital statistics data with
+        government entities through information sharing agreements, although there are caveats
+        and confidentiality and privacy requirements.30
+      C ontact other IIS that have successfully developed death data exchange processes.
+      O nce approval is obtained, start small to learn the best ways of managing the data and the
+        match process. Get batch loads for past data, determining time ranges to get the data in
+        chunks. Be aware that sometimes the demographic identifiers may be limited, making it
+        difficult to match records.
+      D ownload data files regularly. Real-time data feeds from Vital Records are ideal; a
+        minimum frequency of weekly loads of death data is desirable.
+
+   30 National Association for Public Health Statistics and Information Systems (NAPHSIS) is the national nonprofit organization representing
+       the state vital records and public health statistics offices in the United States, which has produced The Model Act.
+
+36 Section 3 | Geographic Jurisdiction Level Issues
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                    DECEASED RECORDS CHALLENGE 2:
+                  Handling of patient records after status changed to deceased
+                    Recommendation(s)
+                      It is a best practice to retain the full patient record for deceased patients in the
+  IIS, as long as this complies with applicable local policy and law. It is also advisable to allow
+  providers to view the record and enter administered vaccinations for a limited period of time
+  after the death. Alternatively, the IIS may choose to “lock” a record so no further editing can
+  occur, in which case providers should be advised to contact the IIS if additional data needs to
+  be entered or in case the wrong patient has been marked. It is not advisable to allow a new
+  vaccination to automatically change patient status from deceased to active, because this could
+  incorrectly and inadvertently result in a deceased patient receiving a reminder notice. Instead,
+  providers should be instructed to contact the IIS to discover if the wrong record has been
+  marked as deceased or if the vaccination is being attributed to the wrong patient. IIS-level staff
+  should have the ability to change a status from deceased back to active. Some IIS may choose
+  to have a report available at the IIS level that lists all patients changed to deceased status by
+  providers. While it may not be feasible for IIS staff to review all changed records, a list could
+  provide a way to do spot-checking.
+
+37 Section 3 | Geographic Jurisdiction Level Issues
+4 IIS POPULATION
+  MANAGEMENT
+                                                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+SECTION 4 IIS POPULATION MANAGEMENT
+
+       Many jurisdictions have experienced an ever-expanding number of patient
+       demographic records in the IIS due to births and migration into the geographic
+       jurisdiction, without a corresponding removal of records for those who are deceased
+       or moved out of the jurisdiction.
+
+This is commonly referred to as “denominator inflation” and means that the number of patient
+records in an IIS are not reflective of the true population. This often results in coverage assessment
+results that are lower than actuals and makes it difficult to compare to other quantitative
+assessments. Given the challenges to obtaining updated address information, there is a need to look
+for other ways to compensate for data that includes patients no longer residing in the jurisdiction.
+As noted earlier in the guide, a patient can be marked unknown at the geographic jurisdiction level
+if there is no activity for that patient for an extended period of time. However, specific numeric
+recommendations have not been available that define how long that time period should be. This
+guide now lays out a community consensus-based approach on when records can be considered
+unknown - no activity for extended period of time, based on parameters that include age and length
+of time since last vaccination or record edit.
+
+ 39 Section 4 | IIS Population Management
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+CURRENT USE
+
+Some IIS have developed and conducted processes to identify groups of patients who have not had
+any activity for extended periods of time. These processes are often referred to as mass inactivation.
+Ten IIS survey respondents identified one or more such processes conducted by their organization
+currently or in the past. Some of the processes have occurred at the provider organization level
+and some at the geographic jurisdiction level. Most have been performed in an ad hoc manner in
+response to specific situations, while a few are done on a regular basis. The majority of efforts target
+the adolescent population.
+
+Examples of ad hoc processes used by IIS to move patients to an “inactive” status (status that
+eliminates patients from certain reports):
+
+   A t IIS level:
+       Inactivated records with only one submission that were from a specific health plan no longer
+           in existence, with no vaccinations, no provider submissions, and inadequate demographic
+           data to match other records (upon discovery of thousands of records of suspect quality and
+           no way of following up)
+
+   A t provider request:
+       Inactivated records of patients over 24 years of age for pediatric providers (for provider level
+           patient status)
+       Inactivated out-of-jurisdiction patients based on a list from a provider
+
+   E xamples of routinely conducted inactivation processes related to age and record or
+      vaccination activity:
+       13–17 years of age – if no vaccination within last 5 years
+       11–12 years of age – if no vaccination within last 7 years
+       0–18 years of age – if no vaccination within last 8 years
+       All ages – if no activity on record in past 10 years
+       All ages – address data run against the USPS National Change of Address system; any
+           address updated to out-of-state are inactivated at geographic jurisdiction level
+       Age over certain number of years (i.e., expected maximum life span, typically set by IIS at
+           110–115 years of age) inactivated at geographic jurisdiction and provider level
+
+ 40 Section 4 | IIS Population Management
+                                         PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+RECOMMENDATIONS AND
+IMPLEMENTATION STRATEGIES
+
+In developing recommendations for inactivation of records in the IIS, consideration must be given
+to the level of maturity of an IIS in regard to the completeness of its data, as well as its capture of
+records for different age groups. The local role of public health in conducting follow-up activities
+for patients with no provider should also be considered. Instead of referring to these patients as
+inactive, we defer to the MIROW status term of “unknown - no activity for extended period of time.”
+The high-level assumptions listed below must be built into any processes that result in patients
+being moved to the “unknown - no activity” status.
+
+HIGH-LEVEL ASSUMPTIONS
+
+ P atient records at any geographic jurisdiction level status are eligible for a change in status to
+
+unknown - no activity for extended period of time, except those with a status of either inactive -
+
+outside jurisdiction or deceased.
+
+ A ssigning of unknown - no activity status is independent of any provider level status. Patients
+
+could have an unknown - no activity status at the geographic jurisdiction level while still having
+
+an active status at the provider level.
+
+ P rovider organizations (health care providers and public health agencies that administer
+
+vaccinations) have a responsibility to actively call back their patients for vaccinations, e.g., using
+
+reminder/recall. Although IIS would like to receive outcome data on the results of reminder/
+
+recall efforts, it is not always feasible. For example, when a provider learns that a patient has
+
+moved out of the area and will no longer be seen by them,
+
+   the updated address and/or change in patient status at the      General recommendations:
+   provider level might never be sent to the IIS via EDE since no     IIS should offer the
+   further vaccinations will be administered by the provider.            ability to record vaccine
+ It is reasonable to base the assigned period of no activity           refusal.
+   on a combination of factors such as maximum patient age            P roviders should record
+   for the cohort and the earliest age recommended for the               vaccine refusals or
+   previous vaccine dose series.                                         deferrals.
+ T he definition of “activity on a record” includes edits to        D ocumented deferrals
+   the demographic or vaccination record, documentation of               should count as activity
+   vaccine refusals, as well as recording of vaccinations, but           on a record.
+   excludes query-only activity
+
+41 Section 4 | IIS Population Management
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+CHALLENGES/RECOMMENDATIONS PER AGE GROUP
+
+Each age group below presents its own challenges, and recommendations have been made
+accordingly. For the under 18-year-old population, the following formula for each age group was used
+to determine the maximum interval since last receipt of a vaccination per the ACIP routine schedule:
+
+      Maximum interval formula:
+      Maximum age of a child in the cohort minus the earliest age they could have received last
+      set of recommended vaccines = maximum interval
+
+      Example of 7 through 10 years of age: oldest child in cohort is one day before 11th
+      birthday; youngest age they could have received previous set of vaccine doses is 4 years.
+      The difference is 7 years.
+
+                                AGE GROUP: 6 YEARS AND UNDER
+                                   Multiple vaccines are administered at frequent intervals to children who
+                                   are 6 years of age and under. This makes it difficult to come up with a
+                                   reasonable period of time that constitutes “no activity.” Given the number
+                                   of non-vaccinator parents, as well as children in the catch-up vaccination
+                                   schedule, the risk of inappropriately removing a child from an active status
+                                   at the geographic jurisdiction level is high using the interval method. Doing
+                                   so could eliminate members of this vulnerable population from follow-up
+                                   efforts. Thus, it is not recommended to use this method to change status
+                                   for the 6 years of age and under group.
+
+                                Recommendation(s)
+                                   Do not apply any mass changes to patient status based on no activity for
+                                   extended period of time to the birth through 6 years of age population,
+                                   unless there are special or extenuating circumstances which make it
+                                   appropriate.
+
+ 42 Section 4 | IIS Population Management
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                               AGE GROUP: 7–10 YEARS OF AGE
+                                  Children who are up to date with vaccines when they reach 7 years of age
+                                  do not usually receive any vaccines in the next 4 years, with a few exceptions
+                                  such as flu vaccination. Using the formula described above for this age
+                                  group, with a maximum interval of 7 years, we look back 7 years to identify
+                                  children with no activity or vaccination during that time. Thus, for children
+                                  exactly 7 years of age, we look for those with no vaccinations or activity since
+                                  birth; for a child a day short of 11 years old, we look for no activity since age
+                                  4. This retrospective look for vaccinations includes the prime age groups for
+                                  vaccination of birth to 2 years old and 4 to 6 years of age. Those in the “no
+                                  activity” group are likely to include non-vaccinators as well as those who are
+                                  truly lost to follow-up. As discussed in the 6-year and under age group above,
+                                  it is usually preferable to take no action and simply allow this group to age
+                                  into the next cohort, where inactivation rules are more appropriate.
+Recommendation(s)
+Do not apply any mass changes to patient status based on no activity for extended period of time
+to the 7- through 10-year age group population unless there are special circumstances that make it
+appropriate. If deemed appropriate, a reasonable time frame to apply may be 7 years. If the 7-year
+time frame is applied, it is important to make sure the inactivated records do not get automatically
+reactivated when aging into the 11- to 18-year age group through application of that age group’s
+inactivation rules.31 However, records should be automatically converted back to active once a record
+update/vaccination is received by the IIS.
+
+31 With an inactivity time frame of 7 years for 7- to 10-year-olds, an inactivated child could age into the 11- to 18-year-old age group and not meet
+   the longer 10-year inactivity rule. Without a substantiating new vaccination, there is no reason to think the status has changed, and thus it should
+   remain as inactive.
+
+ 43 Section 4 | IIS Population Management
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                               AGE GROUP: 11–18 YEARS OF AGE
+                                  Most IIS today have been in operation for 10 years or more, and the 11-
+                                  through 18-year age group is prone to denominator inflation. For this age
+                                  group, there has been more time for unidentified duplicates to be created,
+                                  as well as inadequate documentation of patients who have moved out of
+                                  the jurisdiction. In addition, fewer school-required vaccinations for this
+                                  age group can result in fewer updates to IIS records, including address
+                                  corrections. Once they’ve turned 11 years of age, however, patients in this
+                                  age group should begin to receive several vaccines, such as meningococcal,
+                                  HPV, and Tdap booster. For these reasons, some IIS have chosen to focus
+                                  inactivation efforts on this age group.
+
+                                  For 11- and 12-year-olds, the earliest dose of the previous recommended
+                                  set of vaccines would have occurred on the fourth birthday. Subtracting 4
+                                  years from the age of the oldest member of group, one day short of 13th
+                                  birthday, yields an inactivity window of 9 years to examine. For 13 through
+                                  18 years of age, the earliest dose of the last recommended set of vaccines
+                                  would have occurred on the 11th birthday. Subtracting 11 years from the
+age of the oldest member of this group, one day short of the 19th birthday, yields an inactivity
+window of 8 years to examine. For ease of application, both age groups can be considered together,
+11 through 18 years. With a year added for a slightly more conservative interval, and to be in sync
+with the adult recommendation, an inactivity window of 10 years can be applied.
+Recommendation(s)
+Use 10 years since last activity on a record for the 11- through 18-year age group for changing status
+to unknown - no activity for extended period. A slightly less conservative approach, i.e., affecting
+fewer individuals, could also be considered: using an 8-year time frame for the 11 through 12 years
+of age population and a 9-year time frame for the 13 through 18 years of age population. If the
+8- and 9-year intervals are selected by the IIS, as noted above in the 7- to 11-year-old section, it is
+important to make sure that the 11- to 12-year-olds do not get automatically reverted to active when
+aging into the 13- to 18-year age group. Rather, records should be automatically converted back to
+active once a record update/vaccination is received by the IIS.
+
+ 44 Section 4 | IIS Population Management
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+                               AGE GROUP: OVER 18 YEARS OF AGE (ADULTS)
+                                  There is considerable variation in the degree to which IIS are populated
+                                  with adult records. While some IIS are underpopulated for adults, older
+                                  IIS that have included adults for more than 20 years now have an excess
+                                  of adult records. In addition, the quality of data for adult records may be
+                                  poorer than that for children, especially for demographic data, because of
+                                  the decreased frequency of record updates and consequent degradation
+                                  of data accuracy. Compounding the problem is the reported lower quality
+                                  of adult demographic data because of the variety of provider types
+                                  administering adult vaccinations. Some IIS report that clinics, such as stand-
+                                  alone clinics (e.g., for flu), are sometimes unable to provide complete and
+                                  accurate demographic data. This makes it difficult to match a patient with
+                                  existing records in the IIS, resulting in multiple fragmented records for a
+                                  single patient.
+
+Another factor to consider is the role of public health and the actual amount of intervention used to
+find adult patients who are past due for vaccinations. Some public health jurisdictions play a very
+active role in reminder/recall efforts and have protocols in place that require continued search for
+patients who are past due. In these circumstances, an IIS may consider implementing a shorter
+period of time with no activity, knowing that efforts have been made to reach the patients. If the IIS is
+able to track the number of reminder/recall attempts, they can also use the results to inactivate
+records. In conversation with health plans and providers, one IIS determined that 3 years is commonly
+used as an appropriate period of no activity for adults when outreach has been unsuccessful.32
+
+Recommendation(s)
+Use 10 years since last activity on a record for the 19 years and above population for changing
+status to unknown - no activity for extended period. In specific situations, a 3- to 5-year period may
+be considered, primarily when lacking valid address data. For example, a record with flu vaccine
+only, in combination with incomplete address data, may be subject to a 3-year period only. A record
+with a vaccine type in addition to flu, but still lacking good address data, may be subject to a 5-year
+period of no activity.
+
+32 MCIR, Region 1. Verbal communication. Wendy Nye. 7/22/19.
+
+ 45 Section 4 | IIS Population Management
+      PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+IMPLEMENTATION PROCESS FOR CHANGES
+TO STATUS OF UNKNOWN - NO ACTIVITY FOR
+EXTENDED PERIOD
+
+Following are some steps to take as you determine the proper course of action for implementing a
+process to inactivate, i.e., change patient status to unknown - no activity for extended period of time.
+
+STEP  MAKE THE DECISION TO IMPLEMENT AN INACTIVATION PROCESS
+1
+
+When to apply parameters to change patient status at the geographic jurisdiction level depends
+on several factors that include:
+
+   T he maturity of the IIS in terms of how long an IIS has been collecting data and how
+      complete the records are for the age groups under consideration. For example, if the IIS has
+      been collecting birth data since 2001, then the oldest child in the IIS through birth records
+      would be 18 years of age in 2019. With the addition of child records from other sources
+      over the 18-year period of time, the IIS may have a considerable inflation of this age group
+      (through unmatched duplicates and through out-migration).
+
+   F amiliarity with data so that when comparing the numbers in each age group to census data
+      any anomalies can be explained.
+
+   D ata quality—for example, extent of incomplete or missing demographic data.
+   L evel of outreach being done at the geographic jurisdiction level and how public health
+
+      functions as a safety net for the population.
+
+STEP
+
+ 2 DETERMINE PARAMETERS TO USE
+
+Refer to the recommendations for status change by age group discussed above. Select the age
+groups of interest based on knowledge of your data. If possible, select a very small cohort for an
+initial query and then manually review records that would be affected. If unsure about your data,
+err on the conservative side with longer time periods recommended. Balance ensuring the safety
+net functions of your public health system with the practicality of continuing to include unreliable
+records of poor data quality (probable duplicates) in your IIS. Be sure to include recording of patient
+refusal and exemptions as activity on a record. This will help to pick up (and avoid inactivating)
+non-vaccinators. Look at dates of any updates to both vaccination and demographic records.
+
+46 Section 4 | IIS Population Management
+      PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+STEP  DECIDE ON METHOD FOR PRODUCING STATUS CHANGE
+3
+
+Should an inactivation report be accessed via a user interface at the IIS level or through a script
+to be run on the back end? Having a configurable report, available to certain IIS-level staff, will
+allow the user to adjust parameters and compare results without needing technical support
+every time a report is desired.
+
+STEP
+
+ 4 DETERMINE FREQUENCY OF PROCESS
+
+The IIS should determine the frequency of conducting the process based on its own business
+needs. Considerations for the timing and frequency include the number of manual processes
+required and the time it takes for the IIS database to process large scripts. Running such a
+process too frequently could be unmanageable or a strain on the system. Annually may be a
+logical and reasonable period of time, especially if it coincides with recurring reporting periods,
+such as annual IIS reports.
+
+47 Section 4 | IIS Population Management
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+CONCLUSION
+
+      Patient status is an underutilized concept that can help with a variety of IIS
+      activities—from data quality improvement to reminder/recall and vaccination
+      coverage assessments to fulfilling public health and provider responsibility for
+      ensuring patient vaccination.
+
+As identified during this project, the MIROW Patient Status guidance has been inconsistently applied
+among IIS, with geographic jurisdiction level patient status implementation especially limited.
+Surveys and interviews within the IIS and EHR community identified a strong need for practical
+guidance related to implementation and management of patient status.
+Both IIS and EHR survey respondents identified significant issues regarding the sending of patient
+status data via EDE. While receiving data electronically is the ultimate goal, additional work with
+the EHR provider organization community needs to occur to resolve the current barriers related
+to patient status collection and data submission to the IIS. AIRA has identified the topic of EHR
+submission of patient status as a potential future project in need of best practices/consensus. In
+addition to involvement of the EHR community and technology experts in such a project, it will also
+be important to involve policy makers to support recommended changes. Meanwhile the onus falls
+to provider organizations and to IIS to find alternative ways to make manual patient status data
+entry feasible. To that end, the guide presents strategies for issues related to IIS functionality and
+provider usage, including recommendations for incorporating deceased data into the IIS.
+
+ 48 Conclusion
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+For geographic jurisdiction level patient status, the
+guide explores challenges related to functionality and
+makes suggestions for setting up distinct data fields
+and for determining and designing an appropriate
+hierarchy of geographic jurisdictional levels. Specific
+recommendations also are made for addressing
+challenges, such as obtaining the most accurate,
+up-to-date patient addresses to help flag patients
+as inactive - outside of jurisdiction. The guide also
+suggests ways to use patient status to include or
+exclude patients in vaccination coverage assessments
+and reminder/recall. In addition, the importance of
+getting death data from the local vital records agency
+on a regular basis is stressed, with practical steps
+for doing so. Finally, strategies for IIS population
+record management are described, including
+recommendations for moving batches of patients to
+an unknown - no activity for extended period status,
+based on patient age, time since last vaccination,
+and other parameters while noting parameters that
+should not exclude records, such as vaccine refusals.
+
+Lastly, readers are advised to use this guide in conjunction with the MIROW Patient Status guide,
+which contains detailed information on patient status principles and business rules.33 The MIROW
+guide is especially helpful when designing new patient status functionality and when evaluating
+current implementation of patient status in the IIS.
+
+33 https://repository.immregistries.org/resource/management-of-patient-status-in-immunization-information-systems/
+
+ 49 Conclusion
+                           APPENDICES
+
+APPENDIX A             51  APPENDIX F                         61
+ABBREVIATIONS              EXAMPLE OF GEOGRAPHIC              62
+                           JURISDICTION STRUCTURE
+APPENDIX B             52                                        62
+GLOSSARY OF TERMS          APPENDIX G                            65
+                           SUMMARY OF CHALLENGES                 70
+55 APPENDIX C              AND RECOMMENDATIONS
+                                                              74
+RESOURCES AND REFERENCES     Provider Level Challenges and
+                             Recommendations
+57 APPENDIX D                Geographic Jurisdictional Level
+                             Challenges and Recommendations
+EHR IMPLEMENTATION GAPS      IIS population management
+
+APPENDIX E                 APPENDIX H
+                           ACKNOWLEDGEMENTS
+TEMPLATE FOR PROVIDER
+
+GUIDANCE ON PATIENT    58
+STATUS MANAGEMENT
+                               PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX A ABBREVIATIONS
+
+ABBREVIATION  American Academy of Pediatrics
+AAP           Advisory Committee on Immunization Practices
+ACIP          Address Correction Service (a term of the USPS)
+ACS           Admissions, Discharges, and Transfers
+ADT           Assessment, Feedback, Incentives, and Exchange (now referred to as IQIP)
+AFIX          American Immunization Registry Association
+AIRA          Assessment Steering Committee
+ASC           Business Rule
+BR            Centers for Disease Control and Prevention
+CDC           Data Quality Assurance
+DQA           Electronic Data Exchange
+EDE           Electronic Health Record
+EHR           Health Level Seven
+HL7           Immunization Information System
+IIS           Immunization Information System Annual Report (a CDC report required of each IIS annually)
+IISAR         Immunization Quality Improvement for Providers
+IQIP          Modeling of Immunization Registry Operations Workgroup
+MIROW         Moved or gone elsewhere (means individual is no longer a specific provider’s patient)
+MOGE          National Association for Public Health Statistics and Information Systems
+NAPHSIS       National Center for Immunizations and Respiratory Diseases (part of CDC)
+NCIRD         National Change of Address (a term of the USPS)
+NCOA          Subject Matter Expert
+SME           User Interface
+UI            United States Postal Service
+USPS          Vaccines for Children
+VFC           Unsolicited Vaccine Update
+VXU
+
+51 Appendix A | Abbreviations
+                                                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX B GLOSSARY OF TERMS
+
+       1–1 and 1–Many approach – refers to the system for assigning responsibility to providers
+       for patient vaccination. The 1–1 approach means there is only one provider responsible
+       for each patient (i.e., a single patient can be active with only one provider at a time.) The
+       1–Many (1–M) approach means patients can have multiple providers responsible for their
+       vaccination (i.e., a single patient shows up as active for multiple providers). The system
+       used is determined by each IIS based on its community needs.
+       ADT – a type of HL7 message for sending demographic-only data, such as the patient’s
+       name, address, phone number, gender. ADT is typically triggered at an admission,
+       discharge, or transfer of a patient.
+       AFIX (Assessment/Feedback/Incentives/Exchange) – a quality improvement program
+       conducted by CDC’s immunization program awardees to support VFC providers in their
+       geographic jurisdiction, with the goal of increasing vaccination of children and adolescents
+       with all Advisory Committee on Immunization Practices (ACIP)-recommended vaccines by
+       reducing missed opportunities to vaccinate and improving immunization delivery practices
+       at the provider level. Replaced by IQIP.
+       Core data elements – a set of data elements endorsed by CDC that are needed by an
+       IIS to record patient demographics and vaccination events to meet the IIS Functional
+       Standards v4.0.
+       Coverage assessment – the process used to determine the estimated percentage of
+       people in a given area, or associated with a single provider or provider group, who have
+       received specific vaccines.
+       Denominator inflation – a phenomenon experienced by IIS where there is an expanding
+       number of patient demographic records in the IIS due to births and migration into the
+       geographic jurisdiction, without a corresponding removal of records for those who are
+       deceased or have moved out of the jurisdiction. This means the number of patient records
+       in an IIS is not reflective of the true population.
+
+ 52 Appendix B | Glossary of Terms
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+     Electronic data exchange (EDE) – an interface in which data can be communicated
+     electronically between an IIS and another system, such as an electronic health record system.
+     Electronic health record (EHR) – system utilized by the provider organization. EHR
+     generally refers to the technology and all the software of an electronic recordkeeping
+     system used in health care. The term electronic medical record (EMR) is often used
+     interchangeably with EHR and specifically refers to the medical records maintained in an
+     EHR system.
+     Functional standards – describe the operations, data quality, and technology needed
+     by IIS to support immunization programs, vaccination providers, and other immunization
+     stakeholders and their immunization-related goals. CDC works with IIS stakeholders to
+     update the Functional Standards when needed to address changes in technology, business
+     process, and best practices in immunization services.
+     Geocoding – the process of transforming a description of a location—such as a pair of
+     coordinates, an address, or a name of a place—to a location on the earth’s surface. You
+     can geocode by entering one location description at a time or by providing many of them
+     at once in a table. The resulting locations are output as geographic features with attributes
+     that can be used for mapping or spatial analysis.
+     Geographic jurisdiction level – physical area identified by a governing authority. In this
+     guide, the area covered by a specific IIS (state, municipality, territory).
+     Health Level Seven (HL7) – an internationally recognized standard for electronic data
+     exchange between systems housing health care data.
+     Immunization Information System (IIS) – a confidential, population-based, computerized
+     database for recording information, including vaccination history and vaccine doses given
+     by participating health care providers.
+     Interface – the electronic connection between the IIS and sources of immunization data, such
+     as EHRs, Vital Statistics, and others, for electronic data exchange between these systems.
+     Immunization Quality Improvement for Providers (IQIP) – replaced AFIX as CDC’s
+     national immunization quality improvement program on July 1, 2019. Promotes and supports
+     implementation of provider-level immunization quality improvement strategies designed
+     to increase vaccine uptake among children and adolescents in adherence to the routine
+     schedule recommended by the Advisory Committee on Immunization Practices (ACIP).
+
+53 Appendix B | Glossary of Terms
+                                                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+     Modeling of Immunization Registry Operations Workgroup (MIROW) – is a workgroup
+     of AIRA that uses consensus-based processes to develop best practice operational
+     guidelines related to IIS operations.
+     Opt-out – an indication that patient has opted out of participation in the IIS, with rules and
+     laws that vary by jurisdiction. Per MIROW P316, opting out of IIS should not impact patient
+     status but should be handled as an additional consideration (filter) for selecting a cohort for
+     reminder/recalls and coverage assessments.
+     Practice Management System (PMS) – a form of software found in medical offices that is
+     designed to deal with day-to-day operations using desktop software, client-server software,
+     and internet-based software for financial and administrative functions, sometimes tied in
+     with electronic medical records.
+     Patient status – an indicator of an organization’s accountability for a patient’s vaccinations.
+     Patient status at geographic jurisdiction level – patient status with respect to an
+     immunization program/public health entity.
+     Patient status at provider organization level – a patient’s status with respect to a
+     provider organization.
+     Provider organization – an organization that provides vaccination services or is
+     accountable for an entity that provides vaccination services. A provider organization can
+     be a solo practice with one clinical site or can contain a collection of related providers (e.g.,
+     clinicians, physicians, nurses) with multiple sites. In this document, the term provider is used
+     interchangeably with provider organization. For IQIP/AFIX, the term applies to providers at a
+     single geographic location, utilizing a unique Vaccines for Children identifier number.
+     Reminder/recall – an activity, which can be a report, a mailing, or another method that
+     identifies and contacts one or more patients with one or more recommended vaccinations
+     past due, due now, or due in the future.
+     Safety net – “core safety-net providers” are defined by the Institute of Medicine as
+     providers who by mandate or mission offer access to care regardless of a patient’s ability to
+     pay and whose patient population includes a substantial share of uninsured, Medicaid, and
+     other vulnerable patients. Safety-net providers are distinguished by their commitment to
+     provide care to people with limited or no access to care.
+     SmartyStreets – a software services company that provides address validation,
+     standardization, and geocoding services.
+
+54 Appendix B | Glossary of Terms
+                                                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX C RESOURCES AND
+                 REFERENCES
+
+ A IRA. Data Validation Guide for the IIS Onboarding Process. 2017. http://repository.immregistries.
+    org/files/resources/58a601d626d7a/aira_data_validation_guide_-_final_new_logo.pdf
+
+ A IRA. IIS Data Quality Practices: Monitoring and Evaluating Data Submissions. September 2017.
+    http://repository.immregistries.org/files/resources/59cabe6404421/data_quality_phase_ii.pdf
+
+ A IRA. IIS Data Quality Practices: To Monitor and Evaluate Data at Rest. May 2018.
+    https://repository.immregistries.org/resource/iis-data-quality-practices-to-monitor-and-evaluate-
+    data-at-rest/
+
+ A IRA. Management of Patient Active/Inactive Status in Immunization Information Systems:
+    Replacement of 2005 Guidelines. American Immunization Registry Association (AIRA) Modeling
+    of Immunization Registry Operations Workgroup (MIROW). April 2015. http://repository.
+    immregistries.org/resource/management-of-patient-active-inactive-status-in-immunization-
+    information-systems-1/
+
+ A IRA. Management of Patient Status in Immunization Information Systems. AIRA Modeling of
+    Immunization Registry Operations Workgroup (eds). Atlanta, GA: American Immunization Registry
+    Association. Version 3.0. July 2019. https://repository.immregistries.org/resource/management-
+    of-patient-status-in-immunization-information-systems/
+
+ A IRA. IIS Functional Guide Vol. 2. CDC Endorsed Data Elements. January 25, 2019.
+    https://repository.immregistries.org/files/resources/5a83216a1d369/aira_functional_guide_vol2_
+    final.pdf
+
+ A IRA. IIS Reintegration of Cleansed Addresses and Geocodes. September 30, 2018. https://
+    repository.immregistries.org/resource/iis-reintegration-of-cleansed-addresses-and-geocodes/
+
+ A IRA Discovery Session. Our Vital Records Partners – New and Emerging Issues. April 1, 2019.
+    What You Need to Know About Vital Records and Why You Should Care. Mariah Pokorny, Sandra
+    Lyles. Recording can be found at https://vimeo.com/329166956.
+
+ C DC. HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, version 1.5,
+    November 2014, and Addendum. July 2015. https://www.cdc.gov/vaccines/programs/iis/technical-
+    guidance/hl7.html
+
+ C DC. Core Data Elements for IIS Functional Standards v4.0. https://www.cdc.gov/vaccines/
+    programs/iis/core-data-elements.html
+
+ C DC. IIS Functional Standards, v4.0. January 2018. https://www.cdc.gov/vaccines/programs/iis/
+    functional-standards/func-stds-v4-0.html
+
+ 55 Appendix C | Resources and References
+                                   PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ C hao, S. 1–1 vs. 1–Many Patient Active/Inactive Status: Why You Should Care. Tennessee
+   Department of Health. 2018 AIRA National Meeting, Salt Lake City, UT.
+
+ Isabella-Rhoades, L. Utilization of Manage Patient Status in NYSIIS to Improve Data Quality. New
+   York Department of Health. 2018 AIRA National Meeting, Salt Lake City, UT. August 2018.
+
+ L eBeau, T. Utilizing the SDIIS to Improve Accuracy of Patient Status Field and Ensure Patients Have
+   a Medical Home. South Dakota Department of Health. October 7, 2013.
+
+ W oinarowicz, M. Conducting Statewide Recall Using the NDIIS. Presented at AIRA National
+   Conference, 2015.
+
+ N APHSIS. Model State Vital Statistics Act and Regulations. CDC, National Center for Health Statistic.
+   2011 Revision. https://naphsis-my.sharepoint.com/personal/cldmn_naphsis_onmicrosoft_com/
+   Documents/Shared%20with%20Everyone/FinalMODELLAWSeptember72011.pdf
+
+The following organizations provided internal materials on patient status:
+
+ORGANIZATION             RESOURCE
+
+Envision Technology Partners PAIS Requirements and Specifications for WebIZ. Document Version 1.13. May 2017
+
+Iowa IIS                 Immunization Assessment Definition Moved or Gone Elsewhere (MOGE). Iowa
+                         Department of Public Health, Division of Acute Disease Prevention & Emergency
+                         Response. Immunization Program. March 1, 2010
+
+New York IIS             Manage Patient Status Training Handout. NYSIIS
+
+Rhode Island IIS         New Features: Patient List Report for Providers. Rhode Island Department of Health.
+                         Kidsnet
+
+Tennessee IIS            Manage Population Module. A quick reference guide. Tennessee Immunization
+                         Information System. Revised June 28, 2018, iWeb v15.5.2
+
+Scientific Technologies  PAIS Management of Patient Active/Inactive Status
+Corporation
+
+Washington IIS           Washington State Immunization Information System Reference Guide Managing
+                         Patient Ownership and Status. Washington Department of Health. August 2018
+
+Wyoming IIS              Manage Patient Population Quick Reference Guide. Wyoming Immunization Registry.
+                         Rev. April 2018
+
+56 Appendix C | Resources and References
+                                                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX D EHR IMPLEMENTATION
+                 GAPS
+
+       Three big implementation barriers to collecting and sending patient status data were
+       identified by EHR respondents during the initial survey/interview phase of the project.
+
+   1. T he MIROW recommendations are not part of the HL7 standard nor part of EHR certification.
+   2. M ost EHR systems trigger messages only when there is an administered vaccination.
+   3. M ost EHR systems don’t have a provider workflow where patient status is distinctly captured.
+Although there is a specific MIROW guidance document on patient status, these recommendations
+are not part of the HL7 VXU transaction standard. It appears that most EHRs are not aware of the
+document, nor are they required under most certification standards to adhere to it. Therefore, the
+patient status classifications that IIS are recommended to track are not a requirement for EHRs.
+If an address or patient status is updated within an EHR, there is usually no trigger to send that data to
+the IIS. Rather, most EHRs trigger VXU messages only when a vaccination has been administered. If a
+provider is notified of an address change or that a patient is deceased, that data might never be sent to
+the IIS unless, in the case of the address change, a subsequent vaccination is given at a later time.
+In many large practices (e.g., hospital systems and multiple facility organizations), there is a separate
+admission or registration process that captures patient address information. This may or may not occur
+in a separate part of the EHR and may also never trigger an update to the IIS. The actual clinicians might
+never see the updated information when they see the patient. Their interaction with the patient record
+often includes only clinical information, such as vaccination administration, if it occurs.
+
+ 57 Appendix D | EHR Implementation Gaps
+                                                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX E TEMPLATE FOR PROVIDER
+                 GUIDANCE ON PATIENT
+                 STATUS MANAGEMENT
+
+    Note to IIS staff: This is a template of basic information that could be included in
+    instructions to providers about the use of the patient status field. The intent is to provide a
+    short, easy-to-understand explanation of patient status and management. Each IIS should
+    adapt the wording to fit its own situation and terminology. It should be formatted for ease
+    of reading. In addition, each IIS can add instructions for changing patient status, which may
+    include use of a patient management module.
+
+WHO IS THIS INFORMATION FOR?
+
+This guide is intended for providers who run
+vaccination coverage or reminder/recall reports
+who want to have more accurate patient
+lists from the IIS and for staff responsible for
+updating patient status in the IIS.
+
+WHAT IS PATIENT STATUS?
+
+Patient status tells you which providers/
+practices are responsible for the immunization
+of a specific patient. A patient’s status can be
+active, inactive, or deceased. In the IIS, a patient
+record automatically defaults to “active” for your
+practice when you create a new record or enter
+the most recent vaccination event. Patients are
+considered inactive when they are no longer
+your patients.
+
+ 58 Appendix E | T emplate for Provider Guidance on Patient Status Management
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+      Definitions of patient status categories:
+          A ctive = currently your patient
+          Inactive = not your patient
+          S ubcategories of inactive
+              No longer your patient: if you have received requests for medical records from
+                 another primary care provider; if the patient has informed you that they have
+                 changed providers; if you know the patient has moved out of the area and no
+                 longer seeks care from you; if you have not seen the patient in x years.
+              Lost to follow-up: if you have no means to contact a patient (no phone, no address)
+                 or if you have made at least three attempts to contact a patient, after 90 days this
+                 designation can be made.
+          D eceased = patient has died. (May be entered by IIS with data from Vital Records or by
+             provider upon notification by a family member or other health care provider.)
+
+HOW DOES PATIENT STATUS GET UPDATED IN THE IIS?
+
+Whenever a vaccination is submitted to the IIS by your provider organization, whether by manual
+data entry into the IIS or electronic data submission, the patient’s status is automatically updated
+to be “active” for your practice. Most electronic health record systems, however, are not yet capable
+of submitting data to the IIS when a patient moves out of the state or leaves your practice or dies.
+For this reason, it is important for providers to check their IIS patient records and update them for
+patients who have moved away, left the practice, or died.
+
+WHY CARE ABOUT PATIENT STATUS?
+
+It is important to update patient status so that your list of current patients is accurate, thus ensuring
+that reminder/recall and vaccination coverage reports are limited to patients now active in your
+practice. Updating your patient list on a regular basis will improve the accuracy of all reports and
+assist in identifying those patients who need follow-up for additional immunizations. In addition,
+having an accurate list ensures you are being credited for the work you do and not penalized for
+patients who are no longer in your practice.
+
+ 59 Appendix E | T emplate for Provider Guidance on Patient Status Management
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+WHEN SHOULD I UPDATE PATIENT STATUS?
+
+You should update patient status routinely. Being aware of your active patients in the IIS should be
+a best practice for your facility. By reviewing patient status on a regular basis, you will be able to
+ensure that reports correctly associate patients to your practice. Patients no longer in your practice
+will be excluded from vaccination coverage reports and will not skew your results to be lower
+than they actually are. Special attention should be given to patient status prior to conducting both
+reminder/recall activities and vaccination coverage assessments:
+
+   W hen preparing to run reminder/recall notices through the IIS, making sure your patient
+      population is as accurate as possible ensures that the patients you contact are the right
+      patients. This can help save you time and resources by not contacting patients no longer being
+      seen at your practice.
+
+   A fter an initial quality improvement visit from your local public health immunization team (IQIP
+      visit), you may need or want to improve your vaccination coverage rate reports before the next
+      visit. Updating the status of your patients will help to make sure you are including only patients
+      who are truly active in your practice.
+
+ 60 Appendix E | Template for Provider Guidance on Patient Status Management
+                                                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX F EXAMPLE OF GEOGRAPHIC
+                 JURISDICTION STRUCTURE
+
+       The Wisconsin IIS is an example of a statewide IIS that has implemented a variation
+       on the concept of geographic jurisdiction level patient status.
+
+Wisconsin has focused on a lower-level geographic jurisdictional status that enables local public
+health to fulfill its responsibility to ensure vaccination of its residents. Local public health is a safety-
+net provider and is regarded by the IIS as a provider type that is not allowed to inactivate patients.
+The separate need for state-level status
+is met by a “registry active indicator.”
+This indicator applies to the entire IIS
+and gets populated based on statuses at
+the local health department geographic
+jurisdiction level and the provider level,
+as well as death date or death indicator.
+The registry active indicator is used
+along with a few other exclusion criteria
+when pulling IISAR reports, as it looks
+at all statuses within the IIS for both
+providers and local health departments.
+The registry status can be seen only in
+tables on the back end when running
+queries. Users can see only the patient
+status of their level, as there is not a
+separate “state status” viewable within
+the user interface.34
+
+34 Information provided by Danielle Sill, Epidemiologist, Wisconsin Immunization Registry, July 15, 2019.
+
+ 61 Appendix F | E xample of Geographic Jurisdiction Structure
+                                                                     PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX G SUMMARY OF CHALLENGES
+                 AND RECOMMENDATIONS
+
+PROVIDER LEVEL CHALLENGES
+AND RECOMMENDATIONS
+
+ IIS FUNCTIONALITY
+FUNCTIONALITY CHALLENGE 1:
+MISSING PATIENT STATUS CATEGORIES
+
+Recommendation(s):
+All IIS should include, at a minimum, the three main patient status designations: active, inactive,
+and deceased. Having these patient status categories available is essential for the IIS to produce
+accurate reports at the provider level. The three inactive subcategories (no longer a patient, lost to
+follow-up, and unspecified) are desirable but not required. They are nice to have so that providers
+can document the reason a patient was inactivated and in case the IIS or providers make decisions
+based on this information.
+
+FUNCTIONALITY CHALLENGE 2:
+VARIABILITY IN PATIENT STATUS NOMENCLATURE
+
+Recommendation(s):
+Many patient status naming conventions exist across the IIS community. Questions have arisen
+about the importance of changing terminology to align with the MIROW terms. The project’s
+SME group determined that, as long as terminology variations can be mapped to the minimum
+recommended patient status designations (i.e., active, inactive, deceased), it is not necessary for IIS
+to change their nomenclature. For example, an IIS using the designation “MOGE,” which historically
+has been known as “moved or gone elsewhere,” can continue to use it, assuming that it can be
+mapped to inactive or inactive - no longer a patient. Rationale for this recommendation stems from
+the time it would take to reeducate providers about changes in terminology, as well as potential
+system costs of the changes, for questionable benefit overall.
+
+ 62 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+FUNCTIONALITY CHALLENGE 3:
+NEED FOR EFFICIENT STATUS UPDATE TOOLS FOR PROVIDERS
+
+Recommendation(s):
+In order to make patient status easier for providers to manage, it is recommended that IIS automate
+the updating of patient status wherever possible and create easy-to-use tools to facilitate manual
+updates. These two strategies are described in more detail below.
+
+ PROVIDER USAGE
+
+PROVIDER USAGE CHALLENGE 1: ENTERING PATIENT STATUS IN AN IIS
+IS OUTSIDE THE NORMAL WORKFLOW FOR PROVIDER STAFF
+
+Recommendation(s):
+Workflow and IIS usage at each practice vary significantly, making it hard to offer specific
+recommendations. Nonetheless, until EHRs are capable of sending patient status updates, IIS should
+continue to encourage providers to take the time to manually enter patient status. This may mean
+exploring with provider staff best strategies for accessing appropriate information in their EHRs.
+As part of onboarding and ongoing check-ins with providers, IIS should strongly recommend that
+designated provider staff be assigned IIS user accounts for the purpose of overall quality control.
+In addition to checking for import and export errors, these staff can be asked to compare their IIS
+active patient lists to their internal system list and to update records accordingly.
+
+ IIS NEED FOR ADDITIONAL GUIDANCE
+
+ADDITIONAL GUIDANCE CHALLENGE 1:
+NEED FOR PROVIDER LEVEL GUIDANCE
+
+Recommendation(s):
+AIRA has developed a one-page template for IIS to use with providers (see Appendix E. Template for
+Provider Guidance on Patient Status Management). The template includes:
+
+   D efinitions of patient status categories in clear, easy-to-understand language
+   W hy it is important to keep patient status updated
+   W hen to update—recommending routinely, with emphasis on preparing for IQIP visits to
+
+      improve accuracy of reports and on preparing to run reminder/recall lists
+
+IIS programs will need to adapt the template to meet the needs of their individual programs. The
+language in the template could be combined with a more detailed how-to guide specific to the IIS
+patient status functionality.
+
+ 63 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ POLICY/RULES REGARDING DECEASED DATA
+DECEASED RECORDS CHALLENGE 1:
+ALLOWING PROVIDERS TO ENTER DEATH DATA
+
+Recommendation(s):
+It is a best practice to allow providers to change a record status to deceased. This should be allowed
+both through manual data entry and through EDE. Even with successful vital records exchange,
+not all deaths occur in-state, so not all death events will be received from the vital records office. In
+some cases, providers may have the information before the vital records data is received. In order
+to ensure timely and complete entry of deceased status, it is important to offer multiple paths for
+the data to come into the IIS, such as through providers. Below are a few suggestions to achieve
+this recommendation:
+
+   A date of death field should be available in the UI but should not be required to complete.
+      Providers may receive a telephone report of a patient’s death without the date, and the
+      importance of recording the death outweighs the importance of having the date.
+
+   A n optional feature is to include a “pop-up” dialog that warns users they are about to mark this
+      patient as deceased for the entire IIS. This can serve as an added safeguard or double-check on
+      the status change.
+
+   F or IIS that have great concern about allowing a provider to mark a record as “deceased,” the
+      IIS could provide an interim step that allows a provider to flag a record without changing the
+      status, which then prompts review/confirmation by IIS staff. Automatically withholding these
+      “provisional” death records from reminder/recall activities should be considered until the
+      official death record is received or until another vaccination is added. In addition, a security
+      level could be available that allows only approved provider users to enter death data.
+
+ 64 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+GEOGRAPHIC JURISDICTIONAL LEVEL
+CHALLENGES AND RECOMMENDATIONS
+
+ IIS FUNCTIONALITY
+FUNCTIONALITY CHALLENGE 1:
+MISSING PATIENT STATUS CATEGORIES
+
+Recommendation(s):
+All IIS should include, at a minimum, the patient status designations at the geographic jurisdiction
+level of active, inactive - outside jurisdiction, and deceased. Having these patient status categories
+available is necessary to produce accurate reports at the geographic level. The two unknown
+categories (no address - no vaccination and no activity for extended period of time) are desirable but
+not required. They are especially nice to have when running coverage assessments and reminder/
+recall, as they assist public health to identify patients to include in outreach and follow-up.
+
+FUNCTIONALITY CHALLENGE 2:
+VARIABILITY IN PATIENT STATUS NOMENCLATURE
+
+Recommendation(s):
+Many patient status naming conventions exist across the IIS community. Questions have arisen
+about the importance of changing terminology to align with the MIROW terms. The project’s
+SME group determined that, as long as terminology variations can be mapped to the minimum
+recommended patient status designations (i.e., active, inactive - outside jurisdiction, deceased), then
+it is not necessary for IIS to change their nomenclature. For example, an IIS using the designation
+“permanently inactive” can continue using this term, as long as it can be mapped to “deceased.”
+However, IIS in the process of developing geographic jurisdiction level functionality for the first time
+are encouraged to use the standard terms as currently defined in the MIROW guide.
+
+ 65 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ IIS NEED FOR IMPLEMENTATION GUIDANCE
+IMPLEMENTATION GUIDANCE CHALLENGE 1:
+BENEFITS OF PATIENT STATUS AT GEOGRAPHIC JURISDICTION LEVEL
+
+Recommendation(s):
+Understanding the benefits of this functionality is an important first step to adopting it. Some of the
+benefits to maintaining a discrete geographic jurisdiction level status include the ability to:
+
+   P roduce more accurate coverage assessment reports at the geographic jurisdiction level
+   F acilitate age-appropriate reminder/recall information mailings
+   Identify those patients active at the geographic jurisdiction level but not at the provider level for
+
+      safety-net service by public health
+   M eet national functional standards
+   M ore easily produce certain reports, such as the Immunization Information System Annual
+
+      Report (IISAR)
+
+IMPLEMENTATION GUIDANCE CHALLENGE 2:
+IMPLEMENTING A DISTINCT DATA FIELD FOR PATIENT STATUS
+
+Recommendation(s):
+IIS should have a distinct field designating geographic jurisdictional level patient status for each
+patient record. Having a separate field (i.e., data element) for patient status at the geographic
+jurisdiction level enables traceability and the ability to view patient status changes.35 Reports, such
+as coverage assessments, can then easily be tailored to specific needs, including or excluding certain
+patient status designations.
+
+IMPLEMENTATION GUIDANCE CHALLENGE 3: DETERMINING AND DESIGNING
+THE APPROPRIATE HIERARCHY OF GEOGRAPHIC LEVELS IN THE IIS
+
+Recommendation(s):
+At a minimum, the IIS should capture patient status at the highest level of the geographic jurisdiction
+covered by the IIS (e.g., the state, city, county, or territory). Additional levels are used by some IIS
+and are based on the organizational structure and roles of public health within the IIS coverage
+area. For example, a statewide IIS may have additional levels of public health, such as city or county,
+depending on how public health is organized in that specific state.
+
+35 See BR 411 in the MIROW guide. https://repository.immregistries.org/resource/management-of-patient-status-in-immunization-information-systems/
+
+ 66 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+IMPLEMENTATION GUIDANCE CHALLENGE 4:
+IMPLEMENTING STRATEGIES FOR OBTAINING THE MOST ACCURATE AND
+UP-TO-DATE ADDRESS (E.G., OUT-OF-JURISDICTION ADDRESSES)
+
+Recommendation(s):
+A proven method for obtaining updated addresses for IIS patient records is the United States
+Postal Service (USPS) National Change of Address (NCOA) service.36 NCOA is a secure pre-mailing
+process that allows mailers to submit name and address data to attempt to match to a change-
+of-address record to find a new address. Third-party vendors are often involved in assisting IIS
+with the address submission process. Use of NCOA helps IIS to identify persons who have moved
+out of the jurisdiction within the previous 48 months. Another tool available through the USPS is
+its Address Correction Service (ACS), which is a post-mailing process that determines the correct
+disposition of a mail piece and generates address correction back to the mailer. As there are
+differences in the matching processes used by NCOA and ACS, IIS need to carefully consider which
+best meets their needs. Updating addresses in this way can ensure that mailings go to the correct
+households and can help with IIS deduplication efforts and geographic-based vaccination coverage
+analysis. Improved address quality may help to reconcile the denominator of patients in the IIS with
+the actual census population by identifying individuals who have moved out of the jurisdiction. It
+is especially effective when combined with a public health function such as reminder/recall mail
+campaigns. Several IIS have used NCOA and ACS for reminder/recall mailings to specific age groups,
+such as 19- to 35-month-old and 11- to 12-year-old patients.37
+
+IMPLEMENTATION GUIDE CHALLENGE 5:
+ESTABLISHING RULES FOR CLASSIFYING PATIENTS AS UNKNOWN -
+NO ACTIVITY FOR EXTENDED PERIOD OF TIME.
+
+Recommendation(s):
+Parameters that include age and length of time since last vaccination or record edit are provided.
+See Section 4. IIS Population Management for a community consensus-based approach on when
+records can be considered unknown - no activity for extended period of time.
+
+36 Woinarowicz, M. Conducting Statewide Recall Using the NDIIS. Presented at AIRA National Conference, 2015, and personal communication with Ms.
+   Woinarowicz, NDIIS Manager. February 14, 2018.
+
+37 For examples, see Appendix F of AIRA’s IIS Data Quality Practices: To Monitor and Evaluate Data at Rest. https://repository.immregistries.org/resource/iis-
+   data-quality-practices-to-monitor-and-evaluate-data-at-rest/
+
+ 67 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+IMPLEMENTATION GUIDANCE CHALLENGE 6:
+DETERMINING WHICH STATUSES TO INCLUDE WHEN RUNNING
+REMINDER/RECALL AND ASSESSMENT REPORTS
+
+Recommendation(s):
+The utility of patient status designations becomes clear when examining their actual application
+to certain IIS activities. Specifically, vaccination coverage assessments and reminder/recall
+activities can be tailored to a specific need by using patient status as a filter. Typically, vaccination
+coverage assessments and reminder/recall at the geographic jurisdiction level usually will include
+all patients with a status of active and exclude all with inactive - outside jurisdiction or deceased
+status. However, the decision to include those with one of the unknown statuses is a little more
+complicated and is discussed under the respective activities of reminder/recall and assessment.
+
+ 68 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ POLICY/RULES REGARDING DECEASED RECORDS
+DECEASED RECORDS CHALLENGE 1:
+OBTAINING DEATH DATA FROM VITAL STATISTICS OFFICE
+
+Recommendation(s):
+It is a best practice for IIS to have a regular, ongoing process for receiving death data files from the
+vital statistics program or agency.
+
+DECEASED RECORDS CHALLENGE 2:
+HANDLING OF PATIENT RECORDS AFTER STATUS CHANGED TO DECEASED
+
+Recommendation(s):
+It is a best practice to retain the full patient record for deceased patients in the IIS, as long as
+this complies with applicable local policy and law. It is also advisable to allow providers to view
+the record and enter administered vaccinations for a limited period of time after the death.
+Alternatively, the IIS may choose to “lock” a record so no further editing can occur, in which case
+providers should be advised to contact the IIS if additional data needs to be entered or in case
+the wrong patient has been marked. It is not advisable to allow a new vaccination to automatically
+change patient status from deceased to active, because this could incorrectly and inadvertently
+result in a deceased patient receiving a reminder notice. Instead, providers should be instructed to
+contact the IIS to discover if the wrong record has been marked as deceased or if the vaccination is
+being attributed to the wrong patient. IIS-level staff should have the ability to change a status from
+deceased back to active. Some IIS may choose to have a report available at the IIS level that lists all
+patients changed to deceased status by providers. While it may not be feasible for IIS staff to review
+all changed records, a list could provide a way to do spot-checking.
+
+ 69 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+IIS POPULATION MANAGEMENT
+
+Each age group below presents its own challenges, and recommendations have been made accordingly.
+
+ AGE GROUP: 6 YEARS AND UNDER
+
+                                                     Multiple vaccines are administered at frequent intervals to
+                                                     children who are 6 years of age and under. This makes it
+                                                     difficult to come up with a reasonable period of time that
+                                                     constitutes “no activity.” Given the number of non-vaccinator
+                                                     parents, as well as children in the catch-up vaccination
+                                                     schedule, the risk of inappropriately removing a child from an
+                                                     active status at the geographic jurisdiction level is high using
+                                                     the interval method. Doing so could eliminate members of this
+                                                     vulnerable population from follow-up efforts. Thus, it is not
+                                                     recommended to use this method to change status for the 6
+                                                     years of age and under group.
+                                                     Recommendation(s):
+                                                     Do not apply any mass inactivation of records to the birth
+                                                     through 6 years of age population unless there are special or
+                                                     extenuating circumstances which make it appropriate.
+
+ 70 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ AGE GROUP: 7–10 YEARS OF AGE
+
+                                                     Children who are up to date with vaccines when they reach 7
+                                                     years of age do not usually receive any vaccines in the next 4
+                                                     years, with a few exceptions such as flu vaccination. Using the
+                                                     formula described above for this age group, with a maximum
+                                                     interval of 7 years, we look back 7 years to identify children with
+                                                     no activity or vaccination during that time. Thus, for children
+                                                     exactly 7 years of age, we look for those with no vaccinations
+                                                     or activity since birth; for a child a day short of 11 years old,
+                                                     we look for no activity since age 4. This retrospective look for
+                                                     vaccinations includes the prime age groups for vaccination of
+                                                     birth to 2 years old and 4 to 6 years of age. Those in the “no
+                                                     activity” group are likely to include non-vaccinators as well as
+                                                     those who are truly lost to follow-up. As discussed in the 6-year
+and under age group above, it is usually preferable to take no action and simply allow this group to
+age into the next cohort, where inactivation rules are more appropriate.
+
+Recommendation(s):
+Do not apply any activity-based mass inactivation of records to the 7- through 10-year age group
+population unless there are special circumstances that make it appropriate. If deemed appropriate, a
+reasonable time frame to apply may be 7 years. If the 7-year time frame is applied, it is important to
+make sure the inactivated records do not get automatically reactivated when aging into the 11- to 18-
+year age group through application of that age group’s inactivation rules.38 However, records should
+be automatically converted back to active once a record update/vaccination is received by the IIS.
+
+38 With an inactivity time frame of seven years for 7- to 10-year-olds, an inactivated child could age into the 11- to 18-year-old age group and not
+   meet the longer 10-year inactivity rule. Without a substantiating new vaccination, there is no reason to think their status has changed, and thus it
+   should remain as inactive.
+
+ 71 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ AGE GROUP: 11–18 YEARS OF AGE
+
+                                                     Most IIS today have been in operation for 10 years or
+                                                     more, and the 11- through 18- year age group is prone to
+                                                     denominator inflation. For this age group, there has been
+                                                     more time for unidentified duplicates to be created, as well as
+                                                     inadequate documentation of patients who have moved out
+                                                     of the jurisdiction. In addition, fewer required vaccinations
+                                                     for this age group can result in fewer updates to IIS records,
+                                                     including address corrections. Once they’ve turned 11 years of
+                                                     age, however, this age group should begin to receive several
+                                                     vaccines, such as meningococcal, HPV, Tdap booster. For these
+                                                     reasons, some IIS have chosen to focus inactivation efforts on
+                                                     this age group.
+Recommendation(s):
+Use 10 years since last activity on a record for the 11- through 18-year age group for inactivation,
+i.e., changing status to unknown - no activity for extended period. A slightly less conservative
+approach, i.e., inactivating fewer individuals, could also be considered: using an 8-year time frame
+for the 11 through 12 years of age population and a 9-year time frame for the 13 through 18 years
+of age population. If the 8- and 9-year intervals are selected by the IIS, as noted above in the 7- to
+11-year-old section, it is important to make sure that the 11- to 12-year-olds do not get automatically
+reactivated when aging into the 13- to 18-year age group. Rather, records should be automatically
+converted back to active once a record update/vaccination is received by the IIS.
+
+ 72 Appendix G | Summary of Challenges and Recommendations
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ AGE GROUP: OVER 18 YEARS OF AGE (ADULTS)
+
+                                                     There is considerable variation in the degree to which
+                                                     IIS are populated with adult records. While some IIS are
+                                                     underpopulated for adults, older IIS that have included adults
+                                                     for more than 20 years now have an excess of adult records.
+                                                     In addition, the quality of data for adult records may be
+                                                     poorer than that for children, especially for demographic data,
+                                                     because of the decreased frequency of record updates and
+                                                     consequent degradation of data accuracy. Compounding the
+                                                     problem is the reported lower quality of adult demographic
+                                                     data because of the variety of provider types administering
+                                                     adult vaccinations. Some IIS report that clinics such as stand-
+                                                     alone clinics (such as for flu) are sometimes unable to submit
+                                                     complete and accurate demographic data. This makes it
+                                                     difficult to match a patient with existing records in the IIS,
+                                                     resulting in multiple fragmented records for a single patient.
+Recommendation(s):
+Use 10 years since last activity on a record for the 19 years and above population for inactivation,
+i.e., changing status to unknown - no activity for extended period. In specific situations, a 3- to 5-year
+period may be considered, primarily when lacking address data. For example, a record with flu
+vaccine only, in combination with incomplete address data, may be subject to a 3-year period only. A
+record with a vaccine type in addition to flu, but still lacking good address data, may be subject to a
+5-year period of no activity.
+
+ 73 Appendix G | Summary of Challenges and Recommendations
+                                  PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+APPENDIX H ACKNOWLEDGEMENTS
+
+The American Immunization Registry Association (AIRA) would like to acknowledge
+and thank the following individuals and organizations for their support and
+assistance with this important project.
+
+ Individual subject matter experts who contributed their expertise through telephone interviews,
+   SME panel*, and document review:
+
+ A aron Bieringer, Minnesota Immunization     M atthew Verdon, Wisconsin Immunization
+    Information Connection                          Program
+
+ A lexandra Ternier, New York City            M elissa Martin, New York State
+    Department of Health & Mental Hygiene           Immunization Information System*
+
+ A lok Patra, New York City Department of     M icah Resnick, MD, FAAP*
+    Health & Mental Hygiene                      M onica Sull, MPH, New York City
+
+ B rad Couse, Envision Technology Partners*      Department of Health & Mental Hygiene
+ C heryl Oliver-Knight, Delaware              R obin Cahall, Delaware Immunization
+ D anielle Sill, MSPH, Wisconsin Department
+                                                    Program*
+    of Health Services*                          S amantha Chao, MPH, Tennessee
+ F red Bailey, Delaware Immunization
+                                                    Immunization Program*
+    Program                                      S teve Jarvis, Colorado Immunization
+ Jan Hicks-Thomson, Centers for Disease
+                                                    Information System
+    Control and Prevention*                      S ydney Kuramoto, MPH, Minnesota
+ K im Gulliver, MS, Colorado Immunization
+                                                    Department of Health
+    Information System                           V alentin Shoshtarikj, Arizona Department of
+ M ara Ohrt, Scientific Technologies
+                                                    Health Services
+    Corporation*                                 W endy Nye, Region 1 of the Michigan Care
+ M ary Woinarowicz, MA, North Dakota
+                                                    Improvement Registry*
+    Health*
+
+74 Appendix H | Acknowledgements
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ T he AIRA Assessment Steering Committee members who developed the concept, oversaw the
+   process, and provided input at various stages of the effort
+
+ T he AIRA board of directors who provided input at various stages of the effort and/or
+   reviewed and provided comment on the final guide:
+   President • Amanda Harris, Nevada Department of Health
+   President-Elect • Aaron Bieringer, Minnesota Immunization Information Connection
+   Immediate Past President • Kim Salisbury-Keith, Rhode Island Department of Health
+   Secretary • Jenne McKibben, Oregon Immunization Program
+   Treasurer • Heather Roth, Colorado Department of Public Health and Environment
+   Directors
+           Bridget Ahrens, Vermont Immunization Registry
+           Christy Gray, Virginia Department of Health
+           Dannette Dronenberg, Washington State Department of Health
+           David McCormick, Indiana State Department of Health
+           Jeffrey McIntyre, Mississippi State Department of Health
+           Kevin Dombkowski, University of Michigan, Child Health Evaluation and Research Unit
+           Nathalie Hartert, Tennessee Department of Health
+           Steve Murchie, Envision Technology Partners
+
+ T he AIRA staff who contributed to this document’s development:
+   A lison Chi, MPH, AIRA program director, who provided project leadership and oversight
+   N ichole Lambrecht, RN-BSN, MSc, CPN, AIRA senior project manager, who oversaw and
+       managed the project, provided guidance and input, and edited the guide
+   Sherry Riddick, RN, MPH, independent public health consultant, who researched, wrote, and
+       edited the guide
+
+ A n AIRA contracted copy editor, Maureen Brody, who reviewed and edited the guide
+
+ 75 Appendix H | Acknowledgements
+                                                                    PATIENT STATUS IN IMMUNIZATION INFORMATION SYSTEMS
+
+ Individuals in addition to the SMEs who provided feedback during the review process:
+   A dam Bjork, Centers for Disease Control and Prevention
+   A manda Bryant, MPH, Centers for Disease Control and Prevention
+   B eatrice Salada, Michigan Department of Health and Human Services
+   C arolina Danovaro, MD, MSc, World Health Organization
+   C raig Newman, PhD, Altarum
+   D ana Bright, MSW, American Academy of Pediatrics
+   Janet Fath, PhD, Centers for Disease Control and Prevention
+   K im Salisbury-Keith, Rhode Island Department of Health
+   M ary Beth Kurilo, MPH, MSW, American Immunization Registry Association
+   R omni Palmer, PCC Pediatric EHR Solutions
+   S tephanie Sanchez, Michigan Department of Health & Human Services
+   S usan Salkowitz, Salkowitz Associates, LLC
+   V erónica Rodríguez, Puerto Rico Health Department
+
+ 76 Appendix H | Acknowledgements
+

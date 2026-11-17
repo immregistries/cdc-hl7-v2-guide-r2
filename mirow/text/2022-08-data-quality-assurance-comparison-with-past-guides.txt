@@ -1,0 +1,421 @@
+Comparison of Past
+MIROW Data Quality
+Assurance Best
+Practices to Current
+Best Practices
+
+August 2022
+Contents
+
+Background ..........................................................................................................................................1
+Data Quality Assurance in Immunization Information Systems: Incoming Data ......................1
+
+   Principles ..........................................................................................................................................1
+   Business Rules .................................................................................................................................3
+Data Quality Assurance in Immunization Information Systems: Selected Aspects...................4
+   Principles ..........................................................................................................................................4
+   Business Rules .................................................................................................................................4
+Micro-Guide: Lot Number Validation Best Practices....................................................................10
+   Principles ........................................................................................................................................10
+
+Background
+
+The following tables provide a comparison of principles and business rules from three
+retired Modeling of Immunization Registry Operations Workgroup (MIROW) resources1 with
+the updated principles and business rules in 2022 MIROW Data Quality Assurance in
+Immunization Information Systems. Rules that the workgroup decided were no longer
+accurate or applicable to this guide are marked as “retired”.
+
+Data Quality Assurance in Immunization Information Systems:
+
+Incoming Data
+
+Principles                                                          Current
+
+ Previous
+
+P01 Consistency principle: The conditions (criteria) for            P07 - Consistent
+validating data items should be the same regardless of how          application of business
+these data items have been reported to an IIS.                      rules
+                                                                    Retired
+P02 Variable outcomes principle: When conditions (criteria) of
+a validation check are not satisfied, the resulting actions (e.g.,
+accept, reject, research) may vary depending on the data
+item’s source and the way data were reported.
+
+1 The resources were Data Quality Assurance in Immunization Information Systems: Incoming Data, Data
+Quality Assurance in Immunization Information Systems: Selected Aspects, Lot Number Validation Best
+Practices Micro-Guide. Please email info@immregistries.org to request the three archived documents
+
+                                                                                                                              1
+Previous                                                            Current
+                                                                    Retired
+P03 Rejected data principle: When information is rejected by
+the IIS, the following actions should be taken:                     P06 – Cross-field
+                                                                    validation
+    • If batch, then log the error and notify submitter.            Retired covered by P10
+    • If UI, then display an error message and offer the            – Accurately reflect
+                                                                    vaccination event
+         opportunity to correct
+P04 Internal consistency principle: Characteristics of the
+vaccination history should not contradict one another. This
+includes reported data as well as data already in the IIS.
+P05 Accuracy principle: The data recorded in the IIS should
+match exactly what happens in a clinical encounter, whether
+or not it is clinically appropriate.
+
+P06 Appropriate vaccination principle: The vaccinations             Retired covered by
+reported by a provider should be appropriate for the                BR168 – Submissions
+population served at the clinic.                                    are appropriate for
+                                                                    provider organization
+P07 Vital Records principle: Vital Records is the definitive        type
+source for date of birth and date of death.                         P18 - Vital records
+
+P08 Validation priority principle: The importance of validating     P02 - Validation priority
+a data item is related to the data item’s significance in clinical
+decision making, public health assessments, and research.
+
+P09 Maintain data integrity principle: Any modification of the      Retired
+data in the IIS should not violate the integrity of the existing
+data.                                                               P09 - Advisory
+P10 ACIP recommendations principle: Deviations from ACIP            Committee on
+recommendations and US licensure may indicate data quality          Immunization Practices
+problems.                                                           recommendations
+                                                                    P03 - Timeliness
+P11 Timeliness principle: Data should be timely. Data should
+be reported and recorded in the IIS, as well as be available to     P05 - Mandatory data
+users in a timely manner.                                           elements
+P12 Completeness principle: The information submitted to the
+IIS must contain the minimum/mandatory set of data items in         P19 - Supremacy of
+order to be accepted by an IIS                                      medical records
+P13 Supremacy of medical records principle: Medical records
+are a more reliable source of immunization data than billing
+records.
+
+                                                                                               2
+Business Rules
+
+Business rules BR101 through BR127 from the 2008 guide were reviewed and updated in
+2013 Data Quality Assurance in Immunization Information Systems: Selected Aspects and are
+included with that set of business rules below.
+
+Previous                                                      Current
+
+BR128 Expected number of vaccination event record: A patient  BR140 - Expected
+should not have more than:                                    number of vaccination
+                                                              event records
+    • 50 vaccinations before 5 years of age
+    • 35 vaccinations before 2 years of age                   BR141 -
+    • 70 vaccinations regardless of age                       Recommended
+BR129 Recommended number of vaccine doses: A patient          number of vaccine
+should not have more than 7 DTaP vaccinations by age 7.       doses
+                                                              BR125 - Patient age
+BR130 Patient age within recommended range: Doses should      within recommended
+not be recorded as given before the minimum patient age or    range
+after the maximum patient age for that particular vaccine.
+
+BR131 Minimum intervals for vaccination event records: Doses  BR142 - Minimum
+should not be recorded as given before the minimum interval   intervals for
+has been met.                                                 vaccination event
+                                                              records
+BR132 Number of vaccine doses in a vaccination encounter: A
+patient should not have more than 10 vaccinations per visit.  BR143 - Number of
+                                                              vaccine doses in a
+                                                              vaccination encounter
+
+The table of business rules related to ranges and codes for selected individual data
+elements was summarized in the following updated rules:
+
+    • BR109 - Standard value tables
+    • BR110 – Valid calendar dates in a submission
+    • BR117 - Vaccine type CVX
+    • BR122 - Vaccine has vaccine product type
+    • BR127 - Vaccination event dosage
+    • BR128 - Approved vaccine administration method
+    • BR129 - Lot number validation
+    • BR145 - Allowed character for name
+    • BR146 - Use official names
+    • BR147 - Patient first name
+    • BR148 - Patient first and last name two characters
+    • BR154 - Complete address
+    • BR155 - International address supported
+    • BR160 - Medical record number not equal to Social Security number
+
+                                                                                           3
+Data Quality Assurance in Immunization Information Systems:
+
+Selected Aspects
+
+MIROW guides no longer include general recommendations, so the seven general
+recommendations from the 2013 guide were retired.
+
+Principles                                                     Current
+                                                               P17 - Consistent
+ Previous                                                      provider organization
+ P801 - Consistent provider organization management: IIS       management
+ should be consistent in the approaches followed for Facility
+ Identification Management.                                    Retired: Concept added
+ P802 - Document approaches used: IIS should clearly           into P17 - Consistent
+ document the approaches followed for Facility Identification  provider organization
+ Management.                                                   management
+
+Business Rules                                                 Current
+                                                               BR111 - Vaccination
+ Previous                                                      event date not before
+ BR101 - Vaccination Encounter Date must not be before         patient's date of birth
+ Patient Date of Birth.                                        BR114 - Vaccination
+                                                               event date not after
+ BR102 - Vaccination Encounter Date should not be after the    patient's date of death
+ Patient Date of Death.                                        BR113 - Submission not
+                                                               before vaccination
+ BR103 - Vaccination Encounter Date must be less than or       event
+ equal to (before or the same as) the Submission Date.         BR001 -
+                                                               Minimum/mandatory
+ BR104 - The minimum/mandatory set of data items for the       data elements
+ Demographic- only submission includes:
+
+      • IIS-AO ID (Recorder)
+      • Patient Date of Birth
+      • Patient Name, First
+      • Patient Name, Last
+      • Birth Certificate Number
+      • Birth Facility (code, name, address)
+      • Gender
+
+                                                                                        4
+Previous                                                         Current
+BR105R1 - The minimum/mandatory set of data items for the        BR001 -
+“administered” Vaccination Event submission must include:        Minimum/mandatory
+                                                                 data elements
+    • IIS-AO ID (Vaccinator/Recorder)
+    • Patient Name, First                                        BR001 -
+    • Patient Name, Last                                         Minimum/mandatory
+    • Patient Date of Birth                                      data elements
+    • Vaccination Encounter Date
+    • Vaccine Type                                               Not applicable because
+    • Administered/Historical Indicator = “Administered”         the rule was retired in
+    • Lot Number                                                 2013
+BR105R2 - The minimum/mandatory set of data items for the
+“historical” Vaccination Event submission must include:          BR120 - Combination
+    • Patient Name, First                                        vaccine reported as
+    • Patient Name, Last                                         single vaccination event
+    • Patient Date of Birth                                      BR162 - Review rejected
+    • Vaccination Encounter Date                                 submissions within five
+    • Vaccine Type                                               days
+    • Administered/Historical Indicator = “Historical”
+BR106 – Retired in the 2013 guide                                Not applicable because
+The minimum/mandatory set of data items for the Electronic       the rule was retired in
+Medicaid/Billing Records must include:                           2013
+    • Provider Organization Name/ID
+    • Patient Name, First
+    • Patient Name, Last
+    • Patient Date of Birth
+    • Vaccine Encounter Date
+    • Vaccine Type
+BR107 - Every administered vaccine should be recorded as a
+single Vaccination Event.
+
+BR108 - Vaccinations submitted via electronic data exchange
+to IIS that do not perform a manual review should appear in
+the IIS within 2 business days of the Submission Date.
+Vaccinations submitted via electronic data exchange to IIS that
+perform manual reviews should appear in the IIS within 2
+weeks of the Submission Date.
+BR109 - Retired in the 2013 guide
+Vaccination Event reported by Provider assumed to be
+"Historical" until attested or proven otherwise.
+
+                                                                                           5
+Previous                                                               Current
+BR110 - Retired in the 2013 guide                                      Not applicable because
+VFC-eligible children should have the manufacturer and lot             the rule was retired in
+number reported with Vaccination Event.                                2013
+BR111 - Adverse reactions reported on administered vaccines            Retired
+should be identified for tracking and provider follow-up.
+BR112 - The percentage of Vaccination Event Submissions                BR164 - Hepatitis B
+from Vital Records with hepatitis B birth doses should be              birth dose
+within an expected threshold level (to be determined by each
+IIS).                                                                  BR168 - Submissions
+BR113 - If the IIS-AO (Vaccinator) is a "specific," (e.g., pediatric)  are appropriate for
+practice, the currently administered vaccinations should               provider organization
+match a pattern in similar practices.                                  type
+                                                                       BR116 - Vaccination
+BR114 - Vaccination Encounter Date should not be the same              event date for birth
+as the Patient Date of Birth unless it is on the list of vaccines      vaccine types
+recommended for administration on the date of birth, e.g.,
+Hep B.                                                                 BR106 - Administered
+BR115 - For administered Vaccination Event submissions,                initial submission
+Submission Date should be within 14 days of Vaccination
+Encounter Date.                                                        Retired. Covered by
+BR116 - Trade Name, Manufacturer, CVX Code, CPT Code, and              BR126 - Vaccine
+Vaccine Type should not contradict one another.                        information should be
+                                                                       consistent
+BR117 - The same patient should not receive the same antigen           BR144 - Same antigen
+more than once in a single day.                                        on same day
+BR118 - Vaccination Encounter Date should not be after the lot         BR115 - Vaccination
+number expiration date.                                                event date not after lot
+                                                                       number expiration date
+BR119 - Route and Site should not contradict each other for a          BR128 - Approved
+given Vaccine Type and Patient’s age.                                  vaccine administration
+                                                                       method
+BR120 - Vaccination Encounter Date should be within the                BR133 - Vaccine
+Vaccine Product License Date range: after the Vaccine Product          product license
+License Begin Date and before the Vaccine Product License
+End Date.                                                              BR118 - Specified
+BR121 - Administered vaccinations should have specific                 formulation for
+Vaccine Types, e.g., Hib PRP-OMP; unspecified vaccine types,           administered
+e.g., Hib, UF (unspecified formulation), are not appropriate.
+
+                                                                                                 6
+Previous                                                         Current
+BR122 - A patient’s eligibility for a public program (e.g., VFC  BR135 - Consistent
+program, state program) should be consistent with the            vaccine eligibility
+administered vaccine dose’s designation for a stock type (e.g.,
+public, private).                                                BR165 - Vital records
+BR123 - The volume of reporting from the Vital Records feed      submissions
+should be within an expected threshold level (to be
+determined by each IIS).                                         Retired
+BR124 - The percentage of Vaccination Events in which the
+responsible party name is the same as the patient name           BR166 - Rejected
+should be within an expected threshold level (to be              vaccination event
+determined by each IIS).                                         submission
+BR125 - The percentage of rejected Vaccination Events            Retired
+submissions in a Combined Submission should be within an
+expected threshold level.                                        BR107 - Vaccination
+BR126 - An administered vaccine should not have a medical        event submission of
+contraindication for a patient.                                  hepatitis B birth dose
+BR127 - Hepatitis B birth doses from the Vital Records feed      BR101 - Authorized
+should be reported within an agreed-upon timeframe.              provider organization
+
+BR801 - Conduct a pre-certification process: IIS should conduct
+a pre-certification process in order for the IIS-AO system to
+submit data to the IIS via Electronic Data Exchange
+
+BR802 - Maintain IIS-AO DQA profile: IIS should identify and     BR102 - Establish
+maintain baseline (IIS-AO DQA Profile) data for comparison       provider organization
+later. Measures for this baseline data may include (not an       profile
+exhaustive list):
+                                                                 BR163 - Review the
+    • Frequency of submissions                                   submission reports
+    • Content of data                                            Retired: Included in
+    • Volume of Vaccination Events                               BR001 -
+    • Volume of Demographic events                               Minimum/mandatory
+    • Method of reporting                                        data elements
+    • EHR vendor
+
+BR803 - Review the submission reports: The IIS should review
+the submission logs for error trends on a daily basis.
+
+BR804 - Track participants in the submittal chain: Vaccination
+Event Submission for “administered” Vaccination Events must
+have the Vaccinator, Recorder, and Submitter(s) IIS-AO ID.
+
+                                                                                         7
+Previous                                                           Current
+BR805 - All Submitters should be identified: All Submitters in     Retired: Changed to
+the submission chain should be identified.                         P21 - Complete chain of
+                                                                   submitting
+BR806 - Track Recorder IIS-AO: For Vaccination Event               organizations
+Submissions, the IIS-AO that enters information into the IIS-AO    Retired: Included in
+system or IIS Direct UI should be tracked as the Recorder IIS-     BR001 -
+AO ID.                                                             Minimum/mandatory
+BR807 - Track status for all submissions: Status (i.e., accepted,  data elements
+accepted with errors, rejected, etc.) and Status Date should be    Retired: Covered by
+tracked for all Vaccination Event Submissions.                     BR161 - Record
+                                                                   submission errors and
+BR808 - Include Vaccine Administrator and Vaccine Prescriber       submission status
+in the submission: Vaccine Administrator and Vaccine               BR138 - Include vaccine
+Prescriber should be included in the Vaccination Event             administrator and
+Submission.                                                        vaccine prescriber in
+BR809 - Record submission errors and submission status: IIS        the submission
+should record error and reason for error of a Vaccination          BR161 - Record
+Event Submission and Demographic-only Submission.                  submission errors and
+BR810 - Maintain unique medical record numbers for IIS-AO          submission status
+patients: During the pre-certification process, the IIS should     BR159 - Educate on use
+review with a Submitter the process to be followed to ensure       of medical record
+that they maintain unique medical record numbers for               numbers
+patients.
+BR811 - IIS-AO IDs must be unique: All IIS-AO IDs must be          BR173 - IIS-AO IDs
+unique and must never be reused.                                   should be unique
+BR812 - IIS-AO IDs should not embed information about the          BR174 - IIS-AO IDs
+IIS-AO: IIS-AO IDs should not embed information about the IIS-     should not embed
+AO.                                                                information about the
+                                                                   IIS-AO
+BR813 - User must be associated with IIS-AO: A User who is         Retired
+submitting and/or retrieving data from the IIS must be
+associated with the IIS-AO that is responsible for those           BR176 - Maintain both
+records.                                                           legal and common
+BR814 - Maintain both legal and common names for an IIS-AO:        names for an IIS-AO
+An IIS should maintain both legal and common names for an
+IIS-AO.
+
+                                                                                            8
+Previous                                                            Current
+BR815 - Validate organizational and reporting structure             BR177 - Validate
+periodically: IIS should proactively validate the current           organizational and
+organizational and reporting structure for existing IIS-AOs on a    reporting structure
+quarterly basis.                                                    regularly
+BR816 - Validate organizational and reporting structure on          BR175 - Educate
+rejection: IIS should validate the current organizational and       submitting organization
+reporting structure when a submission gets rejected due to an       to include all IIS-AO IDs
+invalid or unknown IIS-AO ID.
+BR817 - Update IIS-AO when a structural change occurs: IIS-AO       Retired: Added as a
+attributes and relationships should be updated, where               comment in BR177 -
+necessary, any time a structural change occurs regarding one        Validate organizational
+or more organizations and/or organizational sub-units.              and reporting structure
+                                                                    regularly
+BR818 – BR823: Six business rules from Data Quality                 The original language
+Assurance in Immunization Information Systems: Selected             for the six rules is
+Aspects were determined to be out-of-scope for this guide and       provided in Appendix
+would be better addressed in a future guide.                        G.
+
+BR824 - De-authorize IIS-AO if it dissolves: If an IIS-AO           BR179 - Deauthorize
+dissolves, it should be de-authorized in the IIS.                   IIS-AO if it dissolves
+BR825 - De-authorize IIS-AO if it no longer plays any of IIS-AO     BR180 - Deauthorize
+roles: If an existing IIS-AO is no longer a Vaccinator, Submitter,  IIS-AO if it no longer
+Recorder, or Data Consumer, the IIS-AO must be de-                  plays any IIS-AO roles
+authorized in the IIS.
+BR826 - Do not de-authorize IIS-AO that is required to submit       Retired: Covered by
+but not submitting: If a Vaccinator is required to submit to the    BR181 - Assess
+IIS and is not submitting to the IIS, the IIS should not de-        necessity to
+authorize the IIS-AO.                                               deauthorize IIS-AO that
+                                                                    is not required to
+BR827 - Assess necessity to de-authorize IIS-AO that is not         submit and is not
+required to submit and is not submitting: If a Vaccinator is not    submitting
+required to submit to the IIS and is not submitting to the IIS,     BR181 - Assess
+the IIS should assess the necessity to de-authorize the IIS-AO.     necessity to
+                                                                    deauthorize IIS-AO that
+                                                                    is not required to
+                                                                    submit and is not
+                                                                    submitting
+
+                                                                                               9
+Micro-Guide: Lot Number Validation Best Practices
+
+Principles
+
+Previous                                                        Current
+P01 - Reference a directory of known lot numbers: A directory   P23 - Reference a
+of known lot numbers should be created, maintained, and         directory of known lot
+referenced for lot number’s validation purposes.                numbers
+P02 - Reference a directory of manufacturer-specific coding     P24 - Reference a
+schemes for lot numbers: A directory of manufacturer-specific   directory of
+coding schemes for lot numbers should be created,               manufacturer-specific
+maintained, and referenced for lot number’s validation          coding schemes for lot
+purposes.                                                       numbers
+                                                                Retired
+P03 - Reference a directory of generic rules (for all
+manufacturers) for coding lot numbers: A directory of generic
+manufacturer rules for coding lot numbers should be created,
+maintained, and referenced for lot number validation
+purposes.
+
+P04 - Maintain reliability of reference directories: Reference  P25 - Maintain
+directories (directory of known lot numbers, directory of       reliability of reference
+manufacturer- specific coding schemes, directory of generic     directories
+manufacturer rules for coding lot numbers) should be
+periodically reviewed and reconfirmed as reliable reference
+sources for validating lot numbers.
+
+                                                                                          10
+

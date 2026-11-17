@@ -1,0 +1,83 @@
+Supporting Providers in Documenting COVID-19 Vaccine Administration
+
+Issued: 12/15/2020
+Updated: 12/18/2020
+Version 1.1 
+
+AIRA recognizes there are unique data elements required for COVID-19 vaccine administration and reporting that will impact you and providers in your jurisdiction. Included in this document are tips and information about documenting COVID-19 vaccine administration to both help prepare you for what you may see reported and help you communicate these unique aspects with your providers. 
+
+CDC requires vaccination providers enrolled in the COVID-19 Vaccination Program to report certain data elements for each dose administered, and there are some unique aspects to some of these data elements. To ensure complete and accurate data reporting, we encourage you to familiarize yourself with the information below and stay tuned for additional updates.
+
+The vaccine expiration date is a required data element that must be submitted with vaccine reporting.
+The location of the vaccine expiration date could vary by vaccine brand. Expiration dates may be located on the vials, or on the vaccine packaging/carton, or only be available by scanning a 2D barcode.
+Expiration dates printed on initial COVID-19 vaccines may represent placeholder dates (for example, 12/31/2069), since this information may have been unknown when the vaccine was manufactured. This placeholder date will likely be the date sent in the shipping file from VTrckS to the IIS.
+All vaccine manufacturers are required to use a QR code that will connect to the manufacturer’s site so that providers can access real time information.
+CDC is developing “beyond use date” (BUD) tracker labels to help providers track expiration dates at the point of vaccine administration. The label templates will be available on the CDC website.
+
+The date on the COVID-19 vials may be the manufacturer date – NOT the usual expiration date. 
+Ensure that manufacturer dates are not unintentionally submitted in place of expiration dates.  
+Manufacturer dates are provided to help with managing stock rotations, while expiration dates are what should be reported with administered vaccine. 
+
+
+The COVID-19 Unspecified Vaccine CVX Code should only be used when absolutely necessary. 
+The Unspecified Vaccine CVX Code was created for instances when there’s no way to determine the specific vaccine administered. 
+Coding vaccination events as unspecified formulation limits important activities such as vaccine forecasting, inventory management, vaccine allocation, distribution, safety monitoring, etc. 
+
+Extra doses per vial of Pfizer-BioNTech COVID-19 vaccine (i.e., 6 or 7 doses in a vial rather than 5) should be administered to patients. 
+Per the Food and Drug Administration (FDA), “At this time, given the public health emergency, FDA is advising that it is acceptable to use every full dose obtainable (the sixth, or possibly even a seventh) from each vial, pending resolution of the issue. However, since the vials are preservative free, it is critical to note that any further remaining product that does not constitute a full dose should not be pooled from multiple vials to create one.”
+The concept of “bonus doses” is addressed in the Modeling of Immunization Registry Operations Workgroup (MIROW) Immunization Information System (IIS) Inventory Management Operations guide. A bonus dose is defined as an additional dose of vaccine discovered after the expected number of doses have been drawn from a vial. Bonus doses that are administered should be reported to the IIS.
+The MIROW guide recommends that inventory should be reconciled to account for bonus doses. If you have questions or need assistance, contact VTrckS ExIS Support: VTrckSExIS@cdc.gov. 
+
+Contacts for Technical Assistance
+Please see below for CDC’s list of support contacts for systems being used for the COVID-19 vaccine response. In addition, CDC has a centralized call center available for awardees and system users. The caller’s question will be answered or triaged as appropriate to meet the caller’s needs. Phone numbers are listed below the specific contacts.
+ 
+I need help with…
+Contact…
+General Inquiries
+IIS Support: IISInfo@cdc.gov
+Provider Enrollment Data
+IZ Data Lake Support:  IZDLhelpdesk@cdc.gov
+VTrckS Ordering, Provider Master Data, Returns & Wastage Extracts
+VTrckS ExIS Support: VTrckSExIS@cdc.gov
+VPoP (Federal Partners): VTrckSExIS@cdc.gov
+VTrckS Allocations, Tracking and Shipment
+Vaccine Order Management Contact Center: Vaccineordermgmt@cdc.gov
+Inventory Data
+VaccineFinder: Eocevent522@cdc.gov
+**NEW ADDRESS**
+Reporting Administration Data via CVRS Data Extract
+CVRS Support: IZGateway@hhs.gov
+
+Data Clearinghouse: DCHInfo@cdc.gov
+
+Pharmacy Liaison: eocevent481@cdc.gov
+VAMS
+VAMS Help Desk: 1-833-957-1100 **preferred contact method**
+VAMS Help: VAMSHelp@cdc.gov
+These help options are only for jurisdictions and providers using VAMs.
+v-safe 
+eocevent416@cdc.gov 
+Operation Warp Speed Tiberius 
+Log-in: Protect-ServiceDesk@hhs.gov  
+Platform: ows-support@palantir.com  
+Microplanning: ows-support-microplanning@palantir.com  
+ 
+The Vaccine Coordination Center at CDC has a Jurisdictional Watch Desk to provide technical assistance related to the COVID-19 vaccine for the 64 funded jurisdictions and 5 federal entities. The help desk will operate 24 hours a day, 7 days a week.  The call center is not intended to disrupt the existing relationship jurisdictions have with their regional support team and other direct technical support they have been receiving. It is anticipated that, especially near-term, many jurisdictions will reach out directly to their CDC regional teams; however, we encourage use of the call center as much as possible to help CDC provide the best service in the most efficient manner and track questions from awardees.
+ 
+Call Center Numbers 
+Regions 1-4 
+Toll-Free:
+Local:
+1 (833) 731 - 5110 
+(404) 718 - 8110 
+Regions 5-7 
+Toll-Free:
+Local: 
+1 (833) 348 - 7409 
+(404) 718 - 8111 
+Regions 8-10 
+Toll-Free:
+Local: 
+1 (833) 896 - 8952 
+(404) 718 - 8112 
+
