@@ -1,0 +1,505 @@
+# Narrative crosswalk: Release 1.5 (2018 Update) Appendix B (guidance around the example messages; the example messages
+# themselves are not compared) and Appendix C (post-publication guidance from the addendum), compared with this guide.
+# Fields: see 01-02-introduction-and-actors.yml.
+
+chapter: "B-C"
+title: Appendix B, Guidance on Usage; Appendix C, Post-Publication Guidance
+pages: 367-410
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026
+summary: >-
+  Most of Appendix B's guidance survives as topic sections in chapter 4 of the new guide, usually with firmer
+  requirements: funding eligibility, patient conditions, refusals, VIS, deletes, and evaluation and forecast (now
+  aligned with CDSi and the CDS in RSP TAB). The ACK guidance is replaced by the core-intent model. Several practical
+  instructions are not carried forward: recording two lot numbers (linked components, separate adjuvant), birth
+  information fields, NTE notes, and the IHE PIX/PDQ two-step query. VIS guidance reverses direction: the 2018 Update
+  expected the vaccine-type method to be retired, and the new guide requires IIS to support both methods.
+
+items:
+  # ---------------------------------------------------------------- core data and VXU process
+  - id: r15-b-01
+    section: Core Data Elements for an Immunization History (Table B-2)
+    page: 368-371
+    r15: >-
+      The NVAC core data elements, with a support status (must be supported and sent if known): client ID, name, mother's
+      maiden name, race, ethnicity, sex, birth date, birth order, birth state, birth facility, address, phone, IIS and
+      provider status (PD1-16), responsible person name and relationship, vaccine product, manufacturer, date, lot,
+      expiration date, site, route, ordering and administering provider, information source, VIS type and dates,
+      eligibility, contraindications with dates, refusal reason and date, history of disease with date. Optional:
+      multiple birth indicator, responsible person address and phone, language, funding source, reactions.
+    result: changed
+    guide: [cdc-core-data-elements-for-functional-standards, data-standardization-and-integra-cdc-core-data-elements-for-functional-standards,
+            data-model, patient-entity, vaccination-entity, iis-core-intent-and-message-disposition]
+    note: >-
+      The new guide refers to the CDC Core Data Elements for Functional Standards instead, and some CDEs are Critical
+      Data for acceptance (3.3.1). Its conceptual data model leaves out birth state, birth facility, birth order, and
+      mother's maiden name, which the 2018 list required support for. Field-level support is in the profiles.
+
+  - id: r15-b-02
+    section: Send Immunization History (VXU) - Business Process
+    page: 371-373
+    verb: must, should
+    r15: >-
+      Illustrative process; local rules must be documented. The receiver validates against HL7 and local rules and looks
+      for the client. No match: add the client. One match with protection indicator Y: do not integrate the record, and
+      acknowledge without revealing that the client exists. One match otherwise: integrate by local rules. More than one
+      match: local rules (pending, reject, or load as new for later cleanup).
+    result: changed
+    guide: [iis-core-intent-and-message-disposition, record-consolidation-and-deduplication, consent-and-privacy,
+            jurisdictional-consent-models--s1, protection-indicator-pd1-12-usage--s7]
+    note: >-
+      Acceptance is defined by core intent (patient associated or created). The new guide does not tell the IIS to
+      refuse to integrate a protected patient's VXU: in opt-out jurisdictions submitters SHALL send all records and the
+      IIS enforces consent after receipt. Ambiguous matches may be queued for manual review (2.3.3).
+
+  - id: r15-b-03
+    section: Send Immunization History (VXU) - Business Process
+    page: 373
+    r15: >-
+      A sending system may say it does not accept acknowledgements, in which case none is returned; this is not
+      recommended. The sender's handling of the ACK is local; good practice is to alert the user and support
+      troubleshooting.
+    result: changed
+    guide: [application-level-scope-of-ack-messages--s3, use-of-acks-in-interface-monitoring, required-follow-up-actions]
+    note: >-
+      An IIS SHALL return exactly one ACK for each VXU received, and the profiles now fix MSH-15/MSH-16 to NE, so a sender
+      can no longer opt out. The new guide adds requirements on submitters for following up on ACK severities (3.3.3.3)
+      and monitoring (3.3.5).
+
+  - id: r15-b-04
+    section: Send Immunization History (VXU) - Business Process
+    page: 373
+    verb: should
+    r15: >-
+      Conformant systems should populate and process R and RE elements, conditional elements when the predicate is met,
+      and handle repeating elements gracefully.
+    result: same
+    guide: [usage-designations-and-expectations]
+
+  # ---------------------------------------------------------------- funding eligibility
+  - id: r15-b-05
+    section: Example VXU #2 - Patient Eligibility Status
+    page: 376
+    verb: should, shall
+    r15: >-
+      Eligibility (which program should pay) differs from funding source (which program did pay). Eligibility is
+      recorded for each dose administered, not needed for historical doses. Systems capturing eligibility per visit
+      associate it with each dose given at that visit, considering whether the vaccine is eligible. OBX-17 records the
+      capture method (VXC40 per immunization, VXC41 per visit). Refers to MIROW.
+    result: expanded
+    guide: [funding-source-and-eligibility, patient-funding-eligibility-per-dose, historical-vaccinations-and-internal-use]
+    note: >-
+      Same model, now with SHALL statements (per-dose capture, at most one eligibility per dose). Funding source gains its
+      own section with two- and three-stock models (4.6.5.2). New: IIS SHALL NOT return eligibility or funding source in
+      RSP messages.
+
+  - id: r15-b-06
+    section: Example VXU #2 - Technical Note; Eligibility Outcomes (Table B-2)
+    page: 377
+    r15: >-
+      Interfaces and validation should ensure the patient eligibility matches the vaccine's eligibility (same funding
+      program). Only one eligibility applies to a dose. A VFC-eligible patient receiving a vaccine that is not VFC
+      eligible is recorded as V01.
+    result: changed
+    guide: [vaccine-funding-source-and-stock-models--s2, validation-enforcement-and-borrowing-scenarios--s1,
+            validation-enforcement-and-borrowing-scenarios--s3, patient-funding-eligibility-per-dose--s3]
+    note: >-
+      The new guide puts what happened first: IIS SHALL accept eligibility and funding combinations that are possible in
+      practice, even when they break program policy, and SHOULD use data quality follow-up rather than conformance rules
+      (unless the jurisdiction chooses stricter enforcement). The V01 rule for non-VFC vaccines is not stated.
+
+  - id: r15-b-07
+    section: Example VXU #2 - local eligibility codes
+    page: 377
+    r15: >-
+      Local programs are published in the local guide's table 0064. V07 may be used for a person eligible for a state or
+      local program but not VFC; local codes may be preferable. A local code is the HL70363 assigning authority code plus
+      a two-digit number (for example AKA01, with AKA as the coding system); a local code implies the person is not VFC
+      eligible.
+    result: changed
+    guide: [jurisdiction-specific-eligibility-codes, jurisdiction-specific-eligibility-codes--s1,
+            jurisdiction-specific-eligibility-codes--s2, jurisdiction-specific-eligibility-codes--s3]
+    note: >-
+      Local codes now follow a jurisdiction pattern such as AK01 with an assigning authority, SHALL be published, and
+      SHALL NOT duplicate national concepts. V07 and the "local code implies not VFC eligible" rule are not mentioned.
+
+  # ---------------------------------------------------------------- conditions, deletes, VIS, refusal
+  - id: r15-b-08
+    section: Example VXU #4 - Send client specific conditions
+    page: 379-381
+    r15: >-
+      Factors affecting evaluation and forecast are sent in OBX segments: reactions to a previous dose (even when the
+      dose is unknown), evidence of immunity (serology is strongest; a clinician-determined history of disease),
+      contraindications (temporary or permanent: allergies, conditions, medications, illness), and risk factors or
+      exposures (for example rabies) that call for a vaccine.
+    result: expanded
+    guide: [non-administration-concepts, conditions-contraindications-precautions-and-indications, documented-immunity,
+            adverse-event, types-of-immunity-evidence--s3, adverse-events-associated-with-a-specific-vaccination]
+    note: >-
+      Section 4.8 covers each concept with storage and response rules, for example IIS SHALL NOT reject a message because
+      immunity information is included, and SHOULD say (severity I) when reactions are not stored.
+
+  - id: r15-b-09
+    section: Example VXU #6 - Delete an Immunization Record
+    page: 381
+    r15: >-
+      Each system may have rules about who may delete. If deletion by HL7 is allowed, use RXA-21. The sender's ID for the
+      immunization goes in ORC-3 with its assigning authority; the receiver must store these to match a later delete.
+    result: expanded
+    guide: [deletion-of-a-vaccination-record-submitted-by-the-same-organization, handling-delete-requests--s1,
+            handling-delete-requests--s2, submitter-correction-behavior--s4, vaccination-record-identity-and-orc-3--s1]
+    note: >-
+      Deletion is no longer optional for the IIS: it SHALL support deletes of records the submitter reported. Submitters
+      SHOULD NOT delete another source's records, SHALL reuse ORC-3, and a delete SHALL carry the identifying values
+      previously sent. A delete retracts the source record, not necessarily the consolidated event.
+
+  - id: r15-b-10
+    section: VXU Example #7 - Send Information About Vaccine Information Statement (VIS)
+    page: 381-383
+    verb: should
+    r15: >-
+      VIS type, edition date, and date presented are sent in OBX segments linked by OBX-4. The 2D barcode
+      fully-encoded text string (24 digits, not the 13-digit GDTI) is highly recommended and implies the edition date.
+      The vaccine-type method (CVX plus edition date) is problematic and "anticipated to be retired in a future release".
+    result: changed
+    guide: [reporting-vis-information-in-hl7-v2-messages, reporting-vis-information-in-hl7-v2-messages--s1,
+            reporting-vis-information-in-hl7-v2-messages--s2, reporting-vis-information-in-hl7-v2-messages--s7,
+            use-and-limitations-of-vis-information-in-iis]
+    note: >-
+      The vaccine-type method is not retired: IIS SHALL support both methods and submitters SHALL support at least one
+      (the barcode method is still preferred; the alternate uses an unspecified-formulation CVX). New rules: accept
+      unrecognized barcodes and unexpected dates, date given not after administration, multiple VIS per vaccine, and
+      never reject a vaccination for VIS problems.
+
+  - id: r15-b-11
+    section: VXU Example #8 - Send Information Indicating Immunization Refusal
+    page: 383-384
+    r15: >-
+      A refusal is sent with the reason in RXA-18, completion status RE in RXA-20, and amount 0. The ORC is still required;
+      the filler order number is required but meaningless. RXA-2 is not a dose number (constrained to 1).
+    result: expanded
+    guide: [refusal, defining-a-refusal, required-data-elements, storage-and-use-in-iis, query-and-response-behavior]
+    note: >-
+      The new guide defines a refusal narrowly (vaccine due and declined; not missed appointments, shortages, or
+      contraindications), sets ORC-3 to 9999, and allows a refusal-only VXU.
+
+  - id: r15-b-12
+    section: VXU Example #9 - Send Two Lot Numbers in RXA
+    page: 384
+    r15: >-
+      When components are packaged together with linked lot numbers (for example Pentacel), send only the first
+      component's lot in RXA-15. When an adjuvant is added at administration and its lot is not linked, record it as a
+      separate order group (ORC/RXA).
+    result: dropped
+    guide: [ndc-requirements-for-administered-vaccinations]
+    note: >-
+      The new guide only says to report the NDC of the lyophilized powder rather than the diluent. Which lot to send for
+      kits, and how to record a separately added adjuvant, are not covered.
+    recommendation: Add a short rule on lot numbers for kits and separately added components, in 4.6.2.3 or the RXA-15 notes.
+
+  - id: r15-b-13
+    section: VXU Example #10 - Recording Birth Information
+    page: 385
+    r15: >-
+      Birth information supports identity resolution: birth registration number as a PID-3 identifier (type BR), birth
+      order PID-24, multiple birth indicator PID-25, birth state as a PID-11 address with type BDL, birth facility PID-23
+      (not used for birth state).
+    result: dropped
+    guide: [patient-identifiers, address-types, name-consistency-and-matching-expectations]
+    note: >-
+      The fields remain in the profiles, but the narrative no longer explains how to send birth state (BDL address) or
+      birth facility, or their value for matching.
+
+  - id: r15-b-14
+    section: VXU Example #11 - Recording an incompletely administered dose or a non-potent dose
+    page: 385
+    r15: >-
+      A partially administered dose (for example the child pulled away) is recorded with RXA-20 = PA, to support
+      inventory and recall; details may go in an NTE under an OBX.
+    result: partial
+    guide: [new-vaccination-administered-during-an-encounter]
+    note: The new guide names PA as a finalized outcome but does not say why to report it or how to add detail.
+
+  # ---------------------------------------------------------------- ACK
+  - id: r15-b-15
+    section: Send Acknowledgement ACK In Response To VXU
+    page: 385-386
+    verb: must
+    r15: >-
+      ACKs let senders troubleshoot and learn what did not reach the receiver; an intermediary must pass the ACK back.
+      Errors may come from HL7 violations, local rule violations, transport failures, or authentication failures; only
+      the first two are addressed by the guide.
+    result: expanded
+    guide: [purpose-of-acknowledgements, role-of-acks-in-data-quality, application-level-scope-of-ack-messages--s2,
+            fault-handling-and-error-responses]
+    note: >-
+      Transport and authentication failures are now in scope, reported as SOAP faults (2.4.3), and SHALL NOT be reported
+      in an ACK.
+
+  - id: r15-b-16
+    section: Send Error in ACK
+    page: 386-388
+    r15: >-
+      AR is reserved for four errors (unsupported message type, event, processing ID; unable to process for reasons
+      unrelated to format or content), for example an unrecognized version. HL7 errors that reject the message (empty
+      required group, missing PID or MSH) or local rule violations that reject it (birth date in the future) are AE with
+      severity E. An invalid RXA-5 rejects that order group; an empty NK1-3 rejects only the NK1; data in an X field (PID-2)
+      is a warning and is ignored. ERR-8 text is generated locally.
+    result: changed
+    guide: [msa-1-derivation-of-message-level-disposition, err-4-severity-code, err-5-application-error-code,
+            err-8-user-message, iis-core-intent-and-message-disposition, required-follow-up-actions]
+    note: >-
+      A rejected message is now AR, never AE. Severity E is only for core intent not fulfilled, so an invalid vaccine
+      code in one order group is reported per issue rather than by cascading rejection. ERR-5 uses the national error
+      codes, and ERR-8 has its own guidance (3.3.3.6).
+
+  # ---------------------------------------------------------------- evaluation and forecast
+  - id: r15-b-17
+    section: Example Return an Evaluated History and Forecast (RSP Z42)
+    page: 388-389
+    verb: should
+    r15: >-
+      The guide does not specify the function or accuracy of forecasting; implementations should document local
+      specifics. It is not meant to support calling a forecasting service, only messaging forecasts as part of a
+      history. Evaluation is against a schedule; schedules define series by vaccine group.
+    result: changed
+    guide: [clinical-decision-support, role-of-acip-and-cdsi, jurisdictional-clinical-policy, intended-use-and-implementation-expectations,
+            standard-recommendations-and-series-coverage]
+    note: >-
+      The new guide anchors series definitions to CDSi and requires a recommendation for every standard age-based series
+      (4.7.2, 4.7.5). Clinical content stays with the jurisdiction.
+
+  - id: r15-b-18
+    section: Codes Supporting Messaging Evaluation and Forecasting (Table B-3)
+    page: 389-390
+    r15: >-
+      Data elements and LOINC codes: schedule (59779-9, required), vaccine group (30956-7 preferred; 38890-0 for backward
+      compatibility), series name, dose number, dose validity, number of doses (adjusted for skipped doses), series
+      status, earliest/recommended/latest/overdue dates, recommendation reason (local codes).
+    result: expanded
+    guide: [evaluation, recommendation, vaccine-type-and-forecast-initiation, dose-validity-and-reason-for-validity,
+            additional-optional-evaluation-information, status-in-immunization-series]
+    note: >-
+      The codes are bound in the OBX co-constraints (format). What is required changes: schedule, series name, and dose
+      counts are now optional (MAY); series status SHALL be returned for every forecast; earliest and recommended dates
+      SHALL be returned when another dose is due; dose validity is Y or N. A forecast SHALL start with 30956-7, and 38890-0
+      SHALL NOT be used for that (2018 allowed it for backward compatibility). This follows the CDS in RSP TAB.
+
+  - id: r15-b-19
+    section: Evaluation and recommendation structure
+    page: 390-392, 398
+    r15: >-
+      Evaluation follows the administered RXA; recommendations follow an RXA for CVX 998 (no vaccine administered), not
+      existing RXAs. Each observation is its own OBX, linked to its vaccine group by OBX-4; OBX order is not regulated.
+      Combination vaccines get one set of observations per vaccine group. Multiple recommendations go under a single
+      ORC/RXA with sets of OBX grouped by sub-ID.
+    result: expanded
+    guide: [overall-structure-of-cds-in-the-rsp, forecast-group-structure, forecast-group-structure--s1,
+            forecast-group-structure--s2, vaccine-type-and-component-identification]
+    note: >-
+      The new guide requires exactly one forecast order group after all history and non-administration groups, and a
+      forecast for every standard age-based series.
+
+  - id: r15-b-20
+    section: Indicating the Schedule that was used
+    page: 392
+    r15: >-
+      Schedule is required when evaluation or recommendation is sent. The only schedule CDC supports is ACIP; systems may
+      define local schedules.
+    result: changed
+    guide: [role-of-acip-and-cdsi, additional-optional-evaluation-information--s4, jurisdictional-clinical-policy]
+    note: The schedule observation is now optional (MAY), with the caution that it is not consistently standardized.
+
+  - id: r15-b-21
+    section: Reporting Next Dose Recommendation Dates; Recommendation Reasons
+    page: 394-395
+    r15: >-
+      Definitions of earliest (no grace period), recommended, overdue (locally defined), and latest dates; not all apply.
+      Recommendation reasons are local codes, documented locally.
+    result: same
+    guide: [dose-timing-earliest-recommended-overdue-latest, reasons-for-recommendation]
+    note: The new guide adds that each reason is a separate OBX.
+
+  - id: r15-b-22
+    section: Important notes; Using the NTE segment
+    page: 398
+    r15: >-
+      OBX set IDs increase through the message; sub-IDs are unique within an order group; a VIS OBX gets its own sub-ID. An
+      NTE under an OBX may carry notes the receiver may display; any use is local and documented locally.
+    result: dropped
+    guide: [obx-1-set-id-obx, obx-4-observation-sub-id]
+    note: >-
+      OBX-1 and OBX-4 rules are in 4.4.2 and the profiles (format). NTE is not mentioned anywhere in the new narrative.
+
+  - id: r15-b-23
+    section: Issues Outside of Messaging That Impact the Value Sent
+    page: 398
+    r15: >-
+      Skipped doses (for example Hib catch-up) should be handled in local profiles; booster doses do not add to the primary
+      series count; prior infection is messaged as immunity.
+    result: same
+    guide: [additional-optional-evaluation-information, use-of-immunity-information-in-forecasting]
+
+  # ---------------------------------------------------------------- query
+  - id: r15-b-24
+    section: Send Request for Complete Immunization History - protected clients
+    page: 399
+    r15: >-
+      When a client who does not want data shared is found, local rules apply: respond as "no records found", except
+      that the provider who set the protection may get the record; or return limited information saying the person
+      exists but is protected.
+    result: partial
+    guide: [z33-return-a-response-with-no-person-records, information-disclosure-constraints]
+    note: >-
+      The new guide returns Z33 when consent prevents disclosure. The exception for the provider who set the protection,
+      and the option of acknowledging that the record exists, are not addressed. See also r15-11-03.
+
+  - id: r15-b-25
+    section: Send Request for Complete Immunization History - handling the response
+    page: 399-400
+    r15: >-
+      The requesting system decides locally how users review a returned history or candidate list: accept, reject, mark
+      for review, select a candidate and send a new QBP with the identifying information from the RSP, or refine the
+      query.
+    result: expanded
+    guide: [selecting-a-candidate-match, selecting-a-candidate-match--s1, selecting-a-candidate-match--s2]
+
+  - id: r15-b-26
+    section: Example Z34 query
+    page: 400
+    r15: >-
+      All QPD fields are RE: senders may populate any or all; receivers must accept values in any of them but may specify
+      which are required and which they ignore.
+    result: changed
+    guide: [patient-matching-responsibilities--s1, patient-matching-responsibilities--s5, patient-matching-responsibilities--s4]
+    note: >-
+      Querying systems SHALL send all known identifying information (including the SR when known), and the IIS SHALL use
+      all of it.
+
+  - id: r15-b-27
+    section: Returning a list of candidate clients
+    page: 400-401
+    r15: >-
+      A candidate list returns all known information for each candidate in PID, NK1, and PD1, with PID-1 numbering each
+      candidate. If there are more candidates than the requested or allowed maximum, an error acknowledgement is sent.
+      The matching logic is not specified.
+    result: changed
+    guide: [z31-return-a-list-of-candidates, information-disclosure-constraints, selecting-a-candidate-match,
+            identifiers-returned-in-rsp-messages--s1]
+    note: >-
+      Disclosure is now minimized: return what lets the user confirm the match, not everything known (3.5.3). Each
+      candidate carries the IIS identifier (SR) for the follow-up query.
+
+  - id: r15-b-28
+    section: Returning an immunization history
+    page: 401-402
+    r15: The response returned the querying system's medical record number and the IIS identifier.
+    result: same
+    guide: [identifiers-returned-in-rsp-messages, identifiers-returned-in-rsp-messages--s1, identifiers-returned-in-rsp-messages--s2]
+    note: >-
+      Now a requirement, with a condition: the submitter's identifier is returned only when the IIS has associated it
+      with the record, and other submitters' identifiers SHOULD NOT be returned.
+
+  - id: r15-b-29
+    section: Acknowledging a query that finds no candidates; finds more candidates than requested
+    page: 402-403
+    r15: >-
+      No match is not an error; respond with Z33 and QAK-2 NF. RCP-2 sets the requester's limit; the responder's own
+      limit, if lower, wins; too many gives Z33 with QAK-2 TM.
+    result: same
+    guide: [z33-return-a-response-with-no-person-records, z31-return-a-list-of-candidates, qbp-message-structure]
+
+  - id: r15-b-30
+    section: Using a Two-step process to request an immunization history
+    page: 403-405
+    r15: >-
+      Alternative identity resolution through an MPI using IHE PIX (ITI-8, ITI-30 Pediatric Demographics option) and PDQ,
+      then a QBP with the retrieved identifier.
+    result: dropped
+    guide: [scope]
+    note: MPI interactions and IHE profiles are not mentioned; the new guide's scope is IIS update and query only.
+
+  - id: r15-b-31
+    section: Receiving system determines that message has errors
+    page: 405-406
+    r15: >-
+      A well-formed query with a content error (QPD-2 query tag missing) gets a Z33 with errors (QAK-1 empty). A message of
+      unrecognized type gets an ACK with AR.
+    result: changed
+    guide: [z23-return-an-acknowledgement]
+    note: A query rejected for a problem in MSH or QPD now gets a Z23 ACK rather than a Z33.
+
+  # ---------------------------------------------------------------- Appendix C
+  - id: r15-c-01
+    section: Appendix C - Post-Publication Guidance
+    page: 407
+    r15: >-
+      Lists AIRA guidance not binding on Release 1.5 but expected to be required in future releases: ACK guidance, the
+      national set of error codes, RSP guidance, detailed message structure and LOINC use, and the query/response
+      functional guide.
+    result: expanded
+    guide: [technical-advisory-bulletins, acknowledgement-ack-message-profile, err-5-application-error-code,
+            clinical-decision-support, loinc-in-observation-segments]
+    note: >-
+      These are now built into the guide, much of it through the TABs (ACK, CDS in RSP); the TAB comparison pages show how
+      completely.
+
+  - id: r15-c-02
+    section: Coding Systems and Value Sets (from Addendum)
+    page: 407-408
+    verb: should
+    r15: >-
+      A coding system differs from a value set; CE.3/CWE.3 should name the coding system (HL70396), not the value set.
+      Table of the expected coding system for each coded field.
+    result: format
+    guide: [data-types-and-value-sets-data-types-and-value-sets, dynamic-and-fixed-code-sets]
+    note: Coding systems are bound in the profiles; changes are in the tables above.
+
+  - id: r15-c-03
+    section: Repetitions and Occurrences (from Addendum)
+    page: 408
+    r15: '"Repetition" means occurrence: the first repetition is the first occurrence.'
+    result: format
+
+  - id: r15-c-04
+    section: Acknowledgement Pattern (from Addendum)
+    page: 408-409
+    verb: should, shall
+    r15: >-
+      Responses are synchronous: the sender waits for the response before sending the next message (parallel processes
+      allowed); RCP-2 = I. Z22, Z34, Z44 use MSH-15 ER and MSH-16 AL: a message failing initial validation (type, version,
+      processing ID) gets a Z23 ACK; one that passes gets the application response. One response per message.
+    result: changed
+    guide: [qbp-message-structure, purpose-and-scope-of-rsp-profiles--s1, application-level-scope-of-ack-messages--s3,
+            z23-return-an-acknowledgement]
+    note: >-
+      Synchronous exchange and one response per message carry over (QBP is used only for immediate responses). MSH-15 and
+      MSH-16 change from ER/AL to NE/NE (conformance statement IZ-42 above). The rule that waiting for a response
+      is required before sending the next message is not stated.
+
+  - id: r15-c-05
+    section: Processing Mode Clarification (from Addendum)
+    page: 409-410
+    verb: should
+    r15: >-
+      Z22 may carry only the vaccinations added, updated, or deleted, not the whole history; the receiver should not
+      assume a VXU is the entire history. Each order group should hold the complete data about that vaccination. Z32
+      carries the whole history; the receiver may overwrite or reconcile. Z42 carries all immunizations evaluated and a
+      complete forecast, but not every detail (for example lot number); use Z34/Z32 for a complete history.
+    result: changed
+    guide: [reporting-immunizations-single-vs-multiple-administered-vaccinations-per-vxu, submitter-correction-behavior,
+            z32-return-complete-immunization-history, unified-z34-and-z44-profile-model--s2]
+    note: >-
+      The VXU part carries over (one VXU per vaccination or per encounter; updates for changed fields). Z42 changes: it now
+      returns the complete history, so it is no longer a reduced view. The rule that each order group carries the
+      complete data for its vaccination is only implied.
+
+  - id: r15-c-06
+    section: Deletions (from Addendum)
+    page: 410
+    r15: >-
+      To delete a record, resend the most recent message for it unchanged except for the action code D (RXA-21), with the
+      same ORC-3; then send any corrected records as new messages.
+    result: same
+    guide: [deletion-of-a-vaccination-record-submitted-by-the-same-organization--s1, submitter-correction-behavior--s2,
+            submitter-correction-behavior--s4, submitter-correction-behavior--s5]

@@ -308,12 +308,13 @@ items:
       Receiving systems expect complete histories (all immunization information known to the sender) and do not process
       in snapshot mode (incoming data does not replace existing data). Receiving systems are responsible for publishing
       the consolidation rules they apply.
-    result: dropped
-    guide: [record-consolidation-and-deduplication]
+    result: changed
+    guide: [record-consolidation-and-deduplication, reporting-immunizations-single-vs-multiple-administered-vaccinations-per-vxu]
     note: >-
-      2.3.3 implies it (IIS consolidate overlapping data rather than preserve submissions), but the new guide does not say
-      that a VXU never replaces the existing record, nor that IIS should publish their consolidation rules. Appendix C of
-      the 2018 Update (Processing Mode Clarification) makes the same point.
+      The 2018 addendum (Appendix C, Processing Mode Clarification, r15-c-05) already reversed the first part: a VXU may
+      carry only the changed vaccinations. The new guide follows the addendum (one VXU per vaccination or per encounter)
+      and implies no snapshot processing (2.3.3: IIS consolidate rather than preserve submissions), but does not say that
+      a VXU never replaces the existing record, nor that IIS should publish their consolidation rules.
     recommendation: >-
       Consider one sentence in 2.3.3: "A VXU adds to and updates the IIS record; it does not replace it (no snapshot
       processing). IIS SHOULD document the consolidation rules they apply."
