@@ -382,7 +382,7 @@ def build(out: Path) -> dict:
     tab_f = [f for f in findings if f["category"] == "tab"]
     meta.append({"i": "tabs", "t": "TAB Comparison", "n": "", "p": "tabs/index.html",
                  "f": [sum(f["severity"] == s for f in tab_f) for s in ("issue", "warning", "note")], "c": tab_nav})
-    r15 = site_r15.load(REPO)
+    r15 = site_r15.load(REPO, by_id)
     if r15:
         meta.append({"i": "r15", "t": "Changes from Release 1.5", "n": "", "p": "r15/index.html", "f": [0, 0, 0],
                      "k": ["Release 1.5", "2018", "NIST", "changes"]})

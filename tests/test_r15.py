@@ -58,5 +58,18 @@ class CompareTest(unittest.TestCase):
             self.assertNotIn("...", c["added"] + c["removed"])
 
 
+class NarrativeTest(unittest.TestCase):
+    """The reviewed crosswalk in quality/r15/narrative/ loads, and every reference names a card or statement."""
+
+    def test_crosswalk_loads(self):
+        import guidecards
+        import r15_narrative
+        by_id = {c.id: c for c in guidecards.walk(guidecards.load_tree(REPO / "cards"))}
+        parts = r15_narrative.load(REPO, by_id)  # raises SystemExit on a bad result or reference
+        ids = [it["id"] for _, it in r15_narrative.items(parts)]
+        self.assertIn("r15-3-03", ids)  # null ("") versus empty: not carried forward
+        self.assertTrue(r15_narrative.to_csv(parts).startswith("id,chapter,"))
+
+
 if __name__ == "__main__":
     unittest.main()

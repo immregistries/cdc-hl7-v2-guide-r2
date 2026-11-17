@@ -78,7 +78,7 @@ items:
 
   # ---------------------------------------------------------------- funding eligibility
   - id: r15-b-05
-    section: Example VXU #2 - Patient Eligibility Status
+    section: "Example VXU #2 - Patient Eligibility Status"
     page: 376
     verb: should, shall
     r15: >-
@@ -94,7 +94,7 @@ items:
       RSP messages.
 
   - id: r15-b-06
-    section: Example VXU #2 - Technical Note; Eligibility Outcomes (Table B-2)
+    section: "Example VXU #2 - Technical Note; Eligibility Outcomes (Table B-2)"
     page: 377
     r15: >-
       Interfaces and validation should ensure the patient eligibility matches the vaccine's eligibility (same funding
@@ -109,7 +109,7 @@ items:
       (unless the jurisdiction chooses stricter enforcement). The V01 rule for non-VFC vaccines is not stated.
 
   - id: r15-b-07
-    section: Example VXU #2 - local eligibility codes
+    section: "Example VXU #2 - local eligibility codes"
     page: 377
     r15: >-
       Local programs are published in the local guide's table 0064. V07 may be used for a person eligible for a state or
@@ -125,7 +125,7 @@ items:
 
   # ---------------------------------------------------------------- conditions, deletes, VIS, refusal
   - id: r15-b-08
-    section: Example VXU #4 - Send client specific conditions
+    section: "Example VXU #4 - Send client specific conditions"
     page: 379-381
     r15: >-
       Factors affecting evaluation and forecast are sent in OBX segments: reactions to a previous dose (even when the
@@ -140,7 +140,7 @@ items:
       immunity information is included, and SHOULD say (severity I) when reactions are not stored.
 
   - id: r15-b-09
-    section: Example VXU #6 - Delete an Immunization Record
+    section: "Example VXU #6 - Delete an Immunization Record"
     page: 381
     r15: >-
       Each system may have rules about who may delete. If deletion by HL7 is allowed, use RXA-21. The sender's ID for the
@@ -154,7 +154,7 @@ items:
       previously sent. A delete retracts the source record, not necessarily the consolidated event.
 
   - id: r15-b-10
-    section: VXU Example #7 - Send Information About Vaccine Information Statement (VIS)
+    section: "VXU Example #7 - Send Information About Vaccine Information Statement (VIS)"
     page: 381-383
     verb: should
     r15: >-
@@ -172,7 +172,7 @@ items:
       never reject a vaccination for VIS problems.
 
   - id: r15-b-11
-    section: VXU Example #8 - Send Information Indicating Immunization Refusal
+    section: "VXU Example #8 - Send Information Indicating Immunization Refusal"
     page: 383-384
     r15: >-
       A refusal is sent with the reason in RXA-18, completion status RE in RXA-20, and amount 0. The ORC is still required;
@@ -184,7 +184,7 @@ items:
       contraindications), sets ORC-3 to 9999, and allows a refusal-only VXU.
 
   - id: r15-b-12
-    section: VXU Example #9 - Send Two Lot Numbers in RXA
+    section: "VXU Example #9 - Send Two Lot Numbers in RXA"
     page: 384
     r15: >-
       When components are packaged together with linked lot numbers (for example Pentacel), send only the first
@@ -198,7 +198,7 @@ items:
     recommendation: Add a short rule on lot numbers for kits and separately added components, in 4.6.2.3 or the RXA-15 notes.
 
   - id: r15-b-13
-    section: VXU Example #10 - Recording Birth Information
+    section: "VXU Example #10 - Recording Birth Information"
     page: 385
     r15: >-
       Birth information supports identity resolution: birth registration number as a PID-3 identifier (type BR), birth
@@ -211,7 +211,7 @@ items:
       birth facility, or their value for matching.
 
   - id: r15-b-14
-    section: VXU Example #11 - Recording an incompletely administered dose or a non-potent dose
+    section: "VXU Example #11 - Recording an incompletely administered dose or a non-potent dose"
     page: 385
     r15: >-
       A partially administered dose (for example the child pulled away) is recorded with RXA-20 = PA, to support

@@ -425,3 +425,14 @@ pre.hl7 .f:hover { background: var(--guide-blue-light); }
 @media (max-width: 720px) {
   .r15-page table.r15 { display: block; overflow-x: auto; }
 }
+.r15-result { display: inline-block; font-size: .72rem; font-weight: 700; border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
+.r15-result.r-changed { background: #fbe3d6; color: #8a3200; }
+.r15-result.r-dropped { background: #f6d5d5; color: #8b1a1a; }
+.r15-result.r-partial { background: #fff1c2; color: #6b4e00; }
+.r15-result.r-expanded { background: #dcefdc; color: #1f5f1f; }
+.r15-result.r-same, .r15-result.r-format, .r15-result.r-context { background: var(--guide-blue-pale); color: var(--guide-muted); }
+.r15-page table.r15-narr td p { margin: 0 0 6px; }
+.r15-page .r15-rec { border-left: 3px solid var(--guide-blue); padding-left: 6px; }
+.r15-page ul.r15-key li { margin-bottom: 4px; }
+.r15-page table.r15-narr td:nth-child(4), .r15-page table.r15-narr td:nth-child(5) { min-width: 16em; }
+.r15-page table.r15-narr td:nth-child(2) { min-width: 8em; }

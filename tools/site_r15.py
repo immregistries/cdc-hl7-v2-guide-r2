@@ -1,8 +1,8 @@
 """The "Changes from Release 1.5" page: this guide compared with the Release 1.5 baseline (tools/diff_r15.py).
 
 Release 1.5 is represented as NIST's conformance profiles (the source of truth for format and validation, what
-systems were tested against) plus the guidance in the 2018 narrative. This page shows the structural comparison;
-the narrative comparison is added from quality/r15/ as it is reviewed.
+systems were tested against) plus the guidance in the 2018 narrative. This page shows the structural comparison
+(tools/diff_r15.py) and the reviewed narrative crosswalk (quality/r15/narrative/, read by tools/r15_narrative.py).
 """
 
 from __future__ import annotations
@@ -12,6 +12,7 @@ import re
 from pathlib import Path
 
 import diff_r15
+import r15_narrative
 from guidecards import write_text
 
 NIST_TOOL = "https://tools.valitheus.com/immunization-edition2/#/doc"
@@ -39,10 +40,13 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-") or "x"
 
 
-def load(repo: Path) -> dict | None:
+def load(repo: Path, by_id: dict) -> dict | None:
     if not (repo / "prior" / "release-1.5" / "model" / "profiles.json").exists() or not (repo / "model" / "profiles.json").exists():
         return None
-    return diff_r15.compute(repo)
+    data = diff_r15.compute(repo)
+    data["narrative"] = r15_narrative.load(repo, by_id)
+    data["by_id"] = by_id
+    return data
 
 
 def _el_link(label: str, root: str) -> str:
@@ -153,6 +157,7 @@ only a change in which of them a field uses is shown.</p>
 <li>{counts.get("cardinality", 0)} cardinality changes and {counts.get("datatype", 0)} data type changes</li>
 <li>{counts.get("binding", 0)} changes to the value sets fields use, and {len(data["code_changes"])} changes to the codes in them</li>
 <li>{counts.get("length", 0)} changed lengths; {len(dropped)} elements no longer state a length</li>
+{_narrative_bullet(data.get("narrative") or [])}
 </ul>
 <p class="mini">Fields and components are compared where either guide constrains them (usage other than O or X);
 components are compared two levels deep. A change that is the same in several profiles is shown once.</p>
@@ -184,12 +189,94 @@ value set.</p>
 listed with the fields above.</p>
 <details><summary>Elements that no longer state a length</summary><p class="mini">{len_list}</p></details>
 
-<h2 id="narrative">Guidance in the narrative</h2>
-<p class="empty">The comparison of the 2018 narrative with this guide is in progress.</p>
+{narrative_section(data.get("narrative") or [], data.get("by_id") or {}, root)}
 </article>"""
 
 
+# ---------------------------------------------------------------- narrative crosswalk
+
+def _narrative_bullet(parts: list[dict]) -> str:
+    if not parts:
+        return ""
+    c = r15_narrative.counts(parts)
+    return (f'<li>Narrative guidance (<a href="#narrative">below</a>): {c.get("changed", 0)} changed, {c.get("dropped", 0)} not '
+            f'carried forward, {c.get("partial", 0)} partly carried forward, {c.get("expanded", 0)} expanded, '
+            f'{c.get("same", 0)} the same</li>')
+
+
+def _guide_link(ref: str, by_id: dict, root: str) -> str:
+    card = by_id[r15_narrative._ref_card(ref)]
+    if "--s" in ref:
+        return f'<a href="{root}{card.id}/index.html#{esc(ref)}">{esc(card.number)} s{esc(ref.rsplit("--s", 1)[1])}</a>'
+    return f'<a href="{root}{card.id}/index.html">{esc(card.number)} {esc(card.title)}</a>'
+
+
+def _result(result: str) -> str:
+    label, help_text = r15_narrative.RESULTS[result]
+    return f'<span class="r15-result r-{esc(result)}" title="{esc(help_text)}">{esc(label)}</span>'
+
+
+def _flat(text) -> str:
+    return " ".join(str(text or "").split())
+
+
+def _first_sentence(text) -> str:
+    text = _flat(text)
+    m = re.match(r"(.+?[a-z0-9)\"]\.)(\s|$)", text)  # a full stop after a word, not "e.g." or "4.5.2"
+    return m.group(1) if m else text
+
+
+def narrative_section(parts: list[dict], by_id: dict, root: str) -> str:
+    if not parts:
+        return '<h2 id="narrative">Guidance in the narrative</h2>\n<p class="empty">The narrative comparison is not available.</p>'
+    counts = r15_narrative.counts(parts)
+    total = sum(counts.values())
+    count_html = " · ".join(f'{_result(k)} {counts[k]}' for k in r15_narrative.RESULTS if counts.get(k))
+
+    key = [f'<li>{_result(it["result"])} <a href="#{esc(it["id"])}">{esc(it["section"])}</a>: '
+           f'{esc(_first_sentence(it.get("note") or it["r15"]))}</li>'
+           for _, it in r15_narrative.items(parts) if it["result"] in r15_narrative.ATTENTION]
+
+    chapters = []
+    for p in parts:
+        rows = []
+        for it in p.get("items", []):
+            links = ", ".join(_guide_link(r, by_id, root) for r in it.get("guide") or []) or "—"
+            rec = (f'<p class="r15-rec"><strong>Suggested:</strong> {esc(_flat(it["recommendation"]))}</p>'
+                   if it.get("recommendation") else "")
+            note = f'<p>{esc(_flat(it["note"]))}</p>' if it.get("note") else ""
+            rows.append(
+                f'<tr id="{esc(it["id"])}" class="r-{esc(it["result"])}"><td class="sid"><code>{esc(it["id"])}</code></td>'
+                f'<td>{esc(it["section"])}<br><span class="mini">p. {esc(it.get("page", ""))}</span></td>'
+                f'<td>{_result(it["result"])}</td><td>{esc(_flat(it["r15"]))}</td>'
+                f'<td>{note}{rec}<p class="mini">{links}</p></td></tr>')
+        cid = f'narr-{slug(str(p.get("chapter", p["file"])))}'
+        summary = f'<p>{esc(_flat(p["summary"]))}</p>' if p.get("summary") else ""
+        chapters.append(
+            f'<section id="{esc(cid)}"><h3>{esc(p.get("title", ""))} <span class="mini">(2018 pages {esc(p.get("pages", ""))})</span></h3>'
+            f'{summary}<table class="r15 r15-narr"><thead><tr><th>ID</th><th>Release 1.5 section</th><th>Result</th>'
+            f'<th>What Release 1.5 says</th><th>This guide</th></tr></thead><tbody>{"".join(rows)}</tbody></table></section>')
+    chapter_index = " · ".join(
+        f'<a href="#narr-{esc(slug(str(p.get("chapter", p["file"]))))}">{esc(p.get("title", ""))}</a>' for p in parts)
+
+    return f"""<h2 id="narrative">Guidance in the narrative</h2>
+<p>The 2018 narrative was read section by section, and each piece of guidance was looked for in this guide. The parts
+read were chapters 1 to 3; the introduction, interaction, and dynamic definition of each profile (chapters 5 to 12);
+the batch chapter; the guidance around the example messages in Appendix B; and the addendum material in Appendix C.
+Data types, segment and code tables, and the example messages themselves are format, governed by the profiles above.
+Guidance that the profiles now carry is marked {_result("format")} and not compared further.</p>
+<p>Not yet compared: the field notes and comments in the 2018 segment and data type tables. A second pass will check
+them against this guide and record only what they add or where they conflict.</p>
+<p>{total} items: {count_html}. <a href="narrative.csv" download>Download the narrative comparison (CSV)</a></p>
+<h3 id="narrative-key">Changed or not carried forward</h3>
+<ul class="r15-key">{"".join(key)}</ul>
+<p class="mini">By part: {chapter_index}</p>
+{"".join(chapters)}"""
+
+
 def build_page(out: Path, data: dict, write) -> None:
-    """Writes r15/index.html (through write(path, body)) and r15/changes.csv."""
+    """Writes r15/index.html (through write(path, body)), r15/changes.csv, and r15/narrative.csv."""
     write(out / "r15" / "index.html", page(data, "../"))
     write_text(out / "r15" / "changes.csv", diff_r15.to_csv(data))
+    if data.get("narrative"):
+        write_text(out / "r15" / "narrative.csv", r15_narrative.to_csv(data["narrative"]))
