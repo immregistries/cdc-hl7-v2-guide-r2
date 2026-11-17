@@ -1,0 +1,287 @@
+                      Guidance for HL7 ACK Messages
+                      to Support Interoperability
+
+Background
+
+In summer 2015, The American Immunization Registry Association’s (AIRA) interoperability testing
+project reviewed HL7 Acknowledgement Messages (ACK) from 21 different Immunization Information
+Systems (IIS) as part of a standards alignment effort. The analyzed ACK messages had considerable
+variation and limited alignment with the National Implementation Guide (IG). These discoveries were
+significant enough to warrant further guidance in an effort to improve ACK message conformance and
+consistency across the nation. Release 1.5 of the National HL7 Implementation Guide (IG) allows for a
+few ways to provide an ACK which conforms to the IG. This, in-turn, results in varied understanding and
+implementation the ACK messages. This guidance document seeks to clarify those issues in an effort to
+drive all IIS towards common, standardized ACK messaging. This is important not only to ultimately
+improve data quality, but because EHR vendors, and increasingly healthcare entities themselves, cross
+IIS jurisdictional boundaries, and need a single standard with which to comply. Further conformance
+clarifications will be needed in a future release of the National IG.
+
+Scope of Guidance
+In Scope
+
+As documented in the National HL7 IG, the ACK message requires the use of one and only one Message
+Acknowledgement (MSA) segment. The second segment is the Error (ERR) segment that can be
+repeated. The ERR segment is defined as a Required, But May Be Empty (RE) segment. Both the MSA
+and ERR have one critical field to help determine initial understanding of successful processing, MSA-1
+(Acknowledgement Code) and ERR-4 (Severity) respectively. This document will provide guidance on
+consistent usage of MSA-1 and ERR-4 in response to a submitted VXU message.
+
+Out of Scope
+
+The ACK also contains other important fields. The other fields in the MSA and ERR have been populated
+according to the National IG with minor exceptions. Those fields will not be discussed in this guidance
+document. Please consult the National IG on other MSA and ERR fields.
+
+Vocabulary
+
+The use of the words “error” and “exception” are used extensively in the National HL7 IG. The word
+“error” is used in this document as well. Unfortunately, this can be problematic considering the different
+definitions readers may apply to the terms.
+
+    1) It could mean the general concept of an error as in something unexpected, unwanted, or wrong.
+
+                                                                                                                  1|Page
+
+                           © 2015 American Immunization Registry Association | Last updated October 2015
+                 1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+    2) It could refer to the Error (ERR) segment
+    3) It could refer to the Severity code of Error (E).
+    4) It could refer to the Acknowledgement Code of Application Error (AE)
+
+This guidance document attempts to be as specific as possible when using the term ‘error’ to properly
+associate it to one of the possible meanings above. In the case that the term isn’t clarified, the first
+meaning above (the general concept of an error as in something unexpected, unwanted, or wrong)
+should be assumed.
+
+The term “Sender” is used extensively in this document. In all cases it refers to the submitter (e.g.: EHR,
+Pharmacy, etc..) of the VXU message and not the IIS responding to the VXU message with an ACK
+message.
+
+ACK Guidance
+
+As noted in the scope section, MSA-1 and ERR-4 are the main focus of this document. The combination
+of these two fields should be a reliable indicator to sending systems in an effort to understand the
+outcome of processing of the original message. In truth, MSA-1 (AA, AE, AR) can be derived from the
+ERR-4 (I, W, E). As such, ERR-4 will be discussed first, followed by a derivation table for consistent MSA-1
+usage.
+
+ERR-4 (Severity)
+
+As suggested by the name of the field and the value set (I, W, E), this field documents how serious the
+error is and what the IIS expects of the sending system in regards to this error. In that light, it is very
+important to note that not all IIS will agree on the severity of a given error. For example, one IIS may
+consider an invalid value for Administration Route to be extremely serious and expect a sending system
+to correct and resubmit the data, while another IIS may simply want to alert the sending system about
+the situation, but not necessarily expect the sender to resubmit. This decision of the severity of a
+detected condition is left to the determination of each IIS. However, the distinction between a Severity
+of Error (E), Warning (W), and Information (I) along with the expectation of the sender must be
+consistent across IIS.
+
+The following table was taken verbatim from the National HL7 IG. It provides the possible ERR-4 values.
+
+Table 1: ERR-4 (Severity) Values defined by National HL7 IG
+
+Value Description  Comment
+   I Information   Transaction successful, but includes returned information.
+  W Warning        Transaction successful, but there may be issues. These may include
+                   non-fatal errors with potential for loss of data.
+  E Error          Transaction was not successful. The application rejected data that it
+                   views as important. This could include required fields or the entire
+                   message. The sender should be alerted to review and correct the
+                   message.
+
+One important note on the table are the phrases “Transaction successful” and “Transaction was not
+successful”. These phrases may be misleading when looking at a collection of ERR segments across an
+
+                                                                                                     2|Page
+
+          © 2015 American Immunization Registry Association | Last updated October 2015
+1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+entire message. For example, just because there is an ERR segment with a severity of Warning (W), a
+sender cannot deduce that the transaction was successful without verifying all other ERR segments. It is
+entirely possible that a subsequent ERR segment may contain a severity of Error (E).
+
+In looking at the description and comment columns above, and thus comparing it to the understood
+usage in the community, the following table was constructed to further define each value.
+
+Table 2: ERR-4 (Severity) Value Assignment and Sender Expectation
+
+ERR-4 Severity   Sender Must  Sender Must
+     Value         Correct?    Resubmit?
+
+        I               N            N
+       W                Y            N
+        E               Y            Y
+
+MSA-1 (Acknowledgement Code)
+
+During the processing of a message, it is possible that more than one error might exist. Each error will be
+messaged as a distinct ERR segment. Each ERR segment will contain its own ERR-4 (Severity) value (I, W,
+E). It is at this point that MSA-1 must be derived in a consistent manner to be a quick and effective
+indicator for sending systems.
+
+The following table was taken verbatim from the National IG. It provides the possible MSA-1 values.
+
+Table 3: MSA-1 (Acknowledgement Code) Values defined by National HL7 IG
+
+Value Description       Comment
+ AA Application Accept  Message was accepted without error.
+ AE Application Error   Message was processed and errors are being reported. AE is sent
+                        whenever an error is detected. This may range from data that are
+ AR Application Reject  ignored because they are not wanted to rejection of the entire
+                        message.
+                        Message was rejected because one of the following occurred:
+
+                             Unsupported Message Type
+                             Unsupported Event Code
+                             Unsupported Processing ID
+                             Unable to process for reasons unrelated to format or
+
+                                 content.
+
+Similar to ERR-4, the values in MSA-1 should have consistent meaning and usage. The following table
+was developed based on the description and comment columns above as well as understood usage in
+the community.
+
+Table 4: MSA-1 (Acknowledgement Code) Value Assignment and Expectation
+
+Scenario                      MSA-1 Value Sender Expectation
+No ERR segments
+                              AA                                         Document the message was accepted by
+
+                                                                         the IIS.
+
+                                                                                                     3|Page
+
+          © 2015 American Immunization Registry Association | Last updated October 2015
+1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+All ERR segments have ERR-4 (Severity) of      AA  Document the message was accepted by
+Information (I)
+                                                   the IIS. Only informational data is being
+At least one ERR segment has an ERR-4
+(Severity) of Warning (W) or Error (E).            returned.
+At least one ERR segment has an ERR-4
+(Severity) of Error (E) and is related to one  AE  Investigate ERR segment(s) and take
+of the following:
+                                                   expected actions per Table 2 above.
+     Unsupported Message Type
+     Unsupported Event Code                   AR  Investigate ERR segment(s) and take
+     Unsupported Processing ID
+     Unable to process for reasons                expected actions per Table 2 above.
+
+         unrelated to format or content.
+
+Correction and Resubmission
+
+A few places in this document expect the sender to correct and resubmit, however, it has not been
+stated what (or how much of the message) the sender is expected to resubmit. A single message may
+contain multiple parts or concepts (e.g.: multiple immunizations, addresses, responsible persons,
+observations, etc…). This guidance defines a consistent way to highlight errors in response to a
+submitted message, but the ACK is not well suited to indicate what data was consumed. As such, it is
+expected that a sender first investigate any error (E) conditions, correct any issues in the sending
+system, and then resubmit the corrected version of the data. It is important to note that correcting
+errors may include conversation with an IIS as the error may be on the IIS side (e.g.: new CVX code not
+yet accepted by an IIS).
+
+Summary
+
+The following table was built as a summary of the information defined above. This can be used as a
+quick resource for trading partners to have a common agreement on the use and expectation of MSA-1
+and ERR-4.
+
+                                                                                                     4|Page
+
+          © 2015 American Immunization Registry Association | Last updated October 2015
+1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+Table 5: MSA-1 and ERR-4 Summary    Expected  Understanding
+                                     MSA-1
+ ERR-4 Content                         AA     Message was accepted.
+                                       AA         - No action expected by sender
+  No ERR Segment                       AE
+                                              Message was accepted.
+  All ERR Segments have a              AE        - No action expected by sender
+      Severity of Information (I)
+                                       AR     Message was accepted.
+  At least one ERR Segment has a                 - Sender expected to take action to correct
+      Severity of Warning (W)                     - Sender not expected to resubmit
+
+  No ERR Segments have a                     The IIS has identified issues with the message.
+      Severity of Error (E)                       - Sender expected to take action to correct
+                                                  - Sender expected to resubmit
+  At least one ERR Segment has a
+      Severity of Error (E)                   The IIS has detected 1 of 4 specific problems.
+                                                  - See table 4 above for specific problems
+  At least one ERR Segment has a                 - Sender expected to take action to correct
+      Severity of Error (E) with a                - Sender expected to resubmit
+      condition defined in Table 4
+      above
+
+Examples
+
+The following examples are provided based on the guidance provided in this document.
+
+Scenario                 ACK Example
+IIS Accepted
+Message.                 MSH|^~\&|DCS|MYIIS|MYIIS||20150924161633-
+                         0500||ACK^V04^ACK|1234567|P|2.5.1|||NE|NE|||||Z23^CDCPHINVS
+
+IIS Accepted             MSA|AA|9299381
+Message with             MSH|^~\&|DCS|MYIIS|MYIIS||20150924161633-
+additional               0500||ACK^V04^ACK|5315315|P|2.5.1|||NE|NE|||||Z23^CDCPHINVS
+Information (I)
+                         MSA|AA|4513185
+IIS wants to warn
+(W) a Sender of an       ERR|||0^Message Accepted^HL70357|I||||3 of 3 immunizations
+issue. No Error (E)      have been added to IIS
+level problems with      MSH|^~\&|DCS|MYIIS|MYIIS||20150924162038-
+Message.                 0500||ACK^V04^ACK|465798|P|2.5.1|||NE|NE|||||Z23^CDCPHINVS
+
+IIS has Error (E) level  MSA|AE|313217
+problem with the
+message.                 ERR||PID^1^11^5|999^Application error^HL70357|W|1^illogical
+                         date error^HL70533|||12345 is not a valid zip code in MYIIS
+                         MSH|^~\&|DCS|MYIIS|MYIIS||20150924162038-
+                         0500||ACK^V04^ACK|987648|P|2.5.1|||NE|NE|||||Z23^CDCPHINVS
+
+                         MSA|AE|1531573
+
+                         ERR||PID^1^7|101^required field missing^HL70357|E||||Birth
+                         Date is required.
+
+                                                                                                     5|Page
+
+          © 2015 American Immunization Registry Association | Last updated October 2015
+1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+IIS has Warnings      MSH|^~\&|DCS|MYIIS|MYIIS||20150924162038-
+(W) and Information   0500||ACK^V04^ACK|6516848|P|2.5.1|||NE|NE|||||Z23^CDCPHINVS
+(I).
+                      MSA|AE|165138
+
+                      ERR|||0^Message Accepted^HL70357|I||||3 of 3 immunizations
+                      have been added to IIS
+
+IIS has Warnings      ERR||PID^1^11^5|999^Application error^HL70357|W|1^illogical
+(W) and Errors (E)    date error^HL70533|||12345 is not a valid zip code in MYIIS
+                      MSH|^~\&|DCS|MYIIS|MYIIS||20150924162338-
+                      0500||ACK^V04^ACK|6157|P|2.5.1|||NE|NE|||||Z23^CDCPHINVS
+
+                      MSA|AE|783843
+
+                      ERR||PID^1^11^5|999^Application error^HL70357|W|1^illogical
+                      date error^HL70533|||12345 is not a valid zip code in MYIIS
+
+IIS unable to         ERR||PID^1^7|101^required field missing^HL70357|E||||Birth
+process message       Date is required.
+due to 1 of 4         MSH|^~\&|DCS|MYIIS|MYIIS||20150924162338-
+specific HL7 defined  0500||ACK^V04^ACK|13549|P|2.5.1|||NE|NE|||||Z23^CDCPHINVS
+problems
+                      MSA|AR|9299381
+
+                      ERR||MSH^1^12|203^unsupported version
+                      id^HL70357|E||||Unsupported HL7 Version ID
+
+                                                                                                     6|Page
+
+          © 2015 American Immunization Registry Association | Last updated October 2015
+1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+

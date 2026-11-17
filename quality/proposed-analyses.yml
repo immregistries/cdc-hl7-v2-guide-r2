@@ -37,6 +37,11 @@ current:
   - title: TAB Comparison
     text: Each published Technical Advisory Bulletin compared with the guide, requirement by requirement.
     link: tabs/index.html
+  - title: SISC Guidance
+    text: >-
+      Underway. The SISC guidance documents published before the TABs, compared with the guide in the same way as the TABs
+      (proposal 3 below).
+    link: sisc/index.html
   - title: Release 1.5 structural comparison
     text: >-
       Underway. The Release 1.5 conformance profiles (from the NIST test tool) are loaded alongside the new IGAMT profiles so

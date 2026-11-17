@@ -1,0 +1,151 @@
+# SISC guidance documents published before the TABs.
+#
+# Before the Technical Advisory Bulletin (TAB) series began in 2024, AIRA's Standards and Interoperability Steering
+# Committee (SISC) published guidance documents, with CDC, that clarified how to implement Release 1.5. This guide is meant
+# to fold them in. Published copies are kept in sisc/ (with extracted text in sisc/text/), and the comparison of each one
+# with the guide is recorded in quality/sisc/<id>.yml. The site shows them under "SISC Guidance".
+#
+# Fields:
+#   id           stable ID, used in URLs (sisc/<id>/) and finding IDs; never reuse
+#   title        title as published
+#   short        shorter title for the contents menu (optional)
+#   date         publication date on the document (YYYY-MM)
+#   url          the published copy on the AIRA repository (omit until located)
+#   file         the copy in sisc/ (omit until located)
+#   summary      one or two sentences
+#   source_note  anything a reviewer should know about versions (optional)
+#   cards        guide sections the document affects (a "SISC Guidance Documents" panel links them)
+#   kind         guidance (default) | faq
+#
+# Not listed here: the 2023 draft "Guidance on National Set of Error Codes" (folded into the ACK TAB, compared there), and
+# the 2015 MIROW micro-guide "Validating Lot Numbers for Vaccine Doses" (replaced by the lot number guidance below).
+
+page: https://repository.immregistries.org/
+
+documents:
+  - id: ack-messages
+    title: Guidance for HL7 Acknowledgement Messages to Support Interoperability
+    short: ACK Messages
+    date: 2015-10
+    url: https://repository.immregistries.org/files/resources/5835adc2add61/guidance_for_hl7_acknowledgement_messages_to_support_interoperability_.pdf
+    file: sisc/2015-10-ack-messages.pdf
+    summary: >-
+      Based on a 2015 review of ACKs from 21 IIS, clarifies how to populate MSA-1, ERR-2, ERR-3, ERR-4, ERR-5, and ERR-8 so
+      that an ACK tells the sender plainly whether the message was accepted and what, if anything, must be fixed.
+    source_note: >-
+      The ACK TAB (June 2026) updates and replaces much of this guidance; compare only what the TAB did not carry over.
+      A Word copy marked v1.1 (January 2018) also exists; the published PDF (last updated October 2015) is the one compared.
+    cards:
+      - acknowledgement-ack-message-profile
+      - iis-core-intent-and-message-disposition
+      - application-level-scope-of-ack-messages
+      - issue-level-reporting-using-err-segments
+      - err-2-error-location
+      - err-4-severity-code
+      - err-5-application-error-code
+      - err-8-user-message
+      - msa-1-guidance
+
+  - id: query-responses-and-patient-protection
+    title: Query Responses and Patient Protection
+    short: Query Responses and Patient Protection
+    kind: faq
+    date: 2016-09
+    url: https://repository.immregistries.org/files/resources/5835adc2d346a/query_responses_and_patient_protection_guidance_final_for_posting_v2_new_logo.pdf
+    file: sisc/2016-09-query-responses-and-patient-protection.pdf
+    summary: >-
+      How to structure an RSP^K11 response when the query matches a patient who has asked that their data be protected:
+      when to send a full Z32 or Z42 response, and when to send a Z33 instead.
+    source_note: Published September 2016; revised July 2017.
+    cards:
+      - protection-indicator-pd1-12-usage
+      - consent-and-privacy
+      - historical-note-on-pd1-12-interpretation
+      - cross-border-and-multi-jurisdictional-messaging
+      - z33-return-a-response-with-no-person-records
+      - z32-return-complete-immunization-history
+      - z42-return-evaluated-immunization-history-and-forecast
+
+  - id: rsp-messages
+    title: Guidance for HL7 RSP Messages to Support Interoperability
+    short: RSP Messages (MSA-1, QAK-2, ERR-4)
+    date: 2017-06
+    url: https://repository.immregistries.org/files/resources/593835a0bf6bb/rsp__msa-1_qak-2_err-4__guidance_document_v1_0_for_publication_new_logo.pdf
+    file: sisc/2017-06-rsp-messages.pdf
+    summary: >-
+      How to populate the acknowledgment code (MSA-1), the query response status (QAK-2), and error severity (ERR-4) in a
+      query response so that all three agree with each other and with the outcome of the query.
+    cards:
+      - user-initiated-query-scenarios
+      - z31-return-a-list-of-candidates
+      - z32-return-complete-immunization-history
+      - z33-return-a-response-with-no-person-records
+      - z42-return-evaluated-immunization-history-and-forecast
+
+  - id: unit-of-sale-unit-of-use-lot-numbers
+    title: Guidance on Unit of Sale/Unit of Use Lot Numbers
+    short: Unit of Sale/Unit of Use Lot Numbers
+    date: 2017-06
+    url: https://repository.immregistries.org/files/resources/596f7218ad93e/aira_sisc_vaccine_lot_number_guidance_20180614.pdf
+    file: sisc/2017-06-unit-of-sale-unit-of-use-lot-numbers.pdf
+    summary: >-
+      How to handle vaccines whose carton (unit of sale) and vial or syringe (unit of use) carry different lot numbers, so
+      that a reported dose can still be matched to inventory.
+    source_note: >-
+      Approved by SISC July 12, 2017; codes updated June 14, 2018. It replaces the 2015 MIROW micro-guide on validating lot
+      numbers.
+    cards:
+      - non-identifying-vaccination-fields
+      - administered-vaccinations
+      - ndc-requirements-for-administered-vaccinations
+      - inventory-and-accountability-considerations
+      - why-hl7-requirements-cannot-substitute-for-data-quality
+
+  - id: message-structure-and-loinc-codes
+    title: Guidance on Detailed Message Structure and the Use of Specific LOINC Codes
+    short: Message Structure and LOINC Codes
+    date: 2018-04
+    url: https://repository.immregistries.org/files/resources/5938386822754/message_structure_guidance_document_v1_1__formatted.docx
+    file: sisc/2018-04-message-structure-and-loinc-codes.docx
+    summary: >-
+      How to structure whole VXU and RSP messages that carry observations (immunity, refusals, indications and
+      contraindications, adverse reactions, VIS), and which LOINC codes belong in which order segment group.
+    source_note: >-
+      Version 1.1, published as a Word document. The repository also has an earlier PDF (2017). The CDS in RSP TAB
+      (September 2026) builds on this guidance for evaluations and forecasts.
+    cards:
+      - overview-of-loinc-and-obx-usage-in-immunization-messaging
+      - order-segment-groups-and-loinc-obx-grouping
+      - order-segment-group-flavors
+      - immunization-event
+      - immunization-event-contraindicated
+      - immunization-event-refused
+      - patient-observations
+      - immunization-event-with-evaluation
+      - forecast
+
+  - id: obx-14-observation-date-time
+    title: Guidance on Populating OBX-14
+    short: Populating OBX-14
+    date: 2019-09
+    summary: >-
+      What the observation date-time (OBX-14) means for the common observation types in VXU and RSP messages, many of which
+      are not physiological.
+    source_note: The published copy has not been located yet, so this document is not compared yet.
+    cards:
+      - obx-14-date-time-of-the-observation
+      - date-semantics
+
+  - id: preferable-and-contraindicated-vaccines
+    title: Guidance on Indicating Preferable and Contraindicated Vaccines
+    short: Preferable and Contraindicated Vaccines
+    date: 2019-09
+    summary: >-
+      How to indicate, in a forecast in an RSP response, the vaccine types that are preferred or contraindicated for the
+      vaccine group being recommended.
+    source_note: >-
+      The published copy has not been located yet, so this document is not compared yet. The CDS in RSP TAB (September
+      2026) covers the same topic.
+    cards:
+      - preferred-and-contraindicated-vaccine-types
+      - forecast

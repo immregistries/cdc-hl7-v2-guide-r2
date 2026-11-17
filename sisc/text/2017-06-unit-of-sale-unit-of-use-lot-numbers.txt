@@ -1,0 +1,295 @@
+                                                               Vaccine Lot Number Patterns:
+                                                           Unit of Sale/Unit of Use Guidance
+
+                                                             Version Date: June 7, 2017 | Approved by SISC: July 12, 2017
+                                                                                                         Codes Updated: June 14, 2018
+
+                                     Note: Some of this information was originally published as a
+                               MIROW Microguide in 2015. This document replaces earlier guidance.
+
+Background
+
+Some vaccine manufacturers use a different lot number on the unit of use (UoU; e.g., vial or syringe) than on the unit of
+sale (UoS; e.g., carton or box) for certain vaccines. This may be done to denote a meaning such as the location of the
+manufacturers’ facility or the packaging level. The variation in lot numbers between packaging levels poses a challenge
+to electronic systems that rely on the vaccine lot number to relate a vaccination encounter to vaccine inventory.
+
+There is no industry standard for vaccine lot numbers; traditionally, manufacturers used (and most still do) the same lot
+for the vaccine products on all levels of packaging. The Federal Drug Administration (FDA) regulations allow for different
+lot numbers for vaccine products on the different levels of packaging (UoU/UoS), but the regulations do not require it.
+
+A survey of vaccine manufacturers in September 2014 indicated that some manufacturers, for selected vaccine
+products, were using “non-traditional” lot number conventions by using different lot numbers for the UoU and the UoS
+for the same vaccine products. This survey was repeated in December 2016. Both surveys were distributed to vaccine
+manufacturers participating in the Vaccines for Children (VFC) program but included information on both public and
+private vaccines. Vaccine manufacturers were asked to identify vaccines in use with different lot numbers on the UoS
+and the UoU for vaccines currently sold in the U.S. market, and the associated lot number patterns on those lot
+numbers. In both surveys, all participating VFC vaccine manufacturers responded, seven in the September 2014 and
+seven in the December 2016 survey. Participants in the 2016 survey included the following: GSK, MedImmune, Merck,
+Pfizer, Protein Science, Sanofi, and Seqirus. The information in this document is based on the results of the December
+2016 survey.
+
+Document Use
+
+The purpose of this document is to share the results of the December 2016 survey; describe the scope of the challenge
+of having different lot numbers on the two vaccine products, and provide tools for system developers to ameliorate the
+situation. The intent is to facilitate identification and tracking of the appropriate lot numbers in various areas of
+immunization information system (IIS) operations, from inventory management to vaccine administration. In addition to
+IIS, many health information management (HIM) systems reference the UoS lot number for vaccine ordering and
+inventory management, but reference the UoU number during vaccine administration. This document shows the
+relationship, when differences exist, between lot numbers used primarily for inventory management (UoS) and those
+used for vaccine administration (UoU).
+
+This document contains three tables.
+    • The first table lists those vaccines with different UoU/UoS lot numbers and shows the corresponding patterns
+         for those lot numbers. Vaccines not on this list are assumed to have the same UoU/UoS lot numbers. For a list of
+         all vaccines, see the NDC Crosswalk Table on the IIS Code Set web-page:
+         https://www2a.cdc.gov/vaccines/iis/iisstandards/ndc_crosswalk.asp.
+    • The second table shows an estimate of the volume (percentage) of the vaccines with different UoS/UoU
+         vaccines based upon VTrckS orders in 2015 and 2016.
+
+    • The third table shows those vaccines from the manufacturers not included in the request for information.
+
+Vaccines with Different Lot Numbers: UoS and UoU
+
+The following table shows those vaccines with different UoS/UoU lot number and the associated lot number patterns.
+
+Table 1: Vaccines with Different Lot Numbers: UoU and UoS, With Associated Patterns Table
+
+Company Brand Name                     NDC               Lot Number Patterns*,                 Note
+                                                             English Notation
+                         Unit of Sale Unit of Use                                  UoS has extra alpha at
+                         (Outer box) (Vial/Syringe)    Unit of Sale Unit of Use    end of lot number. First 7
+                                                       (Outer box) (Vial/Syringe)  digits same on UoU &
+                                                                                   UoS
+         ActHIB          49281-545- 49281-547-         AA###AAA      AA###AA       No relationship between
+         (Lyophilized                                              (Lyophilized)   the UoS lot number and
+         vaccine         03             58                                         the Diluent UoU lot
+         powder)                                                                   number
+Sanofi                   49281-545- 49281-546-         AA###AAA    See Note        UoS has an extra number
+Pasteur  ActHIB                                                    (Diluent)       and alpha at the end of
+         (Liquid         03             58                                         the lot number. First 5
+Sanofi   Diluent)                                                                  characters same on UoU
+Pasteur                  49281-250- 49281-248-         A#####A         A####       & UoS
+         IMOVAX                                                    (Lyophilized)
+         RABIES          51             58
+         (Lyophilized
+         vaccine         49281-250- 49281-249-         A#####A     See Note        No relationship between
+         powder)                                                   (Diluent)       the UoS lot number and
+         IMOVAX          51             01                                         the Diluent UoU lot
+         RABIES,                                                                   number
+         Sterile
+         water
+         (Liquid
+         Diluent)
+
+Sanofi   IPOL vial       49281-860-     49281-860-     A#####A     A####           UoS has an extra number
+Pasteur                        10            78                                    and alpha at the end of
+                                                                                   the lot number. First 5
+                         46028-208-                                                characters same on UoU
+                               01                                                  & UoS
+
+                         (Code Retired  Historic Menveo Pattern**
+                          on April 30,
+           Menveo,                      46028-218-     M#####         A#####       UoS outer box lot
+           MenA              2018)            11                   (Lyophilized)   number begins with the
+           lyophilized                                                             letter M (actual letter M)
+           conjugate     46028-208-     (Code Retired                 X#####       and is followed by 5
+           component           01        on April 30,                (Diluent)     numbers. MenA UoU lot
+           (Lyophilized                                                            number begins with A
+GSK vaccine                                 2018)                                  (actual letter A) while the
+           powder)                                                                 peel-off label begins with
+           Menveo,                      46028-219-     M#####                      M (actual letter M).
+           MenCWY-                           11                                    MenCYW begins with a X
+           135 liquid                                                              (actual letter X). The 5
+           conjugate                                                               digits remain the same
+           component                                                               for the three
+
+                                                                                           Page | 2
+                                                NDC             Lot Number Patterns*,             Note
+Company Brand Name Unit of Sale Unit of Use                         English Notation
+
+                                                              Unit of Sale Unit of Use
+
+                   (Outer box) (Vial/Syringe) (Outer box) (Vial/Syringe)
+
+     (Liquid       (Code Retired (Code Retired                                          components in the same
+
+     Diluent)      on April 30,           on April 30,                                  UoS. A one to one UoU to
+                      2018)                  2018)                                      UoS mapping is possible,
+
+                                                                                        substitute “M” with “A”
+
+                                                                                        in 1st character
+
+                   Current Menveo Pattern – Effective as of May 2018**
+
+                                                                                        The 1st character is
+
+                                                                                        always “A”. The 2nd and
+
+     Menveo,       58160-955-             58160-958-          AMVA###A  AMAA###A        3rd characters on the
+     MenA               09                     01                       (Lyophilized)   UoS lot number is “MV”;
+     lyophilized                                                                        the 2nd and 3rd
+     conjugate                                                                          characters on the UoU lot
+     component                                                                          number is “MA”. The last
+     (Lyophilized                                                                       five characters are the
+     vaccine                                                                            same for the UoS and the
+     powder)                                                                            UoU and follow the
+                                                                                        following pattern: 1
+
+                                                                                        alpha, 3 numbers, 1
+
+GSK                                                                                     alpha (e.g. A123B).
+                                                                                        The 1st character is
+
+                                                                                        always “A”. The 2nd and
+
+                                                                                        3rd characters on the
+
+     Menveo,                                                                            UoS lot number is “MV”;
+
+     MenCWY-                                                                            the 2nd and 3rd
+
+     135 liquid    58160-955-             58160-959-          AMVA###A  AMXA###A        characters on the UoU lot
+     conjugate          09                     01                        (Diluent)      number is “MX”. The last
+     component                                                                          five characters are the
+
+     (Liquid                                                                            same for the UoS and the
+
+     Diluent)                                                                           UoU and follow the
+
+                                                                                        following pattern: 1
+
+                                                                                        alpha, 3 numbers, 1
+
+                                                                                        alpha (e.g. A123B).
+
+                                                                                        UoS has a hyphen and an
+
+Sanofi Typhim Vi   49281-790- 49281-790-                      A####-#   A####           extra number at the end
+Pasteur syringe                                                                         of the UoU lot number.
+                   51                     88                                            First 5 characters same
+
+                                                                                        on UoU & UoS
+
+                                                                                        UoS has a hyphen and an
+
+Sanofi Typhim Vi   49281-790- 49281-790-                      A####-#   A####           extra number at the end
+Pasteur vial                                                                            of the UoU lot number.
+                   20                     38                                            First 5 characters same
+
+                                                                                        on UoU & UoS
+
+*Key: ‘A’ indicates a capital alphabetical (alpha) character
+
+     A pound sign (#) indicates a number
+
+     Italicized, underlined, and red alpha-numeric character indicates a change from UoS and UoU
+
+** Note: for a while, both numbering patterns will be on the market
+
+                                                                                                              Page | 3
+Notes: Matching, Reconstituted Vaccines, and Regular Expression
+The lot numbers differ by one or two additional characters on the UoS item. Mapping from the UoS to the UoU is
+relatively simple; however, mapping from the UoU to UoS is problematic, except for Menveo (see the Menveo Note).
+That being said, many IIS have full knowledge of lot numbers in the provider’s inventory (see explanation in AIRA
+MIROW Decrementing Inventory via Electronic Data Exchange) and can match the reported UoU lot number to the
+single UoS lot number for that provider in many or most situations. Discrepancies will need to be resolved during the
+reconciliation process.
+
+For reconstituted vaccines, the lot numbers on the UoS and the UoU Lyophilized vaccine powder are the same, except
+for the reconstituted vaccines in Table 1 (above). Typically, the UoU Liquid diluent has a different lot number. For a list
+of reconstituted vaccines, see http://www.immunize.org/catg.d/p3040.pdf. The Lot Number Patterns, English Notation
+columns in Table 1 above have been converted to Regular Expression, POSIX Notation. See table in Appendix A at the
+end of this document. This table is primarily for use by software developers.
+
+Different UoS/UoU Lot Numbers – Estimate of Volume
+
+This table shows an estimate of the volume (percentage) of the vaccines with different UoS/UoU vaccines based upon
+the VTrckS orders in 2015 and 2016. These estimates show that the practice of using different lot numbers of the UoS vs.
+the UoU affects from 7.5 to 8.6 percent of all VFC vaccines. We were not able to estimate the volume of the rabies and
+typhoid vaccines.
+
+Table 2: Vaccines with Different Lot Numbers – Estimated percent of Total
+
+Company                   Brand Name                        VTrckS 2015 %     VTrckS 2016 %
+                                                                                    4.86
+Sanofi Pasteur            ActHIB                            4.22                     2.5
+                                                                                    1.25
+Sanofi Pasteur            IMOVAX RABIES
+                                                                                    8.61
+Sanofi Pasteur            IPOL vial                         2.11
+
+GSK                       Menveo                            1.15
+
+Sanofi Pasteur            Typhim Vi syringe
+
+Sanofi Pasteur            Typhim Vi vial
+
+                          Total                             7.48
+
+Vaccine Manufacturers’ Vaccines Not Included in Survey
+
+Below is a list of vaccines from vaccine manufacturers not included in the survey. These vaccine manufacturers include
+Akorn Pharmaceuticals; Barr laboratories; Emergent BioDefense Operation; Massachusetts Biologic Laboratories;
+PaxVax; and Valneva.
+
+Table 3: Vaccines from Manufacturers Not Included in Request for Information
+
+Brand Name                           Company                                  Company Code
+                                                                                    AKR
+Td, adsorbed                         Akorn Pharmaceuticals                          BRR
+                                                                                    MIP
+Adenovirus types 4 and 7             Barr Laboratories                              MBL
+                                                                                    PAX
+BIOTHRAX                             Emergent BioDefense Operations Lansing         PAX
+                                                                                    VAL
+TD (GENERIC)                         Massachusetts Biologic Laboratories
+
+VAXCHORA                             PaxVax
+
+Vivotif                              PaxVax
+
+Ixiaro                               Valneva
+
+                                                                              Page | 4
+Vaccines with Same Lot Numbers - UoS and UoU
+
+Vaccines not included in Table 1 are assumed to have the same UoS/UoU lot numbers. For a list of all vaccines see the
+NDC Crosswalk Tables on the IIS Code Set web-page:
+https://www2a.cdc.gov/vaccines/iis/iisstandards/ndc_crosswalk.asp.
+
+Updating Information
+
+If you become aware of any vaccines where the lot number differs on the UoS and the UoU (or on the UoS and the UoU
+lyophilized vaccine powder for a reconstituted vaccine), please share that information with IISinfo@cdc.org. If possible,
+please include some images of the respective packages.
+
+                                                                                                                                         Page | 5
+Appendix A
+
+Lot Number (#) Patterns, English Notation and POSIX Notation
+
+Lot # Patterns - English Notation Lot # Patterns - Regular Expression, POSIX Notation  Note
+
+A####       ^[A-Z][0-9]{4,4}$
+
+A####-#     ^[A-Z][0-9]{4,4}'-'[0-9]$                                                  Actual char. '-'
+
+A#####      ^[A-Z][0-9]{5,5}$
+
+A#####A     ^[A-Z][0-9]{5,5}[A-Z]$
+
+AA###AA     ^[A-Z]{2,2}[0-9]{3,3}[A-Z]{2,2}$
+
+AA###AAA    ^[A-Z]{2,2}[0-9]{3,3}[A-Z]{3,3}$
+
+M#####      ^\QM\E[0-9]{5,5}$                                                          Actual letter 'M'
+
+X#####      ^\QX\E[0-9]{5,5}$                                                          Actual letter 'X'
+
+A#####      ^\QA\E[0-9]{5,5}$                                                          Actual letter 'A'
+
+                                                                                                          Page | 6
+

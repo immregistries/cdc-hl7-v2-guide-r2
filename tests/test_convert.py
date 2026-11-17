@@ -260,18 +260,25 @@ def broken_links(site: Path) -> list[str]:
 
 
 class TabReviewTest(unittest.TestCase):
-    """data/tabs.yml and quality/tabs/: every guide reference exists, and results that need attention become findings."""
+    """data/tabs.yml, data/sisc-guidance.yml, and their comparisons: every guide reference exists, and results that need
+    attention become findings."""
 
     def test_committed_comparisons(self):
         import tab_review
         by_id = {c.id: c for c in walk(load_tree(CARDS_DIR))}
-        data = tab_review.load(REPO, by_id)
-        for t in data["tabs"]:
-            self.assertTrue((REPO / t["file"]).exists(), t["file"])
-        found = tab_review.findings(data)
-        self.assertTrue(found)
-        self.assertTrue(all(f["card"] in by_id and f["category"] == "tab" for f in found))
-        self.assertEqual(len({f["id"] for f in found}), len(found))
+        sets = tab_review.load_all(REPO, by_id)
+        self.assertIn("tab", sets)
+        all_ids = []
+        for key, data in sets.items():
+            for t in data["docs"]:
+                if key == "tab" or t.get("file"):  # SISC documents whose published copy is not yet located have no file
+                    self.assertTrue((REPO / t["file"]).exists(), t["file"])
+            found = tab_review.findings(data)
+            if key == "tab":
+                self.assertTrue(found)
+            self.assertTrue(all(f["card"] in by_id and f["category"] == key for f in found))
+            all_ids += [f["id"] for f in found]
+        self.assertEqual(len(set(all_ids)), len(all_ids))
 
     def test_unknown_reference_fails(self):
         import tab_review

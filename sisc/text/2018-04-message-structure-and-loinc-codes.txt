@@ -1,0 +1,617 @@
+Guidance on Detailed Message Structure and the Use of Specific LOINC Codes 
+Guidance on Detailed Message Structure and the Use of Specific LOINC Codes 
+Background
+Release 1.5 of the Implementation Guide (IG) for Immunization Messaging outlines the technical details of messaging concepts beyond the core immunization event data. This includes observations such as patient immunity, refusals, indications/contraindications and adverse reactions. However, additional guidance is required as to how to structure the whole message when it contains one or more of these concepts and to identify the types of observations (LOINC codes) which are appropriate to use in different parts of the message. This document contains best practice recommendations from AIRA’s SISC and the CDC on how to structure and populate VXU and RSP messages.
+Scope of Guidance
+In Scope
+Each profile description below contains a description of the Order Segment Groups that may make included in a particular message and a list of relevant observations for each type of Order Segment Groups. Each section also includes a Co-Constraints table that specifies how to populate an OBX segment based on the observation being messaged. To use the table, find the row containing the LOINC code being messaged in OBX-3. Then use the remaining columns to determine how to populate the key elements of the segment. The data type for OBX-2 is indicated along with valid value sets for various fields (when appropriate for the date type), including OBX-5. When populating the segment, the value in OBX-2 must correspond to a value found in HL7 table 0125 but the format of the data in OBX-5 should correspond to a data type flavor described in the Release 1.5 document. Where the IG includes multiple flavors of a data type, the specific flavor to be used is identified in the "Comments" column. For example, some LOINC codes require OBX-2 to be the value "DT" but OBX-5 should be formatted according to the requirements of the DT_D data type flavor.
+Note that some of the LOINC codes documented here are not included in Release 1.5. They are called out here for completeness and as an indicator of future usage. The use of these codes are highly recommended if the cognate concepts need to be message in a Release 1.5 conformant message.
+Out of Scope
+The use of local codes by trading partners is not covered in this document. IIS should document any additional codes used in the jurisdiction and the context for using those local codes.
+Types of Order Segment Groups
+The VXU and RSP messages described in Release 1.5 of the IG contain groups of segments organized as logical units called segment groups. One such segment group is the Order Segment Group that contains required ORC and RXA segments as well as required but may be empty RXR and OBX segments (note that the OBX segment is itself part of the Observation Segment Group). This document will describe different flavors of Order Segment Groups that are used by the Z22, Z32 and Z42 profiles.
+Figure 1- Excerpt from Release 1.5 VXU Message
+Figure 2 - Excerpt from Release 1.5 RSP Message
+Six basic flavors of Order Segment Groups are found in immunization messages:
+Immunization Event – this segment group includes observations about the event itself
+Immunization Event (Contraindicated) – this segment group includes data about a potential dose which was NOT given due to a patient contraindication, these document specific decisions to not administer a dose
+Immunization Event (Refused) – this segment group includes data about a vaccine that was refused by the patient or the patient’s guardian
+Immunization Event with Evaluation – this segment group includes observations about the event itself as well as additional observations derived from an evaluation of the event against a set of immunization recommendations
+Forecast – this segment group includes observations pertaining for forecasted future doses derived from a comparison of the patient history with a set of immunization recommendations
+Patient Observations – this segment group includes observations related directly to the patient and not pertaining to any particular immunization event, evaluation or forecast
+The remainder of this document will outline the use of these Order Segment Group flavors in various message profiles.
+Structure of the Send Unsolicited Immunization Update (VXU) - Z22 message
+A conformant Z22 message may include multiple Order Segment Groups. The Z22 message may contain zero or more Immunization Event Order Segment Groups containing data about specific doses administered to the patient, contraindicated doses and/or refused doses. Typically, unless the message is being used for a demographics only exchange or an exchange of only patient observations, at least one Immunization Event Order Segment Group will be present in the message. The message may also contain up to one Patient Observation Order Segment Group containing patient level observations. All Immunization Event Order Segment Groups, regardless of type, should precede the Patient Observation Order Segment Group (if present). This document makes no recommendations regarding the order of OBXs within a given Order Segment Group, but keep in mind that related OBX segments, such as those related to VIS information, must be linked via the subID in OBX-4 (see the Release 1.5 Implementation Guide for additional details).
+It is not expected that a VXU message would ever contain Immunization Event with Evaluation or Forecast Order Segment Groups as submitters do not typically evaluate administered doses or forecast future doses when submitting data to an IIS or other Health Information System (HIS).
+Within an Immunization Event Order Segment Group, RXA-5 shall indicate the vaccine administered and RXA-20 shall be PA or CP indicating an administered dose. The following OBX segment types are relevant:
+Patient eligibility status (required for new administrations) - LOINC code 64994-7
+Vaccine funding source (required for new administrations) - LOINC code 30963-3
+Vaccine Information Statements (VIS) (required for most new administrations (see Conformance Statement IZ-24 in the Release 1.5 Implementation Guide)) - LOINC codes 69764-9 and 29769-7
+Adverse reactions where the reaction can be directly attributable to the specific immunization event - LOINC code 31044-1
+Indication (why the dose was administered) - LOINC code 59785-6
+Indication effective date - LOINC code 88877-6
+Indication expiration date - LOINC code 88879-2
+Free text comment - LOINC code 48767-8
+Within an Immunization Event (Refused) Order Segment Group, RXA-5 shall indicate the refused vaccine, RXA-20 shall be RE and RXA-18 shall contain a coded refusal reason. The following OBX segment types are relevant:
+Free text comment - LOINC code 48767-8
+Within an Immunization Event (Contraindicated) Order Segment Group, RXA-5 shall indicate the contraindicated vaccine and RXA-20 shall be NA, indicating that a dose was not administered. The following OBX segment types are relevant:
+Contraindication (why a dose was not administered) - LOINC code 30945-0
+Contraindication effective date - LOINC code 30946-8
+Contraindication expiration date - LOINC code 30944-3
+Free text comment - LOINC code 48767-8
+Within a Patient Observation Order Segment Group, RXA-5.1 shall be the CVX code 998 and RXA-20 shall be NA. The following OBX segment types are relevant:
+Adverse reactions where the reaction cannot be directly attributable to a specific immunization event - LOINC code 31044-1
+Serological evidence of immunity - LOINC code 75505-8
+Presumed evidence of immunity - LOINC code 59784-9
+Patient condition - LOINC code 75323-6
+Date of condition onset- LOINC code 85585-8
+Date of condition abatement- LOINC code 88878-4
+ Table 1: Co-Constraints for a Z22 message
+OBX-3
+Description
+OBX-2
+OBX-5 Value Set
+OBX-17 Value Set
+Comments
+64994-7
+Vaccine funding program eligibility category
+CWE
+0064
+PHVS_FundingEligibilityObsMethod_IIS
+This value represents the funding program that should pay for a given immunization. It is determined based on characteristics of the patient and the type of vaccine administered. 
+30963-3
+Vaccine funding source
+CWE
+PHVS_ImmunizationFundingSource_IIS
+N/A
+This value represents the funding source (public or private) of the vaccine administered. 
+29769-7
+Date vaccine information statement presented
+DT
+N/A
+N/A
+This value represents the date the document was presented to the patient/responsible person. OBX-5 Format: DT_D
+69764-9
+Document type
+CWE
+PHVS_VISBarcodes_IIS
+N/A
+This value represents the vaccine type that the VIS provides information about. 
+59784-9
+Disease with presumed immunity
+CWE
+PHVS_HistoryOfDiseaseAsEvidenceOfImmunity_IIS
+N/A
+This value represents a disease where a clinician has determined that the patient has a history of the disease. 
+75505-8
+Disease with serological evidence of immunity
+CWE
+PHVS_SerologicalEvidenceOfImmunity_IIS
+N/A
+This value represents a disease serological evidence indicates immunity. 
+31044-1
+Immunization reaction
+CWE
+PHVS_VaccinationReaction_IIS
+N/A
+This value represents a reaction a patient experienced after an immunization. 
+75323-6
+Patent condition
+CWE
+TBD
+N/A
+This value represents a physical condition, current medication or other factor about the person. 
+85585-8
+Date of condition onset
+DT
+N/A
+N/A
+This value represents the effective date of the patient condition. OBX-5 Format: DT_D
+88878-4
+Date of condition abatement
+DT
+N/A
+N/A
+This value represents the expiration date of the patient condition. OBX-5 Format: DT_D
+59785-6
+Indication for immunization
+CWE
+PHVS_VaccinationSpecialIndications_IIS
+N/A
+This value represents a factor that can drive the need for a specific immunization or a change in the normal schedule for immunization. 
+88877-6
+Indication effective date
+DT
+N/A
+N/A
+This value represents the effective date of the indication. OBX-5 Format: DT_D
+88879-2
+Indication expiration date
+DT
+N/A
+N/A
+This value represents the effective date of the indication. OBX-5 Format: DT_D
+30945-0
+Vaccination contraindication/precaution
+CWE
+PHVS_VaccinationContraindication_IIS
+N/A
+This value represents a physical condition, current medication or other factor that indicates that a person should not receive an immunization. 
+30946-8
+Date of vaccination contraindication/precaution effective
+DT
+N/A
+N/A
+This value represents the effective date of the contraindication. OBX-5 Format: DT_D
+30944-3
+Date of vaccination temporary contraindication/precaution expiration
+DT
+N/A
+N/A
+This value represents the expiration date of the contraindication. OBX-5 Format: DT_D
+30956-7
+Type [Identifier] Vaccine
+CWE
+CVX
+N/A
+This value represents the vaccine administered. 
+48767-8
+Annotation comment
+TX
+N/A
+N/A
+This value represents a comment regarding the vaccination. 
+Structure of the Return Complete Immunization History (RSP) - Z32 message
+A conformant Z32 message may include multiple Order Segment Groups. The message will contain zero or more Order Segment Groups containing data about specific doses administered to the patient. A Z32 message may use either the Immunization Event Order Segment Group or the Immunization Event with Evaluation Order Segment Group. If the message contains a Forecast Order Segment Group, the Immunization Event with Evaluation Order Segment Group should be used, otherwise, the Immunization Event Order Segment Group should be used. These Order Segment Groups may contain observations about the event as documented by the originator of the record as well as additional evaluation data (if using the Immunization Event with Evaluation flavor). The message may also contain one Order Segment group containing patient forecast information and where RXA-5.1 shall be the CVX code 998. This Forecast Order Segment Group may contain multiple “sets” of related OBX segments with each set detailing a recommendation for a single future administration or series, these sets of OBX segments are linked via an identical subID in OBX-4 (each forecasted administration must have a unique subID). If the system generating the Z32 message is capable of capturing refused vaccines, the message may contain zero or more Immunization Event (Refused) Order Segment Groups. If the system generating the Z32 message is capable of capturing contraindicated vaccines, the message may contain zero or more Immunization Event (Contraindicated) Order Segment Groups. The message may also contain up to one Patient Observation Order Segment Group containing patient level observations. Except where noted below, this document makes no recommendations regarding the order of OBXs within a given Order Segment Group, but keep in mind that related OBX segments, such as those related to a vaccine group evaluation or forecast, must be linked via the subID in OBX-4.
+Within an Order Segment Group describing the immunization event, RXA-5 shall indicate the vaccine administered and RXA-20 shall be PA or CP indicating an administered dose. The following OBX segment types are relevant: 
+Information about the immunization event (common to both the Immunization Event and Immunization Event with Evaluation Order Segment Groups):
+Patient eligibility status - LOINC code 64994-7
+Vaccine funding source - LOINC code 30963-3
+Vaccine Information Statements (VIS) - LOINC codes 69764-9 and 29769-7
+Adverse reactions where the reaction can be directly attributable to the specific immunization event - LOINC code 31044-1
+Indication (why the dose was administered) - LOINC code 59785-6
+Indication effective date - LOINC code 88877-6
+Indication expiration date - LOINC code 88879-2
+Free text comment - LOINC code 48767-8
+Information about the evaluation of the immunization event when using the Immunization Event with Evaluation Order Segment Group (note that for combination vaccines, multiple related sets of evaluation OBX segments may be present, one for each target disease):
+Vaccine type (required and must be the first OBX segment among the related group of OBX segments for an evaluation) - LOINC code 30956-7
+Dose validity (required and must be the second OBX segment among the related group of OBX segments for an evaluation) - LOINC code 59781-5
+Reason for validity - LOINC code 30982-3
+Series Name - LOINC code 59780-7
+Total number of doses in the series - LOINC code 59782-3
+Dose number of the evaluated event - LOINC code 30973-2
+Schedule used - LOINC code 59779-9
+Within a Forecast Order Segment Group, RXA-5.1 shall be the CVX code 998 and RXA-20 shall be NA. The following OBX segment types are relevant:
+Vaccine type (required  and must be the first OBX segment among the related group of OBX segments for a forecast) - LOINC code 30956-7
+Status in the immunization series, including on schedule, overdue, completed, immune, too old, not recommended and contraindicated series as supported by the sending system (required) - LOINC code 59783-1Reason for recommendation (required when the status indicates the series is contraindicated or not recommended) - LOINC code 30982-3
+Earliest date (required for forecasted (status of on schedule or overdue) doses) - LOINC code 30981-5
+Recommended due date (required for forecasted (status of on schedule or overdue) doses) - LOINC code 30980-7
+Overdue date - LOINC code 59778-1
+Latest date - LOINC code 59777-3
+Schedule used - LOINC code 59779-9
+Series Name - LOINC code 59780-7
+Total number of doses in the series - LOINC code 59782-3
+Dose number of the evaluated event - LOINC code 30973-2
+Within an Immunization Event (Refused) Order Segment Group, RXA-5 shall indicate the vaccine refused, RXA-20 shall be RE and RXA-18 shall contain a coded refusal reason. The following OBX segment type is relevant:
+Free text comment - LOINC code 48767-8
+Within an Immunization Event (Contraindicated) Order Segment Group, RXA-5 shall indicate the contraindicated vaccine and RXA-20 shall be NA, indicating that a dose was not administered. The following OBX segment types are relevant:
+Contraindication (why a dose was not administered) - LOINC code 30945-0
+Contraindication effective date - LOINC code 30946-8
+Contraindication expiration date - LOINC code 30944-3
+Free text comment - LOINC code 48767-8
+Within a Patient Observation Order Segment Group, RXA-5.1 shall be the CVX code 998 and RXA-20 shall be NA. The following OBX segment types are relevant:
+Adverse reactions where the reaction cannot be directly attributable to a specific immunization event - LOINC code 31044-1
+Serological evidence of immunity - LOINC code 75505-8
+Presumed evidence of immunity - LOINC code 59784-9
+Patient condition - LOINC code 75323-6
+Date of condition onset - LOINC code 85585-8
+Date of condition abatement- LOINC code 88878-4
+Table 2: Co-Constraints for a Z32 message
+OBX-3
+Description
+OBX-2
+OBX-5 Value Set
+OBX-17 Value Set
+Comments
+64994-7
+Vaccine funding program eligibility category
+CWE
+0064
+PHVS_FundingEligibilityObsMethod_IIS
+This value represents the funding program that should pay for a given immunization. It is determined based on characteristics of the patient and the type of vaccine administered. 
+30963-3
+Vaccine funding source
+CWE
+PHVS_ImmunizationFundingSource_IIS
+N/A
+This value represents the funding source (public or private) of the vaccine administered. 
+29769-7
+Date vaccine information statement presented
+DT
+N/A
+N/A
+This value represents the date the document was presented to the patient/responsible person. OBX-5 Format: DT_D
+69764-9
+Document type
+CWE
+PHVS_VISBarcodes_IIS
+N/A
+This value represents the vaccine type that the VIS provides information about. 
+59784-9
+Disease with presumed immunity
+CWE
+PHVS_HistoryOfDiseaseAsEvidenceOfImmunity_IIS
+N/A
+This value represents a disease where a clinician has determined that the patient has a history of the disease. 
+75505-8
+Disease with serological evidence of immunity
+CWE
+PHVS_SerologicalEvidenceOfImmunity_IIS
+N/A
+This value represents a disease serological evidence indicates immunity. 
+31044-1
+Immunization reaction
+CWE
+PHVS_VaccinationReaction_IIS
+N/A
+This value represents a reaction a patient experienced after an immunization. 
+59785-6
+Indication for immunization
+CWE
+PHVS_VaccinationSpecialIndications_IIS
+N/A
+This value represents a factor which can drive the need for a specific immunization or a change in the normal schedule for immunization. 
+88877-6
+Indication effective date
+DT
+N/A
+N/A
+This value represents the effective date of the indication. OBX-5 Format: DT_D
+88879-2
+Indication expiration date
+DT
+N/A
+N/A
+This value represents the effective date of the indication. OBX-5 Format: DT_D
+75323-6
+Patent condition
+CWE
+TBD
+N/A
+This value represents a physical condition, current medication or other factor about the person. 
+85585-8
+Date of condition onset
+DT
+N/A
+N/A
+This value represents the effective date of the patient condition. OBX-5 Format: DT_D
+88878-4
+Date of condition abatement
+DT
+N/A
+N/A
+This value represents the expiration date of the patient condition. OBX-5 Format: DT_D
+30956-7
+Type [Identifier] Vaccine
+CWE
+CVX
+N/A
+This value represents the vaccine administered. 
+30973-2
+Dose number in series
+NM
+N/A
+N/A
+This value represents position in the antigen series that the dose occupies. 
+30982-3
+Reason applied by forecast logic to project this vaccine
+CWE or ST
+N/A
+N/A
+This value represents why a dose is given its evaluation status (validity). This is typically used when a dose is determined to be invalid. 
+59779-9
+Immunization schedule used
+CWE
+PHVS_ImmunizationScheduleIdentifier_IIS
+N/A
+This value represents the schedule used during an evaluation or forecasting process. 
+59780-7
+Immunization series name
+CWE
+N/A
+N/A
+This value represents the name of the series the dose applies to. Values are defined locally. 
+59781-5
+Dose validity
+ID
+0136
+N/A
+This value represents whether or not the dose being evaluated is valid for the series or not. 
+59782-3
+Number of doses in primary immunization series
+NM
+N/A
+N/A
+This value represents the total number of doses in the series. 
+59783-1
+Status in immunization series
+CWE
+N/A
+N/A
+This value represents the status of the series the dose belongs to. Values are defined locally. 
+30980-7
+Date vaccine due
+DT
+N/A
+N/A
+This value represents the date the next dose is due. OBX-5 Format: DT_D
+30981-5
+Earliest date to give
+DT
+N/A
+N/A
+This value represents the earliest possible date the next dose could be given. OBX-5 Format: DT_D
+59777-3
+Latest date to give immunization
+DT
+N/A
+N/A
+This value represents the latest possible date the next dose could be given. OBX-5 Format: DT_D
+59778-1
+Date when overdue for immunization
+DT
+N/A
+N/A
+This value represents the date when the next dose is considered overdue. OBX-5 Format: DT_D
+48767-8
+Annotation comment
+TX
+N/A
+N/A
+This value represents a comment regarding the vaccination. 
+Structure of the Return Evaluated History and Forecast (RSP) - Z42 message
+A conformant Z42 message may include multiple Order Segment Groups. The message will contain zero or more Immunization Event with Evaluation Order Segment Groups containing data about specific doses administered to the patient. These Order Segment Groups may contain observations about the event as documented by the originator of the record as well as additional evaluation data. The message will also contain one Order Segment group containing patient forecast information. This Forecast Order Segment Group may contain multiple “sets” of related OBX segments with each set detailing a recommendation for a single future administration or series, these sets of OBX segments are linked via an identical subID in OBX-4 (each forecasted administration must have a unique subID). Finally, if the system generating the Z42 message is capable of capturing refused vaccines, the message may contain zero or more Immunization Event (Refused) Order Segment Groups containing data. If the system generating the Z42 message is capable of capturing contraindicated vaccines, the message may contain zero or more Immunization Event (Contraindicated) Order Segment Groups. The message may also contain up to one Patient Observation Order Segment Group containing patient level observations. Except where noted below, this document makes no recommendations regarding the order of OBXs within a given Order Segment Group, but keep in mind that related OBX segments, such as those related to a vaccine group evaluation or forecast, must be linked via the subID in OBX-4.
+Within an Immunization Event with Evaluation Order Segment Group, RXA-5 shall indicate the vaccine administered and RXA-20 shall be PA or CP indicating an administered dose. The following OBX segment types are relevant:
+Information about the immunization event:
+Patient eligibility status - LOINC code 64994-7
+Vaccine funding source - LOINC code 30963-3
+Vaccine Information Statements (VIS) - LOINC codes 69764-9 and 29769-7
+Adverse reactions where the reaction can be directly attributable to the specific immunization event - LOINC code 31044-1
+Indication (why the dose was administered) - LOINC code 59785-6
+Indication effective date - LOINC code 88877-6
+Indication expiration date - LOINC code 88879-2
+Free text comment - LOINC code 48767-8
+Information about the evaluation of the immunization event (note that for combination vaccines, multiple related sets of evaluation OBX segments may be present, one for each target disease):
+Vaccine type (required and must be the first OBX segment among the related group of OBX segments for an evaluation) - LOINC code 30956-7
+Dose validity (required and must be the second OBX segment among the related group of OBX segments for an evaluation) - LOINC code 59781-5
+Reason for validity - LOINC code 30982-3
+Series Name - LOINC code 59780-7
+Total number of doses in the series - LOINC code 59782-3
+Dose number of the evaluated event - LOINC code 30973-2
+Schedule used - LOINC code 59779-9
+Within a Forecast Order Segment Group, RXA-5.1 shall be the CVX code 998 and RXA-20 shall be NA. The following OBX segment types are relevant per forecasted series/dose (keep in mind that the single Forecast Order Segment Group may contain multiple related sets of OBX segments when forecasting multiple doses or series):
+Vaccine type (required and must be the first OBX segment among the related group of OBX segments for a forecast) - LOINC code 30956-7
+Status in the immunization series, including on schedule, overdue, completed, immune, too old, not recommended and contraindicated series as supported by the sending system (required) - LOINC code 59783-1
+Reason for recommendation (required when the status indicates the series is contraindicated or not recommended) - LOINC code 30982-3
+Earliest date (required for forecasted (status of on schedule or overdue) doses) - LOINC code 30981-5
+Recommended due date (required for forecasted (status of on schedule or overdue) doses) - LOINC code 30980-7
+Overdue date - LOINC code 59778-1
+Latest date - LOINC code 59777-3
+Schedule used - LOINC code 59779-9
+Series Name - LOINC code 59780-7
+Total number of doses in the series - LOINC code 59782-3
+Dose number of the evaluated event - LOINC code 30973-2
+Within an Immunization Event (Refused) Order Segment Group, RXA-5 shall indicate the vaccine refused, RXA-20 shall be RE and RXA-18 shall contain a coded refusal reason. The following OBX segment type is relevant:
+Free text comment - LOINC code 48767-8
+Within an Immunization Event (Contraindicated) Order Segment Group, RXA-5 shall indicate the contraindicated vaccine and RXA-20 shall be NA, indicating that a dose was not administered. The following OBX segment types are relevant:
+Contraindication (why a dose was not administered) - LOINC code 30945-0
+Contraindication effective date - LOINC code 30946-8
+Contraindication expiration date - LOINC code 30944-3
+Free text comment - LOINC code 48767-8
+Within a Patient Observation Order Segment Group, RXA-5.1 shall be the CVX code 998 and RXA-20 shall be NA. The following OBX segment types are relevant:
+Adverse reactions where the reaction cannot be directly attributable to a specific immunization event - LOINC code 31044-1
+Serological evidence of immunity - LOINC code 75505-8
+Presumed evidence of immunity - LOINC code 59784-9
+Patient condition - LOINC code 75323-6
+Date of condition onset - LOINC code 85585-8
+Date of condition abatement - LOINC code 88878-4
+ Table 3: Co-Constraints for a Z42 message
+OBX-3
+Description
+OBX-2
+OBX-5 Value Set
+OBX-17 Value Set
+Comments
+64994-7
+Vaccine funding program eligibility category
+CWE
+0064
+PHVS_FundingEligibilityObsMethod_IIS
+This value represents the funding program that should pay for a given immunization. It is determined based on characteristics of the patient and the type of vaccine administered. 
+30963-3
+Vaccine funding source
+CWE
+PHVS_ImmunizationFundingSource_IIS
+N/A
+This value represents the funding source (public or private) of the vaccine administered.
+29769-7
+Date vaccine information statement presented
+DT
+N/A
+N/A
+This value represents the date the document was presented to the patient/responsible person. OBX-5 Format: DT_D
+69764-9
+Document type
+CWE
+PHVS_VISBarcodes_IIS
+N/A
+This value represents the vaccine type that the VIS provides information about. 
+59784-9
+Disease with presumed immunity
+CWE
+PHVS_HistoryOfDiseaseAsEvidenceOfImmunity_IIS
+N/A
+This value represents a disease where a clinician has determined that the patient has a history of the disease. 
+75505-8
+Disease with serological evidence of immunity
+CWE
+PHVS_SerologicalEvidenceOfImmunity_IIS
+N/A
+This value represents a disease serological evidence indicates immunity. 
+31044-1
+Immunization reaction
+CWE
+PHVS_VaccinationReaction_IIS
+N/A
+This value represents a reaction a patient experienced after an immunization. 
+59785-6
+Indication for immunization
+CWE
+PHVS_VaccinationSpecialIndications_IIS
+N/A
+This value represents a factor which can drive the need for a specific immunization or a change in the normal schedule for immunization. 
+88877-6
+Date of Indication effective
+DT
+N/A
+N/A
+This value represents the effective date of the indication. OBX-5 Format: DT_D
+88879-2
+Date of Indication expiration
+DT
+N/A
+N/A
+This value represents the expiration date of the indication. OBX-5 Format: DT_D
+75323-6
+Patent condition
+CWE
+TBD
+N/A
+This value represents a physical condition, current medication or other factor about the person. 
+85585-8
+Date of condition onset
+DT
+N/A
+N/A
+This value represents the effective date of the patient condition. OBX-5 Format: DT_D
+88878-4
+Date of condition abatement
+DT
+N/A
+N/A
+This value represents the expiration date of the patient condition. OBX-5 Format: DT_D
+30956-7
+Type [Identifier] Vaccine
+CWE
+CVX
+N/A
+This value represents the vaccine administered. 
+30973-2
+Dose number in series
+NM
+N/A
+N/A
+This value represents position in the antigen series that the dose occupies. 
+30982-3
+Reason applied by forecast logic to project this vaccine
+CWE or ST
+N/A
+N/A
+This value represents why a dose is given its evaluation status (validity). This is typically used when a dose is determined to be invalid. 
+59779-9
+Immunization schedule used
+CWE
+PHVS_ImmunizationScheduleIdentifier_IIS
+N/A
+This value represents the schedule used during an evaluation or forecasting process. 
+59780-7
+Immunization series name
+CWE
+N/A
+N/A
+This value represents the name of the series the dose applies to. Values are defined locally. 
+59781-5
+Dose validity
+ID
+0136
+N/A
+This value represents whether or not the dose being evaluated is valid for the series or not. 
+59782-3
+Number of doses in primary immunization series
+NM
+N/A
+N/A
+This value represents the total number of doses in the series. 
+59783-1
+Status in immunization series
+CWE
+N/A
+N/A
+This value represents the status of the series the dose belongs to. Values are defined locally. 
+30980-7
+Date vaccine due
+DT
+N/A
+N/A
+This value represents the date the next dose is due. OBX-5 Format: DT_D
+30981-5
+Earliest date to give
+DT
+N/A
+N/A
+This value represents the earliest possible date the next dose could be given. OBX-5 Format: DT_D
+59777-3
+Latest date to give immunization
+DT
+N/A
+N/A
+This value represents the latest possible date the next dose could be given. OBX-5 Format: DT_D
+59778-1
+Date when overdue for immunization
+DT
+N/A
+N/A
+This value represents the date when the next dose is considered overdue. OBX-5 Format: DT_D
+48767-8
+Annotation comment
+TX
+N/A
+N/A
+This value represents a comment regarding the vaccination. 
+Summary
+A number of different Order Segment Groups are described in this document. Below is a summary of Order Segment Group types as well as an indication of profiles that use them.
+Table 4: Order Group Summary
+Order Segment Group Type
+Z22
+Z32
+Z42
+Immunization Event
+0..*
+0..*
+0..0
+Immunization Event with Evaluation
+0..0
+0..*
+0..*
+Forecast
+0..0
+0..1
+1..1
+Patient Observations
+0..1
+0..1
+0..1
+Immunization Event (Refused)
+0..*
+0..*
+0..*
+Immunization Event (Contraindicated)
+0..*
+0..*
+0..*
+Note that for the Z32 profile, the system generating the Z32 message will use either the Immunization Event Order Segment Group or the Immunization Event with Evaluation Order Segment Group. If the message contains a Forecast Order Segment Group, the Immunization Event with Evaluation Order Segment Group should be used, otherwise, the Immunization Event Order Segment Group should be used.
+Change History
+Version 1.1
+Contraindication related observations removed from the RSP Patient Observation Order Segment Group as it is important to indicate the vaccine that was contraindicated in RXA-5 of the associated RXA segment. Contraindication observations should be transmitted as part of an Immunization Event (Contraindicated) Order Segment Group.
+Additional clarifications for the Forecast Order Segment Group observations.
+Update “TBD” LOINC codes.

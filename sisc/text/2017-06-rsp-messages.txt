@@ -1,0 +1,153 @@
+                      Guidance for HL7 RSP Messages
+                      to Support Interoperability
+
+Background
+
+Release 1.5 of the National HL7 Implementation Guide (IG) documents the possible responses to a QBP
+query message. However, implementation of this IG has raised multiple questions about how populate
+various fields related to the messaging of the outcome of processing the initial message. This guidance
+document seeks to clarify how to populate the Acknowledgment Code (MSA-1), the Query Response
+Status (QAK-2) and the Error Severity (ERR-4) to ensure that all values are in agreement and are
+appropriate for the outcomes of the processing of the initial message. Consistency in message content is
+important because querying systems often cross IIS jurisdictional boundaries, and need a single standard
+with which to comply. Further conformance clarifications will be needed in a future release of the
+National IG.
+
+Scope of Guidance
+In Scope
+
+Responding to a QBP query message is complex, as multiple outcomes are possible ranging from the
+outright rejection of the message to a successful search resulting in one or more matching records. The
+message profile, Acknowledgment Code, Query Response Status and Error Severity are all dependent
+upon the outcome of processing the query message. As well, multiple response profiles are valid
+depending on the profile of the query and the outcome processing the query. This document aims to
+provide guidance on how to populate MSA-1, QAK-2 and ERR-4.
+
+Out of Scope
+
+The RSP message also contains other important fields. Those fields will not be discussed in this guidance
+document. Please consult the National IG on other fields.
+
+Please see the Guidance for HL7 ACK Messages document for additional clarification on constructing
+acknowledgement messages for VXU submission messages.
+
+Caveats
+
+The Guidance for HL7 ACK Messages document for use with ACK messages describes the meaning of
+error severities code messaged in ERR-4. Those definitions also apply to the query responses described
+in this document.
+
+Keep in mind that RSP^K11 message may contain only a single ERR segment. When multiple errors are
+encountered when processing a single message, it is left to the responding system to select the most
+salient error to return in the response message.
+
+                                                                                                                  1|Page
+
+                                              © 2017 American Immunization Registry Association
+                 1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+Query Response Guidance
+
+Below, three basic outcomes from query message processing are outlined along with guidance on
+appropriately populating key elements of the response message.
+
+    • Message is rejected
+              o Occurs when any of the following conditions are met
+                         The message is of an unsupported message type (MSH-9)
+                         The message has an unsupported event code (MSH-9)
+                         The message has an unsupported processing ID (MSH-11)
+                         The message has an unsupported version ID (MSH-12)
+                         The message is unable to be processed for reasons unrelated to format or
+                             content
+              o Z23 (ACK) profile is the appropriate response profile
+              o MSA-1 must be AR and an ERR segment must be present
+              o ERR-4 must be E indicating that the originating system should investigate/correct the
+                   issue and resubmit the message
+              o The Z23 (ACK) profile message does not include a QAK segment
+
+    • An error is encountered which prevents successful execution of the query
+              o Occurs when the query fails for a reason other than the conditions outlined above
+              o The Z33 profile is the appropriate response profile
+              o MSA-1 must be AE
+              o QAK-2 must be AE
+                         QAK-2 may not be AR as that indicates failure due to one of the five conditions
+                             described above which requires the use of the Z23 profile
+                         QAK-2 may not be OK, TM or NF as those indicate a successful query outcome
+              o ERR-4 must be E indicating that the originating system should investigate/correct the
+                   issue and resubmit the message
+
+    • Query is successfully processed
+              o Occurs when the query is successfully processed, regardless of the number of matching
+                   patients found (i.e., finding 0 or more than 1 matching patients is considered a
+                   “successful” query if the search executes and completes)
+              o The Z31, Z32, Z33 or Z42 profiles may be used depending on the profile of the query and
+                   the outcome of the search
+                         Regardless of which profile is used for the response message, the same
+                             guidance applies
+              o MSA-1 will be AA if no errors are encountered (i.e., the message does not contain an
+                   ERR segment)
+              o MSA-1 may also be AA if an ERR segment where ERR-4 is equal to I is included
+              o MSA-1 will be AE if one or more errors are encountered but none are severe enough to
+                   prevent the successful completion of the search (regardless of the outcome of the
+                   search)
+                         The message must contain an ERR segment with ERR-4 equal to W
+                         ERR-4 may not be E as that indicates a severe enough error that the originating
+                             system must resubmit the query message
+
+                                                                                                                  2|Page
+
+                                              © 2017 American Immunization Registry Association
+                 1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+o QAK-2 should always reflect the outcome of the query and is independent of the
+    Acknowledgement Code in MSA-1
+          QAK-2 may not be AR as that indicates failure due to one of the five conditions
+              described above which requires the use of the Z23 profile
+          QAK-2 may not be AE as that indicates a severe enough error to prevent the
+              search from successfully executing (see previous scenario)
+
+Summary
+
+The Acknowledgment Code (MSA-1) and Query Response Status (QAK-2) are independent of each other
+as they represent the outcome of technical processing the message and results of the query search
+respectively. However, the values that are appropriate to use in these fields are constrained by the
+outcome of the processing of the message and the execution of the search query. The tables below
+summarize the appropriate values by outcome. Keep in mind that in an RSP response message, only a
+single ERR segment is allowed due to constraints on the message structure imposed by the v2.5.1 base
+HL7 standard.
+
+Table 1: Summary of Acknowledgement Code by Error Condition
+
+               Outcome of Processing                                           Z34 or Z42 Query
+                                                                            MSA-1 = AR; ERR-4 = E
+Rejection error encountered for MSH-9, -11 or -
+ 12, or reason unrelated for format or content                              MSA-1 = AE; ERR-4 = E
+                                                                           MSA-1 = AE; ERR-4 = W
+              Fatal error encountered                                       MSA-1 = AA; ERR-4 = I
+            Warning error encountered                                   MSA-1 = AA; No ERR segment
+         Informational error encountered
+
+                No error encountered
+
+Table 2: Summary of Profile and Query Response Status by Query Outcome
+
+                Outcome of Query                    Z34 Query                   Z44 Query
+                                             Z23 (no QAK segment)       Z23 (no QAK segment)
+             Message rejection error
+           Message processing error             Z33 (QAK-2 = AE)            Z33 (QAK-2 = AE)
+                                                Z33 (QAK-2 = NF)            Z33 (QAK-2 = NF)
+                 No match found                 Z32 (QAK-2 = OK)           Z42 (QAK-2 = OK)
+                 One match found            Z31 (QAK-2 = OK) or Z33     Z33 (QAK-2 = NF or TM)
+ Multiple matches found (but less than the
+               maximum allowed)                   (QAK-2 = NF)          Z33 (QAK-2 = NF or TM)
+More than the maximum number of allowed     Z33 (QAK-2 = NF or TM)
+                  matches found1
+
+1 The preference is to return TM in this scenario as it provides the most specific information to the
+initiating system. However if local law, policy or regulation prevent the responding system from
+indicating multiple matching patients, NF may be used to indicate that a single high-threshold match
+could not be found.
+
+                                                                                                                  3|Page
+
+                                              © 2017 American Immunization Registry Association
+                 1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+

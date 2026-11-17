@@ -1,0 +1,131 @@
+                      Frequently Asked Questions Series
+                      Reviewed and Approved by AIRA And CDC Staff
+                      Published September 5, 2016; Revised July 6, 2017
+
+Query Responses and Patient Protection
+
+Discussed with SISC on Aug 10 2016
+
+The issue
+
+What is the right way to structure a bi-directional response message (RSP^K11) when the query matches
+to a patient who has requested that their data be protected
+
+What the Release 1.5 IG says
+
+Z34 profile: In the case where one high confidence candidate is found, but that candidate does not allow
+sharing of data, the acknowledgement response will indicate no candidates were found.
+
+Z44 profile: nothing
+
+Appendix B: When a client is does not want his/her data shared and is found, local business rules need
+to be applied. For instance, some applications may behave as if the client record does not exist in the
+system. That is, it would respond with a “no records found” message. The exception to this would be if
+the requesting provider were the one who set the protection indicator. In this case, the person may be
+a candidate that is returned. Another response might be to send limited information notifying the
+requesting system that the person exists, but wants his/her records protected.
+
+What is happening today
+
+New York State is sending a textual message in MSA-3 (this is not Release 1.5 compliant and will change
+as NYSIIS moves to Release 1.5).
+
+Local laws, regulations and IIS policy can affect the ability to respond if the patient is requesting data
+protection.
+
+Discussion highlights
+
+    • Several states are investigating this issue now.
+    • It may be helpful for EHR systems to be able to distinguish between a protected patient being
+
+         found and no patient being found.
+    • A common solution for both the Complete History Query and the Evaluated History and Forecast
+
+         Query is desirable
+
+Guidance when implementing Release 1.5
+
+This guidance is used when implementing Release 1.5 for both the Completed History and Evaluated
+History and Forecast queries. This guidance is compliant with Release 1.5 and doesn’t add any new
+coded values or fields to support.
+
+If local laws, regulations and IIS policy allow the return of data, even when the patient requests data
+protection, the IIS should respond with a standard Z32 or Z42 message. A partial patient history is not
+recommended to be returned. In the absence of widespread support for dose level protection, we
+
+FAQ: Query Responses                    Page 1|3
+                                      Frequently Asked Questions Series
+                                      Reviewed and Approved by AIRA And CDC Staff
+                                      Published September 5, 2016; Revised July 6, 2017
+
+strongly recommend that all doses be returned if any doses are returned. Inappropriate clinical
+decisions may be made by providers if they receive a partial history but think that it is a full history.
+Confidence in the quality of data in the IIS may be adversely affected, if partial histories are returned.
+
+If local laws, regulations and IIS policy prohibit sending any indication that a matching patient exists,
+then a standard Z33 should be returned.
+
+Below is the guidance on how to construct a modified Z33 when the single matching patient has
+requested data protection and local laws, regulations and IIS policy don’t strictly prohibit sending some
+indication that a patient even exists in the IIS.
+
+    • Send a Z33 message
+    • MSA-1 = AA
+    • ERR-3 is populated (code 207 (Application Internal Error) suggested)
+    • ERR-4 is populated with “I” (the querying system is not expected to “respond” to the RSP
+
+         message by fixing an error or resubmitting the message)
+    • ERR-5 left unpopulated
+    • ERR-8 is populated with a text string noting that a patient was found but is protected/locked
+
+              o For example, “A match was found in the IIS but no value is returned since Data Sharing
+                   for the record is set to No”
+
+    • QAK-2 = NF
+
+Sample message in response to a Z44 Evaluated History and Forecast query message:
+
+MSH|^~\&|EHR|12345|MIIS|99990|20140701041038+0700||RSP^K11^RSP_K11|7731029|P|2.5.1||
+|NE|NE|||||Z33^CDCPHINVS|MyStateIIS|MYEHR
+MSA|AA|793543
+ERR|||207^Application Internal Error^HL70357|I||||A match was found in the IIS but no value is
+returned since Data Sharing for the record is set to No|
+QAK|37374859|NF|Z44^ Request Evaluated History and Forecast^CDCPHINVS
+QPD|Z44^Request Evaluated History and
+Forecast^CDCPHINVS|37374859|123456^^^MYEHR^MR|Child^Bobbie^Q^^^^L|Que^Suzy^^^^^M|20
+050512|M|10 East Main St^^Boston^MA^^^L
+
+Guidance for incorporation into a future release of the IG
+
+This guidance will be incorporated into the next Release which adds significant new content. This
+guidance adds a new coded value to be supported.
+
+The Release 1.5 guidance applies along with the following changes to the modified Z33 message:
+
+• ERR-5 = new error code to be created
+• QAK-2 = PD
+
+         o This is a new code to be used when a protected patient is found
+         o The Description will be “Protected Data”
+
+FAQ: Query Responses                                                        Page 2|3
+                                      Frequently Asked Questions Series
+                                      Reviewed and Approved by AIRA And CDC Staff
+                                      Published September 5, 2016; Revised July 6, 2017
+
+Sample message:
+MSH|^~\&|EHR|12345|MIIS|99990|20140701041038||RSP^K11^RSP_K11|7731029|P|2.5.1|||NE|
+NE|||||Z33^CDCPHINVS|MyStateIIS|MYEHR
+MSA|AA|793543
+ERR|||207^Application Internal Error^HL70357|I|xx^protected patient found^HL70533|||A match
+was found in the IIS but no value is returned since Data Sharing for the record is set to No|
+QAK|37374859|PD| Z44^Request Evaluated History and Forecast^CDCPHINVS
+QPD|Z44^Request Evaluated History and
+Forecast^CDCPHINVS|37374859|123456^^^MYEHR^MR|Child^Bobbie^Q^^^^L|Que^Suzy^^^^^M|20
+050512|M|10 East Main St^^Boston^MA^^^L
+
+                    Questions about this FAQ? Contact the AIRA Technical Assistance Team
+                                 via this weblink, or email info@immregistries.org.
+
+FAQ: Query Responses  Page 3|3
+

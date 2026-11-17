@@ -309,7 +309,8 @@ def run_checks_full(cards_dir: Path, data_dir: Path, quality_dir: Path, model_di
         f.items.append(item)
 
     # ---------------------------------------------------------------- Technical Advisory Bulletins
-    f.items.extend(tab_review.findings(tab_review.load(cards_dir.parent, {c.id: c for c in cards})))
+    for data in tab_review.load_all(cards_dir.parent, {c.id: c for c in cards}).values():
+        f.items.extend(tab_review.findings(data))
 
     # ---------------------------------------------------------------- dispositions
     dispositions = read_yaml(quality_dir / "dispositions.yml", {}) or {}

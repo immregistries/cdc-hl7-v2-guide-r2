@@ -178,7 +178,7 @@ def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
         if "text" in ev and not (loc and loc in anchors):
             evidence = f"<blockquote>{esc(ev['text'])}</blockquote>"
         if ev.get("tab_id"):
-            evidence += tab_review.evidence_html(ev) + f'<p class="mini"><a href="{root}tabs/{esc(ev["tab_id"])}/index.html#{esc(ev["item"])}">See the TAB comparison</a></p>'
+            evidence += tab_review.evidence_with_link(ev, root)
         elif any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
             evidence += site_igamt.evidence_html(ev)
         disp = ""
@@ -374,14 +374,19 @@ def build(out: Path) -> dict:
         cmp_f = [f for f in findings if f["category"] in ("igamt", "igamt-export")]
         meta.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
                      "f": [sum(f["severity"] == s for f in cmp_f) for s in ("issue", "warning", "note")]})
-    tab_data = tab_review.load(REPO, by_id)
-    tab_nav, tab_anchors = tab_review.build_pages(
-        out, REPO, tab_data, by_id,
-        lambda path, title, body, anchor, root: write_text(path, shell(root=root, title=title, body=body, guide=guide, build=build_info,
-                                                                       card_id=anchor, review={"anchor": anchor, "title": title})))
-    tab_f = [f for f in findings if f["category"] == "tab"]
-    meta.append({"i": "tabs", "t": "TAB Comparison", "n": "", "p": "tabs/index.html",
-                 "f": [sum(f["severity"] == s for f in tab_f) for s in ("issue", "warning", "note")], "c": tab_nav})
+    review_sets = tab_review.load_all(REPO, by_id)
+    tab_data, sisc_data = review_sets.get("tab"), review_sets.get("sisc")
+    tab_anchors = {}
+    for key, data in review_sets.items():
+        coll = data["coll"]
+        set_nav, set_anchors = tab_review.build_pages(
+            out, REPO, data, by_id,
+            lambda path, title, body, anchor, root: write_text(path, shell(root=root, title=title, body=body, guide=guide, build=build_info,
+                                                                           card_id=anchor, review={"anchor": anchor, "title": title})))
+        tab_anchors.update(set_anchors)
+        set_f = [f for f in findings if f["category"] == key]
+        meta.append({"i": "tabs" if key == "tab" else coll.out_dir, "t": coll.title, "n": "", "p": f"{coll.out_dir}/index.html",
+                     "f": [sum(f["severity"] == s for f in set_f) for s in ("issue", "warning", "note")], "c": set_nav})
     proposals = site_proposals.load(REPO)
     if proposals:
         meta.append({"i": "proposals", "t": "Proposed Analyses", "n": "", "p": "quality/proposals/index.html", "f": [0, 0, 0]})
@@ -460,7 +465,7 @@ def build(out: Path) -> dict:
 {tables_html(c)}
 {refs_html}
 {site_err5.card_panel(c.id, err5, root)}
-{tab_review.card_panel(c.id, tab_data, root)}
+{tab_review.card_panel(c.id, tab_data, root)}{tab_review.card_panel(c.id, sisc_data, root)}
 {children_html}
 {terms_html(card_terms.get(c.id, []))}
 {pager}
@@ -549,7 +554,7 @@ sections and conformance statements, the generated message structure, example me
             elif "text" in ev:
                 extra_ev = f"<blockquote>{esc(ev['text'])}</blockquote>"
             if ev.get("tab_id"):
-                extra_ev += tab_review.evidence_html(ev) + f'<p class="mini"><a href="../tabs/{esc(ev["tab_id"])}/index.html#{esc(ev["item"])}">See the TAB comparison</a></p>'
+                extra_ev += tab_review.evidence_with_link(ev, "../")
             elif any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
                 extra_ev += site_igamt.evidence_html(ev)
             if not where and (f.get("location") or "").startswith("model:"):
@@ -569,6 +574,8 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
 <a href="findings.csv">Download all findings (CSV)</a>.</p>
 <p class="callout"><a href="../tabs/index.html"><strong>TAB Comparison</strong></a>: does the guide fold in each published
 Technical Advisory Bulletin, without missing or contradicting anything? Requirement by requirement, one page per TAB.</p>
+<p class="callout"><a href="../sisc/index.html"><strong>SISC Guidance</strong></a>: the same check for the SISC guidance
+documents published before the TABs.</p>
 <p class="callout"><a href="proposals/index.html"><strong>Proposed Analyses</strong></a>: further comparisons and checks
 proposed for this draft, such as alignment with the MIROW best practice guides and a trace from Release 1.5, for CDC to consider.</p>
 <p class="stats">{len(findings)} findings: {sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes.</p>
