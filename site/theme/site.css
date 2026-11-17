@@ -409,3 +409,35 @@ pre.hl7 .f:hover { background: var(--guide-blue-light); }
 .proposals .proposal { border-top: 1px solid var(--guide-border); padding-top: 12px; margin-top: 20px; }
 .proposals .proposal h3 .f-id { display: inline; margin-left: 8px; font-family: var(--guide-mono); font-size: .72rem; font-weight: 400; color: var(--guide-muted); }
 .proposals .proposal h4 { margin: 12px 0 4px; font-size: .9rem; }
+
+/* Changes from Release 1.5 */
+.r15-page table.r15 { width: 100%; border-collapse: collapse; font-size: .9rem; margin-bottom: 12px; }
+.r15-page table.r15 th, .r15-page table.r15 td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--guide-border); }
+.r15-page td.nowrap { white-space: nowrap; }
+.r15-page h3 { margin-top: 20px; }
+.r15-page details summary { cursor: pointer; color: var(--guide-blue); }
+.r15-kind { display: inline-block; font-size: .72rem; font-weight: 700; border-radius: 4px; padding: 1px 6px; margin-left: 4px; }
+.r15-kind.k-tightened { background: #fbe3d6; color: #8a3200; }
+.r15-kind.k-loosened { background: var(--guide-blue-light); color: var(--guide-blue); }
+.r15-status { display: inline-block; font-size: .72rem; font-weight: 700; border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
+.r15-status.s-changed { background: #fbe3d6; color: #8a3200; }
+.r15-status.s-removed { background: #f6d5d5; color: #8b1a1a; }
+.r15-status.s-added { background: #dcefdc; color: #1f5f1f; }
+.r15-status.s-reworded { background: var(--guide-blue-pale); color: var(--guide-muted); }
+.r15-page td.sid { overflow-wrap: anywhere; min-width: 7em; max-width: 12em; }
+.r15-status.s-split, .r15-status.s-renumbered { background: var(--guide-blue-pale); color: var(--guide-muted); }
+.r15-page tr:target { outline: 2px solid var(--guide-blue); }
+@media (max-width: 720px) {
+  .r15-page table.r15 { display: block; overflow-x: auto; }
+}
+.r15-result { display: inline-block; font-size: .72rem; font-weight: 700; border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
+.r15-result.r-changed { background: #fbe3d6; color: #8a3200; }
+.r15-result.r-dropped { background: #f6d5d5; color: #8b1a1a; }
+.r15-result.r-partial { background: #fff1c2; color: #6b4e00; }
+.r15-result.r-expanded { background: #dcefdc; color: #1f5f1f; }
+.r15-result.r-same, .r15-result.r-format, .r15-result.r-context { background: var(--guide-blue-pale); color: var(--guide-muted); }
+.r15-page table.r15-narr td p { margin: 0 0 6px; }
+.r15-page .r15-rec { border-left: 3px solid var(--guide-blue); padding-left: 6px; }
+.r15-page ul.r15-key li { margin-bottom: 4px; }
+.r15-page table.r15-narr td:nth-child(4), .r15-page table.r15-narr td:nth-child(5) { min-width: 16em; }
+.r15-page table.r15-narr td:nth-child(2) { min-width: 8em; }

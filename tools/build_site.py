@@ -34,6 +34,7 @@ import filter_terms  # noqa: E402
 import tab_review  # noqa: E402
 import site_err5  # noqa: E402
 import site_proposals  # noqa: E402
+import site_r15  # noqa: E402
 from structure_index import FIELD_RE, Model  # noqa: E402
 from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
 
@@ -390,6 +391,10 @@ def build(out: Path) -> dict:
     proposals = site_proposals.load(REPO)
     if proposals:
         meta.append({"i": "proposals", "t": "Proposed Analyses", "n": "", "p": "quality/proposals/index.html", "f": [0, 0, 0]})
+    r15 = site_r15.load(REPO, by_id)
+    if r15:
+        meta.append({"i": "r15", "t": "Changes from Release 1.5", "n": "", "p": "r15/index.html", "f": [0, 0, 0],
+                     "k": ["Release 1.5", "2018", "NIST", "changes"]})
     page_anchors = {"quality": "quality/index.html", "quality-igamt": "quality/igamt/index.html", **tab_anchors,
                     "glossary": "glossary/index.html", "resources": "resources/index.html", "examples": "examples/index.html",
                     **structure_anchors}
@@ -397,6 +402,7 @@ def build(out: Path) -> dict:
     page_anchors["err5-codes"] = "err5-codes/index.html"
     if proposals:
         page_anchors["proposals"] = "quality/proposals/index.html"
+    page_anchors["r15"] = "r15/index.html"
     nav = {"nodes": [node(r) for r in roots], "extra": extra, "meta": meta, "anchors": page_anchors}
     write_text(out / "assets" / "nav.js", "window.GUIDE_NAV=" + json.dumps(nav, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
@@ -647,6 +653,10 @@ proposed for this draft, such as alignment with the MIROW best practice guides a
                          body=site_proposals.page(proposals, "../../", by_id),
                          review={"anchor": "proposals", "title": "Proposed Analyses",
                                  "targets": site_proposals.review_targets(proposals)}))
+    if r15:
+        site_r15.build_page(out, r15, lambda path, body: write_text(path, shell(
+            root="../", title="Changes from Release 1.5", guide=guide, build=build_info, card_id="r15", body=body,
+            review={"anchor": "r15", "title": "Changes from Release 1.5"})))
 
     (out / ".nojekyll").write_text("", encoding="utf-8")
     return {"cards": len(cards), "findings": len(findings), "out": out}

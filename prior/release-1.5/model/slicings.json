@@ -1,0 +1,46 @@
+[
+ {
+  "profile": "Z22",
+  "context": "ORDER",
+  "segment": "RXA",
+  "default_flavor": "RXA_IZ01_CVX",
+  "kind": "AssertionSlicing",
+  "slices": [
+   {
+    "flavor": "RXA_IZ01_NDC",
+    "when": "If The first occurrence of RXA-9.1 (Identifier) contains the value '00' (Case Sensitive).",
+    "assertion": {
+     "op": "PlainText",
+     "ignoreCase": "false",
+     "notPresentBehavior": "FAIL",
+     "path": "9[1].1[1]",
+     "text": "00"
+    }
+   },
+   {
+    "flavor": "RXA_IZ01_CVX",
+    "when": "If The first occurrence of RXA-9.1 (Identifier) contains one of the values in the list: ['01','02','03','04','05','06','07','08'] (Case Sensitive).",
+    "assertion": {
+     "op": "StringList",
+     "cSV": "01,02,03,04,05,06,07,08",
+     "ignoreCase": "false",
+     "notPresentBehavior": "FAIL",
+     "path": "9[1].1[1]"
+    }
+   },
+   {
+    "flavor": "RXA_IZ01_CVX",
+    "when": "If The first occurrence of RXA-9.1 (Identifier) is not valued",
+    "assertion": {
+     "op": "NOT",
+     "args": [
+      {
+       "op": "Presence",
+       "path": "9[1].1[1]"
+      }
+     ]
+    }
+   }
+  ]
+ }
+]

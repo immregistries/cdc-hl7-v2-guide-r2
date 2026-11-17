@@ -1,0 +1,9 @@
+# Comparison with Release 1.5 (tools/diff_r15.py).
+
+# Code systems maintained outside the guide that change all the time. A change in which of these an element is bound
+# to is reported; changes in their codes are not.
+external_code_systems:
+  - CVX        # vaccines administered
+  - MVX        # manufacturers
+  - NDC        # National Drug Codes
+  - cdcgs1vis  # VIS document barcodes

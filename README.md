@@ -45,6 +45,7 @@ See [docs/architecture.md](docs/architecture.md) and the
 | `model/` | The IGAMT conformance export, normalized (profiles, segments, data types, value sets, constraints, co-constraints); generated, never edited |
 | `data/` | Key terms, glossary, references, change history, the TAB list (`tabs.yml`), and the national ERR-5 codes (`err5-codes.yml`, imported) |
 | `tabs/` | The published Technical Advisory Bulletins (PDF), with extracted text; compared with the guide in `quality/tabs/` |
+| `prior/release-1.5/` | The Release 1.5 baseline this guide is compared with: NIST's conformance profiles from its test tool, and the 2018 guide's outline and text ([how](prior/release-1.5/README.md)) |
 | `quality/` | Quality-check settings, reviewer findings (including the narrative/IGAMT review), and decisions on findings |
 | `site/` | Theme and web assets (joint CDC/AIRA presentation) |
 | `tools/` | Conversion, checks, the site builder, and (to come) the document builder |
@@ -63,6 +64,10 @@ python tools/convert_narrative.py
 python tools/import_igamt.py
 python tools/import_examples.py
 python tools/import_err5.py          # national ERR-5 code set (xlsx from AIRA)
+python tools/import_r15.py --download  # Release 1.5 baseline: NIST test tool profiles (public)
+
+# Anyone: compare the profiles with Release 1.5 (writes output/r15/changes.csv and summary.md)
+python tools/diff_r15.py
 
 # Anyone: run the quality checks on the committed cards
 python tools/check_cards.py          # writes output/quality/report.md
