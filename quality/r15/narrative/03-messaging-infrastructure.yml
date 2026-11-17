@@ -1,0 +1,205 @@
+# Narrative crosswalk: Release 1.5 (2018 Update) chapter 3 compared with this guide. Fields: see
+# 01-02-introduction-and-actors.yml.
+
+chapter: "3"
+title: HL7 Messaging Infrastructure
+pages: 24-34
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026
+summary: >-
+  Much of chapter 3 is about format (delimiters, syntax, encoding rules, attribute tables) and is now carried by the
+  profiles. The processing guidance has changed the most. The 2018 receiving-system rules (Table 3-1) rejected a message
+  when a required segment outside a group was empty; the new guide decides acceptance by core intent and forbids
+  rejecting for conformance violations alone. Usage is redefined in operational terms: for example, an O element that is
+  sent is now processed, where the 2018 guide said a receiver need not process it without agreement. The 2018 rules on
+  null ("") versus empty fields and the agreement to avoid Z segments are not in the new guide.
+
+items:
+  - id: r15-3-01
+    section: Keywords
+    page: 24
+    verb: MUST, SHALL, SHOULD, MAY
+    r15: >-
+      MUST/SHALL/REQUIRED, MUST NOT/SHALL NOT, SHOULD/RECOMMENDED, SHOULD NOT/NOT RECOMMENDED, and MAY/OPTIONAL defined (RFC
+      2119 style). MAY items cannot be expected without agreement between partners; implementations with and without an
+      optional element MUST interoperate.
+    result: expanded
+    guide: [conformance-verbs]
+    note: >-
+      The new guide uses SHALL, SHALL NOT, SHOULD, SHOULD NOT, and MAY (not MUST or REQUIRED), and adds that requirements
+      on system behavior that cannot be tested in a message are equally normative.
+
+  - id: r15-3-02
+    section: HL7 definitions
+    page: 24-25
+    r15: Definitions of message, segment group, segment, field, and component, with examples.
+    result: same
+    guide: [message-structure-and-terminology]
+
+  - id: r15-3-03
+    section: HL7 definitions (null and empty fields)
+    page: 25
+    verb: should, must
+    r15: >-
+      A null value ("") differs from an empty field: an empty field should not overwrite data in the receiving system,
+      while "" means the previous value should be cleared. Null fields should not be sent in immunization messages.
+      Systems that send "", or that accept and process it, must say so in their local implementation guides.
+    result: dropped
+    guide: []
+    note: >-
+      Neither the narrative nor the profiles say what "" means or whether it may be sent. The 2018 code tables (PD1-12)
+      rely on the distinction too. This affects updates: a receiver that treats "" as a value, or an empty field as
+      "clear", will corrupt records.
+    recommendation: >-
+      Restore the rule, for example in 4.6.4 (Updates and Deletes) or 2.9: "An empty field means no change. Systems SHOULD
+      NOT send the HL7 null value (""); systems that send or act on it SHALL document this in their local guide."
+
+  - id: r15-3-04
+    section: HL7 definitions (data types, code sets)
+    page: 25-26
+    r15: Data types restrict field contents; code sets and value sets are maintained by standards organizations.
+    result: same
+    guide: [overview-of-data-types, dynamic-and-fixed-code-sets]
+
+  - id: r15-3-05
+    section: HL7 definitions (delimiters)
+    page: 26
+    verb: SHALL, must
+    r15: >-
+      Applications must use agreed delimiters. Messages SHALL use <CR> as segment terminator and | ^ & ~ \ as field,
+      component, subcomponent, repetition, and escape characters.
+    result: format
+    guide: [message-structure-and-terminology, message-formatting-and-line-terminators]
+    note: MSH-1 and MSH-2 are fixed in the profiles; 2.4.4 covers line terminators within the SOAP payload.
+
+  - id: r15-3-06
+    section: HL7 definitions (message syntax)
+    page: 26
+    r15: Abstract message syntax ({} repeat, [] optional; nested groups).
+    result: format
+
+  - id: r15-3-07
+    section: HL7 definitions (Z segments)
+    page: 26
+    r15: >-
+      Users of the guide agreed to eliminate Z segments so that immunization data are sent the same way nationally. The
+      query name code beginning with Z is not a Z segment.
+    result: dropped
+    guide: []
+    note: >-
+      The profiles allow no Z segments, so a Z segment fails validation; the narrative no longer states the agreement.
+      Low impact.
+
+  - id: r15-3-08
+    section: Basic Message Processing Rules - Message Acknowledgement
+    page: 26
+    r15: >-
+      Original mode processing only; enhanced mode is not supported. Each message (VXU, QBP) gets one response (ACK,
+      RSP); the ACK is not itself acknowledged. Only application acknowledgements are in scope.
+    result: changed
+    guide: [application-level-scope-of-ack-messages--s1, application-level-scope-of-ack-messages--s3,
+            transport-level-vs-message-level-responses, application-level-scope-of-ack-messages]
+    note: >-
+      The new guide keeps one application-level ACK per VXU and adds that an ACK never reports transport faults. It
+      changes the acknowledgement fields: MSH-15/MSH-16 now take NE (see conformance statement IZ-42 above), and an
+      intermediary relaying an IIS transport problem should use the enhanced-mode code CR rather than AR.
+
+  - id: r15-3-09
+    section: Basic Message Processing Rules - Message Acknowledgement
+    page: 26
+    r15: >-
+      ACKs alert the sender to errors and to data that did not reach the receiver. An intermediary such as an HIE should
+      pass the ACK back to the sending system.
+    result: expanded
+    guide: [notes-on-data-intermediaries, role-of-acks-in-data-quality, purpose-of-acknowledgements]
+    note: >-
+      The new guide requires the final response to be generated by the IIS and to reflect the true disposition, with the
+      intermediary transparent to the submitter.
+
+  - id: r15-3-10
+    section: Encoding Rules for Sending
+    page: 27
+    r15: >-
+      Nine encoding rules: segment order, segment ID first, field separators, trailing empty components need not be
+      sent, leading empty components must be, length applies to each repetition, trailing field separators are not an
+      error.
+    result: format
+    note: The profiles and the HL7 base standard govern encoding; NIST's validator applies them.
+
+  - id: r15-3-11
+    section: Processing Rules for Receiving System (Table 3-1)
+    page: 27-28
+    verb: should
+    r15: >-
+      Receiving rules that cascade: extra fields are ignored; a field with bad data is treated as empty (error, continue);
+      an empty required field makes the segment empty; an out-of-order segment is treated as empty; an empty required
+      segment in a group empties the group; an empty required segment outside a group, or an empty required group,
+      rejects the message. Optional or unexpected segments are ignored. All errors should be reported to the sender.
+    result: changed
+    guide: [iis-core-intent-and-message-disposition, err-4-severity-code--s3, relationship-to-ack-processing,
+            usage-designations-and-expectations, msa-1-derivation-of-message-level-disposition]
+    note: >-
+      Acceptance is now decided by core intent: a VXU is rejected only when the patient cannot be associated or created
+      or Critical Data cannot be stored. IIS SHALL NOT return severity E for conformance violations alone (for example,
+      segment mis-ordering) unless they prevent core intent. Errors are still reported in ERR segments. The cascade
+      (field to segment to group to message) is not described.
+
+  - id: r15-3-12
+    section: Determining Usage of Segments, Fields and Components
+    page: 28
+    verb: SHALL
+    r15: >-
+      Rules used to set usage: elements required by HL7 are R or RE; NVAC core data elements are R or RE and their
+      segments RE; backward-compatibility (B) elements SHALL be unsupported (X); conditional elements stay C unless that
+      conflicts; everything else is O.
+    result: changed
+    guide: [usage-designations-and-operational-interpretation, compatibility-with-the-hl7-v2-base-standard,
+            relaxation-of-base-standard-cardinalities, when-to-use-r-vs-re]
+    note: >-
+      The new guide sets usage by how IIS actually operate, and relaxes base-standard requirements where they do not
+      serve IIS workflows, documenting each divergence (5.11). The resulting usage changes are listed in the tables above.
+
+  - id: r15-3-13
+    section: Usage Conformance Testing Recommendations; Sending and Receiving Application Conformance (Tables 3-2)
+    page: 28-32
+    verb: SHALL
+    r15: >-
+      Usage codes cited from HL7 2.7.1 Chapter 2B, separately for sender and receiver. R: sender SHALL populate; receiver
+      SHALL process it and SHALL raise an exception when it is absent. RE: sender SHALL populate when relevant data
+      exist; receiver SHALL process the message when it is omitted. X: sender SHALL NOT populate; receiver SHALL ignore
+      it and MAY raise an exception. O: not yet defined (to be profiled). Footnote on the two interpretations of RE.
+    result: changed
+    guide: [usage-designations-and-expectations, usage-designations-and-operational-interpretation,
+            interpretation-of-re-required-by-may-be-empty, relationship-to-ack-processing]
+    note: >-
+      2.9.1 gives one interpretation for both parties. R: a missing or unusable element SHALL be reported with an ERR (not
+      necessarily a rejection). RE: the receiver may report the omission. O: if sent, the receiver processes it (the 2018
+      guide said a receiver need not process O without agreement). X: the receiver does not process, store, or use it.
+      2.6.1 settles the RE interpretation question.
+
+  - id: r15-3-14
+    section: Definition of Conditional Usage
+    page: 29
+    r15: >-
+      C(a/b) resolves to usage a when the predicate is true and b when false; C(X/X) is used where the element the
+      condition depends on is X. No predicate is given for C(O/X).
+    result: format
+    guide: [usage-designations-and-expectations]
+    note: Predicates are in the profiles; changed conditions are listed in the tables above.
+
+  - id: r15-3-15
+    section: Receiving Application Conformance (note on IX)
+    page: 32
+    r15: >-
+      Local implementations may constrain this guide and should mark elements the local application ignores as IX (if
+      sent, it is ignored).
+    result: same
+    guide: [usage-designations-and-expectations]
+    note: 2.9.1 defines IX the same way, as a convention for local guides, and adds that sending an IX element is not an error.
+
+  - id: r15-3-16
+    section: Message Element Attributes (Table 3-3)
+    page: 32-34
+    r15: Columns of the message, segment, and data type tables (SEQ, usage, cardinality, value set, and so on).
+    result: format
+    guide: [document-and-structure]

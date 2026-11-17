@@ -1,0 +1,341 @@
+# Narrative crosswalk: Release 1.5 (2018 Update) chapters 1-2 compared with this guide.
+#
+# One item per piece of guidance in the 2018 narrative, in document order. Format and validation (structure, usage,
+# cardinality, data types, lengths, value sets, conformance statements) are not compared here: NIST's profiles are the
+# baseline for those, and they are compared element by element on the same page.
+# Fields:
+#   id        stable item ID (r15-<chapter>-NN); never reuse
+#   section   2018 heading;  page: 2018 PDF page
+#   verb      conformance verb(s) in the 2018 text, if any
+#   r15       what the 2018 guide says (quoted, or closely paraphrased when long)
+#   result    same | expanded | changed | dropped | format | context
+#               same      this guide says the same thing (the wording may differ)
+#               expanded  this guide keeps it and goes further (more detail, a stronger verb, a new requirement)
+#               changed   this guide says something different; implementers need to know
+#               dropped   not in this guide
+#               format    about message format or validation; the profiles govern it (compared in the tables above)
+#               context   background or document organization, with no guidance to carry forward
+#   guide     where this guide covers it: card IDs or statement IDs (<card>--sN)
+#   note      the reviewer's explanation
+#   recommendation  (optional) for dropped or changed items that may need action
+
+chapter: "1-2"
+title: Introduction; Actors, Goals, and Messaging Transactions
+pages: 9-23
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026
+summary: >-
+  The new guide's chapters 1-3 replace these chapters and keep their substance: the use cases (now organized around
+  update and query), backwards compatibility, local implementation guides that may constrain but not contradict, and the
+  expectation that IIS receive overlapping histories and deduplicate them. What changed: transport is now in scope (the
+  CDC WSDL is required), patient matching for queries now has requirements, local guides move from an implied "must
+  not contradict" to explicit SHALL statements, demographic-only VXUs must now be accepted, and the CDC Core Data
+  Elements replace the NVAC core data set. The 2018 statement that receiving systems do not process in snapshot mode is
+  not repeated, and the IHE/MPI material is gone.
+
+items:
+  # ------------------------------------------------------------------ chapter 1
+  - id: r15-1-01
+    section: 1. Introduction
+    page: 9
+    r15: >-
+      HL7 defines the syntax and vocabulary for immunization messages and is platform independent. The guide is a joint
+      AIRA/CDC effort with input from NIST, replaces the 2.3.1 guide, is based on HL7 2.5.1, and pre-adopts features of
+      2.7.1 (data types and the Chapter 2B conformance model).
+    result: same
+    guide: [overview-and-introduction, messaging-standards-overview, why-hl7-v2-5-1]
+    note: >-
+      The new guide states the same basis (HL7 2.5.1, platform independent) and says it follows the current HL7 v2
+      Conformance Methodology, the successor to the 2.7.1 Chapter 2B model. It no longer names 2.7.1 pre-adoption.
+
+  - id: r15-1-02
+    section: 1. Introduction
+    page: 9
+    verb: should
+    r15: >-
+      Faithful 2.5.1 implementations should be able to accept most messages based on the 2.3.1 guide. Implementations
+      supporting 2.3.1 should continue to follow the 2.3.1 guide (version 2.2, June 2006).
+    result: changed
+    guide: [interoperability-and-compatibility, support-for-previous-versions]
+    note: >-
+      The new guide no longer expects 2.3.1 messages to be accepted. It says neither 2.3.1 nor 2.4 is supported
+      nationally, that systems are strongly encouraged to migrate, and that an IIS may require partners to use 2.5.1. It
+      asks systems to keep supporting the previous release of this guide (the 2018 Update).
+
+  - id: r15-1-03
+    section: Intended Audience
+    page: 9
+    r15: >-
+      Two audiences: system managers, who need a high-level understanding, and the technical staff of IIS and EHR-S who
+      implement it. HL7 specifies the interface between two systems, not how either system is implemented.
+    result: same
+    guide: [scope, document-and-structure]
+    note: The new guide says it does not prescribe IIS architecture, internal workflows, or business rules.
+
+  - id: r15-1-04
+    section: Scope
+    page: 9-10
+    r15: >-
+      In scope: sending and receiving immunization histories; requesting histories and evaluated histories with
+      forecasts; responding to those requests; acknowledging receipt; reporting errors; sending observations about an
+      immunization event (funding eligibility, reactions, forecasts, evaluations).
+    result: same
+    guide: [scope, core-messaging-functions, use-cases-and-profiles]
+    note: >-
+      The new guide frames scope as two interactions, update (VXU/ACK) and query (QBP/RSP), and names exclusions the 2018
+      guide did not: ADT, inventory ordering, school and vital records exchange, IIS-to-IIS exchange, IZ Gateway
+      transactions, and federal reporting.
+
+  - id: r15-1-05
+    section: Scope
+    page: 10
+    r15: >-
+      Not in scope: business rules applied when creating or processing a message, a standard transport layer, the search
+      process used to respond to a query, deduplication rules, vaccine inventory, and MPI maintenance. Local
+      implementations are responsible for these.
+    result: changed
+    guide: [transport-layer-requirements-and-cdc-wsdl-integration, general-requirements, patient-matching-responsibilities,
+            record-consolidation-and-deduplication, scope]
+    note: >-
+      Two of these are now in scope. Transport is required: IIS SHALL implement the CDC WSDL (2015) with a single endpoint
+      for update and query (2.4). Query matching now has requirements on both sides (3.4.5), for example that the IIS
+      SHALL use all submitted patient data to find a match. Deduplication is described (2.3.3) but its rules stay local.
+      Inventory and MPI remain out of scope.
+
+  - id: r15-1-06
+    section: Scope
+    page: 10
+    r15: >-
+      One way to ensure success is to publish a local profile or implementation guide with local business rules. Local
+      guides may further constrain this guide but may not contradict it. This guide identifies key issues that local
+      profiles should address.
+    result: expanded
+    guide: [scope, relationship-between-the-national-ig-and-local-igs, contradiction-vs-constraint,
+            claiming-conformance-to-the-national-ig, transparency-as-a-community-obligation]
+    note: >-
+      The new guide says each IIS SHOULD publish a local guide, and adds a section (5.9) with SHALL statements: a local
+      guide that contradicts the national guide SHALL NOT claim conformance and SHALL say where it diverges. It also
+      allows local requirements that differ for policy, legal, or operational reasons, provided they are documented.
+
+  - id: r15-1-07
+    section: Scope
+    page: 10
+    r15: >-
+      Assumptions: infrastructure for accurate, secure exchange is in place; providers reach immunization information
+      through an EHR-S or IIS; privacy and security are implemented; legal and governance issues (access, ownership,
+      data use) are out of scope; the sending system has enough information to build the message; external business
+      rules are documented locally.
+    result: same
+    guide: [scope, connection-parameters-and-authentication]
+    note: >-
+      Not restated as a list. Privacy and security are now partly addressed (transport authentication in 2.4.5,
+      disclosure in 3.5.3); legal and governance issues remain outside the guide.
+
+  - id: r15-1-08
+    section: Scope
+    page: 10-11
+    verb: should
+    r15: >-
+      Systems must be able to accept complete histories from different sources and integrate them, and should not assume
+      any record sent is new; otherwise overlapping histories create duplicates. Points to AIRA's MIROW best practices.
+    result: same
+    guide: [record-consolidation-and-deduplication]
+    note: >-
+      2.3.3 says IIS are built to receive overlapping, repeated, and partial information and reconcile it, and that
+      submitters need not check whether a record already exists. MIROW is cited elsewhere (4.6.4.3, 4.6.5.1).
+
+  - id: r15-1-09
+    section: Organization and Flow
+    page: 11-12
+    r15: >-
+      Chapter-by-chapter outline; boxed notes mark changes from the 2.3.1 guide. "The focus of this guide is on the
+      format and grammar of the messages between systems."
+    result: changed
+    guide: [document-and-structure]
+    note: >-
+      The new guide is organized differently (narrative chapters 1-6, then the computable Message Infrastructure in
+      chapter 7) and is no longer limited to format and grammar: chapter 4 gives topic guidance on data, and narrative
+      requirements are stated to be as binding as the machine-testable ones.
+
+  # ------------------------------------------------------------------ chapter 2
+  - id: r15-2-01
+    section: Actors and Goals
+    page: 13-16
+    r15: >-
+      Primary actors are the IIS and EHR-S (and other systems); supporting actors are an MPI and an HIE. Sender is the
+      initiator of a conversation. Table 2-1 lists each actor's responsibilities and messaging goals. Actors can be
+      decomposed into roles: immunization history supplier, consumer, and identity resolution broker.
+    result: changed
+    guide: [immunization-systems-process-overview, functional-roles, notes-on-data-intermediaries]
+    note: >-
+      The new guide uses two roles, submitting system and querying system, with the IIS as receiver and responder. The MPI
+      actor and identity-broker role are gone. HIEs remain, now with a requirement: an intermediary must be transparent
+      and the final response must come from the IIS.
+
+  - id: r15-2-02
+    section: High-Level View of Use Cases
+    page: 16-17
+    r15: >-
+      Use cases are mapped from the actor goals (Figure 1). Identity resolution may be separate from the history request
+      or implicit in it. An "IIS AO" is an organization authorized to submit to and request from an IIS.
+    result: same
+    guide: [use-cases-and-profiles]
+    note: The new guide covers identity resolution implicitly, through the query and candidate-selection flow (3.4.6).
+
+  - id: r15-2-03
+    section: Use Case 1 - Send Immunization History
+    page: 17
+    r15: >-
+      Send an immunization history for a client from one system to another (VXU Z22). Other systems, such as vital
+      records or billing, could use it. Post-condition: the receiver has accepted the history.
+    result: same
+    guide: [vaccination-record-update-vxu-message-profile, vxu-use-case-overview]
+    note: The new guide limits scope to IIS update and query; vital records exchange is excluded.
+
+  - id: r15-2-04
+    section: Use Cases 2 and 3 - Request Complete History; Request Evaluated History and Forecast
+    page: 18
+    verb: must, should
+    r15: >-
+      Request a complete history (QBP Z34 / RSP Z32) or an evaluated history and forecast (QBP Z44 / RSP Z42). Five
+      possible results: one exact match, one or more inexact matches, no match, a match whose data the client asked not to
+      share, errors. The definition of "exact" is a local business rule and should be documented. Systems must handle
+      clients whose records are protected, and should document it.
+    result: expanded
+    guide: [query-by-parameter-qbp-message-profiles, unified-z34-and-z44-profile-model, rsp-response-profiles,
+            z31-return-a-list-of-candidates, z33-return-a-response-with-no-person-records,
+            patient-matching-responsibilities, selecting-a-candidate-match, information-disclosure-constraints]
+    note: >-
+      The same outcomes map to Z32/Z42, Z31, and Z33. The new guide adds detail: Z31 normally lists two or three
+      candidates, and when there are too many the IIS returns QAK-2 TM rather than a long list; a protected record is returned as Z33; matching requirements apply to
+      both sides (3.4.5); disclosure is limited to what confirms the match (3.5.3). Z34 and Z44 now share one model.
+
+  - id: r15-2-05
+    section: Use Case 4 - Send Demographic Data
+    page: 19
+    r15: >-
+      Send demographic data, as an update or a new record. Demographic-only data may be sent in a VXU (Z22) or in ADT
+      messages; ADT profiles are not in this guide.
+    result: expanded
+    guide: [patient-demographic-records-and-vxus-without-immunizations--s1, patient-demographic-records-and-vxus-without-immunizations--s2,
+            patient-demographic-records-and-vxus-without-immunizations--s3, vxu-use-case-overview]
+    note: >-
+      New requirement: IIS SHALL accept VXUs with demographic information whether or not they contain immunizations.
+      Submitters SHALL coordinate before sending demographic-only VXUs routinely, and SHOULD use ADT for routine
+      demographic updates. ADT remains out of scope.
+
+  - id: r15-2-06
+    section: Use Cases 5 and 6 - Acknowledge Receipt; Report Error
+    page: 19
+    r15: >-
+      Acknowledge receipt of a message, indicating success or failure, possibly with errors (ACK Z23, RSP Z33). A
+      well-formed query that finds no candidates is reported in the acknowledgement. Errors may reject the message or
+      parts of it.
+    result: expanded
+    guide: [acknowledgement-ack-message-profile, iis-core-intent-and-message-disposition, z33-return-a-response-with-no-person-records]
+    note: >-
+      The ACK is now defined in terms of core intent (whether the patient and vaccinations were recorded), with severity
+      and follow-up rules (3.3). Detailed ACK guidance is compared under chapter 6 and Appendix B.
+
+  - id: r15-2-07
+    section: Messaging in the Context of the Business Process
+    page: 19-21
+    verb: should
+    r15: >-
+      Steps for the sender (assemble data, build, connect, send) and receiver (check format, parse, evaluate, acknowledge,
+      deduplicate client and events, insert or update). Partners must agree on how to connect. Parts of a message may
+      have errors that are not sufficient to reject it. Business rules for sender and receiver should be clearly
+      specified. Which client's record to send is outside the guide.
+    result: same
+    guide: [clinical-workflow-overview, record-consolidation-and-deduplication, connection-parameters-and-authentication,
+            iis-core-intent-and-message-disposition]
+    note: >-
+      The new guide describes the clinical workflow rather than the processing steps. Partial acceptance survives as core
+      intent: a message is accepted when the patient and vaccinations can be recorded, even with field-level errors.
+
+  - id: r15-2-08
+    section: Messaging in the Context of the Business Process (note)
+    page: 21
+    verb: may
+    r15: >-
+      Each implementation should document its business rules in a local guide or profile. Local implementers may further
+      constrain this guide: optional or RE elements may be made required, and repeating fields may be limited to fewer
+      repetitions.
+    result: changed
+    guide: [contradiction-vs-constraint, when-to-use-r-vs-re, how-iis-should-support-policy-in-their-local-guides]
+    note: >-
+      The new guide still allows constraint, but discourages tightening RE to R to express program policy (5.10): use R
+      only when the IIS cannot accept the record without the data, and enforce RE handling instead of reclassifying.
+
+  - id: r15-2-09
+    section: Core Data Elements of an Immunization History
+    page: 21-22
+    r15: >-
+      Lists IIS responsibilities (consolidation, supplying histories, forecasting, evaluation, inventory, funding
+      reports, coverage, privacy, reminders, lot recall tracking). The NVAC core data elements determine usage in this
+      guide; systems using it are expected to support them and include them in messages; they also appear in
+      conformance statements. Sending forecasts is required of systems that output CDS results; consuming them is
+      required of systems that request them.
+    result: changed
+    guide: [data-model, cdc-core-data-elements-for-functional-standards, data-standardization-and-integra-cdc-core-data-elements-for-functional-standards]
+    note: >-
+      The reference is now the CDC Core Data Elements for Functional Standards, used as a catalog of definitions, not as
+      the basis for usage. The new guide adds a conceptual data model (patient, guardian, vaccination).
+
+  - id: r15-2-10
+    section: Pre-Adoption of Some Features of HL7 Version 2.7.1
+    page: 22
+    r15: Pre-adopts 2.7.1 conformance statements, conditional predicates, usage guidance, and new MSH fields.
+    result: format
+    guide: [why-hl7-v2-5-1]
+    note: These are features of the profiles; the new guide follows the HL7 v2 Conformance Methodology.
+
+  - id: r15-2-11
+    section: Use of Vocabulary Standards
+    page: 22
+    r15: >-
+      Specific vocabularies (LOINC, SNOMED) are called for. It is best practice to use the most current version of the
+      coding system.
+    result: expanded
+    guide: [vocabulary-standards, dynamic-and-fixed-code-sets, dynamic-code-sets-evolving-code-sets-requiring-active-maintenance,
+            timeliness-and-maintenance-of-cvx-support]
+    note: The new guide adds requirements for keeping dynamic code sets current (4.3.1) and CVX timeliness (4.6.2.2.5).
+
+  - id: r15-2-12
+    section: Processing Mode
+    page: 23
+    r15: >-
+      Receiving systems expect complete histories (all immunization information known to the sender) and do not process
+      in snapshot mode (incoming data does not replace existing data). Receiving systems are responsible for publishing
+      the consolidation rules they apply.
+    result: dropped
+    guide: [record-consolidation-and-deduplication]
+    note: >-
+      2.3.3 implies it (IIS consolidate overlapping data rather than preserve submissions), but the new guide does not say
+      that a VXU never replaces the existing record, nor that IIS should publish their consolidation rules. Appendix C of
+      the 2018 Update (Processing Mode Clarification) makes the same point.
+    recommendation: >-
+      Consider one sentence in 2.3.3: "A VXU adds to and updates the IIS record; it does not replace it (no snapshot
+      processing). IIS SHOULD document the consolidation rules they apply."
+
+  - id: r15-2-13
+    section: Message Profiles
+    page: 23
+    r15: The guide defines constrainable profiles, identified in MSH-21.
+    result: format
+    guide: [use-cases-and-profiles]
+    note: MSH-21 is defined in the profiles.
+
+  - id: r15-2-14
+    section: Conventions
+    page: 23
+    r15: >-
+      Assumes access to the HL7 2.5.1 standard; uses 2.7.1 Chapter 2B rules; data types are described separately; no
+      conformance information is given for optional elements; X is used sparingly (for B and W elements, and some
+      conditional elements); without an agreed profile a sender need not send, and a receiver need not process, O
+      elements.
+    result: format
+    guide: [usage-designations-and-expectations, compatibility-with-the-hl7-v2-base-standard]
+    note: >-
+      Usage conventions are in the profiles. The new guide explains usage in operational terms (2.9) and documents where
+      it departs from the base standard (5.11).
