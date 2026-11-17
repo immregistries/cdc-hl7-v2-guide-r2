@@ -1,0 +1,328 @@
+# Comparison: MIROW "Decrementing Inventory via Electronic Data Exchange" (May 2016, published January 2017) and this
+# guide.
+#
+# One item per principle, business rule, or operational scenario that depends on what is exchanged in a message
+# (numbering as in the guide's chapters 3, 5, and 8), plus the HL7 discussion in chapter 9. Rules that concern only IIS
+# and program operations are not itemized: adding shipments to the IIS and organizing inventory items (BR101 to BR108,
+# S101, S102, S601), reconciliation (BR301 to BR303, S1301), retaining decremented doses when a patient is deleted (BR406,
+# S1201), the reports in chapter 6, and staffing, outreach, and training (BR404, BR405, chapter 9). Preapproval (P03,
+# BR401 to BR403, BR407) is compared only for what it says about testing submissions.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026, IGAMT export of 6 Nov 2026, and the national ERR-5 code set of 6 Jul 2026
+summary: >-
+  The guide supports everything this MIROW guide needs from a message. The VXU carries every data element MIROW lists
+  for decrementing (lot number, dose-level eligibility, funding source, administration date, CVX and NDC, expiration
+  date, and the administering organization). Funding eligibility is reported for each dose. The guide also requires
+  that funding values report what actually happened, including borrowing. A dose with an inventory problem is still
+  recorded, which matches MIROW's rule that the patient record is updated whatever the inventory issue. The guide also
+  answers the questions MIROW left open in 2016: when to send an update rather than a delete and add, and how ORC-3
+  identifies the source record. Its model, in which a lot number, eligibility, or funding source correction is sent
+  as an update, is the one MIROW's correction scenarios assume. Three connections need attention. The guide recognizes
+  only two-stock and three-stock models, while MIROW also describes the replacement model, in which the funding of a
+  dose is not known when it is given. The guide does not say how an IIS reports, in the ACK, that a vaccination was
+  recorded but inventory was not decremented. And the guide does not cite this MIROW guide, although it is the
+  community's best practice for the use the guide names first for funding data.
+
+items:
+  - id: mirow-di-01
+    section: Introduction; Chapter 9 - HL7 immunization messaging
+    page: 14-16, 90-92
+    doc: >-
+      Best practices for decrementing a provider organization's vaccine inventory automatically from the vaccination
+      events it submits electronically, so that inventory tracking and immunization tracking are served by the same
+      submission.
+    result: missing
+    guide: [funding-source-and-eligibility, inventory-and-accountability-considerations]
+    note: >-
+      The guide says funding information is "primarily used for inventory decrementing and program operations" and
+      that it supports "MIROW-aligned practices", but it cites neither this guide nor the MIROW guide on IIS
+      collaboration with VFC (2011) that it builds on.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      In Funding Source and Eligibility, cite MIROW's Decrementing Inventory via Electronic Data Exchange (2016) as the
+      best practice for using these elements to decrement inventory.
+
+  - id: mirow-di-02
+    section: P02 - Inventory tracking and immunization tracking; BR206 - Update the patient record regardless
+    page: 24, 47
+    doc: >-
+      A submission serves both inventory tracking and immunization tracking. The IIS should update the patient record
+      with the demographic and immunization information in a submission whatever inventory-related issues the submission
+      has.
+    result: covered
+    guide: [iis-core-intent-and-message-disposition--s1, iis-core-intent-and-message-disposition--s3, vaccine-funding-source-and-stock-models--s3, validation-enforcement-and-borrowing-scenarios--s4]
+    note: >-
+      The guide makes recording the vaccination the core intent of a VXU. A VXU is accepted when the patient and shot
+      history are recorded, whatever happens to the other data. It also tells IIS to accept a vaccination with an
+      unexpected or unrecognized funding value and flag it, rather than reject it.
+
+  - id: mirow-di-03
+    section: BR202 - Submit information to support decrementing
+    page: 46
+    doc: >-
+      To support decrementing, the submission should include the lot number, dose-level eligibility, dose-level
+      public/private indicator (optional), vaccination event date, CVX code, NDC (optional), provider organization IIS ID,
+      and lot number expiration date.
+    result: covered
+    guide: [patient-funding-eligibility-per-dose--s1, funding-source-and-eligibility, administered-vaccinations--s2, ndc-codes--s1, date-of-vaccination-rxa-3--s1, administering-organization-rxa-11]
+    note: >-
+      Every element has a place in the administered RXA or its OBX segments. These are RXA-15 (lot number, required),
+      the funding program eligibility OBX (64994-7), the funding source OBX (30963-3), RXA-3, RXA-5 (CVX, with NDC as an
+      alternate code), RXA-11 (administering organization, required), and RXA-16 (expiration date, RE). The guide asks
+      more than MIROW of submitting systems: they must be able to send funding source as well as eligibility. MIROW
+      also uses the expiration date to tell apart two inventory items with the same lot number when doses are
+      short-dated (BR107). RXA-16 is RE, so it is sent whenever known, but the narrative never mentions it outside the
+      list of non-identifying fields.
+
+  - id: mirow-di-04
+    section: Chapter 3 - Dose-level eligibility
+    page: 20, 88-89
+    doc: >-
+      Dose-level eligibility is the patient's eligibility for a funding program, determined for each dose at the time of
+      the vaccination event (MIROW 2011 guide on IIS collaboration with VFC). Eligibility can be recorded for a visit or
+      for each dose, and the field can be empty. An IIS must therefore decide what to do when eligibility is missing and
+      the message has several vaccinations.
+    result: covered
+    guide: [patient-funding-eligibility-per-dose--s1, patient-funding-eligibility-per-dose--s2, patient-funding-eligibility-per-dose--s3, patient-funding-eligibility-per-dose--s4]
+    note: >-
+      The guide settles the question MIROW raised. Eligibility is sent for each dose, and a system that captures it
+      once per visit applies that value to every administered vaccination in the message. At most one value is sent per
+      dose. OBX-17 shows how the value was captured.
+
+  - id: mirow-di-05
+    section: Chapter 3 - Dose-level public/private indicator (funding source)
+    page: 20-21, 89
+    doc: >-
+      The dose-level public/private indicator (HL7's funding source) says which stock the dose was taken from. Many EHRs
+      do not record it, so many IIS infer the stock from eligibility. That reduces the reporting burden but does not
+      support accountability, because eligibility and stock differ when a provider borrows.
+    result: covered
+    guide: [funding-source-and-eligibility, vaccine-funding-source-and-stock-models, validation-enforcement-and-borrowing-scenarios--s3]
+    note: >-
+      The guide distinguishes the two concepts as MIROW does. It requires submitting systems to be able to report both
+      when known, and to report what actually applied, including when stock was borrowed. That gives IIS the
+      accountability MIROW says inference cannot.
+
+  - id: mirow-di-06
+    section: Chapter 3 - Vaccine storage models
+    page: 21-23
+    doc: >-
+      Awardees use one of four storage models: multi-stock, separated by individual fund type (VFC, 317, CHIP, state,
+      private), which MIROW notes the HL7 funding source value set does not support; three-stock (VFC public, non-VFC
+      public, private); two-stock (public, private); or one-stock. In a one-stock model, the provider either uses
+      private vaccine for everyone and VFC replaces the doses given to eligible children (replacement), or has only
+      public vaccine (universal). In a one-stock model the fund type of a dose is not known when it is given.
+    result: partial
+    guide: [vaccine-funding-source-and-stock-models--s1, universal-purchase-and-default-eligibility, jurisdiction-specific-eligibility-codes]
+    note: >-
+      The guide says U.S. jurisdictions "operate either a two-stock or three-stock inventory model" and that each IIS
+      SHALL select one of the two. The universal model is covered by Universal Purchase and Default Eligibility. The
+      guide does not mention the replacement model, in which the stock used is always private at the time of
+      administration and eligibility alone drives replacement, nor say what funding source such providers send. A
+      multi-stock jurisdiction can use the open value set's local extensions, but the guide does not say so.
+    severity: note
+    owner: decision
+    recommendation: >-
+      CDC to decide whether the SHALL in Vaccine Funding Source and Stock Models should allow a one-stock (replacement)
+      model, and if so to say what funding source a provider in that model reports. Also say that fund types beyond the
+      national codes (such as 317, CHIP, or state) are sent as published local extensions.
+
+  - id: mirow-di-07
+    section: Chapter 3 - Lot-level public/private indicator
+    page: 21
+    doc: >-
+      The IIS assigns each inventory item a lot-level public/private indicator from ordering and shipment data. The
+      provider organization does not send it.
+    result: covered
+    guide: [vaccine-funding-source-and-stock-models]
+    note: >-
+      Nothing in the message carries it, and the guide "does not prescribe an IIS's internal inventory or
+      lot-validation workflows".
+
+  - id: mirow-di-08
+    section: BR201 - Document after administration
+    page: 45
+    doc: >-
+      The provider organization should document the vaccination event after the vaccine is administered, not when it is
+      prescribed, since the vaccine actually given sometimes differs from what was ordered.
+    result: covered
+    guide: [administered-vaccinations--s1, date-of-vaccination-rxa-3--s1, date-of-vaccination-rxa-3--s4]
+    note: >-
+      The guide's administered RXA records a dose given, on the date it was given; a planned or ordered dose is not
+      reported as administered.
+
+  - id: mirow-di-09
+    section: BR203, S901, S902 - Decrement only administered doses
+    page: 46, 82
+    doc: >-
+      Only doses reported as administered are decremented. A dose marked historical is recorded but not decremented, and
+      a historical dose dated on the day of submission is flagged to the provider, since it is probably a mislabeled
+      administered dose.
+    result: covered
+    guide: [administered-vaccinations--s3, historical-vaccinations-and-internal-use--s2, administered-versus-historical-vaccinations]
+    note: >-
+      RXA-9 is required and separates the two. The guide tells IIS not to use funding values on historical doses to
+      decrement inventory. ERR-5 code 2104 (historical dose given on submission date) is the national code for S901.
+
+  - id: mirow-di-10
+    section: S701 - Missing eligibility and funding source
+    page: 80
+    doc: >-
+      When a submission has neither dose-level eligibility nor the public/private indicator, the vaccination is recorded
+      but not decremented, and the IIS tells the provider organization that required data are missing.
+    result: covered
+    guide: [patient-funding-eligibility-per-dose--s1, vaccine-funding-source-and-stock-models--s4, universal-purchase-and-default-eligibility--s1, err-5-application-error-code]
+    note: >-
+      ERR-5 codes 2500 (missing eligibility) and 2501 (missing funding source) report this. The guide lets jurisdictions
+      require these values from VFC participants, with an Error where needed (err-4-severity-code--s1), and tells
+      submitters in universal purchase programs not to send them unless told to.
+
+  - id: mirow-di-11
+    section: S702, S703 - Missing date, unrecognized CVX or NDC
+    page: 80
+    doc: >-
+      A vaccination with a missing or badly formatted date, or an unrecognized CVX or NDC code, is rejected and not
+      decremented, and the provider is notified.
+    result: covered
+    guide: [iis-core-intent-and-message-disposition--s2, date-of-vaccination-rxa-3]
+    note: >-
+      RXA-3 and RXA-5 are required. A vaccination that cannot be recorded means the VXU's core intent was not met, so
+      the IIS returns an Error.
+
+  - id: mirow-di-12
+    section: BR204, S501 to S503, S1001 - Lot problems
+    page: 47, 78-79, 82
+    doc: >-
+      Only active inventory is decremented. When the lot in a submission is expired, inactive, at zero balance, or not
+      in the provider's inventory at all, the vaccination is still recorded (as non-viable if the lot had expired), the
+      dose is not decremented, and the IIS notifies the provider organization or EHR. P07 lists the ACK as one way to
+      notify, alongside reports and the user interface.
+    result: partial
+    guide: [inventory-and-accountability-considerations, err-4-severity-code--s6, err-5-application-error-code, required-follow-up-actions]
+    note: >-
+      The ACK rules give the right answer: the vaccination was recorded, so the VXU is accepted, and an issue that needs
+      correction is a Warning. ERR-5 has codes for some of these cases: 2001 (expired vaccine administered), 2011 (lot
+      not valid for the vaccine), and the general 2601 (inventory management error). But the guide never says that an
+      inventory problem is reported this way. Submitters cannot tell from the guide whether a dose was decremented.
+      Inventory and Accountability Considerations covers corrections only.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Add to Inventory and Accountability Considerations that when a vaccination is recorded but inventory cannot be
+      decremented (lot not found, inactive, expired, or at zero balance), the IIS SHOULD return a Warning with ERR-5
+      2601, or a more specific code such as 2001, so the submitter can correct the lot or account for the dose (MIROW
+      BR204, P07).
+
+  - id: mirow-di-13
+    section: S801 - Eligibility does not match the stock used (borrowing)
+    page: 81
+    doc: >-
+      When eligibility or the reported indicator says public but the matched lot is private stock, the vaccination is
+      recorded. If the awardee allows borrowing, the IIS decrements private stock and records a borrowing transaction.
+      Otherwise it does not decrement and notifies the provider. Inconsistent eligibility and indicator are accepted and
+      flagged for follow-up (2013 DQA BR122).
+    result: covered
+    guide: [validation-enforcement-and-borrowing-scenarios, vaccine-funding-source-and-stock-models--s2]
+    note: >-
+      The guide makes the same split between what the message reports and what program policy allows. ERR-5 code 2009
+      (lot number conflicts with funding source) and 2012 (eligibility conflicts with other data, such as age) report
+      the conflicts. The code set's note for 2009 says it applies to RXA-16, although its description, correctly,
+      refers to the lot number in RXA-15.
+    owner: igamt
+    recommendation: >-
+      Ask AIRA to correct the note on ERR-5 code 2009 to "Applies to RXA-15; OBX segment".
+
+  - id: mirow-di-14
+    section: P09, S1101 - Decrement a dose only once
+    page: 26, 83
+    doc: >-
+      A vaccination event can be sent many times over the life of the patient. The IIS should decrement an administered
+      dose only once, however often it is resent.
+    result: covered
+    guide: [historical-vaccinations--s4, record-consolidation-and-deduplication, iis-matching-and-correction-processing--s1]
+    note: >-
+      The guide expects repeated reports and gives IIS the submitting source and ORC-3 as strong evidence that a
+      resent record is the one already received, which is what lets an IIS decrement it once.
+
+  - id: mirow-di-15
+    section: S1205, S1206 - Updated eligibility, funding source, or lot number
+    page: 86
+    doc: >-
+      An update (action code U) that changes the eligibility, funding source, or lot number of a previously reported
+      vaccination is applied automatically. If the dose was decremented, it is returned to the original inventory item
+      and decremented from the new one.
+    result: covered
+    guide: [submitter-correction-behavior--s3, non-identifying-vaccination-fields, modifying-non-identifying-vaccination-fields]
+    note: >-
+      The guide lists lot number as a non-identifying field, and funding eligibility and funding source are not among
+      the identifying fields. Corrections to any of them are sent as updates, as MIROW assumes. This supports the guide's treatment of lot number as correctable by update.
+      The deduplication guide treats different lot numbers as evidence of different events (see mirow-vd-05).
+
+  - id: mirow-di-16
+    section: BR408, S1202 - Deleted vaccination returns the dose to inventory
+    page: 50, 83
+    doc: >-
+      When a vaccination event is deleted, including by a submission with action code D, the inventory decremented for
+      it is incremented again.
+    result: covered
+    guide: [handling-delete-requests, inventory-and-accountability-considerations]
+    note: >-
+      The guide's delete retracts the source record. Its note that corrections can require an inventory adjustment
+      covers this.
+
+  - id: mirow-di-17
+    section: BR205, S1203, S1204 - Changes after a closed reconciliation
+    page: 47, 84-85
+    doc: >-
+      The IIS should not decrement automatically when the vaccination date falls on or before the end of the most recent
+      closed reconciliation. A delete or a late vaccination for a closed period needs the reconciliation to be reopened
+      by IIS staff, and an issue is logged for manual work.
+    result: reworded
+    guide: [inventory-and-accountability-considerations, handling-delete-requests--s3, err-4-severity-code--s8]
+    note: >-
+      The guide allows local policy to delay or review a correction "when inventory or accountability records can no
+      longer be reconciled". The ACK says whether it was applied and whether manual follow-up is needed. An update or
+      delete not applied for policy reasons is reported as Information, not as an Error. One consequence is not
+      spelled out: correcting an identifying field such as RXA-3 means a delete followed by an add, which reverses and
+      repeats the decrement and so can reach into a closed reconciliation period.
+
+  - id: mirow-di-18
+    section: Chapter 9 - Action codes and the vaccination ID
+    page: 91-92
+    doc: >-
+      (In 2016 MIROW found that best practice for action codes was not documented, that many EHRs send only "A", and that
+      it was not known whether ORC-3 was populated reliably. It recommended examining both "in more depth in the future to
+      develop a standard of practice".)
+    result: guide-adds
+    guide: [submitter-correction-behavior, identifying-field-changes, vaccination-record-identity-and-orc-3, iis-matching-and-correction-processing]
+    note: >-
+      The guide provides that standard of practice. Submitters SHALL support A, U, and D, reuse the source record's
+      ORC-3, and use a delete and add only when an identifying field changes. IIS treat source and ORC-3 as
+      high-confidence evidence while still matching.
+
+  - id: mirow-di-19
+    section: P07, P08, chapter 9 - Notifying providers through the ACK
+    page: 26, 90-93
+    doc: >-
+      The IIS should notify provider organizations of decrementing problems by reports, the user interface, or ACK
+      messages. Many EHRs do not show ACKs to users, and an ACK does not say which data were used. EHRs should present ACKs
+      as actionable information.
+    result: covered
+    guide: [required-follow-up-actions, use-of-acks-in-interface-monitoring, data-quality-management-beyond-acks]
+    note: >-
+      The guide requires submitting systems to convey every Warning and Error to users as understandable information,
+      not raw HL7, and treats ACKs as one part of data quality management alongside reports.
+
+  - id: mirow-di-20
+    section: P03, BR403, BR407 - Preapproval testing
+    page: 24, 49-50, 69-72
+    doc: >-
+      The IIS must preapprove a provider organization before decrementing from its submissions, testing with the EHR
+      vendor's test data and the provider's own data, and examining every data element used for decrementing.
+    result: covered
+    guide: [submitting-organization-msh-4-sending-facility, operational-enforcement-and-ongoing-compliance, err-4-severity-code--s1]
+    note: >-
+      The guide treats onboarding and ongoing monitoring as part of conformance, and lets IIS apply stricter rules to
+      submitters in publicly funded programs.

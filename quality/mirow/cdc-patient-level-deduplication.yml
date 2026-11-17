@@ -1,0 +1,133 @@
+# Comparison: CDC "Immunization Information Systems Patient-Level De-duplication Best Practices" (June 2013) and this
+# guide.
+#
+# Not a MIROW guide, but the companion to MIROW's vaccination-level deduplication guide, and the national reference for
+# matching patient records. Only the best practices that depend on what is exchanged, or on what the guide asks of
+# submitters, are itemized (from the summary in Table 1.1 and chapter 5). Deduplication engines, blocking, scoring,
+# thresholds, metrics, master patient indexes, manual review, and the test cases in volume 2 are IIS processing and are
+# covered by a single out-of-scope item.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide does not cite this document, although it is the reference for the patient deduplication that the guide
+  tells submitters to expect. The two agree:
+  - IIS clean up and standardize the data they receive.
+  - Identifiers such as a medical record number allow a quick, reliable lookup.
+  - Onboarding includes systematic testing of the content of incoming data.
+  - Submitters should act on the IIS's error feedback.
+  - Data from an unapproved source is not accepted.
+  The guide also does something this report asked for: in 2013 CDC suggested that placeholder names for newborns
+  ("Baby Boy", "BG") "could be standardized by convention on a national scale". The guide now marks them with name
+  type NB and requires the real name to be sent once known. Two earlier findings apply here as well. The guide doesn't
+  say that IIS deliberately prefer an unmerged duplicate to a wrong merge (mirow-vd-04). It also never mentions birth
+  order, which this report lists among the optional matching fields and MIROW uses to keep twins apart (mirow-cr-09).
+
+items:
+  - id: cdc-pdd-01
+    section: Chapter 1 and chapter 5 - The report as a reference for patient deduplication
+    doc: >-
+      Best practices for patient-level deduplication in IIS, from a CDC expert panel and a national practice
+      assessment, covering incoming data, manual entry, retrospective processing, manual review, and testing.
+    result: missing
+    guide: [record-consolidation-and-deduplication, iis-matching-and-correction-processing]
+    note: >-
+      The guide cites MIROW's vaccination-level deduplication guide for "patient and vaccination record deduplication",
+      but that guide covers only vaccination events. This report is the one that covers patients.
+    severity: note
+    owner: narrative
+    recommendation: Covered by the recommendation in mirow-vd-01 to cite this report in Record Consolidation and Deduplication.
+
+  - id: cdc-pdd-02
+    section: Table 1.1, 5.2.1 (6) - Err on the side of preventing false merges
+    page: 4, 53
+    doc: >-
+      When in doubt, practitioners should prevent false merges. Wrongly merging two patients' records has more severe
+      consequences than leaving one patient duplicated.
+    result: reworded
+    guide: [record-consolidation-and-deduplication]
+    note: >-
+      The guide says high-confidence matches may be merged automatically and ambiguous cases reviewed, but not that a
+      duplicate is the preferred error. The same point was made for vaccination events (see mirow-vd-04, whose
+      recommendation should apply to patients as well).
+
+  - id: cdc-pdd-03
+    section: 4.1.2, 4.3.1, 5.2.1 (5) - Placeholder names for newborns
+    page: 32, 34, 53
+    doc: >-
+      Nearly all interface data needs pre-screening. IIS may decide not to use records with names like Baby Boy, Baby
+      Girl, BB, or BG, and should remove placeholder words before matching. In the longer term, "placeholder information
+      could be standardized by convention on a national scale".
+    result: guide-adds
+    guide: [unnamed-newborns, official-registry-name-recorded-for-a-newborn, important-names]
+    note: >-
+      The guide supplies the national convention. A placeholder name is marked with name type 'NB' and never sent as
+      the legal name. When the real name is known, the submitter sends both names together, along with the child's
+      complete history, so the IIS can link the records.
+
+  - id: cdc-pdd-04
+    section: 3.6.2, Table 1.1 - Use unique identifiers for a quick match
+    page: 20
+    doc: >-
+      Where available, specific identifiers (SSN, medical record number, chart number, birth certificate number) can
+      find a match quickly without calling the deduplication engine.
+    result: covered
+    guide: [primary-patient-identifier-for-exchange, assigning-authority-and-identifier-namespace, other-patient-identifiers, iis-registry-identifier]
+    note: >-
+      The guide makes the submitter's identifier with its assigning authority, and the IIS identifier, the national
+      minimum. It leaves other identifiers, such as SSN, to jurisdictional policy because of their privacy risk.
+
+  - id: cdc-pdd-05
+    section: 3.6.1 - Fields used for matching
+    page: 19-20
+    doc: >-
+      Most IIS match on name, date of birth, and gender. Mother's maiden name, address, and vaccination data are common.
+      Optional fields that help include SSN, birth order, race, ethnicity, and local record numbers.
+    result: partial
+    guide: [patient-information, patient-and-other-names, race-and-ethnicity, record-consolidation-and-deduplication]
+    note: >-
+      The guide covers names, date of birth, address, race, and ethnicity in detail. It doesn't discuss the multiple
+      birth indicator or birth order (PID-24, PID-25), which this report lists as an optional matching field and
+      MIROW's consolidation guide relies on to tell twins apart.
+    severity: note
+    owner: narrative
+    recommendation: Covered by the recommendation in mirow-cr-09 to add a short section on multiple births.
+
+  - id: cdc-pdd-06
+    section: 3.5, 4.3 - Data preparation and standardization
+    page: 17-18, 33-38
+    doc: >-
+      Data from many sources differs in conventions, abbreviations, and errors. IIS should standardize names (removing
+      placeholders and titles), addresses, and phone numbers before comparing them, and require a minimal set of data
+      for matching.
+    result: covered
+    guide: [address-cleansing-and-normalization, patient-and-other-names, phone-and-email, name-consistency-and-matching-expectations]
+    note: >-
+      The guide expects IIS to cleanse and normalize what they receive, and tells submitters that the names and
+      addresses returned may differ from what they sent.
+
+  - id: cdc-pdd-07
+    section: Table 1.1, 4.1.2, 5.2.1 - Onboarding, feedback, and approved sources
+    page: 6-7, 32, 51-53
+    doc: >-
+      Test the format and content of incoming data systematically when onboarding a new data source. Give providers
+      routine feedback on data quality, and encourage them to act on response files and error messages and to use
+      standardized HL7. Do not accept data from a source that is not approved.
+    result: covered
+    guide: [submitting-organization-msh-4-sending-facility--s2, operational-enforcement-and-ongoing-compliance, required-follow-up-actions, use-of-acks-in-interface-monitoring--s3]
+    note: >-
+      Connections are authenticated and tied to an onboarded organization in MSH-4. Onboarding and ongoing monitoring
+      are part of conformance. Submitters must show users every Warning and Error, and analyze ACKs in aggregate.
+
+  - id: cdc-pdd-08
+    section: Chapters 3 and 4 - The deduplication process inside the IIS
+    page: 13-49
+    doc: >-
+      Data preparation, lookup by identifiers, blocking and scoring, action on outcomes, and reporting. Deterministic
+      and probabilistic methods, thresholds, performance measures, retrospective review, merge and unmerge, and master
+      patient indexes.
+    result: out-of-scope
+    guide: [record-consolidation-and-deduplication]
+    note: >-
+      IIS processing. The guide describes only what submitters can expect from it: that their records may be merged
+      and modified as the IIS consolidates them.

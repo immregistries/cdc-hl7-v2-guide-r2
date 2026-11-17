@@ -1,0 +1,181 @@
+# Comparison: MIROW Principles and Business Rules (version 2.0, September 2022; spreadsheet updated December 2022) and
+# this guide.
+#
+# The report collects the principles and business rules of every MIROW guide, under rule names that carry the guide
+# and year (for example, DQA2022 - BR106). Rules from guides that have their own comparison (VD2006, INV2012, DINV2016,
+# CR2017, MPS2019, DQA2022) are compared there and not repeated here. This comparison covers the rules of the three
+# guides that are in the report but not in this collection: IIS Collaboration with Vaccines for Children Program and
+# Grantee Immunization Programs (DLE2011, 18 rules), Reminder/Recall in IIS (RR2009, 55 rules), and the organization
+# change rules kept from Data Quality Assurance in IIS: Selected Aspects (DQA2013, BR818 to BR823). Business Continuity
+# Planning (BC2019, 15 rules) has nothing to do with messages. Of the DLE2011 rules, the screening process (BR601 to
+# BR604, BR606, BR607, BR609, BR611) and provider profile counting (BR616, BR617) are not itemized. Of the RR2009
+# rules, the timing, methods, content, and evaluation of notifications are not itemized.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide doesn't cite this report, but it is the easiest way to find a MIROW rule by number. It also brings in two
+  MIROW guides that this collection doesn't otherwise include, and both connect to the guide. The 2011 VFC
+  collaboration guide is where per-dose eligibility comes from: one eligibility status for each dose, recorded after
+  the dose is given, and updated later if an insurance claim shows the first answer was wrong. The guide follows all of
+  this. It does not give MIROW's rule for choosing one eligibility code when a patient qualifies more than one way
+  (Medicaid, then AI/AN, then uninsured, then underinsured), although it allows only one value. It also does not
+  mention that MIROW's best practice is to report a combination. The 2009 reminder/recall guide makes a patient's
+  reminder/recall preference, including opting out in whole or in part, a criterion for every reminder/recall run.
+  That preference travels in PD1-11 (publicity code, RE, with twelve national codes). The guide never mentions PD1-11,
+  so submitters have no guidance on a field the profile expects them to send when known.
+
+items:
+  - id: mirow-pbr-01
+    section: The report and spreadsheet
+    doc: >-
+      All principles and business rules from the ten MIROW guides, with their current wording, numbered by guide and
+      year, with examples and remarks, and with terms from the MIROW Common Vocabulary marked.
+    result: missing
+    guide: [data-quality-processes, iis-matching-and-correction-processing]
+    note: >-
+      The guide cites individual MIROW guides but not the compiled rules, which are the stable way to point to a MIROW
+      rule. The ERR-5 code set cites MIROW rules by bare number (BR 116) without the guide, which is how its citations
+      became ambiguous (see mirow-dqa-45).
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Cite the MIROW Principles and Business Rules report among the references. Ask AIRA to cite rules in the ERR-5 code
+      set by their full name (for example, DQA2022 - BR115).
+
+  # ---------------------------------------------------------------- DLE2011
+  - id: mirow-pbr-02
+    section: DLE2011 - BR608, BR613 - One eligibility status for every dose administered
+    doc: >-
+      A single eligibility or coverage status is assigned to the patient for every vaccination event, and reported to
+      the IIS for every dose. On the same day a patient can be eligible for one VFC vaccine and not for another.
+    result: covered
+    guide: [patient-funding-eligibility-per-dose--s1, patient-funding-eligibility-per-dose--s3, funding-source-and-eligibility]
+    note: >-
+      The guide's per-dose eligibility, at most one value per dose, is this rule. The guide also says eligibility may
+      vary by vaccine.
+
+  - id: mirow-pbr-03
+    section: DLE2011 - BR614, BR615 - Which eligibility to report when several apply
+    doc: >-
+      The minimum is a single item: Medicaid, AI/AN, uninsured, underinsured (at FQHC, RHC, or deputized providers
+      only), grantee-eligible, or private coverage. When the patient meets more than one VFC criterion, the hierarchy is
+      Medicaid, then AI/AN, then uninsured, then underinsured. The best practice is to report every applicable item in
+      a valid combination (for example, AI/AN and uninsured), with rules for which combinations are valid and how to
+      interpret them.
+    result: conflict
+    guide: [patient-funding-eligibility-per-dose--s3, jurisdiction-specific-eligibility-codes]
+    note: >-
+      The national value set (V01 to V05 and V22 to V25) has one code per category, and the guide allows at most one
+      value per dose. That supports MIROW's minimum set but not its best practice. The guide does not give the
+      hierarchy for choosing among codes, so a patient who is both on Medicaid and AI/AN may be reported either way.
+    severity: note
+    owner: decision
+    recommendation: >-
+      CDC to confirm that only one eligibility value is sent per dose, which departs from MIROW's best practice
+      (DLE2011 BR615). If so, add to Patient Funding Eligibility (Per Dose) that when more than one applies, the
+      submitter reports the first in MIROW's order: V02 (Medicaid), V04 (AI/AN), V03 (uninsured), V05 (underinsured).
+
+  - id: mirow-pbr-04
+    section: DLE2011 - BR610 - Eligibility later found to be wrong
+    doc: >-
+      If private coverage was assumed at the encounter and the claim is later rejected, the provider organization
+      updates the patient's eligibility in the IIS to reflect reality and deals with borrowing. It must not change which
+      vaccine (lot) was given.
+    result: covered
+    guide: [submitter-correction-behavior--s3, validation-enforcement-and-borrowing-scenarios--s3, modifying-non-identifying-vaccination-fields]
+    note: >-
+      Eligibility is not an identifying field, so the correction is an update to the same record (same ORC-3), which is
+      what MIROW describes.
+
+  - id: mirow-pbr-05
+    section: DLE2011 - BR612 - Record after administration
+    doc: >-
+      Record the vaccination event only after the vaccine has been administered, so the data reflect what actually
+      happened (the vaccine could be declined).
+    result: covered
+    guide: [administered-vaccinations--s1, dose-level-non-administration]
+    note: The same rule as DINV2016 BR201 (see mirow-di-08); a declined dose is reported as non-administration.
+
+  - id: mirow-pbr-06
+    section: DLE2011 - BR601, BR605 - Age and provider type limits on eligibility
+    doc: >-
+      A patient must meet the program's age criteria (under 19 for VFC). Underinsured children are VFC-eligible only at
+      an FQHC, RHC, or a provider with delegated authority.
+    result: covered
+    guide: [validation-enforcement-and-borrowing-scenarios, vaccine-funding-source-and-stock-models--s2, err-5-application-error-code]
+    note: >-
+      The value set's V05 is limited to FQHC, RHC, and deputized providers. An inconsistent combination is accepted and
+      flagged rather than rejected, with ERR-5 code 2012 (eligibility conflicts with other data, such as age).
+
+  # ---------------------------------------------------------------- RR2009
+  - id: mirow-pbr-07
+    section: RR2009 - BR401 - Who is included in reminder/recall, including opt-out
+    doc: >-
+      Criteria for including people in reminder/recall include age, the provider association (immunization home),
+      patient status at both levels, vaccines and doses due, risk status, address, program, insurance, exemptions and
+      contraindications, language, and opting out of reminder/recall in whole or in part. The CDC-endorsed "reminder/
+      recall status" (publicity code) records whether a person wishes to be contacted.
+    result: missing
+    guide: [patient-information, consent-and-privacy, active-and-inactive-status]
+    note: >-
+      PD1-11 (publicity code) carries the patient's reminder/recall preference. It is RE in the VXU, with twelve
+      required national codes for what is allowed: none, reminder or recall only, by any method or no calls, or to the
+      provider. PD1-18 carries its date. The narrative never mentions PD1-11. Submitters can't tell what the codes mean,
+      that the field is separate from PD1-12 (sharing) and from patient status, or that an empty field means no
+      preference was recorded. MIROW keeps opting out of reminder/recall separate from patient status (MPS2019 P313,
+      P314; see mirow-mps-11).
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Add a short section on PD1-11 to Patient Information. Say that it records the patient's or guardian's explicit
+      reminder/recall preference, with the date in PD1-18. Say that it is sent only when a preference was expressed,
+      that it is independent of PD1-12 and of patient status, and that IIS use it to filter reminder/recall (MIROW
+      RR2009 BR401).
+
+  - id: mirow-pbr-08
+    section: RR2009 - P201 to P204, BR201, BR202, BR802, P803 - Who is responsible for reminder/recall
+    doc: >-
+      Responsibility for each patient must be clearly defined. The immunization home does reminder/recall when it is
+      known, and the jurisdiction does it otherwise. After 90 days and three unsuccessful attempts, the patient becomes
+      inactive at the provider level and stays active at the jurisdiction level, so responsibility passes to the
+      jurisdiction.
+    result: covered
+    guide: [patient-active-status-in-clinical-and-iis-contexts, iis-derived-status-and-jurisdictional-views]
+    note: >-
+      The guide's patient status sections explain that status supports reminder/recall and that IIS derive their own
+      status, which they keep out of messages. A status the IIS sets after failed recalls is IIS-derived (see
+      mirow-mps-07 on telling providers about changes).
+
+  - id: mirow-pbr-09
+    section: RR2009 - P603, P702 - Reminder/recall depends on data quality
+    doc: >-
+      The notification method depends on the contact information available (a phone call needs a current phone number),
+      and the specificity of the notification depends on the quality of the immunization data.
+    result: covered
+    guide: [phone-and-email, shared-responsibility-for-data-quality]
+    note: >-
+      The guide's phone and email section says accurate contact information supports reminder/recall.
+
+  # ---------------------------------------------------------------- DQA2013 and BC2019
+  - id: mirow-pbr-10
+    section: DQA2013 - BR818 to BR823 - Organization acquisitions, mergers, and spin-offs
+    doc: >-
+      When IIS-authorized organizations merge, are acquired, or split, the IIS de-authorizes or restructures them and
+      assigns new IIS-AO IDs according to the case.
+    result: covered
+    guide: [implementation-and-maintenance-considerations, parent-and-child-organizations--s1]
+    note: >-
+      The guide asks IIS to document how identifiers are requested, updated, and retired, and submitters to tell the IIS
+      about changes in ownership or structure. MIROW's rules are what an IIS would follow.
+
+  - id: mirow-pbr-11
+    section: BC2019 - Business continuity planning
+    doc: >-
+      Principles and business rules for keeping IIS functions running through a disruption (recovery objectives,
+      essential functions, communication).
+    result: out-of-scope
+    guide: [scope]
+    note: >-
+      Nothing in these rules depends on message content. Fault handling at the transport level is the guide's nearest
+      topic.

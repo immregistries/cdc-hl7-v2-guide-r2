@@ -1,0 +1,265 @@
+# Comparison: MIROW "Immunization Information System Inventory Management Operations" (June 2012) and this guide.
+#
+# One item per principle, business rule, or general recommendation, or group of them, that depends on what is
+# exchanged in a message (numbering as in the guide's chapters 4 and 5), plus the NDC considerations in chapter 7.
+# Most of this guide concerns inventory operations that never reach a VXU and are not itemized: shipments and transfers
+# (BR703, BR709, BR710, BR713, BR714, GR705, GR707, GR708), wasted and spoiled doses (BR708, BR715), reconciliation
+# (P706, BR717, BR721 to BR723), adoption (BR724), the reports in chapter 6, and the state/event model in chapter 3.
+# The 2016 MIROW guide on decrementing inventory electronically builds on this one; where the two differ, the item says
+# so.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  This 2012 guide is mostly about inventory operations inside the IIS. Its connection to the guide is the
+  dose-administered transaction, which is the only inventory event an EHR reports electronically. For that transaction
+  the two agree:
+  - a lot number and dose-level eligibility for every administered dose
+  - a funding source reported for the dose itself, rather than inferred from eligibility, so that borrowing can be seen
+  - no inventory transaction for a historical dose
+  - an IIS that keeps the vaccination of an opted-out patient out of the record but can still account for the dose
+  The guide is softer than this MIROW guide in one way. MIROW 2012 says an administered dose reported without a lot
+  number or eligibility is rejected. The guide follows the later MIROW guides, which record the vaccination and deal
+  with the missing data separately. Two connections need attention. MIROW bases inventory on the NDC and lot number on
+  the outside of the package, and says a multi-component vaccine has one lot number and one NDC for inventory. The
+  guide asks submitters for the NDC of the lyophilized powder and lets RXA-15 repeat without saying what each lot
+  number means. MIROW also distinguishes the organization responsible for the inventory from the one that gave the
+  dose. The guide's definition of RXA-11 assumes they are the same.
+
+items:
+  - id: mirow-im-01
+    section: Chapter 2 - Scope; BR718 - Electronic inventory transactions
+    page: 17-23, 46-47
+    doc: >-
+      Dose-administered transactions reach the IIS by direct entry or from an EHR. Shipments come from VTrckS. All other
+      inventory transactions (wasted, spoiled, transferred, returned doses) are entered only through the IIS user
+      interface, because "there are no electronic exchange standards" for them, though MIROW would encourage their
+      development.
+    result: out-of-scope
+    guide: [scope]
+    note: >-
+      The guide covers vaccinations, not inventory transactions, and its scope excludes inventory ordering. Reporting
+      wasted or transferred doses electronically is still not defined anywhere in the national guidance.
+
+  - id: mirow-im-02
+    section: P701, BR701, BR702, chapter 7 - NDC supremacy, and finding the NDC from the lot number
+    page: 36-37, 83-86
+    doc: >-
+      Inventory is managed by NDC, because VFC and VTrckS require it. The NDC used is the one received in the shipment
+      file, from the outside of the package (unit of sale). Providers rarely record the NDC when they give a dose. The
+      recommended way for the IIS to find the NDC of an administered dose is from its lot number, which was linked to an
+      NDC when the shipment arrived. Mapping from CVX and MVX without the lot number is not a best practice, and asking
+      providers to record the NDC by hand is not suggested.
+    result: reworded
+    guide: [ndc-national-drug-code, relationship-between-ndc-and-cvx, ndc-codes--s1, unit-of-use-and-unit-of-sale-ndcs, ndc-requirements-for-administered-vaccinations--s3, storage-and-traceability-expectations]
+    note: >-
+      The guide keeps CVX as the canonical code and treats NDC as a SHOULD for administered doses, valuable for
+      traceability and reconciliation. That fits MIROW's view that the IIS can derive the NDC behind the scenes. The
+      guide accepts unit-of-use as well as unit-of-sale NDCs. An IIS that receives a unit-of-use NDC (the vial or
+      syringe) still has to reach the unit-of-sale NDC for inventory, which MIROW does through the lot number. The guide
+      doesn't say this, but it is IIS processing.
+
+  - id: mirow-im-03
+    section: BR704 (remarks), chapter 7 - Multi-component vaccines
+    page: 38, 85
+    doc: >-
+      Each component of a multi-component vaccine (one with a diluent or components that are combined) has its own lot
+      number. There is always one lot number and one NDC, on the outside of the package, that characterize the vaccine
+      as a whole, and those are used for inventory. For a product such as Pentacel, with separate NDCs for powder and
+      liquid, the only NDC that can be used for ordering, inventory, and returns is the one on the CDC contract.
+    result: partial
+    guide: [ndc-requirements-for-administered-vaccinations--s9, ndc-requirements-for-administered-vaccinations--s10, ndc-requirements-for-administered-vaccinations--s11, non-identifying-vaccination-fields]
+    note: >-
+      The guide tells submitters to report the NDC of the lyophilized powder for reconstituted vaccines, and any NDC for
+      other multi-component products. It says nothing about which lot number goes in RXA-15. RXA-15 repeats (1..*) in
+      the administered RXA, so a submitter could send every component's lot, the outer package's, or one chosen at
+      random. MIROW's answer is one lot number and one NDC from the outside of the package. The guide's NDC rule picks
+      the powder, which serves product identification but not inventory. The same RXA-15 gap was found in the SISC and
+      consolidation comparisons (sisc-lot-01, mirow-cr-08).
+    owner: decision
+    recommendation: >-
+      CDC to decide which lot number a submitter sends in RXA-15 for a vaccine with several components: the one on the
+      outer package that the IIS inventory knows (MIROW BR704), or the active component's, to match the NDC rule. Say
+      so with the RXA-15 cardinality fix.
+
+  - id: mirow-im-04
+    section: GR703 - 5-4-2 NDC format
+    page: 53, 84
+    doc: >-
+      IIS should use the 5-4-2 NDC format that VTrckS requires, and translate the other formats (4-4-2, 5-3-2, 5-4-1, and
+      formats with fillers) into it.
+    result: covered
+    guide: [ndc-formatting-expectations, ndc-requirements-for-administered-vaccinations--s4, ndc-requirements-for-administered-vaccinations--s8]
+    note: >-
+      Submitting systems SHALL support NDC11 in 5-4-2 with dashes, and IIS SHALL accept common variations.
+
+  - id: mirow-im-05
+    section: P702, BR704 - A lot number for every administered dose
+    page: 38
+    doc: >-
+      Every administered dose must be documented and reported with its lot number, and a report without one is
+      rejected. Historical doses do not need one. Providers should adopt barcoding and drop-down lists so the lot number
+      is recorded correctly.
+    result: reworded
+    guide: [administered-vaccinations--s2, iis-core-intent-and-message-disposition, use-of-acks-in-interface-monitoring--s2]
+    note: >-
+      RXA-15 is required in the administered RXA and optional in the historical RXA, which matches MIROW. But the guide
+      does not let an IIS reject a vaccination only because the lot number is missing, unless the IIS has declared it
+      Critical Data. The later MIROW guides take the same position: the 2016 decrementing guide records the vaccination
+      and skips decrementing (S704), and the 2022 data quality guide makes the lot number recommended (BR131). So
+      MIROW's 2012 rejection rule has been superseded.
+
+  - id: mirow-im-06
+    section: BR705 - Patient eligibility for every administered dose
+    page: 39
+    doc: >-
+      Patient eligibility must be documented and reported for every administered dose, and a report without it is
+      rejected. Eligibility is needed to know whether to decrement public or private stock when both hold the same lot.
+      It does not apply to historical doses.
+    result: reworded
+    guide: [patient-funding-eligibility-per-dose--s1, vaccine-funding-source-and-stock-models--s4, historical-vaccinations-and-internal-use--s2]
+    note: >-
+      Eligibility is reported for each administered dose. A jurisdiction may enforce it for participants in public
+      programs, but the guide prefers accepting the vaccination and following up. The 2016 decrementing guide (S701) and
+      ERR-5 code 2500 take the same approach.
+
+  - id: mirow-im-07
+    section: BR706 - Organization responsible for the inventory
+    page: 39-40
+    doc: >-
+      The provider organization responsible for the inventory must be associated with every dose administered. It may
+      differ from the organization that gave the vaccine, for example when a central depot redistributes vaccine. A
+      report without it can still be used for inventory if the IIS can determine the responsible organization from what
+      was submitted (that is, not an umbrella organization).
+    result: partial
+    guide: [administering-organization-rxa-11, responsible-organization-msh-22, parent-and-child-organizations]
+    note: >-
+      The guide defines the administering organization in RXA-11 as "the entity that physically administered the
+      vaccine and managed its inventory", which assumes the two are the same. MSH-22 identifies the organization
+      responsible for the data, not the inventory. Where they differ, nothing in the message says whose inventory to
+      decrement. MIROW accepts that the IIS works this out from what it knows of the organizations.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      In Administering Organization (RXA-11), drop "and managed its inventory" or qualify it. Note that the inventory
+      may belong to another organization (MIROW BR706), which the IIS determines from its records of the submitter's
+      organizations rather than from the message.
+
+  - id: mirow-im-08
+    section: P708, BR707, BR711, BR725, chapter 8 - Borrowing and the public/private indicator
+    page: 40-43, 49-50, 87-88
+    doc: >-
+      Borrowing between public and private stock should be rare, tracked at the dose level, and repaid. The best practice
+      is a separate public/private indicator for each dose. Inferring public or private from eligibility alone is not
+      recommended, because it hides mismatches between eligibility and the stock used.
+    result: covered
+    guide: [funding-source-and-eligibility, vaccine-funding-source-and-stock-models, validation-enforcement-and-borrowing-scenarios--s3]
+    note: >-
+      The guide asks submitters to report both eligibility and funding source, as they actually applied, including in
+      borrowing. That is the best practice MIROW recommends and the 2016 decrementing guide adopted (mirow-di-05).
+
+  - id: mirow-im-09
+    section: BR711 (remarks) - Lot number field used for other purposes
+    page: 42-43
+    doc: >-
+      Some EHRs extend the lot number field to mark public or private stock. The IIS needs to separate the real lot
+      number from the public/private designation and record them in two fields.
+    result: partial
+    guide: [non-identifying-vaccination-fields, funding-source-and-eligibility]
+    note: >-
+      Now that funding source has its own OBX, there is no reason to put it in RXA-15. The guide doesn't say that RXA-15
+      carries only the lot number, as the 2022 data quality guide asks (see mirow-dqa-24).
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Covered by the recommendation in mirow-dqa-24. When adding it, say that stock designations belong in the funding
+      source OBX, not in RXA-15.
+
+  - id: mirow-im-10
+    section: BR711, BR712, BR718 - Expiration date and short-dated lots
+    page: 42-43, 46-47
+    doc: >-
+      For each dose, the lot number expiration date is recorded and reported along with the lot number. When a lot is
+      short-dated, the new expiration date is used. The same lot number can then exist as two inventory items with
+      different expiration dates, so the lot number alone may match more than one item, and the IIS will not decrement
+      when it cannot find a unique one.
+    result: covered
+    guide: [non-identifying-vaccination-fields]
+    note: >-
+      RXA-16 is RE in the administered RXA and can be corrected by update. The narrative does not explain its role in
+      matching inventory (see mirow-di-03).
+
+  - id: mirow-im-11
+    section: BR711 (remarks), chapter 7 - Half and double doses
+    page: 42-43, 84
+    doc: >-
+      When a provider gives two pediatric doses for an adult dose, or half an adult dose to a child, the IIS can use a
+      dose size (half, full, double) to decrement the right amount, or decrement the extra by hand.
+    result: covered
+    guide: [non-identifying-vaccination-fields]
+    note: >-
+      RXA-6 (administered amount) and RXA-7 (units) carry the volume actually given, which lets an IIS detect a half or
+      double dose. The guide does not discuss the case, which is a local inventory practice.
+
+  - id: mirow-im-12
+    section: BR716 - Event date and recording date
+    page: 45
+    doc: >-
+      Both the date an inventory event occurred and the date it was recorded should be kept. For example, a dose may need
+      to be re-designated as VFC three months later when an insurance claim is denied.
+    result: covered
+    guide: [date-of-vaccination-rxa-3--s1, message-header-date-time-msh-7, modifying-non-identifying-vaccination-fields]
+    note: >-
+      RXA-3 carries the date of administration and MSH-7 the date of the message. A later change of eligibility or
+      funding source is sent as an update to the same record.
+
+  - id: mirow-im-13
+    section: BR718, PM07 - Flag doses that do not match the inventory
+    page: 46-47, 129
+    doc: >-
+      When a dose reported by an EHR cannot be matched to a lot in the provider's inventory, the IIS must flag the
+      discrepancy to the provider organization, preferably immediately and in any case before the reconciliation
+      period closes. The submitter of HL7 data should have good visibility of reported vaccinations that did not match
+      known lots, and a simple process to resolve them.
+    result: partial
+    guide: [inventory-and-accountability-considerations, err-4-severity-code--s6, required-follow-up-actions]
+    note: >-
+      The guide's ACK rules support this, but the guide does not say that an unmatched lot is reported. This is the same
+      gap as mirow-di-12.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Covered by the recommendation in mirow-di-12, which should cite MIROW 2012 BR718 as well as the 2016 guide.
+
+  - id: mirow-im-14
+    section: BR719, BR720, P707 - Opted-out patients
+    page: 47-48
+    doc: >-
+      For a vaccination submitted by an EHR for a patient who has opted out of the IIS, the IIS should decrement inventory
+      without updating the patient record. Some IIS instead reject the submission and the provider decrements by hand.
+    result: covered
+    guide: [jurisdictional-consent-models--s1, consent-and-privacy]
+    note: >-
+      In opt-out jurisdictions the guide has submitters send all records and leaves opt-out enforcement to the IIS. That
+      is what lets the IIS decrement the dose without keeping the vaccination, as BR720 recommends.
+
+  - id: mirow-im-15
+    section: Chapter 2, BR704 - Historical doses do not affect inventory
+    page: 21, 38
+    doc: >-
+      Historical immunizations sent by an EHR should not create an inventory transaction, since they do not affect the
+      provider's current physical inventory.
+    result: covered
+    guide: [historical-vaccinations-and-internal-use--s2, administered-vaccinations--s3]
+
+  - id: mirow-im-16
+    section: P704, GR704 - Inventory transactions are reversible
+    page: 44, 53
+    doc: >-
+      Any inventory transaction should be reversible and correctable, and the IIS should support corrections to existing
+      inventory transactions.
+    result: covered
+    guide: [inventory-and-accountability-considerations, submitter-correction-behavior, handling-delete-requests]
+    note: >-
+      The guide's update and delete model gives the submitter a way to correct or retract a dose. The IIS makes the
+      matching inventory adjustment.

@@ -1,0 +1,195 @@
+# Comparison: MIROW Common Vocabulary (version 2.0, September 2022, with the July 2019 crosswalk to the CDC-endorsed
+# data elements and the notes on vaccine-related terms and on provider organization) and this guide.
+#
+# The vocabulary has about 200 terms. Only terms that name something a message carries, or that the guide also
+# defines, are itemized. The guide's own definitions are in Key Terms (data/key-terms.yml) and the glossary
+# (data/glossary.yml). Terms for business continuity, reports, reminder/recall operations, and inventory operations
+# are not itemized.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide and the MIROW Common Vocabulary usually use different words for the same things, and the guide does not
+  mention the vocabulary at all. Most differences are naming. The guide's submitting, responsible, administering, and
+  entering organizations are MIROW's submitter, IIS-authorized organization, vaccinator, and recorder. Its funding
+  eligibility and funding source are MIROW's dose-level eligibility and dose-level public/private indicator. Its CVX,
+  NDC, and lot number line up with MIROW's vaccine type, vaccine product type, and vaccine. The guide's choice to avoid
+  "provider" and "site" matches MIROW's reasons for coining provider organization and IIS-AO. A mapping would let
+  readers move between the guide and the MIROW guides, which is where IIS staff find the operational rules. One
+  definition needs work. The guide defines an administered vaccination two ways: in Key Terms by the system that
+  recorded it, and in Administered Vaccinations by the organization that gave it. MIROW's definition (reported by the
+  organization that conducted the vaccination event) matches the second, and so does RXA-9.
+
+items:
+  - id: mirow-cv-01
+    section: The vocabulary as a whole
+    doc: >-
+      A shared vocabulary for all MIROW guides, with a definition, comment, aliases, the matching CDC-endorsed data
+      element, and the guides that use each term. AIRA maintains it so that the community uses terms consistently.
+    result: missing
+    guide: [key-terms, cdc-core-data-elements-for-functional-standards]
+    note: >-
+      Key Terms says its terms "align with common usage in immunization and interoperability communities", and the data
+      model uses the CDC Core Data Elements as its reference catalog. Neither mentions the MIROW Common Vocabulary,
+      although the guide cites MIROW guides whose rules are written in its terms.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      In Key Terms, cite the MIROW Common Vocabulary. Add a short table mapping the guide's terms to MIROW's where they
+      differ: submitting organization and submitter; administering organization and vaccinating organization;
+      entering organization and recording organization; organization and provider organization or IIS-AO; funding
+      eligibility and dose-level eligibility; funding source and dose-level public/private indicator; vaccination record
+      and vaccination event.
+
+  - id: mirow-cv-02
+    section: Administered/Historical Indicator
+    doc: >-
+      The type of a submission, based on whether it is submitted by the vaccinating organization ("administered") or by
+      a third party ("historical"). Administered means the provider organization recorded or submitted its own
+      vaccination event, attesting that it conducted it. Historical means it submitted a vaccination event conducted by
+      a different provider organization.
+    result: partial
+    guide: [key-terms, administered-vaccinations--s1, administered-versus-historical-vaccinations]
+    note: >-
+      The guide has two definitions that don't match. Key Terms defines an administered vaccination as "a dose reported
+      by the system that directly recorded the vaccination event and knows its details". That is about who recorded it.
+      Administered Vaccinations says administered vaccinations "SHALL represent doses given directly by the reporting
+      organization", which is about who gave it. MIROW and RXA-9 code 00 (new immunization record) go with the second.
+      Under the Key Terms wording, a clinic that types another clinic's dose into its own EHR "directly recorded" it.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Change the Key Terms definition of Administered Vaccination to match Administered Vaccinations and MIROW: a dose
+      reported by, or on behalf of, the organization that gave it. Define Historical Vaccination as any dose reported by
+      another party.
+
+  - id: mirow-cv-03
+    section: Submitter, Recorder, Vaccinator, IIS-Authorized Organization; notes on provider organization and IIS-AO
+    doc: >-
+      An IIS-authorized organization (IIS-AO) has an agreement with an IIS to submit or retrieve information, and always
+      has an IIS-AO ID assigned by the IIS. In a submission an IIS-AO plays one or more roles: recorder (records the
+      information), vaccinator (vaccinates the patient), or submitter (submits to the IIS, or to an intermediary with
+      the IIS as destination). One IIS-AO may submit for another. The IIS needs to know every IIS-AO in the chain of
+      submission. MIROW also notes that the CDC-endorsed definition of responsible organization ("originated and is
+      accountable for the content") should change, because not every IIS-AO is accountable for the content.
+    result: reworded
+    guide: [identifying-organizations, submitting-organization-msh-4-sending-facility, responsible-organization-msh-22, administering-organization-rxa-11, entering-recording-organization-orc-17, parent-and-child-organizations--s1]
+    note: >-
+      The guide's roles line up with MIROW's: submitter is MSH-4, vaccinator is RXA-11.4, and recorder is ORC-17 (which
+      the guide names "Entering (Recording) Organization"). The IIS assigns every organization identifier. The guide
+      adds the responsible organization (MSH-22) and keeps the "accountable" wording MIROW questioned. When a message
+      passes through an intermediary (an HIE, for example), MSH-4 names the organization on the connection. The message
+      has no place for the other organizations in MIROW's chain of submission, so the IIS has to know them from
+      onboarding.
+
+  - id: mirow-cv-04
+    section: Provider Organization
+    doc: >-
+      An organization that provides vaccination services, is responsible for an entity that does, or manages inventory
+      for one. It may contain units (clinics, sites, departments) with their own IIS-AO IDs.
+    result: covered
+    guide: [key-terms, parent-and-child-organizations]
+    note: >-
+      The guide uses "organization" for the same scope ("any entity that administers, records, or manages vaccination
+      services") and avoids "provider" and "site" for the same reason MIROW coined its terms. Child organizations
+      are identified in RXA-11 and ORC-17.
+
+  - id: mirow-cv-05
+    section: Vaccination Event, Vaccination Encounter
+    doc: >-
+      A vaccination event is the administration of one vaccine to a patient. A vaccination encounter is an interaction
+      (such as an office visit) in which zero or more vaccination events occur. Refusals and contraindications are not
+      vaccination events; they belong to the encounter.
+    result: covered
+    guide: [data-model, dose-level-non-administration, vaccination-record-identity-and-orc-3]
+    note: >-
+      The data model keeps refusals and contraindications out of the vaccination entity. The guide distinguishes the
+      source record each submitter reports from the consolidated vaccination event in the IIS. HL7 sends a refusal in
+      an RXA, but the guide treats it as non-administration, not as a vaccination.
+
+  - id: mirow-cv-06
+    section: Immunization Contraindication, Immunization Exemption
+    doc: >-
+      An immunization contraindication is a condition in a patient that greatly increases the chance of a serious
+      adverse reaction and makes a vaccination inadvisable. An immunization exemption is a non-medical reason for
+      excluding a patient from a vaccination.
+    result: reworded
+    guide: [terminology-clarification, conditions-contraindications-precautions-and-indications, defining-a-refusal]
+    note: >-
+      The guide discourages the unqualified term "contraindication". It treats patient characteristics as conditions
+      and a decision not to give a dose as non-administration. That is a more precise split than MIROW's. A MIROW
+      contraindication is a guide condition, and a MIROW exemption is closest to the guide's refusal.
+
+  - id: mirow-cv-07
+    section: Vaccine Type, Vaccine Product Type, Vaccine (note on vaccine-related terms)
+    doc: >-
+      A vaccine type is a classification by the disease it protects against (CVX). A vaccine product type adds the
+      manufacturer and presentation (NDC, MVX, trade name). A vaccine is the dose actually given, identified by lot
+      number and expiration date. A report may not carry every level: the CVX may be known but not the lot.
+    result: covered
+    guide: [vaccine-code-systems-overview, relationship-between-ndc-and-cvx, ndc-national-drug-code]
+    note: >-
+      The guide uses the same three levels (CVX for the clinical concept, NDC for the manufactured product, lot number
+      for the instance) without MIROW's names.
+
+  - id: mirow-cv-08
+    section: Dose-Level Eligibility, Dose-Level Public/Private Indicator, Lot-Level Public/Private Indicator
+    doc: >-
+      Dose-level eligibility is a patient's eligibility for a funding program, determined for each administered dose.
+      The dose-level public/private indicator is the source of funding for a dose, assigned by the provider
+      organization (the CDC-endorsed "vaccine funding source"). The lot-level indicator is the IIS's designation of an
+      inventory lot.
+    result: reworded
+    guide: [funding-source-and-eligibility, patient-funding-eligibility-per-dose]
+    note: >-
+      The guide's terminology note gives the CDC Core Data Elements names and the LOINC codes, but not MIROW's names,
+      which the decrementing inventory guide uses throughout (see mirow-di-04, mirow-di-05). Covered by the mapping
+      recommended in mirow-cv-01.
+
+  - id: mirow-cv-09
+    section: IIS Patient ID, Alternate Patient ID Group, IIS Vaccination Event ID, Alternate Vaccination Event ID
+    doc: >-
+      The IIS assigns its own patient and vaccination event IDs. An alternate patient ID group (ID, type, and assigning
+      authority) is assigned by another organization. An alternate vaccination event ID is the submitter's event ID
+      together with the IIS-AO that assigned it. The crosswalk notes that the vaccination event ID is ORC-3 (filler
+      order number) in the HL7 guide.
+    result: covered
+    guide: [iis-registry-identifier, other-patient-identifiers, assigning-authority-and-identifier-namespace, vaccination-record-identity-and-orc-3]
+    note: >-
+      PID-3 with identifier type and assigning authority carries the alternate patient ID group. ORC-3 with its
+      assigning authority carries the alternate vaccination event ID, and the IIS's identifier for the consolidated
+      event is returned when the source's is not available.
+
+  - id: mirow-cv-10
+    section: Patient Status at Provider Organization Level, Patient Status at Geographic Jurisdiction Level
+    doc: >-
+      Patient status with respect to a provider organization (active, inactive, deceased) or to an immunization program
+      (active, inactive, unknown, deceased). It does not describe whether a patient is up to date on vaccinations.
+    result: covered
+    guide: [provider-reported-status, iis-derived-status-and-jurisdictional-views]
+    note: The same two levels; see the patient status comparison (mirow-mps-01, mirow-mps-08).
+
+  - id: mirow-cv-11
+    section: Action Code
+    doc: >-
+      A value submitted on a vaccination event submission that indicates the desired action on the vaccination event:
+      A (add), D (delete), or U (update).
+    result: covered
+    guide: [submitter-correction-behavior--s1, iis-matching-and-correction-processing]
+
+  - id: mirow-cv-12
+    section: Dose Condition
+    doc: An indicator that a dose administered to a patient is considered substandard.
+    result: partial
+    guide: [dose-validity-and-reason-for-validity, administered-vaccinations]
+    note: >-
+      The guide has no way for a submitter to say that a dose it gave was substandard (expired, stored out of range, or
+      given incorrectly). An IIS that learns of it shows it only as an invalid dose in the evaluation of the RSP. MIROW's
+      decrementing guide records such a dose as "administered, non-viable" (S501), and the deduplication guide keeps the
+      repeat dose and flags the invalid one (mirow-vd-15). The usual practice is to report the dose as given and let
+      the IIS or the forecaster judge it, which may be enough.
+    severity: note
+    owner: decision
+    recommendation: >-
+      CDC to decide whether the guide should say how a submitter reports a dose it knows to be substandard (for example,
+      a dose later found to have been stored out of range), or state that this is left to the IIS's evaluation.
