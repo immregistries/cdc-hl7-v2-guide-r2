@@ -5,5 +5,7 @@
   "examples_xlsx": "C:/path/to/Example Message List for New Release.xlsx",
   "examples_docx": "C:/path/to/Sample Messages for New IG.docx",
   "err5_xlsx": "C:/path/to/National Set of ERR-5 Error Codes YYYY-MM-DD.xlsx",
-  "r15_pdf": "C:/path/to/hl7_2_5_1_release_1_5__2018_update.pdf"
+  "r15_pdf": "C:/path/to/hl7_2_5_1_release_1_5__2018_update.pdf",
+  "ta_dir": "C:/path/to/ta/guide-review",
+  "_ta_dir": "Optional. TA question data for the local-only TA Questions pages (tools/ta_review.py); never committed."
 }
