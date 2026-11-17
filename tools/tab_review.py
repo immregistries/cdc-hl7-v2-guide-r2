@@ -1,10 +1,12 @@
 """Reviewed comparisons of published community guidance with the guide, requirement by requirement.
 
-Two collections share this code (see COLLECTIONS):
+Three collections share this code (see COLLECTIONS):
 
 - TABs:  Technical Advisory Bulletins, listed in data/tabs.yml, compared in quality/tabs/<id>.yml, pages under tabs/
 - SISC:  SISC guidance documents published before the TABs, listed in data/sisc-guidance.yml, compared in
          quality/sisc/<id>.yml, pages under sisc/
+- MIROW: MIROW best practice guides (and two related guides), listed in data/mirow-guides.yml, compared in
+         quality/mirow/<id>.yml, pages under mirow/
 
 - load():        reads a list and its comparisons, and checks that every guide reference (card, statement, figure) exists
 - findings():    turns comparison results that need attention into quality findings
@@ -39,12 +41,16 @@ class Collection:
     rule: str
     rule_help: str
     intro: str          # HTML; {page} is replaced by the source page URL
+    default_kind: str = "guidance"
+    items_heading: str = "Requirement by requirement"
+    see_label: str = "See the SISC guidance comparison"
 
 
 TAB = Collection(
     key="tab", data_file="data/tabs.yml", list_key="tabs", review_dir="quality/tabs", out_dir="tabs",
     title="TAB Comparison", noun="TAB", short="TAB", panel="Technical Advisory Bulletins",
-    eyebrow="Technical Advisory Bulletin", text_field="tab", rule="tab-review",
+    eyebrow="Technical Advisory Bulletin", text_field="tab", rule="tab-review", default_kind="tab",
+    see_label="See the TAB comparison",
     rule_help="Reviewed comparison of a Technical Advisory Bulletin (TAB) with the guide.",
     intro="""<p class="lede">Technical Advisory Bulletins (TABs) are published community specifications for the v2.5.1 Implementation
 Guide for Immunization Messaging, developed by AIRA and CDC and approved by AIRA's Standards and Interoperability Steering
@@ -68,8 +74,25 @@ guidance listed here. A few related documents published by AIRA or the Immunizat
 are listed here too; each one's page says so.</p>""",
 )
 
-COLLECTIONS = {c.key: c for c in (TAB, SISC)}
-CATEGORY = {"tab": "TAB comparison", "sisc": "SISC guidance comparison"}
+MIROW = Collection(
+    key="mirow", data_file="data/mirow-guides.yml", list_key="documents", review_dir="quality/mirow", out_dir="mirow",
+    title="MIROW Documents", noun="MIROW guide", short="Best practice", panel="MIROW Best Practice Guides",
+    eyebrow="MIROW guide", text_field="doc", rule="mirow-review", default_kind="mirow",
+    items_heading="Where the guide connects", see_label="See the MIROW comparison",
+    rule_help="Reviewed comparison of a MIROW best practice guide with the guide: where they connect, and whether they agree.",
+    intro="""<p class="lede">AIRA's Modeling of Immunization Registry Operations Workgroup (MIROW) published best practice guides for
+IIS operations from 2005 to 2022. They do not define messages, but deduplication, record consolidation, patient status,
+inventory decrementing, and data quality all depend on what arrives in VXU and QBP messages and what is returned in ACK and
+RSP messages. These pages go through each guide's principles and business rules and record where they connect with this
+guide: whether the guide carries the data the practice needs, says the same thing, uses the same terms, and points to the
+MIROW guide where it should.</p>
+<p>A practice that does not depend on what is exchanged (staffing, internal workflow, reporting) is not itemized. "Covered"
+means the guide supports the practice; "Missing" means the practice needs something from the message, or a statement or
+pointer in the guide, that the guide does not yet give.</p>""",
+)
+
+COLLECTIONS = {c.key: c for c in (TAB, SISC, MIROW)}
+CATEGORY = {"tab": "TAB comparison", "sisc": "SISC guidance comparison", "mirow": "MIROW comparison"}
 RULE_HELP = {c.rule: c.rule_help for c in COLLECTIONS.values()}
 
 RESULTS = {  # result: (label, default severity, short help)
@@ -84,7 +107,8 @@ RESULTS = {  # result: (label, default severity, short help)
 }
 RESULT_ORDER = ["conflict", "missing", "partial", "reworded", "prose", "covered", "guide-adds", "out-of-scope"]
 OWNER_LABEL = {"narrative": "Narrative", "igamt": "IGAMT", "both": "Narrative and IGAMT", "decision": "CDC decision"}
-KIND_LABEL = {"tab": "TAB", "overview": "About TABs", "summary": "Index of TABs", "guidance": "SISC guidance", "faq": "SISC FAQ"}
+KIND_LABEL = {"tab": "TAB", "overview": "About TABs", "summary": "Index of TABs", "guidance": "SISC guidance", "faq": "SISC FAQ",
+              "mirow": "MIROW guide", "related": "Related best practice guide"}
 MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 
@@ -119,7 +143,7 @@ def load(repo: Path, by_id: dict, coll: Collection = TAB) -> dict:
         if t["id"] in seen:
             raise SystemExit(f"{data_name}: duplicate id {t['id']}")
         seen.add(t["id"])
-        t.setdefault("kind", "tab" if coll is TAB else "guidance")
+        t.setdefault("kind", coll.default_kind)
         if t["kind"] not in KIND_LABEL:
             raise SystemExit(f"{data_name}: {t['id']} has unknown kind {t['kind']}")
         for cid in t.get("cards", []):
@@ -207,8 +231,7 @@ def evidence_with_link(ev: dict, root: str) -> str:
     """The evidence, and a link to the comparison it comes from."""
     coll = COLLECTIONS[ev.get("collection", "tab")]
     link = f"{root}{coll.out_dir}/{esc(ev['tab_id'])}/index.html#{esc(ev['item'])}"
-    label = "See the TAB comparison" if coll is TAB else "See the SISC guidance comparison"
-    return evidence_html(ev) + f'<p class="mini"><a href="{link}">{label}</a></p>'
+    return evidence_html(ev) + f'<p class="mini"><a href="{link}">{coll.see_label}</a></p>'
 
 
 # ---------------------------------------------------------------- pages
@@ -256,6 +279,8 @@ def _doc_links(t: dict, root: str, coll: Collection) -> str:
         links.append(f'<a href="{esc(t["url"])}" rel="noopener" target="_blank">{label}</a>')
     if t.get("file"):
         links.append(f'<a href="{esc(f"{root}{coll.out_dir}/files/{Path(t["file"]).name}")}">Copy in this repository</a>')
+    if t.get("page"):
+        links.append(f'<a href="{esc(t["page"])}" rel="noopener" target="_blank">Repository page</a>')
     return " · ".join(links) or '<span class="mini">Published copy not yet located</span>'
 
 
@@ -300,6 +325,9 @@ def doc_page(t: dict, by_id: dict, root: str, coll: Collection = TAB) -> str:
     cards = "".join(f"<li>{_guide_link(cid, by_id, root)}</li>" for cid in t.get("cards", []))
     cards_html = f'<h2>Guide sections it affects</h2><ul class="tab-cards">{cards}</ul>' if cards else ""
     noun = "TAB" if coll is TAB else "document"
+    also = "".join(f'<li><a href="{esc(f"{root}{coll.out_dir}/files/{Path(a).name}")}">{esc(Path(a).name)}</a></li>'
+                   for a in t.get("also", []))
+    also_html = f'<p class="mini">Published with it (copies in this repository):</p><ul class="tab-cards">{also}</ul>' if also else ""
     if not review:
         body = f'<p class="callout">This {noun} has not been compared with the guide yet.</p>'
     else:
@@ -330,10 +358,10 @@ def doc_page(t: dict, by_id: dict, root: str, coll: Collection = TAB) -> str:
 <p class="stats">{counts}</p>
 <p class="mini">Reviewed {esc(review.get('reviewed', ''))} against the {esc(review.get('against', ''))}.
 Recorded in <code>{esc(coll.review_dir)}/{esc(t['id'])}.yml</code>.</p>
-<h2>Requirement by requirement</h2>
-<table class="tab-items"><thead><tr><th>The {esc(coll.short if coll is TAB else "guidance")} says</th><th>Result</th><th>In the guide</th></tr></thead>
+<h2>{esc(coll.items_heading)}</h2>
+<table class="tab-items"><thead><tr><th>The {esc(coll.short if coll is TAB else coll.short.lower())} says</th><th>Result</th><th>In the guide</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table>"""
-    eyebrow = esc(coll.eyebrow if t["kind"] != "faq" else "SISC FAQ")
+    eyebrow = esc(KIND_LABEL[t["kind"]] if t["kind"] in ("faq", "related") else coll.eyebrow)
     note = f'<p class="callout">{esc(" ".join(t["source_note"].split()))}</p>' if t.get("source_note") else ""
     return f"""<article class="page tabs">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="{root}{coll.out_dir}/index.html">{esc(coll.title)}</a></nav>
@@ -341,6 +369,7 @@ Recorded in <code>{esc(coll.review_dir)}/{esc(t['id'])}.yml</code>.</p>
 <h1>{esc(t['title'])}</h1>
 <p class="lede">{esc(' '.join(t.get('summary', '').split()))}</p>
 <p>{_doc_links(t, root, coll)}</p>
+{also_html}
 {note}
 {cards_html}
 {body}
@@ -357,12 +386,11 @@ def build_pages(out: Path, repo: Path, data: dict, by_id: dict, write) -> tuple[
     files = base / "files"
     files.mkdir(parents=True, exist_ok=True)
     for t in data["docs"]:
-        if not t.get("file"):
-            continue
-        src = repo / t["file"]
-        if not src.exists():
-            raise SystemExit(f"{coll.data_file}: {t['id']} file {t['file']} not found")
-        shutil.copy2(src, files / src.name)
+        for name in ([t["file"]] if t.get("file") else []) + t.get("also", []):
+            src = repo / name
+            if not src.exists():
+                raise SystemExit(f"{coll.data_file}: {t['id']} file {name} not found")
+            shutil.copy2(src, files / src.name)
     index_anchor = "tabs" if coll is TAB else coll.out_dir
     write(base / "index.html", coll.title, index_page(data, by_id, "../"), index_anchor, "../")
     nav, anchors = [], {index_anchor: f"{coll.out_dir}/index.html"}

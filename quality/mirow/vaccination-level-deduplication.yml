@@ -1,0 +1,223 @@
+# Comparison: MIROW "Vaccination Level Deduplication in Immunization Information Systems" (December 2006) and this guide.
+#
+# One item per principle or business rule (numbering as in the MIROW principles and business rules spreadsheet,
+# VD2006), grouped by the guide's three phases (selection, evaluation, resolution), plus the provider-related
+# recommendations in chapter 6. The detailed evaluation rules (BR12, BR13, P09, P15), the two-day window for rabies and
+# oral typhoid (BR14), and the tie-breaking rule (BR25) are IIS algorithm design and are not itemized. Where the guide
+# goes beyond the 2006 guide (deletes and corrections, which MIROW did not address), "guide adds" items say so.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide is built on the same model as this MIROW guide: an IIS receives overlapping and repeated reports, decides
+  which ones describe the same vaccination, and keeps one consolidated event assembled from the best information in each,
+  so submitters need not check before sending and should expect their records to be merged and refined. The guide adds
+  what the 2006 guide did not cover: how a submitter signals a correction (identifying fields, delete followed by add,
+  ORC-3) so that it does not create a duplicate. Two connections need attention. First, the guide makes lot number a
+  non-identifying field that can be corrected with an update, while MIROW treats different lot numbers as strong
+  evidence of different events; an IIS that matches an update by MIROW evaluation rather than by ORC-3 can create the
+  duplicate the guide is trying to prevent. Second, the RXA-9 codes for the source of a historical record carry the
+  confidence information MIROW uses to choose between duplicates, but the narrative never mentions them. The guide also
+  cites this guide for patient deduplication, which it does not cover.
+
+items:
+  - id: mirow-vd-01
+    section: Introduction (scope)
+    page: 1-3
+    doc: >-
+      The guide covers deduplication of vaccination events only. Patient-level deduplication (matching patient records)
+      is out of its scope.
+    result: reworded
+    guide: [iis-matching-and-correction-processing, record-consolidation-and-deduplication]
+    note: >-
+      The guide cites this MIROW guide correctly in IIS Matching and Correction Processing, but its reference list
+      ([10]) describes it as guidance on "patient and vaccination record deduplication". Patient deduplication is
+      covered by CDC's Patient-Level De-duplication Best Practices (2013), which the guide does not cite.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Correct the description of reference [10] to vaccination-level deduplication, and cite CDC's Patient-Level
+      De-duplication Best Practices in Record Consolidation and Deduplication.
+
+  # ---------------------------------------------------------------- selection
+  - id: mirow-vd-02
+    section: BR01, BR02 - Selecting candidate duplicates
+    doc: >-
+      Vaccination events in the same vaccine family or group within a window of up to 23 days are examined as possible
+      duplicates; each record is compared with all records of the same family, and a combination vaccine is compared with
+      each family it belongs to.
+    result: covered
+    guide: [identifying-vs-non-identifying-vaccination-fields, record-consolidation-and-deduplication]
+    note: >-
+      The guide tells IIS to recognize likely matches that are not exact, such as dates that are close but not identical
+      and vaccine codes that are known equivalents, without prescribing a window.
+
+  - id: mirow-vd-03
+    section: BR03 - Identical records
+    doc: >-
+      Identical records (same date, provider, and vaccine type) are kept once; providers often resend complete histories,
+      so the same record arrives many times.
+    result: covered
+    guide: [historical-vaccinations--s4, record-consolidation-and-deduplication]
+    note: >-
+      The guide says IIS should expect duplicate reports, and that submitters need not check whether a vaccination is
+      already in the IIS.
+
+  # ---------------------------------------------------------------- evaluation
+  - id: mirow-vd-04
+    section: BR09, P04 - Different until proven duplicate
+    doc: >-
+      Records are assumed to be different until proven to be duplicates, because a false match loses immunization data
+      while a false non-match only leaves a duplicate. When the evaluation cannot decide, the records go to manual review.
+    result: reworded
+    guide: [record-consolidation-and-deduplication]
+    note: >-
+      The guide says high-confidence matches may be merged automatically and ambiguous ones queued for manual review, but
+      not that, when in doubt, keeping both records is the safer error. That bias matters to submitters, who otherwise
+      may expect every resend to collapse into one record.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Add to Record Consolidation and Deduplication that IIS deliberately prefer to keep two records rather than wrongly
+      merge them (MIROW BR09), so occasional duplicates are expected.
+
+  - id: mirow-vd-05
+    section: BR10 - Different lot numbers
+    doc: >-
+      If two records have different lot numbers, they are most likely different vaccination events (allowing for typos
+      and generic entries such as 9999). A matching lot number is not decisive.
+    result: partial
+    guide: [identifying-field-changes, modifying-non-identifying-vaccination-fields, iis-matching-and-correction-processing--s1]
+    note: >-
+      The guide classifies lot number as non-identifying: a corrected lot number is sent as an update and SHOULD NOT by
+      itself make the IIS treat the vaccination as new. That works when the IIS finds the earlier report through the
+      submitting source and ORC-3. The guide says ORC-3 matching is not yet consistent, though, and an IIS that falls back
+      to MIROW evaluation will see two records with different lot numbers and, under BR10, keep both. The two documents
+      are not in conflict, but the guide does not say how they fit together.
+    owner: narrative
+    recommendation: >-
+      In IIS Matching and Correction Processing, say that an update is applied to the source record it identifies (by
+      source and ORC-3, or the identifying fields) before deduplication is considered, so that MIROW's lot number rule
+      does not turn a lot number correction into a second event.
+
+  - id: mirow-vd-06
+    section: BR11, P11 - Vaccination dates
+    doc: >-
+      Records with the same vaccination date are most likely duplicates; when dates differ, their proximity counts (two
+      days apart is more likely a duplicate than 22).
+    result: covered
+    guide: [identifying-vs-non-identifying-vaccination-fields, date-of-vaccination-rxa-3--s5]
+    note: >-
+      RXA-3 is an identifying field, and the guide requires it to be accurate enough to support deduplication.
+
+  - id: mirow-vd-07
+    section: BR15, P13 - Administered or historical
+    doc: >-
+      IIS should track whether each record is administered or historical. Two administered records from different
+      providers are most likely different events; an administered and a historical record with close dates are most
+      likely duplicates.
+    result: covered
+    guide: [identifying-field-changes, iis-processing-and-reconciliation, administered-versus-historical-vaccinations]
+    note: >-
+      RXA-9 is required and is an identifying field "because it can affect current IIS vaccination matching behavior",
+      which is this rule.
+
+  - id: mirow-vd-08
+    section: P10, Table 9 - Confidence in the data
+    doc: >-
+      The confidence placed in a record depends on who submitted it and how: a primary submitter reporting administered
+      doses from a clinical system ranks highest, claims data lower, and secondary submitters (historical records) from
+      medium to low, in an order each IIS sets (for example, schools with nurses rank higher).
+    result: partial
+    guide: [historical-vaccinations, iis-processing-and-reconciliation]
+    note: >-
+      The message carries this information: RXA-9 distinguishes a new administration (00) from historical records by
+      source (from another provider, another registry, a written record, a school record, a birth certificate, a public
+      agency, or the patient's recall, which the value set marks as low reliability). The narrative never mentions these
+      codes or asks submitters to send the most specific one rather than 01 (source unspecified).
+    severity: note
+    owner: narrative
+    recommendation: >-
+      In Historical Vaccinations, list the RXA-9 historical source codes, ask submitters to send the most specific source
+      they know, and note that IIS use it to weigh records when deduplicating (MIROW P10).
+
+  - id: mirow-vd-09
+    section: P12 - Front-end and back-end processing
+    doc: >-
+      Whether a record is incoming or already stored, and whether deduplication runs on receipt or later, makes no
+      difference to whether two records match.
+    result: covered
+    guide: [record-consolidation-and-deduplication]
+    note: The guide says duplicates may be resolved during message processing or later by background processes.
+
+  # ---------------------------------------------------------------- resolution
+  - id: mirow-vd-10
+    section: BR20 to BR24 - Selecting the best record
+    doc: >-
+      Of two duplicates, select the record with the highest confidence, then the more complete, then the more specific,
+      then the combination vaccine, then the existing record.
+    result: covered
+    guide: [iis-processing-and-reconciliation]
+    note: >-
+      The guide describes the common practice of preferring the administering organization's record, as explanatory
+      guidance; the order of preference is IIS policy.
+
+  - id: mirow-vd-11
+    section: BR30 to BR33, P18 - The consolidated record
+    doc: >-
+      Merge duplicates into a consolidated vaccination record: keep values they share, prefer known over unknown, prefer
+      the value from the record with higher confidence, and then the more specific value (a full date over month and
+      year).
+    result: covered
+    guide: [iis-processing-and-reconciliation, vaccination-record-identity-and-orc-3, record-consolidation-and-deduplication]
+    note: >-
+      The guide adds the message-level consequences: the consolidated event is a different object from each source
+      record, each source keeps its own ORC-3, and submitters should expect returned histories to reflect consolidated
+      data rather than what they sent.
+
+  - id: mirow-vd-12
+    section: Use of the consolidated record in query responses
+    doc: >-
+      (Not addressed in the 2006 guide, which predates bidirectional query.)
+    result: guide-adds
+    guide: [use-of-administered-vs-historical-on-output, vaccination-record-identity-and-orc-3--s2]
+    note: >-
+      The guide returns the consolidated history, without administered/historical distinctions, and the
+      source-assigned ORC-3 when it can.
+
+  - id: mirow-vd-13
+    section: Corrections and deletes
+    doc: >-
+      (Not addressed in the 2006 guide, which treats every incoming record as a candidate for deduplication.)
+    result: guide-adds
+    guide: [identifying-vs-non-identifying-vaccination-fields, submitter-correction-behavior, handling-delete-requests, iis-matching-and-correction-processing--s2]
+    note: >-
+      The guide defines how submitters signal corrections (update for non-identifying fields, delete followed by add for
+      identifying ones, reusing ORC-3), that a delete retracts one source record rather than the consolidated event, and
+      that an IIS must not create a duplicate just because a correction was sent as an add.
+
+  # ---------------------------------------------------------------- chapter 6
+  - id: mirow-vd-14
+    section: Chapter 6 - Provider-related recommendations
+    page: 73-74
+    doc: >-
+      Educate providers to reduce duplicate and poorly specified entries: avoid unspecified vaccine codes, report from
+      clinical rather than billing systems, and check charts against the IIS. Pre-qualify each electronic submitter on its
+      first submissions and keep a data quality profile for each.
+    result: covered
+    guide: [appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s2, date-of-vaccination-rxa-3--s4, submitting-organization-msh-4-sending-facility--s3, shared-responsibility-for-data-quality]
+    note: >-
+      The guide's statements on unspecified codes, on not reporting billing dates in RXA-3, on onboarding, and on shared
+      responsibility match these; submitter profiles are IIS practice (see the MIROW data quality guide, BR102).
+
+  - id: mirow-vd-15
+    section: Chapter 6 - Invalid doses
+    page: 74-75
+    doc: >-
+      A dose repeated because an earlier one was invalid (expired, mishandled, or given incorrectly) is not a duplicate;
+      both doses are kept and the invalid one is flagged.
+    result: covered
+    guide: [record-consolidation-and-deduplication, dose-validity-and-reason-for-validity]
+    note: >-
+      The guide keeps every reported vaccination and returns a dose's validity in the evaluation of the RSP, which is how
+      an invalid dose is flagged to a querying system.

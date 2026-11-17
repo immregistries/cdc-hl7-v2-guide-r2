@@ -1,0 +1,177 @@
+# Comparison: MIROW "Management of Patient Status in Immunization Information Systems" (version 3.0, March 2019) and
+# this guide.
+#
+# One item per principle or business rule, or group of rules, that bears on what is exchanged (numbering as in the MIROW
+# principles and business rules spreadsheet, MPS2019), plus chapter 7's mapping of patient status to HL7 fields. The
+# rules for deriving status indirectly, the 1-1 and 1-M approaches, and the jurisdiction-level designations (BR402A to
+# BR404B, BR411 to BR415) are compared only for what they imply about messages.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide and this MIROW guide agree on the essentials: status at the provider organization level is the provider's
+  statement about its own relationship with the patient, status at the jurisdiction level belongs to the IIS, deceased
+  overrides everything, a vaccination is not refused for lack of a status, and opting out is separate from status. The
+  guide is more skeptical of provider-reported status ("advisory rather than authoritative"), which fits current
+  practice. The main gap is that the guide's patient status sections never name the fields: MIROW's chapter 7 maps each
+  provider-level status to a PD1-16 code (with its date in PD1-17) and uses PID-29 and PID-30 for death, but the guide
+  says none of this, nor that code 'P' (permanently inactive) is how MIROW reads a reported death. MIROW also asks for
+  status in every submission and for the IIS to tell providers when it changes their patients' status, while the guide
+  forbids sending IIS-derived status in messages; the guide should say how those fit.
+
+items:
+  - id: mirow-mps-01
+    section: P301, P302, P304 - Status levels and who assigns them
+    doc: >-
+      Each status describes the relationship between a patient and one party responsible for the patient's vaccinations:
+      a provider organization (lower level) or a geographic jurisdiction (higher level). Provider-level status may be set
+      by the provider organization or the immunization program; jurisdiction-level status only by the immunization
+      program.
+    result: covered
+    guide: [patient-active-status-in-clinical-and-iis-contexts, provider-reported-status, iis-derived-status-and-jurisdictional-views]
+
+  - id: mirow-mps-02
+    section: Chapter 7, Table 8 - Coding provider-level status in HL7
+    page: 55-56
+    doc: >-
+      Provider-level status is sent in PD1-16 (immunization registry status), with its date in PD1-17: 'A' active, 'I'
+      inactive (reason unspecified), 'L' inactive (lost to follow-up), 'M' inactive (no longer a patient), and 'P'
+      permanently inactive, which MIROW reads as deceased once death is confirmed.
+    result: missing
+    guide: [provider-reported-status, active-and-inactive-status]
+    note: >-
+      The guide's patient status sections describe status only in general terms and never name PD1-16 or PD1-17, or say
+      which code means what. The value set (HL70441) has the codes, with 'A' and 'I' required and 'L', 'M', 'P', and 'U'
+      permitted, but a reader of the narrative cannot tell that 'M' is MIROW's "no longer a patient" or that 'P' signals a
+      death.
+    owner: narrative
+    recommendation: >-
+      In Provider-Reported Status, name PD1-16 and PD1-17 and give MIROW's meaning for each HL70441 code (Table 8),
+      including how 'P' relates to the deceased status.
+
+  - id: mirow-mps-03
+    section: BR401, BR406 - Designations at the provider organization level
+    doc: >-
+      Provider-level status is active, or inactive with one reason: no longer a patient, lost to follow-up, unspecified,
+      or deceased. "Unspecified" is used only when an interface sends inactive without a reason.
+    result: reworded
+    guide: [active-and-inactive-status]
+    note: >-
+      The guide acknowledges the reasons but says they are "often operationally indistinguishable to IIS and should not
+      be over-interpreted". That is consistent with MIROW's own note that many EHRs send no reason.
+
+  - id: mirow-mps-04
+    section: P312 - Any submission should include patient status
+    doc: Patient status should be included in any submission from a provider organization to the IIS.
+    result: partial
+    guide: [provider-reported-status--s1, active-and-inactive-status--s1]
+    note: >-
+      The guide treats status as optional in practice: PD1-16 is RE, absence of a status is not evidence either way, and
+      no IIS may make status a condition of acceptance. It does not ask submitters to send it, which MIROW does.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Say that submitters SHOULD send PD1-16 (with PD1-17) when the provider maintains patient status, as MIROW P312
+      recommends, while keeping the rule that its absence means nothing.
+
+  - id: mirow-mps-05
+    section: P308 - Explicit assignment takes precedence
+    doc: >-
+      A status explicitly assigned by a provider organization of an acceptable type supersedes its previous status and
+      any status the IIS has inferred, except that a confirmed death is not overridden.
+    result: reworded
+    guide: [active-and-inactive-status--s2, deceased-status--s1]
+    note: >-
+      The guide treats provider-reported active and inactive values as "advisory rather than authoritative", which is
+      weaker than MIROW's supremacy of an explicit assignment at the provider level. Both put deceased first.
+    severity: note
+    owner: decision
+    recommendation: >-
+      CDC to decide whether an explicit PD1-16 value from the provider should replace the provider-level status the IIS
+      holds for that provider (MIROW P308), and say so, or explain why the guide treats it as advisory.
+
+  - id: mirow-mps-06
+    section: BR421, chapter 7 - Deceased
+    page: 56-57
+    doc: >-
+      Status becomes inactive (deceased) at both levels only when the death is confirmed. A death sent in PID-29 (date of
+      death) and PID-30 (death indicator) is a confirming message from the provider; a 'P' in PD1-16 without PID-30 'Y'
+      should be investigated, and reminder/recall suppressed meanwhile.
+    result: partial
+    guide: [deceased-status]
+    note: >-
+      The guide makes deceased status take precedence and says it may be reported by providers or external death
+      reporting, but does not name PID-29 and PID-30, or say how a death is reported in a VXU.
+    owner: narrative
+    recommendation: >-
+      In Deceased Status, state that a provider reports a death in PID-30 ('Y') with the date in PID-29, and point to
+      MIROW BR421 for how an IIS confirms it.
+
+  - id: mirow-mps-07
+    section: P305 - Make status changes available to providers
+    doc: >-
+      The IIS should make available to a provider organization the changes it makes to the status of a patient
+      associated with that provider organization.
+    result: partial
+    guide: [iis-derived-status-and-jurisdictional-views--s1]
+    note: >-
+      The guide forbids transmitting jurisdictional or IIS-derived statuses in HL7 v2 messages, which is right for the
+      jurisdiction level but leaves no message path for P305 at the provider level (for example, an IIS marking a patient
+      inactive for a provider after a death confirmed by Vital Records). P305 can be met through reports or the user
+      interface, but the guide does not say so.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Add to IIS-Derived Status and Jurisdictional Views that IIS share provider-level status changes they make by other
+      means, such as reports or the user interface (MIROW P305).
+
+  - id: mirow-mps-08
+    section: BR411 to BR415, P303, P310 - Jurisdiction-level status
+    doc: >-
+      At the jurisdiction level, status is active, inactive (outside jurisdiction), unknown (no address and no
+      vaccination, or no activity for an extended period), or deceased. Non-active status is assigned more cautiously
+      than at the provider level, and a patient living outside the jurisdiction is never active at that level though
+      their provider-level status is still maintained.
+    result: covered
+    guide: [iis-derived-status-and-jurisdictional-views]
+    note: >-
+      The guide keeps these statuses inside the IIS and out of messages, which is consistent with MIROW giving only the
+      immunization program the right to assign them.
+
+  - id: mirow-mps-09
+    section: Chapter 7 - Indirect identification
+    page: 57
+    doc: >-
+      An IIS can infer that a provider organization is responsible for a patient from the vaccinations it reports
+      (RXA-3, RXA-9 administered, RXA-11).
+    result: covered
+    guide: [iis-derived-status-and-jurisdictional-views, administering-organization-rxa-11--s1]
+    note: >-
+      The fields MIROW uses are all required for administered doses; the guide treats the result as IIS-derived status.
+
+  - id: mirow-mps-10
+    section: P311, P309 - All ages; public and private providers alike
+    doc: >-
+      Status is maintained for patients of all ages, with the same rules for public and private provider organizations.
+    result: covered
+    guide: [patient-active-status-in-clinical-and-iis-contexts]
+    note: Nothing in the guide limits status by age or provider type.
+
+  - id: mirow-mps-11
+    section: P313, P314 - Opt-out is not a status
+    doc: >-
+      Opting out of the IIS, or of reminder/recall, does not change patient status; it is a separate filter.
+    result: covered
+    guide: [consent-and-privacy, protection-indicator-pd1-12-usage]
+    note: >-
+      The guide carries consent and protection in PD1-12 and its own sections, separate from status.
+
+  - id: mirow-mps-12
+    section: Acceptance of vaccinations
+    doc: >-
+      (MIROW assumes vaccinations are recorded whatever the patient's status; it does not discuss rejection.)
+    result: guide-adds
+    guide: [active-and-inactive-status--s1, deceased-status--s3]
+    note: >-
+      The guide makes explicit that status is never a reason to refuse a vaccination, including historical data for a
+      deceased patient.
