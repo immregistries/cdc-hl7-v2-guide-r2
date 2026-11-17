@@ -206,6 +206,8 @@ tabs:
     cards:
       - unified-z34-and-z44-profile-model
       - selecting-a-candidate-match
+      - purpose-and-scope-of-rsp-profiles
+      - rsp-response-profiles
       - z31-return-a-list-of-candidates
 
   - id: system-entry-date-time-rxa-22
