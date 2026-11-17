@@ -1,0 +1,293 @@
+# Comparison: SISC guidance "Guidance on Detailed Message Structure and the Use of Specific LOINC Codes" (v1.1, April
+# 2018) and this guide.
+#
+# One item per piece of guidance in the document, in document order. Same format as quality/sisc/rsp-messages.yml.
+# The guidance repeats the same group descriptions for Z22, Z32, and Z42; they are itemized once, with profile differences
+# noted. Evaluation and forecast content was later refined by the CDS in RSP Alignment TAB (September 2026), which has its
+# own comparison; items here point to it rather than repeat it. The co-constraint tables (Tables 1-3) were compared with the
+# IGAMT co-constraints by LOINC code.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide has folded this guidance in closely: its section 4.4 says it "consolidates and replaces prior LOINC guidance",
+  uses the same six Order Segment Group flavors, and lists the same LOINC codes for each, almost word for word. The CDS in
+  RSP TAB has since replaced the evaluation and forecast rules, and the guide follows the TAB. Three things need attention.
+  First, the guide's section on condition date semantics (4.8.6.3) treats contraindications as patient-level observations
+  that are never linked to a vaccine, which reverses this guidance's v1.1 change and contradicts the guide's own flavor
+  definitions and IGAMT (already a finding, qf-igamt-condition-loinc). Second, the rule that event groups come before the
+  Patient Observations group, and the per-profile summary of which groups each message uses, were dropped. Third, the
+  co-constraint tables differ from IGAMT in small ways that are mostly already recorded in the IGAMT review.
+
+items:
+  # ---------------------------------------------------------------- scope and flavors
+  - id: sisc-msl-01
+    section: Types of Order Segment Groups
+    page: 2
+    doc: >-
+      Six flavors of Order Segment Group are used in immunization messages: Immunization Event, Immunization Event
+      (Contraindicated), Immunization Event (Refused), Immunization Event with Evaluation, Forecast, and Patient
+      Observations.
+    result: covered
+    guide: [order-segment-groups-and-loinc-obx-grouping, order-segment-group-flavors]
+    note: The guide defines the same six flavors with the same names, and adds that the names are conceptual only.
+
+  - id: sisc-msl-02
+    section: Out of Scope
+    page: 1
+    verb: should
+    doc: >-
+      Local codes used by trading partners are out of scope. IIS should document any additional codes used in the
+      jurisdiction and the context for using them.
+    result: prose
+    guide: [order-segment-groups-and-loinc-obx-grouping, overview-of-loinc-and-obx-usage-in-immunization-messaging]
+    note: >-
+      The guide says observations outside the defined flavors "must be interpreted based on local or bilateral
+      agreements", and that IIS may support additional LOINC codes, but does not say an IIS should document them.
+
+  # ---------------------------------------------------------------- Z22
+  - id: sisc-msl-03
+    section: Structure of the VXU (Z22) message
+    page: 3
+    doc: >-
+      A Z22 may contain zero or more Immunization Event groups (administered, contraindicated, or refused) and up to one
+      Patient Observations group.
+    result: covered
+    guide: [patient-observations, immunization-event, order-segment-group-flavors]
+    note: The guide goes further and requires a single Patient Observations group (SHALL).
+
+  - id: sisc-msl-04
+    section: Structure of the VXU (Z22) message
+    page: 3
+    verb: should
+    doc: All Immunization Event groups, of any type, should come before the Patient Observations group (if present).
+    result: missing
+    guide: [patient-observations, order-segment-groups-and-loinc-obx-grouping]
+    note: >-
+      The guide sets an order only for the RSP (the Forecast group comes last). It says nothing about where the Patient
+      Observations group goes in a VXU or an RSP.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      State that the Patient Observations group, when present, follows all immunization event groups (and, in an RSP,
+      comes before the Forecast group), or decide that order does not matter and say so.
+
+  - id: sisc-msl-05
+    section: Structure of the VXU (Z22) message
+    page: 3
+    doc: >-
+      A VXU is not expected to contain Immunization Event with Evaluation or Forecast groups, since submitters do not
+      usually evaluate or forecast doses.
+    result: prose
+    guide: [immunization-event-with-evaluation, forecast, overview-of-loinc-and-obx-usage-in-immunization-messaging#fig-20]
+    note: >-
+      The guide describes both flavors as produced by a CDS engine and returned in RSP messages, and the Z22 co-constraint
+      tables have no evaluation or forecast rows, so this holds in practice. It is not stated for the VXU.
+
+  - id: sisc-msl-06
+    section: Structure of the VXU (Z22) message; Z32; Z42
+    page: 3-4
+    verb: shall
+    doc: >-
+      Immunization Event: RXA-5 is the vaccine administered and RXA-20 is PA or CP. Allowed observations: eligibility
+      (64994-7) and funding source (30963-3), both required for new administrations; VIS (69764-9, 29769-7), required for
+      most new administrations; adverse reaction attributable to the event (31044-1); indication with effective and
+      expiration dates (59785-6, 88877-6, 88879-2); and comment (48767-8).
+    result: covered
+    guide: [immunization-event]
+    note: Same list and the same "required for new administrations" notes.
+
+  - id: sisc-msl-07
+    section: Structure of the VXU (Z22) message; Z32; Z42
+    page: 3-4
+    verb: shall
+    doc: >-
+      Immunization Event (Refused): RXA-5 is the refused vaccine, RXA-20 is RE, and RXA-18 holds a coded refusal reason.
+      Only a comment (48767-8) is relevant.
+    result: covered
+    guide: [immunization-event-refused, required-data-elements]
+
+  - id: sisc-msl-08
+    section: Structure of the VXU (Z22) message; Z32; Z42
+    page: 3-4
+    verb: shall
+    doc: >-
+      Immunization Event (Contraindicated): RXA-5 is the contraindicated vaccine and RXA-20 is NA. Allowed observations:
+      contraindication (30945-0) with effective and expiration dates (30946-8, 30944-3), and comment (48767-8).
+    result: covered
+    guide: [immunization-event-contraindicated]
+    note: >-
+      The flavor section matches. Section 4.8.6.3 contradicts it on what the RXA-5 vaccine means; see sisc-msl-12.
+
+  - id: sisc-msl-09
+    section: Structure of the VXU (Z22) message; Z32; Z42
+    page: 3-4
+    verb: shall
+    doc: >-
+      Patient Observations: RXA-5.1 is CVX 998 and RXA-20 is NA. Allowed observations: adverse reaction not attributable to
+      an event (31044-1), serological evidence of immunity (75505-8), presumed evidence of immunity (59784-9), and patient
+      condition (75323-6) with onset and abatement dates (85585-8, 88878-4).
+    result: covered
+    guide: [overview-of-loinc-and-obx-usage-in-immunization-messaging, patient-observations]
+    note: Same list. The guide also sets ORC-3 to 9999 for this group.
+
+  # ---------------------------------------------------------------- Z32 and Z42
+  - id: sisc-msl-10
+    section: Structure of the Z32 and Z42 messages; Table 4
+    page: 5-9
+    doc: >-
+      Which groups each profile uses (Table 4): Z22 uses Immunization Event (0..*), Patient Observations (0..1), Refused and
+      Contraindicated (0..*). Z32 uses either Immunization Event or Immunization Event with Evaluation (the latter if a
+      Forecast is present), an optional Forecast (0..1), and the rest as for Z22. Z42 uses Immunization Event with
+      Evaluation (0..*), exactly one Forecast (1..1), and the rest as for Z22. Each forecast set in the Forecast group has
+      its own OBX-4 sub-ID.
+    result: partial
+    guide: [overall-structure-of-cds-in-the-rsp--s1, overall-structure-of-cds-in-the-rsp--s2, z42-return-evaluated-immunization-history-and-forecast, forecast]
+    note: >-
+      The guide's CDS rules match for any RSP with CDS content (evaluation in each history group, exactly one Forecast group,
+      placed last), and the Forecast section requires a shared OBX-4 per set. But the guide has no summary of which flavors
+      each profile uses, and does not say whether a Z32 may carry evaluation or a forecast. Figure 20 is organized by flavor,
+      not by profile.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Add a short table like this guidance's Table 4 to section 4.4.4: each flavor against Z22, Z32, and Z42, with its
+      cardinality.
+
+  - id: sisc-msl-11
+    section: Structure of the VXU (Z22) message; Z32; Z42
+    page: 3-5
+    verb: must
+    doc: >-
+      Related OBX segments must be linked with the same sub-ID in OBX-4: the observations about one VIS, and the
+      observations in one evaluation or one forecast set.
+    result: reworded
+    guide: [obx-4-observation-sub-id, reporting-vis-information-in-hl7-v2-messages--s9, forecast]
+    note: >-
+      The guide uses OBX-4 for the same purposes, but for VIS it says submitting systems SHOULD populate OBX-4 and IIS
+      SHOULD use it when present, which is weaker than "must".
+    owner: narrative
+    recommendation: Confirm that SHOULD for VIS linking is intended, since the guidance (and Release 1.5) required it.
+
+  - id: sisc-msl-12
+    section: Change History (version 1.1)
+    page: 9
+    doc: >-
+      Contraindication observations were removed from the RSP Patient Observations group, because it is important to show
+      the contraindicated vaccine in RXA-5. Contraindications should be sent in an Immunization Event (Contraindicated)
+      group.
+    result: conflict
+    guide:
+      - date-semantics
+      - date-semantics--s1
+      - date-semantics--s4
+      - immunization-event-contraindicated
+      - patient-observations
+    note: >-
+      The guide's flavor sections follow this (30945-0 only in the Contraindicated group, which "links contraindication
+      observations to a specific vaccine that was not given"), and so does IGAMT. But section 4.8.6.3 says conditions may be
+      sent as standalone patient-level observations or in a not-administered group, that IIS process both "identically",
+      and that RXA-20 = NA "does not create standardized meaning linking the condition to a specific non-administered
+      vaccine". That reverses the reason for the v1.1 change. The representation conflict is already a finding
+      (qf-igamt-condition-loinc); this adds the history CDC should weigh when deciding it.
+    severity: warning
+    owner: decision
+    recommendation: >-
+      When deciding qf-igamt-condition-loinc, note that SISC moved contraindications into the Contraindicated group in
+      2018 precisely so the vaccine is identified. If the guide keeps 4.8.6.3, record the reversal in the change history.
+
+  - id: sisc-msl-13
+    section: Structure of the Z32 and Z42 messages (evaluation)
+    page: 5, 7
+    verb: required; must
+    doc: >-
+      In each evaluation set, vaccine type (30956-7) is required and must be the first OBX, and dose validity (59781-5) is
+      required and must be the second. Reason for validity, series name, number of doses, dose number, and schedule used
+      may follow.
+    result: conflict
+    guide: [vaccine-type-and-component-identification, dose-validity-and-reason-for-validity--s3, immunization-event-with-evaluation]
+    note: >-
+      The vaccine type comes first in the guide too. But the guide says dose validity SHALL be omitted when it cannot be
+      determined, where this guidance (and the CDS in RSP TAB, and IGAMT) require it. This is already a finding from the TAB
+      comparison (tab-cds-08).
+    severity: note
+    owner: decision
+    recommendation: Resolve with tab-cds-08.
+
+  - id: sisc-msl-14
+    section: Structure of the Z32 and Z42 messages (forecast)
+    page: 5, 7
+    verb: required; must
+    doc: >-
+      In each forecast set, vaccine type (30956-7) is required and first; status in series (59783-1) is required; reason for
+      recommendation (30982-3) is required when the status is contraindicated or not recommended; earliest and recommended
+      dates (30981-5, 30980-7) are required for doses on schedule or overdue; overdue and latest dates, schedule, series
+      name, number of doses, and dose number are optional.
+    result: reworded
+    guide:
+      - vaccine-type-and-forecast-initiation--s1
+      - status-in-immunization-series--s1
+      - reasons-for-recommendation--s1
+      - dose-timing-earliest-recommended-overdue-latest--s1
+      - dose-timing-earliest-recommended-overdue-latest--s2
+    note: >-
+      The guide follows the CDS in RSP TAB, which replaced these rules. One change: the reason for recommendation is now
+      MAY, even when a series is contraindicated or not recommended. The TAB comparison found the guide matches the TAB
+      (tab-cds-17).
+    owner: narrative
+    recommendation: Record in the change history that the reason for recommendation is no longer required.
+
+  # ---------------------------------------------------------------- co-constraint tables
+  - id: sisc-msl-15
+    section: Tables 1-3 (OBX-2)
+    page: 4-9
+    doc: >-
+      Coded observations use OBX-2 'CWE', dates 'DT' (formatted as the DT_D flavor), counts 'NM', and dose validity 'ID'.
+    result: reworded
+    guide: [obx-2-value-type]
+    note: >-
+      The guide accepts both CE and CWE and says IIS SHOULD use CE in responses; IGAMT fixes coded observations to 'CE'
+      (except 75323-6, which is 'CWE'). Dates, counts, and dose validity match, and the DT_D flavor is kept. The CE/CWE
+      inconsistency is already a finding (qf-igamt-c27-c28-ce-cwe).
+
+  - id: sisc-msl-16
+    section: Tables 1-3 (48767-8)
+    page: 4-9
+    doc: The free-text comment (48767-8) uses OBX-2 'TX'.
+    result: conflict
+    guide: [immunization-event]
+    note: >-
+      IGAMT has 'CE' in the Z22 tables and 'ST' in the Z32 tables. Already a finding (qf-igamt-c27-c28-ce-cwe), which
+      recommends a text type. This guidance supports 'TX'.
+    severity: note
+    owner: igamt
+    recommendation: Use 'TX' (or another text type) for 48767-8 in every profile, as this guidance did.
+
+  - id: sisc-msl-17
+    section: Tables 1-3 (value sets)
+    page: 4-9
+    doc: >-
+      OBX-5 value sets: presumed immunity (59784-9) uses PHVS_HistoryOfDiseaseAsEvidenceOfImmunity_IIS; patient condition
+      (75323-6) is "TBD"; reason (30982-3) may be CWE or ST; status in series (59783-1) uses locally defined values.
+    result: partial
+    guide: [patient-observations, status-in-immunization-series]
+    note: >-
+      The other bindings match IGAMT. IGAMT binds 59784-9 to PHVS_HistoryOfDisease_IIS, a different name; check that it is
+      the same PHIN VADS value set. 75323-6 still has no value set in IGAMT or the narrative. 30982-3 is 'ST' only in
+      IGAMT. 59783-1 now uses LOINC answer codes, following the CDS in RSP TAB.
+    severity: note
+    owner: igamt
+    recommendation: >-
+      Confirm the 59784-9 value set name, and bind 75323-6 to a value set (or say in the narrative that it is locally
+      defined).
+
+  - id: sisc-msl-18
+    section: Scope of Guidance
+    page: 1
+    verb: highly recommended
+    doc: >-
+      Some LOINC codes listed were not in Release 1.5; they are highly recommended where the concept needs to be sent in a
+      Release 1.5 message.
+    result: out-of-scope
+    note: >-
+      Applies to Release 1.5 only. All of the codes listed here are in the guide (Figure 20 and the flavor sections).

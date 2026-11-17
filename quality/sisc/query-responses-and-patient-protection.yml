@@ -1,0 +1,123 @@
+# Comparison: SISC FAQ "Query Responses and Patient Protection" (September 2016, revised July 2017) and this guide.
+#
+# One item per piece of guidance in the FAQ, in FAQ order. Same format as quality/sisc/rsp-messages.yml.
+# The FAQ's "What the Release 1.5 IG says", "What is happening today", and "Discussion highlights" sections describe the
+# problem rather than give guidance, and are not itemized.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide agrees with the FAQ's basic approach: each IIS applies its own consent rules, a patient whose data may be shared
+  gets a normal Z32 or Z42, and a protected patient gets a Z33 (that part is also checked in the Returning Record in RSP TAB
+  comparison, tab-rr-01). What the guide leaves out is everything that lets a querying system tell "protected patient
+  found" apart from "no patient found": the FAQ's modified Z33 (MSA-1 'AA', an informational ERR, QAK-2 'NF'), and the two
+  codes the FAQ planned for this release. One of those now exists as national ERR-5 code 2700, but the guide does not use
+  it. The other, a QAK-2 value 'PD', was never added. The guide also does not carry over the rule against returning a
+  partial history.
+
+items:
+  - id: sisc-qrpp-01
+    section: Guidance when implementing Release 1.5
+    page: 1
+    verb: should
+    doc: >-
+      If local laws, regulations, and IIS policy allow data to be returned even though the patient asked for protection,
+      the IIS should respond with a standard Z32 or Z42.
+    result: prose
+    guide: [consent-and-privacy, z33-return-a-response-with-no-person-records, protection-indicator-pd1-12-usage--s7]
+    note: >-
+      The guide leaves consent enforcement to each IIS ("IIS are responsible for enforcing their own consent rules based on
+      local authority") and uses a Z33 only when a record "cannot be disclosed". A normal Z32 or Z42 for a protected patient
+      whose data may be shared follows from that, but is not said.
+
+  - id: sisc-qrpp-02
+    section: Guidance when implementing Release 1.5
+    page: 1-2
+    verb: strongly recommend
+    doc: >-
+      A partial patient history is not recommended. In the absence of widespread support for dose-level protection, all
+      doses should be returned if any doses are returned: a provider who takes a partial history for a full one may make an
+      inappropriate clinical decision, and confidence in the IIS suffers.
+    result: missing
+    guide: [z32-return-complete-immunization-history, z42-return-evaluated-immunization-history-and-forecast, consent-and-privacy]
+    note: >-
+      The guide says a Z32 or Z42 returns "the complete immunization history", but never addresses withholding some doses for
+      privacy, or the clinical risk of a history that looks complete but is not.
+    owner: narrative
+    recommendation: >-
+      In the consent sections or the Z32/Z42 sections, state that an IIS SHOULD NOT return a partial history to protect
+      some doses: it returns either the whole history or a Z33.
+
+  - id: sisc-qrpp-03
+    section: Guidance when implementing Release 1.5
+    page: 2
+    verb: should
+    doc: >-
+      If local laws, regulations, and IIS policy prohibit sending any indication that a matching patient exists, a standard
+      Z33 should be returned (the same as when no patient is found).
+    result: covered
+    guide: [z33-return-a-response-with-no-person-records]
+    note: >-
+      The Z33 section includes the case where "a matching patient record exists but cannot be disclosed due to consent or
+      sharing restrictions". The link to PD1-12 is checked in the TAB comparison (tab-rr-01).
+
+  - id: sisc-qrpp-04
+    section: Guidance when implementing Release 1.5
+    page: 2
+    doc: >-
+      Where law and policy do not strictly prohibit indicating that the patient exists, send a modified Z33: MSA-1 'AA';
+      ERR-3 populated (207, Application Internal Error, suggested); ERR-4 'I' (the querying system is not expected to fix or
+      resend anything); ERR-5 empty; ERR-8 text saying a patient was found but is protected (for example, "A match was found
+      in the IIS but no value is returned since Data Sharing for the record is set to No"); QAK-2 'NF'.
+    result: missing
+    guide: [z33-return-a-response-with-no-person-records, consent-and-privacy, err-8-user-message]
+    note: >-
+      The guide has a single Z33 for every case and no way to tell a querying system that a protected patient was found. The
+      FAQ records why that matters: EHR systems may need to distinguish a protected patient from no patient (for example,
+      so staff do not create a duplicate record or keep re-querying).
+    owner: narrative
+    recommendation: >-
+      Describe the "protected patient found" Z33 in the Z33 section, updated for this guide: MSA-1 'AA', one ERR segment with
+      ERR-4 'I' and ERR-5 2700 (see sisc-qrpp-05), ERR-8 text for the user, and QAK-2 'NF' (or 'PD'; see sisc-qrpp-06).
+      State that an IIS uses it only where law and policy allow it to reveal that the patient exists.
+
+  - id: sisc-qrpp-05
+    section: Guidance for incorporation into a future release
+    page: 2
+    doc: >-
+      In the next release, ERR-5 in the modified Z33 carries a new error code for a protected patient found.
+    result: missing
+    guide: [err-5-application-error-code, z33-return-a-response-with-no-person-records]
+    note: >-
+      The code now exists in the national set of ERR-5 codes: 2700 "Protected Patient Found" (and 2701 "Potentially
+      Protected Patient Found"), both noted as applying to a single high-threshold match. The guide publishes that code set
+      (Appendix D) but does not mention either code in its consent or Z33 sections.
+    owner: narrative
+    recommendation: >-
+      Name ERR-5 codes 2700 and 2701 in the Z33 section, as the way to tell a querying system that a protected patient was
+      found.
+
+  - id: sisc-qrpp-06
+    section: Guidance for incorporation into a future release
+    page: 2
+    doc: >-
+      In the next release, QAK-2 is 'PD' (Protected Data), a new code used when a protected patient is found.
+    result: missing
+    guide: [z33-return-a-response-with-no-person-records]
+    note: >-
+      Neither the guide nor IGAMT has 'PD': QAK-2 is bound to HL70208_IZ01 with OK, NF, TM, AE, and AR. 'PD' is not an HL7
+      v2.5.1 code, so adding it would extend an HL7 table. With ERR-5 2700 available, 'PD' may no longer be needed, but the
+      FAQ said it would be added, so its omission should be a decision rather than an oversight.
+    owner: decision
+    recommendation: >-
+      CDC to decide whether to add QAK-2 'PD' or rely on QAK-2 'NF' with ERR-5 2700. Record the decision in the change
+      history.
+
+  - id: sisc-qrpp-07
+    section: Discussion highlights; Guidance when implementing Release 1.5
+    page: 1
+    doc: >-
+      The same solution applies to both the complete history query (Z34) and the evaluated history and forecast query (Z44).
+    result: covered
+    guide: [z33-return-a-response-with-no-person-records, unified-z34-and-z44-profile-model]
+    note: The Z33 profile answers both a Z34 and a Z44 query (IGAMT constraint IZ-71a).

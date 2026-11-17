@@ -1,0 +1,92 @@
+# Comparison: SISC guidance "Vaccine Lot Number Patterns: Unit of Sale/Unit of Use Guidance" (June 2017, codes updated
+# June 2018) and this guide.
+#
+# One item per piece of guidance in the document, in document order. Same format as quality/sisc/rsp-messages.yml.
+# Most of the document is reference data (survey results, product tables, lot number patterns), which an implementation
+# guide links to rather than restates.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  This guidance is mostly reference data for IIS and EHR developers. Its point for messaging is that the lot number recorded
+  at administration (from the vial or syringe, the unit of use) can differ from the lot number on the carton (the unit of
+  sale) that inventory is tracked by. The guide handles the same issue for NDCs, but says nothing about which lot number goes
+  in RXA-15, or which lot to report for a reconstituted vaccine. It also does not point to this guidance, which developers
+  still need for the product tables and patterns. The data in the document is from 2016 and 2018, so CDC may want to check
+  it is still current before the guide links to it.
+
+items:
+  - id: sisc-lot-01
+    section: Document Use
+    page: 1
+    doc: >-
+      Many systems use the unit-of-sale lot number for ordering and inventory but the unit-of-use lot number at
+      administration. Where the two differ, the lot number recorded for a vaccination is the unit-of-use lot.
+    result: missing
+    guide: [non-identifying-vaccination-fields, unit-of-use-and-unit-of-sale-ndcs, ndc-requirements-for-administered-vaccinations]
+    note: >-
+      The guide treats the same unit-of-use and unit-of-sale problem for NDCs, and IGAMT makes RXA-15 (lot number) required
+      for administered doses, but the guide never says which lot number RXA-15 carries, or that it may differ from the
+      inventory lot.
+    owner: narrative
+    recommendation: >-
+      State that RXA-15 carries the lot number of the unit administered (the vial or syringe), that for some products this
+      differs from the unit-of-sale lot used for inventory, and link this guidance.
+
+  - id: sisc-lot-02
+    section: "Notes: Matching, Reconstituted Vaccines, and Regular Expression"
+    page: 4
+    doc: >-
+      Mapping a unit-of-sale lot to a unit-of-use lot is simple, but the reverse is not (except for Menveo). An IIS that
+      knows a provider's inventory can usually match a reported unit-of-use lot to that provider's single unit-of-sale lot,
+      and resolve any discrepancies during reconciliation (see the MIROW guide on decrementing inventory via electronic data
+      exchange).
+    result: out-of-scope
+    guide: [inventory-and-accountability-considerations, vaccine-funding-source-and-stock-models]
+    note: >-
+      The guide deliberately "does not prescribe an IIS's internal inventory or lot-validation workflows", so this is IIS
+      operations. Its inventory section would still benefit from a link to this guidance and to the MIROW inventory guide.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      In the inventory section, link this guidance and the MIROW guide on decrementing inventory (see the MIROW alignment
+      proposal).
+
+  - id: sisc-lot-03
+    section: "Notes: Matching, Reconstituted Vaccines, and Regular Expression"
+    page: 4
+    doc: >-
+      For reconstituted vaccines, the unit-of-sale lot and the lot on the lyophilized vaccine powder are usually the same; the
+      liquid diluent typically has a different lot number.
+    result: partial
+    guide: [ndc-requirements-for-administered-vaccinations--s9]
+    note: >-
+      The guide requires the NDC of the lyophilized powder rather than the diluent, but does not say the same for the lot
+      number. A submitter could report the diluent's lot with the powder's NDC.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Extend the reconstitution statement to the lot number: report the lot of the lyophilized powder (the active product),
+      not the diluent.
+
+  - id: sisc-lot-04
+    section: Tables 1-3; Appendix A
+    page: 2-6
+    doc: >-
+      Tables of the vaccines whose unit-of-sale and unit-of-use lot numbers differ, with their NDCs and lot number patterns
+      (also given as regular expressions for developers), the share of VFC volume affected (7.5 to 8.6 percent in 2015-2016),
+      and manufacturers not surveyed. Vaccines not listed are assumed to use the same lot number on both.
+    result: out-of-scope
+    guide: [vaccine-code-systems-overview]
+    note: >-
+      Reference data for developers, not message requirements; the guide should point to it rather than repeat it (see
+      sisc-lot-01). The tables date from 2016 to 2018.
+
+  - id: sisc-lot-05
+    section: Updating Information
+    page: 5
+    doc: >-
+      Anyone who finds a vaccine with different lot numbers on the unit of sale and unit of use should tell CDC
+      by email, with images of the packaging if possible.
+    result: out-of-scope
+    note: A request for information, not guidance for messaging.

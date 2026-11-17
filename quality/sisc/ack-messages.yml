@@ -1,0 +1,111 @@
+# Comparison: SISC guidance "Guidance for HL7 Acknowledgement Messages to Support Interoperability" (October 2015) and
+# this guide.
+#
+# One item per piece of guidance in the document, in document order. Same format as quality/sisc/rsp-messages.yml.
+# The ACK TAB (June 2026) updates and replaces most of this guidance and has its own comparison (quality/tabs/
+# ack-messaging.yml). This comparison checks what the TAB did not carry over, and records where the guide deliberately
+# departs from the 2015 guidance. The worked examples on pages 5-6 are not itemized.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  Everything in this guidance that the ACK TAB kept is in the guide, often in stronger form: the meaning of each ERR-4
+  severity and what the sender must do about it, each IIS deciding the severity of its own rules, and correcting before
+  resubmitting (including that the fault may be on the IIS side). The one deliberate reversal is MSA-1. In 2015, 'AE' was
+  returned for any Warning or Error, so a rejected message also got 'AE', and 'AR' was kept for four HL7 conditions. Under
+  the guide (following the ACK TAB), 'AE' means accepted with warnings, 'AR' means rejected, and one of the four conditions
+  is no longer a reason for 'AR'. Many IIS and EHRs implemented the 2015 rules, so the guide's change history should say
+  this plainly.
+
+items:
+  - id: sisc-ack-01
+    section: Scope of Guidance
+    page: 1
+    doc: >-
+      An ACK has exactly one MSA segment, followed by ERR segments, which may repeat (usage RE). MSA-1 and ERR-4 are the
+      two fields that tell the sender whether processing succeeded.
+    result: covered
+    guide: [issue-level-reporting-using-err-segments, msa-1-derivation-of-message-level-disposition]
+
+  - id: sisc-ack-02
+    section: Vocabulary
+    page: 1-2
+    doc: >-
+      "Error" can mean something wrong in general, the ERR segment, the ERR-4 severity 'E', or the MSA-1 code 'AE'; the
+      guidance tries to say which meaning it intends.
+    result: covered
+    guide: [err-4-severity-code, issue-level-reporting-using-err-segments]
+    note: >-
+      The guide avoids the ambiguity by calling what an ERR segment reports an "issue" and keeping "Error" for the ERR-4
+      severity.
+
+  - id: sisc-ack-03
+    section: ERR-4 (Severity)
+    page: 2
+    verb: must
+    doc: >-
+      Each IIS decides how severe a given condition is (one IIS may treat an invalid route as an Error, another as a
+      Warning), but what Error, Warning, and Information mean, and what the sender is expected to do, must be the same
+      across IIS.
+    result: covered
+    guide: [err-4-severity-code, err-4-severity-code--s1, required-follow-up-actions]
+
+  - id: sisc-ack-04
+    section: ERR-4 (Severity), Table 2
+    page: 3
+    doc: >-
+      Information: the sender need not correct or resubmit. Warning: the sender must correct but need not resubmit. Error:
+      the sender must correct and resubmit.
+    result: covered
+    guide: [err-4-severity-code, required-follow-up-actions]
+    note: >-
+      The guide keeps the same ladder and adds "convey" (showing the issue to users) as a step below correcting.
+
+  - id: sisc-ack-05
+    section: ERR-4 (Severity)
+    page: 2-3
+    doc: >-
+      A Warning in one ERR segment does not mean the message was accepted: another ERR segment may hold an Error, so the
+      sender must check them all.
+    result: covered
+    guide: [msa-1-derivation-of-message-level-disposition, msa-1-guidance]
+    note: >-
+      The guide solves the same problem the other way round: MSA-1 now reliably says whether the message was accepted, and
+      ERR-4 says what to do about each issue.
+
+  - id: sisc-ack-06
+    section: MSA-1 (Acknowledgement Code), Tables 4 and 5
+    page: 3-5
+    doc: >-
+      MSA-1 is 'AA' when there are no ERR segments or only Information; 'AE' when at least one ERR segment is a Warning or an
+      Error (so a rejected message also gets 'AE'); and 'AR' only when an Error is due to an unsupported message type, event
+      code, or processing ID, or the message cannot be processed for reasons unrelated to format or content.
+    result: conflict
+    guide:
+      - msa-1-derivation-of-message-level-disposition
+      - msa-1-derivation-of-message-level-disposition--s2
+      - msa-1-guidance
+    note: >-
+      Changed on purpose, following the ACK TAB. In the guide, 'AE' SHALL NOT be returned when there is an Error, 'AR' is
+      returned whenever core intent is not fulfilled (any Error), and "unable to process for reasons unrelated to format or
+      content" is no longer a reason for 'AR'. The guide's MSA-1 guidance explains the change but does not name this
+      document. IIS and senders that built to the 2015 rules will send or expect 'AE' for rejected messages.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      In the change history, record that the MSA-1 rules replace those in the 2015 ACK guidance (and Release 1.5): 'AE' no
+      longer covers rejections. Consider a short migration note for systems that treat 'AE' as a rejection.
+
+  - id: sisc-ack-07
+    section: Correction and Resubmission
+    page: 4
+    doc: >-
+      An ACK cannot say what data was consumed. The sender investigates each Error, corrects the issue in its own system,
+      and resubmits the corrected data. Correcting may need a conversation with the IIS, since the problem may be on the
+      IIS side (for example, a new CVX code the IIS does not yet accept).
+    result: covered
+    guide: [required-follow-up-actions]
+    note: >-
+      The guide says resubmission follows correcting the issue "regardless of where it originated", and that a message
+      needing resubmission means "at least one system, on either or both sides, must investigate". What exactly to resend
+      is a gap noted in the ACK TAB comparison.
