@@ -1,0 +1,97 @@
+# Comparison: AIRA "Patient Status in Immunization Information Systems: Recommendations and Implementation Strategies"
+# (September 2019) and this guide.
+#
+# A companion to the MIROW patient status guide (compared in management-of-patient-status.yml). It reports surveys of
+# IIS and EHR vendors and gives practical recommendations. Only the findings and recommendations that depend on messages
+# are itemized. IIS user interface functions, provider workflow and the provider guidance template, jurisdiction-level
+# implementation, vital records exchange, and population management (inactivation by age and inactivity) are not
+# itemized.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  This report explains why the patient status gaps found in the MIROW comparison matter in practice. It names the
+  fields an IIS reads for status: PD1-16 and PD1-17 directly, PID-29 and PID-30 for a death, and the RXA and PD1-11
+  and PD1-12 indirectly. It found that EHRs send status only when they send a vaccination, because most trigger a VXU
+  only when a dose is given, so a death or a change in status recorded in the EHR never reaches the IIS. It also
+  observed that MIROW's recommendations are not part of the HL7 guide, so EHRs neither know about them nor are held
+  to them. The guide can now close part of that gap. It already allows a VXU without vaccinations, but only for
+  correcting demographics or preparing for a vaccination; it could name status changes and deaths as permitted
+  reasons. It could also name the status fields (see mirow-mps-02 and mirow-mps-06). Its profile already lets a death
+  be reported without a date, which the report recommends for manual entry.
+
+items:
+  - id: mirow-psi-01
+    section: Section 2 (provider level), Appendix D - The HL7 fields for patient status, and why EHRs don't send them
+    page: 10, 57
+    doc: >-
+      PD1-16 and PD1-17 directly identify the patient status and its date, and PID-30 and PID-29 report a death with its
+      date. The RXA, PD1-11, and PD1-12 can be used to infer status. EHR vendors said MIROW's recommendations "are not
+      part of the HL7 VXU transaction standard" or of EHR certification, so most EHRs don't know about them.
+    result: partial
+    guide: [provider-reported-status, deceased-status]
+    note: >-
+      The guide's profile has all these fields, but its patient status sections don't name them. That is the gap the
+      report describes. Covered by the recommendations in mirow-mps-02 (PD1-16, PD1-17) and mirow-mps-06 (PID-29,
+      PID-30), and by mirow-pbr-07 for PD1-11.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Apply mirow-mps-02 and mirow-mps-06, which bring MIROW's status codes into the guide that EHRs are certified
+      against.
+
+  - id: mirow-psi-02
+    section: Section 2 (EHR survey), Appendix D - Status changes are sent only with a vaccination
+    page: 13, 57
+    doc: >-
+      EHRs send patient status only when an administered immunization is also included. Most trigger a VXU only when a
+      vaccination is given, none send ADT, and if a provider learns a patient has moved or died, that information may
+      never reach the IIS.
+    result: partial
+    guide: [patient-demographic-records-and-vxus-without-immunizations, types-of-information-carried-in-a-vxu--s2, deceased-status]
+    note: >-
+      The guide requires IIS to accept a VXU with no vaccinations, but describes it for "correcting a patient's name,
+      address, or date of birth on an existing immunization record, or updating demographic information in advance of an
+      anticipated vaccination event". It also asks submitters to limit such messages and to use ADT where available. A
+      provider reporting a death, or that a patient has moved or is no longer a patient, is not named as a reason. An
+      EHR reading the guide could conclude it should not send one.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      In Patient Demographic Records and VXUs Without Immunizations, name reporting a death (PID-29, PID-30) and a change
+      in the provider's patient status (PD1-16, PD1-17) as appropriate uses of a VXU without vaccinations.
+
+  - id: mirow-psi-03
+    section: Deceased Records Challenge 1 - Death reported without a date
+    page: 22
+    doc: >-
+      Providers should be able to mark a patient deceased by entry and by electronic exchange. A date of death should
+      not be required for manual entry, because providers often learn of a death without the date. The report notes
+      that the HL7 guide requires additional information to confirm a death in an electronic message, which helps
+      avoid marking thousands of records deceased by a coding error, and does not recommend changing that.
+    result: covered
+    guide: [deceased-status]
+    note: >-
+      In this guide's profile PID-30 is RE and PID-29 is RE only when PID-30 is 'Y', so a death can be sent without a
+      date. That meets the report's need. It also means a single field now reports a death, so an IIS relies on its own
+      confirmation (MIROW BR421, see mirow-mps-06) for the safeguard the report valued. ERR-5 code 2007 reports
+      conflicting death information.
+
+  - id: mirow-psi-04
+    section: Section 2 - A new vaccination makes the patient active again
+    page: 16
+    doc: >-
+      An inactive patient should become active again for a provider whenever that provider submits a new immunization,
+      except for a deceased patient, without requiring the status field to be sent.
+    result: covered
+    guide: [iis-derived-status-and-jurisdictional-views, deceased-status--s1]
+    note: >-
+      This is the indirect inference MIROW describes (see mirow-mps-09). The guide treats it as IIS-derived status, and
+      deceased takes precedence.
+
+  - id: mirow-psi-05
+    section: Section 3 - Deceased status at both levels
+    page: 35
+    doc: A deceased status at the jurisdiction level should always promote to the provider level, and the reverse.
+    result: covered
+    guide: [deceased-status]

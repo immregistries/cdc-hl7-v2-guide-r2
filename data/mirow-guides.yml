@@ -135,6 +135,10 @@ documents:
     summary: >-
       A companion to the MIROW patient status guide that bridges its recommendations and how IIS actually put them into
       practice.
+    cards:
+      - provider-reported-status
+      - deceased-status
+      - patient-demographic-records-and-vxus-without-immunizations
 
   - id: decrementing-inventory
     title: Decrementing Inventory via Electronic Data Exchange
@@ -146,6 +150,15 @@ documents:
     summary: >-
       How an IIS decrements a provider's vaccine inventory from doses reported electronically, which depends on lot
       number, funding source, and dose-level eligibility arriving in the VXU.
+    cards:
+      - funding-source-and-eligibility
+      - patient-funding-eligibility-per-dose
+      - vaccine-funding-source-and-stock-models
+      - validation-enforcement-and-borrowing-scenarios
+      - universal-purchase-and-default-eligibility
+      - historical-vaccinations-and-internal-use
+      - inventory-and-accountability-considerations
+      - administered-vaccinations
 
   - id: inventory-management-operations
     title: Immunization Information System Inventory Management Operations
@@ -157,6 +170,13 @@ documents:
     summary: >-
       Best practices for vaccine inventory management in an IIS. Less tied to messaging than the decrementing inventory
       guide that followed it.
+    cards:
+      - ndc-requirements-for-administered-vaccinations
+      - unit-of-use-and-unit-of-sale-ndcs
+      - administering-organization-rxa-11
+      - vaccine-funding-source-and-stock-models
+      - inventory-and-accountability-considerations
+      - jurisdictional-consent-models
 
   - id: common-vocabulary
     title: MIROW Common Vocabulary
@@ -175,6 +195,11 @@ documents:
       Version 2.0. The resource page is still online but no longer offers its files; these copies come from the
       repository's file store (snapshot of November 2024). The simple report, the support document (a legend), and the
       domain diagrams are left out; the advanced report has the full content.
+    cards:
+      - key-terms
+      - identifying-organizations
+      - administered-vaccinations
+      - funding-source-and-eligibility
 
   - id: principles-and-business-rules
     title: MIROW Principles and Business Rules Reports
@@ -190,6 +215,10 @@ documents:
     source_note: >-
       Version 2.0. Like the common vocabulary, the resource page no longer offers its files; these copies come from the
       repository's file store. The simple report and the support document are left out.
+    cards:
+      - patient-funding-eligibility-per-dose
+      - patient-information
+      - consent-and-privacy
 
   - id: cdc-patient-level-deduplication
     kind: related
@@ -207,3 +236,7 @@ documents:
       repository links to a CDC address that no longer works
       (https://www.cdc.gov/vaccines/programs/iis/interop-proj/downloads/de-duplication.pdf); this copy is from the
       Internet Archive.
+    cards:
+      - record-consolidation-and-deduplication
+      - unnamed-newborns
+      - primary-patient-identifier-for-exchange
