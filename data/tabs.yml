@@ -180,8 +180,22 @@ tabs:
     file: tabs/2024-01-scenarios-for-updates-and-queries.pdf
     summary: Conformance expectations for systems that exchange VXU and QBP messages with an IIS, by scenario.
     cards:
+      - reporting-immunizations-single-vs-multiple-administered-vaccinations-per-vxu
+      - identifying-vs-non-identifying-vaccination-fields
+      - identifying-vaccination-fields
+      - non-identifying-vaccination-fields
       - vxu-submission-scenarios
+      - new-vaccination-administered-during-an-encounter
+      - historical-vaccination-recorded
+      - modifying-non-identifying-vaccination-fields
+      - deletion-of-a-vaccination-record-submitted-by-the-same-organization
+      - deletion-of-a-vaccination-record-submitted-by-another-organization
+      - patient-demographic-records-and-vxus-without-immunizations
+      - official-registry-name-recorded-for-a-newborn
+      - qualifying-event-first-submission-for-a-patient
       - scenarios-that-trigger-qbp-messages
+      - user-initiated-query-scenarios
+      - system-initiated-query-scenarios
 
   - id: query-response-flexibility
     title: "Query Response Flexibility: Z31 Response for Z34 and Z44 Queries"

@@ -1,0 +1,261 @@
+# Comparison: TAB "Scenarios for Updates and Queries" (January 2024) and this guide. Fields: see ack-messaging.yml.
+
+tab: scenarios-for-updates-and-queries
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  Sections 3.2.5 (VXU Submission Scenarios) and 3.4.4 (Scenarios That Trigger QBP Messages) are built on this TAB, scenario
+  by scenario, and section 3.2.4 carries its identifying and non-identifying field lists. Most rows match. The differences:
+  the TAB says a submitting system SHALL NOT support both single-vaccination and whole-encounter reporting, where the guide
+  says it MAY; the TAB's SHALL coordinate with the IIS before sending immunity, adverse reaction, contraindication, or
+  refusal information is missing; the daily query limits for patient portals are a SHOULD in the guide where the TAB has
+  SHALL; and the TAB's row for a modified legal name is not in the guide.
+
+items:
+  # ---------------------------------------------------------------- Table 1: VXU triggers
+  - id: tab-sc-01
+    section: "Executive Summary; Table 1: Vaccination administered during an encounter"
+    page: 1-2
+    verb: SHALL, SHALL NOT
+    tab: >-
+      A submitting system SHALL support one but SHALL NOT support both: a VXU with one vaccination, if reporting each
+      vaccination individually, or a VXU with all vaccines given during the encounter, if reporting the whole encounter.
+    result: conflict
+    guide:
+      - reporting-immunizations-single-vs-multiple-administered-vaccinations-per-vxu--s1
+      - reporting-immunizations-single-vs-multiple-administered-vaccinations-per-vxu--s2
+      - new-vaccination-administered-during-an-encounter--s1
+      - new-vaccination-administered-during-an-encounter--s3
+    note: >-
+      The guide says a submitting system SHALL support at least one approach and "MAY support both approaches if
+      operationally required". The TAB says SHALL NOT support both.
+    severity: issue
+    owner: decision
+    recommendation: >-
+      CDC and SISC decide. If the guide's MAY stands, it changes a published TAB and should say so; otherwise change s2 to
+      "A submitting system SHALL NOT support both approaches."
+
+  - id: tab-sc-02
+    section: "Table 1: Evidence of immunity, adverse reaction, contraindication, refusal or exemption"
+    page: 2
+    verb: MAY, SHALL
+    tab: >-
+      When evidence of immunity, an adverse reaction, a contraindication, or a refusal or exemption is recorded, the system
+      MAY trigger a VXU, and MAY send it in a VXU with other vaccination information. It SHALL coordinate with the IIS to
+      confirm that the IIS supports it.
+    result: partial
+    guide:
+      - types-of-information-carried-in-a-vxu--s1
+      - types-of-immunity-evidence--s1
+      - adverse-events-associated-with-a-specific-vaccination--s1
+      - scope-of-support-in-this-guide--s1
+      - storage-and-processing-expectations--s2
+      - storage-and-processing-expectations--s3
+    note: >-
+      The guide allows sending each of these (MAY statements in 3.2.2 and 4.8), and says IIS MAY ignore them and SHOULD
+      keep processing the rest of the message, so a submitter cannot tell from the ACK whether they were used. It has no statement that these recordings may trigger a VXU on
+      their own, and none requiring coordination with the IIS before sending them (only for locally extended codes).
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Add to 3.2.5: "Recording evidence of immunity, an adverse reaction, a contraindication, or a refusal MAY trigger a
+      VXU, or the information MAY be sent with other vaccination information. Submitting systems SHALL coordinate with the
+      IIS to confirm that it supports this information."
+
+  - id: tab-sc-03
+    section: "Table 1: Vaccination anticipated in the future"
+    page: 3
+    verb: SHALL NOT
+    tab: A system SHALL NOT trigger a VXU when a patient is anticipated to receive a vaccination, for example when an order is recorded.
+    result: covered
+    guide: [new-vaccination-administered-during-an-encounter--s2]
+
+  - id: tab-sc-04
+    section: "Table 1: Historical vaccination recorded"
+    page: 3
+    verb: SHOULD
+    tab: A system SHOULD trigger a VXU when a vaccination is transcribed from a historical record.
+    result: covered
+    guide: [historical-vaccination-recorded--s1, historical-vaccination-recorded--s2]
+
+  - id: tab-sc-05
+    section: "Table 1: Previously submitted vaccination modified"
+    page: 3
+    verb: SHALL, SHALL NOT
+    tab: >-
+      A change to an identifying field SHALL trigger a VXU delete (RXA-21 'D') followed by a VXU add (RXA-21 'A'). A change
+      to only non-identifying fields SHALL trigger a VXU update (RXA-21 'U'). Viewing or opening a record without changes
+      SHALL NOT trigger a VXU.
+    result: covered
+    guide:
+      - identifying-vs-non-identifying-vaccination-fields--s1
+      - modifying-non-identifying-vaccination-fields--s1
+      - modifying-non-identifying-vaccination-fields--s2
+      - submitter-correction-behavior--s2
+      - submitter-correction-behavior--s3
+    note: The guide's statements do not name the RXA-21 values ('D', 'A', 'U'); the section on updates and deletes (4.6.4) does.
+
+  - id: tab-sc-06
+    section: "Table 1: Vaccination record deleted"
+    page: 3
+    verb: SHALL, SHALL NOT
+    tab: >-
+      Deleting a record SHALL trigger a VXU delete with the same information sent in the previous add or update, except
+      RXA-21 is 'D'. Deleting a record the organization did not report SHALL NOT trigger a VXU; the system SHALL contact the
+      IIS directly to request cleanup.
+    result: covered
+    guide:
+      - deletion-of-a-vaccination-record-submitted-by-the-same-organization--s1
+      - deletion-of-a-vaccination-record-submitted-by-another-organization--s1
+      - deletion-of-a-vaccination-record-submitted-by-another-organization--s2
+
+  - id: tab-sc-07
+    section: "Table 1: Patient demographic record created or modified"
+    page: 3
+    verb: MAY, SHALL
+    tab: >-
+      Creating a patient record or modifying a patient's demographics MAY trigger a VXU. The system SHALL coordinate with the
+      IIS on acceptance and processing of VXUs with no immunization information.
+    result: reworded
+    guide:
+      - patient-demographic-records-and-vxus-without-immunizations--s1
+      - patient-demographic-records-and-vxus-without-immunizations--s2
+    note: >-
+      The guide requires coordination only before sending demographic-only VXUs "on an ongoing or routine basis"; the TAB
+      requires it whenever a system sends them.
+    severity: note
+    owner: narrative
+    recommendation: Drop "on an ongoing or routine basis" from s2, or confirm that the narrower requirement is intended.
+
+  - id: tab-sc-08
+    section: "Table 1: Legal name recorded for a newborn"
+    page: 3
+    verb: SHALL
+    tab: When a legal name is recorded for the first time for a newborn, the system SHALL trigger a VXU with the patient's complete vaccination history.
+    result: covered
+    guide: [official-registry-name-recorded-for-a-newborn--s1]
+    note: The guide says "official registry name" for the TAB's "legal name", following the Patient Name (PID-5) TAB.
+
+  - id: tab-sc-09
+    section: "Table 1: Legal name modified"
+    page: 3
+    verb: MAY, SHALL
+    tab: >-
+      When a legal name is modified, the system MAY trigger a VXU, and SHALL coordinate with the IIS on acceptance of VXUs
+      with no immunization information. (The rows of this part of the PDF table are misaligned; this is the reading that
+      gives each row one expectation.)
+    result: missing
+    guide: [official-registry-name-recorded-for-a-newborn, patient-demographic-records-and-vxus-without-immunizations]
+    note: >-
+      The guide has no row for a name change after the first. It falls under the general demographic MAY (tab-sc-07), but
+      is not named.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Confirm the reading with the TAB authors, then add to 3.2.5.7: "When the official registry name is later changed,
+      the submitting system MAY trigger a VXU."
+
+  - id: tab-sc-10
+    section: "Table 1: Qualifying event (first submission)"
+    page: 3-4
+    verb: MAY, SHALL
+    tab: >-
+      A system submitting immunization information to the IIS for the first time MAY trigger a VXU with the patient's
+      complete vaccination history, and SHALL coordinate with the IIS first.
+    result: covered
+    guide: [qualifying-event-first-submission-for-a-patient--s1, qualifying-event-first-submission-for-a-patient--s2]
+
+  # ---------------------------------------------------------------- Table 2: QBP triggers
+  - id: tab-sc-11
+    section: "Table 2: User requests patient immunization record"
+    page: 4
+    verb: SHALL
+    tab: >-
+      A user request SHALL trigger a QBP, and the system SHALL allow the user to query for a single selected patient as
+      often as requested.
+    result: covered
+    guide: [user-initiated-query-scenarios--s1, user-initiated-query-scenarios--s2]
+    note: >-
+      The guide's s3 (daily limits) is in the same user-initiated section and does not say it is for portals only, so it
+      can be read as limiting clinician queries, which the TAB allows "as often as requested".
+
+  - id: tab-sc-12
+    section: "Table 2: User requests record after reporting"
+    page: 4
+    verb: MAY
+    tab: A user request after reporting vaccinations to the IIS MAY trigger a QBP.
+    result: covered
+    guide: [system-initiated-query-scenarios--s3]
+    note: The TAB lists this as user-initiated; the guide places it under system-initiated queries.
+
+  - id: tab-sc-13
+    section: "Table 2: Patient or guardian portal"
+    page: 4
+    verb: SHALL, SHOULD
+    tab: >-
+      A patient or guardian request through a portal SHALL trigger a QBP. The system SHALL allow a limited number of queries
+      per patient per day, SHALL coordinate with the IIS to define the limit, and SHALL have controls to prevent
+      over-querying. It SHOULD allow a re-query after too many or no matches.
+    result: reworded
+    guide: [user-initiated-query-scenarios--s1, user-initiated-query-scenarios--s3, user-initiated-query-scenarios--s4]
+    note: >-
+      The trigger and re-query statements match. The limits are weakened: "Jurisdictions and implementers SHOULD agree on
+      reasonable daily limits and controls to prevent over-querying", where the TAB has three SHALLs for portals.
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Replace s3 with: "For patient or guardian portal queries, systems SHALL limit the number of queries per patient per
+      day, SHALL coordinate the limit with the IIS, and SHALL have controls to prevent over-querying."
+
+  - id: tab-sc-14
+    section: "Table 2: System-initiated, per patient or bulk"
+    page: 4-5
+    verb: SHALL, MAY
+    tab: >-
+      Automated queries SHALL be limited per patient per day, with the limit coordinated with the IIS and controls to
+      prevent over-querying. Scheduling an appointment, an appointment that day or the next, and the start or end of an
+      encounter MAY trigger a QBP. Queries for all patients or a cohort MAY be a series of single queries, coordinated with
+      the IIS first.
+    result: covered
+    guide:
+      - system-initiated-query-scenarios--s1
+      - system-initiated-query-scenarios--s2
+      - system-initiated-query-scenarios--s4
+
+  # ---------------------------------------------------------------- Appendix
+  - id: tab-sc-15
+    section: "Appendix, Table 3: Identifying vaccination record fields"
+    page: 6
+    tab: RXA-3 date of administration, RXA-5 admin code, RXA-9 record type (administered or historical), RXA-11.4 administered-at location.
+    result: covered
+    guide: [identifying-vaccination-fields, identifying-field-changes]
+
+  - id: tab-sc-16
+    section: "Appendix, Table 4: Non-identifying vaccination record fields"
+    page: 6
+    tab: >-
+      RXA-6 dose volume, RXA-15 lot number, RXA-16 expiration date, RXA-17 manufacturer, RXR-1 route, RXR-2 site, and the
+      OBX observations for VIS (69764-9), VIS given date (29769-7), funding source (30963-3), and dose level eligibility
+      (64994-7).
+    result: partial
+    guide: [non-identifying-vaccination-fields]
+    note: >-
+      The guide lists the RXA and RXR fields and "Vaccine information statement and related OBX elements", but not funding
+      source or eligibility, or the LOINC codes. Section 4.6.4 says any field outside the identifying list can be sent as an
+      update, so the meaning is the same.
+    severity: note
+    owner: narrative
+    recommendation: List the four OBX observations with their LOINC codes in 3.2.4.2, as the TAB does.
+
+  - id: tab-sc-g01
+    section: Not in the TAB
+    tab: ""
+    result: guide-adds
+    guide:
+      - patient-demographic-records-and-vxus-without-immunizations--s3
+      - types-of-information-carried-in-a-vxu--s2
+    note: >-
+      "IIS SHALL accept VXU messages that contain patient demographic information, including VXUs with no immunization
+      events." The TAB leaves IIS processing out of scope and asks submitters to coordinate because some IIS do not accept
+      them.
+    owner: decision
