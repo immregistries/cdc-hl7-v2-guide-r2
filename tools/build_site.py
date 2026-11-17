@@ -33,6 +33,7 @@ import site_about  # noqa: E402
 import filter_terms  # noqa: E402
 import tab_review  # noqa: E402
 import site_err5  # noqa: E402
+import site_proposals  # noqa: E402
 from structure_index import FIELD_RE, Model  # noqa: E402
 from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
 
@@ -381,11 +382,16 @@ def build(out: Path) -> dict:
     tab_f = [f for f in findings if f["category"] == "tab"]
     meta.append({"i": "tabs", "t": "TAB Comparison", "n": "", "p": "tabs/index.html",
                  "f": [sum(f["severity"] == s for f in tab_f) for s in ("issue", "warning", "note")], "c": tab_nav})
+    proposals = site_proposals.load(REPO)
+    if proposals:
+        meta.append({"i": "proposals", "t": "Proposed Analyses", "n": "", "p": "quality/proposals/index.html", "f": [0, 0, 0]})
     page_anchors = {"quality": "quality/index.html", "quality-igamt": "quality/igamt/index.html", **tab_anchors,
                     "glossary": "glossary/index.html", "resources": "resources/index.html", "examples": "examples/index.html",
                     **structure_anchors}
     page_anchors["about"] = "about/index.html"
     page_anchors["err5-codes"] = "err5-codes/index.html"
+    if proposals:
+        page_anchors["proposals"] = "quality/proposals/index.html"
     nav = {"nodes": [node(r) for r in roots], "extra": extra, "meta": meta, "anchors": page_anchors}
     write_text(out / "assets" / "nav.js", "window.GUIDE_NAV=" + json.dumps(nav, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
@@ -563,6 +569,8 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
 <a href="findings.csv">Download all findings (CSV)</a>.</p>
 <p class="callout"><a href="../tabs/index.html"><strong>TAB Comparison</strong></a>: does the guide fold in each published
 Technical Advisory Bulletin, without missing or contradicting anything? Requirement by requirement, one page per TAB.</p>
+<p class="callout"><a href="proposals/index.html"><strong>Proposed Analyses</strong></a>: further comparisons and checks
+proposed for this draft, such as alignment with the MIROW best practice guides and a trace from Release 1.5, for CDC to consider.</p>
 <p class="stats">{len(findings)} findings: {sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes.</p>
 <table class="rules"><thead><tr><th>Check</th><th>What it looks for</th><th>Count</th></tr></thead><tbody>{rows}</tbody></table>
 {''.join(sections)}</article>"""
@@ -625,6 +633,13 @@ Technical Advisory Bulletin, without missing or contradicting anything? Requirem
                    shell(root="../", title="National ERR-5 Application Error Codes", guide=guide, build=build_info, card_id="err5-codes",
                          body=site_err5.page(err5, "../", by_id),
                          review={"anchor": "err5-codes", "title": "National ERR-5 Application Error Codes"}))
+
+    if proposals:
+        write_text(out / "quality" / "proposals" / "index.html",
+                   shell(root="../../", title="Proposed Analyses", guide=guide, build=build_info, card_id="proposals",
+                         body=site_proposals.page(proposals, "../../", by_id),
+                         review={"anchor": "proposals", "title": "Proposed Analyses",
+                                 "targets": site_proposals.review_targets(proposals)}))
 
     (out / ".nojekyll").write_text("", encoding="utf-8")
     return {"cards": len(cards), "findings": len(findings), "out": out}

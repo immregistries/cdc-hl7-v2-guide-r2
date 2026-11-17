@@ -1,0 +1,314 @@
+# Proposed analyses: further comparisons and checks to run on this draft, for discussion with CDC.
+#
+# Rendered as the "Proposed Analyses" page (tools/site_proposals.py). Each proposal can be commented on.
+# Fields:
+#   id        stable ID (pa-...), used as the page anchor and comment target; never reuse
+#   title     short name
+#   group     first | next | exploratory   (the suggested order; see `groups`)
+#   why       why it is worth doing (Markdown)
+#   approach  the steps (Markdown, one per item)
+#   sources   what it compares against (Markdown, one per item)
+#   output    what CDC would get
+#   cards     guide sections it most likely affects (card IDs; linked)
+#   scope     limits or cautions (optional)
+
+title: Proposed Analyses
+intro: >-
+  The draft is already checked in several ways (listed below). This page proposes more comparisons and checks, in a
+  suggested order, for CDC to consider. Each one would report its results the same way as the existing checks: findings
+  with permanent IDs, a severity, and who acts (narrative, IGAMT, or a decision for CDC). Findings would appear on the
+  sections they concern. Comments on any proposal are welcome. Use the comment panel and choose the proposal.
+principle: >-
+  Every analysis here uses published documents, conformance profiles, and example or test messages only. None of them uses
+  production data.
+
+current:
+  - title: Quality checks on the narrative
+    text: Structure and length of sections, conformance language, figures, references, and glossary pointers.
+    link: quality/index.html
+  - title: Narrative vs IGAMT
+    text: >-
+      Does what the text says about fields, codes, and observations match the conformance profiles? Includes the answers to
+      the Word review comments and the change requests for IGAMT.
+    link: quality/igamt/index.html
+  - title: Example messages
+    text: Each example is assembled into a whole message and checked against the IGAMT profiles.
+    link: examples/index.html
+  - title: TAB Comparison
+    text: Each published Technical Advisory Bulletin compared with the guide, requirement by requirement.
+    link: tabs/index.html
+  - title: Release 1.5 structural comparison
+    text: >-
+      Underway. The Release 1.5 conformance profiles (from the NIST test tool) are loaded alongside the new IGAMT profiles so
+      the two can be compared field by field.
+
+groups:
+  - id: first
+    title: Proposed first
+    text: These build directly on the comparisons already underway and answer the questions reviewers will ask first.
+  - id: next
+    title: Next
+    text: Checks against the standards and code sets the guide depends on, and consistency within the guide.
+  - id: exploratory
+    title: Exploratory
+    text: Wider comparisons whose scope should be agreed with CDC and AIRA before starting.
+
+proposals:
+  # ---------------------------------------------------------------- first
+  - id: pa-mirow
+    group: first
+    title: Alignment with the MIROW best practice guides
+    why: >-
+      The guide describes how an IIS processes what it receives: matching patients, deduplicating and consolidating
+      vaccination records, active and inactive status, decrementing inventory by lot number, funding eligibility, and data
+      quality. AIRA's Modeling of Immunization Registry Operations Workgroup (MIROW) has published consensus best practices on
+      many of these same topics. Today the guide cites only one MIROW guide (*Vaccination Level Deduplication in Immunization
+      Information Systems*), from one section. Where the two cover the same ground, they should use the same terms, should not
+      contradict each other, and the guide should point readers to the MIROW guide rather than restate it.
+    approach:
+      - List the current MIROW guides on the AIRA repository, and note which ones touch what is sent or received in messages.
+      - For each of those guides, list its topics, defined terms, and recommendations that relate to messaging, and find the
+        guide sections that cover the same topic.
+      - "Classify each pair: **aligned**, **different wording** (same meaning, harmonize the language), **guide silent** (add
+        a link), or **conflict** (needs a decision)."
+      - Propose harmonized wording and glossary entries, and add each relevant MIROW guide to the Resources list with
+        links from the sections it supports.
+      - Present the results like the TAB Comparison, with one page per MIROW guide.
+    sources:
+      - "[MIROW best practice guides](https://repository.immregistries.org/resource/mirow-and-the-best-practice-development-process)
+        on the AIRA repository: for example vaccination-level deduplication, inventory management operations, data quality
+        assurance, and patient active/inactive status"
+      - "*Validating Lot Numbers for Vaccine Doses* (MIROW micro-guide, 2014, revised 2015). This may have been retired in
+        favor of the 2022 *Data Quality Assurance in Immunization Information Systems* guide, which the guide already lists in
+        Resources. Confirm which is current."
+    output: >-
+      A comparison page per MIROW guide, proposed wording changes for the narrative, new Resources entries, and "Related
+      MIROW guidance" links on the affected sections.
+    cards:
+      - record-consolidation-and-deduplication
+      - iis-matching-and-correction-processing
+      - patient-demographic-records-and-vxus-without-immunizations
+      - patient-active-status-in-clinical-and-iis-contexts
+      - inventory-and-accountability-considerations
+      - funding-source-and-eligibility
+      - iis-processing-and-reconciliation
+      - why-hl7-requirements-cannot-substitute-for-data-quality
+    scope: >-
+      MIROW guides are best practices, not conformance requirements. The guide should link to them and use consistent
+      language. It should not turn a MIROW recommendation into a SHALL unless CDC decides to.
+
+  - id: pa-r15-trace
+    group: first
+    title: Release 1.5 requirement trace
+    why: >-
+      The structural comparison finds differences in the profiles. Many Release 1.5 requirements, though, were written only
+      in the narrative. Every one of them should be accounted for in the new guide, so that nothing is dropped without a
+      reason.
+    approach:
+      - Extract each conformance statement and normative sentence (SHALL, SHOULD, MAY and their negatives) from Release 1.5
+        and its published addendum.
+      - "Give each one an outcome in the new guide: **kept**, **reworded**, **tightened**, **loosened**, **moved** (for
+        example into IGAMT), or **dropped**."
+      - Report every requirement that was dropped or loosened without a stated reason.
+    sources:
+      - HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 1.5, and its addendum
+    output: >-
+      A trace table from Release 1.5 to the new guide, in the same format as the TAB comparisons, and findings for requirements
+      dropped or changed without explanation.
+
+  - id: pa-sisc-guidance
+    group: first
+    title: SISC guidance documents published before the TABs
+    why: >-
+      Between 2016 and 2023, AIRA's Standards and Interoperability Steering Committee (SISC) published guidance documents
+      that clarified Release 1.5 before the TAB series began. Implementers built to them, and two TABs build on them (the ACK
+      TAB on the ACK guidance, and the CDS in RSP TAB on the message structure guidance). The guide covers their topics but
+      does not cite any of them. Each one should be folded in, superseded on purpose, or cited, so nothing implementers rely on
+      is dropped by accident.
+    approach:
+      - Compare each document with the guide requirement by requirement, in the same format as the TAB comparisons.
+      - For the ACK guidance and the national error codes draft, check only what the ACK TAB did not carry over, since that TAB
+        is already compared.
+      - Decide for each document whether the guide replaces it (say so in the change history) or should cite it (add it to
+        Resources).
+    sources:
+      - Guidance for HL7 ACK Messages to Support Interoperability (v1.1, 2018)
+      - Guidance for HL7 RSP Messages to Support Interoperability (MSA-1, QAK-2, ERR-4; v1.0, 2017)
+      - Guidance on Detailed Message Structure and the Use of Specific LOINC Codes (v1.1, 2018)
+      - Guidance on Populating OBX-14 (Observation Date-Time; v1.0, 2019)
+      - Guidance on Indicating Preferable and Contraindicated Vaccines (v1.0, 2019)
+      - Query Responses and Patient Protection (discussed with SISC, August 2016)
+      - Vaccine Lot Number Guidance, for lot numbers that differ between unit of use and unit of sale (2017; updated 2018)
+      - Guidance on National Set of Error Codes (draft for SISC review, April 2023)
+      - "Still to locate: *Considerations for an IIS Implementing National Drug Codes*, and *Updated Guidance for
+        Documenting Vaccine National Drug Codes (NDCs) and Lot Numbers*"
+    output: >-
+      A comparison page per document, findings for anything not carried into the guide, and new Resources entries or change
+      history entries.
+    cards:
+      - z31-return-a-list-of-candidates
+      - obx-14-date-time-of-the-observation
+      - preferred-and-contraindicated-vaccine-types
+      - protection-indicator-pd1-12-usage
+      - unit-of-use-and-unit-of-sale-ndcs
+      - ndc-requirements-for-administered-vaccinations
+      - inventory-and-accountability-considerations
+
+  - id: pa-change-impact
+    group: first
+    title: Who each change affects
+    why: >-
+      Implementers will ask what they must change. A change list alone does not answer that. Each difference from Release 1.5
+      should say whether it affects senders, receivers, or both.
+    approach:
+      - "Classify each change in usage, cardinality, length, data type, and value set binding by its effect. For example,
+        RE→R requires senders to change, R→RE or R→O can break receivers that rely on the field, and a removed code affects
+        both."
+      - Summarize the changes by profile and by actor (EHR or other sender, IIS).
+    sources:
+      - The Release 1.5 structural comparison (underway) and the requirement trace above
+    output: >-
+      A "What changes for implementers" summary with a table for senders and one for IIS, suitable for the ballot
+      introduction and for SISC.
+
+  - id: pa-backward-compat
+    group: first
+    title: Backward compatibility, tested with messages
+    why: >-
+      Running messages through both sets of profiles shows the effect of the changes in practice. It shows which messages
+      that are valid under Release 1.5 would now fail, and what a receiver still on Release 1.5 would reject.
+    approach:
+      - Validate the Release 1.5 example messages and the published NIST test-tool messages against the new profiles.
+      - Validate the new guide's example messages against the Release 1.5 profiles.
+      - Trace each new failure to the change that causes it, and check that change is intended and documented.
+    sources:
+      - Release 1.5 examples and NIST test-tool test cases (published)
+      - The new guide's example messages (Appendix A)
+      - The existing example-checking tools, with the Release 1.5 profiles added
+    output: >-
+      A compatibility matrix (message × profile set), with every new failure linked to its cause.
+
+  - id: pa-change-history
+    group: first
+    title: Change history reconciliation
+    why: The guide's change history should list every substantive change, and only changes that were actually made.
+    approach:
+      - Match each difference found by the comparisons above to an entry in the change history.
+      - Report differences that have no entry, and entries that match no difference.
+    sources:
+      - The guide's change history, and the results of the analyses above
+    output: Findings on the change history, with suggested entries.
+
+  # ---------------------------------------------------------------- next
+  - id: pa-hl7-base
+    group: next
+    title: Conformance to the HL7 v2.5.1 base standard
+    why: >-
+      A constrained profile may only narrow the base standard. If the guide loosens a usage, widens an HL7-defined table,
+      or uses an incompatible length or data type, it would not conform, and the ballot would likely find it.
+    approach:
+      - "Compare each segment, field, and component in the IGAMT profiles with HL7 v2.5.1: usage (following the HL7
+        constrainable-profile rules for allowed changes), cardinality, length, data type, and table."
+      - Check that each value set bound to an HL7-defined table is a subset of that table, or is clearly marked as an
+        extension where extension is allowed.
+    sources:
+      - HL7 Version 2.5.1 (chapters 2, 3, 4 and 5, and the HL7 tables)
+      - HL7 v2 conformance methodology (constrainable profiles)
+    output: Findings on the profiles, mostly for IGAMT, and confirmation where the profiles conform.
+
+  - id: pa-code-sets
+    group: next
+    title: Current code sets
+    why: >-
+      Bound value sets drift as CDC and PHIN VADS publish updates. Retired codes that are still listed, or new codes that are
+      missing, can cause valid messages to be rejected.
+    approach:
+      - "Compare each bound value set with its current published source: CVX, MVX, NDC, VIS document type, funding source,
+        funding eligibility, and the others in PHIN VADS."
+      - Report retired codes, missing codes, and description differences. Check any code named in the narrative or the
+        examples too.
+    sources:
+      - "[CDC IIS code sets](https://www.cdc.gov/vaccines/programs/iis/code-sets.html)"
+      - PHIN VADS value sets referenced by the profiles
+    output: Findings per value set, plus a note on how value sets will be kept current after publication.
+
+  - id: pa-data-standards
+    group: next
+    title: National data standards published since Release 1.5
+    why: >-
+      Several national standards that affect patient demographics have changed since Release 1.5. The guide's value sets and
+      guidance should either follow them or say why not.
+    approach:
+      - "Compare the guide with: the 2024 revision of the OMB race and ethnicity standard (SPD 15), the USCDI data elements
+        for patient demographics (including sex and gender identity), and the CDC IIS Functional Standards."
+      - For each data element, record whether the guide aligns, differs on purpose, or has not yet addressed it.
+    sources:
+      - OMB Statistical Policy Directive 15 (2024)
+      - USCDI (current version)
+      - CDC IIS Functional Standards
+    output: An alignment table by data element, with findings where the guide is silent or differs.
+
+  - id: pa-testability
+    group: next
+    title: Testability of each conformance statement
+    why: >-
+      A conformance statement that no test can check will not be enforced consistently. Each statement should either map to
+      a constraint in the IGAMT profiles or be marked as not machine-testable, with a reason.
+    approach:
+      - Map each narrative conformance statement to an IGAMT constraint, predicate, usage, or value set binding.
+      - "Classify each statement as **tested by the profiles**, **testable but not yet in the profiles** (a change request
+        for IGAMT), or **not machine-testable** (for example, IIS processing rules)."
+    sources:
+      - The guide's conformance statements and the IGAMT export
+    output: A coverage table, and change requests for IGAMT for the testable statements that are not yet tested.
+
+  - id: pa-terminology
+    group: next
+    title: Consistent terminology
+    why: >-
+      When a concept is renamed (for example, the guide describes "core intent" from the ACK TAB in terms of "Critical
+      Data"), its meaning can change quietly. Key terms should mean the same thing everywhere: in the guide, the TABs, Release
+      1.5, and the MIROW guides.
+    approach:
+      - For each key term and glossary entry, find every use across the guide and compare it with the definition.
+      - Find terms in the TABs, Release 1.5, and the MIROW guides that the guide replaces with a different term, and record
+        each mapping.
+    sources:
+      - The guide's key terms and glossary, the TABs, Release 1.5, and the MIROW guides
+    output: Findings on inconsistent terms, and glossary updates (including "formerly called" notes where a term changed).
+
+  # ---------------------------------------------------------------- exploratory
+  - id: pa-local-igs
+    group: exploratory
+    title: Survey of jurisdiction local implementation guides
+    why: >-
+      Jurisdictions publish local guides that add to or override the national guide. When many of them add the same thing
+      or override the same rule, the national guide is probably not specific enough there. That is useful input for this
+      release.
+    approach:
+      - Choose a sample of 5–10 publicly posted local guides that differ in size, region, and IIS platform.
+      - Record what each one adds, tightens, loosens, or defines locally (for example, local fields, codes, or Z-segments).
+      - Report the patterns across the sample, by topic, and the guide sections they point to.
+    sources:
+      - Publicly posted jurisdiction implementation guides
+    output: A summary of common local additions and overrides by topic, with the guide sections that may need more detail.
+    scope: >-
+      The results would report patterns across the sample. They would not grade or rank individual jurisdictions.
+
+  - id: pa-aart
+    group: exploratory
+    title: Comparison with the AART assessments
+    why: >-
+      AIRA's Assessment and Reporting Tool (AART) measures IIS against expectations derived from the national guide and the
+      TABs. Where the new guide changes a requirement, an AART expectation may no longer match. Finding these early helps AIRA
+      plan any updates.
+    approach:
+      - Compare the published AART assessment expectations with the requirements of the new guide.
+      - List the expectations that the new guide changes, removes, or does not support, and the new requirements that AART does
+        not assess.
+    sources:
+      - AART assessment documentation (AIRA)
+    output: A list of differences between AART and the new guide, for AIRA to consider.
+    scope: >-
+      This is a desk comparison only. Changing AART tests has an operational cost, so any updates to AART, and when they would
+      happen, would be planned separately by AIRA. This analysis does not commit to them.
