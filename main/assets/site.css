@@ -441,3 +441,19 @@ pre.hl7 .f:hover { background: var(--guide-blue-light); }
 .r15-page ul.r15-key li { margin-bottom: 4px; }
 .r15-page table.r15-narr td:nth-child(4), .r15-page table.r15-narr td:nth-child(5) { min-width: 16em; }
 .r15-page table.r15-narr td:nth-child(2) { min-width: 8em; }
+
+/* ---------------------------------------------------------------- TA questions (local builds only) */
+.ta-q { border-top: 1px solid var(--guide-border); padding: 12px 0 14px; }
+.ta-q:target { outline: 2px solid var(--guide-blue); outline-offset: 4px; }
+.ta-q h3 { margin: 0 0 4px; font-size: 1rem; }
+.ta-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px; margin-top: 8px; }
+.ta-k { margin: 0 0 4px; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--guide-muted); }
+.ta-answer { font-size: .92rem; }
+.ta-answer p { margin: 0 0 6px; }
+.ta-flag { font-size: .85rem; margin: 6px 0; padding: 6px 10px; border-left: 3px solid var(--guide-border); }
+.ta-records { margin-top: 8px; font-size: .88rem; }
+.ta-records ol { padding-left: 20px; }
+.ta-records li { margin: 8px 0; }
+.ta-assess { font-size: .9rem; padding: 8px 12px; border-radius: 8px; background: var(--guide-surface); border: 1px solid var(--guide-border); }
+.ta-toc { columns: 2; font-size: .9rem; }
+@media (max-width: 760px) { .ta-grid { grid-template-columns: 1fr; } .ta-toc { columns: 1; } }
