@@ -1,0 +1,102 @@
+# Comparison: SISC guidance "Guidance on Indicating Preferable and Contraindicated Vaccines" (September 2019) and this
+# guide.
+#
+# One item per piece of guidance in the document, in document order. Same format as quality/sisc/rsp-messages.yml.
+# The document's summary of the forecast group repeats the message structure guidance; see sisc-msl-14 (and the CDS in RSP
+# TAB comparison) for that. The CDS in RSP TAB (September 2026) keeps the two LOINC codes this guidance introduced.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide keeps the mechanism this guidance introduced: optional, repeatable OBX segments with LOINC 93123-8 (preferred)
+  and 93122-0 (contraindicated) in a forecast set, with a CVX code in OBX-5, and IGAMT allows both codes in the Z42 and Z32
+  forecast group. It drops the cautions around them: that this is used only when both trading partners agree, that a
+  receiver must never mistake a contraindicated vaccine for a recommended one, that preferred vaccines are not an exhaustive
+  list the clinician must choose from, and when not to send a preferred vaccine. It also narrows OBX-5 to CVX only.
+
+items:
+  - id: sisc-pcv-01
+    section: Scope of Guidance (In Scope)
+    page: 1
+    verb: should not
+    doc: >-
+      Preferred vaccines sent in a response are not a complete list of possible products, and the clinician need not use
+      one of them (though they must understand the implications of using a non-preferred vaccine).
+    result: missing
+    guide: [preferred-and-contraindicated-vaccine-types]
+    note: The guide says these elements are used "cautiously and only when clinically justified", but not how a receiver should read them.
+    owner: narrative
+    recommendation: >-
+      Add that a preferred vaccine type is a recommendation, not a complete or mandatory list of products.
+
+  - id: sisc-pcv-02
+    section: Expectations of Support
+    page: 1
+    verb: should not
+    doc: >-
+      Support is not required. The OBX segments are sent only when both trading partners agree there is value in it. A
+      sender should not assume the receiver can handle them without discussion and testing; it is critical that a
+      contraindicated vaccine is not mistaken for a recommended one. Partners may agree to exchange one kind but not the
+      other.
+    result: partial
+    guide: [preferred-and-contraindicated-vaccine-types--s1, preferred-and-contraindicated-vaccine-types--s2, preferred-and-contraindicated-vaccine-types--s4]
+    note: >-
+      Both are MAY in the guide, so support is optional, and s4 asks IIS to document product guidance in their local IG.
+      The safety warning is gone: a querying system that ignores unknown OBX segments is fine, but one that reads every CVX
+      in a forecast set as recommended would show a contraindicated vaccine (93122-0) as due.
+    owner: narrative
+    recommendation: >-
+      State that IIS return these OBX segments only to querying systems that have agreed to receive them, and that
+      querying systems SHALL NOT present a contraindicated vaccine type as recommended.
+
+  - id: sisc-pcv-03
+    section: Structure of the Z42 message
+    page: 2
+    verb: should; should not
+    doc: >-
+      Send a preferred vaccine only when there is a clear preference over other available products: not when all products
+      are equally valid, and not when only one vaccine is available. The other attributes of the recommendation (dates,
+      series name) apply equally to every preferred vaccine.
+    result: partial
+    guide: [preferred-and-contraindicated-vaccine-types--s1]
+    note: >-
+      The guide has the first rule ("SHOULD NOT be used ... when any vaccine in the group would be equally appropriate").
+      It does not say to skip it when only one product exists, or that the recommendation's dates apply to every preferred
+      vaccine.
+    severity: note
+    owner: narrative
+    recommendation: Add the other two points to s1 or the narrative.
+
+  - id: sisc-pcv-04
+    section: Structure of the Z42 message (OBX-3, OBX-4)
+    page: 2
+    doc: >-
+      OBX-3 is 93123-8 (preferred vaccine type) or 93122-0 (contraindicated vaccine type), each of which may be repeated in
+      one recommendation. OBX-4 is the same sub-ID as the other OBX segments in the recommendation.
+    result: covered
+    guide: [preferred-and-contraindicated-vaccine-types--s1, preferred-and-contraindicated-vaccine-types--s2, forecast]
+    note: IGAMT allows both codes in the Z32 and Z42 forecast group.
+
+  - id: sisc-pcv-05
+    section: Structure of the Z42 message (OBX-5)
+    page: 3
+    doc: >-
+      OBX-5 holds a CVX code for the vaccine (some CVX codes cover several similar products). NDCs are likely too granular
+      but are not excluded. Only one vaccine per OBX segment; three vaccines need three segments.
+    result: reworded
+    guide: [preferred-and-contraindicated-vaccine-types--s3]
+    note: >-
+      The guide requires CVX (SHALL), which rules out the NDCs this guidance allowed. One vaccine per segment follows from
+      the guide's "MAY be repeated" wording.
+    owner: narrative
+    recommendation: Confirm that excluding NDC is intended, and record it in the change history if so.
+
+  - id: sisc-pcv-06
+    section: Example
+    page: 3-4
+    doc: >-
+      Example forecast showing no preferred vaccine for MMR (one product), a contraindicated live intranasal influenza
+      vaccine for an asthmatic patient, one preferred MenB product (Bexsero, not interchangeable with Trumenba), and two
+      preferred Td products.
+    result: out-of-scope
+    note: An example rather than a requirement. It would make a good example for Appendix A, which has none for these codes.

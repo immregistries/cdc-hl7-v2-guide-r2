@@ -1,0 +1,105 @@
+                                          Guidance on Populating OBX-14
+                                            (DateTime of the Observation)
+
+                                                                                    Published September 2019
+
+Background
+
+HL7 v2.5.1 defines OBX-14 as “the physiologically relevant date-time or the closest approximation to that date-time“.
+Many of the observations contained in immunization messages are not physiological in nature but still have an
+observation timestamp. This document will provide guidance on how to populate OBX-14 for common observation
+types.
+
+Scope of Guidance
+
+In Scope
+
+Common observations types will be covered in this document. OBX segments in both VXU and RSP messages will be
+included.
+
+Out of Scope
+
+For any observations not included in this document, trading partners should discuss the meaning of the date/time
+provided in OBX-14. The effective and expiration dates for indication and contraindication data is messaged using
+dedicated LOINC codes and is not covered here.
+
+Populating OBX-14
+
+A few basic principles should be followed when populating OBX-14:
+
+    • The OBX-14 date/time should be when the event (observation) occurred
+    • For observations that span multiple days (pregnancies, allergies, etc) the onset date/time should be used
+    • The General Observation, Indication and Contraindication observations are associated with related codes for
+
+         effective and abatement dates
+              o Because the relevant date for the coded observation is contained in a related OBX segment, OBX-14
+                   need not be populated in the primary OBX segment. For example, in a Contraindication OBX segment,
+                   OBX-14 does not need to be populated so long as it is accompanied by a Contraindication Effective Date
+                   OBX segment
+              o Neither the onset nor abatement date observations have a relevant date/time, so OBX-14 need not be
+                   populated
+
+    • For serology-based observations (ie serological immunity) the date/time the blood is drawn should be used
+    • If the appropriate value is not known, OBX-14 should remain empty – it is an RE field and is not required in every
+
+         message instance
+    • RXA-3 and OBX-14 will not always be the same date/time
+
+              o Patient level observations (Serological Immunity, History of Disease Immunity and Reaction (when it
+                   can’t be attributed to a specific administration event)) will follow an RXA segment where RXA-3 is the
+                   date/time that the report is being made (ie when the message is constructed)
+
+              o Administration event level observations including evaluation related observations in an RSP message
+                   (Eligibility, Funding Source, VIS Related, Reaction (when it can be attributed to a specific administration
+                   event), Comment and Evaluation Related) will follow an RXA segment where RXA-3 is the date/time that
+
+                                                                                                                                      1|Page
+                                                            Guidance on Populating OBX-14
+                                                             (DateTime of the Observation)
+
+                                                                                    Published September 2019
+
+              the vaccine was administered (even if the report is happening later like if an adverse reaction is being
+              reported a few days after the administration)
+         o Forecast level observations will follow an RXA segment where RXA-3 is the date/time the evaluation and
+              forecast were done (typically very close to when the message is constructed)
+• RSP messages would echo the date/time a submitter sent in the VXU message
+
+Guidance for specific observation types is provided below:
+
+Observation                  Context                        Proposed Observation Date/Time (OBX-14) Concept
+
+Serological Immunity         VXU/RSP (if included)          Date the specimen was collected
+History of Disease Immunity  VXU/RSP (if included)          Date of the disease onset
+Eligibility                  VXU/RSP (if included)          Date the eligibility was calculated
+Funding Source               VXU/RSP (if included)          Date the funding source was determined
+                             VXU/RSP (if included)          Date the VIS was presented
+VIS Related                  VXU/RSP (if included)          Date of the reaction
+Reaction                     VXU/RSP (if included)          Date the comment was entered or updated
+Comment
+                             RSP                            Date the evaluation was performed
+Any Evaluation Observations  RSP                            Date the forecast was generated
+
+Any Forecast Observations
+
+Example
+
+Below is an example (v2.5.1) of a history of varicella with a reporting date of 4/19/2019 and a disease date of
+02/02/2018.
+
+ORC|RE||9999^DCS|||||||^Clerk^Myron|
+RXA|0|1|20190419||998^No vaccine administered^CVX|999||||||||||||||NA
+OBX|1|CE|59784-9^Disease with presumed immunity ^LN|1|38907003^ History of Varicella
+Infection^SCT||||||F|||20180202
+
+Keep in mind that in a v2.8.2 message, the availability of PID-level OBX segments would move this sort of data out of the
+Order Segment Group and up to the patient level.
+
+Summary
+
+OBX-14 should reflect the timestamp of the observation and not when the message is created. For physiological
+observations, OBX-14 should reflect the physiologically-relevant date/time such as the time of specimen collection for a
+serological test or the onset of a condition.
+
+                                                                                                     2|Page
+

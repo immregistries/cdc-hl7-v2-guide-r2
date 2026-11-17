@@ -12,9 +12,7 @@ the TABs (see `tabs/`), they are published community guidance, so they are kept 
 `data/sisc-guidance.yml` lists each document with its published URL and the guide sections it affects. The comparison of
 each document with the guide is in `quality/sisc/<id>.yml`, and the site shows it under **SISC Guidance**.
 
-Only published documents are kept here. Two guidance documents (on populating OBX-14, and on indicating preferable and
-contraindicated vaccines, both September 2019) are listed in `data/sisc-guidance.yml`, but their published copies have
-not been located yet. Add each one here once it is.
+Only published documents are kept here.
 
 To add or update a document: put the published file here, extract its text, add or update its entry in
 `data/sisc-guidance.yml`, and review the comparison.

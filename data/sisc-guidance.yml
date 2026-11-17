@@ -128,10 +128,11 @@ documents:
     title: Guidance on Populating OBX-14
     short: Populating OBX-14
     date: 2019-09
+    url: https://repository.immregistries.org/files/resources/5d782f0f88b83/observation_date-time_guidance_document_v1_0.pdf
+    file: sisc/2019-09-obx-14-observation-date-time.pdf
     summary: >-
       What the observation date-time (OBX-14) means for the common observation types in VXU and RSP messages, many of which
       are not physiological.
-    source_note: The published copy has not been located yet, so this document is not compared yet.
     cards:
       - obx-14-date-time-of-the-observation
       - date-semantics
@@ -140,12 +141,12 @@ documents:
     title: Guidance on Indicating Preferable and Contraindicated Vaccines
     short: Preferable and Contraindicated Vaccines
     date: 2019-09
+    url: https://repository.immregistries.org/files/resources/5d7829b34d83a/preferable-contraindicated_guidance_document_v1_0.pdf
+    file: sisc/2019-09-preferable-and-contraindicated-vaccines.pdf
     summary: >-
       How to indicate, in a forecast in an RSP response, the vaccine types that are preferred or contraindicated for the
       vaccine group being recommended.
-    source_note: >-
-      The published copy has not been located yet, so this document is not compared yet. The CDS in RSP TAB (September
-      2026) covers the same topic.
+    source_note: The CDS in RSP TAB (September 2026) covers the same topic and keeps the same LOINC codes.
     cards:
       - preferred-and-contraindicated-vaccine-types
       - forecast

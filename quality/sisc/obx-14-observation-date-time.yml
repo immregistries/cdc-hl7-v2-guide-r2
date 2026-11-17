@@ -1,0 +1,108 @@
+# Comparison: SISC guidance "Guidance on Populating OBX-14 (Date/Time of the Observation)" (September 2019) and this guide.
+#
+# One item per piece of guidance in the document, in document order. Same format as quality/sisc/rsp-messages.yml.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide's OBX-14 section (4.4.2.6) reproduces this guidance's principles almost word for word, including how OBX-14
+  relates to RXA-3. It leaves out the table that says which date to use for each common observation (eligibility, funding
+  source, VIS, reaction, comment, evaluation, forecast), and the advice to agree any other meaning with trading partners. It
+  also loosens the basic rule from "when the observation occurred" to "occurred or was recorded", and the section on
+  condition date semantics (4.8.6.3) goes further, defining OBX-14 as the date a condition was recorded. That contradicts
+  this guidance's summary, which says OBX-14 is the time of the observation, not when it is reported.
+
+items:
+  - id: sisc-obx14-01
+    section: Out of Scope
+    page: 1
+    verb: should
+    doc: >-
+      For observations this guidance does not cover, trading partners should agree what OBX-14 means. Effective and
+      expiration dates for indications and contraindications use their own LOINC codes.
+    result: partial
+    guide: [obx-14-date-time-of-the-observation]
+    note: >-
+      The guide covers the related-date codes, but not the advice to agree OBX-14's meaning with trading partners for other
+      observations.
+    severity: note
+    owner: narrative
+    recommendation: Add a sentence that the meaning of OBX-14 for other observations is agreed between trading partners.
+
+  - id: sisc-obx14-02
+    section: Populating OBX-14 (principles)
+    page: 1
+    verb: should
+    doc: >-
+      OBX-14 should be when the event (observation) occurred. For observations spanning several days (pregnancy,
+      allergies), use the onset. For serology, use the date/time the blood was drawn.
+    result: reworded
+    guide: [obx-14-date-time-of-the-observation, date-semantics]
+    note: >-
+      Section 4.4.2.6 says OBX-14 should reflect when the observation "occurred or was recorded", adding "recorded". Section
+      4.8.6.3 says OBX-14 "represents the date the observation was authored or recorded" and "does not indicate when the
+      underlying condition began", except for ongoing conditions. This guidance's summary is explicit that OBX-14 reflects
+      the time of the observation "and not when the message is created".
+    severity: warning
+    owner: narrative
+    recommendation: >-
+      Drop "or recorded" in 4.4.2.6, and align 4.8.6.3 with it: OBX-14 is when the observation occurred (the onset for
+      ongoing conditions). If CDC prefers the recording date for conditions, say so in 4.4.2.6 as an exception.
+
+  - id: sisc-obx14-03
+    section: Populating OBX-14 (principles)
+    page: 1
+    doc: >-
+      Observations with related effective and abatement date codes (general observations, indications, contraindications)
+      need no OBX-14 in the primary OBX, as long as the related date OBX is sent; the onset and abatement date OBXs need no
+      OBX-14 either.
+    result: covered
+    guide: [obx-14-date-time-of-the-observation]
+
+  - id: sisc-obx14-04
+    section: Populating OBX-14 (principles)
+    page: 1
+    verb: should
+    doc: If the value is not known, OBX-14 should be left empty; it is an RE field.
+    result: covered
+    guide: [obx-14-date-time-of-the-observation]
+    note: The guide also makes it a SHALL ("If the observation date is unknown or cannot be represented accurately, OBX-14 SHALL be omitted").
+
+  - id: sisc-obx14-05
+    section: Populating OBX-14 (principles)
+    page: 1-2
+    doc: >-
+      RXA-3 and OBX-14 are not always the same: for patient-level observations RXA-3 is when the report is made; for
+      administration-level observations (including evaluation in an RSP) it is the administration date; for forecast
+      observations it is when the evaluation and forecast were done. An RSP echoes the date/time the submitter sent in the
+      VXU.
+    result: covered
+    guide: [obx-14-date-time-of-the-observation, overview-of-loinc-and-obx-usage-in-immunization-messaging]
+    note: Reproduced as a list in 4.4.2.6.
+
+  - id: sisc-obx14-06
+    section: Guidance for specific observation types (table)
+    page: 2
+    doc: >-
+      OBX-14 by observation: serological immunity, the date the specimen was collected; history of disease, the disease
+      onset; eligibility, the date it was calculated; funding source, the date it was determined; VIS, the date presented;
+      reaction, the date of the reaction; comment, the date entered or updated; evaluation (RSP), the date performed;
+      forecast (RSP), the date generated.
+    result: partial
+    guide: [obx-14-date-time-of-the-observation]
+    note: >-
+      The guide gives the rule for serology and multi-day conditions, but not the table. Without it, senders must guess the
+      date for eligibility, funding source, VIS, comments, evaluations, and forecasts.
+    owner: narrative
+    recommendation: Add the table to 4.4.2.6 (it is short), or put the date in each observation's row in Figure 20.
+
+  - id: sisc-obx14-07
+    section: Example
+    page: 2
+    doc: >-
+      Example: a history of varicella reported on 4/19/2019 (RXA-3) with a disease date of 2/2/2018 (OBX-14), in a
+      Patient Observations group (CVX 998, RXA-20 NA).
+    result: out-of-scope
+    note: >-
+      An example rather than a requirement. It shows OBX-14 as the disease date, which supports sisc-obx14-02. A similar
+      example could go in Appendix A.
