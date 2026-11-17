@@ -404,3 +404,8 @@ pre.hl7 .f:hover { background: var(--guide-blue-light); }
   .err5-page table.err5 { font-size: .85rem; }
   .err5-page table.err5 th, .err5-page table.err5 td { padding: 5px 4px; }
 }
+
+/* Proposed Analyses page */
+.proposals .proposal { border-top: 1px solid var(--guide-border); padding-top: 12px; margin-top: 20px; }
+.proposals .proposal h3 .f-id { display: inline; margin-left: 8px; font-family: var(--guide-mono); font-size: .72rem; font-weight: 400; color: var(--guide-muted); }
+.proposals .proposal h4 { margin: 12px 0 4px; font-size: .9rem; }
