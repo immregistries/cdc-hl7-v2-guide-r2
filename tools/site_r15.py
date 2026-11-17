@@ -226,6 +226,29 @@ def _first_sentence(text) -> str:
     return m.group(1) if m else text
 
 
+def _field_notes_status(parts: list[dict]) -> str:
+    done = [p for p in parts if r15_narrative.is_field_notes(p)]
+    lead = ("The field notes and comments in the 2018 segment and data type tables are compared in a second pass. Every "
+            "note is read, but an item is recorded only when the note adds guidance beyond the profiles and the narrative, "
+            "or conflicts with this guide; the rest are counted as format or duplicate under each part.")
+    if not done:
+        return esc(lead) + " Not started."
+    return esc(lead) + " Compared so far: " + ", ".join(esc(p.get("title", "")) for p in done) + "."
+
+
+def _read_table(part: dict) -> str:
+    read = part.get("read")
+    if not read:
+        return ""
+    rows = "".join(f'<tr><td>{esc(seg)}</td><td>{n["notes"]}</td><td>{n["format"]}</td><td>{n["duplicate"]}</td>'
+                   f'<td>{n["notes"] - n["format"] - n["duplicate"]}</td></tr>' for seg, n in read.items())
+    tot = {k: sum(n[k] for n in read.values()) for k in ("notes", "format", "duplicate")}
+    return (f'<details><summary>Notes read: {tot["notes"]} ({tot["format"]} format, {tot["duplicate"]} duplicate, '
+            f'{tot["notes"] - tot["format"] - tot["duplicate"]} covered by the items below)</summary>'
+            f'<table class="r15"><thead><tr><th>Segment</th><th>Notes</th><th>Format</th><th>Duplicate</th>'
+            f'<th>In items</th></tr></thead><tbody>{rows}</tbody></table></details>')
+
+
 def narrative_section(parts: list[dict], by_id: dict, root: str) -> str:
     if not parts:
         return '<h2 id="narrative">Guidance in the narrative</h2>\n<p class="empty">The narrative comparison is not available.</p>'
@@ -254,7 +277,7 @@ def narrative_section(parts: list[dict], by_id: dict, root: str) -> str:
         summary = f'<p>{esc(_flat(p["summary"]))}</p>' if p.get("summary") else ""
         chapters.append(
             f'<section id="{esc(cid)}"><h3>{esc(p.get("title", ""))} <span class="mini">(2018 pages {esc(p.get("pages", ""))})</span></h3>'
-            f'{summary}<table class="r15 r15-narr"><thead><tr><th>ID</th><th>Release 1.5 section</th><th>Result</th>'
+            f'{summary}{_read_table(p)}<table class="r15 r15-narr"><thead><tr><th>ID</th><th>Release 1.5 section</th><th>Result</th>'
             f'<th>What Release 1.5 says</th><th>This guide</th></tr></thead><tbody>{"".join(rows)}</tbody></table></section>')
     chapter_index = " · ".join(
         f'<a href="#narr-{esc(slug(str(p.get("chapter", p["file"]))))}">{esc(p.get("title", ""))}</a>' for p in parts)
@@ -265,8 +288,7 @@ read were chapters 1 to 3; the introduction, interaction, and dynamic definition
 the batch chapter; the guidance around the example messages in Appendix B; and the addendum material in Appendix C.
 Data types, segment and code tables, and the example messages themselves are format, governed by the profiles above.
 Guidance that the profiles now carry is marked {_result("format")} and not compared further.</p>
-<p>Not yet compared: the field notes and comments in the 2018 segment and data type tables. A second pass will check
-them against this guide and record only what they add or where they conflict.</p>
+<p>{_field_notes_status(parts)}</p>
 <p>{total} items: {count_html}. <a href="narrative.csv" download>Download the narrative comparison (CSV)</a></p>
 <h3 id="narrative-key">Changed or not carried forward</h3>
 <ul class="r15-key">{"".join(key)}</ul>

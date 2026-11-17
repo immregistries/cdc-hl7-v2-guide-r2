@@ -48,6 +48,9 @@ def load(repo: Path, by_id: dict) -> list[dict]:
             for ref in it.get("guide") or []:
                 if _ref_card(ref) not in by_id or ("--s" in ref and ref not in statements):
                     raise SystemExit(f"{where}: unknown guide reference {ref}")
+        for seg, n in (data.get("read") or {}).items():
+            if set(n) != {"notes", "format", "duplicate"} or n["format"] + n["duplicate"] > n["notes"]:
+                raise SystemExit(f"{path.name}: read counts for {seg} need notes >= format + duplicate")
         data["file"] = path.name
         parts.append(data)
     return parts
@@ -57,6 +60,11 @@ def items(parts: list[dict]):
     for p in parts:
         for it in p.get("items", []):
             yield p, it
+
+
+def is_field_notes(part: dict) -> bool:
+    """Pass 2 parts (field notes) carry per-segment `read` counts."""
+    return "read" in part
 
 
 def counts(parts: list[dict]) -> Counter:

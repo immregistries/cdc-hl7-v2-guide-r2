@@ -1,0 +1,321 @@
+# Field notes, pass 2: the comments and field definitions in the 2018 Z22 (VXU) segment tables (chapter 5).
+#
+# Same fields and results as pass 1 (see 01-02-introduction-and-actors.yml). Every field note was read, but an item is
+# recorded only when the note adds guidance that is not in pass 1 and not carried by the profiles, or when it conflicts
+# with this guide. Notes that restate usage, cardinality, length, data type, value set, or a conformance statement are
+# format; notes that repeat the narrative or a pass 1 item are duplicates. Both are only counted, under `read`.
+#   read      per segment: notes = fields with a comment or definition (plus the segment introduction);
+#             format = notes that only restate the profiles; duplicate = notes covered by pass 1 or the narrative;
+#             the remaining notes are covered by the items below (one item may cover two fields).
+
+chapter: "5 (fields)"
+title: "Field notes: Z22 segments"
+pages: 80-130
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026
+summary: >-
+  Most of the notes restate the profiles or repeat the narrative. Where they say more, the new guide usually goes
+  further, but several are now reversed: RXA-11 is an organization rather than a facility address, OBX-3 must be LOINC
+  (no local-only codes), the legal name and the primary address no longer have to come first, submitters must send
+  updates as U rather than A, and an IIS no longer sends its own view of the patient's status in PD1-16. Not carried
+  forward: ORC-28 per-vaccination confidentiality, the rule to send only current insurance in IN1, and smaller MSH
+  definitions (instance-level application names, the scope of MSH-10 uniqueness, MSH-17 defaulting to USA).
+read:
+  MSH: {notes: 18, format: 8, duplicate: 2}
+  IN1: {notes: 6, format: 4, duplicate: 1}
+  NK1: {notes: 7, format: 3, duplicate: 3}
+  NTE: {notes: 2, format: 0, duplicate: 2}
+  OBX: {notes: 12, format: 5, duplicate: 5}
+  ORC: {notes: 9, format: 4, duplicate: 2}
+  PD1: {notes: 8, format: 4, duplicate: 0}
+  PID: {notes: 17, format: 10, duplicate: 4}
+  PV1: {notes: 1, format: 0, duplicate: 1}
+  RXA: {notes: 17, format: 6, duplicate: 4}
+  RXR: {notes: 3, format: 3, duplicate: 0}
+
+items:
+  # ------------------------------------------------------------------ RXA
+  - id: r15-f-rxa-01
+    section: RXA-3 Date/Time Start of Administration
+    page: 122, 126
+    r15: >-
+      For a refusal or deferral, RXA-3 is the date the refusal or deferral was recorded. For a forecast dose, it is the
+      date the forecast was made.
+    result: changed
+    guide: [required-data-elements, date-semantics]
+    note: >-
+      For a refusal, RXA-3 is now the date the vaccination would have been given if accepted (usually the same day, but
+      not the date of data entry). When the RXA only carries a condition (RXA-20 NA), its dates carry no meaning and the
+      IIS should not act on them. The forecast date rule is not repeated.
+
+  - id: r15-f-rxa-02
+    section: RXA-5 Administered Code
+    page: 122, 126
+    verb: should
+    r15: >-
+      CVX is strongly preferred and required for vaccines; a local guide may allow NDC or CPT instead. The second triplet
+      may carry the same vaccine in another code system, where NDC is preferred.
+    result: changed
+    guide: [accepted-code-systems-for-administered-vaccinations--s1, accepted-code-systems-for-administered-vaccinations--s2,
+            accepted-code-systems-for-administered-vaccinations--s3, accepted-code-systems-for-administered-vaccinations--s5,
+            accepted-code-systems-for-administered-vaccinations--s6, ndc-requirements-for-administered-vaccinations]
+    note: >-
+      NDC is now a full alternative, not a local option: an IIS SHALL accept an administered dose reported with only an
+      NDC, and SHALL check that CVX and NDC agree when both are sent. CPT stays a local option (MAY).
+
+  - id: r15-f-rxa-03
+    section: RXA-6 Administered Amount; RXA-7 Administered Units
+    page: 122, 126
+    verb: should
+    r15: >-
+      When the administered amount is unknown, send 999 in RXA-6 (and then no units). The preferred unit for RXA-7 is mL.
+    result: partial
+    guide: [non-identifying-vaccination-fields]
+    note: >-
+      The profiles keep 999 (required for refusals and CVX 998, and RXA-7 is X when RXA-6 is 999), but neither the
+      profiles nor the narrative say to use 999 when the amount of a given dose is unknown, for example on a historical
+      record. The preferred unit is not mentioned.
+    recommendation: >-
+      Add a sentence to 3.2.4.2 or 4.6.1.2: when the dose volume is unknown, RXA-6 is 999 and RXA-7 is empty; otherwise
+      the volume is given in mL.
+
+  - id: r15-f-rxa-04
+    section: RXA-9 Administration Notes
+    page: 123, 127
+    verb: should, shall
+    r15: >-
+      The primary use is the information source (administered or historical, NIP001), which all systems should support;
+      IIS rely on it. Other notes may follow in later repetitions if specified locally, with the first repetition empty
+      when no information source is sent; text-only notes are by local agreement.
+    result: changed
+    guide: [reinterpretation-of-base-standard-semantics, identifying-vaccination-fields, identifying-field-changes,
+            use-of-administered-vs-historical-on-output--s1, use-of-administered-vs-historical-on-output--s2,
+            administered-versus-historical-vaccinations]
+    note: >-
+      Inbound, the meaning is the same and is now an identifying field: changing it requires a delete and an add. In
+      responses, the IIS SHOULD NOT distinguish administered from historical and querying systems SHOULD ignore the
+      indicator. The use of later repetitions for other notes is not mentioned.
+
+  - id: r15-f-rxa-05
+    section: RXA-11 Administered-at Location
+    page: 123, 127
+    verb: shall
+    r15: >-
+      The name and address of the facility that gave the vaccine: component 4 is the facility identifier (an OID in the
+      universal ID if populated, not a local code; systems may publish a table of local values), and components 9-15 are
+      the facility address.
+    result: changed
+    guide: [administering-organization-rxa-11--s1, administering-organization-rxa-11--s2, administering-organization-rxa-11--s3,
+            administering-organization-rxa-11--s5, identifying-vaccination-fields]
+    note: >-
+      RXA-11 now identifies the administering organization, not a place: an IIS-assigned identifier in RXA-11.4, and the
+      IIS SHOULD NOT read it as an address. The OID and the address components are not mentioned. RXA-11.4 is also an
+      identifying field, and RXA-11 SHOULD be empty for historical doses.
+
+  - id: r15-f-rxa-06
+    section: RXA-21 Action Code
+    page: 124, 128-129
+    r15: >-
+      If RXA-21 is empty, no action is indicated. Most IIS decide between add and update by their own criteria, so it is
+      common practice to send A even for a vaccination reported before; do not assume updates will be marked U.
+    result: changed
+    guide: [submitter-correction-behavior--s1, submitter-correction-behavior--s3, iis-matching-and-correction-processing--s2,
+            unnecessary-corrections--s1]
+    note: >-
+      Submitters SHALL now support A, U, and D and SHALL send U when only non-identifying fields change (identifying
+      changes are a delete and an add). The IIS side is unchanged: it SHALL match at the vaccination level whether a
+      record comes as A or U. Updates are also limited to real changes.
+
+  # ------------------------------------------------------------------ MSH
+  - id: r15-f-msh-01
+    section: MSH-4 Sending Facility; MSH-22 and MSH-23 Responsible Organizations
+    page: 88, 90-91
+    verb: shall
+    r15: >-
+      MSH-4 is the organization responsible for operating the sending application; its first component is the namespace
+      ID from table 0362 and the second and third are reserved for OIDs. MSH-22 is the business organization accountable
+      for the content (needed when organizations share a service bureau); MSH-23 is the organization legally responsible
+      for acting on it.
+    result: expanded
+    guide: [submitting-organization-msh-4-sending-facility--s1, submitting-organization-msh-4-sending-facility--s2,
+            responsible-organization-msh-22, organization-identifier-data-types]
+    note: >-
+      Section 2.7 keeps the meanings and goes further: MSH-4 SHALL match the authenticated connection, MSH-22 may be empty
+      when it is the same organization, and all organization fields use an IIS-defined identifier in HD.1 (OIDs remain
+      optional). MSH-23 is not discussed.
+
+  - id: r15-f-msh-02
+    section: MSH-3, MSH-5, MSH-6, MSH-10, MSH-17
+    page: 88-90
+    r15: >-
+      MSH-3 and MSH-5 name the specific instance, not the product (for example GRITS, not WIR), with locally assigned
+      codes. MSH-10 is unique within the sending facility, application, and day of MSH-7, and is echoed in MSA. If MSH-17
+      is empty, assume USA.
+    result: dropped
+    note: >-
+      The new narrative does not discuss these fields; the profiles carry only their format. None is likely to cause
+      interoperability problems, but the MSH-10 uniqueness scope is what receivers rely on to detect resent messages.
+    recommendation: Consider a short MSH paragraph in 2.7 or 3.3 covering MSH-3/5 instance names and MSH-10 uniqueness.
+
+  # ------------------------------------------------------------------ IN1
+  - id: r15-f-in1-01
+    section: IN1 Insurance Segment
+    page: 80
+    verb: should
+    r15: >-
+      IN1 is specified because several IIS require it; local guides that need it should base requirements on this guide.
+      Send only current insurance, not historical insurance.
+    result: dropped
+    note: The new narrative does not mention IN1; the profiles still carry the segment.
+    recommendation: If IN1 stays in the profiles, say in the narrative that only current insurance is sent.
+
+  # ------------------------------------------------------------------ NK1
+  - id: r15-f-nk1-01
+    section: NK1-2 Name
+    page: 95
+    verb: must
+    r15: Multiple names are allowed, but the legal name must be sent in the first repetition.
+    result: changed
+    guide: [non-patient-person-names--s4, non-patient-person-names]
+    note: >-
+      The requirement that L be first is retired and order is not enforced; NK1-2.7 SHALL be populated and the L name
+      SHOULD be used when known. The address and phone repetition rules for NK1-4 to NK1-6 follow PID-11 and PID-13
+      (r15-f-pid-02, r15-f-pid-03).
+
+  # ------------------------------------------------------------------ OBX
+  - id: r15-f-obx-01
+    section: OBX-1 Set ID
+    page: 101
+    r15: Set IDs number OBX segments across the message, but restarting at 1 in each order group is also allowed.
+    result: expanded
+    guide: [obx-1-set-id-obx]
+    note: >-
+      Both patterns remain allowed, and systems SHALL now accept either and SHALL NOT use OBX-1 for meaning. (The
+      profiles' IZ-20 still reads as message-wide numbering.)
+
+  - id: r15-f-obx-02
+    section: OBX-3 Observation Identifier
+    page: 101
+    verb: shall, should
+    r15: >-
+      LOINC is the standard when an appropriate code exists. With a local coding system, also send the local code; when no
+      LOINC exists, the local code may be the only one. Either triplet may carry LOINC. The 2.3.1 practice of suffixing
+      LOINC codes to group observations is no longer acceptable; use OBX-4.
+    result: changed
+    guide: [obx-3-observation-identifier, obx-4-observation-sub-id]
+    note: >-
+      OBX-3 SHALL now contain a LOINC code from the guide's subset; a local-only observation code is no longer allowed.
+      Grouping with OBX-4 is kept.
+
+  # ------------------------------------------------------------------ ORC
+  - id: r15-f-orc-01
+    section: ORC-2 and ORC-3 Placer and Filler Order Numbers
+    page: 109
+    verb: shall
+    r15: >-
+      ORC-3 is the sending system's unique ID for the immunization, which the receiver must store to support updates and
+      deletes. For a historical immunization the sender SHALL still assign an ID, as if it had given the dose; for a dose
+      not given (for example a refusal) it is 9999.
+    result: partial
+    guide: [vaccination-record-identity-and-orc-3, required-data-elements, submitter-correction-behavior--s4]
+    note: >-
+      The role of ORC-3 is kept and extended to query responses (return the source's ORC-3 when known), and 9999 for
+      refusals is kept. The rule that historical doses also get a sender-assigned ID is not stated, though the update and
+      delete rules depend on it.
+    recommendation: State in 4.6.3 that the submitting system assigns ORC-3 to historical records as well.
+
+  - id: r15-f-orc-02
+    section: ORC-28 Confidentiality Code
+    page: 110
+    r15: >-
+      ORC-28 can flag special privacy rules for the vaccination in this order group (for example, state rules for HPV
+      records), with R for restricted. A value records the patient's active choice; empty means no choice was made. Local
+      guides describe its use.
+    result: dropped
+    note: >-
+      Privacy is handled at the patient level (PD1-12). The new guide has no per-vaccination confidentiality; the field
+      remains optional in the profiles.
+    recommendation: Either describe ORC-28 alongside PD1-12 in 4.5.6, or say that per-vaccination confidentiality is out of scope.
+
+  # ------------------------------------------------------------------ PID
+  - id: r15-f-pid-01
+    section: PID-5 Patient Name
+    page: 115, 119
+    verb: shall
+    r15: The first repetition shall contain the legal name, with name type L.
+    result: changed
+    guide: [official-registry-name--s1, official-registry-name--s3, official-registry-name--s4]
+    note: >-
+      The legal (official registry) name SHOULD be first, but receivers SHALL accept it in any repetition, and senders
+      SHOULD NOT send an empty first repetition when there is no legal name.
+
+  - id: r15-f-pid-02
+    section: PID-11 Patient Address
+    page: 115, 119
+    verb: must, should
+    r15: >-
+      The primary mailing address must be first; if it is not sent, the first repetition is left empty. The patient's
+      address belongs in PID-11 and may also be sent in NK1 with relationship Self.
+    result: changed
+    guide: [address-representation-in-hl7-v2--s2, address-representation-in-hl7-v2--s5, address-types--s1, address-types]
+    note: >-
+      Position no longer matters: the IIS SHALL read the address type in PID-11.7, and the first-repetition rule is
+      retired. An IIS SHALL NOT require a Self NK1 that repeats PID-11. Birth state as a BDL address is pass 1 item
+      r15-b-13.
+
+  - id: r15-f-pid-03
+    section: PID-13 Phone Number - Home
+    page: 116, 119-120
+    verb: shall
+    r15: >-
+      The first repetition is the primary number; if it is not sent, the first repetition is empty. Each kind of contact
+      (for example a phone and an email) has its own repetition.
+    result: same
+    guide: [general-principles--s2, general-principles--s3, general-principles--s4]
+
+  # ------------------------------------------------------------------ PD1
+  - id: r15-f-pd1-01
+    section: PD1-3 Patient Primary Facility
+    page: 112
+    r15: >-
+      The primary care facility chosen at enrollment in an HMO plan; it is not the primary care practitioner or medical
+      home, and its meaning should not be expanded to include the medical home.
+    result: dropped
+    note: The new guide does not mention PD1-3. It is optional in the profiles, so the caution matters little.
+
+  - id: r15-f-pd1-02
+    section: PD1-11 Publicity Code
+    page: 112
+    r15: In immunization messages, the publicity code is how the person wishes to be contacted for reminder and recall.
+    result: partial
+    guide: [patient-entity]
+    note: >-
+      The data model lists a reminder/recall status for the patient, but the narrative does not say that PD1-11 carries
+      it.
+    recommendation: Name PD1-11 as the field for the reminder/recall preference, for example in 2.3.2.1 or 4.5.
+
+  - id: r15-f-pd1-03
+    section: PD1-12 Protection Indicator
+    page: 113
+    verb: shall
+    r15: >-
+      Y means protect, N means sharing is fine, and empty means no determination; the state must be actively determined,
+      or the field is empty. The earlier guide reversed Y; messages based on 2.3.1 or 2.4 keep the old meaning.
+    result: same
+    guide: [protection-indicator-pd1-12-usage--s2, protection-indicator-pd1-12-usage--s3, protection-indicator-pd1-12-usage--s4,
+            protection-indicator-pd1-12-usage--s5, historical-note-on-pd1-12-interpretation]
+    note: >-
+      The new guide adds that IIS SHALL NOT require a default and apply jurisdiction rules after receipt. It does not
+      repeat that 2.3.1 and 2.4 messages keep the old meaning; it says the reversal happened before 2.5.
+
+  - id: r15-f-pd1-04
+    section: PD1-16 Immunization Registry Status
+    page: 114
+    r15: >-
+      The status of the patient relative to the system creating the message. A provider may report the patient inactive
+      while the IIS, in its own messages, reports the same patient active in the jurisdiction.
+    result: changed
+    guide: [provider-reported-status, iis-derived-status-and-jurisdictional-views--s1, active-and-inactive-status--s2]
+    note: >-
+      The provider-relative meaning is kept for submissions, but jurisdictional or IIS-derived statuses SHALL NOT be sent
+      in HL7 messages, so an IIS no longer reports its own view of the patient in a response.
