@@ -1,0 +1,637 @@
+Element,Name,Aspect,Release 1.5 (NIST),This guide,Change,Profiles,Note,Where
+DSC,,Segment,-,"added, not supported (X)",added,Z33,,
+ERR-3.5,Alternate Text,Condition,(no condition stated),"If CWE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z23 Z31 Z32 Z33 Z42,,ERR
+ERR-3.6,Name of Alternate Coding System,Condition,(no condition stated),"If CWE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z23 Z31 Z32 Z33 Z42,,ERR
+ERR-3.7,Coding System Version ID,Usage,C,O,loosened,Z23 Z31 Z32 Z33 Z42,,ERR
+ERR-5.5,Alternate Text,Condition,(no condition stated),"If CWE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z23 Z31 Z32 Z33 Z42,,ERR
+ERR-5.6,Name of Alternate Coding System,Condition,(no condition stated),"If CWE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z23 Z31 Z32 Z33 Z42,,ERR
+ERR-5.7,Coding System Version ID,Usage,C,O,loosened,Z23 Z31 Z32 Z33 Z42,,ERR
+ERR-6,Application Error Parameter,Usage,O,C,tightened,Z23 Z31 Z32 Z33 Z42,"condition: If ERR-5.1 (Identifier) contains the value '5044': R, otherwise O",ERR
+IN1-2.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32,,IN1; INSURANCE/IN1
+IN1-2.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32,,IN1; INSURANCE/IN1
+IN1-2.5,Alternate Text,Length,999,199,changed,Z22 Z32,,IN1; INSURANCE/IN1
+IN1-2.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32,,IN1; INSURANCE/IN1
+IN1-3,Insurance Company ID,Cardinality,[1..*],[1..1],changed,Z22 Z32,,IN1; INSURANCE/IN1
+MSA-5,Delayed Acknowledgment Type,Usage,X,O,loosened,Z23 Z31 Z32 Z33 Z42,,MSA
+MSA-5,Delayed Acknowledgment Type,Cardinality,[0..0],[0..1],changed,Z23 Z31 Z32 Z33 Z42,,MSA
+MSH-2,Encoding Characters,Length,4..5,4..4,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-3,Sending Application,Value set,HL70361 v2.7.1,-,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-3.1,Namespace ID,Usage,C,R,tightened,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-3.1,Namespace ID,Value set,HL70300,"HL70300, HL70361, HL70362, HL70363",changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-3.3,Universal ID Type,Value set,-,HL70301,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-4,Sending Facility,Usage,RE,R,tightened,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-4,Sending Facility,Cardinality,[0..1],[1..1],changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-4,Sending Facility,Value set,HL70362 v2.7.1,-,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-4.1,Namespace ID,Usage,C,R,tightened,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-4.1,Namespace ID,Value set,HL70300,"HL70300, HL70361, HL70362, HL70363",changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-4.3,Universal ID Type,Value set,-,HL70301,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-5,Receiving Application,Value set,HL70361 v2.7.1,-,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-5.1,Namespace ID,Usage,C,R,tightened,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-5.1,Namespace ID,Value set,HL70300,"HL70300, HL70361, HL70362, HL70363",changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-5.3,Universal ID Type,Value set,-,HL70301,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-6,Receiving Facility,Value set,HL70362 v2.7.1,-,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-6.1,Namespace ID,Usage,C,R,tightened,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-6.1,Namespace ID,Value set,HL70300,"HL70300, HL70361, HL70362, HL70363",changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-6.3,Universal ID Type,Value set,-,HL70301,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-8,Security,Length,-,40,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-12.1,Version ID,Value set,-,HL70104,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-13,Sequence Number,Length,-,0..15,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-14,Continuation Pointer,Length,-,0..180,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-15,Accept Acknowledgment Type,Value set,-,HL70155,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-16,Application Acknowledgment Type,Value set,-,HL70155,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-18,Character Set,Length,5..15,5..16,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-19,Principal Language Of Message,Data type,CWE,CE,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-20,Alternate Character Set Handling Scheme,Length,3..13,3..20,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-21.4,Universal ID Type,Value set,-,HL70301,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-22,Sending Responsible Organization,Data type,XON,HD,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+MSH-23.7,Identifier Type Code,Condition,"If XON.10 (Organization Identifier) is valued: R, otherwise O","If XON.10 (Organization Identifier) is valued: R, otherwise X",changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,,MSH
+NK1,,Segment,O [0..*],RE [0..*],changed,Z32,,
+NK1,,Segment,O [0..*],removed,removed,Z42,,
+NK1-3.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z31 Z32,,NK1; PatientIdentifierList/NK1
+NK1-3.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z31 Z32,,NK1; PatientIdentifierList/NK1
+NK1-3.5,Alternate Text,Length,999,199,changed,Z22 Z31 Z32,,NK1; PatientIdentifierList/NK1
+NK1-3.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z31 Z32,,NK1; PatientIdentifierList/NK1
+NK1-4.4,State or Province,Length,50,2..2,changed,Z22 Z31 Z32,,NK1; PatientIdentifierList/NK1
+NK1-5.12,Unformatted Telephone number,Usage,C,O,loosened,Z22 Z31 Z32,,NK1; PatientIdentifierList/NK1
+OBX-3,Observation Identifier,Value set,-,LN,changed,Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX
+OBX-3.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-3.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-3.5,Alternate Text,Length,999,199,changed,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-3.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-4,Observation Sub-ID,Data type,ST,NM,changed,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-6,Units,Value set,-,PHVS_UnitsOfMeasure_CDC,changed,Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX
+OBX-6,Units,Value set,UCUM_0353,PHVS_UnitsOfMeasure_CDC,changed,Z22 Z32,,ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-6.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-6.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-6.5,Alternate Text,Length,999,199,changed,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-6.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-11,Observation Result Status,Value set,-,HL70085,changed,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-17,Observation Method,Cardinality,[0..*],[0..1],changed,Z22 Z32 Z42,,HISTORY_FORECAST/HISTORY_FORECAST_OBSERVATION/OBX; ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-17.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32,,ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-17.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32,,ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-17.5,Alternate Text,Length,999,199,changed,Z22 Z32,,ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+OBX-17.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32,,ORDER/OBSERVATION/OBX; Order/OBSERVATION/OBX
+ORC-1,Order Control,Value set,-,HL70119,changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-2.4,Universal ID Type,Value set,-,HL70301,changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-3.4,Universal ID Type,Value set,-,HL70301,changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-10,Entered By,Usage,O,RE,tightened,Z42,,HISTORY_FORECAST/ORC
+ORC-10,Entered By,Cardinality,[0..*],[0..1],changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-10.1,ID Number,Usage,O,C,tightened,Z42,"condition: If ( XCN.2.1 (Surname) is not valued AND XCN.3 (Given Name) is not valued ): R, otherwise RE",HISTORY_FORECAST/ORC
+ORC-10.1,ID Number,Condition,"If ( XCN.2.1 (Surname) is not valued AND XCN.3 (Given Name) is not valued ): R, otherwise RE","If ( XCN.2.1 (Surname) is not valued AND XCN.3 (Given Name) is not valued ): R, otherwise RE",changed,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-10.2,Family Name,Usage,O,RE,tightened,Z42,,HISTORY_FORECAST/ORC
+ORC-10.3,Given Name,Usage,O,RE,tightened,Z42,,HISTORY_FORECAST/ORC
+ORC-10.4,Second and Further Given Names or Initials Thereof,Usage,O,RE,tightened,Z42,,HISTORY_FORECAST/ORC
+ORC-10.7,"Degree (e.g., MD)",Usage,B,X,tightened,Z42,,HISTORY_FORECAST/ORC
+ORC-10.7,"Degree (e.g., MD)",Value set,HL70360,-,changed,Z42,,HISTORY_FORECAST/ORC
+ORC-10.8,Source Table,Usage,C,O,loosened,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-10.8,Source Table,Value set,HL70297,-,changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-10.9,Assigning Authority,Usage,O,C,tightened,Z42,"condition: If XCN.1 (ID Number) is valued: R, otherwise X",HISTORY_FORECAST/ORC
+ORC-10.10,Name Type Code,Usage,O,RE,tightened,Z42,,HISTORY_FORECAST/ORC
+ORC-10.12,Check Digit Scheme,Condition,(no condition stated),"If XCN.11 (Identifier Check Digit) is valued: O, otherwise X",changed,Z42,,HISTORY_FORECAST/ORC
+ORC-10.12,Check Digit Scheme,Value set,HL70061,-,changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-10.13,Identifier Type Code,Usage,O,C,tightened,Z42,"condition: If XCN.1 (ID Number) is valued: R, otherwise X",HISTORY_FORECAST/ORC
+ORC-10.17,Name Validity Range,Usage,B,X,tightened,Z42,,HISTORY_FORECAST/ORC
+ORC-10.18,Name Assembly Order,Usage,O,X,tightened,Z42,,HISTORY_FORECAST/ORC
+ORC-12,Ordering Provider,Cardinality,[0..*],[0..1],changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-12.1,ID Number,Condition,"If ( XCN.2.1 (Surname) is not valued AND XCN.3 (Given Name) is not valued ): R, otherwise RE","If ( XCN.2.1 (Surname) is not valued AND XCN.3 (Given Name) is not valued ): R, otherwise RE",changed,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-12.8,Source Table,Usage,C,O,loosened,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-12.8,Source Table,Value set,HL70297,-,changed,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-12.12,Check Digit Scheme,Value set,HL70061,-,changed,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-17,Entering Organization,Value set,-,HL70362,changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-17.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-17.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-17.5,Alternate Text,Length,999,199,changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-17.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/ORC; ORDER/ORC; Order/ORC
+ORC-26,Advanced Beneficiary Notice Override Reason,Usage,C,O,loosened,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-26,Advanced Beneficiary Notice Override Reason,Value set,HL70552,-,changed,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-26.1,Identifier,Usage,O,R,tightened,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-26.1,Identifier,Length,20,999,changed,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-26.2,Text,Usage,O,RE,tightened,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-26.2,Text,Length,199,999,changed,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-26.3,Name of Coding System,Usage,O,C,tightened,Z22 Z32,"condition: If CWE.1 (Identifier) is valued: R, otherwise X",ORDER/ORC; Order/ORC
+ORC-26.4,Alternate Identifier,Length,20,999,changed,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-26.5,Alternate Text,Usage,O,C,tightened,Z22 Z32,"condition: If CWE.4 (Alternate Identifier) is valued: RE, otherwise X",ORDER/ORC; Order/ORC
+ORC-26.5,Alternate Text,Length,199,999,changed,Z22 Z32,,ORDER/ORC; Order/ORC
+ORC-26.6,Name of Alternate Coding System,Usage,O,C,tightened,Z22 Z32,"condition: If CWE.4 (Alternate Identifier) is valued: R, otherwise X",ORDER/ORC; Order/ORC
+ORC-26.7,Coding System Version ID,Usage,C,O,loosened,Z22 Z32,,ORDER/ORC; Order/ORC
+PD1,,Segment,O [0..1],RE [0..1],changed,Z32,,
+PD1,,Segment,O [0..1],removed,removed,Z42,,
+PD1-4,Patient Primary Care Provider Name & ID No.,Usage,B,X,tightened,Z31,,PatientIdentifierList/PD1
+PD1-4,Patient Primary Care Provider Name & ID No.,Cardinality,[0..*],[0..0],changed,Z31,,PatientIdentifierList/PD1
+PD1-11,Publicity Code,Usage,O,RE,tightened,Z31,,PatientIdentifierList/PD1
+PD1-11.1,Identifier,Usage,O,R,tightened,Z31,,PatientIdentifierList/PD1
+PD1-11.1,Identifier,Length,20,50,changed,Z31,,PatientIdentifierList/PD1
+PD1-11.2,Text,Usage,O,RE,tightened,Z31,,PatientIdentifierList/PD1
+PD1-11.2,Text,Length,199,999,changed,Z31,,PatientIdentifierList/PD1
+PD1-11.3,Name of Coding System,Usage,O,R,tightened,Z31,,PatientIdentifierList/PD1
+PD1-11.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z31 Z32,,PD1; PatientIdentifierList/PD1
+PD1-11.4,Alternate Identifier,Length,20,50,changed,Z31,,PatientIdentifierList/PD1
+PD1-11.5,Alternate Text,Usage,O,C,tightened,Z31,"condition: If CE.4 (Alternate Identifier) is valued: RE, otherwise X",PatientIdentifierList/PD1
+PD1-11.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32,,PD1
+PD1-11.5,Alternate Text,Length,999,199,changed,Z22 Z32,,PD1
+PD1-11.6,Name of Alternate Coding System,Usage,O,C,tightened,Z31,"condition: If CE.4 (Alternate Identifier) is valued: R, otherwise X",PatientIdentifierList/PD1
+PD1-11.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32,,PD1
+PD1-12,Protection Indicator,Usage,O,RE,tightened,Z31,,PatientIdentifierList/PD1
+PD1-13,Protection Indicator Effective Date,Usage,O,C,tightened,Z31,"condition: If PD1-12 (Protection Indicator) is valued: RE, otherwise X",PatientIdentifierList/PD1
+PD1-16,Immunization Registry Status,Usage,O,RE,tightened,Z31,,PatientIdentifierList/PD1
+PD1-17,Immunization Registry Status Effective Date,Usage,O,C,tightened,Z31,"condition: If PD1-16 (Immunization Registry Status) is valued: RE, otherwise X",PatientIdentifierList/PD1
+PD1-18,Publicity Code Effective Date,Usage,O,C,tightened,Z31,"condition: If PD1-11.1 (Identifier) is valued: RE, otherwise X",PatientIdentifierList/PD1
+PD1-18,Publicity Code Effective Date,Condition,"If PD1-11 (Publicity Code) is valued: RE, otherwise X","If PD1-11.1 (Identifier) is valued: RE, otherwise X",changed,Z22 Z32,,PD1
+PID-1,Set ID - PID,Usage,R,O,loosened,Z22 Z31 Z32 Z42,,PID; PatientIdentifierList/PID
+PID-1,Set ID - PID,Cardinality,[1..1],[0..1],changed,Z22 Z31 Z32 Z42,,PID; PatientIdentifierList/PID
+PID-6.1,Family Name,Usage,R,C,loosened,Z22 Z31 Z32,"condition: If XPN.2 (Given Name) is not valued: R, otherwise RE",PID; PatientIdentifierList/PID
+PID-6.2,Given Name,Usage,O,RE,tightened,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-6.3,Second and Further Given Names or Initials Thereof,Usage,O,RE,tightened,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-6.7,Name Type Code,Usage,RE,R,tightened,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-6.7,Name Type Code,Value set,-,HL70200,changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-6.10,Name Validity Range,Usage,B,X,tightened,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-10,Race,Value set,CDCREC,PHVS_RaceCategory_CDC_NullFlavor,changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-10.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-10.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-10.5,Alternate Text,Length,999,199,changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-10.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-11.4,State or Province,Length,50,2..2,changed,Z22 Z31 Z32 Z42,,PID; PatientIdentifierList/PID
+PID-11.4,State or Province,Value set,-,PHVS_State_FIPS_5-2,changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-13.12,Unformatted Telephone number,Usage,C,O,loosened,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-22,Ethnic Group,Cardinality,[0..*],[0..1],changed,Z42,,PID
+PID-22,Ethnic Group,Value set,CDCREC,PHVS_EthnicityGroup_CDC_Unk,changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-22.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-22.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-22.5,Alternate Text,Length,999,199,changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PID-22.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z31 Z32,,PID; PatientIdentifierList/PID
+PV1-52.1,ID Number,Usage,O,C,tightened,Z22 Z32,"condition: If ( XCN.2.1 (Surname) is not valued AND XCN.3 (Given Name) is not valued ): R, otherwise RE",PATIENT/PV1; PV1
+PV1-52.2,Family Name,Usage,O,RE,tightened,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.3,Given Name,Usage,O,RE,tightened,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.4,Second and Further Given Names or Initials Thereof,Usage,O,RE,tightened,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.7,"Degree (e.g., MD)",Usage,B,X,tightened,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.7,"Degree (e.g., MD)",Value set,HL70360,-,changed,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.8,Source Table,Usage,C,O,loosened,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.8,Source Table,Value set,HL70297,-,changed,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.9,Assigning Authority,Usage,O,C,tightened,Z22 Z32,"condition: If XCN.1 (ID Number) is valued: R, otherwise X",PATIENT/PV1; PV1
+PV1-52.10,Name Type Code,Usage,O,RE,tightened,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.12,Check Digit Scheme,Condition,(no condition stated),"If XCN.11 (Identifier Check Digit) is valued: O, otherwise X",changed,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.12,Check Digit Scheme,Value set,HL70061,-,changed,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.13,Identifier Type Code,Usage,O,C,tightened,Z22 Z32,"condition: If XCN.1 (ID Number) is valued: R, otherwise X",PATIENT/PV1; PV1
+PV1-52.17,Name Validity Range,Usage,B,X,tightened,Z22 Z32,,PATIENT/PV1; PV1
+PV1-52.18,Name Assembly Order,Usage,O,X,tightened,Z22 Z32,,PATIENT/PV1; PV1
+QAK-3,Message Query Name,Value set,HL70471,-,changed,Z31 Z32 Z33 Z42,,QAK
+QAK-3.4,Alternate Identifier,Usage,O,RE,tightened,Z31 Z32 Z33 Z42,,QAK
+QAK-3.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z31 Z32 Z33 Z42,,QAK
+QAK-3.5,Alternate Text,Length,999,199,changed,Z31 Z32 Z33 Z42,,QAK
+QAK-3.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z31 Z32 Z33 Z42,,QAK
+QPD-1,Message Query Name,Value set,CDCPHINVS,-,changed,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-1.4,Alternate Identifier,Usage,O,RE,tightened,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-1.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-1.5,Alternate Text,Length,999,199,changed,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-1.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-3,Patient List,Length,-,256,changed,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-5.1,Family Name,Usage,R,C,loosened,Z34 Z44 Z31 Z32 Z33 Z42,"condition: If XPN.2 (Given Name) is not valued: R, otherwise RE",QPD
+QPD-5.2,Given Name,Usage,O,RE,tightened,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-5.3,Second and Further Given Names or Initials Thereof,Usage,O,RE,tightened,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-5.7,Name Type Code,Usage,RE,R,tightened,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-5.7,Name Type Code,Value set,-,HL70200,changed,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-5.10,Name Validity Range,Usage,B,X,tightened,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-8.4,State or Province,Length,50,2..2,changed,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+QPD-9.12,Unformatted Telephone number,Usage,C,O,loosened,Z34 Z44 Z31 Z32 Z33 Z42,,QPD
+RCP-1,Query Priority,Value set,HL70091,-,changed,Z34 Z44,,RCP
+RCP-2,Quantity Limited Request,Usage,R,RE,loosened,Z34 Z44,,RCP
+RCP-2,Quantity Limited Request,Cardinality,[1..1],[0..1],changed,Z34 Z44,,RCP
+RCP-2.2,Units,Value set,-,HL70126,changed,Z34 Z44,,RCP
+RCP-4,Execution and Delivery Time,Usage,C,O,loosened,Z34 Z44,,RCP
+RCP-4.2,Degree of Precision,Usage,B,X,tightened,Z34 Z44,,RCP
+RCP-4.2,Degree of Precision,Value set,HL70529,-,changed,Z34 Z44,,RCP
+RXA-1,Give Sub-ID Counter,Length,4,1,changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-2,Administration Sub-ID Counter,Length,4,1,changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-5,Administered Code,Value set,CVX,"CVX, NDC",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-5.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-5.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-5.5,Alternate Text,Length,999,199,changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-5.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-7,Administered Units,Value set,-,PHVS_UnitsOfMeasure_CDC,changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-7,Administered Units,Value set,UCUM,PHVS_UnitsOfMeasure_CDC,changed,Z22,,ORDER/RXA
+RXA-7.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-7.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-7.5,Alternate Text,Length,999,199,changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-7.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-9,Administration Notes,Usage,O,C,tightened,Z32 Z42,"condition: If RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']: R, otherwise O",HISTORY_FORECAST/RXA; Order/RXA
+RXA-9,Administration Notes,Condition,"If RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA']: R, otherwise O","If ( RXA-20 (Completion Status) is valued AND RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. ): R, otherwise O",changed,Z22,,ORDER/RXA
+RXA-9,Administration Notes,Value set,-,NIP001,changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-9.1,Identifier,Usage,O,R,tightened,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-9.1,Identifier,Length,20,50,changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-9.2,Text,Usage,O,RE,tightened,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-9.2,Text,Length,199,999,changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-9.3,Name of Coding System,Usage,O,R,tightened,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-9.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-9.4,Alternate Identifier,Length,20,50,changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-9.5,Alternate Text,Usage,O,C,tightened,Z32 Z42,"condition: If CE.4 (Alternate Identifier) is valued: RE, otherwise X",HISTORY_FORECAST/RXA; Order/RXA
+RXA-9.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22,,ORDER/RXA
+RXA-9.5,Alternate Text,Length,999,199,changed,Z22,,ORDER/RXA
+RXA-9.6,Name of Alternate Coding System,Usage,O,C,tightened,Z32 Z42,"condition: If CE.4 (Alternate Identifier) is valued: R, otherwise X",HISTORY_FORECAST/RXA; Order/RXA
+RXA-9.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22,,ORDER/RXA
+RXA-10,Administering Provider,Condition,"If RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA']: RE, otherwise O","If ( The first occurrence of RXA-9.1 (Identifier) contain the value '00'. AND RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. ): RE, otherwise O",changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-10,Administering Provider,Cardinality,[0..*],[0..1],changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-10.1,ID Number,Condition,"If ( XCN.2.1 (Surname) is not valued AND XCN.3 (Given Name) is not valued ): R, otherwise RE","If ( XCN.2.1 (Surname) is not valued AND XCN.3 (Given Name) is not valued ): R, otherwise RE",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-10.8,Source Table,Usage,C,O,loosened,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-10.8,Source Table,Value set,HL70297,-,changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-10.12,Check Digit Scheme,Value set,HL70061,-,changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-11,Administered-at Location,Condition,"If ( The first occurrence of RXA-9.1 (Identifier) contains the value '00'. AND RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA']. ): RE, otherwise O","If ( RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. AND The first occurrence of RXA-9.1 (Identifier) contain the value '00'. ): RE, otherwise O",changed,Z22,,ORDER/RXA
+RXA-11,Administered-at Location,Condition,"If RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA']: RE, otherwise X","If ( RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. AND The first occurrence of RXA-9.1 (Identifier) contain the value '00'. ): RE, otherwise O",changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-11.4,Facility,Value set,-,HL70362,changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-15,Substance Lot Number,Usage,C,O,loosened,Z42,,HISTORY_FORECAST/RXA
+RXA-15,Substance Lot Number,Condition,"If ( The first occurrence of RXA-9.1 (Identifier) contains the value '00'. AND RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA']. ): R, otherwise O","If ( ( RXA-20 (Completion Status) is valued AND RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. ) AND The first occurrence of RXA-9.1 (Identifier) contain the value '00'. ): R, otherwise O",changed,Z22,,ORDER/RXA
+RXA-15,Substance Lot Number,Condition,"If RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA']: RE, otherwise X","If ( RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. AND The first occurrence of RXA-9.1 (Identifier) contain the value '00'. ): R, otherwise O",changed,Z32,,Order/RXA
+RXA-16,Substance Expiration Date,Usage,O,C,tightened,Z32,"condition: If ( RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. AND The first occurrence of RXA-9.1 (Identifier) contain the value '00'. ): RE, otherwise O",Order/RXA
+RXA-16,Substance Expiration Date,Condition,"If ( The first occurrence of RXA-9.1 (Identifier) contains the value '00'. AND RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA']. ): RE, otherwise O","If ( RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. AND The first occurrence of RXA-9.1 (Identifier) contain the value '00'. ): RE, otherwise O",changed,Z22,,ORDER/RXA
+RXA-16,Substance Expiration Date,Cardinality,[0..*],[0..1],changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-17,Substance Manufacturer Name,Condition,"If ( The first occurrence of RXA-9.1 (Identifier) contains the value '00'. AND RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA']. ): R, otherwise O","If ( The first occurrence of RXA-9.1 (Identifier) contain the value '00'. AND ( RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. AND RXA-20 (Completion Status) is valued ) ): R, otherwise O",changed,Z22,,ORDER/RXA
+RXA-17,Substance Manufacturer Name,Condition,"If RXA-20 (Completion Status) contains one of the values in the list: ['CP','PA']: RE, otherwise X","If ( RXA-20 (Completion Status) contain one of the values in the list: ['CP','PA']. AND The first occurrence of RXA-9.1 (Identifier) contain the value '00'. ): R, otherwise O",changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-17,Substance Manufacturer Name,Cardinality,[0..*],[0..1],changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-17.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-17.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-17.5,Alternate Text,Length,999,199,changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-17.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-18,Substance/Treatment Refusal Reason,Condition,"If RXA-20 (Completion Status) contains the value 'RE': R, otherwise X","If ( RXA-20 (Completion Status) is valued AND RXA-20 (Completion Status) contain the value 'RE'. ): R, otherwise X",changed,Z22,,ORDER/RXA
+RXA-18,Substance/Treatment Refusal Reason,Value set,-,NIP002,changed,Z32 Z42,,HISTORY_FORECAST/RXA; Order/RXA
+RXA-18.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-18.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-18.5,Alternate Text,Length,999,199,changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXA-18.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXA; ORDER/RXA; Order/RXA
+RXR-1,Route,Usage,R,RE,loosened,Z22 Z32 Z42,,HISTORY_FORECAST/RXR; ORDER/RXR; Order/RXR
+RXR-1,Route,Cardinality,[1..1],[0..1],changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXR; ORDER/RXR; Order/RXR
+RXR-1.4,Alternate Identifier,Usage,O,RE,tightened,Z22 Z32 Z42,,HISTORY_FORECAST/RXR; ORDER/RXR; Order/RXR
+RXR-1.5,Alternate Text,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXR; ORDER/RXR; Order/RXR
+RXR-1.5,Alternate Text,Length,999,199,changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXR; ORDER/RXR; Order/RXR
+RXR-1.6,Name of Alternate Coding System,Condition,(no condition stated),"If CE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXR; ORDER/RXR; Order/RXR
+RXR-2.5,Alternate Text,Condition,(no condition stated),"If CWE.4 (Alternate Identifier) is valued: RE, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXR; ORDER/RXR; Order/RXR
+RXR-2.6,Name of Alternate Coding System,Condition,(no condition stated),"If CWE.4 (Alternate Identifier) is valued: R, otherwise X",changed,Z22 Z32 Z42,,HISTORY_FORECAST/RXR; ORDER/RXR; Order/RXR
+RXR-2.7,Coding System Version ID,Usage,C,O,loosened,Z22 Z32 Z42,,HISTORY_FORECAST/RXR; ORDER/RXR; Order/RXR
+SFT,,Segment,O [0..*],O [0..1],changed,Z23,,
+INSURANCE,group,Segment,O [0..*],O [0..1],changed,Z22,,
+ORDER/OBSERVATION/NTE,,Segment,O [0..*],O [0..1],changed,Z22,,
+ORDER/TIMING/TQ1,,Segment,R [1..1],O [0..1],changed,Z22,,
+ORDER/TIMING/TQ2,,Segment,O [0..*],O [0..1],changed,Z22,,
+ROW_DEFINITION,group,Segment,-,"added, not supported (X)",added,Z33,,
+ERR-3.7,Coding System Version ID,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+ERR-3.8,Alternate Coding System Version ID,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+ERR-3.9,Original Text,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+ERR-5.7,Coding System Version ID,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+ERR-5.8,Alternate Coding System Version ID,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+ERR-5.9,Original Text,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+ERR-6,Application Error Parameter,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+ERR-7,Diagnostic Information,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+ERR-8,User Message,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+ERR-9,Inform Person Indicator,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+IN1-3.1,ID Number,Length,(set),(not set),changed,Z22 Z32,length not stated,
+IN1-3.2,Check Digit,Length,(set),(not set),changed,Z22 Z32,length not stated,
+IN1-3.3,Check Digit Scheme,Length,(set),(not set),changed,Z22 Z32,length not stated,
+IN1-3.7,Effective Date,Length,(set),(not set),changed,Z22 Z32,length not stated,
+IN1-3.8,Expiration Date,Length,(set),(not set),changed,Z22 Z32,length not stated,
+IN1-29.1,Time,Length,(set),(not set),changed,Z22 Z32,length not stated,
+MSA-4,Expected Sequence Number,Length,(set),(not set),changed,Z23 Z31 Z32 Z33 Z42,length not stated,
+MSH-7.1,Time,Length,(set),(not set),changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+MSH-11.2,Processing Mode,Length,(set),(not set),changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+MSH-23.2,Organization Name Type Code,Length,(set),(not set),changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+MSH-23.4,Check Digit,Length,(set),(not set),changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+MSH-23.5,Check Digit Scheme,Length,(set),(not set),changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+MSH-23.9,Name Representation Code,Length,(set),(not set),changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+NK1-1,Set ID - NK1,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-2.4,"Suffix (e.g., JR or III)",Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-2.5,"Prefix (e.g., DR)",Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-2.8,Name Representation Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-2.11,Name Assembly Order,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-2.14,Professional Suffix,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-4.8,Other Geographic Designation,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-4.9,County/Parish Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-4.10,Census Tract,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-4.11,Address Representation Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-5.2,Telecommunication Use Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-5.3,Telecommunication Equipment Type,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-5.5,Country Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-5.8,Extension,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-5.9,Any Text,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-5.10,Extension Prefix,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-5.11,Speed Dial Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-5.12,Unformatted Telephone number,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-8,Start Date,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-9,End Date,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-10,Next of Kin / Associated Parties Job Title,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-15,Administrative Sex,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-17,Living Dependency,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-18,Ambulatory Status,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-21,Living Arrangement,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-23,Protection Indicator,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-24,Student Indicator,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-34,Job Status,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-36,Handicap,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-37,Contact Person Social Security Number,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-38,Next of Kin Birth Place,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NK1-39,VIP Indicator,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+NTE-1,Set ID - NTE,Length,(set),(not set),changed,Z22 Z32,length not stated,
+NTE-2,Source of Comment,Length,(set),(not set),changed,Z22 Z32,length not stated,
+NTE-3,Comment,Length,(set),(not set),changed,Z22 Z32,length not stated,
+OBX-5,Observation Value,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+OBX-7,References Range,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+OBX-8,Abnormal Flags,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+OBX-9,Probability,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+OBX-10,Nature of Abnormal Test,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+OBX-13,User Defined Access Checks,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+OBX-14.1,Time,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-5,Order Status,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-6,Response Flag,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-10.5,"Suffix (e.g., JR or III)",Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-10.6,"Prefix (e.g., DR)",Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-10.7,"Degree (e.g., MD)",Length,(set),(not set),changed,Z42,length not stated,
+ORC-10.8,Source Table,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-10.11,Identifier Check Digit,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-10.12,Check Digit Scheme,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-10.13,Identifier Type Code,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-10.15,Name Representation Code,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-10.18,Name Assembly Order,Length,(set),(not set),changed,Z42,length not stated,
+ORC-10.21,Professional Suffix,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+ORC-12.5,"Suffix (e.g., JR or III)",Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-12.6,"Prefix (e.g., DR)",Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-12.8,Source Table,Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-12.11,Identifier Check Digit,Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-12.12,Check Digit Scheme,Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-12.13,Identifier Type Code,Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-12.15,Name Representation Code,Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-12.21,Professional Suffix,Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-26.7,Coding System Version ID,Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-26.8,Alternate Coding System Version ID,Length,(set),(not set),changed,Z22 Z32,length not stated,
+ORC-26.9,Original Text,Length,(set),(not set),changed,Z22 Z32,length not stated,
+PD1-1,Living Dependency,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-2,Living Arrangement,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-5,Student Indicator,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-6,Handicap,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-7,Living Will Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-8,Organ Donor Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-9,Separate Bill,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-12,Protection Indicator,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-13,Protection Indicator Effective Date,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-16,Immunization Registry Status,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-17,Immunization Registry Status Effective Date,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-18,Publicity Code Effective Date,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-19,Military Branch,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-20,Military Rank/Grade,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PD1-21,Military Status,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-1,Set ID - PID,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-3.1,ID Number,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-3.2,Check Digit,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-3.3,Check Digit Scheme,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-3.7,Effective Date,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-3.8,Expiration Date,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-5.4,"Suffix (e.g., JR or III)",Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-5.5,"Prefix (e.g., DR)",Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-5.8,Name Representation Code,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-5.11,Name Assembly Order,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-5.14,Professional Suffix,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-6.4,"Suffix (e.g., JR or III)",Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-6.5,"Prefix (e.g., DR)",Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-6.8,Name Representation Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-6.11,Name Assembly Order,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-6.14,Professional Suffix,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-7.1,Time,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-8,Administrative Sex,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-11.8,Other Geographic Designation,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-11.9,County/Parish Code,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-11.10,Census Tract,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-11.11,Address Representation Code,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-13.2,Telecommunication Use Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-13.3,Telecommunication Equipment Type,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-13.5,Country Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-13.8,Extension,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-13.9,Any Text,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-13.10,Extension Prefix,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-13.11,Speed Dial Code,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-13.12,Unformatted Telephone number,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-23,Birth Place,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-24,Multiple Birth Indicator,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-29.1,Time,Length,(set),(not set),changed,Z22 Z31 Z32,length not stated,
+PID-30,Patient Death Indicator,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-31,Identity Unknown Indicator,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-32,Identity Reliability Code,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PID-37,Strain,Length,(set),(not set),changed,Z22 Z31 Z32 Z42,length not stated,
+PV1-52.5,"Suffix (e.g., JR or III)",Length,(set),(not set),changed,Z22 Z32,length not stated,
+PV1-52.6,"Prefix (e.g., DR)",Length,(set),(not set),changed,Z22 Z32,length not stated,
+PV1-52.7,"Degree (e.g., MD)",Length,(set),(not set),changed,Z22 Z32,length not stated,
+PV1-52.8,Source Table,Length,(set),(not set),changed,Z22 Z32,length not stated,
+PV1-52.11,Identifier Check Digit,Length,(set),(not set),changed,Z22 Z32,length not stated,
+PV1-52.12,Check Digit Scheme,Length,(set),(not set),changed,Z22 Z32,length not stated,
+PV1-52.13,Identifier Type Code,Length,(set),(not set),changed,Z22 Z32,length not stated,
+PV1-52.15,Name Representation Code,Length,(set),(not set),changed,Z22 Z32,length not stated,
+PV1-52.18,Name Assembly Order,Length,(set),(not set),changed,Z22 Z32,length not stated,
+PV1-52.21,Professional Suffix,Length,(set),(not set),changed,Z22 Z32,length not stated,
+QAK-2,Query Response Status,Length,(set),(not set),changed,Z31 Z32 Z33 Z42,length not stated,
+QAK-4,Hit Count,Length,(set),(not set),changed,Z31 Z32 Z33 Z42,length not stated,
+QAK-5,This payload,Length,(set),(not set),changed,Z31 Z32 Z33 Z42,length not stated,
+QAK-6,Hits remaining,Length,(set),(not set),changed,Z31 Z32 Z33 Z42,length not stated,
+QPD-3.1,ID Number,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-3.2,Check Digit,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-3.3,Check Digit Scheme,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-3.7,Effective Date,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-3.8,Expiration Date,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-4.4,"Suffix (e.g., JR or III)",Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-4.5,"Prefix (e.g., DR)",Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-4.8,Name Representation Code,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-4.11,Name Assembly Order,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-4.14,Professional Suffix,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-5.4,"Suffix (e.g., JR or III)",Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-5.5,"Prefix (e.g., DR)",Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-5.8,Name Representation Code,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-5.11,Name Assembly Order,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-5.14,Professional Suffix,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-6.1,Time,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-8.8,Other Geographic Designation,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-8.9,County/Parish Code,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-8.10,Census Tract,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-8.11,Address Representation Code,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-9.2,Telecommunication Use Code,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-9.3,Telecommunication Equipment Type,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-9.5,Country Code,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-9.8,Extension,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-9.9,Any Text,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-9.10,Extension Prefix,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-9.11,Speed Dial Code,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+QPD-9.12,Unformatted Telephone number,Length,(set),(not set),changed,Z34 Z44 Z31 Z32 Z33 Z42,length not stated,
+RCP-1,Query Priority,Length,(set),(not set),changed,Z34 Z44,length not stated,
+RCP-4.1,Time,Length,(set),(not set),changed,Z34 Z44,length not stated,
+RCP-4.2,Degree of Precision,Length,(set),(not set),changed,Z34 Z44,length not stated,
+RCP-5,Modify Indicator,Length,(set),(not set),changed,Z34 Z44,length not stated,
+RCP-7,Segment group inclusion,Length,(set),(not set),changed,Z34 Z44,length not stated,
+RXA-3.1,Time,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-10.5,"Suffix (e.g., JR or III)",Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-10.6,"Prefix (e.g., DR)",Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-10.8,Source Table,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-10.11,Identifier Check Digit,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-10.12,Check Digit Scheme,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-10.13,Identifier Type Code,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-10.15,Name Representation Code,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-10.21,Professional Suffix,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.1,Point of Care,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.2,Room,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.3,Bed,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.5,Location Status,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.6,Patient Location Type,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.7,Building,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.8,Floor,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.9,Street Address,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.10,Other Designation,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.11,City,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.12,State or Province,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.13,Zip or Postal Code,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.14,Country,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.15,Address Type,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-11.16,Other Geographic Designation,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-12,Administered Per (Time Unit),Length,(set),(not set),changed,Z22,length not stated,
+RXA-13,Administered Strength,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-15,Substance Lot Number,Length,(set),(not set),changed,Z32 Z42,length not stated,
+RXA-16.1,Time,Length,(set),(not set),changed,Z22 Z32,length not stated,
+RXA-23,Administered Drug Strength Volume,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXA-26,Pharmacy Order Type,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXR-2.7,Coding System Version ID,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXR-2.8,Alternate Coding System Version ID,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+RXR-2.9,Original Text,Length,(set),(not set),changed,Z22 Z32 Z42,length not stated,
+DTM_DD_DateTimeConstraint -> DTM_IZ01_DateTimeConstraint,DTM,Conformance statement,The Date/Time element SHALL follow the Date/Time pattern 'YYYYMMDD[HH[MM[SS[.S[S[S[S]]]]]]][+/-ZZZZ]'.,Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMMDD[HH[MM[SS[.S[S[S[S]]]]]]][+/-ZZZZ]'.,renumbered,,,
+DTM_DD_NZ_DateTimeConstraint -> DTM_NZ_DateTimeConstraint,DTM,Conformance statement,The Date/Time element SHALL follow the Date/Time pattern 'YYYYMMDD[HH[MM[SS[.S[S[S[S]]]]]]]'.,Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMMDD[HH[MM[SS[.S[S[S[S]]]]]]]'.,renumbered,,,
+DTM_MM_DateTimeConstraint -> DTM_M_DateTimeConstraint,DTM,Conformance statement,The Date/Time element SHALL follow the Date/Time pattern 'YYYYMM[DD[HH[MM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]'.,Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMM[DD[HH[MM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]'.,renumbered,,,
+DTM_SS_Z_DateTimeConstraint -> DTM_Z_DateTimeConstraint,DTM,Conformance statement,The Date/Time element SHALL follow the Date/Time pattern 'YYYYMMDDHHMMSS[.S[S[S[S]]]]+/-ZZZZ'.,Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMMDDHHMMSS[.S[S[S[S]]]]+/-ZZZZ'.,renumbered,,,
+DT_D_DateTimeConstraint,DT,Conformance statement,The Date element SHALL follow the Date/Time pattern 'YYYYMMDD'.,Element 'xxx' SHALL follow the Date/Time pattern 'YYYYMMDD'.,reworded,,,
+IZ-3,EI,Conformance statement,If EI.3 (Universal ID) is valued then EI.3 (Universal ID) shall be valued with an ISO-compliant OID.,EI.3 (Universal ID) shall be valued with an ISO-compliant OID.,changed,,SHALL,
+IZ-4,EI,Conformance statement,If EI.4 (Universal ID Type) is valued then EI.4 (Universal ID Type) shall contain the value 'ISO' (Case Sensitive).,EI.4 (Universal ID Type) shall contain the value 'ISO'.,changed,,SHALL,
+IZ-5,HD,Conformance statement,If HD.2 (Universal ID) is valued then HD.2 (Universal ID) shall be valued with an ISO-compliant OID.,HD.2 (Universal ID) shall be valued with an ISO-compliant OID.,changed,,SHALL,
+IZ-6,HD,Conformance statement,If HD.3 (Universal ID Type) is valued then HD.3 (Universal ID Type) shall contain the value 'ISO' (Case Sensitive).,HD.3 (Universal ID Type) shall contain the value 'ISO'.,changed,,SHALL,
+"IZ-17 -> IZ-17a, IZ-17b, IZ-17c","Z22 - SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU, Z22-SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU",Conformance statement,( MSH-9.1 (Message Code) shall contain the value 'VXU' (Case Sensitive). AND ( MSH-9.2 (Trigger Event) shall contain the value 'V04' (Case Sensitive). AND MSH-9.3 (Message Structure) shall contain the value 'VXU_V04' (Case Sensitive). ) ),"IZ-17a: MSH-9.1 (Message Code) shall contain the value 'VXU'.
+IZ-17b: MSH-9.2 (Trigger Event) shall contain the value 'V04'.
+IZ-17c: MSH-9.3 (Message Structure) shall contain the value 'VXU_V04'.",split,,SHALL,
+IZ-20,"Z22-SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU, Z32-RETURN COMPLETE IMMUNIZATION HISTORY, Z42-RETURN EVALUATED HISTORY AND FORECAST",Conformance statement,-,"The Value of OBX-1 (Set ID-OBX) SHALL be valued sequentially starting with the value ""1"" within a message or for each group",added,,SHALL,
+IZ-27,RCP,Conformance statement,If RCP-1 (Query Priority) is valued then RCP-1 (Query Priority) shall contain the value 'I' (Case Sensitive).,RCP-1 (Query Priority) shall contain the value 'I'.,changed,,SHALL,
+IZ-30,RXA,Conformance statement,If RXA-4 (Date/Time End of Administration) is valued then RXA-4.1 (Time) shall be identical to RXA-3.1 (Time),If RXA-4.1 (Time) is valued then RXA-4.1 (Time) shall be identical to RXA-3.1 (Time),changed,,SHALL,
+IZ-31,RXA,Conformance statement,"If RXA-20 is valued ""CP"" or ""PA"" then RXA-9.1 (admin notes) SHALL be valued one of the codes listed in NIP001 in the first occurrence of this field and optionally following repetition valued with a text notes.","If RXA-20 (Completion Status) is valued and the value of RXA-20 (Completion Status) is one of List Values: 'CP','PA' then the value of RXA-9.1 (Identifier) SHALL be one of codes listed in the Value Set: NIP001",changed,,SHALL,
+IZ-32,RXA,Conformance statement,If At least one occurrence of RXA-18 (Substance/Treatment Refusal Reason) is valued then RXA-20 (Completion Status) shall contain the value 'RE' (Case Sensitive).,If RXA-18.1 (Identifier) is valued then RXA-20 (Completion Status) shall contain the value 'RE'.,changed,,SHALL,
+IZ-36,OBX,Conformance statement,If The value of OBX-3.1 (Identifier) is '69764-9' and the value of OBX-2 (Value Type) is 'CE' then the value of OBX-5.1 (Observation Value) SHALL be one of codes listed in the Value Set: PHVS_VISBarcodes_IIS_Dynamic,If The value of OBX-3.1 (Identifier) is '69764-9' and the value of OBX-2 (Value Type) is 'CE' then the value of OBX-5.1 (Observation Value) SHALL be one of codes listed in the Value Set: PHVS_VISBarcodes_IIS,changed,,SHALL,
+IZ-37,OBX,Conformance statement,If The value of OBX-3.1 (Identifier) is '30956-7' and the value of OBX-2 (Value Type) is 'CE' then the value of OBX-5.1 (Observation Value) SHALL be one of codes listed in the Value Set: CVX,If The value of OBX-3.1 (Identifier) is '30956-7' and the value of OBX-2 (Value Type) is 'CE' then the value of OBX-5.1 (Observation Value) SHALL be one of codes listed in the Value Set: CVX,changed,,SHALL,
+IZ-42,MSH,Conformance statement,MSH-15 (Accept Acknowledgment Type) shall contain the value 'ER' (Case Sensitive).,MSH-15 (Accept Acknowledgment Type) shall contain the value 'NE' (Case Sensitive).,changed,,SHALL,
+"IZ-43 -> IZ-43a, IZ-43b","Z22 - SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU, Z22-SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU",Conformance statement,( MSH-21.1 (Entity Identifier) shall contain the value 'Z22' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier),"IZ-43a: At least one occurrence of MSH-21.1 (Entity Identifier) shall contain the value 'Z22'.
+IZ-43b: At least one occurrence of MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS'.",split,,SHALL,
+IZ-45,"Z22-SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU, Z32-RETURN COMPLETE IMMUNIZATION HISTORY, Z42-RETURN EVALUATED HISTORY AND FORECAST",Conformance statement,-,"If at least one occurrence of ORDER.RXA-20 (Completion Status) contains one of the values in the list: ['NA','RE'] (Case Sensitive) then at least one occurrence of ORDER.ORC-3.1 (Entity Identifier) shall contain the value '9999' (Case Sensitive).",added,,SHALL,
+IZ-46,"PID, Z22 - SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU, Z22-SEND UNSOLICITED IMMUNIZATION UPDATE USING A VXU, Z32 - RETURN COMPLETE IMMUNIZATION HISTORY, Z32-RETURN COMPLETE IMMUNIZATION HISTORY, Z42 - RETURN EVALUATED HISTORY AND FORECAST",Conformance statement,PID-1 (Set ID - PID) shall contain the value '1' (Case Sensitive).,PID-1 (Set ID - PID) shall contain the value '1'.,changed,,SHALL,
+IZ-47,RXA,Conformance statement,"If RXA-20 is NOT valued ""CP"" or ""PA"" then the first occurrence of RXA-9.1 (admin notes) SHALL be empty and the following repetitions may be valued with text notes.","If RXA-20 (Completion Status) is not valued or the value of RXA-20 (Completion Status) is not one of List Values: 'CP','PA' then RXA-9.1 (Identifier) SHALL NOT be valued",changed,,SHALL,
+IZ-48,RXA,Conformance statement,If RXA-20 (Completion Status) contains the value 'RE' (Case Sensitive). then RXA-6 (Administered Amount) shall contain the value '999' (Case Sensitive).,If ( RXA-20 (Completion Status) is valued AND RXA-20 (Completion Status) contain the value 'RE'. ) then RXA-6 (Administered Amount) shall contain the value '999'.,changed,,SHALL,
+IZ-49,RXA,Conformance statement,If RXA-5.1 (Identifier) contains the value '998' (Case Sensitive). then RXA-6 (Administered Amount) shall contain the value '999' (Case Sensitive).,If RXA-5.1 (Identifier) contain the value '998'. then RXA-6 (Administered Amount) shall contain the value '999'.,reworded,,SHALL,
+"IZ-51 -> IZ-51a, IZ-51b, IZ-51c","Z23 - RETURN AN ACKNOWLEDGEMENT, Z23-RETURN AN ACKNOWLEDGEMENT",Conformance statement,( MSH-9.1 (Message Code) shall contain the value 'ACK' (Case Sensitive). AND ( ( MSH-9.2 (Trigger Event) shall contain the value 'V04' (Case Sensitive). OR MSH-9.2 (Trigger Event) shall contain the value 'Q11' (Case Sensitive). ) AND MSH-9.3 (Message Structure) shall contain the value 'ACK' (Case Sensitive). ) ),"IZ-51a: MSH-9.1 (Message Code) shall contain the value 'ACK'.
+IZ-51b: ( MSH-9.2 (Trigger Event) shall contain the value 'Q11'. OR MSH-9.2 (Trigger Event) shall contain the value 'V04'. )
+IZ-51c: MSH-9.3 (Message Structure) shall contain the value 'ACK'.",split,,SHALL,
+IZ-52,MSH,Conformance statement,MSH-16 (Application Acknowledgment Type) shall contain the value 'NE' (Case Sensitive).,-,removed,,SHALL,
+IZ-53,MSH,Conformance statement,MSH-15 (Accept Acknowledgment Type) shall contain the value 'NE' (Case Sensitive).,-,removed,,SHALL,
+"IZ-54 -> IZ-54a, IZ-54b","Z23 - RETURN AN ACKNOWLEDGEMENT, Z23-RETURN AN ACKNOWLEDGEMENT",Conformance statement,( MSH-21.1 (Entity Identifier) shall contain the value 'Z23' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier),"IZ-54a: At least one occurrence of MSH-21.1 (Entity Identifier) shall contain the value 'Z23' (Case Sensitive).
+IZ-54b: At least one occurrence of MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive).",split,,SHALL,
+"IZ-55 -> IZ-55a, IZ-55b, IZ-55c","Z34 - REQUEST A COMPLETE IMMUNIZATION HISTORY, Z34-REQUEST A COMPLETE IMMUNIZATION HISTORY, Z44 - REQUEST EVALUATED IMMUNIZATION HISTORY AND FORECAST QUERY, Z44-REQUEST EVALUATED IMMUNIZATION HISTORY AND FORECAST QUERY PROFILE",Conformance statement,( MSH-9.1 (Message Code) shall contain the value 'QBP' (Case Sensitive). AND ( MSH-9.2 (Trigger Event) shall contain the value 'Q11' (Case Sensitive). AND MSH-9.3 (Message Structure) shall contain the value 'QBP_Q11' (Case Sensitive). ) ),"IZ-55a: MSH-9.1 (Message Code) shall contain the value 'QBP'.
+IZ-55b: MSH-9.2 (Trigger Event) shall contain the value 'Q11'.
+IZ-55c: MSH-9.3 (Message Structure) shall contain the value 'QBP_Q11'.",split,,SHALL,
+"IZ-56 -> IZ-56a, IZ-56b","Z34 - REQUEST A COMPLETE IMMUNIZATION HISTORY, Z34-REQUEST A COMPLETE IMMUNIZATION HISTORY",Conformance statement,( MSH-21.1 (Entity Identifier) shall contain the value 'Z34' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier),"IZ-56a: At least one occurrence of MSH-21.1 (Entity Identifier) shall contain the value 'Z34' (Case Sensitive).
+IZ-56b: At least one occurrence of MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive).",split,,SHALL,
+"IZ-59 -> IZ-59a, IZ-59b, IZ-59c","Z31 - RETURN A LIST OF CANDIDATES, Z31-RETURN A LIST OF CANDIDATES PROFILE, Z32 - RETURN COMPLETE IMMUNIZATION HISTORY, Z32-RETURN COMPLETE IMMUNIZATION HISTORY, Z33 - RETURN AN ACKNOWLEDGEMENT WITH NO PERSON RECORDS, Z33-RETURN AN ACKNOWLEDGEMENT WITH NO PERSON RECORDS, Z42 - RETURN EVALUATED HISTORY AND FORECAST, Z42-RETURN EVALUATED HISTORY AND FORECAST",Conformance statement,( MSH-9.1 (Message Code) shall contain the value 'RSP' (Case Sensitive). AND ( MSH-9.2 (Trigger Event) shall contain the value 'K11' (Case Sensitive). AND MSH-9.3 (Message Structure) shall contain the value 'RSP_K11' (Case Sensitive). ) ),"IZ-59a: MSH-9.1 (Message Code) shall contain the value 'RSP'.
+IZ-59b: MSH-9.2 (Trigger Event) shall contain the value 'K11'.
+IZ-59c: MSH-9.3 (Message Structure) shall contain the value 'RSP_K11'.",split,,SHALL,
+"IZ-60 -> IZ-60a, IZ-60b","Z32 - RETURN COMPLETE IMMUNIZATION HISTORY, Z32-RETURN COMPLETE IMMUNIZATION HISTORY",Conformance statement,( MSH-21.1 (Entity Identifier) shall contain the value 'Z32' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier),"IZ-60a: At least one occurrence of MSH-21.1 (Entity Identifier) shall contain the value 'Z32'.
+IZ-60b: At least one occurrence of MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS'.",split,,SHALL,
+"IZ-61 -> IZ-61a, IZ-61b","Z31 - RETURN A LIST OF CANDIDATES, Z31-RETURN A LIST OF CANDIDATES PROFILE",Conformance statement,( MSH-21.1 (Entity Identifier) shall contain the value 'Z31' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier),"IZ-61a: All occurrences of MSH-21.1 (Entity Identifier) shall contain the value 'Z31'.
+IZ-61b: All occurrences of MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS'.",split,,SHALL,
+"IZ-63 -> IZ-63a, IZ-63b","Z33 - RETURN AN ACKNOWLEDGEMENT WITH NO PERSON RECORDS, Z33-RETURN AN ACKNOWLEDGEMENT WITH NO PERSON RECORDS",Conformance statement,( MSH-21.1 (Entity Identifier) shall contain the value 'Z33' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier),"IZ-63a: At least one occurrence of MSH-21.1 (Entity Identifier) shall contain the value 'Z33' (Case Sensitive).
+IZ-63b: At least one occurrence of MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive).",split,,SHALL,
+"IZ-64 -> IZ-64a, IZ-64b","Z44 - REQUEST EVALUATED IMMUNIZATION HISTORY AND FORECAST QUERY, Z44-REQUEST EVALUATED IMMUNIZATION HISTORY AND FORECAST QUERY PROFILE",Conformance statement,( MSH-21.1 (Entity Identifier) shall contain the value 'Z44' (Case Sensitive). AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive). ) IN exactly one occurrence of MSH-21 (Message Profile Identifier),"IZ-64a: At least one occurrence of MSH-21.1 (Entity Identifier) shall contain the value 'Z44' (Case Sensitive).
+IZ-64b: At least one occurrence of MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive).",split,,SHALL,
+"IZ-65 -> IZ-65a, IZ-65b","Z42 - RETURN EVALUATED HISTORY AND FORECAST, Z42-RETURN EVALUATED HISTORY AND FORECAST",Conformance statement,(MSH-21.1 (Entity Identifier) shall contain the value 'Z42' (Case Sensitive) AND MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS' (Case Sensitive)) IN exactly one occurrence of MSH-21 (Message Profile Identifier),"IZ-65a: At least one occurrence of MSH-21.1 (Entity Identifier) shall contain the value 'Z42'.
+IZ-65b: At least one occurrence of MSH-21.2 (Namespace ID) shall contain the value 'CDCPHINVS'.",split,,SHALL,
+IZ-66 -> XPN_7 (Name Type Code),XPN,Conformance statement,XPN.7 (Name Type Code) shall contain the value 'M' (Case Sensitive).,XPN.7 (Name Type Code) shall contain the value 'M'.,renumbered,,SHALL,
+"IZ-67 -> IZ-67a, IZ-67b, IZ-67c","QPD, Z31-RETURN A LIST OF CANDIDATES PROFILE, Z32-RETURN COMPLETE IMMUNIZATION HISTORY, Z34-REQUEST A COMPLETE IMMUNIZATION HISTORY",Conformance statement,( ( QPD-1.1 (Identifier) shall contain the value 'Z34' (Case Sensitive). AND QPD-1.2 (Text) shall contain the value 'Request Immunization History' (Case Sensitive). AND QPD-1.3 (Name of Coding System) shall contain the value 'CDCPHINVS' (Case Sensitive). ) OR ( QPD-1.1 (Identifier) shall contain the value 'Z44' (Case Sensitive). AND QPD-1.2 (Text) shall contain the value 'Request Evaluated History and Forecast' (Case Sensitive). AND QPD-1.3 (Name of Coding System) shall contain the value 'CDCPHINVS' (Case Sensitive). ) ),"IZ-67a: QPD-1.1 (Identifier) shall contain the value 'Z34'.
+IZ-67b: QPD-1.2 (Text) shall contain the value 'Request Immunization History'.
+IZ-67c: QPD-1.3 (Name of Coding System) shall contain the value 'CDCPHINVS'.",split,,SHALL,
+"IZ-68 -> IZ-68a, IZ-68b, IZ-68c","QPD, Z42-RETURN EVALUATED HISTORY AND FORECAST, Z44-REQUEST EVALUATED IMMUNIZATION HISTORY AND FORECAST QUERY PROFILE",Conformance statement,( QPD-1.1 (Identifier) shall contain the value 'Z44' (Case Sensitive). AND ( QPD-1.2 (Text) shall contain the value 'Request Evaluated History and Forecast' (Case Sensitive). AND QPD-1.3 (Name of Coding System) shall contain the value 'CDCPHINVS' (Case Sensitive). ) ),"IZ-68a: QPD-1.1 (Identifier) shall contain the value 'Z44'.
+IZ-68b: QPD-1.2 (Text) shall contain the value 'Request Evaluated History and Forecast'.
+IZ-68c: QPD-1.3 (Name of Coding System) shall contain the value 'CDCPHINVS'.",split,,SHALL,
+IZ-71a,Z33-RETURN AN ACKNOWLEDGEMENT WITH NO PERSON RECORDS,Conformance statement,-,( QPD-1.1 (Identifier) shall contain the value 'Z34'. OR QPD-1.1 (Identifier) shall contain the value 'Z44'. ),added,,SHALL,
+IZ-71b,Z33-RETURN AN ACKNOWLEDGEMENT WITH NO PERSON RECORDS,Conformance statement,-,( QPD-1.2 (Text) shall contain the value 'Request Immunization History'. OR QPD-1.2 (Text) shall contain the value 'Request Evaluated History and Forecast'. ),added,,SHALL,
+IZ-71c,Z33-RETURN AN ACKNOWLEDGEMENT WITH NO PERSON RECORDS,Conformance statement,-,QPD-1.3 (Name of Coding System) shall contain the value 'CDCPHINVS'.,added,,SHALL,
+PID-8,,Codes,"removed: A, N, O",-,changed,Z22 Z31 Z32 Z42,HL70001,
+QPD-7,,Codes,"removed: A, N, O",-,changed,Z34 Z44 Z31 Z32 Z33 Z42,HL70001,
+PV1-2,,Codes,"removed: B, C, E, I, N, O, P, U",-,changed,Z22 Z32,HL70004,
+NK1-3,,Codes,"removed: ASC, DEP, DOM, EMC, EME, EMR, EXF, FND, GCH, MGR, NCH, NON, OAD, OWN, TRA, UNK, WRD",-,changed,Z22 Z31 Z32,HL70063,
+MSH-9.1,,Codes,removed: ADT,-,changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,HL70076,
+OBX-2,,Codes,"removed: ED, RP, SN","added: CQ, ERL, FN, LA2, MSG, PT, SAD, SI, VID, XAD, XCN, XON, XPN, XTN",changed,Z22 Z32 Z42,HL70125,
+RXR-2,,Codes,-,"added: LPC, RPC",changed,Z22 Z32 Z42,HL70163,
+NK1-2.7,,Codes,removed: P,"added: N, NB, T",changed,Z22 Z31 Z32,HL70200,
+ORC-10.10,,Codes,removed: P,"added: N, NB, T",changed,Z22 Z32,HL70200,
+ORC-12.10,,Codes,removed: P,"added: N, NB, T",changed,Z22 Z32,HL70200,
+PID-5.7,,Codes,removed: P,"added: N, NB, T",changed,Z22 Z31 Z32 Z42,HL70200,
+QPD-4.7,,Codes,removed: P,"added: N, NB, T",changed,Z34 Z44 Z31 Z32 Z33 Z42,HL70200,
+RXA-10.10,,Codes,removed: P,"added: N, NB, T",changed,Z22 Z32 Z42,HL70200,
+ORC-10.10,,Codes,"removed: I, P, R, S",added: NB,changed,Z42,HL70200,
+PV1-52.10,,Codes,"removed: I, P, R, S",added: NB,changed,Z22 Z32,HL70200,
+NK1-5.2,,Codes,removed: ASN,-,changed,Z22 Z31 Z32,HL70201,
+PID-13.2,,Codes,removed: ASN,-,changed,Z22 Z31 Z32,HL70201,
+QPD-9.2,,Codes,removed: ASN,-,changed,Z34 Z44 Z31 Z32 Z33 Z42,HL70201,
+NK1-5.3,,Codes,"removed: BP, MD, TDD, TTY",-,changed,Z22 Z31 Z32,HL70202,
+PID-13.3,,Codes,"removed: BP, MD, TDD, TTY",-,changed,Z22 Z31 Z32,HL70202,
+QPD-9.3,,Codes,"removed: BP, MD, TDD, TTY",-,changed,Z34 Z44 Z31 Z32 Z33 Z42,HL70202,
+IN1-3.5,,Codes,-,"added: AN, ANC, AND, APRN, BA, BC, CC, CY, DDS, DEA, DFN, DN, DO, DPM, DR, EI, EN, FI, GI, GL, GN, JHN, LI, LN, MB, MCD, MCN, MCR, MD, NE, NH, NII, NIIP, NNxxx, NP, NPI, OD, PA, PCN, PE, PEN, PNT, PPN, PRC, PRN, QA, RI, RN, RPH, RR, SL, TAX, U, UPIN, VN, WC, WCN, XX",changed,Z22 Z32,HL70203,
+PID-3.5,,Codes,-,"added: AN, ANC, AND, APRN, BA, BC, CC, CY, DDS, DEA, DFN, DN, DO, DPM, DR, EI, EN, FI, GI, GL, GN, JHN, LI, LN, MB, MCD, MCN, MCR, MD, NE, NH, NII, NIIP, NNxxx, NP, NPI, OD, PA, PCN, PE, PEN, PNT, PPN, PRC, PRN, QA, RI, RN, RPH, RR, SL, TAX, U, UPIN, VN, WC, WCN, XX",changed,Z22 Z31 Z32 Z42,HL70203,
+QPD-3.5,,Codes,-,"added: AN, ANC, AND, APRN, BA, BC, CC, CY, DDS, DEA, DFN, DN, DO, DPM, DR, EI, EN, FI, GI, GL, GN, JHN, LI, LN, MB, MCD, MCN, MCR, MD, NE, NH, NII, NIIP, NNxxx, NP, NPI, OD, PA, PCN, PE, PEN, PNT, PPN, PRC, PRN, QA, RI, RN, RPH, RR, SL, TAX, U, UPIN, VN, WC, WCN, XX",changed,Z34 Z44 Z31 Z32 Z33 Z42,HL70203,
+ORC-10.13,,Codes,-,"added: AN, ANC, AND, ANON, ANT, BA, BC, BR, CC, CY, DDS, DEA, DFN, DL, DO, DPM, DR, EN, FI, GI, GL, GN, HC, IND, JHN, LI, LR, MA, MB, MC, MCN, MI, MR, MRT, NE, NH, NI, NII, NIIP, NNxxx, OD, PCN, PE, PEN, PI, PN, PNT, PPN, PRC, PT, QA, RI, RPH, RR, SN, SR, SS, TAX, U, VN, WC, WCN, XX",changed,Z22 Z32,HL70203,
+ORC-12.13,,Codes,-,"added: AN, ANC, AND, ANON, ANT, BA, BC, BR, CC, CY, DDS, DEA, DFN, DL, DO, DPM, DR, EN, FI, GI, GL, GN, HC, IND, JHN, LI, LR, MA, MB, MC, MCN, MI, MR, MRT, NE, NH, NI, NII, NIIP, NNxxx, OD, PCN, PE, PEN, PI, PN, PNT, PPN, PRC, PT, QA, RI, RPH, RR, SN, SR, SS, TAX, U, VN, WC, WCN, XX",changed,Z22 Z32,HL70203,
+RXA-10.13,,Codes,-,"added: AN, ANC, AND, ANON, ANT, BA, BC, BR, CC, CY, DDS, DEA, DFN, DL, DO, DPM, DR, EN, FI, GI, GL, GN, HC, IND, JHN, LI, LR, MA, MB, MC, MCN, MI, MR, MRT, NE, NH, NI, NII, NIIP, NNxxx, OD, PCN, PE, PEN, PI, PN, PNT, PPN, PRC, PT, QA, RI, RPH, RR, SN, SR, SS, TAX, U, VN, WC, WCN, XX",changed,Z22 Z32 Z42,HL70203,
+ORC-10.13,,Codes,"removed: AM, BRN, DI, DS, MS, TN, VS",-,changed,Z42,HL70203,
+PV1-52.13,,Codes,"removed: AM, BRN, DI, DS, MS, TN, VS",-,changed,Z22 Z32,HL70203,
+MSH-23.7,,Codes,-,"added: AN, ANC, AND, ANON, ANT, APRN, BA, BC, BR, CC, CY, DDS, DEA, DFN, DL, DN, DO, DPM, DR, EI, EN, GI, GL, GN, HC, IND, JHN, LI, LN, MA, MB, MC, MCD, MCN, MCR, MD, MI, MR, MRT, NE, NH, NI, NII, NIIP, NNxxx, NP, NPI, OD, PA, PCN, PE, PEN, PI, PN, PNT, PPN, PRC, PRN, PT, QA, RI, RN, RPH, RR, SL, SN, SS, TAX, U, UPIN, VN, WC, WCN",changed,Z22 Z23 Z34 Z44 Z31 Z32 Z33 Z42,HL70203,
+PD1-11,,Codes,"removed: F, N, O, U","added: 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12",changed,Z31,HL70215,
+ERR-3,,Codes,removed: 999,added: 104,changed,Z23 Z31 Z32 Z33 Z42,HL70357,
+ERR-3.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z23 Z31 Z32 Z33 Z42,HL70396,
+ERR-3.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z23 Z31 Z32 Z33 Z42,HL70396,
+ERR-5.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z23 Z31 Z32 Z33 Z42,HL70396,
+ERR-5.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z23 Z31 Z32 Z33 Z42,HL70396,
+IN1-2.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32,HL70396,
+IN1-2.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32,HL70396,
+NK1-3.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z31 Z32,HL70396,
+NK1-3.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z31 Z32,HL70396,
+OBX-3.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+OBX-3.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+OBX-6.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+OBX-6.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+OBX-17.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32,HL70396,
+OBX-17.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32,HL70396,
+ORC-17.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+ORC-17.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+PD1-11.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32,HL70396,
+PD1-11.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32,HL70396,
+PID-10.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z31 Z32,HL70396,
+PID-10.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z31 Z32,HL70396,
+PID-22.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z31 Z32,HL70396,
+PID-22.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z31 Z32,HL70396,
+QAK-3.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z31 Z32 Z33 Z42,HL70396,
+QAK-3.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z31 Z32 Z33 Z42,HL70396,
+QPD-1.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z34 Z44 Z31 Z32 Z33 Z42,HL70396,
+QPD-1.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z34 Z44 Z31 Z32 Z33 Z42,HL70396,
+RXA-5.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXA-5.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXA-7.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXA-7.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXA-9.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22,HL70396,
+RXA-9.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22,HL70396,
+RXA-17.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXA-17.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXA-18.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXA-18.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXR-1.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXR-1.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXR-2.3,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+RXR-2.6,,Codes,"removed: ISO, L, NULLFL, USPS","added: ART, C4, C5, CDCA, CDCM, CDS, CPTM, CST, E, E5, E6, E7, ENZC, HB, HCPCS, HCPT, HHC, HPC, I10, I10P, I9, I9C, ISOnnnn, LB, MCD, MCR, MEDR, NIP004, NIP007, NIP008, NIP009, NIP010, NPI, SNM, SNM3, SNT, UML, W1, W2, W4, WC",changed,Z22 Z32 Z42,HL70396,
+ORC-26.3,,Codes,"removed: ACR, ACTCODE, ACTRELSS, ALPHAID2006, ALPHAID2007, ALPHAID2008, ALPHAID2009, ALPHAID2010, ALPHAID2011, ALPHAID2012, ALPHAID2013, ALPHAID2014, ALPHAID2015, ALPHAID2016, AMTv2, ANS+, AS4, AS4E, ATC, CAPECC, CAS, CCC, CD2, CDCEDACUITY, CDCINDUSTRY2010, CDCNHSN, CDCOBS, CDCOCCUPATION2010, CDCODH, CE, CLINVAR-V, CLP, CMSOEC, CMSOMC, COSMIC-Smpl, COSMIC-Strc, Chrom-Loc, DCL, DCM, DQL, EDLEVEL, ENTITYCODE, ENTITYHDLG, EPASRS, Ensembl-P, FDAUDI, FDAUNII, FDDC, FDDX, FDK, FIPS55_3, FIPS5_2, FIPS6_4, GDRG2004, GDRG2005, GDRG2006, GDRG2007, GDRG2008, GDRG2009, GMDC2004, GMDC2005, GMDC2006, GMDC2007, GMDC2008, GMDC2009, GS1UDI, HCPTNUCC, HGNC-Symb, HGVS.c, HGVS.g, HGVS.p, HI, HIBUDI, HOT, HSLOC, I10C, I10G2004, I10G2005, I10G2006, I10P0, I9CDX, I9CP, IBT, IBT0001, IBTnnnn, IC2, ICCUDI, ICD10AM, ICD10CA, ICD10GM2007, ICD10GM2008, ICD10GM2009, ICD10GM2010, ICD10GM2011, ICD10GM2012, ICD10GM2013, ICD10GM2014, ICD10GM2015, ICD10GM2016, ICDO, ICDO2, ICDO3, ICF, ICS, ICSD, IHELAW, ISCN, ISO, ISO+, ISO3166_1, ISO3166_2, ISO4217, ISO639, ITIS, IUPC, IUPP, JC10, JC8, JJ1017, L, LANGUAL, LRG-RefSeq, MDC, MDDX, MEDC, MEDIATYPE, MEDX, MGPI, Medgen-Dis, NAICS, NCPDPnnnnsss, NDA, NDFRT, NIC, NND, NUBC, NULLFL, O301, O3012004, O3012005, O3012006, OBSMETHOD, OHA, OPS2007, OPS2008, OPS2009, OPS2010, OPS2011, OPS2012, OPS2013, OPS2014, OPS2015, OPS2016, PHDSCSOPT, PHINQUESTION, PLR, PLT, POS, PRTCPTNMODE, RC, ROLECLASS, ROLECODE, RSPMODE, RXNORM, RefSeq-P, RxT-Ingrd, SCT2, SDM, SIC, SOC, UB04FL14, UB04FL15, UB04FL17, UB04FL31, UB04FL35, UB04FL39, UB04FL42, UB04FL67, UC, UMD, UPC, UPIN, USGSGNIS, USPS, VIS, X12DEnnnn, X12Dennnn, dbVar-GL, dbVar-som, ensembl-G, ensembl-T, refSeq-G, refSeq-T",-,changed,Z22 Z32,HL70396,
+ORC-26.6,,Codes,"removed: ACR, ACTCODE, ACTRELSS, ALPHAID2006, ALPHAID2007, ALPHAID2008, ALPHAID2009, ALPHAID2010, ALPHAID2011, ALPHAID2012, ALPHAID2013, ALPHAID2014, ALPHAID2015, ALPHAID2016, AMTv2, ANS+, AS4, AS4E, ATC, CAPECC, CAS, CCC, CD2, CDCEDACUITY, CDCINDUSTRY2010, CDCNHSN, CDCOBS, CDCOCCUPATION2010, CDCODH, CE, CLINVAR-V, CLP, CMSOEC, CMSOMC, COSMIC-Smpl, COSMIC-Strc, Chrom-Loc, DCL, DCM, DQL, EDLEVEL, ENTITYCODE, ENTITYHDLG, EPASRS, Ensembl-P, FDAUDI, FDAUNII, FDDC, FDDX, FDK, FIPS55_3, FIPS5_2, FIPS6_4, GDRG2004, GDRG2005, GDRG2006, GDRG2007, GDRG2008, GDRG2009, GMDC2004, GMDC2005, GMDC2006, GMDC2007, GMDC2008, GMDC2009, GS1UDI, HCPTNUCC, HGNC-Symb, HGVS.c, HGVS.g, HGVS.p, HI, HIBUDI, HOT, HSLOC, I10C, I10G2004, I10G2005, I10G2006, I10P0, I9CDX, I9CP, IBT, IBT0001, IBTnnnn, IC2, ICCUDI, ICD10AM, ICD10CA, ICD10GM2007, ICD10GM2008, ICD10GM2009, ICD10GM2010, ICD10GM2011, ICD10GM2012, ICD10GM2013, ICD10GM2014, ICD10GM2015, ICD10GM2016, ICDO, ICDO2, ICDO3, ICF, ICS, ICSD, IHELAW, ISCN, ISO, ISO+, ISO3166_1, ISO3166_2, ISO4217, ISO639, ITIS, IUPC, IUPP, JC10, JC8, JJ1017, L, LANGUAL, LRG-RefSeq, MDC, MDDX, MEDC, MEDIATYPE, MEDX, MGPI, Medgen-Dis, NAICS, NCPDPnnnnsss, NDA, NDFRT, NIC, NND, NUBC, NULLFL, O301, O3012004, O3012005, O3012006, OBSMETHOD, OHA, OPS2007, OPS2008, OPS2009, OPS2010, OPS2011, OPS2012, OPS2013, OPS2014, OPS2015, OPS2016, PHDSCSOPT, PHINQUESTION, PLR, PLT, POS, PRTCPTNMODE, RC, ROLECLASS, ROLECODE, RSPMODE, RXNORM, RefSeq-P, RxT-Ingrd, SCT2, SDM, SIC, SOC, UB04FL14, UB04FL15, UB04FL17, UB04FL31, UB04FL35, UB04FL39, UB04FL42, UB04FL67, UC, UMD, UPC, UPIN, USGSGNIS, USPS, VIS, X12DEnnnn, X12Dennnn, dbVar-GL, dbVar-som, ensembl-G, ensembl-T, refSeq-G, refSeq-T",-,changed,Z22 Z32,HL70396,
+PD1-11.3,,Codes,"removed: ACR, ACTCODE, ACTRELSS, ALPHAID2006, ALPHAID2007, ALPHAID2008, ALPHAID2009, ALPHAID2010, ALPHAID2011, ALPHAID2012, ALPHAID2013, ALPHAID2014, ALPHAID2015, ALPHAID2016, AMTv2, ANS+, AS4, AS4E, ATC, CAPECC, CAS, CCC, CD2, CDCEDACUITY, CDCINDUSTRY2010, CDCNHSN, CDCOBS, CDCOCCUPATION2010, CDCODH, CE, CLINVAR-V, CLP, CMSOEC, CMSOMC, COSMIC-Smpl, COSMIC-Strc, Chrom-Loc, DCL, DCM, DQL, EDLEVEL, ENTITYCODE, ENTITYHDLG, EPASRS, Ensembl-P, FDAUDI, FDAUNII, FDDC, FDDX, FDK, FIPS55_3, FIPS5_2, FIPS6_4, GDRG2004, GDRG2005, GDRG2006, GDRG2007, GDRG2008, GDRG2009, GMDC2004, GMDC2005, GMDC2006, GMDC2007, GMDC2008, GMDC2009, GS1UDI, HCPTNUCC, HGNC-Symb, HGVS.c, HGVS.g, HGVS.p, HI, HIBUDI, HOT, HSLOC, I10C, I10G2004, I10G2005, I10G2006, I10P0, I9CDX, I9CP, IBT, IBT0001, IBTnnnn, IC2, ICCUDI, ICD10AM, ICD10CA, ICD10GM2007, ICD10GM2008, ICD10GM2009, ICD10GM2010, ICD10GM2011, ICD10GM2012, ICD10GM2013, ICD10GM2014, ICD10GM2015, ICD10GM2016, ICDO, ICDO2, ICDO3, ICF, ICS, ICSD, IHELAW, ISCN, ISO, ISO+, ISO3166_1, ISO3166_2, ISO4217, ISO639, ITIS, IUPC, IUPP, JC10, JC8, JJ1017, L, LANGUAL, LRG-RefSeq, MDC, MDDX, MEDC, MEDIATYPE, MEDX, MGPI, Medgen-Dis, NAICS, NCPDPnnnnsss, NDA, NDFRT, NIC, NND, NUBC, NULLFL, O301, O3012004, O3012005, O3012006, OBSMETHOD, OHA, OPS2007, OPS2008, OPS2009, OPS2010, OPS2011, OPS2012, OPS2013, OPS2014, OPS2015, OPS2016, PHDSCSOPT, PHINQUESTION, PLR, PLT, POS, PRTCPTNMODE, RC, ROLECLASS, ROLECODE, RSPMODE, RXNORM, RefSeq-P, RxT-Ingrd, SCT2, SDM, SIC, SOC, UB04FL14, UB04FL15, UB04FL17, UB04FL31, UB04FL35, UB04FL39, UB04FL42, UB04FL67, UC, UMD, UPC, UPIN, USGSGNIS, USPS, VIS, X12DEnnnn, X12Dennnn, dbVar-GL, dbVar-som, ensembl-G, ensembl-T, refSeq-G, refSeq-T",-,changed,Z31,HL70396,
+PD1-11.6,,Codes,"removed: ACR, ACTCODE, ACTRELSS, ALPHAID2006, ALPHAID2007, ALPHAID2008, ALPHAID2009, ALPHAID2010, ALPHAID2011, ALPHAID2012, ALPHAID2013, ALPHAID2014, ALPHAID2015, ALPHAID2016, AMTv2, ANS+, AS4, AS4E, ATC, CAPECC, CAS, CCC, CD2, CDCEDACUITY, CDCINDUSTRY2010, CDCNHSN, CDCOBS, CDCOCCUPATION2010, CDCODH, CE, CLINVAR-V, CLP, CMSOEC, CMSOMC, COSMIC-Smpl, COSMIC-Strc, Chrom-Loc, DCL, DCM, DQL, EDLEVEL, ENTITYCODE, ENTITYHDLG, EPASRS, Ensembl-P, FDAUDI, FDAUNII, FDDC, FDDX, FDK, FIPS55_3, FIPS5_2, FIPS6_4, GDRG2004, GDRG2005, GDRG2006, GDRG2007, GDRG2008, GDRG2009, GMDC2004, GMDC2005, GMDC2006, GMDC2007, GMDC2008, GMDC2009, GS1UDI, HCPTNUCC, HGNC-Symb, HGVS.c, HGVS.g, HGVS.p, HI, HIBUDI, HOT, HSLOC, I10C, I10G2004, I10G2005, I10G2006, I10P0, I9CDX, I9CP, IBT, IBT0001, IBTnnnn, IC2, ICCUDI, ICD10AM, ICD10CA, ICD10GM2007, ICD10GM2008, ICD10GM2009, ICD10GM2010, ICD10GM2011, ICD10GM2012, ICD10GM2013, ICD10GM2014, ICD10GM2015, ICD10GM2016, ICDO, ICDO2, ICDO3, ICF, ICS, ICSD, IHELAW, ISCN, ISO, ISO+, ISO3166_1, ISO3166_2, ISO4217, ISO639, ITIS, IUPC, IUPP, JC10, JC8, JJ1017, L, LANGUAL, LRG-RefSeq, MDC, MDDX, MEDC, MEDIATYPE, MEDX, MGPI, Medgen-Dis, NAICS, NCPDPnnnnsss, NDA, NDFRT, NIC, NND, NUBC, NULLFL, O301, O3012004, O3012005, O3012006, OBSMETHOD, OHA, OPS2007, OPS2008, OPS2009, OPS2010, OPS2011, OPS2012, OPS2013, OPS2014, OPS2015, OPS2016, PHDSCSOPT, PHINQUESTION, PLR, PLT, POS, PRTCPTNMODE, RC, ROLECLASS, ROLECODE, RSPMODE, RXNORM, RefSeq-P, RxT-Ingrd, SCT2, SDM, SIC, SOC, UB04FL14, UB04FL15, UB04FL17, UB04FL31, UB04FL35, UB04FL39, UB04FL42, UB04FL67, UC, UMD, UPC, UPIN, USGSGNIS, USPS, VIS, X12DEnnnn, X12Dennnn, dbVar-GL, dbVar-som, ensembl-G, ensembl-T, refSeq-G, refSeq-T",-,changed,Z31,HL70396,
+RXA-9.3,,Codes,"removed: ACR, ACTCODE, ACTRELSS, ALPHAID2006, ALPHAID2007, ALPHAID2008, ALPHAID2009, ALPHAID2010, ALPHAID2011, ALPHAID2012, ALPHAID2013, ALPHAID2014, ALPHAID2015, ALPHAID2016, AMTv2, ANS+, AS4, AS4E, ATC, CAPECC, CAS, CCC, CD2, CDCEDACUITY, CDCINDUSTRY2010, CDCNHSN, CDCOBS, CDCOCCUPATION2010, CDCODH, CE, CLINVAR-V, CLP, CMSOEC, CMSOMC, COSMIC-Smpl, COSMIC-Strc, Chrom-Loc, DCL, DCM, DQL, EDLEVEL, ENTITYCODE, ENTITYHDLG, EPASRS, Ensembl-P, FDAUDI, FDAUNII, FDDC, FDDX, FDK, FIPS55_3, FIPS5_2, FIPS6_4, GDRG2004, GDRG2005, GDRG2006, GDRG2007, GDRG2008, GDRG2009, GMDC2004, GMDC2005, GMDC2006, GMDC2007, GMDC2008, GMDC2009, GS1UDI, HCPTNUCC, HGNC-Symb, HGVS.c, HGVS.g, HGVS.p, HI, HIBUDI, HOT, HSLOC, I10C, I10G2004, I10G2005, I10G2006, I10P0, I9CDX, I9CP, IBT, IBT0001, IBTnnnn, IC2, ICCUDI, ICD10AM, ICD10CA, ICD10GM2007, ICD10GM2008, ICD10GM2009, ICD10GM2010, ICD10GM2011, ICD10GM2012, ICD10GM2013, ICD10GM2014, ICD10GM2015, ICD10GM2016, ICDO, ICDO2, ICDO3, ICF, ICS, ICSD, IHELAW, ISCN, ISO, ISO+, ISO3166_1, ISO3166_2, ISO4217, ISO639, ITIS, IUPC, IUPP, JC10, JC8, JJ1017, L, LANGUAL, LRG-RefSeq, MDC, MDDX, MEDC, MEDIATYPE, MEDX, MGPI, Medgen-Dis, NAICS, NCPDPnnnnsss, NDA, NDFRT, NIC, NND, NUBC, NULLFL, O301, O3012004, O3012005, O3012006, OBSMETHOD, OHA, OPS2007, OPS2008, OPS2009, OPS2010, OPS2011, OPS2012, OPS2013, OPS2014, OPS2015, OPS2016, PHDSCSOPT, PHINQUESTION, PLR, PLT, POS, PRTCPTNMODE, RC, ROLECLASS, ROLECODE, RSPMODE, RXNORM, RefSeq-P, RxT-Ingrd, SCT2, SDM, SIC, SOC, UB04FL14, UB04FL15, UB04FL17, UB04FL31, UB04FL35, UB04FL39, UB04FL42, UB04FL67, UC, UMD, UPC, UPIN, USGSGNIS, USPS, VIS, X12DEnnnn, X12Dennnn, dbVar-GL, dbVar-som, ensembl-G, ensembl-T, refSeq-G, refSeq-T",-,changed,Z32 Z42,HL70396,
+RXA-9.6,,Codes,"removed: ACR, ACTCODE, ACTRELSS, ALPHAID2006, ALPHAID2007, ALPHAID2008, ALPHAID2009, ALPHAID2010, ALPHAID2011, ALPHAID2012, ALPHAID2013, ALPHAID2014, ALPHAID2015, ALPHAID2016, AMTv2, ANS+, AS4, AS4E, ATC, CAPECC, CAS, CCC, CD2, CDCEDACUITY, CDCINDUSTRY2010, CDCNHSN, CDCOBS, CDCOCCUPATION2010, CDCODH, CE, CLINVAR-V, CLP, CMSOEC, CMSOMC, COSMIC-Smpl, COSMIC-Strc, Chrom-Loc, DCL, DCM, DQL, EDLEVEL, ENTITYCODE, ENTITYHDLG, EPASRS, Ensembl-P, FDAUDI, FDAUNII, FDDC, FDDX, FDK, FIPS55_3, FIPS5_2, FIPS6_4, GDRG2004, GDRG2005, GDRG2006, GDRG2007, GDRG2008, GDRG2009, GMDC2004, GMDC2005, GMDC2006, GMDC2007, GMDC2008, GMDC2009, GS1UDI, HCPTNUCC, HGNC-Symb, HGVS.c, HGVS.g, HGVS.p, HI, HIBUDI, HOT, HSLOC, I10C, I10G2004, I10G2005, I10G2006, I10P0, I9CDX, I9CP, IBT, IBT0001, IBTnnnn, IC2, ICCUDI, ICD10AM, ICD10CA, ICD10GM2007, ICD10GM2008, ICD10GM2009, ICD10GM2010, ICD10GM2011, ICD10GM2012, ICD10GM2013, ICD10GM2014, ICD10GM2015, ICD10GM2016, ICDO, ICDO2, ICDO3, ICF, ICS, ICSD, IHELAW, ISCN, ISO, ISO+, ISO3166_1, ISO3166_2, ISO4217, ISO639, ITIS, IUPC, IUPP, JC10, JC8, JJ1017, L, LANGUAL, LRG-RefSeq, MDC, MDDX, MEDC, MEDIATYPE, MEDX, MGPI, Medgen-Dis, NAICS, NCPDPnnnnsss, NDA, NDFRT, NIC, NND, NUBC, NULLFL, O301, O3012004, O3012005, O3012006, OBSMETHOD, OHA, OPS2007, OPS2008, OPS2009, OPS2010, OPS2011, OPS2012, OPS2013, OPS2014, OPS2015, OPS2016, PHDSCSOPT, PHINQUESTION, PLR, PLT, POS, PRTCPTNMODE, RC, ROLECLASS, ROLECODE, RSPMODE, RXNORM, RefSeq-P, RxT-Ingrd, SCT2, SDM, SIC, SOC, UB04FL14, UB04FL15, UB04FL17, UB04FL31, UB04FL35, UB04FL39, UB04FL42, UB04FL67, UC, UMD, UPC, UPIN, USGSGNIS, USPS, VIS, X12DEnnnn, X12Dennnn, dbVar-GL, dbVar-som, ensembl-G, ensembl-T, refSeq-G, refSeq-T",-,changed,Z32 Z42,HL70396,
+PD1-16,,Codes,removed: O,-,changed,Z31,HL70441,
+ERR-5,,Codes,"removed: 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2211, 2212, 2213, 2214, 2215, 2216, 2217, 2507, 2508, 3001, 3002, 3003, 3004, 3005, 3006, 3007, 3008, 3009, 3010, 3011, 3012, 3013, 3014, 3015, 3016, 3017, 3018, 3019, 3020, 3021, 3022, 3023, 3024, 3025, 3026, 3027, 3028, 3029, 3030, 3031, 3032, 3033, 3034, 3035, 3036, 3037, 3038, 3039, 3040, 3041, 3042, 3043, 3044, 3045, 3046, 3047, 3048, 3049, 3050, 3051, 3052, 3053, 3054, 3055, 3056, 3057, 3058, 3059, 3060, 3061, 3062, 3063, 3064, 3065, 3066, 3067, 3068, 3069, 3070, 3071, 3072, 3074, 3075, 3076, 3501, 3502, 3503, 3504, 3505, 3506, 3507, 3508, 3509, 3510, 3511, 3512, 3513, 3514, 3515, 3516, 3517, 3518, 3519, 3520, 3521, 3522, 3523, 3524, 3525, 3526, 3527, 3528, 3529, 3530, 3531, 3532, 3533, 3534, 3535, 3536, 3537, 3538, 3539, 3540, 3541, 3542, 3543, 3544, 3545, 3546, 3547, 3548, 3549, 3550, 3551, 3552, 3553, 3554, 3555, 3556, 3557, 3558, 3559, 3560, 3561, 3562, 3563, 3564, 3565, 3566, 3567, 3568, 3569, 3570, 3571, 3572, 3574, 3575, 3576, 5001, 5002, 5003, 5004, 5005, 5006, 5007, 5008, 5009, 5010, 5011, 5012, 5013, 5014, 5015, 5016, 5017, 5018, 5019, 5020, 5021, 5022, 5023, 5024, 5025, 5026, 5027, 5028, 5029, 5030, 5031, 5032, 5033, 5034, 5035, 5036, 5037, 5038, 5039, 5040, 5041, 5042, 5043",-,changed,Z23 Z31 Z32 Z33 Z42,HL70533,
+OBX-3,,Codes,-,"added: 48767-8, 75323-6, 85585-8, 88877-6, 88878-4, 88879-2, 99500-1",changed,Z22,LN,
+OBX-3,,Codes,-,"added: 93122-0, 93123-8",changed,Z32,LN,

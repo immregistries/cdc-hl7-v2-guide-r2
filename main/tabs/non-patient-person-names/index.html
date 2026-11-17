@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Messaging Non-patient Person Names in HL7 · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="" data-root="../../" data-card="tab-non-patient-person-names">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../quality/index.html">Quality review</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../tabs/index.html">TAB Comparison</a></nav>
+<p class="eyebrow">Technical Advisory Bulletin · July 2025</p>
+<h1>Messaging Non-patient Person Names in HL7</h1>
+<p class="lede">Extends the patient name work to mother&#x27;s maiden name (PID-6, QPD-5), responsible person (NK1-2), and the provider names in ORC-10, ORC-12, and RXA-10.</p>
+<p><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_non-patient_person_names.pdf" rel="noopener" target="_blank">Published PDF</a> · <a href="../../tabs/files/2025-07-non-patient-person-names.pdf">Copy in this repository</a></p>
+
+
+<h2>Guide sections it affects</h2><ul class="tab-cards"><li><a href="../../non-patient-person-names/index.html">4.5.2.11 Non-Patient Person Names</a></li><li><a href="../../special-characters/index.html">4.5.2.8 Special Characters</a></li></ul>
+<h2>Summary</h2><p>Section 4.5.2.11 (Non-Patient Person Names) carries this short TAB over almost word for word: spaces and hyphens, special characters, case, 64 characters, and the NK1-2 name type rules, with the &#x27;L&#x27;-first requirement retired. IGAMT agrees (NK1-2.7 is required). One error: the guide lists &quot;ORC-1 Entered By&quot;; Entered By is ORC-10. The TAB&#x27;s table of which fields apply to VXU, QBP, and RSP is not carried over.</p>
+<p class="stats">Findings: <span class="sev-chip sev-warning">1 warning</span><br><span class="mini">Results: Conflict 1 · Covered 6</span></p>
+<p class="mini">Reviewed 2026-11-16 against the narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026.
+Recorded in <code>quality/tabs/non-patient-person-names.yml</code>.</p>
+<h2>Requirement by requirement</h2>
+<table class="tab-items"><thead><tr><th>The TAB says</th><th>Result</th><th>In the guide</th></tr></thead>
+<tbody><tr id="tab-npn-01" class="r-conflict"><td><p class="tab-where">Scope (Table 1) <span class="mini">p. 2-3</span></p>The fields covered: PID-6 Mother&#x27;s Maiden Name (VXU, QBP as QPD-5, RSP), NK1-2 Responsible Person Name, ORC-10 Entered By, ORC-12 Ordering Provider, and RXA-10 Administering Provider (VXU and RSP).</td><td><span class="tab-result r-conflict" title="The guide or the profiles say something different.">Conflict</span> <a class="sev-chip sev-warning" href="../../quality/index.html#qf-tab-npn-01" title="Quality finding qf-tab-npn-01">Warning</a><p class="tab-note">The guide&#x27;s list has &quot;ORC-1 Entered By&quot;. ORC-1 is the Order Control code; Entered By is ORC-10. The other four fields are right. The guide does not say which message types each field applies to.</p><p class="tab-rec"><strong>Recommendation:</strong> Change &quot;ORC-1&quot; to &quot;ORC-10&quot;, and add the TAB&#x27;s Table 1 (field by VXU, QBP, RSP).</p><p class="mini">Action: Narrative</p></td><td><a href="../../non-patient-person-names/index.html">4.5.2.11 Non-Patient Person Names</a></td></tr><tr id="tab-npn-02" class="r-covered"><td><p class="tab-where">Clarifications and Conformance Expectations <span class="mini">p. 3</span></p><span class="tab-verb">SHALL</span> For these five fields, systems SHALL preserve spaces and hyphens.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span></td><td><a href="../../non-patient-person-names/index.html#non-patient-person-names--s1">4.5.2.11 s1</a></td></tr><tr id="tab-npn-03" class="r-covered"><td><p class="tab-where">Clarifications and Conformance Expectations (Table 2) <span class="mini">p. 3-4</span></p><span class="tab-verb">SHALL</span> Systems SHALL support commonly used special characters by storing them as is or, if necessary, downgrading them following the transliterations in Table 2 (the same 18 characters as the PID-5 TAB).</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide says &quot;commonly used diacritics or transliterations&quot; and relies on 4.5.2.8 (Special Characters), which covers &quot;a patient or person name&quot;, for the list and the table.</p></td><td><a href="../../non-patient-person-names/index.html#non-patient-person-names--s2">4.5.2.11 s2</a>, <a href="../../special-characters/index.html#special-characters--s1">4.5.2.8 s1</a>, <a href="../../special-characters/index.html#special-characters--s2">4.5.2.8 s2</a>, <a href="../../special-characters/index.html#special-characters--s4">4.5.2.8 s4</a></td></tr><tr id="tab-npn-04" class="r-covered"><td><p class="tab-where">Clarifications and Conformance Expectations <span class="mini">p. 3</span></p><span class="tab-verb">SHOULD</span> Systems SHOULD support preservation of case, and names with up to 64 characters in the first, middle, and last name components.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span></td><td><a href="../../non-patient-person-names/index.html#non-patient-person-names--s3">4.5.2.11 s3</a></td></tr><tr id="tab-npn-05" class="r-covered"><td><p class="tab-where">Additional specifications for NK1-2 <span class="mini">p. 4</span></p><span class="tab-verb">SHOULD, SHALL</span> Submitting systems SHOULD send the most reliable and commonly used responsible person name, preferably the official registry name (&#x27;L&#x27;), and SHALL populate NK1-2.7 to reflect the type of name in each NK1-2 repetition.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide says &quot;SHOULD use the official registry (&#x27;L&#x27;) name when known&quot;, without &quot;the most reliable and commonly used name&quot;. IGAMT makes NK1-2.7 required (XPN_IZ01), which matches the SHALL.</p></td><td><a href="../../non-patient-person-names/index.html#non-patient-person-names--s4">4.5.2.11 s4</a></td></tr><tr id="tab-npn-06" class="r-covered"><td><p class="tab-where">Implications <span class="mini">p. 4</span></p>The PID-5 specifications extend to these fields where applicable. For NK1-2, &#x27;L&#x27; no longer has to be in the first repetition (backward compatibility to HL7 v2.2 is dropped).</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span></td><td><a href="../../non-patient-person-names/index.html">4.5.2.11 Non-Patient Person Names</a></td></tr><tr id="tab-npn-07" class="r-covered"><td><p class="tab-where">Out of Scope <span class="mini">p. 3</span></p>Which name type codes beyond &#x27;L&#x27; are valid in NK1-2, and deduplication rules, are out of scope.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide is likewise silent on NK1-2 name types. In IGAMT, NK1-2 uses XPN_IZ01, the official registry name flavor (given and family name required) for every repetition, whatever its name type; the TAB does not address this.</p></td><td><a href="../../non-patient-person-names/index.html">4.5.2.11 Non-Patient Person Names</a></td></tr></tbody></table>
+</article>
+<section class="comments" id="comments" aria-label="Comments"></section>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-17 17:18 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 89c3957.
+  <a href="../../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "tab-non-patient-person-names", "title": "Messaging Non-patient Person Names in HL7", "targets": [{"i": 0, "label": "Whole page"}]};</script>
+<script src="../../assets/comments.js"></script>
+</body>
+</html>

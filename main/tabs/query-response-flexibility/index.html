@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Query Response Flexibility: Z31 Response for Z34 and Z44 Queries · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="" data-root="../../" data-card="tab-query-response-flexibility">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../quality/index.html">Quality review</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../tabs/index.html">TAB Comparison</a></nav>
+<p class="eyebrow">Technical Advisory Bulletin · January 2024</p>
+<h1>Query Response Flexibility: Z31 Response for Z34 and Z44 Queries</h1>
+<p class="lede">A Z31 list of candidates MAY be returned for a Z44 query as well as for a Z34 query.</p>
+<p><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_20query_20response_20flexibility.pdf" rel="noopener" target="_blank">Published PDF</a> · <a href="../../tabs/files/2024-01-query-response-flexibility.pdf">Copy in this repository</a></p>
+
+
+<h2>Guide sections it affects</h2><ul class="tab-cards"><li><a href="../../unified-z34-and-z44-profile-model/index.html">3.4.2 Unified Z34 and Z44 Profile Model</a></li><li><a href="../../selecting-a-candidate-match/index.html">3.4.6 Selecting a Candidate Match</a></li><li><a href="../../purpose-and-scope-of-rsp-profiles/index.html">3.5.1 Purpose and Scope of RSP Profiles</a></li><li><a href="../../rsp-response-profiles/index.html">3.5.2 RSP Response Profiles</a></li><li><a href="../../z31-return-a-list-of-candidates/index.html">3.5.2.3 Z31 - Return a List of Candidates</a></li></ul>
+<h2>Summary</h2><p>The guide adopts this TAB: section 3.5.2.3 says a Z31 MAY be returned for either a Z34 or a Z44 query, and leaves whether to return candidates to IIS policy. Two gaps: the TAB&#x27;s one SHALL, that querying systems be prepared to receive a Z31 for either query, is not stated; and the IGAMT Z31 profile still requires QPD-1 to be Z34, so a Z31 answering a Z44 query fails validation.</p>
+<p class="stats">Findings: <span class="sev-chip sev-issue">1 issue</span> <span class="sev-chip sev-warning">1 warning</span> <span class="sev-chip sev-note">1 note</span><br><span class="mini">Results: Conflict 1 · Missing 1 · Partly covered 1 · Covered 2</span></p>
+<p class="mini">Reviewed 2026-11-17 against the narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026.
+Recorded in <code>quality/tabs/query-response-flexibility.yml</code>.</p>
+<h2>Requirement by requirement</h2>
+<table class="tab-items"><thead><tr><th>The TAB says</th><th>Result</th><th>In the guide</th></tr></thead>
+<tbody><tr id="tab-qrf-01" class="r-covered"><td><p class="tab-where">Executive Summary; MAY requirements <span class="mini">p. 1</span></p><span class="tab-verb">MAY</span> A Z31 RSP MAY be returned in response to a Z44 QBP, as well as to a Z34 QBP.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span></td><td><a href="../../z31-return-a-list-of-candidates/index.html#z31-return-a-list-of-candidates--s1">3.5.2.3 s1</a>, <a href="../../selecting-a-candidate-match/index.html#selecting-a-candidate-match--s1">3.4.6 s1</a></td></tr><tr id="tab-qrf-02" class="r-missing"><td><p class="tab-where">SHALL requirements <span class="mini">p. 1</span></p><span class="tab-verb">SHALL</span> The querying system SHALL be prepared to receive a Z31 response to either a Z34 or a Z44 query.</td><td><span class="tab-result r-missing" title="Not in the guide.">Missing</span> <a class="sev-chip sev-warning" href="../../quality/index.html#qf-tab-qrf-02" title="Quality finding qf-tab-qrf-02">Warning</a><p class="tab-note">The guide tells querying systems how to re-query after a user selects a candidate, but does not require them to accept a Z31 for a Z44 query. A system built to the earlier guide, where a Z44 could not get a Z31, may not.</p><p class="tab-rec"><strong>Recommendation:</strong> Add to 3.5.2.3: &quot;Querying systems SHALL be prepared to receive a Z31 response to either a Z34 or a Z44 query.&quot;</p><p class="mini">Action: Narrative</p></td><td><a href="../../z31-return-a-list-of-candidates/index.html">3.5.2.3 Z31 - Return a List of Candidates</a>, <a href="../../selecting-a-candidate-match/index.html">3.4.6 Selecting a Candidate Match</a>, <a href="../../unified-z34-and-z44-profile-model/index.html">3.4.2 Unified Z34 and Z44 Profile Model</a></td></tr><tr id="tab-qrf-03" class="r-covered"><td><p class="tab-where">MAY requirements; Out of scope <span class="mini">p. 1</span></p><span class="tab-verb">MAY</span> IIS that already return a Z31 for both queries MAY continue; IIS that return one only for a Z34 MAY also return one for a Z44; IIS that do not return a Z31 for a Z34 MAY also not return one for a Z44. Whether an IIS returns a Z31, and what it contains, is IIS policy.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide says a Z31 is returned when &quot;IIS policy allows limited identifying information for those candidates to be returned&quot;.</p></td><td><a href="../../z31-return-a-list-of-candidates/index.html#z31-return-a-list-of-candidates--s1">3.5.2.3 s1</a>, <a href="../../z31-return-a-list-of-candidates/index.html">3.5.2.3 Z31 - Return a List of Candidates</a></td></tr><tr id="tab-qrf-04" class="r-conflict"><td><p class="tab-where">Z31 compared with IGAMT <span class="mini">p. 1</span></p>A Z31 MAY answer a Z44 query.</td><td><span class="tab-result r-conflict" title="The guide or the profiles say something different.">Conflict</span> <a class="sev-chip sev-issue" href="../../quality/index.html#qf-tab-qrf-04" title="Quality finding qf-tab-qrf-04">Issue</a><p class="tab-note">The IGAMT Z31 profile has IZ-67a (&quot;QPD-1.1 shall contain the value &#x27;Z34&#x27;&quot;) and IZ-67b (QPD-1.2 &quot;Request Immunization History&quot;). The RSP echoes the query&#x27;s QPD, so a Z31 answering a Z44 fails validation. The Z33 profile already allows either query (IZ-71a and IZ-71b).</p><p class="tab-rec"><strong>Recommendation:</strong> Replace IZ-67a and IZ-67b in the Z31 profile with the Z34-or-Z44 constraints used in Z33 (IZ-71a, IZ-71b).</p><p class="mini">Action: IGAMT</p></td><td><a href="../../z31-return-a-list-of-candidates/index.html#z31-return-a-list-of-candidates--s1">3.5.2.3 s1</a>, <a href="../../response-rsp-profiles/index.html">3.5 Response (RSP) Profiles</a></td></tr><tr id="tab-qrf-05" class="r-partial"><td><p class="tab-where">Background <span class="mini">p. 1</span></p>The earlier guide named the Z31 only as a response to a Z34.</td><td><span class="tab-result r-partial" title="Some of it is in the guide.">Partly covered</span> <a class="sev-chip sev-note" href="../../quality/index.html#qf-tab-qrf-05" title="Quality finding qf-tab-qrf-05">Note</a><p class="tab-note">Section 3.5.1 says RSP content &quot;SHALL be consistent with the profile requested (Z34 or Z44)&quot; and names only Z32 and Z42 as defaults, without saying which responses each query can receive.</p><p class="tab-rec"><strong>Recommendation:</strong> Add a short table to 3.5.1 or 3.5.2 of the responses each query can receive (Z34 → Z31, Z32, Z33; Z44 → Z31, Z33, Z42).</p><p class="mini">Action: Narrative</p></td><td><a href="../../purpose-and-scope-of-rsp-profiles/index.html">3.5.1 Purpose and Scope of RSP Profiles</a>, <a href="../../rsp-response-profiles/index.html">3.5.2 RSP Response Profiles</a></td></tr></tbody></table>
+</article>
+<section class="comments" id="comments" aria-label="Comments"></section>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-17 17:18 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 89c3957.
+  <a href="../../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "tab-query-response-flexibility", "title": "Query Response Flexibility: Z31 Response for Z34 and Z44 Queries", "targets": [{"i": 0, "label": "Whole page"}]};</script>
+<script src="../../assets/comments.js"></script>
+</body>
+</html>

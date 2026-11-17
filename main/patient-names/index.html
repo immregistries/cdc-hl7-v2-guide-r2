@@ -34,7 +34,10 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../patient-information/index.html">4.5 Patient Information</a> <span>›</span> <a href="../patient-and-other-names/index.html">4.5.2 Patient and Other Names</a></nav>
 <header class="card-head"><h1><span class="num">4.5.2.1</span> Patient Names</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-
+<aside class="findings sev-warning" id="findings" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 warning · 1 note</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-tab-pn-05"><span class="sev">Warning</span> TAB Patient Name (PID-5) Updates to Support Patient Matching (Table 1 compared with the IGAMT value set): Conflict. HL70200_IZ01 (closed) does not include REL, MSK, or NOUSE, which the TAB allows (MAY), so they cannot be sent. It allows D (P), which the TAB says SHOULD NOT be supported, and leaves out NAV, TEMP, BAD, F, and K. It also has R and S (both E), which are not in the TAB&#x27;s table.<div class="evidence"><div class="ev-tags"><span>Conflict</span><span>Action: IGAMT</span></div><div class="ev"><span class="ev-k">TAB</span> Table 1 gives the usage of each HL70200 code for PID-5 (R for L; P for the others allowed; E for F, I, K, P).</div><div class="ev"><span class="ev-k">Recommendation</span> Align HL70200_IZ01 with Table 1, including its usage for each code.</div></div><p class="mini"><a href="../tabs/patient-name-pid-5/index.html#tab-pn-05">See the TAB comparison</a></p><a class="f-id" href="../quality/index.html#qf-tab-pn-05">qf-tab-pn-05</a></li><li class="finding sev-note" id="qf-tab-pn-17"><span class="sev">Note</span> TAB Patient Name (PID-5) Updates to Support Patient Matching (Examples): Missing. The guide has figure 22 of the name types but none of these PID-5 examples.<div class="evidence"><div class="ev-tags"><span>Missing</span><span>Action: Narrative</span></div><div class="ev"><span class="ev-k">TAB</span> PID-5 examples: &#x27;L&#x27; alone; &#x27;L&#x27; with a preferred first, last, or full name (&#x27;N&#x27;); &#x27;L&#x27; with a maiden name (&#x27;M&#x27;); all three; newborn names for single and twin births, alone and with the legal name; and José González sent with accents and returned with or without them.</div><div class="ev"><span class="ev-k">Recommendation</span> Add the TAB&#x27;s examples to appendix A, linked from 4.5.2.</div></div><p class="mini"><a href="../tabs/patient-name-pid-5/index.html#tab-pn-17">See the TAB comparison</a></p><a class="f-id" href="../quality/index.html#qf-tab-pn-17">qf-tab-pn-17</a></li></ul></details></aside>
 <div class="narrative"><p>The <a class="sref" href="../structure/segments/pid/index.html#f5" title="Patient Name">PID-5</a> field represents the patient's name and may repeat for multiple name types. Correct classification of each name type allows the IIS to understand how different systems represent the same individual and to reconcile records accordingly.</p></div>
 
 
@@ -49,6 +52,8 @@ conformance statements that test it. <a href="../quality/igamt/index.html">How t
 
 
 
+<section class="related tab-related"><h2>Technical Advisory Bulletins</h2><ul><li><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_patient_name__pid-5__final.pdf" rel="noopener" target="_blank">Patient Name (PID-5) Updates to Support Patient Matching</a> <span class="mini">October 2025 · <a href="../tabs/patient-name-pid-5/index.html">comparison with this guide</a></span></li></ul></section>
+
 <section class="filter-terms" aria-label="Filter terms"><span class="mini">Filter the contents by:</span> <button type="button" class="term" data-term="patient name">patient name</button><button type="button" class="term" data-term="PID-5">PID-5</button></section>
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../patient-and-other-names/index.html"><span>Previous</span>4.5.2 Patient and Other Names</a><a class="next" href="../official-registry-name/index.html"><span>Next</span>4.5.2.2 Official Registry Name</a></nav>
 </article>
@@ -58,7 +63,7 @@ conformance statements that test it. <a href="../quality/igamt/index.html">How t
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-12 19:36 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 5e49d0e.
+  <p class="build">Built 2026-11-17 17:18 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 89c3957.
   <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guidance on Unit of Sale/Unit of Use Lot Numbers · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="" data-root="../../" data-card="sisc-unit-of-sale-unit-of-use-lot-numbers">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../quality/index.html">Quality review</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../sisc/index.html">SISC Guidance</a></nav>
+<p class="eyebrow">SISC guidance · June 2017</p>
+<h1>Guidance on Unit of Sale/Unit of Use Lot Numbers</h1>
+<p class="lede">How to handle vaccines whose carton (unit of sale) and vial or syringe (unit of use) carry different lot numbers, so that a reported dose can still be matched to inventory.</p>
+<p><a href="https://repository.immregistries.org/files/resources/596f7218ad93e/aira_sisc_vaccine_lot_number_guidance_20180614.pdf" rel="noopener" target="_blank">Published PDF</a> · <a href="../../sisc/files/2017-06-unit-of-sale-unit-of-use-lot-numbers.pdf">Copy in this repository</a></p>
+
+<p class="callout">Approved by SISC July 12, 2017; codes updated June 14, 2018. It replaces the 2015 MIROW micro-guide on validating lot numbers.</p>
+<h2>Guide sections it affects</h2><ul class="tab-cards"><li><a href="../../non-identifying-vaccination-fields/index.html">3.2.4.2 Non-Identifying Vaccination Fields</a></li><li><a href="../../administered-vaccinations/index.html">4.6.1.1 Administered Vaccinations</a></li><li><a href="../../ndc-requirements-for-administered-vaccinations/index.html">4.6.2.4.3 NDC Requirements for Administered Vaccinations</a></li><li><a href="../../inventory-and-accountability-considerations/index.html">4.6.4.5 Inventory and Accountability Considerations</a></li><li><a href="../../why-hl7-requirements-cannot-substitute-for-data-quality/index.html">5.10.5 Why HL7 Requirements Cannot Substitute for Data Quality</a></li></ul>
+<h2>Summary</h2><p>This guidance is mostly reference data for IIS and EHR developers. Its point for messaging is that the lot number recorded at administration (from the vial or syringe, the unit of use) can differ from the lot number on the carton (the unit of sale) that inventory is tracked by. The guide handles the same issue for NDCs, but says nothing about which lot number goes in RXA-15, or which lot to report for a reconstituted vaccine. It also does not point to this guidance, which developers still need for the product tables and patterns. The data in the document is from 2016 and 2018, so CDC may want to check it is still current before the guide links to it.</p>
+<p class="stats">Findings: <span class="sev-chip sev-warning">1 warning</span> <span class="sev-chip sev-note">2 notes</span><br><span class="mini">Results: Missing 1 · Partly covered 1 · Out of scope 3</span></p>
+<p class="mini">Reviewed 2026-11-17 against the narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026.
+Recorded in <code>quality/sisc/unit-of-sale-unit-of-use-lot-numbers.yml</code>.</p>
+<h2>Requirement by requirement</h2>
+<table class="tab-items"><thead><tr><th>The guidance says</th><th>Result</th><th>In the guide</th></tr></thead>
+<tbody><tr id="sisc-lot-01" class="r-missing"><td><p class="tab-where">Document Use <span class="mini">p. 1</span></p>Many systems use the unit-of-sale lot number for ordering and inventory but the unit-of-use lot number at administration. Where the two differ, the lot number recorded for a vaccination is the unit-of-use lot.</td><td><span class="tab-result r-missing" title="Not in the guide.">Missing</span> <a class="sev-chip sev-warning" href="../../quality/index.html#qf-sisc-lot-01" title="Quality finding qf-sisc-lot-01">Warning</a><p class="tab-note">The guide treats the same unit-of-use and unit-of-sale problem for NDCs, and IGAMT makes RXA-15 (lot number) required for administered doses, but the guide never says which lot number RXA-15 carries, or that it may differ from the inventory lot.</p><p class="tab-rec"><strong>Recommendation:</strong> State that RXA-15 carries the lot number of the unit administered (the vial or syringe), that for some products this differs from the unit-of-sale lot used for inventory, and link this guidance.</p><p class="mini">Action: Narrative</p></td><td><a href="../../non-identifying-vaccination-fields/index.html">3.2.4.2 Non-Identifying Vaccination Fields</a>, <a href="../../unit-of-use-and-unit-of-sale-ndcs/index.html">4.6.2.3.1 Unit-of-Use and Unit-of-Sale NDCs</a>, <a href="../../ndc-requirements-for-administered-vaccinations/index.html">4.6.2.4.3 NDC Requirements for Administered Vaccinations</a></td></tr><tr id="sisc-lot-02" class="r-out-of-scope"><td><p class="tab-where">Notes: Matching, Reconstituted Vaccines, and Regular Expression <span class="mini">p. 4</span></p>Mapping a unit-of-sale lot to a unit-of-use lot is simple, but the reverse is not (except for Menveo). An IIS that knows a provider&#x27;s inventory can usually match a reported unit-of-use lot to that provider&#x27;s single unit-of-sale lot, and resolve any discrepancies during reconciliation (see the MIROW guide on decrementing inventory via electronic data exchange).</td><td><span class="tab-result r-out-of-scope" title="Outside the scope of this guide.">Out of scope</span> <a class="sev-chip sev-note" href="../../quality/index.html#qf-sisc-lot-02" title="Quality finding qf-sisc-lot-02">Note</a><p class="tab-note">The guide deliberately &quot;does not prescribe an IIS&#x27;s internal inventory or lot-validation workflows&quot;, so this is IIS operations. Its inventory section would still benefit from a link to this guidance and to the MIROW inventory guide.</p><p class="tab-rec"><strong>Recommendation:</strong> In the inventory section, link this guidance and the MIROW guide on decrementing inventory (see the MIROW alignment proposal).</p><p class="mini">Action: Narrative</p></td><td><a href="../../inventory-and-accountability-considerations/index.html">4.6.4.5 Inventory and Accountability Considerations</a>, <a href="../../vaccine-funding-source-and-stock-models/index.html">4.6.5.2 Vaccine Funding Source and Stock Models</a></td></tr><tr id="sisc-lot-03" class="r-partial"><td><p class="tab-where">Notes: Matching, Reconstituted Vaccines, and Regular Expression <span class="mini">p. 4</span></p>For reconstituted vaccines, the unit-of-sale lot and the lot on the lyophilized vaccine powder are usually the same; the liquid diluent typically has a different lot number.</td><td><span class="tab-result r-partial" title="Some of it is in the guide.">Partly covered</span> <a class="sev-chip sev-note" href="../../quality/index.html#qf-sisc-lot-03" title="Quality finding qf-sisc-lot-03">Note</a><p class="tab-note">The guide requires the NDC of the lyophilized powder rather than the diluent, but does not say the same for the lot number. A submitter could report the diluent&#x27;s lot with the powder&#x27;s NDC.</p><p class="tab-rec"><strong>Recommendation:</strong> Extend the reconstitution statement to the lot number: report the lot of the lyophilized powder (the active product), not the diluent.</p><p class="mini">Action: Narrative</p></td><td><a href="../../ndc-requirements-for-administered-vaccinations/index.html#ndc-requirements-for-administered-vaccinations--s9">4.6.2.4.3 s9</a></td></tr><tr id="sisc-lot-04" class="r-out-of-scope"><td><p class="tab-where">Tables 1-3; Appendix A <span class="mini">p. 2-6</span></p>Tables of the vaccines whose unit-of-sale and unit-of-use lot numbers differ, with their NDCs and lot number patterns (also given as regular expressions for developers), the share of VFC volume affected (7.5 to 8.6 percent in 2015-2016), and manufacturers not surveyed. Vaccines not listed are assumed to use the same lot number on both.</td><td><span class="tab-result r-out-of-scope" title="Outside the scope of this guide.">Out of scope</span><p class="tab-note">Reference data for developers, not message requirements; the guide should point to it rather than repeat it (see sisc-lot-01). The tables date from 2016 to 2018.</p></td><td><a href="../../vaccine-code-systems-overview/index.html">4.6.2.1 Vaccine Code Systems Overview</a></td></tr><tr id="sisc-lot-05" class="r-out-of-scope"><td><p class="tab-where">Updating Information <span class="mini">p. 5</span></p>Anyone who finds a vaccine with different lot numbers on the unit of sale and unit of use should tell CDC by email, with images of the packaging if possible.</td><td><span class="tab-result r-out-of-scope" title="Outside the scope of this guide.">Out of scope</span><p class="tab-note">A request for information, not guidance for messaging.</p></td><td>—</td></tr></tbody></table>
+</article>
+<section class="comments" id="comments" aria-label="Comments"></section>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-17 17:18 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 89c3957.
+  <a href="../../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "sisc-unit-of-sale-unit-of-use-lot-numbers", "title": "Guidance on Unit of Sale/Unit of Use Lot Numbers", "targets": [{"i": 0, "label": "Whole page"}]};</script>
+<script src="../../assets/comments.js"></script>
+</body>
+</html>

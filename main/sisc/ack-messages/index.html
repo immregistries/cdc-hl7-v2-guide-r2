@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guidance for HL7 Acknowledgement Messages to Support Interoperability · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="" data-root="../../" data-card="sisc-ack-messages">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../quality/index.html">Quality review</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../sisc/index.html">SISC Guidance</a></nav>
+<p class="eyebrow">SISC guidance · October 2015</p>
+<h1>Guidance for HL7 Acknowledgement Messages to Support Interoperability</h1>
+<p class="lede">Based on a 2015 review of ACKs from 21 IIS, clarifies how to populate MSA-1, ERR-2, ERR-3, ERR-4, ERR-5, and ERR-8 so that an ACK tells the sender plainly whether the message was accepted and what, if anything, must be fixed.</p>
+<p><a href="https://repository.immregistries.org/files/resources/5835adc2add61/guidance_for_hl7_acknowledgement_messages_to_support_interoperability_.pdf" rel="noopener" target="_blank">Published PDF</a> · <a href="../../sisc/files/2015-10-ack-messages.pdf">Copy in this repository</a></p>
+
+<p class="callout">The ACK TAB (June 2026) updates and replaces much of this guidance; compare only what the TAB did not carry over. A Word copy marked v1.1 (January 2018) also exists; the published PDF (last updated October 2015) is the one compared.</p>
+<h2>Guide sections it affects</h2><ul class="tab-cards"><li><a href="../../acknowledgement-ack-message-profile/index.html">3.3 Acknowledgement (ACK) Message Profile</a></li><li><a href="../../iis-core-intent-and-message-disposition/index.html">3.3.1 IIS Core Intent and Message Disposition</a></li><li><a href="../../application-level-scope-of-ack-messages/index.html">3.3.2 Application-Level Scope of ACK Messages</a></li><li><a href="../../issue-level-reporting-using-err-segments/index.html">3.3.3 Issue-Level Reporting Using ERR Segments</a></li><li><a href="../../err-2-error-location/index.html">3.3.3.1 ERR-2: Error Location</a></li><li><a href="../../err-4-severity-code/index.html">3.3.3.2 ERR-4: Severity Code</a></li><li><a href="../../err-5-application-error-code/index.html">3.3.3.4 ERR-5: Application Error Code</a></li><li><a href="../../err-8-user-message/index.html">3.3.3.6 ERR-8: User Message</a></li><li><a href="../../msa-1-guidance/index.html">3.3.4.1 MSA-1 Guidance</a></li></ul>
+<h2>Summary</h2><p>Everything in this guidance that the ACK TAB kept is in the guide, often in stronger form: the meaning of each ERR-4 severity and what the sender must do about it, each IIS deciding the severity of its own rules, and correcting before resubmitting (including that the fault may be on the IIS side). The one deliberate reversal is MSA-1. In 2015, &#x27;AE&#x27; was returned for any Warning or Error, so a rejected message also got &#x27;AE&#x27;, and &#x27;AR&#x27; was kept for four HL7 conditions. Under the guide (following the ACK TAB), &#x27;AE&#x27; means accepted with warnings, &#x27;AR&#x27; means rejected, and one of the four conditions is no longer a reason for &#x27;AR&#x27;. Many IIS and EHRs implemented the 2015 rules, so the guide&#x27;s change history should say this plainly.</p>
+<p class="stats">Findings: <span class="sev-chip sev-note">1 note</span><br><span class="mini">Results: Conflict 1 · Covered 6</span></p>
+<p class="mini">Reviewed 2026-11-17 against the narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026.
+Recorded in <code>quality/sisc/ack-messages.yml</code>.</p>
+<h2>Requirement by requirement</h2>
+<table class="tab-items"><thead><tr><th>The guidance says</th><th>Result</th><th>In the guide</th></tr></thead>
+<tbody><tr id="sisc-ack-01" class="r-covered"><td><p class="tab-where">Scope of Guidance <span class="mini">p. 1</span></p>An ACK has exactly one MSA segment, followed by ERR segments, which may repeat (usage RE). MSA-1 and ERR-4 are the two fields that tell the sender whether processing succeeded.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span></td><td><a href="../../issue-level-reporting-using-err-segments/index.html">3.3.3 Issue-Level Reporting Using ERR Segments</a>, <a href="../../msa-1-derivation-of-message-level-disposition/index.html">3.3.4 MSA-1: Derivation of Message-Level Disposition</a></td></tr><tr id="sisc-ack-02" class="r-covered"><td><p class="tab-where">Vocabulary <span class="mini">p. 1-2</span></p>&quot;Error&quot; can mean something wrong in general, the ERR segment, the ERR-4 severity &#x27;E&#x27;, or the MSA-1 code &#x27;AE&#x27;; the guidance tries to say which meaning it intends.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide avoids the ambiguity by calling what an ERR segment reports an &quot;issue&quot; and keeping &quot;Error&quot; for the ERR-4 severity.</p></td><td><a href="../../err-4-severity-code/index.html">3.3.3.2 ERR-4: Severity Code</a>, <a href="../../issue-level-reporting-using-err-segments/index.html">3.3.3 Issue-Level Reporting Using ERR Segments</a></td></tr><tr id="sisc-ack-03" class="r-covered"><td><p class="tab-where">ERR-4 (Severity) <span class="mini">p. 2</span></p><span class="tab-verb">must</span> Each IIS decides how severe a given condition is (one IIS may treat an invalid route as an Error, another as a Warning), but what Error, Warning, and Information mean, and what the sender is expected to do, must be the same across IIS.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span></td><td><a href="../../err-4-severity-code/index.html">3.3.3.2 ERR-4: Severity Code</a>, <a href="../../err-4-severity-code/index.html#err-4-severity-code--s1">3.3.3.2 s1</a>, <a href="../../required-follow-up-actions/index.html">3.3.3.3 Required Follow-Up Actions</a></td></tr><tr id="sisc-ack-04" class="r-covered"><td><p class="tab-where">ERR-4 (Severity), Table 2 <span class="mini">p. 3</span></p>Information: the sender need not correct or resubmit. Warning: the sender must correct but need not resubmit. Error: the sender must correct and resubmit.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide keeps the same ladder and adds &quot;convey&quot; (showing the issue to users) as a step below correcting.</p></td><td><a href="../../err-4-severity-code/index.html">3.3.3.2 ERR-4: Severity Code</a>, <a href="../../required-follow-up-actions/index.html">3.3.3.3 Required Follow-Up Actions</a></td></tr><tr id="sisc-ack-05" class="r-covered"><td><p class="tab-where">ERR-4 (Severity) <span class="mini">p. 2-3</span></p>A Warning in one ERR segment does not mean the message was accepted: another ERR segment may hold an Error, so the sender must check them all.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide solves the same problem the other way round: MSA-1 now reliably says whether the message was accepted, and ERR-4 says what to do about each issue.</p></td><td><a href="../../msa-1-derivation-of-message-level-disposition/index.html">3.3.4 MSA-1: Derivation of Message-Level Disposition</a>, <a href="../../msa-1-guidance/index.html">3.3.4.1 MSA-1 Guidance</a></td></tr><tr id="sisc-ack-06" class="r-conflict"><td><p class="tab-where">MSA-1 (Acknowledgement Code), Tables 4 and 5 <span class="mini">p. 3-5</span></p>MSA-1 is &#x27;AA&#x27; when there are no ERR segments or only Information; &#x27;AE&#x27; when at least one ERR segment is a Warning or an Error (so a rejected message also gets &#x27;AE&#x27;); and &#x27;AR&#x27; only when an Error is due to an unsupported message type, event code, or processing ID, or the message cannot be processed for reasons unrelated to format or content.</td><td><span class="tab-result r-conflict" title="The guide or the profiles say something different.">Conflict</span> <a class="sev-chip sev-note" href="../../quality/index.html#qf-sisc-ack-06" title="Quality finding qf-sisc-ack-06">Note</a><p class="tab-note">Changed on purpose, following the ACK TAB. In the guide, &#x27;AE&#x27; SHALL NOT be returned when there is an Error, &#x27;AR&#x27; is returned whenever core intent is not fulfilled (any Error), and &quot;unable to process for reasons unrelated to format or content&quot; is no longer a reason for &#x27;AR&#x27;. The guide&#x27;s MSA-1 guidance explains the change but does not name this document. IIS and senders that built to the 2015 rules will send or expect &#x27;AE&#x27; for rejected messages.</p><p class="tab-rec"><strong>Recommendation:</strong> In the change history, record that the MSA-1 rules replace those in the 2015 ACK guidance (and Release 1.5): &#x27;AE&#x27; no longer covers rejections. Consider a short migration note for systems that treat &#x27;AE&#x27; as a rejection.</p><p class="mini">Action: Narrative</p></td><td><a href="../../msa-1-derivation-of-message-level-disposition/index.html">3.3.4 MSA-1: Derivation of Message-Level Disposition</a>, <a href="../../msa-1-derivation-of-message-level-disposition/index.html#msa-1-derivation-of-message-level-disposition--s2">3.3.4 s2</a>, <a href="../../msa-1-guidance/index.html">3.3.4.1 MSA-1 Guidance</a></td></tr><tr id="sisc-ack-07" class="r-covered"><td><p class="tab-where">Correction and Resubmission <span class="mini">p. 4</span></p>An ACK cannot say what data was consumed. The sender investigates each Error, corrects the issue in its own system, and resubmits the corrected data. Correcting may need a conversation with the IIS, since the problem may be on the IIS side (for example, a new CVX code the IIS does not yet accept).</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide says resubmission follows correcting the issue &quot;regardless of where it originated&quot;, and that a message needing resubmission means &quot;at least one system, on either or both sides, must investigate&quot;. What exactly to resend is a gap noted in the ACK TAB comparison.</p></td><td><a href="../../required-follow-up-actions/index.html">3.3.3.3 Required Follow-Up Actions</a></td></tr></tbody></table>
+</article>
+<section class="comments" id="comments" aria-label="Comments"></section>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-17 17:18 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 89c3957.
+  <a href="../../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "sisc-ack-messages", "title": "Guidance for HL7 Acknowledgement Messages to Support Interoperability", "targets": [{"i": 0, "label": "Whole page"}]};</script>
+<script src="../../assets/comments.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patient Status in Immunization Information Systems: Recommendations and Implementation Strategies · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="" data-root="../../" data-card="mirow-patient-status-implementation">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../quality/index.html">Quality review</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../mirow/index.html">MIROW Documents</a></nav>
+<p class="eyebrow">Related best practice guide · September 2019</p>
+<h1>Patient Status in Immunization Information Systems: Recommendations and Implementation Strategies</h1>
+<p class="lede">A companion to the MIROW patient status guide that bridges its recommendations and how IIS actually put them into practice.</p>
+<p><a href="https://repository.immregistries.org/files/resources/5db70560c31dd/aira_patient_status_in_iis.pdf" rel="noopener" target="_blank">Published PDF</a> · <a href="../../mirow/files/2019-09-patient-status-recommendations-and-implementation.pdf">Copy in this repository</a> · <a href="https://repository.immregistries.org/resource/patient-status-in-immunization-information-systems/" rel="noopener" target="_blank">Repository page</a></p>
+
+
+<h2>Guide sections it affects</h2><ul class="tab-cards"><li><a href="../../provider-reported-status/index.html">4.5.7.1 Provider-Reported Status</a></li><li><a href="../../deceased-status/index.html">4.5.7.3 Deceased Status</a></li><li><a href="../../patient-demographic-records-and-vxus-without-immunizations/index.html">3.2.5.6 Patient Demographic Records and VXUs Without Immunizations</a></li></ul>
+<h2>Summary</h2><p>This report explains why the patient status gaps found in the MIROW comparison matter in practice. It names the fields an IIS reads for status: PD1-16 and PD1-17 directly, PID-29 and PID-30 for a death, and the RXA and PD1-11 and PD1-12 indirectly. It found that EHRs send status only when they send a vaccination, because most trigger a VXU only when a dose is given, so a death or a change in status recorded in the EHR never reaches the IIS. It also observed that MIROW&#x27;s recommendations are not part of the HL7 guide, so EHRs neither know about them nor are held to them. The guide can now close part of that gap. It already allows a VXU without vaccinations, but only for correcting demographics or preparing for a vaccination; it could name status changes and deaths as permitted reasons. It could also name the status fields (see mirow-mps-02 and mirow-mps-06). Its profile already lets a death be reported without a date, which the report recommends for manual entry.</p>
+<p class="stats">Findings: <span class="sev-chip sev-note">2 notes</span><br><span class="mini">Results: Partly covered 2 · Covered 3</span></p>
+<p class="mini">Reviewed 2026-11-17 against the narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026.
+Recorded in <code>quality/mirow/patient-status-implementation.yml</code>.</p>
+<h2>Where the guide connects</h2>
+<table class="tab-items"><thead><tr><th>The best practice says</th><th>Result</th><th>In the guide</th></tr></thead>
+<tbody><tr id="mirow-psi-01" class="r-partial"><td><p class="tab-where">Section 2 (provider level), Appendix D - The HL7 fields for patient status, and why EHRs don&#x27;t send them <span class="mini">p. 10, 57</span></p>PD1-16 and PD1-17 directly identify the patient status and its date, and PID-30 and PID-29 report a death with its date. The RXA, PD1-11, and PD1-12 can be used to infer status. EHR vendors said MIROW&#x27;s recommendations &quot;are not part of the HL7 VXU transaction standard&quot; or of EHR certification, so most EHRs don&#x27;t know about them.</td><td><span class="tab-result r-partial" title="Some of it is in the guide.">Partly covered</span> <a class="sev-chip sev-note" href="../../quality/index.html#qf-mirow-psi-01" title="Quality finding qf-mirow-psi-01">Note</a><p class="tab-note">The guide&#x27;s profile has all these fields, but its patient status sections don&#x27;t name them. That is the gap the report describes. Covered by the recommendations in mirow-mps-02 (PD1-16, PD1-17) and mirow-mps-06 (PID-29, PID-30), and by mirow-pbr-07 for PD1-11.</p><p class="tab-rec"><strong>Recommendation:</strong> Apply mirow-mps-02 and mirow-mps-06, which bring MIROW&#x27;s status codes into the guide that EHRs are certified against.</p><p class="mini">Action: Narrative</p></td><td><a href="../../provider-reported-status/index.html">4.5.7.1 Provider-Reported Status</a>, <a href="../../deceased-status/index.html">4.5.7.3 Deceased Status</a></td></tr><tr id="mirow-psi-02" class="r-partial"><td><p class="tab-where">Section 2 (EHR survey), Appendix D - Status changes are sent only with a vaccination <span class="mini">p. 13, 57</span></p>EHRs send patient status only when an administered immunization is also included. Most trigger a VXU only when a vaccination is given, none send ADT, and if a provider learns a patient has moved or died, that information may never reach the IIS.</td><td><span class="tab-result r-partial" title="Some of it is in the guide.">Partly covered</span> <a class="sev-chip sev-note" href="../../quality/index.html#qf-mirow-psi-02" title="Quality finding qf-mirow-psi-02">Note</a><p class="tab-note">The guide requires IIS to accept a VXU with no vaccinations, but describes it for &quot;correcting a patient&#x27;s name, address, or date of birth on an existing immunization record, or updating demographic information in advance of an anticipated vaccination event&quot;. It also asks submitters to limit such messages and to use ADT where available. A provider reporting a death, or that a patient has moved or is no longer a patient, is not named as a reason. An EHR reading the guide could conclude it should not send one.</p><p class="tab-rec"><strong>Recommendation:</strong> In Patient Demographic Records and VXUs Without Immunizations, name reporting a death (PID-29, PID-30) and a change in the provider&#x27;s patient status (PD1-16, PD1-17) as appropriate uses of a VXU without vaccinations.</p><p class="mini">Action: Narrative</p></td><td><a href="../../patient-demographic-records-and-vxus-without-immunizations/index.html">3.2.5.6 Patient Demographic Records and VXUs Without Immunizations</a>, <a href="../../types-of-information-carried-in-a-vxu/index.html#types-of-information-carried-in-a-vxu--s2">3.2.2 s2</a>, <a href="../../deceased-status/index.html">4.5.7.3 Deceased Status</a></td></tr><tr id="mirow-psi-03" class="r-covered"><td><p class="tab-where">Deceased Records Challenge 1 - Death reported without a date <span class="mini">p. 22</span></p>Providers should be able to mark a patient deceased by entry and by electronic exchange. A date of death should not be required for manual entry, because providers often learn of a death without the date. The report notes that the HL7 guide requires additional information to confirm a death in an electronic message, which helps avoid marking thousands of records deceased by a coding error, and does not recommend changing that.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">In this guide&#x27;s profile PID-30 is RE and PID-29 is RE only when PID-30 is &#x27;Y&#x27;, so a death can be sent without a date. That meets the report&#x27;s need. It also means a single field now reports a death, so an IIS relies on its own confirmation (MIROW BR421, see mirow-mps-06) for the safeguard the report valued. ERR-5 code 2007 reports conflicting death information.</p></td><td><a href="../../deceased-status/index.html">4.5.7.3 Deceased Status</a></td></tr><tr id="mirow-psi-04" class="r-covered"><td><p class="tab-where">Section 2 - A new vaccination makes the patient active again <span class="mini">p. 16</span></p>An inactive patient should become active again for a provider whenever that provider submits a new immunization, except for a deceased patient, without requiring the status field to be sent.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">This is the indirect inference MIROW describes (see mirow-mps-09). The guide treats it as IIS-derived status, and deceased takes precedence.</p></td><td><a href="../../iis-derived-status-and-jurisdictional-views/index.html">4.5.7.4 IIS-Derived Status and Jurisdictional Views</a>, <a href="../../deceased-status/index.html#deceased-status--s1">4.5.7.3 s1</a></td></tr><tr id="mirow-psi-05" class="r-covered"><td><p class="tab-where">Section 3 - Deceased status at both levels <span class="mini">p. 35</span></p>A deceased status at the jurisdiction level should always promote to the provider level, and the reverse.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span></td><td><a href="../../deceased-status/index.html">4.5.7.3 Deceased Status</a></td></tr></tbody></table>
+</article>
+<section class="comments" id="comments" aria-label="Comments"></section>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-17 17:18 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 89c3957.
+  <a href="../../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "mirow-patient-status-implementation", "title": "Patient Status in Immunization Information Systems: Recommendations and Implementation Strategies", "targets": [{"i": 0, "label": "Whole page"}]};</script>
+<script src="../../assets/comments.js"></script>
+</body>
+</html>

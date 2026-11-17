@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guidance on Populating OBX-14 · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="" data-root="../../" data-card="sisc-obx-14-observation-date-time">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../quality/index.html">Quality review</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../sisc/index.html">SISC Guidance</a></nav>
+<p class="eyebrow">SISC guidance · September 2019</p>
+<h1>Guidance on Populating OBX-14</h1>
+<p class="lede">What the observation date-time (OBX-14) means for the common observation types in VXU and RSP messages, many of which are not physiological.</p>
+<p><a href="https://repository.immregistries.org/files/resources/5d782f0f88b83/observation_date-time_guidance_document_v1_0.pdf" rel="noopener" target="_blank">Published PDF</a> · <a href="../../sisc/files/2019-09-obx-14-observation-date-time.pdf">Copy in this repository</a></p>
+
+
+<h2>Guide sections it affects</h2><ul class="tab-cards"><li><a href="../../obx-14-date-time-of-the-observation/index.html">4.4.2.6 OBX-14 Date/Time of the Observation</a></li><li><a href="../../date-semantics/index.html">4.8.6.3 Date Semantics</a></li></ul>
+<h2>Summary</h2><p>The guide&#x27;s OBX-14 section (4.4.2.6) reproduces this guidance&#x27;s principles almost word for word, including how OBX-14 relates to RXA-3. It leaves out the table that says which date to use for each common observation (eligibility, funding source, VIS, reaction, comment, evaluation, forecast), and the advice to agree any other meaning with trading partners. It also loosens the basic rule from &quot;when the observation occurred&quot; to &quot;occurred or was recorded&quot;, and the section on condition date semantics (4.8.6.3) goes further, defining OBX-14 as the date a condition was recorded. That contradicts this guidance&#x27;s summary, which says OBX-14 is the time of the observation, not when it is reported.</p>
+<p class="stats">Findings: <span class="sev-chip sev-warning">2 warnings</span> <span class="sev-chip sev-note">1 note</span><br><span class="mini">Results: Partly covered 2 · Reworded 1 · Covered 3 · Out of scope 1</span></p>
+<p class="mini">Reviewed 2026-11-17 against the narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026.
+Recorded in <code>quality/sisc/obx-14-observation-date-time.yml</code>.</p>
+<h2>Requirement by requirement</h2>
+<table class="tab-items"><thead><tr><th>The guidance says</th><th>Result</th><th>In the guide</th></tr></thead>
+<tbody><tr id="sisc-obx14-01" class="r-partial"><td><p class="tab-where">Out of Scope <span class="mini">p. 1</span></p><span class="tab-verb">should</span> For observations this guidance does not cover, trading partners should agree what OBX-14 means. Effective and expiration dates for indications and contraindications use their own LOINC codes.</td><td><span class="tab-result r-partial" title="Some of it is in the guide.">Partly covered</span> <a class="sev-chip sev-note" href="../../quality/index.html#qf-sisc-obx14-01" title="Quality finding qf-sisc-obx14-01">Note</a><p class="tab-note">The guide covers the related-date codes, but not the advice to agree OBX-14&#x27;s meaning with trading partners for other observations.</p><p class="tab-rec"><strong>Recommendation:</strong> Add a sentence that the meaning of OBX-14 for other observations is agreed between trading partners.</p><p class="mini">Action: Narrative</p></td><td><a href="../../obx-14-date-time-of-the-observation/index.html">4.4.2.6 OBX-14 Date/Time of the Observation</a></td></tr><tr id="sisc-obx14-02" class="r-reworded"><td><p class="tab-where">Populating OBX-14 (principles) <span class="mini">p. 1</span></p><span class="tab-verb">should</span> OBX-14 should be when the event (observation) occurred. For observations spanning several days (pregnancy, allergies), use the onset. For serology, use the date/time the blood was drawn.</td><td><span class="tab-result r-reworded" title="The guide says it differently; check that the meaning is unchanged.">Reworded</span> <a class="sev-chip sev-warning" href="../../quality/index.html#qf-sisc-obx14-02" title="Quality finding qf-sisc-obx14-02">Warning</a><p class="tab-note">Section 4.4.2.6 says OBX-14 should reflect when the observation &quot;occurred or was recorded&quot;, adding &quot;recorded&quot;. Section 4.8.6.3 says OBX-14 &quot;represents the date the observation was authored or recorded&quot; and &quot;does not indicate when the underlying condition began&quot;, except for ongoing conditions. This guidance&#x27;s summary is explicit that OBX-14 reflects the time of the observation &quot;and not when the message is created&quot;.</p><p class="tab-rec"><strong>Recommendation:</strong> Drop &quot;or recorded&quot; in 4.4.2.6, and align 4.8.6.3 with it: OBX-14 is when the observation occurred (the onset for ongoing conditions). If CDC prefers the recording date for conditions, say so in 4.4.2.6 as an exception.</p><p class="mini">Action: Narrative</p></td><td><a href="../../obx-14-date-time-of-the-observation/index.html">4.4.2.6 OBX-14 Date/Time of the Observation</a>, <a href="../../date-semantics/index.html">4.8.6.3 Date Semantics</a></td></tr><tr id="sisc-obx14-03" class="r-covered"><td><p class="tab-where">Populating OBX-14 (principles) <span class="mini">p. 1</span></p>Observations with related effective and abatement date codes (general observations, indications, contraindications) need no OBX-14 in the primary OBX, as long as the related date OBX is sent; the onset and abatement date OBXs need no OBX-14 either.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span></td><td><a href="../../obx-14-date-time-of-the-observation/index.html">4.4.2.6 OBX-14 Date/Time of the Observation</a></td></tr><tr id="sisc-obx14-04" class="r-covered"><td><p class="tab-where">Populating OBX-14 (principles) <span class="mini">p. 1</span></p><span class="tab-verb">should</span> If the value is not known, OBX-14 should be left empty; it is an RE field.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide also makes it a SHALL (&quot;If the observation date is unknown or cannot be represented accurately, OBX-14 SHALL be omitted&quot;).</p></td><td><a href="../../obx-14-date-time-of-the-observation/index.html">4.4.2.6 OBX-14 Date/Time of the Observation</a></td></tr><tr id="sisc-obx14-05" class="r-covered"><td><p class="tab-where">Populating OBX-14 (principles) <span class="mini">p. 1-2</span></p>RXA-3 and OBX-14 are not always the same: for patient-level observations RXA-3 is when the report is made; for administration-level observations (including evaluation in an RSP) it is the administration date; for forecast observations it is when the evaluation and forecast were done. An RSP echoes the date/time the submitter sent in the VXU.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">Reproduced as a list in 4.4.2.6.</p></td><td><a href="../../obx-14-date-time-of-the-observation/index.html">4.4.2.6 OBX-14 Date/Time of the Observation</a>, <a href="../../overview-of-loinc-and-obx-usage-in-immunization-messaging/index.html">4.4.1 Overview of LOINC and OBX Usage in Immunization Messaging</a></td></tr><tr id="sisc-obx14-06" class="r-partial"><td><p class="tab-where">Guidance for specific observation types (table) <span class="mini">p. 2</span></p>OBX-14 by observation: serological immunity, the date the specimen was collected; history of disease, the disease onset; eligibility, the date it was calculated; funding source, the date it was determined; VIS, the date presented; reaction, the date of the reaction; comment, the date entered or updated; evaluation (RSP), the date performed; forecast (RSP), the date generated.</td><td><span class="tab-result r-partial" title="Some of it is in the guide.">Partly covered</span> <a class="sev-chip sev-warning" href="../../quality/index.html#qf-sisc-obx14-06" title="Quality finding qf-sisc-obx14-06">Warning</a><p class="tab-note">The guide gives the rule for serology and multi-day conditions, but not the table. Without it, senders must guess the date for eligibility, funding source, VIS, comments, evaluations, and forecasts.</p><p class="tab-rec"><strong>Recommendation:</strong> Add the table to 4.4.2.6 (it is short), or put the date in each observation&#x27;s row in Figure 20.</p><p class="mini">Action: Narrative</p></td><td><a href="../../obx-14-date-time-of-the-observation/index.html">4.4.2.6 OBX-14 Date/Time of the Observation</a></td></tr><tr id="sisc-obx14-07" class="r-out-of-scope"><td><p class="tab-where">Example <span class="mini">p. 2</span></p>Example: a history of varicella reported on 4/19/2019 (RXA-3) with a disease date of 2/2/2018 (OBX-14), in a Patient Observations group (CVX 998, RXA-20 NA).</td><td><span class="tab-result r-out-of-scope" title="Outside the scope of this guide.">Out of scope</span><p class="tab-note">An example rather than a requirement. It shows OBX-14 as the disease date, which supports sisc-obx14-02. A similar example could go in Appendix A.</p></td><td>—</td></tr></tbody></table>
+</article>
+<section class="comments" id="comments" aria-label="Comments"></section>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-17 17:18 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 89c3957.
+  <a href="../../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "sisc-obx-14-observation-date-time", "title": "Guidance on Populating OBX-14", "targets": [{"i": 0, "label": "Whole page"}]};</script>
+<script src="../../assets/comments.js"></script>
+</body>
+</html>

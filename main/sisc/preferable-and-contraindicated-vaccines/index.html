@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guidance on Indicating Preferable and Contraindicated Vaccines · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="" data-root="../../" data-card="sisc-preferable-and-contraindicated-vaccines">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../quality/index.html">Quality review</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../sisc/index.html">SISC Guidance</a></nav>
+<p class="eyebrow">SISC guidance · September 2019</p>
+<h1>Guidance on Indicating Preferable and Contraindicated Vaccines</h1>
+<p class="lede">How to indicate, in a forecast in an RSP response, the vaccine types that are preferred or contraindicated for the vaccine group being recommended.</p>
+<p><a href="https://repository.immregistries.org/files/resources/5d7829b34d83a/preferable-contraindicated_guidance_document_v1_0.pdf" rel="noopener" target="_blank">Published PDF</a> · <a href="../../sisc/files/2019-09-preferable-and-contraindicated-vaccines.pdf">Copy in this repository</a></p>
+
+<p class="callout">The CDS in RSP TAB (September 2026) covers the same topic and keeps the same LOINC codes.</p>
+<h2>Guide sections it affects</h2><ul class="tab-cards"><li><a href="../../preferred-and-contraindicated-vaccine-types/index.html">4.7.8.7 Preferred and Contraindicated Vaccine Types</a></li><li><a href="../../forecast/index.html">4.4.4.6 Forecast</a></li></ul>
+<h2>Summary</h2><p>The guide keeps the mechanism this guidance introduced: optional, repeatable OBX segments with LOINC 93123-8 (preferred) and 93122-0 (contraindicated) in a forecast set, with a CVX code in OBX-5, and IGAMT allows both codes in the Z42 and Z32 forecast group. It drops the cautions around them: that this is used only when both trading partners agree, that a receiver must never mistake a contraindicated vaccine for a recommended one, that preferred vaccines are not an exhaustive list the clinician must choose from, and when not to send a preferred vaccine. It also narrows OBX-5 to CVX only.</p>
+<p class="stats">Findings: <span class="sev-chip sev-warning">2 warnings</span> <span class="sev-chip sev-note">2 notes</span><br><span class="mini">Results: Missing 1 · Partly covered 2 · Reworded 1 · Covered 1 · Out of scope 1</span></p>
+<p class="mini">Reviewed 2026-11-17 against the narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026.
+Recorded in <code>quality/sisc/preferable-and-contraindicated-vaccines.yml</code>.</p>
+<h2>Requirement by requirement</h2>
+<table class="tab-items"><thead><tr><th>The guidance says</th><th>Result</th><th>In the guide</th></tr></thead>
+<tbody><tr id="sisc-pcv-01" class="r-missing"><td><p class="tab-where">Scope of Guidance (In Scope) <span class="mini">p. 1</span></p><span class="tab-verb">should not</span> Preferred vaccines sent in a response are not a complete list of possible products, and the clinician need not use one of them (though they must understand the implications of using a non-preferred vaccine).</td><td><span class="tab-result r-missing" title="Not in the guide.">Missing</span> <a class="sev-chip sev-warning" href="../../quality/index.html#qf-sisc-pcv-01" title="Quality finding qf-sisc-pcv-01">Warning</a><p class="tab-note">The guide says these elements are used &quot;cautiously and only when clinically justified&quot;, but not how a receiver should read them.</p><p class="tab-rec"><strong>Recommendation:</strong> Add that a preferred vaccine type is a recommendation, not a complete or mandatory list of products.</p><p class="mini">Action: Narrative</p></td><td><a href="../../preferred-and-contraindicated-vaccine-types/index.html">4.7.8.7 Preferred and Contraindicated Vaccine Types</a></td></tr><tr id="sisc-pcv-02" class="r-partial"><td><p class="tab-where">Expectations of Support <span class="mini">p. 1</span></p><span class="tab-verb">should not</span> Support is not required. The OBX segments are sent only when both trading partners agree there is value in it. A sender should not assume the receiver can handle them without discussion and testing; it is critical that a contraindicated vaccine is not mistaken for a recommended one. Partners may agree to exchange one kind but not the other.</td><td><span class="tab-result r-partial" title="Some of it is in the guide.">Partly covered</span> <a class="sev-chip sev-warning" href="../../quality/index.html#qf-sisc-pcv-02" title="Quality finding qf-sisc-pcv-02">Warning</a><p class="tab-note">Both are MAY in the guide, so support is optional, and s4 asks IIS to document product guidance in their local IG. The safety warning is gone: a querying system that ignores unknown OBX segments is fine, but one that reads every CVX in a forecast set as recommended would show a contraindicated vaccine (93122-0) as due.</p><p class="tab-rec"><strong>Recommendation:</strong> State that IIS return these OBX segments only to querying systems that have agreed to receive them, and that querying systems SHALL NOT present a contraindicated vaccine type as recommended.</p><p class="mini">Action: Narrative</p></td><td><a href="../../preferred-and-contraindicated-vaccine-types/index.html#preferred-and-contraindicated-vaccine-types--s1">4.7.8.7 s1</a>, <a href="../../preferred-and-contraindicated-vaccine-types/index.html#preferred-and-contraindicated-vaccine-types--s2">4.7.8.7 s2</a>, <a href="../../preferred-and-contraindicated-vaccine-types/index.html#preferred-and-contraindicated-vaccine-types--s4">4.7.8.7 s4</a></td></tr><tr id="sisc-pcv-03" class="r-partial"><td><p class="tab-where">Structure of the Z42 message <span class="mini">p. 2</span></p><span class="tab-verb">should; should not</span> Send a preferred vaccine only when there is a clear preference over other available products: not when all products are equally valid, and not when only one vaccine is available. The other attributes of the recommendation (dates, series name) apply equally to every preferred vaccine.</td><td><span class="tab-result r-partial" title="Some of it is in the guide.">Partly covered</span> <a class="sev-chip sev-note" href="../../quality/index.html#qf-sisc-pcv-03" title="Quality finding qf-sisc-pcv-03">Note</a><p class="tab-note">The guide has the first rule (&quot;SHOULD NOT be used ... when any vaccine in the group would be equally appropriate&quot;). It does not say to skip it when only one product exists, or that the recommendation&#x27;s dates apply to every preferred vaccine.</p><p class="tab-rec"><strong>Recommendation:</strong> Add the other two points to s1 or the narrative.</p><p class="mini">Action: Narrative</p></td><td><a href="../../preferred-and-contraindicated-vaccine-types/index.html#preferred-and-contraindicated-vaccine-types--s1">4.7.8.7 s1</a></td></tr><tr id="sisc-pcv-04" class="r-covered"><td><p class="tab-where">Structure of the Z42 message (OBX-3, OBX-4) <span class="mini">p. 2</span></p>OBX-3 is 93123-8 (preferred vaccine type) or 93122-0 (contraindicated vaccine type), each of which may be repeated in one recommendation. OBX-4 is the same sub-ID as the other OBX segments in the recommendation.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">IGAMT allows both codes in the Z32 and Z42 forecast group.</p></td><td><a href="../../preferred-and-contraindicated-vaccine-types/index.html#preferred-and-contraindicated-vaccine-types--s1">4.7.8.7 s1</a>, <a href="../../preferred-and-contraindicated-vaccine-types/index.html#preferred-and-contraindicated-vaccine-types--s2">4.7.8.7 s2</a>, <a href="../../forecast/index.html">4.4.4.6 Forecast</a></td></tr><tr id="sisc-pcv-05" class="r-reworded"><td><p class="tab-where">Structure of the Z42 message (OBX-5) <span class="mini">p. 3</span></p>OBX-5 holds a CVX code for the vaccine (some CVX codes cover several similar products). NDCs are likely too granular but are not excluded. Only one vaccine per OBX segment; three vaccines need three segments.</td><td><span class="tab-result r-reworded" title="The guide says it differently; check that the meaning is unchanged.">Reworded</span> <a class="sev-chip sev-note" href="../../quality/index.html#qf-sisc-pcv-05" title="Quality finding qf-sisc-pcv-05">Note</a><p class="tab-note">The guide requires CVX (SHALL), which rules out the NDCs this guidance allowed. One vaccine per segment follows from the guide&#x27;s &quot;MAY be repeated&quot; wording.</p><p class="tab-rec"><strong>Recommendation:</strong> Confirm that excluding NDC is intended, and record it in the change history if so.</p><p class="mini">Action: Narrative</p></td><td><a href="../../preferred-and-contraindicated-vaccine-types/index.html#preferred-and-contraindicated-vaccine-types--s3">4.7.8.7 s3</a></td></tr><tr id="sisc-pcv-06" class="r-out-of-scope"><td><p class="tab-where">Example <span class="mini">p. 3-4</span></p>Example forecast showing no preferred vaccine for MMR (one product), a contraindicated live intranasal influenza vaccine for an asthmatic patient, one preferred MenB product (Bexsero, not interchangeable with Trumenba), and two preferred Td products.</td><td><span class="tab-result r-out-of-scope" title="Outside the scope of this guide.">Out of scope</span><p class="tab-note">An example rather than a requirement. It would make a good example for Appendix A, which has none for these codes.</p></td><td>—</td></tr></tbody></table>
+</article>
+<section class="comments" id="comments" aria-label="Comments"></section>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-17 17:18 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 89c3957.
+  <a href="../../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "sisc-preferable-and-contraindicated-vaccines", "title": "Guidance on Indicating Preferable and Contraindicated Vaccines", "targets": [{"i": 0, "label": "Whole page"}]};</script>
+<script src="../../assets/comments.js"></script>
+</body>
+</html>

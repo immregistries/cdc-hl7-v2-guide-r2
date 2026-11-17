@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System Entry Date/Time (RXA-22) Definition · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+</head>
+<body class="" data-root="../../" data-card="tab-system-entry-date-time-rxa-22">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../quality/index.html">Quality review</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../tabs/index.html">TAB Comparison</a></nav>
+<p class="eyebrow">Technical Advisory Bulletin · January 2024</p>
+<h1>System Entry Date/Time (RXA-22) Definition</h1>
+<p class="lede">For administered and historical immunizations, RXA-22 is the most recent date and time the immunization was entered or updated in the submitting system.</p>
+<p><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_system_entry_date_time__rxa-22_.pdf" rel="noopener" target="_blank">Published PDF</a> · <a href="../../tabs/files/2024-01-system-entry-date-time-rxa-22.pdf">Copy in this repository</a></p>
+
+
+<h2>Guide sections it affects</h2><ul class="tab-cards"><li><a href="../../updates-and-deletes/index.html">4.6.4 Updates and Deletes</a></li><li><a href="../../iis-matching-and-correction-processing/index.html">4.6.4.3 IIS Matching and Correction Processing</a></li><li><a href="../../reinterpretation-of-base-standard-semantics/index.html">5.11.3 Reinterpretation of Base-Standard Semantics</a></li></ul>
+<h2>Summary</h2><p>This TAB defines RXA-22 for administered and historical immunizations as the most recent date and time the immunization was entered or updated in the submitting system, and keeps the field optional. The guide does not mention RXA-22 at all, so the definition is missing. IGAMT has RXA-22 as optional (O) in every RXA, which matches, but gives no definition.</p>
+<p class="stats">Findings: <span class="sev-chip sev-warning">1 warning</span><br><span class="mini">Results: Missing 1 · Covered 2</span></p>
+<p class="mini">Reviewed 2026-11-17 against the narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026.
+Recorded in <code>quality/tabs/system-entry-date-time-rxa-22.yml</code>.</p>
+<h2>Requirement by requirement</h2>
+<table class="tab-items"><thead><tr><th>The TAB says</th><th>Result</th><th>In the guide</th></tr></thead>
+<tbody><tr id="tab-rxa22-01" class="r-missing"><td><p class="tab-where">Executive Summary; Table 1: RXA-22 definition <span class="mini">p. 1-2</span></p>For administered and historical immunizations, RXA-22 is the most recent date and time the immunization information was entered or updated in the submitting system. This replaces the base standard&#x27;s reading (the date and time it was first entered), which some IIS do not follow because they use RXA-22 for matching and deduplication.</td><td><span class="tab-result r-missing" title="Not in the guide.">Missing</span> <a class="sev-chip sev-warning" href="../../quality/index.html#qf-tab-rxa22-01" title="Quality finding qf-tab-rxa22-01">Warning</a><p class="tab-note">RXA-22 is not mentioned anywhere in the guide, and IGAMT has no definition for it. A submitter reading the HL7 base standard would send the first entry date, and an update would carry the same value as the original add.</p><p class="tab-rec"><strong>Recommendation:</strong> Add the TAB&#x27;s definition to 4.6 (Immunization Information), for example in 4.6.4 next to updates: &quot;For administered and historical immunizations, RXA-22 is the most recent date and time the immunization information was entered or updated in the submitting system.&quot; List it in 5.11.3 (Reinterpretation of Base Standard Semantics), since it differs from the base definition.</p><p class="mini">Action: Narrative</p></td><td><a href="../../reinterpretation-of-base-standard-semantics/index.html">5.11.3 Reinterpretation of Base-Standard Semantics</a>, <a href="../../iis-matching-and-correction-processing/index.html">4.6.4.3 IIS Matching and Correction Processing</a>, <a href="../../updates-and-deletes/index.html">4.6.4 Updates and Deletes</a></td></tr><tr id="tab-rxa22-02" class="r-covered"><td><p class="tab-where">Clarifications and Conformance Expectations <span class="mini">p. 2</span></p><span class="tab-verb">MAY</span> RXA-22 remains optional. Submitting systems MAY send it, and receiving systems MAY process it.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">IGAMT has RXA-22 as O in every RXA flavor (RXA_IZ01 and its administered, historical, refusal, contraindication, and not-vaccinated slices) and in RXA_IZ02 and RXA_IZ03. The narrative has no statement, but the usage matches.</p></td><td><a href="../../updates-and-deletes/index.html">4.6.4 Updates and Deletes</a></td></tr><tr id="tab-rxa22-03" class="r-covered"><td><p class="tab-where">Out of scope <span class="mini">p. 1-2</span></p>The meaning of RXA-22 in an RXA for a refusal, a contraindication, or a patient-level observation, and whether and how IIS use the value (for example in deduplication), are out of scope.</td><td><span class="tab-result r-covered" title="The guide says the same thing.">Covered</span><p class="tab-note">The guide also leaves vaccination-level deduplication to IIS, with a pointer to MIROW.</p></td><td><a href="../../iis-matching-and-correction-processing/index.html">4.6.4.3 IIS Matching and Correction Processing</a></td></tr></tbody></table>
+</article>
+<section class="comments" id="comments" aria-label="Comments"></section>
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-17 17:18 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit 89c3957.
+  <a href="../../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+<script>window.GUIDE_COMMENTS={"hub": "https://informatics.immregistries.org/hub", "document": "cdc-hl7-v2-guide-r2", "anchor": "tab-system-entry-date-time-rxa-22", "title": "System Entry Date/Time (RXA-22) Definition", "targets": [{"i": 0, "label": "Whole page"}]};</script>
+<script src="../../assets/comments.js"></script>
+</body>
+</html>
