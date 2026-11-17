@@ -1,0 +1,141 @@
+# Comparison: "About Technical Advisory Bulletins" (TAB Overview, January 2024) and section 6.2 of this guide.
+# Fields: see ack-messaging.yml.
+
+tab: tab-overview
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  Section 6.2 restates most of the Overview: purpose, scope, SISC approval, intended use, and optional functionality.
+  Three things are missing. The guide does not say how TABs relate to this release: which TABs it folds in, whether they
+  still apply once it is published, which wins when they differ, and that new TABs will build on this guide. It does not
+  define the R, P, and E usage of codes in a value set, which IGAMT and several TABs use. And it does not say that
+  implementers also review local guides, or how to get involved.
+
+items:
+  - id: tab-ov-01
+    section: Overview (purpose)
+    page: 1
+    tab: >-
+      TABs clarify national specifications. Each addresses one topic, and they are meant to answer interpretation
+      questions, apply the latest HL7 conformance methodology, and provide technical specifications.
+    result: covered
+    guide: [technical-advisory-bulletins, purpose-of-tabs]
+
+  - id: tab-ov-02
+    section: Overview (development and approval)
+    page: 1
+    tab: >-
+      TABs are developed through a community-driven process and approved by the AIRA Standards and Interoperability
+      Steering Committee (SISC); implementers are expected to use them. They inform CDC's next version of the guide.
+    result: covered
+    guide: [technical-advisory-bulletins, purpose-of-tabs, integration-into-future-guides]
+
+  - id: tab-ov-03
+    section: Overview; relationship to the National IG
+    page: 1
+    tab: >-
+      TABs "build on and further clarify" Release 1.5 (2018), and will inform the next version of the guide.
+    result: missing
+    guide: [technical-advisory-bulletins, integration-into-future-guides, support-for-previous-versions]
+    note: >-
+      Section 6.2 describes TABs in general and says their content "is incorporated into future versions", but not what
+      that means for this release. A reader cannot tell which published TABs this guide incorporates, whether those TABs
+      still apply after it is published (for example, to systems still on Release 1.5), which document wins where they
+      differ (this comparison found several conflicts), or that new TABs will build on this guide.
+    severity: warning
+    owner: decision
+    recommendation: >-
+      Add a card to 6.2, after 6.2.5, along these lines: "This guide incorporates the TABs published through [month
+      year], listed in [appendix]. For systems implementing this guide, it replaces those TABs; where a TAB and this
+      guide differ, this guide applies [and the difference is listed]. The TABs remain in effect for systems still
+      implementing Release 1.5. TABs published after this guide build on it, and are incorporated into the next
+      release." CDC and SISC decide the supersession rule and the cut-off date.
+
+  - id: tab-ov-04
+    section: Intended Use
+    page: 1
+    verb: SHALL
+    tab: >-
+      Implementers SHALL use TABs to develop and maintain interfaces. Unless otherwise indicated, organizations SHALL use
+      TAB specifications as soon as feasible, working with exchange partners to test or confirm changes.
+    result: covered
+    guide: [intended-use-of-tabs--s1, intended-use-of-tabs]
+    note: The guide's statement leaves out "unless otherwise indicated" and working with exchange partners to test changes.
+
+  - id: tab-ov-05
+    section: Intended Use (optional functionality)
+    page: 1
+    verb: MAY, SHALL
+    tab: >-
+      Some TABs specify new optional functionality. Organizations MAY support it as local or federal policy requires; if
+      they do, they SHALL implement it as the TAB specifies.
+    result: covered
+    guide: [intended-use-of-tabs, handling-of-topic-specific-tabs]
+
+  - id: tab-ov-06
+    section: Intended Use (policy)
+    page: 2
+    tab: Policy decisions and regulatory requirements are outside the scope of TABs.
+    result: covered
+    guide: [scope-of-tabs]
+
+  - id: tab-ov-07
+    section: "Conformance (Table 1)"
+    page: 2
+    tab: >-
+      Conformance verbs SHALL, SHOULD, MAY, MAY NOT, SHOULD NOT, and SHALL NOT, as defined in HL7 Version 2 Conformance
+      Methodology, Release 1 (September 2020).
+    result: reworded
+    guide: [conformance-verbs]
+    note: >-
+      Section 1.5 defines the same verbs except MAY NOT, and does not cite the HL7 Conformance Methodology. Its SHOULD
+      ("may deviate based on local policy, technical constraints, or phased implementation") says more than the TAB's
+      "Recommended to implement", but does not conflict with it.
+    severity: note
+    owner: narrative
+    recommendation: Cite the HL7 v2 Conformance Methodology in 1.5, and add MAY NOT or say that the guide does not use it.
+
+  - id: tab-ov-08
+    section: "Value set specifications (Table 2)"
+    page: 2
+    tab: >-
+      TABs can give the usage of each code in a value set: R (Required, the code SHALL be supported), P (Permitted, to be
+      specified locally), and E (Excluded, the code SHALL NOT be supported).
+    result: missing
+    guide: [conformance-verbs, usage-designations-and-expectations, closed-value-sets-constrained-sets-requiring-strict-conformance]
+    note: >-
+      The guide defines element usage (R, RE, C, O, X) and value set extensibility, but not code usage within a value set.
+      IGAMT gives code usage throughout (for example ASN as E in HL70201_IZ01), and the Phone and Email TAB relies on it.
+    severity: warning
+    owner: narrative
+    recommendation: Add the TAB's Table 2 to 4.3 (Dynamic and Fixed Code Sets), and say that the value set tables give code usage.
+
+  - id: tab-ov-09
+    section: Local implementation guidance
+    page: 3
+    verb: SHALL
+    tab: >-
+      Implementers SHALL also review the local implementation guides published by jurisdictions, which further constrain
+      national specifications.
+    result: partial
+    guide: [scope]
+    note: >-
+      The guide says each IIS SHOULD publish a local guide and that local profiles SHALL NOT contradict this one, but not
+      that implementers review local guides.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Add to 1.1.2 (Scope): "Implementers SHALL review the local implementation guide of each IIS they exchange with."
+
+  - id: tab-ov-10
+    section: For More Information
+    page: 3
+    tab: TABs are developed by AIRA with CDC and SISC; readers can join SISC or write to HL7vaxteam@cdc.gov.
+    result: missing
+    guide: [technical-advisory-bulletins]
+    note: Section 6.2 does not say where TABs are published or how to take part.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Add to 6.2 where TABs are published (the AIRA repository, TAB resources page) and how to get involved (SISC, or
+      HL7vaxteam@cdc.gov).

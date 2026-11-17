@@ -1,0 +1,132 @@
+# Comparison: TAB "Submission of Self-Administered FluMist Vaccine to IIS" (September 2026; July 2025 baseline) and this
+# guide. Fields: see ack-messaging.yml.
+#
+# This TAB is an interface specification for one submitter (the Asembia Specialty Pharmacy Network, through STChealth)
+# and one product, so most of it does not belong in the guide. The items below check that its field conventions conform
+# to the guide and IGAMT, and pick out the general points the guide should cover.
+
+tab: self-administered-flumist
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  An interface specification for one submitter and one product, so most of it stays out of the guide. Its field
+  conventions fit the guide and IGAMT: the identifiers assigned by the IIS, MSH-22 for the responsible pharmacy network,
+  RXA-10 with identifier type 'MR', 'CP' only, the three VIS OBX segments, and funding with PHC70 and V01. One general
+  point is missing from the guide: how to report a vaccine administered by the patient or a caregiver. The guide says
+  administered ('00') means a dose "given directly by the reporting organization", while the TAB reports these doses as
+  '00' with the patient or caregiver in RXA-10. The TAB also points to Release 1.5 for every field it does not list.
+
+items:
+  - id: tab-flu-01
+    section: "Background; RXA-9 and RXA-10"
+    page: 2, 5
+    tab: >-
+      Self- or caregiver-administered doses are reported with RXA-9 '00' (administered, new record). RXA-10 is the
+      patient if self-administered (echoing PID-3) or the caregiver, with identifier type 'MR'. RXA-3 is the date
+      reported by the patient or caregiver.
+    result: missing
+    guide:
+      - administered-vaccinations--s1
+      - administered-versus-historical-vaccinations
+      - historical-vaccinations
+    note: >-
+      The guide does not mention self- or caregiver-administered vaccines. Its rule that "Administered vaccinations SHALL
+      represent doses given directly by the reporting organization" does not fit a dose the pharmacy dispensed and the
+      patient gave, and a reader could conclude these doses must be reported as historical. IGAMT accepts the TAB's
+      values (RXA-10 is RE with XCN_IZ01; 'MR' is R in HL70203_IZ01).
+    severity: warning
+    owner: decision
+    recommendation: >-
+      Decide how self- and caregiver-administered doses are reported in general, then add it to 4.6.1: for example,
+      "A dose dispensed by the reporting organization and administered by the patient or a caregiver is reported as
+      administered (RXA-9 '00'), with the patient or caregiver in RXA-10." Note that CVX 333 already identifies the
+      self- or caregiver-administered product.
+
+  - id: tab-flu-02
+    section: "MSH segment; ORC-17; RXA-11"
+    page: 1, 4-5
+    tab: >-
+      MSH-3 is the reporting service's application (IMMSLINK). MSH-4, MSH-5, MSH-6, MSH-22, ORC-17, and RXA-11 carry
+      identifiers assigned by the IIS during onboarding; MSH-22 represents the pharmacy network. The same MSH values are
+      used for QBP messages.
+    result: covered
+    guide:
+      - responsible-organization-msh-22
+      - submitting-organization-msh-4-sending-facility
+      - entering-recording-organization-orc-17
+      - administering-organization-rxa-11
+      - use-in-query-transactions-qbp-rsp
+    note: >-
+      Matches 2.7: a service bureau submits on behalf of the responsible organization in MSH-22, and RXA-11.4 carries the
+      IIS-assigned organization identifier.
+
+  - id: tab-flu-03
+    section: "Executive Summary; PID-11"
+    page: 1, 4
+    tab: The vaccine ship-to address is sent in PID-11 and decides which IIS the message is routed to.
+    result: prose
+    guide: [address-handling, notes-on-data-intermediaries]
+    note: >-
+      The guide does not discuss how a national submitter decides which IIS to send to. That is a submitter's business
+      rule and does not need a statement.
+    owner: narrative
+
+  - id: tab-flu-04
+    section: "PID segment; NK1 segment"
+    page: 4
+    tab: >-
+      Race (PID-10) and ethnic group (PID-22) use CDCREC values or 'UNK'. The phone number is sent as
+      ^PRN^PH^^^areacode^localnumber. NK1 is sent for patients under 19.
+    result: covered
+    guide: [unknown-and-refused-values, general-principles, telecommunication-use-codes-hl70201]
+    note: >-
+      Consistent with the Phone and Email and Unknown Race and Ethnicity TABs. 'UNK' with coding system CDCREC has the
+      same IGAMT difference as tab-re-03 (IGAMT lists UNK under NULLFL).
+
+  - id: tab-flu-05
+    section: "ORC segment; RXA-5 to RXA-21; RXR segment"
+    page: 4-5
+    tab: >-
+      ORC-3 is unique in the pharmacy system; ORC-10 is empty; ORC-12 is the pharmacist who confirmed eligibility, with an
+      NPI. RXA-5 is CVX 333 and/or the NDC unit of sale, as the jurisdiction prefers; 0.2 mL; lot, expiration, and
+      manufacturer MED; RXA-20 'CP' only; RXA-21 'A', 'U', or 'D'. RXR-1 is nasal (C38284, NCIT); RXR-2 is empty.
+    result: covered
+    guide:
+      - vaccination-record-identity-and-orc-3
+      - cvx-vaccines-administered-code
+      - ndc-national-drug-code
+      - submitter-correction-behavior--s1
+    note: >-
+      These follow the guide. RXR-2 is RE in IGAMT, so leaving it empty for a nasal spray conforms. The TAB's sentence
+      on CVX and NDC "as per jurisdictional preferences" matches the guide's coding considerations.
+
+  - id: tab-flu-06
+    section: OBX segments
+    page: 5-6
+    tab: >-
+      VIS is sent in three OBX segments (vaccine type 30956-7 with CVX 88, VIS date given 29769-7, VIS publication date
+      29768-9). Funding source 30963-3 is PHC70 and eligibility 64994-7 is V01. Contraindications and adverse reactions
+      are not expected.
+    result: covered
+    guide:
+      - reporting-vis-information-in-hl7-v2-messages--s2
+      - funding-source-and-eligibility
+      - storage-and-processing-expectations--s2
+
+  - id: tab-flu-07
+    section: Expected Interface Specifications
+    page: 3
+    tab: >-
+      Fields not listed are populated according to the National IG Release 1.5 and Addendum. Out of scope: new code
+      values or messaging constructs; community experience may lead to guidance for self- or caregiver-administered
+      vaccines.
+    result: partial
+    guide: [roadmap-for-future-versions, integration-into-future-guides]
+    note: >-
+      After this guide is published, the TAB's reference to Release 1.5 is out of date. Its open question (general
+      guidance for self- or caregiver-administered vaccines) is the one in tab-flu-01.
+    severity: note
+    owner: decision
+    recommendation: >-
+      Ask AIRA to point the TAB's next seasonal update at this guide, and list self- or caregiver-administered vaccines
+      among the topics for future work in 6.4 if tab-flu-01 is not settled in this release.

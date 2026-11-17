@@ -85,7 +85,11 @@ tabs:
     summary: >-
       Expected VXU content for self- or caregiver-administered FluMist reported by the Asembia Specialty Pharmacy Network
       through STChealth. Specific to one submitter and season, so most of it is outside the scope of this guide.
-    cards: []
+    cards:
+      - administered-versus-historical-vaccinations
+      - administered-vaccinations
+      - responsible-organization-msh-22
+      - administering-organization-rxa-11
 
   - id: patient-name-pid-5
     title: Patient Name (PID-5) Updates to Support Patient Matching
@@ -232,6 +236,11 @@ tabs:
     summary: What TABs are, how they are developed and approved, and the conformance verbs they use.
     cards:
       - technical-advisory-bulletins
+      - purpose-of-tabs
+      - intended-use-of-tabs
+      - integration-into-future-guides
+      - conformance-verbs
+      - closed-value-sets-constrained-sets-requiring-strict-conformance
 
   - id: summary-of-tab-resources
     kind: summary
