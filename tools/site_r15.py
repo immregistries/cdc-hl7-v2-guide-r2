@@ -228,12 +228,16 @@ def _first_sentence(text) -> str:
 
 def _field_notes_status(parts: list[dict]) -> str:
     done = [p for p in parts if r15_narrative.is_field_notes(p)]
-    lead = ("The field notes and comments in the 2018 segment and data type tables are compared in a second pass. Every "
-            "note is read, but an item is recorded only when the note adds guidance beyond the profiles and the narrative, "
+    lead = ("The field notes and comments in the 2018 segment and data type tables were compared in a second pass. Every "
+            "note was read, but an item is recorded only when the note adds guidance beyond the profiles and the narrative, "
             "or conflicts with this guide; the rest are counted as format or duplicate under each part.")
     if not done:
         return esc(lead) + " Not started."
-    return esc(lead) + " Compared so far: " + ", ".join(esc(p.get("title", "")) for p in done) + "."
+    notes = sum(n["notes"] for p in done for n in p["read"].values())
+    items = sum(len(p.get("items", [])) for p in done)
+    return (esc(lead) + f" {notes} notes read, {items} items recorded: "
+            + ", ".join(f'<a href="#narr-{esc(slug(str(p.get("chapter", p["file"]))))}">{esc(p.get("title", ""))}</a>'
+                        for p in done) + ".")
 
 
 def _read_table(part: dict) -> str:

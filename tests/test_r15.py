@@ -68,7 +68,13 @@ class NarrativeTest(unittest.TestCase):
         parts = r15_narrative.load(REPO, by_id)  # raises SystemExit on a bad result or reference
         ids = [it["id"] for _, it in r15_narrative.items(parts)]
         self.assertIn("r15-3-03", ids)  # null ("") versus empty: not carried forward
+        self.assertIn("r15-f-rxa-05", ids)  # field notes: RXA-11 is now an organization
         self.assertTrue(r15_narrative.to_csv(parts).startswith("id,chapter,"))
+        fields = [p for p in parts if r15_narrative.is_field_notes(p)]
+        self.assertEqual(len(fields), 3)
+        for p in fields:  # every segment's notes are accounted for: format + duplicate, the rest in items
+            for seg, n in p["read"].items():
+                self.assertLessEqual(n["format"] + n["duplicate"], n["notes"], f'{p["file"]} {seg}')
 
 
 if __name__ == "__main__":

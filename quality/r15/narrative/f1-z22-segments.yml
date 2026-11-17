@@ -42,11 +42,11 @@ items:
       For a refusal or deferral, RXA-3 is the date the refusal or deferral was recorded. For a forecast dose, it is the
       date the forecast was made.
     result: changed
-    guide: [required-data-elements, date-semantics]
+    guide: [required-data-elements, date-semantics, obx-14-date-time-of-the-observation, overview-of-loinc-and-obx-usage-in-immunization-messaging]
     note: >-
       For a refusal, RXA-3 is now the date the vaccination would have been given if accepted (usually the same day, but
       not the date of data entry). When the RXA only carries a condition (RXA-20 NA), its dates carry no meaning and the
-      IIS should not act on them. The forecast date rule is not repeated.
+      IIS should not act on them. The forecast rule is kept: RXA-3 is when the evaluation and forecast were done.
 
   - id: r15-f-rxa-02
     section: RXA-5 Administered Code

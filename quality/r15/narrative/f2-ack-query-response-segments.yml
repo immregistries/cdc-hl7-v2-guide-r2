@@ -1,0 +1,60 @@
+# Field notes, pass 2: the comments and field definitions in the 2018 segment tables for Z23 (chapter 6), Z34 (7),
+# Z32 (8), Z31 (9), Z33 (10), Z44 (11), and Z42 (12). Same rules and `read` counts as f1-z22-segments.yml.
+#
+# Most of these segments say "see field definitions under Z22 (or Z23, Z34)" and repeat the Z22 table comments; those
+# repeats are counted as duplicates of the Z22 items. Where a segment differs (for example forecast ORC groups in Z42),
+# the difference was compared.
+
+chapter: "6-12 (fields)"
+title: "Field notes: ACK, query, and response segments"
+pages: 135-282
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026
+summary: >-
+  Almost everything here repeats the Z22 notes or restates the profiles. Two notes add guidance: ERR-5 allowed a local
+  code beside the table 0533 code, which the national ERR-5 code set now discourages; and the Z34/Z44 QPD commentary
+  defined, field by field, how an empty query parameter affects matching, which the new guide replaces with a general
+  rule to use all submitted data.
+read:
+  Z23 ERR: {notes: 7, format: 2, duplicate: 4}
+  Z23 MSA: {notes: 2, format: 1, duplicate: 1}
+  Z23 MSH: {notes: 3, format: 2, duplicate: 1}
+  Z34 MSH: {notes: 2, format: 1, duplicate: 1}
+  Z34 QPD: {notes: 14, format: 2, duplicate: 1}
+  Z34 RCP: {notes: 3, format: 2, duplicate: 1}
+  Z32 (all segments): {notes: 45, format: 16, duplicate: 29}
+  Z31 (all segments): {notes: 19, format: 8, duplicate: 11}
+  Z33 (all segments): {notes: 6, format: 3, duplicate: 3}
+  Z44 (all segments): {notes: 18, format: 2, duplicate: 16}
+  Z42 (all segments): {notes: 36, format: 13, duplicate: 23}
+
+items:
+  - id: r15-f-err-01
+    section: ERR-5 Application Error Code
+    page: 136
+    r15: >-
+      ERR-5 is CWE with two triplets: one is reserved for table 0533 values, and the other may carry a more granular but
+      equivalent local code.
+    result: changed
+    guide: [err-5-application-error-code, err-5-application-error-code--s1]
+    note: >-
+      ERR-5 now uses the national ERR-5 code set, with priorities for which codes an IIS SHALL implement. Locally invented
+      codes are discouraged: a missing concept should be added to the national set instead. A local code in the second
+      triplet is not mentioned.
+
+  - id: r15-f-qpd-01
+    section: QPD Input Parameter Field Description and Commentary (Z34 and Z44)
+    page: 153-156, 248-251
+    r15: >-
+      For each query parameter, what happens when it is empty: the patient identifier is ignored without its assigning
+      authority and type; a name without family or given name is treated as empty (name is required, so the query
+      errors); empty middle name, suffix, or sex match anything; a birth date less precise than a day is ignored; an
+      address without city or state is treated as empty, and an empty address type defaults to L; phone, mother's maiden
+      name, multiple birth, birth order, and last update are ignored when empty. The guide does not specify the search
+      method; systems should document their expectations.
+    result: changed
+    guide: [patient-matching-responsibilities--s1, patient-matching-responsibilities--s5, patient-matching-responsibilities--s6]
+    note: >-
+      The field-by-field rules are gone. Querying systems SHALL send all known information and the IIS SHALL use all of
+      it, SHOULD use probabilistic or other advanced matching, and SHOULD document how identifiers are used. Partial
+      values (for example a birth date to the month) are no longer defined.

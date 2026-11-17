@@ -1,0 +1,79 @@
+# Field notes, pass 2: the usage notes and component definitions in the 2018 data type chapter (chapter 4). Same rules
+# and `read` counts as f1-z22-segments.yml, counted per data type.
+
+chapter: "4 (fields)"
+title: "Field notes: data types"
+pages: 35-74
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026
+summary: >-
+  The data type notes are almost all format, now carried by the profiles' data types and flavors. Three add guidance:
+  string fields were limited to printable ASCII, which the new guide's accented-character requirement reverses; OIDs
+  were encouraged in HD, where the new guide puts an IIS-defined identifier in HD.1; and the order of CE triplets was
+  explicitly unspecified (CVX no longer had to come first in RXA-5), which the new guide does not repeat.
+read:
+  Introduction: {notes: 1, format: 1, duplicate: 0}
+  CE: {notes: 1, format: 0, duplicate: 0}
+  CE_TX: {notes: 1, format: 1, duplicate: 0}
+  CQ: {notes: 1, format: 1, duplicate: 0}
+  CWE: {notes: 1, format: 1, duplicate: 0}
+  CX: {notes: 1, format: 0, duplicate: 1}
+  DT, DT_D, DTM: {notes: 3, format: 2, duplicate: 1}
+  EI: {notes: 1, format: 1, duplicate: 0}
+  ERL: {notes: 1, format: 0, duplicate: 1}
+  FN: {notes: 1, format: 1, duplicate: 0}
+  FT: {notes: 1, format: 0, duplicate: 0}
+  HD: {notes: 1, format: 0, duplicate: 0}
+  ID, IS: {notes: 2, format: 2, duplicate: 0}
+  LA2: {notes: 1, format: 0, duplicate: 1}
+  MSG, NM, PT, SAD, SI: {notes: 5, format: 5, duplicate: 0}
+  ST: {notes: 1, format: 0, duplicate: 0}
+  TS, TS_M, TS_NZ, TS_Z: {notes: 4, format: 4, duplicate: 0}
+  VID: {notes: 1, format: 1, duplicate: 0}
+  XAD: {notes: 1, format: 0, duplicate: 1}
+  XCN, XON: {notes: 2, format: 2, duplicate: 0}
+  XPN, XPN_M: {notes: 2, format: 1, duplicate: 1}
+  XTN: {notes: 1, format: 0, duplicate: 1}
+
+items:
+  - id: r15-f-dt-01
+    section: ST - String; FT - Formatted Text
+    page: 50, 57
+    r15: >-
+      String data is printable ASCII (decimal 32 to 126), with no leading blanks. The only escape sequences allowed are
+      those for the message delimiters.
+    result: changed
+    guide: [special-characters--s1, special-characters--s2, special-characters--s4]
+    note: >-
+      The new guide requires support for 18 accented Latin characters in names (preserved or transliterated), and an IIS
+      SHALL NOT reject a message because of them. That goes beyond printable ASCII. The escape-sequence limit is not
+      repeated.
+    recommendation: >-
+      Say which character encoding carries the accented characters (MSH-18 is not discussed), and whether the
+      delimiter-only escape rule still holds.
+
+  - id: r15-f-dt-02
+    section: HD - Hierarchic Designator
+    page: 50-51
+    r15: >-
+      The use of OIDs in HD fields is encouraged; either the namespace ID (HD.1) or the universal ID (HD.2, an OID) is
+      required.
+    result: changed
+    guide: [organization-identifier-data-types, assigning-authority-and-identifier-namespace]
+    note: >-
+      For organization fields (MSH-4, MSH-22, RXA-11.4) the new guide standardizes on an IIS-defined identifier in HD.1;
+      OIDs and other national identifiers are left for the future, not encouraged.
+
+  - id: r15-f-dt-03
+    section: CE - Coded Element
+    page: 37-38
+    verb: should
+    r15: >-
+      The alternate identifier should be the closest match to the first. The order of the two triplets is not specified;
+      the first triplet is no longer reserved for CVX in RXA-5.
+    result: dropped
+    guide: [accepted-code-systems-for-administered-vaccinations--s6]
+    note: >-
+      The new guide requires IIS to accept CVX or NDC alone and to check that the two agree when both are sent, but does
+      not say that either code may be in either triplet.
+    recommendation: State in 4.6.2.4 that CVX and NDC may appear in either CE triplet of RXA-5 and receivers check both.
