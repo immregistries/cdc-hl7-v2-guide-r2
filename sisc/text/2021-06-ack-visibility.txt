@@ -1,0 +1,407 @@
+Foundational Guidance for Minimum Functionality to
+
+Improve Visibility and Access to Information from
+
+Acknowledgment Messages
+
+Introduction
+
+There is a need for clear, aggregate immunization-specific acknowledgment (ACK) reports
+containing descriptions understandable to both technical and non-technical individuals. The Health
+Level Seven (HL7) immunization messaging standard includes an acknowledgment message that is
+sent back to the sending system after receiving an immunization update message. However, due to
+the large volume of messages that may be generated, these cannot be reviewed in real time, nor
+do they always reach the most appropriate actor in the interoperability process. For this reason,
+aggregate reports may also support the communication needs and actions necessary for ensuring
+accurate message exchange. Aggregate reports provide significant information to identify patterns
+of errors that lend themselves to systematic changes in workflow, software coding, and
+configuration. The effort requires a multi-actor approach, and the guidance outlined below
+provides example aggregate reports that could be designed by a clinical software (typically
+electronic health record systems) developer, an immunization information system (IIS), a health
+information exchange (HIE), or a health information system analyst. Such reports could support drill-
+down capabilities as needed and could inform system-wide mitigation strategies to correct errors
+and to prevent further errors for subsequent immunization message submissions. Alternatively,
+software developers could provide access to and the ability to extract individual ACK data that
+would allow analysts to develop reports. To prepare vaccination provider organizations to handle
+ACK message data, the Immunization Integration Program (IIP) Acknowledgments Workgroup
+developed the guidance detailed below to improve visibility and access to information from
+acknowledgment messages.
+
+Understanding the Issue
+
+An IIS may communicate three different severity levels of issues (all three are technically referred to
+as “errors”): Information, Warnings, or Errors (fatal errors) in ACK messages. The least severe issues
+are called Information and the next are called Warnings. When issues with severity levels of
+Information or Warning are communicated from the IIS, the issues should be reviewed by the sender
+but do not result in data being rejected by the IIS.
+
+The most common errors occur when critical data (required by the IIS) are illogical, conflicting,
+invalid or missing, such as patient’s name, date of birth, vaccine product, lot number or expiration
+date. There are a variety of reasons errors like these occur. Examples include: data was not
+collected at registration, the EHR was not configured properly, and a data entry error occurred
+when data was entered into the EHR by a member of the clinical team, or the IIS has not yet
+updated its configuration. According to guidance released by the American Immunization Registry
+Association (AIRA), when fatal errors occur and are communicated from the IIS to the provider
+organization, the expectation is that the error is reviewed, and after a correction is made, data is
+resubmitted. If this does not occur, the error could be repeated for other patients, and patient
+records with errors may not be complete in the IIS. This can impact patient care when the same
+patient seeks care at other provider organizations that rely upon data from the IIS to build a
+vaccination history. Without finding a patient’s full immunization history, a clinician may administer
+unneeded or improperly spaced vaccines and waste limited resources. Schools and other entities
+also rely upon records from the IIS. If data is submitted accurately, completely and timely to the IIS,
+providers administering vaccinations can spend less time fulfilling requests for immunization records
+and more time on patient care.
+
+To better understand the potential impact that rejected vaccine submissions can have upon the
+immunization ecosystem, the workgroup gathered one month of ACK data (January or June 2020
+specifically, with the intent of avoiding low-patient volume from the move to telehealth operations)
+from eight different sources. Of the more than 72 million acknowledgment messages collected,
+0.8% (576,000) messages indicated full or partial data rejection. To understand the bigger picture,
+consider that if the same rate were applied to the more than 105 million of COVID-19 vaccines
+reported as administered in the United States during the 90 days of its vaccination efforts, more
+than 852,000 doses may not have been recorded in a timely manner in an IIS (105,703,501 doses
+reported 12/13/2021 - 03/13/2021: (105,703,501/(100%-0.8%)) = 852,448). This can undermine
+confidence in data reported by public health authorities, lead to healthcare providers incorrectly
+vaccinating patients in the future and waste valuable resources.
+
+Provider organizations have the opportunity to make the IIS more complete, accurate and timely
+by regularly reviewing data volume and quality and designating team members to review ACK
+data received from an IIS in a report format. If report functionality is not available, developers could
+enhance health information and technology software to allow users to extract ACK data to
+generate their own reports. These recommended capabilities could be incorporated into IIS, EHR,
+pharmacy data systems, HIE and third-party health IT applications. Regardless of which actors
+create aggregate reports, they should summarize the number of messages that contain fatal errors
+along with descriptions and locations of issues. IIS expects senders to correct issues that led to fatal
+errors and resubmit corrected data. The information contained within ACK fatal error reports can
+help inform clinicians and healthcare administrators about what happens to their patients’ data
+after it is sent to an IIS. These reports must also be made available to administrators of health IT
+systems to allow them to investigate issues and prevent them from occurring in the future. The
+suggestions within the guidance below are not meant to be viewed as prescriptive software
+requirements to summarize fatal errors.
+
+Guidance
+
+Generation, receipt and review of summary of ACK HL7 v2 messages prevent data rejection to
+ensure patient vaccination data is complete and timely. Data rejection can adversely impact
+patient care, healthcare delivery costs and accuracy of public health data. Clinicians may be
+unaware of the many potential failure points of the transmission of a patient’s electronic
+vaccination record from their clinical software to an IIS. They may also be unaware of the potential
+volume of data rejection that can affect providers downstream who rely upon data from the IIS for
+clinical decision making.
+An IIS is expected to return an acknowledgment message when a clinical software system interface
+submits an unsolicited vaccination update message (VXU). According to the HL7 Version 2.5.1
+Implementation Guide for Immunization Messaging, Release 1.5 2018 Update, an ACK message
+indicates if vaccination records were accepted, processed with errors (some errors are so severe,
+sometimes called fatal errors, this could mean partial or full rejection of a vaccination record), or
+rejected by the IIS due to unsupported data or “reasons unrelated to format or content.”
+
+This guidance provides minimum functionality that must be incorporated into software applications
+to summarize fatal errors so users may access or create rejection reports. Such reports will allow
+users to become aware of and investigate the problem, to stop the problem from occurring in the
+future, and to plan for resubmission of corrected data. This guidance is helpful to key groups from
+public health, healthcare delivery, clinical software developers, health information exchanges and
+other third parties. Each partnering group can develop solutions to assist users in identifying and
+addressing errors from VXU submissions.
+
+This guidance assumes readers have familiarized themselves with the AIRA's “Guidance for HL7
+Messages to Support Interoperability.”
+
+Scope
+
+This document provides guidance to clinical software, IIS and third-party system developers who
+wish to 1) provide access to ACK data in the form of aggregate reports or 2) provide access to
+individual acknowledgment message data that can be extracted to allow users to create their own
+aggregate reports. The focus of this guidance is a report of acknowledgment messages that
+summarizes errors that cause patients’ vaccination update messages to be rejected in whole or in
+part. Readers familiar with HL7 ACK messages will recognize this scenario as the acknowledgment
+code of “AE- application error” reported in MSA-1 in combination with one or more errors with a
+severity level of “E - Error” reported in ERR-4.
+
+The examples below are intended to provide developers with ideas for implementing functionality
+and are not intended to be prescriptive or to be fully replicated. Additionally, examples provided
+are not intended to assign responsibility to a particular developer (i.e., IIS, clinical software, or third
+party). Each developer type’s work will have a different level of impact depending on the
+capabilities and processes of interoperating systems. Users from healthcare facilities may find it
+helpful to have functionality that currently exists in an IIS be incorporated into their clinical software.
+Similarly, some clinical software functionality may be helpful to incorporate into an IIS. Some existing
+functionality within IIS that is currently only available to an IIS administrator could be expanded to IIS
+users within a provider organization. This way provider organizations are able to review their data
+quality without intervention by an IIS user.
+
+Out of Scope
+
+When designing this document, the workgroup intentionally avoided developing guidance that
+prescribes how to develop solutions. Instead, the intent of this guidance is to describe what could
+be done to improve acknowledgment handling rather than prescribe how to develop solutions. To
+produce timely information that may assist with COVID-19 vaccination reporting and provide
+solution developers with quick wins, this guidance has limited scope. Although some items listed
+below are not discussed in this guidance, there is recognition of their importance for future
+guidance. The primary goal was to provide guidance to quickly and significantly reduce the
+volume of errors that lead to patient and immunization data rejection.
+
+This document does not discuss summarizing errors with severity of Information (I) or Warning (W).
+While errors with a severity level of Warning or Information do not result in full data rejection (i.e.,
+non-fatal) they do communicate important information that actors in healthcare delivery should
+review. For example, some IIS may communicate a warning that while the clinical system reported
+a certain vaccine code, the combination of the vaccine code and patient age may not be
+appropriate. This may be due to a system configuration or clinical mistake but is not so severe that
+the IIS will reject the vaccination record.
+
+ACKs with an acknowledgment code of “application rejection” (MSA-1 is reported as “AR”)
+indicate total data rejection from the originating message and must be carefully reviewed. These
+occur rarely and must be examined individually rather than in aggregate. ARs usually occur due to
+messages being incorrectly formatted, relate to technical configuration and do not relate to
+workflow or content. This guidance does not cover AR ACKs. Proactive attempts to avoid errors in
+reporting to an IIS should be employed by clinical software developers and clinicians where
+possible. However, these are outside the scope of this guidance. This guidance does not cover
+acknowledgment messages in response to queries, or generating, receiving or handling individual
+acknowledgment messages.
+
+Guidance for Immunization Data Receivers (Typically IIS)
+
+Receivers of immunization data should make a summary report available for a submitting facility on
+a regular basis. Reports must span an appropriate time period—users must be able to view data
+frequently enough to be able to investigate and address errors and minimize the chance that a
+subsequent immunization event would occur before the error is resolved. Generating a report
+monthly may be too late and generating a report daily may not provide enough data volume to
+identify common recurring issues. If a facility is midsized, weekly reports may be appropriate. To
+provide maximum flexibility, users must be able to specify a custom timeframe and generate their
+own reports within the application. Comparing these reports over time will enable providers to
+examine rejection trends.
+
+A report must contain valuable meta-information including: the organization, clinical facility or
+clinician that the report describes (not merely an ID number); the time period covered by the
+report; and the number of VXU messages received during the specified period. The report must
+break down the information further by indicating the number and percentage of VXU messages
+that generated at least one error with severity of “error” (data rejection, i.e., fatal error) reported in
+the fourth field of ERR segments.
+Image 1: Example Error Report Produced for a Provider Organization | Source: Tennessee Immunization Program, Tennessee
+Department of Health
+The static report above was produced by the Tennessee Immunization Information System in
+Collaboration with Vanderbilt University Medical Center Department of Biomedical Informatics. It is
+provided weekly by email as a PDF to interested provider organizations. The report provides: a
+clearly identified facility by name (not an ID), the time period for the report, the number of total
+VXU messages processed, a breakdown indicating the number/percent of VXU messages resulting
+in ACKs indicating “AE- application error” reported in MSA-1 in combination with one or more errors
+with a severity level of “E - Error” reported in ERR-4, and the most frequent problems that need to be
+addressed first.
+
+Due to the multitude of rejection reasons and limited resources of healthcare organizations
+(providers), an error report must identify the most frequent problems that need to be addressed first.
+This report must indicate the location (message segment and field) of an error in terms
+understandable to readers who have a basic comprehension of HL7 v2 messages but who may not
+recognize segment titles and field identifiers. Therefore, a report should provide a description of the
+segment and field. For example, instead of only indicating the error was found in “PID-11.3” the
+report should include a description of “Patient address - city (PID-11.3).”
+
+IIS should consider their submitting facilities to determine how best to distribute these reports.
+Depending on the setting, some users may wish to receive a static report via email while others may
+wish to login to a portal and access multiple reports. Some users may wish to be able to drill down
+to message-level data and review trends that would not be possible in a static report. Error report
+functionality will have no value if users are not able to easily access their data.
+
+IIS developers should consider developing functionality described for clinical and third-party
+software developers within this document.
+
+Guidance for Immunization Data Senders (Typically EHRs and
+Other Clinical Software)
+
+Immunization data sending systems (EHRs and other clinical software) have several options to assist
+users who want to know about their ACK data: to incorporate aggregate acknowledgment
+reporting functionality within the software, to support ACK data export or both. Software developers
+who do not intend to incorporate aggregate acknowledgment report functionality must be able to
+support data export functionality. This allows ACK messages received from an IIS to be downloaded
+in a common electronic format, including raw HL7, which can also be accessed by data analysts
+and/or third-party tools. The export functionality should allow the user to select a specified period
+and could have additional filtering capabilities.
+Image 2: Example Data Extraction User Interface | Source: Envision Technology Partners
+
+The image above is from a user interface that is incorporated into Envision Technology Partners’
+WebIZ (IIS product). Similar functionality allowing extracting for ad hoc analysis could be
+implemented by any of the three identified developers: clinical software, IIS or third parties. As
+currently implemented, the interface is available to IIS system administrators. The interface allows for
+the selection of ACK data that can be exported to allow a user to perform analysis and build
+reports. The user can specify a facility, filter by acknowledgment code, and specify a time period.
+The user may extract the data as delimited text and is able to select a delimiter of their preference.
+
+For clinical software developers who intend to incorporate acknowledgment report functionality
+into their products, a summary report must share the functionality of reports described above in
+Guidance for Immunization Data Receivers. Ideally, a software developer should be able to
+replicate a similar summary report that their customers received from an IIS. Clinical software has
+the opportunity to add value beyond what an IIS can do—namely, linkage to a patient’s non-
+immunization data. A summary report should include drill-down functionality that allows navigation
+from a general error category to specific messages or patient demographic and immunization
+records that generated the error. Using the message control ID reported in MSA-2 for the VXU
+generating the error could facilitate identification and correction of the error and potential
+resubmission of the VXU message to the IIS. Users may also want to exclude messages from a report
+that have been corrected and resubmitted to avoid attempting to address issues that have
+already been resolved.
+Image 3: Example Report Featuring Drill-down Capability Part 1 | Source: Stuart Weinberg, MD; Vanderbilt University Medical
+Center Department of Biomedical Informatics
+
+The above example was provided by Vanderbilt University Medical Center informaticians. They
+extract ACK data from their EHR into text files and load into a simple web application. All ACKs with
+AE are summarized daily for a seven-day period. The user may select a new time period using the
+hyperlinks in the header. Message errors are summarized by E (“fatal” error) and W (warning)
+severity levels; errors with a severity of I (information) are excluded. Report users can see a trend
+over time—for example, in the table below, a low percentage of messages were rejected the first
+five days and increased on day six but dropped down on day seven. The user may click on a sum
+of E and W errors to examine the most common errors.
+
+Image 4: Example Report Featuring Drill-down Capability Part 2 | Source: Stuart Weinberg, MD; Vanderbilt University Medical
+Center Department of Biomedical Informatics
+A continuation from Image 3. The user now sees the most frequent errors and can click on the
+number of errors to see further detail.
+
+Image 5: Example Report Featuring Drill-Down Capability Part 2 | Source: Stuart Weinberg, MD; Vanderbilt University Medical
+Center Department of Biomedical Informatics
+
+A continuation from Image 4. The user now sees the most granular report available which includes
+the message control ID of the VXU message that contains an error. The user can see that an
+individual VXU message has multiple problems that are related.
+
+Clinical software developers should consider developing functionality described for receivers and
+third parties in this document.
+
+Guidance for Third Parties (Typically HIEs, Data Hubs,
+Integrators, Report Developers)
+
+Third-party software developers (those not sending or receiving ACK data) or data analysts using
+data from clinical software or IIS should review the requirements listed above in Guidance for
+Immunization Data Receivers (IIS) and Guidance for Immunization Senders (EHRs and Other Clinical
+Software) sections. Third-party functionality may require an interface with live data or rely upon
+data extracted from the IIS and/or clinical software. Health information exchanges and integrators
+may find themselves in a good position to provide added value by producing reports, reviewing
+data and working with their clients to minimize errors in the future and resubmit corrected data.
+
+Third-party software developers should consider developing functionality described for receivers
+and clinical software in this document. Additional examples of ACK error report and data
+extraction functionality can be found below.
+Additional Examples of Desired Functionality
+
+Image 6: Example Visualization of Error Data | Source: Envision Technology Partners
+
+A visualization, incorporated into Envision’s WebIZ, demonstrates trends in ACK quality over time. This
+is further broken down by immunization and errors. When the user hovers their cursor over a date,
+the data is updated.
+
+Image 7: Example of Parameter Specifying User Interface for Report Generation Part 1 | Source: STChealth
+
+This user interface within STChealth’s iWeb (IIS product) allows users to generate an error report and
+specify the following parameters: time period, error severity (errors, warnings or both). The user may
+specify the report output format—HTML or comma-separated values. This report allows clinics to
+monitor the quality of their electronic data and identify any issues that need to be corrected. The
+user may access the report on demand or may schedule the report to be sent via email in the
+future.
+Image 8: Example of Parameter Specifying User Interface for Report Generation Part 2 | Source: STChealth
+
+This is the report resulting from the user interface displayed in Image 7. The report breaks down errors
+for a provider organization into its one or more facilities. Each facilities’ messages, unique patients
+and errors (broken down by severity). After displaying the summary information, individual messages
+grouped by facility are displayed along with the error location.
+
+Image 9: Example of Data Quality Report Part 1 | Source: STChealth
+
+This dashboard, incorporated into STChealth’s iQ tool (IIS product), is designed to identify, inform,
+and impact data quality. Users may specify range criteria for date of administration and patient
+age. A summary of warnings and errors is displayed near the top, and then a breakdown of issues is
+provided. Users may drill down further as shown in Image 10 below.
+
+Image 10: Example of Data Quality Report Part 2 | Source: STChealth
+
+This is a continuation of Image 9. This displays an individual patient’s errors and warnings and
+recommendations to prevent the error from occurring in the future. The user may also indicate an
+issue has been resolved by selecting the checkbox on the far right.
+
+Image 11: Example Extracted ACK Data | Source: Epic
+This is an extract of ACK data provided within Epic’s electronic health record system. This extract is a
+pipe-delimited text file with a header row that includes the date the error occurred, a description of
+the error, the originating message control ID (MSA-2), the severity (ERR-4) of the error, error location,
+a diagnostic message (ERR-7), and a user message (ERR-8).
+
+Summary of Current and Desire States
+
+A summary of the current state of ACK data exchange and recommended new functionality is
+found below in Image 12. Clinician action is listed first, followed by existing clinical software
+functionality, leading to the exchange of data with the IIS. New functionality that could be
+incorporated into reporting tools using data from either clinical systems or IIS are shown in the purple
+“swim lane” labeled as “Reporting Tool.” The reports generated by the new functionality could be
+reviewed by an interface analyst or the analyst could generate their own reports if ACK data
+extraction functionality was incorporated into their existing tools.
+
+Image 12: Current and Desired State of Immunization Acknowledgment Processing
+Other Efforts Taking Place
+
+AIRA’s Standards and Interoperability Steering Committee formed a small workgroup to review,
+refine, update and create new application error codes found in the error segment’s fifth field (ERR-
+5) in ACK messages. The newly proposed codes provide more specificity and understanding to
+users. These codes either indicate missing or invalid codes for each Centers for Disease Control and
+Prevention-recommended IIS core data element or describe a violation of a community agreed
+upon business rule. An example of a violated business rule would be when a vaccine that is only
+approved for pediatric patients was recorded as being administered to an adult patient. Before this
+new code’s proposal, the IIS could only communicate such an issue by returning a code for
+“illogical value error” in one portion of the acknowledgment message and “RXA-5” (administered
+substance - the location of the issue) in another portion. IIS are not yet being asked to implement
+these more specific codes, but doing so will provide more specificity to those who read these ACKs.
+These codes do not specify the severity of the issue (Information, Warning, Error). Instead, they focus
+on allowing IIS to communicate issues discovered.
+
+Conclusion
+
+Real-time or near real-time messaging necessitates all parties passing along standardized ACK
+messages (e.g., IIS to HIE to EHR to clinic staff). However, merely passing acknowledgement
+messages between systems without addressing fatal errors is insufficient to keep patients properly
+vaccinated and conserve limited resources. When ACK messages are not reviewed, particularly
+when fatal errors occur, unintended or undesired actions can occur for example:
+
+     ● Clinic staff expecting to see full immunizations for their patients will see incomplete records
+     ● Public health will have incomplete information within the system—this can impact planning
+
+          for targeted vaccination outreach efforts
+     ● HIEs may be held responsible for incomplete submissions
+     ● Patient records will be inaccurate for record-keeping and future clinical decision support
+
+Reviewing and, where needed, acting upon acknowledgment messages allows errors to be
+corrected swiftly and assures high data quality to support all parties that rely on accurate and
+complete immunization information. Adding functionality to produce or support aggregate ACK
+reports offers another option to improve efficiency.
+
+Future Work Possibilities
+
+The recommended solutions provided above will benefit public health and healthcare delivery
+system configurations, but considering these solutions in additional settings will help to provide
+guidance that will further improve error message handling in different settings. For example,
+consider a region in which all communication with the IIS occurs through an HIE; in such a scenario
+the HIE may represent the acknowledgment manager or it may provide a more detailed report to
+each of its participating healthcare delivery organizations. Other configurations may include
+support from templates developed by IIS software companies and/or clinical software companies
+for both aggregate report and drill-down capabilities. Potential solutions should also consider
+clinical practices with very limited information technology expertise and ability as well as those with
+large IT staff.
+The initial investigation by the IIP Acknowledgment Workgroup identified two functionalities that
+should be incorporated into software used when exchanging immunization data: aggregate error
+reports and data extraction. However, these recommended functionalities were based upon a
+limited set of organizations that currently have resources to support the extraction or summary of
+ACK error data. Therefore, the release of this guidance should be followed by pilot
+implementations. Successful pilot projects that demonstrate either a reduction of errors or
+improvement in preventing errors in the future will significantly improve the likelihood of adoption of
+the recommendations listed above. The ultimate goal of the guidance is to improve the quality and
+success of immunization submissions to achieve accurate and timely exchange of individual and
+population-level immunization information. Once these steps have been taken, an aggregate
+reporting template or profile could be developed by consensus in HL7 or Integrating the Healthcare
+Enterprise. A template or profile would enable common ACK reporting and responses to support
+the various stakeholders. Finally, the immunization interoperability community should consider
+developing best practice and guidance for resubmitting immunization data that initially contained
+fatal errors and was subsequently corrected.
+
+To learn more about IIP technical assistance or to serve as a pilot site, please contact iip@himss.org.
+
+Call to Action
+
+HIMSS Immunization Integration Program
+
+Better health outcomes, reduced costs and higher clinician productivity
+The HIMSS Immunization Integration Program is advancing the inclusion of enhanced immunization
+capabilities in EHRs to improve the exchange of data between EHRs and immunization information
+systems.
+

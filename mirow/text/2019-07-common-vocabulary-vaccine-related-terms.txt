@@ -1,0 +1,199 @@
+                            Vaccine-Related Terms
+
+                                                                        July 18, 2019
+
+Introduction and Background
+
+This document has been developed as a discussion tool, providing a historical background
+to the development of the concepts, examples, and current definitions for vaccine type,
+vaccine product type, and vaccine.
+
+With the development of the MIROW Vaccination Level Deduplication in Immunization
+Information Systems Guide1, there was need to define vaccine and attributes associated
+with vaccine. The definition of vaccine at that time had been all-inclusive, and a vaccine
+entity included attributes, comprising CVX code (vaccine type), lot number, and all other
+vaccine-related attributes. As development of guides progressed, new requirements were
+introduced. In the MIROW Immunization Information System Collaboration with Vaccines for
+Children Program and Grantee Immunization Programs Guide2, vaccine was partitioned into
+vaccine and vaccine type. The vaccine type was needed to identify patient eligibility for
+publicly funded vaccines. Patients are eligible for some vaccine types and may not be
+eligible for other vaccine types.
+
+The MIROW Immunization Information System Inventory Management Operations Guide3
+defined vaccine product type, which was used in two additional MIROW guides. Providers
+order vaccine based on the national drug code (NDC) (the key identifying attribute of
+vaccine product type) and receive shipments that contain vaccines with specific lot
+numbers and lot number expiration dates. The ordering process contains information
+about the vaccine product type, and the receiving process includes information about the
+vaccines. Vaccine presentation type is a concept that describes the vaccine dosage and
+packaging (e.g., syringes, vials). This information is reflected in the NDC and has been
+captured as a term alias for vaccine product type. Note that, when a vaccination event is
+reported, it’s possible not all information (i.e., all attributes for vaccine type, vaccine
+product type, and vaccine) is known. For example, the CVX code may be known, but the
+specific lot number may not. In addition, as of November 2018, CDC is recommending
+discontinuing use of the Current Procedural Terminology (CPT) code.
+
+1 https://repository.immregistries.org/resource/vaccination-level-deduplication-in-immunization-
+information-systems-1/
+2 https://repository.immregistries.org/resource/immunization-information-system-collaboration-
+with-vaccines-for-children-program-and-grantee-immuniz-1/
+3 https://repository.immregistries.org/resource/immunization-information-system-inventory-
+management-operations/
+
+                                                                                                                              1
+Relationships between vaccine, vaccine product type, and vaccine type are depicted on
+Figures 1 and 2 below.
+
+Domain Diagrams
+
+Figure 1: Comparison of domain diagrams from 2006 and the current MIROW common vocabulary
+
+                                                                                                                              2
+         Vaccine Product Type 1                           Vaccine Type = HepB,                        Vaccine Product Type 5
+                                                           adolescent or pediatric
+NDC = 00006-4093-02                                                                          NDC = 58160-0820-11
+MVX Code = MSD                                           CVX Code = 08                       MVX Code = SKB
+Trade Name = RECOMBIVAX HB                               CPT Code = 90744                    Trade Name = ENGERIX-B
+
+         Vaccine Product Type 2                                                                    Vaccine Product Type 6
+
+NDC = 00006-4981-00                                                                     NDC = 58160-0820-52
+MVX Code = MSD                                                                            MVX Code = SKB
+Trade Name = RECOMBIVAX HB                                                              Trade Name = ENGERIX-B
+
+                                 Vaccine Product Type 3           Vaccine Product Type 4
+
+                      NDC = 00006-4980-00                NDC = 00006-4093-09
+                      MVX Code = MSD                     MVX Code = MSD
+                      Trade Name = RECOMBIVAX HB         Trade Name = RECOMBIVAX HB
+
+                             Vaccine 1                                    Vaccine 2                           Vaccine 3
+
+            Lot Number = ABC1                            Lot Number = ABC2                   Lot Number = ABC3
+            Lot Number Expiration Date = Date1           Lot Number Expiration Date = Date2  Lot Number Expiration Date = Date3
+
+Figure 2: Example of vaccine types, vaccine product types, and vaccines
+Sources: https://www2a.cdc.gov/vaccines/iis/iisstandards/vaccines.asp?rpt=ndc;
+https://www2a.cdc.gov/vaccines/iis/iisstandards/vaccines.asp?rpt=cpt
+
+Definitions
+
+These three definitions were developed by the MIROW Common Vocabulary Workgroup.
+
+Vaccine                          a dose of substance administered during a vaccination event.
+Definition                       Vaccine is a classification of a vaccine product type that is
+Comment                          described by a lot number. The lot number is not a unique
+                                 identifier, rather it identifies a group of vaccines.
+
+Example                          Combination Example:
+                                 Vaccine Type = HepB
+                                 CVX Code = 8
+                                 Vaccine Product Type:
+                                 - NDC = 58160-0820-11
+                                 - Manufacturer/MVX code = SKB
+                                 - Trade Name = ENGERIX B-PEDS
+                                 Vaccine:
+
+                                                                                                                                 3
+Term Alias    - Lot Number = ABCD
+              - Lot Number Expiration Date = MM/DD/YYYY
+CDC-Endorsed
+Data Element  Vaccine Dose
+Crosswalk
+              None
+MIROW Guides
+              • Decrementing Inventory via Electronic Data Exchange
+              • Management of Patient Active/Inactive Status in Immunization
+
+                  Information Systems
+              • Data Quality Assurance in Immunization Information Systems:
+
+                  Selected Aspects
+              • Immunization Information System Inventory Management
+
+                  Operations
+              • Immunization Information System Collaboration with Vaccines
+
+                  for Children Program and Grantee Immunization Programs
+              • Reminder/Recall in Immunization Information Systems
+              • Data Quality Assurance in Immunization Information Systems:
+
+                  Incoming Data
+              • Vaccination Level Deduplication in Immunization Information
+
+                  Systems
+
+Vaccine Product Type
+
+Definition            a classification that describes the manufacturer, and
+Comment               presentation of a vaccine type
+
+                      The vaccine product type includes attributes NDC, etc.
+                      In addition, the vaccine product type is related to vaccine type
+                      which is a broader grouping, and also to the vaccine that is a
+                      specific value.
+
+Example               Examples of vaccine product types that belong to the same
+                      vaccine type of HepB, CVX Code = 8, but have different NDC
+                      codes:
+                      Vaccine Product Type 1
+                      - NDC = 58160-0820-11
+                      - Manufacturer/MVX code = SKB
+                      - Trade Name = ENGERIX B-PEDS
+                      Vaccine Product Type 2
+                      - NDC = 00006-4981-00
+
+                                                                                        4
+Term Alias         - Manufacturer/MVX code = MSD
+CDC-Endorsed Data  - Trade Name = RECOMBIVAX-PEDS
+Element Crosswalk
+                   Vaccine Presentation Type
+MIROW Guides
+                   No matching term to vaccine type is defined.
+                   There are some related terms—for example:
+                   Vaccine Product: The vaccine type that may be administered,
+                   historical or refused, and is messaged using the NDC or CVX code
+                   sets.
+
+                   • Decrementing Inventory via Electronic Data Exchange
+                   • Data Quality Assurance in Immunization Information
+
+                       Systems: Selected Aspects
+                   • Immunization Information System Inventory Management
+
+                       Operations
+
+Vaccine Type       a classification of vaccines that describes the disease to which it
+Definition         provides immunity
+Comment            The vaccine type includes attributes CVX code, etc.
+                   In addition, the Vaccine Type is related to one or more vaccine
+Example            product type(s), which is more specific, indicating manufacturer,
+Term Alias         and also the vaccine that is a specific dose.
+CDC-Endorsed
+Data Element       MMR, Hib-HepB, HepB-Peds
+Crosswalk
+                   None
+MIROW Guides
+                   No matching term to Vaccine Type is defined.
+                   There are some related terms—for example,
+                   Vaccine Product: The vaccine type that may be administered,
+                   historical or refused, and is messaged using the NDC or CVX code
+                   sets.
+
+                   • Decrementing Inventory via Electronic Data Exchange
+                   • Management of Patient Active/Inactive Status in Immunization
+
+                       Information Systems
+                   • Data Quality Assurance in Immunization Information Systems:
+
+                       Selected Aspects
+                   • Data Quality Assurance in Immunization Information Systems:
+
+                       Incoming Data
+                   • Vaccination Level Deduplication in Immunization Information
+
+                       Systems
+
+                                                                                        5
+6
+

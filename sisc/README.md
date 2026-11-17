@@ -5,9 +5,13 @@ and CDC through AIRA's Standards and Interoperability Steering Committee (SISC) 
 (TAB) series began in 2024. They were downloaded from the [AIRA repository](https://repository.immregistries.org/). Like
 the TABs (see `tabs/`), they are published community guidance, so they are kept here as sources.
 
-- `*.pdf`, `*.docx`: the documents as published, renamed `<publication month>-<topic>.<ext>`
+A few related documents published by AIRA or the Immunization Integration Program, rather than by SISC, are kept here
+too (their entries in `data/sisc-guidance.yml` say so). Most of these were found by a scan of the AIRA repository; see
+`docs/aira-repository-scan.md`.
+
+- `*.pdf`, `*.docx`, `*.xlsx`: the documents as published, renamed `<publication month>-<topic>.<ext>`
 - `text/*.txt`: extracted text, for searching and comparison (PDF: `pdftotext -layout -enc UTF-8`; Word: the text of
-  each paragraph)
+  each paragraph; Excel: each sheet, one row per line, cells separated by tabs)
 
 `data/sisc-guidance.yml` lists each document with its published URL and the guide sections it affects. The comparison of
 each document with the guide is in `quality/sisc/<id>.yml`, and the site shows it under **SISC Guidance**.

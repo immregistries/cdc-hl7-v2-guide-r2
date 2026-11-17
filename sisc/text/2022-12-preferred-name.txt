@@ -1,0 +1,167 @@
+Guidance on
+Messaging
+Preferred Name
+of Patient
+
+December 2022
+Background
+
+Release 1.5 of the Implementation Guide (IG) for Immunization Messaging allows for
+messaging multiple names for a patient, the first of which must be the legal name of the
+patient. During discussions to support reporting of Sexual Orientation and Gender Identity
+(SOGI), it was determined that additional HL7 technical guidance was needed for support of
+indicating a patient’s preferred name.
+Gender-marginalized individuals face significant barriers to adequate and culturally
+responsive health care, leading to numerous health disparities. The preferred name is the
+name that should be used when addressing or referencing the patient. For the purposes of
+this guidance, the term “preferred name” is interchangeable with “nickname,” “call me
+name,” or “name to use.” The preferred name enables care providers to use the name that
+is chosen by the person. Ultimately, this will assist with improved quality of care, reduced
+clinician burden, and less fragmentation of a person’s clinical record. Preferred name is
+also valuable for other contexts in which a patient may provide a name to be used.
+Since the IG’s initial publication in 2014, improvements in the name type codes now allow
+for clearer communication of preferred names in distinction from alias names.
+
+Scope of Guidance
+
+In scope
+
+This document will describe how the preferred name can be messaged in VXU and RSP
+messages.
+
+Out of scope
+
+This document does not deal with how submitting systems (electronic health record,
+hospital, or pharmacy systems) or immunization information systems (IIS) should collect
+and display preferred names of patients.
+
+Expectations of Support
+
+This document does not require that systems conform to the IG to support the ability to
+send or receive preferred patient names. Systems that do not support the preferred name
+should ignore this information if sent.
+
+                                                                                                                              1
+Current Support for Legal and Alias Names
+
+Names associated with a patient are submitted in PID-5 using Extended Person Name
+(XPN) data type. This data type includes these key fields:
+
+Field Field Name                  Usage                                 Value Sets
+
+XPN.1 Family Name                 Required (R)
+
+XPN.2 Given Name                  Required (R)
+
+XPN.3 Second and Further Given Names or Initials Required if Known
+
+   Thereof                        (RE)
+
+XPN.7 Name Type Code              Required (R)                          HL70200
+
+The IG currently specifies that the legal name of the patient must always be sent in the first
+occurrence of PID-5 Patient Name. The legal name is indicated by sending “L” in XPN.7
+Name Type Code (PID-5.7). This requirement is not changed by the guidance; sending
+systems must continue to report legal name in the first occurrence.
+
+The IG also specifies patient name alias by using name type “A,” which indicates “this is a
+nickname or other assumed name” but does not provide additional guidance. Some
+systems may currently be using this field to indicate the preferred name.
+
+Value Description     Definition
+
+A  Alias Name         This is a nickname or other assumed name.
+
+Updated Name Type Guidance from HL7
+
+Since the publication of the current IG, the HL7 community has significantly changed the
+description from “A” Alias to “A” Assigned and removed the concept of Nickname from the
+definition.
+
+Value Display V2 Concept Comment
+
+A  Assigned A name assigned to a person. Reasons some organizations assign
+
+            alternate names may include not knowing the person’s name or
+
+            maintaining anonymity. Some, but not necessarily all, of the name
+
+            types that people call “alias” may fit into this category.
+
+                                                                                             2
+The concept of nickname has been moved to “N” Nickname.
+
+Value Display V2 Concept Comment
+
+N      Nickname Nickname /”Call me” Name/Street Name
+
+The current guidance from the IG is that patient’s preferred name should be indicated
+using “N” Nickname in preference to “A” Assigned.
+
+Implementation of Guidance by IIS Community
+
+Sending and receiving systems that wish to send or receive preferred name must use “N” in
+XPN.7 Name Type Code (PID-5.7) in a PID-5 occurrence after the first one that should
+contain the patient’s legal name. This will ensure the IIS can distinguish preferred names
+from other assigned names that may have been given to the patient.
+
+This new XPN value will have requirements that differ from the legal name in the first
+repetition.
+
+Field Field Name Base Usage         Preferred/Nickname Usage
+
+XPN.1 Family Name Required (R)      Required if XPN.2 is not valued, otherwise
+                                    required if known, C(R/RE)
+
+XPN.2 Given Name Required (R)       Required if Known (RE)
+
+XPN.3  Second and     Required if   Required if Known (RE)
+       Further Given  Known (RE)
+       Names or
+       Initials
+       Thereof
+
+XPN.7 Name Type       Required (R)  Required (R), must be “N” for Nickname
+            Code
+
+If the patient does not indicate either a preferred last or first name, then no repeat of PID-5
+should be indicated with Name Type Code of “N.”
+
+Examples
+
+A patient with no preferred name:
+
+MSH|^~\&|Test EHR Application|X68||NIST Test Iz Reg|20120701082240-
+0500||VXU^V04^VXU_V04|IZ-123.45|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS
+
+                                                                                        3
+PID|1||D26376273^^^NIST
+MPI^MR||Snow^Madelynn^Ainsley^^^^L|Lam^Morgan^^^^^M|20070706|F
+ORC|RE||IZ-783274^NDA
+
+A patient with a preferred first name (with change in bold):
+MSH|^~\&|Test EHR Application|X68||NIST Test Iz Reg|20120701082240-
+0500||VXU^V04^VXU_V04|IZ-123.45|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS
+PID|1||D26376273^^^NIST
+MPI^MR||Snow^Madelynn^Ainsley^^^^L~^Maddie^^^^N|Lam^Morgan^^^^^M|
+20070706|F
+ORC|RE||IZ-783274^NDA
+
+A patient with a preferred last name (with change in bold):
+MSH|^~\&|Test EHR Application|X68||NIST Test Iz Reg|20120701082240-
+0500||VXU^V04^VXU_V04|IZ-123.45|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS
+PID|1||D26376273^^^NIST
+MPI^MR||Snow^Madelynn^Ainsley^^^^L~Harris^^^^^N|Lam^Morgan^^^^^M|
+20070706|F
+ORC|RE||IZ-783274^NDA
+
+A patient with a preferred last and first name (with change in bold):
+MSH|^~\&|Test EHR Application|X68||NIST Test Iz Reg|20120701082240-
+0500||VXU^V04^VXU_V04|IZ-123.45|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS
+PID|1||D26376273^^^NIST
+MPI^MR||Snow^Madelynn^Ainsley^^^^L~Harris^Maddie^^^^N|Lam^Morgan^^^^^M|
+20070706|F
+ORC|RE||IZ-783274^NDA
+
+                                                                                                                              4
+

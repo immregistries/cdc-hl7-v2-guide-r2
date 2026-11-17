@@ -1,0 +1,85 @@
+                                                                                 AIRA/CDC Notice to the IIS Community
+                                                                           Serial Numbers in Unit of Sale 2D Barcodes
+
+                                                                                                          February 27, 2017
+
+The intent of the Drug Supply Chain Security Act (DSCSA) is to identify and trace certain prescription
+drugs as they move through the U.S. supply chain. One of the provisions addresses product
+identification: “Manufacturers and repackagers to put a unique product identifier on certain
+prescription drug packages, for example, using a bar code that can be easily read electronically.”
+Product identification is scheduled to be implemented in November 2017, however some vaccine
+manufacturers have begun to encode this information on the salable boxes or packages (unit of sale)
+using 2D barcodes.
+
+In addition, over the past five years many vaccine manufactures have affixed 2D barcodes onto vaccine
+vials and syringes (unit of use) in order to improve the data capture of information at the point of
+vaccine administration. The three data elements included on these vaccine products and encoded with
+2D barcodes are:
+
+    1. Global Trade Item Number (GTIN) – 14 characters, contains the National Drug Code (NDC)
+    2. Expiration Date – 6 characters in YYMMDD format
+    3. Lot Number – up to 10 characters
+
+Example of Vial/Syringe 2D Barcoded Vaccine Data String
+
+01003123456789061713102810U4275AA
+
+    • GTIN: 00312345678906
+
+    • Expiration Date: 131028 (YYMMDD)
+
+    • Lot Number: U4275AA
+
+    • GS1 Application Identifiers: 01,17 and 10
+
+Note: GS1 is the standards development organization for barcodes. Here is the address for the US
+affiliate: https://www.gs1us.org/ and the address of the implementation guide developed by GS1 US
+and the American Academy of Pediatrics (AAP):
+https://www.gs1us.org/DesktopModules/Bring2mind/DMX/Download.aspx?command=core_download
+&entryid=628&language=en-US&PortalId=0&TabId=134.
+
+The product identifier as specified by the DSCSA includes the above data items as well as a field for
+Serial Number. When combined with the GTIN, the Serial Number uniquely identifies an individual
+package. This provides a level of tracking more granular than the Lot Number. However, at present
+there is not a strong use case for the collection of serial number information, although there is
+speculation that package serial numbers could allow for more granular recalls. This assumes vaccine
+manufacturers can identify recalls by serial number.
+
+Example of New (Unit of Sale) 2D Barcoded Vaccine Data String
+
+0100312345678906211000088935971713102810U4275AA
+
+    • GTIN: 00312345678906
+                                                                                 AIRA/CDC Notice to the IIS Community
+                                                                           Serial Numbers in Unit of Sale 2D Barcodes
+
+                                                                                                          February 27, 2017
+
+    • Serial Number: 100008893597
+
+    • Expiration Date: 131028 (YYMMDD)
+
+    • Lot Number: U4275AA
+
+    • GS1 Application Identifiers: 01, 21 ,17 and 10
+
+Software developers and users should be aware of these changes to the 2D barcode. While the original
+data items, GTIN, Expiration Date and Lot Number, are still present in the new barcodes, the addition of
+the Serial Number may present problems for applications that currently support barcode scanning and
+subsequent application database population. While it may not be necessary for the software application
+to capture/use/display the Serial Number, any scanning enable application will need to account for the
+inclusion of the Serial Number when parsing the data from the scanned barcode and ensure that
+currently supported data elements remain accurately identified.
+
+At this point in time, AIRA’s Standards and Interoperability Steering Committee (SISC) in conjunction
+with the CDC have not identified use cases which would benefit from the capture and exchange of the
+Unit of Sale Serial Numbers. As such, we have no plans at this time to recommend the Serial Number as
+a core data element for either IIS or EHR systems. Nor do we have plans to enhance the national
+interoperability standard to include the exchange of the Serial Number. However, we are taking this
+opportunity to solicit feedback from the community regarding use cases for capturing and exchanging
+this data. If you have thoughts on potential uses for the Serial Number that would warrant a
+recommendation to capture and exchange this data, please share these use cases with us. Please email
+Craig Newman, SISC Co-Chair, at yuo9@cdc.gov, Mary Woinarowicz, SISC Co-Chair, at
+mary.woinarowicz@nd.gov, or Mary Beth Kurilo, AIRA staff, at mbkurilo@immregistries.org with any
+comments or questions.
+

@@ -1,0 +1,155 @@
+# MIROW best practice guides, and related best practice guidance, to compare with the guide.
+#
+# AIRA's Modeling of Immunization Registry Operations Workgroup (MIROW) published operational best practice guides for IIS
+# from 2005 to 2022; the workgroup is no longer meeting, so this set is complete. The guides do not specify messages, but
+# much of what they recommend (deduplication, record consolidation, patient status, inventory decrementing, data quality)
+# depends on what arrives in VXU and QBP messages and what is returned in ACK and RSP messages. This guide should agree
+# with them, use the same terms, and point to them where they apply. Published copies are kept in mirow/ (with extracted
+# text in mirow/text/). Comparisons are to come (quality/mirow/<id>.yml).
+#
+# Found by a scan of the AIRA repository (docs/aira-repository-scan.md). Only the current full guide on each topic is
+# kept: mini-guides, Spanish and French versions, slides, and guides that a later guide replaced are left out.
+#
+# Fields:
+#   id           stable ID; never reuse
+#   title        title as published
+#   date         publication date on the document (YYYY-MM)
+#   page         the resource page on the AIRA repository
+#   url          the published copy (omit if it is no longer online)
+#   file         the copy in mirow/
+#   also         other files that belong with it (optional)
+#   publisher    if not MIROW (optional)
+#   summary      one or two sentences
+#   source_note  anything a reviewer should know about versions (optional)
+#   cards        guide sections the document affects (filled in when it is compared)
+
+page: https://repository.immregistries.org/resources/search/mirow/
+
+documents:
+  - id: data-quality-assurance
+    title: Data Quality Assurance in Immunization Information Systems
+    date: 2022-08
+    page: https://repository.immregistries.org/resource/data-quality-assurance-in-immunization-information-systems/
+    url: https://repository.immregistries.org/files/resources/62fbd92c465fe/data_quality_assurance_8_2022.pdf
+    file: mirow/2022-08-data-quality-assurance.pdf
+    also:
+      - mirow/2022-08-data-quality-assurance-principles-and-business-rules.xlsx
+      - mirow/2022-08-data-quality-assurance-comparison-with-past-guides.pdf
+    summary: >-
+      Best practices for assuring the quality of data sent to and held in an IIS, across onboarding, incoming data, and
+      data at rest, with the principles and business rules that support them.
+    source_note: >-
+      Version 2.0. Merges and replaces three earlier MIROW guides: Data Quality Assurance in IIS: Incoming Data (2008),
+      Data Quality Assurance in IIS: Selected Aspects (2013), and the micro-guide Lot Number Validation Best Practices
+      (2014). The comparison document maps the earlier best practices to this guide.
+
+  - id: vaccination-level-deduplication
+    title: Vaccination Level Deduplication in Immunization Information Systems
+    date: 2006-12
+    page: https://repository.immregistries.org/resource/vaccination-level-deduplication-in-immunization-information-systems-1/
+    url: https://repository.immregistries.org/files/resources/5835adc2db396/vaccination_level_deduplication_in_immunization_information_systems_.pdf
+    file: mirow/2006-12-vaccination-level-deduplication.pdf
+    summary: >-
+      How an IIS selects, evaluates, and resolves possible duplicate vaccination events, including which reported data
+      to keep when two records describe the same dose.
+
+  - id: consolidating-records
+    title: Consolidating Demographic Records and Vaccination Event Records
+    date: 2017-08
+    page: https://repository.immregistries.org/resource/consolidating-demographic-records-and-vaccination-event-records/
+    url: https://repository.immregistries.org/files/resources/59d677eb1b908/aira_mirow_consolidating_demographic_rec_updated.pdf
+    file: mirow/2017-08-consolidating-demographic-and-vaccination-event-records.pdf
+    summary: >-
+      How an IIS builds a single best record for a patient and for each vaccination event from multiple reports, and how
+      it chooses among conflicting values.
+
+  - id: management-of-patient-status
+    title: Management of Patient Status in Immunization Information Systems
+    date: 2019-03
+    page: https://repository.immregistries.org/resource/management-of-patient-status-in-immunization-information-systems/
+    url: https://repository.immregistries.org/files/resources/5cf691f15b26e/aira_mirow_mgmt_of_patient_status_in_iis_-_6_1_2020.pdf
+    file: mirow/2019-03-management-of-patient-status.pdf
+    summary: >-
+      Best practices for recording a patient's status (active or inactive, and why) at the provider organization and
+      jurisdiction levels, including the values exchanged in HL7 messages.
+    source_note: >-
+      Version 3.0 (March 2019), a repackaging and renaming of Management of Patient Active/Inactive Status in IIS (2015),
+      which replaced Management of Moved or Gone Elsewhere Status and Other Patient Designations in IIS (2005). The
+      file name of the published copy is dated June 2020.
+
+  - id: patient-status-implementation
+    title: "Patient Status in Immunization Information Systems: Recommendations and Implementation Strategies"
+    date: 2019-09
+    publisher: AIRA
+    page: https://repository.immregistries.org/resource/patient-status-in-immunization-information-systems/
+    url: https://repository.immregistries.org/files/resources/5db70560c31dd/aira_patient_status_in_iis.pdf
+    file: mirow/2019-09-patient-status-recommendations-and-implementation.pdf
+    summary: >-
+      A companion to the MIROW patient status guide that bridges its recommendations and how IIS actually put them into
+      practice.
+
+  - id: decrementing-inventory
+    title: Decrementing Inventory via Electronic Data Exchange
+    date: 2016-05
+    page: https://repository.immregistries.org/resource/decrementing-inventory-via-electronic-data-exchange/
+    url: https://repository.immregistries.org/files/resources/5835adc2a034b/aira_mirow_di-v-ede_guide_final_010417.pdf
+    file: mirow/2016-05-decrementing-inventory-via-electronic-data-exchange.pdf
+    summary: >-
+      How an IIS decrements a provider's vaccine inventory from doses reported electronically, which depends on lot
+      number, funding source, and dose-level eligibility arriving in the VXU.
+
+  - id: inventory-management-operations
+    title: Immunization Information System Inventory Management Operations
+    date: 2012-06
+    page: https://repository.immregistries.org/resource/immunization-information-system-inventory-management-operations/
+    url: https://repository.immregistries.org/files/resources/5835adc2dcc0d/immunization_information_system_inventory_management_operations_.pdf
+    file: mirow/2012-06-inventory-management-operations.pdf
+    summary: >-
+      Best practices for vaccine inventory management in an IIS. Less tied to messaging than the decrementing inventory
+      guide that followed it.
+
+  - id: common-vocabulary
+    title: MIROW Common Vocabulary
+    date: 2022-09
+    page: https://repository.immregistries.org/resource/mirow-common-vocabulary/
+    file: mirow/2022-09-common-vocabulary-advanced-report.pdf
+    also:
+      - mirow/2019-07-common-vocabulary-cdc-endorsed-data-element-crosswalk.pdf
+      - mirow/2019-07-common-vocabulary-vaccine-related-terms.pdf
+      - mirow/2019-07-common-vocabulary-provider-organization-notes.pdf
+    summary: >-
+      The terms used across the MIROW guides, consolidated into one vocabulary, with a crosswalk to the CDC-endorsed data
+      elements and notes on vaccine-related terms and on provider organization versus IIS-authorized organization.
+    source_note: >-
+      Version 2.0. The resource page is still online but no longer offers its files; these copies come from the
+      repository's file store (snapshot of November 2024). The simple report, the support document (a legend), and the
+      domain diagrams are left out; the advanced report has the full content.
+
+  - id: principles-and-business-rules
+    title: MIROW Principles and Business Rules Reports
+    date: 2022-09
+    page: https://repository.immregistries.org/resource/mirow-principles-and-business-rules-reports/
+    file: mirow/2022-09-principles-and-business-rules-advanced-report.pdf
+    also:
+      - mirow/2022-12-principles-and-business-rules.xlsx
+    summary: >-
+      The 375-plus principles and business rules from all MIROW guides in one place, as a report and as a spreadsheet
+      (updated December 2022).
+    source_note: >-
+      Version 2.0. Like the common vocabulary, the resource page no longer offers its files; these copies come from the
+      repository's file store. The simple report and the support document are left out.
+
+  - id: cdc-patient-level-deduplication
+    title: Immunization Information Systems Patient-Level De-duplication Best Practices
+    date: 2013-06
+    publisher: CDC (NCIRD Immunization Information Systems Support Branch)
+    page: https://repository.immregistries.org/resource/immunization-information-systems-patient-level-de-duplication-best-practices-2013/
+    file: mirow/2013-06-cdc-patient-level-deduplication.pdf
+    summary: >-
+      CDC's best practices for finding and merging duplicate patient records in an IIS, the patient-level counterpart to
+      the MIROW vaccination-level deduplication guide.
+    source_note: >-
+      Not a MIROW guide; kept here because it is the patient-level companion to the MIROW deduplication guidance. The
+      repository links to a CDC address that no longer works
+      (https://www.cdc.gov/vaccines/programs/iis/interop-proj/downloads/de-duplication.pdf); this copy is from the
+      Internet Archive.

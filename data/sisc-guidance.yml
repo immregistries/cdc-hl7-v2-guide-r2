@@ -18,11 +18,31 @@
 #   kind         guidance (default) | faq
 #
 # Not listed here: the 2023 draft "Guidance on National Set of Error Codes" (folded into the ACK TAB, compared there), and
-# the 2015 MIROW micro-guide "Validating Lot Numbers for Vaccine Doses" (replaced by the lot number guidance below).
+# the 2015 MIROW micro-guide "Validating Lot Numbers for Vaccine Doses" (replaced by the lot number guidance below). The
+# 2017 published version of the error code guidance is listed, to compare what the ACK TAB did not carry over.
+#
+# The documents from 2009-08 to 2015-12 and from 2017-02 on, other than the seven first compared, were added after a scan
+# of the AIRA repository (docs/aira-repository-scan.md). A few were published by AIRA or the Immunization Integration
+# Program rather than SISC; their source_note says so. They are not yet compared, and their cards are filled in when they
+# are.
 
 page: https://repository.immregistries.org/
 
 documents:
+  - id: h1n1-vaccine-adjuvant
+    title: Techniques for Recording and Messaging H1N1-09 Possible Vaccine Adjuvant for IIS
+    short: H1N1 Vaccine Adjuvant
+    date: 2009-08
+    url: https://repository.immregistries.org/files/resources/5835adc2d0a94/techniques_for_recording_and_messaging_h1n1-09_possible_vaccine_adjuvant_for_iis_.pdf
+    file: sisc/2009-08-h1n1-vaccine-adjuvant.pdf
+    summary: >-
+      How to record and message the lot number and manufacturer of a separately packaged adjuvant mixed with the 2009 H1N1
+      vaccine.
+    source_note: >-
+      Historical; it predates Release 1.0 of the v2.5.1 guide. Kept because it covers messaging a separately supplied
+      component of a dose.
+
+
   - id: ack-messages
     title: Guidance for HL7 Acknowledgement Messages to Support Interoperability
     short: ACK Messages
@@ -46,6 +66,18 @@ documents:
       - err-8-user-message
       - msa-1-guidance
 
+  - id: release-1-5-issues-list
+    title: HL7 IG Issues List
+    short: Release 1.5 Issues List
+    date: 2015-12
+    file: sisc/2015-12-release-1-5-issues-list.xlsx
+    summary: >-
+      The known issues with Release 1.5 as of late 2015, each with the section affected, a priority, and whether to fix
+      it sooner or later. A checklist of what a new release was expected to fix.
+    source_note: >-
+      Archived on the AIRA repository (resource page hl7-ig-issues-list), and the file is no longer downloadable there;
+      this copy is from the repository's file store (snapshot of November 2024).
+
   - id: query-responses-and-patient-protection
     title: Query Responses and Patient Protection
     short: Query Responses and Patient Protection
@@ -65,6 +97,27 @@ documents:
       - z33-return-a-response-with-no-person-records
       - z32-return-complete-immunization-history
       - z42-return-evaluated-immunization-history-and-forecast
+
+  - id: serial-numbers-in-2d-barcodes
+    title: "AIRA/CDC Notice to the IIS Community: Serial Numbers in Unit of Sale 2D Barcodes"
+    short: Serial Numbers in 2D Barcodes
+    date: 2017-02
+    url: https://repository.immregistries.org/files/resources/590b77c9117ae/notice_-_serial_numbers_in_barcodes-20170227_new_logo.pdf
+    file: sisc/2017-02-serial-numbers-in-2d-barcodes.pdf
+    summary: >-
+      Notice that, under the Drug Supply Chain Security Act, unit-of-sale 2D barcodes now carry a serial number as well as
+      the GTIN (with the NDC), expiration date, and lot number, so barcode-reading software must handle it; there is not
+      yet a strong use case for collecting it.
+
+  - id: sunset-hl7-2-3-1-interfaces
+    title: "AIRA Position Statement: Sunset Date for HL7 2.3.1 Interfaces"
+    short: Sunset of HL7 2.3.1
+    date: 2017-02
+    url: https://repository.immregistries.org/files/resources/590b796803665/aira_position_statement_-_sunset_date_for_hl7_2_3_1_interfaces_20170227_new_logo.pdf
+    file: sisc/2017-02-sunset-hl7-2-3-1-interfaces.pdf
+    summary: >-
+      SISC's recommendation that HL7 2.3.1 no longer be used for new interfaces, and that existing 2.3.1 interfaces be
+      retired, in favor of v2.5.1 Release 1.5.
 
   - id: rsp-messages
     title: Guidance for HL7 RSP Messages to Support Interoperability
@@ -100,6 +153,19 @@ documents:
       - ndc-requirements-for-administered-vaccinations
       - inventory-and-accountability-considerations
       - why-hl7-requirements-cannot-substitute-for-data-quality
+
+  - id: national-error-codes
+    title: National Set of Error Codes
+    short: National Error Codes (2017)
+    date: 2017-10
+    url: https://repository.immregistries.org/files/resources/59ee748913785/national_error_code_set_guidance_20171115_new_logo.pdf
+    file: sisc/2017-10-national-error-codes.pdf
+    summary: >-
+      Why and how IIS return national application error codes in ERR-5, and how the national code set is managed. The
+      code set itself is imported into data/err5-codes.yml from the compiled spreadsheet published with it.
+    source_note: >-
+      Last updated October 2017. A 2023 draft revision became part of the ACK TAB (June 2026) and was compared there;
+      compare only what the TAB did not carry over.
 
   - id: message-structure-and-loinc-codes
     title: Guidance on Detailed Message Structure and the Use of Specific LOINC Codes
@@ -150,3 +216,136 @@ documents:
     cards:
       - preferred-and-contraindicated-vaccine-types
       - forecast
+
+  - id: vaccine-code-set-considerations
+    title: "Vaccine Code Set Considerations: If Only It Were Rocket Science"
+    short: Vaccine Code Set Considerations
+    date: 2020-05
+    url: https://repository.immregistries.org/files/resources/5ec6ba69859a6/vaccine_code_set_considerations_final-0.pdf
+    file: sisc/2020-05-vaccine-code-set-considerations.pdf
+    summary: >-
+      An overview of the vaccine code sets (CVX, MVX, NDC, CPT, and others), how they relate, and how IIS use them in
+      data exchange, inventory, and other functions.
+    source_note: Published by AIRA.
+
+  - id: serologic-testing
+    title: Preliminary Guidance on Serologic Testing
+    short: Serologic Testing (Preliminary)
+    date: 2020-09
+    url: https://repository.immregistries.org/files/resources/5f9b30972b169/serology_preliminary_guidance_final_sept_2020.pdf
+    file: sisc/2020-09-serologic-testing.pdf
+    summary: >-
+      Vocabulary and HL7 guidance, from a SISC small group, for reporting serologic test results to an IIS in OBX
+      segments, including the SN data type for titers.
+    source_note: Marked preliminary.
+
+  - id: documenting-covid-19-vaccine-administration
+    title: Supporting Providers in Documenting COVID-19 Vaccine Administration
+    short: Documenting COVID-19 Vaccines
+    date: 2020-12
+    url: https://repository.immregistries.org/files/resources/5fd915f0d78ab/supporting_providers_in_documenting_covid-19_vaccine_administration_v1_1.docx
+    file: sisc/2020-12-documenting-covid-19-vaccine-administration.docx
+    summary: >-
+      Tips for IIS on data elements that were unusual for COVID-19 vaccines, such as placeholder expiration dates, and
+      how providers should document and report them.
+    source_note: Published by AIRA as a Word document. Version 1.1, issued December 15 and updated December 18, 2020.
+
+  - id: mass-vaccination-population-groups
+    title: Preliminary Guidance on Reporting Mass Vaccination Event Population Groups and Tiers
+    short: Population Groups and Tiers (Preliminary)
+    date: 2021-02
+    url: https://repository.immregistries.org/files/resources/5f8652e630024/priority_group_preliminary_guidance_2021.pdf
+    file: sisc/2021-02-mass-vaccination-population-groups.pdf
+    summary: >-
+      How to report, in OBX segments of a VXU, the priority population group and tier under which a dose was given during
+      a mass vaccination event.
+    source_note: Marked preliminary; from a SISC small group.
+
+  - id: ack-visibility
+    title: Foundational Guidance for Minimum Functionality to Improve Visibility and Access to Information from Acknowledgment Messages
+    short: Visibility of ACK Information
+    date: 2021-06
+    url: https://repository.immregistries.org/files/resources/61d5b80bc30b8/solution-area-basic-functionality-guidance-document-0621.pdf
+    file: sisc/2021-06-ack-visibility.pdf
+    summary: >-
+      The minimum functions that IIS, EHRs, and third parties should offer to summarize ACK messages in aggregate reports
+      that technical and non-technical staff can act on.
+    source_note: >-
+      Published by the Immunization Integration Program (IIP) Acknowledgments Workgroup, and reviewed by a SISC small
+      workgroup. The file is dated June 2021; the repository lists it in January 2022.
+
+  - id: hl7-faq
+    title: HL7 FAQ
+    short: HL7 FAQ
+    kind: faq
+    date: 2021-12
+    url: https://repository.immregistries.org/files/resources/59381df5b583e/hl7_faq_2021_12_09_2021.pdf
+    file: sisc/2021-12-hl7-faq.pdf
+    summary: >-
+      Questions and answers, reviewed by AIRA and CDC staff, on data types, value sets, populating messages,
+      demographics-only messages, query and response, transport, local profiles, conformance, and emergency response.
+    source_note: Created September 2016; last updated December 9, 2021.
+
+  - id: clinical-trial-vaccines
+    title: Guidance on Indicating Clinical Trial Vaccines
+    short: Clinical Trial Vaccines
+    date: 2021-12
+    url: https://repository.immregistries.org/files/resources/61b764e7c5243/clinical_trial_guidance_document_v1_0.pdf
+    file: sisc/2021-12-clinical-trial-vaccines.pdf
+    summary: >-
+      How to indicate in a VXU that a dose was given as part of a clinical trial, using RXA-5 and RXA-20 and observations
+      in OBX segments.
+    source_note: Version 1.0, published December 8, 2021.
+
+  - id: clinical-trial-data-pathway
+    title: "Clinical Trial Data: A Pathway to Immunization Information Systems (IIS) Guidance"
+    short: Clinical Trial Data Pathway
+    date: 2022-04
+    url: https://repository.immregistries.org/files/resources/6260265be9b94/clinical_trial_data_-_pathway_to_iis_guidance.pdf
+    file: sisc/2022-04-clinical-trial-data-pathway.pdf
+    summary: >-
+      Considerations and data sharing methods for getting clinical trial vaccination data from trial sites into IIS; it
+      points to the SISC clinical trial guidance for the messaging.
+    source_note: Published by AIRA. Mostly programmatic; compare only where it bears on messages.
+
+  - id: monkeypox-select-codes
+    title: Monkeypox Preferred Select Codes for IIS Reporting
+    short: Monkeypox Codes
+    date: 2022-10
+    url: https://repository.immregistries.org/files/resources/636428c399edb/2022_10_12_monkeypox_preferred_select_codes_final.pdf
+    file: sisc/2022-10-monkeypox-select-codes.pdf
+    summary: >-
+      The codes SISC recommends for reporting monkeypox (mpox) vaccine dose-level eligibility, funding source, and the
+      alternative administration site.
+    source_note: Dated October 12, 2022.
+
+  - id: sexual-orientation-and-gender-identity
+    title: Guidance on Messaging Sexual Orientation and Gender Identity (SOGI)
+    short: Sexual Orientation and Gender Identity
+    date: 2022-11
+    url: https://repository.immregistries.org/files/resources/63878654f0fe1/sisc_sogi_technical_guidance_2022nov_final_v2.pdf
+    file: sisc/2022-11-sexual-orientation-and-gender-identity.pdf
+    summary: >-
+      How to send sexual orientation and gender identity as patient observations in OBX segments of a VXU, including in
+      messages with no vaccination (CVX 998).
+
+  - id: preferred-name
+    title: Guidance on Messaging Preferred Name of Patient
+    short: Preferred Name
+    date: 2022-12
+    url: https://repository.immregistries.org/files/resources/63caa0a2c37da/guidance_on_messaging_preferred_name_of_patient.pdf
+    file: sisc/2022-12-preferred-name.pdf
+    summary: >-
+      How to send a patient's preferred name as an additional repetition of PID-5, and how a receiver should treat it.
+    source_note: The Patient Name (PID-5) TAB (October 2025) covers the same field; compare what it did not carry over.
+
+  - id: bridge-access-select-codes
+    title: "COVID-19 Bridge Access Program: Preferred Select Codes for IIS Reporting"
+    short: Bridge Access Program Codes
+    date: 2023-08
+    url: https://repository.immregistries.org/files/resources/64e7fd0d405e6/covid_bridge_preferred_select_codes_v1_0.pdf
+    file: sisc/2023-08-bridge-access-select-codes.pdf
+    summary: >-
+      The dose-level eligibility and funding source codes SISC recommends for vaccines given through the COVID-19 Bridge
+      Access Program.
+    source_note: Version 1.0, August 24, 2023.

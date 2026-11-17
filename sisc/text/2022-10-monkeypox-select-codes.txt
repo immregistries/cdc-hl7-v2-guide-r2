@@ -1,0 +1,113 @@
+Monkeypox
+
+Preferred Select Codes for IIS
+Reporting
+
+October 12, 2022
+Monkeypox Preferred IIS Codes for Reporting Dose-Level Eligibility, Funding
+Source, and Alternative Administration Site
+
+Context
+
+This document addresses select codes for monkeypox that are not clearly articulated in
+interoperability documents. These codes were approved by AIRA’s Standards and
+Interoperability Steering Committee (SISC, a diverse committee with broad representation
+from IIS, EHRs, and other technology partners) on October 12, 2022, to support
+standardization across the IIS health IT ecosystem. Additional information and links are
+provided at the end of this brief document.
+
+Dose level eligibility and funding source
+
+Monkeypox vaccine, like COVID-19 vaccine, was not distributed through typical private and
+public channels, so there are not ideal codes for dose-level eligibility and funding source.
+As with COVID-19 vaccine, SISC supports the use of the following codes (per the HL7
+Version 2.5.1 Implementation Guide for Immunization Messaging (Release 1.5) Addendum):
+
+    • Funding Source will be coded as Public (VXC50)*
+    • Eligibility will be coded as Not VFC Eligible (V01)
+* As a reminder, the VXC50 code is the general funding source code for all public vaccine, as
+opposed to the more specific codes of VXC51, which is the funding source code for VFC-funded
+public vaccine, or VXC52, which is the funding source code for non-VFC-funded public vaccine.
+Providers also participating in the VFC program may need to support all of these codes and use
+codes specific to the vaccine being reported.
+
+Administration site
+
+CDC has released Interim Clinical Considerations for vaccine use in response to the
+monkeypox outbreak; during the current outbreak, JYNNEOS is the main vaccine being
+used in the United States. This guidance authorizes the vaccine to be administered in either
+of two ways:
+
+    1. Subcutaneously, under the skin, in the upper arm above the elbow
+    2. Intradermally, between the layers of the skin, preferably on the inner forearm
+However, per JYNNEOS Vaccine guidance, if the forearm is not an option (e.g., heavy
+scarring, bilateral amputation), the upper back below the scapula may be used. The
+alternative monkeypox vaccine site of the scapula is not currently listed in the HL7
+Implementation Guide (IG). For the alternative scapula administration site, SISC supports
+the use of the following codes:
+    • Right posterior chest (RPC)
+    • Left posterior chest (LPC)
+Note: These come from the base HL7 v2.5 “Body Site (Table 0163)” value set.
+
+If you have questions about these codes or the process to designate them, please email
+Mary Beth Kurilo at mbkurilo@immregistries.org.
+
+                                                                                                                              1
+Additional Information
+
+MIROW (Modeling of Immunization Registry Workgroup) guidance
+
+For more information about vaccine storage, please see the MIROW guide on
+Decrementing Inventory via Electronic Data Exchange. In particular, this passage may be
+helpful:
+
+Storage model
+When the provider organization receives a vaccine shipment, the doses are quickly stored
+within a storage unit (i.e., a refrigerator or freezer). Storage model describes the way
+vaccine stocks are physically separated from each other in the provider organization’s
+storage unit. Provider organizations separate vaccine by lot number and lot number
+expiration date. However, depending on the awardee’s requirements, the provider
+organization may also need to separate the vaccines by fund type (e.g., separate
+containers for doses funded by VFC, 317, state, CHIP, and private), or may be allowed
+to have less specific categories (e.g., VFC public, non-VFC public, and private). All
+vaccine doses purchased by a particular program are referred to as that program’s “stock”
+or “inventory” (e.g., VFC public stock, non-VFC public stock, and private stock). See the
+Vaccine storage models section below for more details. Separating vaccines helps to
+achieve better accountability for each dose and to ensure that only patients that are
+eligible for a funding program receive a vaccine funded by that particular program. In the
+case of the 10 doses of 317-funded vaccine for uninsured adults, the doses would be
+arranged in the storage unit according to the appropriate storage model (e.g., separate
+from VFC, CHIP, state, and private doses). The Vaccine storage models section of this
+chapter discusses storage models in more detail.
+
+HL7 addendum
+
+The HL7 Version 2.5.1 Implementation Guide for Immunization Messaging (Release 1.5)
+Addendum addresses all funding source codes:
+Updates have been made to the codes for Immunization Funding Source
+(PHVS_ImmunizationFundingSource_IIS (2.16.840.1.114222.4.11.3287)). These codes
+indicate the inventory stock (i.e., Public or Private – with a two-stock storage model; Public
+VFC, Public non-VFC, Private – with a three-stock storage model) from which each vaccine
+dose was taken. For publicly purchased vaccine, an IIS will use either VXC50 code (i.e.,
+public) or the combination of VXC51 (i.e., Public VFC) and VXC52 (i.e., Public non-VFC) codes
+to record the inventory stock for publicly purchased vaccines.
+
+Code   Label            Definition
+PHC70  Private          Vaccine stock used was privately funded
+VXC50  Public           Vaccine stock used was publicly funded
+
+                                                                 2
+VXC51  Public VFC      Vaccine stock used was publicly funded by the VFC
+VXC52  Public non-VFC  program
+                       Vaccine stock used was publicly funded by a non-VFC
+                       program
+
+Further potential variations
+
+There are several areas of common variability for IIS-EHR interoperability based on
+jurisdictional law and policy. You can find a brief document that outlines these areas in the
+AIRA repository: IIS-EHR Interoperability Common Areas of Variability Based on
+Jurisdictional Law/Policy.
+
+                                                                            3
+

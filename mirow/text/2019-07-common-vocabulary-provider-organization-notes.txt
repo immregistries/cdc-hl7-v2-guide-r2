@@ -1,0 +1,278 @@
+                                    Notes Regarding Provider
+                                          Organization and IIS-
+
+                                     Authorized Organization
+
+                                                                                    July 18, 2019
+
+Introduction
+
+Below are notes regarding the terms “provider organization” (PO) and “IIS-authorized
+organization” (IIS-AO) that were prepared to support the Common Vocabulary Workgroup
+discussions regarding term definitions.
+
+Part I. Term Definitions for PO and IIS-AO
+
+For the purposes of the MIROW Common Vocabulary, the term for PO needs to be:
+    • Broad enough to cover various ways that term has been used in different guides
+    • Related to the term IIS-AO
+
+PO definition: an organization that has any combination of the following characteristics:
+    • provides vaccination services
+    • responsible for an entity that provides vaccination services
+    • manages inventory for an entity that provides vaccination services
+
+Comment:
+    • When authorized by IIS, a PO may be an IIS-AO.
+    • A PO may contain organizational units, such as clinics, facilities, sites, and
+         departments. Each of these organizational units may have IIS-assigned IDs (IIS-AO
+         IDs) that are different from IDs of the provider organization. See MIROW Data Quality
+         Assurance in IIS: Selected Aspects for a detailed discussion.
+    • When referencing a PO in a MIROW guide, we are referring to an organization that is
+         also an IIS-AO.
+
+IIS-AO definition: an organization that has an agreement with an IIS that allows for the
+submittal and/or retrieval of IIS information
+
+Part II. Relationship Between PO and IIS-AO
+
+The challenging point is how to properly represent the situation that not every IIS-AO is a
+PO and, in turn, not every PO is an IIS-AO. This situation is common for relationships
+between concepts.
+
+                                                                                                                              1
+For example, in this illustration a similar relationship has been depicted for the terms of
+epidemiologist and female in a Venn diagram (two intersecting circles).
+
+Not every IIS-AO is a PO, and                                  Not every epidemiologist is a female, and
+not every PO is an IIS-AO.                                     not every female is an epidemiologist.
+
+IIS-Authorized       Provider                                          Epidemiologist  Female
+Organization       Organization
+
+   (IIS-AO)             (PO)
+
+This area represents IIS-AOs                                   This area represents epidemiologists that
+that are POs, and POs that                                     are females, and females that are
+are IIS-AOs.                                                   epidemiologists.
+
+From the business analysis perspective, this situation arises when terms under discussion
+belong to different classification schemes of a common, more generic parent term. The
+sketch below illustrates that for the generic terms of organization and person.
+
+Classification     Organization  Classification        Classification  Person          Classification
+scheme 1:                        scheme 2:             scheme 1:                       scheme 2:
+IIS authorization                Type                  Gender                          Occupation
+
+IIS-AO                           PO                         Male                            Engineer
+
+Non-IIS-AO                       Vital Records Office  Female                          Epidemiologist
+                                 Manufacturer                                            Nurse
+
+The term female belongs to the classification scheme that describes gender for a person,
+and the term epidemiologist belongs to the different classification scheme that describes
+the occupation of a person. These terms represent different aspects—different
+classifications—of a more generic term person.
+
+                                                                                                          2
+Similarly, the term IIS-AO belongs to the classification scheme that describes IIS
+authorization for an organization, and the term PO belongs to the different classification
+scheme that describes the type of an organization. These terms represent different
+aspects—different classifications—of a more generic term organization.
+In a domain diagram, these two classification schemes for the organization should be
+presented in the following way:
+
+Added to this diagram is a depiction of the concept that there are IIS-AOs that are POs and
+there are POs that are IIS-AOs. There are also non-IIS-AOs that are POs, and there are POs
+that are non-IIS-AOs. That relationship is shown on the diagram below with the dotted line.
+
+                                 Organization
+
+              Classification scheme 1:       Classification scheme 2:
+                                                        Type
+              >
+                                                                                    >
+              IIS Authorization
+is a type of                                                           is a type of
+
+  Non-IIS-                       may be a >            Provider                        Vital Records
+ Authorized                                          Organization                          Office
+Organization  IIS-Authorized            < may be an
+               Organization
+
+              may be a >                             Manufacturer
+
+                                        < may be a
+
+The same notion would apply to the relationship between IIS-AO and Vital Records Office
+(VRO) (the relationship is not shown on this diagram):
+
+    • There are IIS-AOs that are VROs.
+    • There are VROs that are IIS-AOs.
+    • There are non-IIS-AOs that are VROs.
+
+                                                                                                      3
+    • There are VROs that are non-IIS-AOs.
+
+The focus of MIROW efforts is on IIS-AOs, as they provide data to IIS and/or consume IIS
+data. These IIS-AOs include various types of organizations, such as POs, schools, VROs, and
+others. An IIS-AO will always have an IIS-AO ID assigned by the IIS. An IIS-AO ID is
+fundamental for identification of all types of IIS-AO organizations, including POs, schools,
+VROs, etc. The IIS-AO ID is shown on the sketch below:
+
+                                 Organization
+
+              Classification scheme 1:  Classification scheme 2:
+                                                   Type
+              >
+                                                                                    >
+              IIS Authorization
+is a type of                                                      is a type of
+
+  Non-IIS-    IIS-Authorized     may be a >           Provider                         Vital Records
+ Authorized    Organization          < may be an    Organization                           Office
+Organization
+              IIS-AO ID
+
+may be a >                                          Manufacturer
+
+                                        < may be a
+
+To summarize what is illustrated above:
+    • Organization has two distinct classification schemes.
+    • One scheme depicts IIS authorization, and the other scheme concerns the different
+         types of organizations.
+    • An IIS-AO will have an IIS-ID. A non-IIS-AO will not.
+    • A PO may be an IIS-AO, in which case it will have an IIS-ID.
+    • A PO that is a non-IIS-AO will not have an IIS-ID.
+
+From a PO perspective, there are POs that are IIS-AOs, and there are POs that are non-IIS-
+AOs.
+
+                                                                                                      4
+               From the IIS perspective                  From the provider organization perspective
+                     IIS-Authorized
+                      Organization                                            Provider
+                     IIS-AO ID                                             Organization
+
+             >is a type of
+
+     School      Provider    Vital Records                 Non-IIS-    IIS-Authorized
+IIS-AO ID     Organization       Office                   Authorized    Organization
+                                                         Organization
+             IIS-AO ID      IIS-AO ID                                  IIS-AO ID
+
+These are Authorized Organizations with IIS-AO IDs.
+   Note: there are a number of different organizations.
+
+Part III. IIS-AO Hierarchy and IIS-AO IDs
+
+The following discussion will focus on IIS-AOs and POs that have IIS-AO IDs. IIS-AOs,
+especially POs, in many cases have internal structures (i.e., organizational units like
+departments, facilities, sites, clinics). Some of these organizational units will have distinct
+IIS-AO IDs assigned to them (that are different from the IIS-AO ID of a “parent”
+organization), and some will not have IIS-AO IDs. Recommendations and rules for the
+assignment of IIS-AO ID to IIS-AOs and organizational units of these organizations are
+documented in MIROW Data Quality Assurance in IIS: Selected Aspects. Following is a brief
+summary regarding the essence of these recommendations:
+
+    • The structural hierarchy of an IIS-AO (or PO) in many cases can be more complex
+         than a simple two-level organizational hierarchy of organization (e.g., PO) and
+         site/facility. For example, it could be more than two levels of the organizational
+         hierarchy; there could be an “affiliation” type or relationship, a “subsidiary” type of
+         relationship, etc.
+
+    • There is a broad variety of ways that organizations are structured. PO-site/facility
+         organization is just one type of such an organization.
+
+    • PO may include another PO(s), and IIS-AO may include IIS-AO(s). Such a recursive
+         relationship can be explained with the following sketch:
+
+                                                                                                     5
+                      IIS-Authorized                                       IIS-Authorized
+                       Organization                                         Organization
+
+may be a part of IIS-AO ID                                                 IIS-AO ID
+>
+                                                >                is a part of
+
+                                                                  >departmentaffiliate           site/facility
+
+                                                     IIS-Authorized        IIS-Authorized        IIS-Authorized
+                                                     Organization 1        Organization 2        Organization 3
+                                                      (department,          (department,          (department,
+                                                     site, facility, ...)  site, facility, ...)  site, facility, ...)
+
+                                                     IIS-AO ID-1           IIS-AO ID-2           IIS-AO ID-3
+
+                                      is a part of
+
+                                      site/facility                        clinic
+
+                                      IIS-Authorized             IIS-Authorized
+                                      Organization 4             Organization 5
+                                       (department,               (department,
+                                      site, facility, ...)       site, facility, ...)
+
+                                      IIS-AO ID-4                IIS-AO ID-5
+
+• Instead of focusing on organizational structure, the subject matter expert (SME)
+    panel for MIROW Data Quality Assurance in IIS: Selected Aspects decided to focus on
+    the functional structure of IIS-AOs reporting to IIS, as well as roles that IIS-AOs play
+    in that reporting: recorder, vaccinator, submitter.
+
+• One IIS-AO may play a role of submitter for another IIS-AO.
+• The IIS needs to know all IIS-AOs in the chain of submission. In other words, any
+
+    organization that participates in a submission chain must have an IIS-AO ID.
+• The SMEs used the following example to discuss and illustrate the organizational
+
+    and functional relationships between an IIS-AO and its organizational units. In this
+    example, some of the organizational units only vaccinate, other units only submit,
+    and other units don’t participate in the submission chain (this final group does not
+    have an IIS-AO ID).
+
+                                                                                                                6
+                                                                                                   Core Business (Units)
+
+                                     UMC                      UMC Ambulatory                       UMC <Acute> Hospital
+                                 Corporation
+                                                                    PO – IIS ID                             PO – IIS ID
+                                Provider Organization (PO) –
+                                              IIS ID                UMC               UMC              UMCH ER              UMCH NICU      UMCH Employee
+                                                              Pediatric Office  Family Practice    PO – Vaccinator        PO – Vaccinator        Health
+                                             Payroll          PO – Vaccinator   PO – Vaccinator
+                                                                                                         IIS ID                 IIS ID     PO – Vaccinator
+                                                                    IIS ID            IIS ID                                                      IIS ID
+
+Cross-Core Functional Services  HR
+
+                                         Food Services        <Submittal services provided by IT>
+                                                               UMC Corp is the Submitter IIS ID
+                                          Vaccination Event
+                                               Submittal                                           <Submittal services provided by UMCH Employee Health>
+                                                                                                          UMCH Employee Health is the Submitter IIS ID
+                                IT (Usually performed by IT)
+                                                Other IT
+
+                                   UMCH Employee Health
+                                   PO – Vaccinator – IIS ID
+
+Previous definitions for PO:
+    • PO is an organization that provides vaccination services or is “responsible” for an
+         entity that provides vaccination services.1
+    • PO is an organization that administers immunizations and/or is responsible for
+         vaccine inventory.2
+
+Domain diagram from MIROW Data Quality Assurance in IIS: Selected Aspects:
+
+1 MIROW Data Quality Assurance in IIS: Selected Aspects
+(https://repository.immregistries.org/resource/data-quality-assurance-in-immunization-information-
+systems-selected-aspects/)
+2 Immunization Information System Inventory Management Operations
+(https://repository.immregistries.org/resource/immunization-information-system-inventory-
+management-operations/)
+
+                                                                                                                              7
+8
+

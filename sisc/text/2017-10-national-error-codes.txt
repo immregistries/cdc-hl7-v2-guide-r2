@@ -1,0 +1,149 @@
+                      National Set of Error Codes
+
+Background
+
+Release 1.5 of the National HL7 Implementation Guide (IG) documents how to return errors generated
+while receiving and processing VXU or QBP messages. The ERR segment is used to exchange error
+related data and contains several relevant fields:
+
+    • ERR-2 (Error Location) indicates the location of the error in the incoming message. The location
+         of the error is specified to the appropriate level of granularity, including down to the
+         subcomponent level (see definition of the ERL data type for additional details).
+
+    • ERR-3 (HL7 Error Code) indicates the nature of the HL7 (communication) error. Typically, these
+         errors relate to issues with the format and technical content of the message rather than the
+         clinical data in the message.
+
+    • ERR-4 (Severity) indicates if the error code being returned is informational, a warning or an
+         error. The severity specifies the nature of the expected action in response to the error.
+
+    • ERR-5 (Application Error Code) indicates the nature of the error that occurred. Typically, these
+         errors relate to issues with the clinical or administrative content of the message. Often, these
+         errors are the result of applying local business rules to the data in the message.
+
+    • ERR-8 (User Message) transmits a text to further explain the nature of the error.
+
+The IG defines six application error codes belonging to HL7 Table 0533 for use in ERR-5. However,
+community implementation and enhancement of acknowledgement and response messages has
+revealed the need for additional application error codes. Several jurisdictions have begun to expand the
+error value set. However, in the absence national level coordination, the same error code has been
+defined multiple ways in different jurisdictions. This creates implementation hurdles for vendors and
+organizations operating in multiple jurisdictions.
+
+Scope of Guidance
+In Scope
+
+This document is a companion document to the spreadsheet that catalogs additional application error
+codes. It outlines the creation, management and use of national level error codes. The definition and use
+of additional national application level error codes will ensure that vendors and organizations operating
+across jurisdictional lines will receive consistent error content from trading partners, opening the door
+to more automated routing and handling of error conditions.
+
+Out of Scope
+
+ERR-3 is used to message HL7 (communication) error codes. This field uses the values in HL7 Table 0357.
+Because this table is “HL7 Defined” (as opposed to “User Defined” as Table 0533 is), we do not have the
+
+                                                                                                                  1|Page
+
+                           © 2015 American Immunization Registry Association | Last updated October 2017
+                 1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+ability to extend the error codes used in ERR-3 in the IG or this document. Fortunately, the existing error
+codes are more comprehensive and better fulfill the needs of immunization error messaging. If the need
+for additional ERR-3 codes is uncovered during implementations, we will work with HL7 to extend Table
+0357 in the base standard.
+
+The list of national application error codes does not include a “generic” error to be used when a specific
+error code has not been defined. This is because the Usage of ERR-5 in Release 1.5 is “RE” (required but
+may be empty) and thus population of ERR-5 is not required. No benefit was seen to using a generic
+error code relative to simply leaving ERR-5 empty. See below for the expectations of a system when a
+suitable error code is not available.
+
+Derivation of Nationally Defined Application Error Codes
+
+Release 1.5 of the National HL7 Implementation Guide (IG) includes a list of six application error codes in
+Table 0533:
+
+         1 – Illogical Date Error
+         2 – Invalid Date
+         3 – Illogical Value Error
+         4 – Invalid Value
+         5 – Table Value Not Found
+         6 – Required Observation Missing
+
+As well, an example message includes a seventh error code:
+
+         7 – Required Data Missing
+
+This set of seven error codes is insufficient to convey the variety of errors that may be encountered
+when processing VXU and QBP messages. To identify additional common error scenarios, we reviewed
+the list of application errors provided by several IIS vendors and IIS implementations. From these lists,
+we identified common error scenarios and documented them in the accompanying error spreadsheet. In
+the spreadsheet, each error scenario is assigned an error code and is classified into one of a number of
+general classes:
+
+              • Existing (error codes documented in Release 1.5)
+              • Conflicting Data (data within a single message is internally inconsistent)
+              • Inappropriate Date
+              • Invalid Data
+              • Lookup (an expected record cannot be found based on data in the message)
+              • Message Construction (structural issues based on local business rules)
+              • Missing Data
+              • Processing Error
+              • Data Sharing
+
+The spreadsheet also provides guidance on the parts of the message an error applies to, a typical actor
+and action for resolving the error and where appropriate, a pointer to a specific requirement of the
+Release 1.5 IG underlying the error.
+
+                                                                                                                  2|Page
+
+                           © 2015 American Immunization Registry Association | Last updated October 2017
+                 1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+Expectations for Error Generating Systems
+
+Systems that generate ERR segment containing ACK and RSP messages (i.e. IIS) should incorporate the
+nationally defined error code into ERR-5 and not create their own local codes when the relevant error
+scenario is encountered. However, systems are not expected to be able identify all listed error scenarios.
+In other words, an IIS will not be expected to perform all of the checks and validations required to
+identify every error scenarios, however, if local business logic identifies an error scenario for which a
+national error code is defined, the IIS should use the national error code in ERR-5 in place of a locally
+defined code. Implementation of the use of the national error codes should happen as soon as time
+permits as systems:
+
+    • Upgrade their ACK/RSP messaging capabilities
+    • Implement new data quality checks and validations (i.e. recognize new error conditions)
+    • Implement expanded error reporting
+
+If a system that generates errors is capable of identifying an error scenario that is not part of the
+national error code list, it is expected that the owners of the system will contact AIRA to work with them
+to define a suitable national error code. AIRA will work quickly with all interested parties to document
+new error codes to ensure that specific error reporting can be implemented promptly. In order to avoid
+overlapping with errors in other jurisdictions, systems should not generate locally defined error codes.
+
+Expectations for Error Receiving Systems
+
+Systems that receive ERR segments in ACK and/or RSP messages (i.e. IIS submitters such as EHRs and
+pharmacies) should gracefully accept any error code in ERR-5. Note that “gracefully” handling an
+unexpected error code may simply consist of populating a generic work queue for manual error
+investigation and resolution. Similarly, if ERR-5 is not populated with an error code, the receiving system
+should be prepared to accept the message.
+
+Before taking more advanced error resolution actions based on the ERR-5 error code, the owners of a
+system must be confident that the trading partner generating error containing messages is adhering to
+the use of the nationally defined error codes. If the trading partner is redefining any nationally defined
+error codes, inappropriate action may be taken, potentially resulting in negative data quality and patient
+care consequences.
+
+Summary
+
+The definition and implementation of an expanded set of nationally defined application error codes for
+use in ERR-5 has the potential to automate error response handling and resolution in clinical systems. All
+systems are highly encouraged to adopt the expanded set of error codes and curtail the use of locally
+defined codes.
+
+                                                                                                                  3|Page
+
+                           © 2015 American Immunization Registry Association | Last updated October 2017
+                 1155 F Street NW, Suite 1050 | Washington, DC 20004 | 202.552.0208 | www.immregistries.org
+

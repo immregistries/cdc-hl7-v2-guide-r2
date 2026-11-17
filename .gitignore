@@ -4,6 +4,10 @@ inputs.json
 inputs/
 *.docx
 *.xlsx
+# ...except published community guidance kept as sources (sisc/, mirow/)
+!sisc/*.docx
+!sisc/*.xlsx
+!mirow/*.xlsx
 *.eml
 *.zip
 sources/

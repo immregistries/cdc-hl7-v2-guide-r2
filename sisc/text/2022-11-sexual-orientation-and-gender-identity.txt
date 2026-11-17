@@ -1,0 +1,228 @@
+Guidance on
+Messaging Sexual
+Orientation and
+Gender Identity
+(SOGI)
+
+November 2022
+Background
+
+Public Health’s mission is to ensure all individuals have fair and equitable access to health
+care. Many populations experience health disparities, including people from some racial
+and ethnic minority groups, people with disabilities, women, people who are LGBTQI+
+(lesbian, gay, bisexual, transgender, queer, intersex, or other), people with limited English
+proficiency, and other groups.1 The Covid-19 pandemic highlighted aspects of health
+disparities within these communities. The immunization community has an opportunity to
+leverage the data from the pandemic to further understand and address health disparities.
+
+Based on pandemic data analyses, health departments across the country have been
+developing programmatic priorities to address health equity issues. In addition to
+programmatic initiatives, public health systems and policies must reflect and support
+changes to reduce these inequities.
+
+Health Level Seven (HL7) released a short-term solution for messaging Sexual Orientation
+and Gender Identity (SOGI) Data Exchange Profile. This was initially in response to recent
+legislation passed in some US states to require collection of SOGI information in lab result
+messages but was designed to work with any system reporting to Public Health via HL7 v2
+messages. Within this SOGI Guidance document, the HL7 short-term solution will be
+referred to as the “Short-term Solution.”
+
+Initial discussions within the AIRA SOGI Workgroup highlighted the overall concept of
+health equity, of which SOGI is a crucial part. Other aspects of health equity, such as those
+noted above, were raised by workgroup participants and acknowledged as being within the
+realm of health equity but not directly related to SOGI or this guidance document.
+
+Scope of Guidance
+
+In scope
+
+The following HL7 v2 SOGI recommendations can be implemented by IIS that choose to do
+so or are required to do so because of jurisdictional law or policy. These recommendations
+provide a standard to ensure that, if an IIS implements a SOGI solution, it can do so in a
+consistent manner that will allow other external systems to support both laboratory and
+immunization reporting. The intent of these recommendations is not to compete with or
+contradict other efforts but, rather, to complement and align with them.
+
+1 https://www.cdc.gov/healthequity/whatis/index.html
+
+                                                                                                                              1
+Out of scope
+
+    • Influencing jurisdictional policy in reference to the collection, use, update, storage,
+         or exchange of SOGI data
+              o There is no current way to modify or remove existing SOGI information, so
+                   conflicts between different sources may arise.
+
+    • Addition of gender identity field(s) as it pertains to internal representation of data
+         within the IIS
+
+    • Decisions related to administrative sex assigned at birth as populated by Vital
+         Records or other data systems
+
+Assumptions
+
+The following assumptions were made in drafting this guidance document:
+
+    • HL7 v2 PID values identify the patient for (hospital) administrative purposes and
+         have limitations; they were not initially designed to capture a person’s sexual
+         orientation or gender identity.
+
+    • If gender identity or sexual orientation is not captured, the relevant OBX should not
+         be sent in the HL7 message.
+
+    • Multiple observation groups for either sexual orientation or gender identity may be
+         provided as noted in the Short-term Solution.
+
+    • The system that is capturing these data will send a snapshot of information as it’s
+         known at the time of message creation.
+
+    • Preferred/alternate name is necessary to collect in combination with gender identity
+         from a patient care perspective. It is important to standardize the collection of this
+         field to prevent duplicates and to address data quality. (See the Preferred Name
+         guidance document on AIRA’s repository)
+
+Expectations of Support
+
+The following HL7 v2 SOGI recommendations can be implemented by IIS that choose to do
+so or are required to do so because of jurisdictional law or policy. This document provides
+the technical specifications for consistent exchange of SOGI information with IIS. IIS that
+cannot receive SOGI information should ignore this information, if sent.
+
+Most of the SOGI requirements identified by the workgroup participants will be supported
+through the HL7 Short-term Solution. Requirements raised by the immunization
+community, noted outside the scope of the workgroup or recommended to be brought to
+the attention of the Gender Harmony Project, will be addressed separately outside of this
+document.
+
+                                                                                                                              2
+Placement of SOGI Information
+
+The Short-term Solution supports sending coded values (LOINC/USCDI v2) and optional text
+comments pertaining to sexual orientation and gender identity. It is recommended in the
+Short-term Solution document to indicate patient level observations. However, the current
+IG profile already supports patient level observations, and indicating the profile in MSH-21
+may be confusing to IIS.
+
+OBX segment types should follow AIRA guidance for reporting patient level observations in
+immunization messages by placing them in an ORC/RXA group where RXA-5 indicates CVX
+998 “No Vaccine Administered.” It should be noted that the order of the SOGI OBX
+segments has no significance and that no grouping of SOGI OBX is required. If more than
+one SOGI value is sent, they need not share a common value in OBX-4.
+
+Refer to the Technical Constraints and Considerations section below for additional
+information.
+
+Vocabulary
+
+IIS should use vocabulary defined by USCDI v2, wherever possible. This vocabulary is
+referenced directly in the Short-term Solution and can be found here:
+
+    • USCDI v2 – Sexual Orientation
+    • USCDI v2 – Gender Identity
+
+Questions or requests for changes in vocabulary should be submitted to AIRA Technical
+Assistance for review by the Standards and Interoperability Steering Committee (SISC).
+
+Technical Constraints and Considerations
+
+    • Submitters should not indicate any value for OBX-29 when sending to IIS. The Short-
+         term Solution shows the value “QST” in OBX-29 to indicate this OBX is a question.
+         OBX-29 is not defined in HL7 2.5.1 and may confuse IIS.
+
+    • Submitters should not indicate the SOGI profile in MSH-21, and IIS should not
+         expect it. The Short-term Solution requires this because of the pre-adoption of
+         patient level observations. However, the current IG profile already supports patient
+         level observations, and indicating the profile could cause confusion for IIS.
+
+    • The order of SOGI OBX segments has no significance.
+    • No grouping of SOGI OBX is required. If more than one SOGI value is sent, they need
+
+         not share a common value in OBX-4.
+    • SOGI OBX segments must be sent at the patient level only (e.g., after an ORC/RXA
+
+         where RXA-5 indicates CVX 998 No Vaccine Administered).
+
+                                                                                                                              3
+    • SOGI OBX segments should be transmitted along with any other patient level
+         observations.
+
+Examples
+
+Example 1: Reporting sexual orientation only
+
+Patient has indicated their sexual orientation as “heterosexual.”
+
+MSH|^~\&|NISTEHRAPP|NISTEHRFAC|NISTIISAPP|NISTIISFAC|20150624084727.655-
+0500||VXU^V04^VXU_V04|NIST-IZ-AD-
+2.1_Send_V04_Z22|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS|NISTEHRFAC|NISTIISFAC
+PID|1||90012^^^NIST-MPI-1^MR||Wong^Elise^^^^^L||19830615|F||2028-
+9^Asian^CDCREC|9200 Wellington
+Trail^^Bozeman^MT^59715^USA^P||^PRN^PH^^^406^5557896~^NET^^Elise.Wong@isp.c
+om|||||||||2186-5^Not Hispanic or Latino^CDCREC||N|1|||||N
+PD1|||||||||||02^Reminder/recall - any
+method^HL70215|N|20150624|||A|19830615|20150624
+ORC|RE|4422^NIST-AA-IZ-2|13696^NIST-AA-IZ-
+2|||||||7824^Jackson^Lily^Suzanne^^^^^NIST-PI-
+1^L^^^PRN||654^Thomas^Wilma^Elizabeth^^^^^NIST-PI-
+1^L^^^MD|||||NISTEHRFAC^NISTEHRFacility^HL70362|
+RXA|0|1|20200814||998^No Vaccine Administered^CVX|999|
+OBX|1|CWE|76690-7^Sexual
+orientation^LN|1|20430005^Heterosexual^SCT||||||F||||20220404|
+
+Example 2: Reporting gender identity only
+
+Patient has indicated their gender identity as “genderqueer.”
+
+MSH|^~\&|NISTEHRAPP|NISTEHRFAC|NISTIISAPP|NISTIISFAC|20150624084727.655-
+0500||VXU^V04^VXU_V04|NIST-IZ-AD-
+2.1_Send_V04_Z22|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS|NISTEHRFAC|NISTIISFAC
+PID|1||90012^^^NIST-MPI-1^MR||Wong^Elise^^^^^L||19830615|F||2028-
+9^Asian^CDCREC|9200 Wellington
+Trail^^Bozeman^MT^59715^USA^P||^PRN^PH^^^406^5557896~^NET^^Elise.Wong@isp.c
+om|||||||||2186-5^Not Hispanic or Latino^CDCREC||N|1|||||N
+PD1|||||||||||02^Reminder/recall - any
+method^HL70215|N|20150624|||A|19830615|20150624
+ORC|RE|4422^NIST-AA-IZ-2|13696^NIST-AA-IZ-
+2|||||||7824^Jackson^Lily^Suzanne^^^^^NIST-PI-
+1^L^^^PRN||654^Thomas^Wilma^Elizabeth^^^^^NIST-PI-
+
+                                                                                                                              4
+1^L^^^MD|||||NISTEHRFAC^NISTEHRFacility^HL70362|
+RXA|0|1|20200814||998^No Vaccine Administered^CVX|999|
+OBX|3|CWE|76691-5^Gender
+Identity^LN|1|446131000124102^Genderqueer^SCT^LA22882-7^Identifies as
+nonconforming^LN||||||F|||20220404|
+
+Example 3: Reporting several patient level concepts together
+
+Patient has indicated:
+
+          • Sexual orientation as “heterosexual” and “questioning sexuality”
+          • Gender identity as “female”
+          • Anaphylaxis reaction to immunization
+
+MSH|^~\&|NISTEHRAPP|NISTEHRFAC|NISTIISAPP|NISTIISFAC|20150624084727.655-
+0500||VXU^V04^VXU_V04|NIST-IZ-AD-
+2.1_Send_V04_Z22|P|2.5.1|||ER|AL|||||Z22^CDCPHINVS|NISTEHRFAC|NISTIISFAC
+PID|1||90012^^^NIST-MPI-1^MR||Wong^Elise^^^^^L||19830615|F||2028-
+9^Asian^CDCREC|9200 Wellington
+Trail^^Bozeman^MT^59715^USA^P||^PRN^PH^^^406^5557896~^NET^^Elise.Wong@isp.c
+om|||||||||2186-5^Not Hispanic or Latino^CDCREC||N|1|||||N
+PD1|||||||||||02^Reminder/recall - any
+method^HL70215|N|20150624|||A|19830615|20150624
+ORC|RE|4422^NIST-AA-IZ-2|13696^NIST-AA-IZ-
+2|||||||7824^Jackson^Lily^Suzanne^^^^^NIST-PI-
+1^L^^^PRN||654^Thomas^Wilma^Elizabeth^^^^^NIST-PI-
+1^L^^^MD|||||NISTEHRFAC^NISTEHRFacility^HL70362|
+RXA|0|1|20200814||998^No Vaccine Administered^CVX|999|
+OBX|1|CWE|76690-7^Sexual
+orientation^LN|1|20430005^Heterosexual^SCT||||||F|||20220404|
+OBX|2|CWE|76690-7^Sexual orientation^LN|2|OTH^Other^NULLFL^^^^^^questioning
+sexuality||||||F|||20220404|
+OBX|3|CWE|76691-5^Gender Identity^LN|3|446141000124107^Female
+identity^SCT^LA22879-3^Identifies as female^LN||||||F|||20220404|
+OBX|4|CWE|31044-1^Immunization
+reaction^LN|4|39579001^Anaphylaxis^SCT||||||F|||2022040
+
+                                                                                                                              5
+

@@ -1,0 +1,1587 @@
+MIROW Common
+Vocabulary
+
+Advanced Report
+
+Version 2.0
+September 2022
+Version 2.0
+
+Project  MIROW Common Vocabulary
+
+Version  2.0
+
+Date     September 2022
+
+Description Terms approved as of August 2022.
+Terms
+
+For context on how to read the following table, please see the MIROW Guide Reference and the Report Legend.
+
+Term         Definition                Comment       Term Alias  CDC Endorsed Data                           MIROW
+                                                                 Element X-Walk                              Guide
+
+Action Code  a value submitted on a    Examples:     None        None                                        DQA-
+             vaccination event         “A” (add)                                                             2022
+             submission (via the HL7   “D” (delete)
+             message) that indicates   “U” (update)
+             the desired action to be
+             taken on a vaccination
+             event
+
+                                                                                                                    1
+Term          Definition                   Comment                      Term Alias  CDC Endorsed Data              MIROW
+Address                                                                             Element X-Walk                 Guide
+
+              the place where a party is   A party may be a patient or  None        The CDC endorsed data          DQA-
+              located or may be            an organization.                         element list does not          2022
+              reached                                                               include some group-level       PAIS-
+                                                                                    concepts at this time.         2015
+                                                                                    There are some related         INV-2012
+                                                                                    terms. For example:            RR-2009
+                                                                                    • Patient Address:
+Address Type  a kind of address            None                         None
+                                                                                         County of
+                                                                                         Residence; The county
+                                                                                         component of the
+                                                                                         patient's address
+                                                                                    • Patient Address: City;
+                                                                                         The city component of
+                                                                                         the patient's address
+                                                                                    • Patient Address:
+                                                                                         Country; The country
+                                                                                         component of the
+                                                                                         patient's address
+                                                                                    • Patient Address: State;
+                                                                                         The state component
+                                                                                         of the patient's address
+                                                                                    • Patient Address: Street;
+                                                                                         The street component
+                                                                                         of the patient's
+                                                                                         address.
+                                                                                    • Patient Address: Zip
+                                                                                         Code; The zip code of
+                                                                                         the patient's address.
+
+                                                                                    None
+
+              whether it is a physical or
+
+              mailing address
+
+                                                                                                                          2
+Term           Definition                   Comment                       Term Alias  CDC Endorsed Data            MIROW
+                                                                                      Element X-Walk               Guide
+Administered/  the type of a submission     Values for the indicator are  None
+Historical     based on whether             administered or historical.   None        Vaccination Event Record     DQA-
+Indicator      submitted by the             Administered value means                  Type: Indicates whether      2022
+               vaccinating organization     that the provider                         the vaccination event is     CR-2017
+Administers    ("administered") or by a     organization recorded                     based on a historical        DINV-
+Vaccines       third party ("historical")   and/or submitted its own                  record or was given by the   2016
+Alternate                                   vaccination event (i.e.,                  administered at location.    PAIS-
+Patient ID     an indicator of whether      attests that it conducted                                              2015
+               or not a provider            the vaccination event).
+               organization administers     Historical value means that               None                         INV-2012
+               vaccines                     the provider organization
+                                            submitted a vaccination
+                                            event conducted by a
+                                            different provider
+                                            organization (i.e., states
+                                            that it did not conduct the
+                                            vaccination event).
+
+                                            Example: Y/N
+
+               a data element of an         None                          None        Patient ID: Unique           CR-2017
+               alternate patient id group                                             identifier assigned by IIS-
+               that is a unique identifier                                            AO (Data Source) to each
+               for a patient                                                          Patient.
+
+                                                                                                                            3
+Term             Definition                   Comment                      Term Alias  CDC Endorsed Data              MIROW
+                                                                                       Element X-Walk                 Guide
+Alternate        a data element of an         None                         None
+Patient ID       alternate patient id group                                None        None                           CR-2017
+Assigning        that identifies the                                       None
+Authority ID     organization that                                         None
+                 assigned the alternate                                    None
+Alternate        patient id
+Patient ID
+Group            a set of data elements       Alternate Patient ID Group               None                           CR-2017
+                 assigned to a patient by     includes the following
+Alternate        an organization other        properties:                              Patient ID: Type: The ID       CR-2017
+Patient ID Type  than an IIS to uniquely      • Alternate Patient ID                   type (e.g. medical record
+                 identify a patient           • Alternate Patient ID                   number, birth certificate ID,
+Alternate                                                                              etc) of the associated
+Vaccination      a data element of an              Type                                patient ID.
+Event ID         alternate patient id group   • Alternate Patient ID
+                 that identifies the kind of
+Alternative      alternate patient ID that         Assigning Authority ID
+Process          is assigned
+(Workaround)                                  None
+
+                 a data group assigned to     None                                     None                           CR-2017
+                 a vaccination event that
+                 includes a unique
+                 combination of
+                 vaccination event id and
+                 the IIS-AO that assigned
+                 the vaccination event id
+
+                 a different way of doing     None                                     None                           BC-2019
+                 something for a short                                                                                           4
+                 period of time
+Term         Definition                  Comment                       Term Alias  CDC Endorsed Data  MIROW
+Antigen                                                                            Element X-Walk     Guide
+             a foreign (non-self)        Vaccinations allow the        None        None               DQA-
+Assessment   substance found in the      immune system to develop                                     2022
+Report       body that produces an       a defense against antigens.               None               VD2006
+Balance      immune response             Every vaccine relates to                  None
+Base Record                              one or more antigens.                     None               PAIS-
+                                         Vaccines are designed to                                     2015
+                                         confer immunity against
+                                         specific disease antigens or                                 DINV-
+                                         toxins, like measles, polio                                  2016
+                                         and diphtheria. One or                                       CR-2017
+                                         more doses of a vaccine,
+                                         administered over a period
+                                         of time, may be required to
+                                         produce long-lasting
+                                         immunity.
+
+             an account of the degree    None                          None
+             to which a cohort is
+             immunized according to
+             current
+             recommendations
+
+             the number of vaccines      None                          None
+             currently on hand for an
+             inventory item
+
+             an existing record that is  None                          None
+             updated from another
+             record during the
+             consolidation process
+
+                                                                                                               5
+Term               Definition                  Comment                     Term Alias  CDC Endorsed Data  MIROW
+                                                                                       Element X-Walk     Guide
+Birth Certificate  a registration number for   An example of an alternate  None        None               DQA-
+Number             an official document of a   patient ID.                                                2022
+                   patient's date and place                                            None
+                   of birth and parentage                                              None               DQA-
+                                                                                                          2022
+Birth Facility     a physical location where Example: hospital, home       None        None               DINV-
+                   a patient is born                                                                      2016
+
+Borrowing          the use of a vaccine        None                        None                           BC-2019
+                   during a vaccination
+                   event that is taken from
+                   stock that does not
+                   correspond to the
+                   patient's dose level
+                   eligibility
+
+Business           the strategic and tactical  None                        None
+Continuity         capability of the
+                   organization to plan for
+                   and respond to incidents
+                   and business disruptions
+                   to continue business
+                   operations at an
+                   acceptable predefined
+                   level
+
+                                                                                                                   6
+Term             Definition                  Comment  Term Alias  CDC Endorsed Data  MIROW
+                                                      None        Element X-Walk     Guide
+Business         a part of an overall        None
+Continuity       management system that                           None               BC-2019
+Management       establishes, implements,
+System           operates, monitors,
+(BCMS)           reviews, maintains and
+                 improves business
+                 continuity
+
+Business         the documented              None     None        None               BC-2019
+Continuity Plan  procedures that guide
+                 organizations to mitigate
+                 the impact of a
+                 disruption and to
+                 respond, recover,
+                 resume and restore to a
+                 pre-defined level of
+                 operation following
+                 disruption
+
+Business         a description of work that  None     None        None               BC-2019
+Function         is performed to                      None        None               BC-2019
+                 accomplish a business
+                 unit's responsibility
+
+Business Impact  the process of analyzing    None
+Analysis         business functions and
+                 the effect that a
+                 disruption might have
+                 upon them
+
+                                                                                              7
+Term           Definition                  Comment                  Term Alias  CDC Endorsed Data  MIROW
+                                                                                Element X-Walk     Guide
+Carrier/       an identifier used to       None                     None        None               INV-2012
+Tracking       facilitate locating a                                None
+Number         shipment                                                         None               DQA-
+Cohort                                                                                             2022
+               a group of people who Typically, the cohort is a                                    PAIS-
+                                                                                                   2015
+               share a common              population of interest.                                 INV-2012
+                                                                                                   DLE-
+               characteristic such as age                                                          2011
+                                                                                                   RR-2009
+Combination    a combination of            None                     None        None
+Vaccine Dose   multiple vaccine types                               None        None               BC-2019
+               into a single vaccine dose
+
+Communication  a process by which          None
+               information is exchanged
+               between individuals
+               through a common
+               system of symbols, signs,
+               or behavior
+
+                                                                                                   8
+Term            Definition                Comment                     Term Alias  CDC Endorsed Data  MIROW
+                                                                                  Element X-Walk     Guide
+Confidence      an aggregated degree of   Degree of trust Confidence  None        None               CR-2017
+Level           trust regarding the       is measured by:             None
+                information contained in  • data source (who sent                 None               CR-2017
+Consolidated    a demographic record or                                           None               CR-2017
+Demographic     vaccination event record       the record)
+Record                                    • submission method
+Consolidated    a demographic record
+Patient Record  that combines                  (how the record was
+                information available          sent)
+                from one or more          • submission type (what
+                sources                        type of record)
+                                          • how recent sent
+                                          • specific knowledge of
+                                               data source
+
+                                          None
+
+                a combination of a        None                        None
+                consolidated
+                demographic record and
+                zero or more
+                consolidated vaccination
+                event records for that
+                patient
+
+                                                                                                              9
+Term            Definition                     Comment                      Term Alias  CDC Endorsed Data  MIROW
+                                                                                        Element X-Walk     Guide
+Consolidated    a general term used to         None                         None        None               CR-2017
+Record          refer to both
+                consolidated                                                            None               CR-2017
+                demographic records
+                and consolidated                                                        None               PAIS-
+                vaccination event records                                               None               2015
+                                                                                        None
+Consolidated    a vaccination event            None                         None                           PAIS-
+Vaccination     record that combines                                                                       2015
+Event Record    information available                                                                      PAIS-
+                from one or more                                                                           2015
+                sources for a single
+                vaccination event
+
+Contact Method a manner in which to            The contact method           None
+                            contact a patient  includes attributes Contact
+                                               Method Type and Contact
+                                               Method Primary Indicator.
+
+Contact Method  an indicator to denote         None                         None
+Primary         the primary contact
+Indicator       method for a patient
+
+Contact Method  the mode of                    Example: telephone, mail,    None
+Type            communication that will        etc.
+                be used to contact a
+                patient
+
+                                                                                                           10
+Term           Definition                  Comment                    Term Alias  CDC Endorsed Data  MIROW
+Continuity                                                                        Element X-Walk     Guide
+Option         an alternative course of    None                       None        None               BC-2019
+               action, such as using an
+CPT Code       alternative process or                                             None               DINV-
+               relocation, for                                                                       2016
+CVX Code       implementing a business                                            None               VD-2006
+               function due to a
+               disruption                                                                            DQA-
+                                                                                                     2022
+               a numerical string          CPT (current procedural    None                           DINV-
+               identifying a billable      terminology) codes are                                    2016
+               service that is associated  developed by the American                                 INV-2012
+               with the procedure used     Medical Association.                                      VD-2006
+               when administering a        The IIS community is                                      DQA-
+               vaccine                     recommending                                              2022
+                                           discontinuing use of this
+                                           code.                                                     DQA-
+                                                                                                     2022
+               a numerical identifier      CVX codes are assigned by  None
+               used to identify a vaccine  CDC.                                                               11
+               type
+
+Data Consumer  an IIS-AO that has access   None                       None        None
+Data Enterer   to patient immunization                                None        None
+               history
+
+               a person who works for a    None
+               recording organization
+               and enters submission
+               data
+Term           Definition                 Comment                     Term Alias  CDC Endorsed Data           MIROW
+Data Quality                                                          None        Element X-Walk              Guide
+Data Quality   the degree to which data None                          None        None
+Assurance      meets requirements                                                                             DQA-
+(DQA)                                                                 None        None                        2022
+               the planning,              None                        None
+Data Source    implementation and                                                                             DQA-
+Type           control activities that                                                                        2022
+               apply quality
+Date of Birth  management techniques
+(DOB)          to data, in order to
+               assure it is fit for
+               consumption and meets
+               the needs of data
+               consumers
+
+               the category of the        Example: Vital statistics,              None                        CR-2017
+               submitter of the record    immunization provider
+               containing the data        organization
+               element/data group
+
+               the date of the patient's  None                                    Patient Date of Birth: The  DQA-
+               birth                                                              patient's date of birth.    2022
+                                                                                                              PAIS-
+Date of Death  the date of the patient's  None                        None        None                        2015
+(DOD)          death                                                                                          VD-2006
+
+                                                                                                              DQA-
+                                                                                                              2022
+                                                                                                              PAIS-
+                                                                                                              2015
+
+                                                                                                              12
+Term          Definition                Comment                      Term Alias  CDC Endorsed Data  MIROW
+                                                                                 Element X-Walk     Guide
+Demographic   a part of a demographic   For further information see  None        None               DQA-
+Data Element  record                    tables A-4 and A-6 in the                                   2022
+                                        “Consolidating                           None               CR-2017
+Demographic                             Demographic Records and                  None
+Data Group                              Vaccination Event Records                None               CR-2017
+                                        (CR-2017) Guide”.
+Demographic                                                                                         DQA-
+Record        a logical grouping of     Example:                     None                           2022
+Demographic   demographic data          • IIS Patient ID (Unique                                    CR-2017
+Submission    elements                                                                              DQA-
+                                             identifier assigned by                                 2022
+                                             IIS to each Patient)
+                                        • Patient First Name
+                                        • Patient Last Name
+                                        • Date of Birth
+                                        • Gender
+
+                                        For further information see
+                                        tables A-4 and A-6 in the
+                                        “Consolidating
+                                        Demographic Records and
+                                        Vaccination Event Records
+                                        (CR-2017) Guide”.
+
+              a collection of           None                         None
+              demographic data
+              elements pertaining to a
+              patient
+
+              a submission regarding a  None                         None
+              patient's demographic
+              information
+
+                                                                                                    13
+Term            Definition                     Comment  Term Alias  CDC Endorsed Data            MIROW
+                                                        None        Element X-Walk               Guide
+Disruption      an interruption of normal      None
+                business operations or                              None                         BC-2019
+Dose Condition  processes which can
+                range from short term to
+Dose-Level      longer term unavailability
+Eligibility
+                an indicator that a dose       None     None        None
+                administered to a patient               None
+                is considered
+                substandard
+
+                a patient's eligibility for a  None                 Dose level eligibility: The  DQA-
+                funding program as                                  program that should pay      2022
+                determined for each                                 for a given immunization,    DINV-
+                administered dose of                                based on the                 2016
+                vaccine                                             characteristics of the
+                                                                    patient and the type of
+                                                                    vaccine administered.
+                                                                    Eligibility is captured per
+                                                                    dose.
+
+                                                                                                        14
+Term             Definition                  Comment                     Term Alias       CDC Endorsed Data          MIROW
+                                                                                          Element X-Walk             Guide
+Dose-Level       an indicator of the source  Funding source in HL7       Public/ Private
+Public/Private   of funding that paid for a  specification is the        Indicator        Vaccine Funding Source:    DQA-
+Indicator        vaccine                     equivalent of the                            The funding source of the  2022
+                                             private/public indicator.                    vaccine administered.      DINV-
+Electronic Data                              Lot Level Public/Private                                                2016
+Exchange                                     Indicator is part of the                                                INV-2012
+(EDE)                                        Vaccine Inventory and
+                                             discussed in the Inventory
+                                             Management Guide.
+
+                 an interface in which       Example:                    None             None                       DQA-
+                 data can be                 • Two Stock - public,                                                   2022
+                 communicated                                                                                        DINV-
+                 electronically between an        private                                                            2016
+                 IIS and another system,     • Three Stock - public                                                  PAIS-
+                 such as an electronic                                                                               2015
+                 health record system             VFC, public non-VFC,
+                                                  private
+
+                                             The communication can be
+                                             direct system to system or
+                                             through intermediaries.
+
+                                                                                                                            15
+Term             Definition                    Comment                     Term Alias  CDC Endorsed Data  MIROW
+                                                                                       Element X-Walk     Guide
+Essential        a business function that      None                        None        None               BC-2019
+Business         supports an IIS program’s
+Function         key products and                                          None        None               BC-2019
+                 services and, when                                        None        None
+Exercise         interrupted, has                                                                         DINV-
+                 significant negative                                                                     2016
+ExIS Order Date  impact on the wellbeing                                                                  INV-2012
+                 of the public and IIS staff,
+                 IIS reputation, product or
+                 service quality, or ability
+                 to meet legal and
+                 regulatory requirements
+
+                 an instrument to train        None
+                 for, assess, practice, and
+                 improve performance
+                 and capabilities in a
+                 controlled environment
+
+                 the date an order for         Each order will have an
+                 vaccine is entered into       ExIS order date and a
+                 the external information      VTrckS order date. These
+                 system                        dates could be different.
+                                               The former is the date
+                                               when the order was
+                                               entered into the ExIS and
+                                               the latter is the date the
+                                               order was uploaded to
+                                               VTrckS. (VTrckS: VTrckS
+                                               Order Date)
+
+                                                                                                          16
+Term             Definition                  Comment                        Term Alias    CDC Endorsed Data  MIROW
+                                                                                          Element X-Walk     Guide
+Existing Record  a record that is already    the record that has been       None          None               CR-2017
+Fund Type        stored in an IIS            assigned a permanent                         None
+                                             unique identifier                                               DINV-
+Geographic       a categorization within                                                  None               2016
+Jurisdiction     dose-level public/private   Fund type and funding          None                             DINV-
+                 indicator that further      source have been used                                           2016
+                 specifies the source of     interchangeably in the                                          INV-2012
+                 funding for the vaccine,    past. Fund type relates to                                      DLE-
+                 and is often tied to a      the HL7 value, and funding                                      2011
+                 program or use              source is related to the
+                 indication                  public/private indicator.                                       PAIS-
+                                             Funding source has been                                         2015
+                 a physical area identified  replaced by dose-level                                          INV-2012
+                 by a governing authority    public/private indicator and                                    DLE-
+                                             the term itself retired.                                        2011
+                                                                                                             RR-2009
+                                             Examples:                      Jurisdiction
+                                                  • Vaccines for
+                                                       Children program
+                                                  • 317 Immunization
+                                                       Program
+
+                                             A geographic jurisdiction
+                                             may be a state, county, city,
+                                             etc.
+
+                                             Examples: New York City,
+                                             Dade County, state of
+                                             Nevada are all examples of
+                                             a geographic jurisdiction.
+
+                                                                                                             17
+Term              Definition                   Comment                     Term Alias     CDC Endorsed Data              MIROW
+                                                                                          Element X-Walk                 Guide
+HL7               global authority on                                                                                    DQA-
+(Health Level     standards for                                                           None                           2022
+Seven             interoperability of health
+International)    information technology                                                                                 CR-2017
+Identical
+Records           duplicate records from       e.g. the exact same record  None
+                  the same data source         was submitted twice.        None
+IIS Data Quality  which have exactly the
+                  same data values for                                     IIS Direct UI
+IIS Direct User   each corresponding data                                  None
+Interface         element
+
+IIS Patient ID    the degree to which data     None                                       None                           DQA-
+                  sent to or stored in an                                                                                2022
+                  immunization
+                  information system meet
+                  current standards,
+                  support clinical decision-
+                  making needs, and are
+                  available to answer key
+                  public health questions
+                  with high confidence
+
+                  a software application       None                                       None                           DINV-
+                  that allows a person to                                                                                2016
+                  enter data directly into or                                                                            PAIS-
+                  retrieve data directly                                                                                 2015
+                  from an IIS
+
+                  a unique identifier          None                                       IIS patient ID: The unique     DQA-
+                  assigned to a patient by                                                identifier assigned by IIS to  2022
+                  IIS                                                                     each Patient.                  CR-2017
+
+                                                                                                                                18
+Term             Definition                   Comment  Term Alias                CDC Endorsed Data          MIROW
+                                                                                 Element X-Walk             Guide
+IIS Program      the staff and/or activities  None     None                      None                       DQA-
+                 that focus primarily on               None                                                 2022
+IIS Vaccination  maintaining and                                                 IIS Vaccination Event ID:  BC-2019
+Event ID         operating the IIS in                                            The unique identifier      INV-2012
+                 support of immunization                                         assigned by IIS to each    DLE-
+                 program activities                                              vaccination event.         2011
+                                                                                 None                       CR-2017
+                 a unique identifier          None
+                                                                                                            DQA-
+                 assigned by an IIS to each                                                                 2022
+
+                 vaccination event
+
+IIS-AO Common    a familiar name by which     This is a public-facing name None
+Name             an IIS-AO is known in the    used by the organization.
+                 community
+
+                                                                                                            19
+Term            Definition                  Comment                      Term Alias  CDC Endorsed Data            MIROW
+IIS-AO ID                                   None                         None        Element X-Walk               Guide
+                a unique identifier
+                assigned by an IIS to                                                No matching term to IIS-ID   DQA-
+                represent an IIS-AO                                                  is defined. There is a       2022
+                                                                                     related term.                CR-2017
+
+                                                                                     Note from MIROW: the
+                                                                                     definition from CDC-
+                                                                                     Endorsed Data Element for
+                                                                                     the responsible
+                                                                                     organization should be
+                                                                                     updated as not all IIS-AO's
+                                                                                     are 'accountable' for the
+                                                                                     content. For example:
+                                                                                     Responsible organization:
+                                                                                     the identifier of the
+                                                                                     organization that
+                                                                                     originated and is
+                                                                                     accountable for the
+                                                                                     content of the record May
+                                                                                     be referenced as IIS-AO ID
+                                                                                     (first submitter).
+
+IIS-AO Legal    a name by which an IIS-     None                         None        None                         DQA-
+Name            AO is legally known                                                                               2022
+
+IIS-Authorized  an organization that has    Examples: Provider           None        None                         DQA-
+Organization    an agreement with an IIS,   Organization, Vital Records                                           2022
+(IIS-AO)        that allows for the         Office, hospitals, schools,                                           CR-2017
+                submittal and/or retrieval  etc.
+                of IIS information
+
+                                                                                                                        20
+Term          Definition                 Comment                     Term Alias  CDC Endorsed Data  MIROW
+                                                                     None        Element X-Walk     Guide
+Immunization  a collection of            None
+History       information detailing                                              None               DQA-
+              vaccination events for a                                                              2022
+              patient                                                                               PAIS-
+                                                                                                    2015
+Immunization  a confidential,            None                        None        None               DLE-
+Information   population-based,                                      None        None               2011
+System        computerized database                                              None               RR-2009
+(IIS)         for recording
+              information, including                                                                DQA-
+Immunization  vaccination history and                                                               2022
+Program       vaccine doses given by                                                                CR-2017
+              participating health care                                                             DINV-
+              providers                                                                             2016
+                                                                                                    PAIS-
+              a public health            Public health organization                                 2015
+              organization that          can be at the awardee,                                     INV-2012
+              coordinates public health  county, etc. level                                         RR-2009
+              activities related to
+              immunization for a                                                                    DQA-
+              geographic jurisdiction                                                               2022
+                                                                                                    PAIS-
+Incident      an event that might be,    None                        None                           2015
+              or could lead to, a                                                                   INV-2012
+              disruption, loss,                                                                     DLE-
+              emergency or crisis                                                                   2011
+
+                                                                                                    BC-2019
+
+                                                                                                    21
+Term            Definition                   Comment                     Term Alias  CDC Endorsed Data          MIROW
+Incoming                                                                 None        Element X-Walk             Guide
+Record          a record that is received    None
+                by the IIS from an IIS-AO    None                        Stock       None                       CR-2017
+Inventory       and will be processed to
+                determine if a matching                                              None                       DQA-
+                record exists                                                        None                       2022
+                                                                                                                DINV-
+                a collection of inventory                                                                       2016
+                items                                                                                           INV-2012
+
+Inventory Item  a collection of vaccines     None                        None                                   DINV-
+                with the same lot                                                                               2016
+Inventory Item  number, lot-level            None                        None
+Date/Time       public/private indicator,    Examples: active, pending,  None        None                       DINV-
+Inventory Item  and lot number               inactive                    None                                   2016
+Status          expiration date              None
+Lot Number                                                                           None                       DINV-
+                the date and time the                                                                           2016
+                balance for an inventory
+                item is changed                                                      Vaccine Lot Number: The    DQA-
+                                                                                     lot number of the vaccine  2022
+                the state of an inventory                                            administered.              DINV-
+                item, whether it is active,                                                                     2016
+                pending or inactive                                                                             INV-2012
+                                                                                                                VD-2006
+                an identifier assigned by
+                a manufacturer to a
+                specific batch of vaccine
+                product type
+
+                                                                                                                       22
+Term              Definition                  Comment                     Term Alias  CDC Endorsed Data           MIROW
+                                                                          None        Element X-Walk              Guide
+Lot Number        the date after which the    None                                    Vaccine Expiration Date:
+Expiration Date   vaccine is no longer                                                The expiration date of the  DQA-
+                  considered potent                                                   vaccine administered.       2022
+                                                                                                                  DINV-
+Lot-Level         the source of funds that    Based on the shipment’s     None        None                        2016
+Public/Private    paid for an inventory       electronic file.            None                                    INV-2012
+Indicator         item, assigned by the IIS                                                                       VD-2006
+                                              Examples:
+Manufacturer      an organization that        • Two Stock - public,                                               DINV-
+                  produces a vaccine                                                                              2016
+                  product type                     private
+                                              • Three Stock - public                  None                        DQA-
+                                                                                      None                        2022
+                                                   VFC, public non-VFC,               None                        INV-2012
+                                                   private                                                        VD-2006
+                                              Example: Sanofi Pasteur                                             CR-2017
+
+Matched           records which have been     None                        None                                    BC-2019
+Records           identified to be duplicate                              None
+                  records (same patient or
+                  same vaccination event)
+
+Maximum           the time it would take for  Like RTO, resumption of
+Tolerable Period  adverse impacts, which      the business function can
+of Disruption     might arise as a result of  be by an alternate process
+(MTPD)            not providing a business    or through restarting
+                  function to become          normal operations.
+                  unacceptable
+
+                                                                                                                  23
+Term            Definition                 Comment                     Term Alias  CDC Endorsed Data           MIROW
+                                                                                   Element X-Walk              Guide
+Medicaid        a unique identifier        An example of an alternate  None
+Number          assigned to a person for   patient ID.                             None                        DQA-
+                the purposes of receiving                                                                      2022
+Medical Record  medical services financed
+Number          by Medicaid
+
+Mother's        an identifier assigned to  None                        None        None                        DQA-
+Maiden Name     a patient by the provider                                                                      2022
+                organization
+
+                the last name under        None                        None        Mother's name: maiden       DQA-
+                which the patient's                                                last - the last name under  2022
+                mother was born                                                    which the mother was born
+                                                                                   (i.e., before marriage).
+
+MVX Code        an identifier established  A re-labeler may also have  None        Vaccine Manufacturer        DQA-
+                and maintained by the      an MVX code – it is a                   Name: The manufacturer      2022
+                CDC that describes a       distributer but not a                   of the vaccine that was     DINV-
+                manufacturer               manufacturer.                           administered                2016
+
+                                           Example: Manufacturer
+                                           Sanofi has MVX Code
+                                           "PMC"
+
+                                                                                                                      24
+Term        Definition                   Comment                        Term Alias  CDC Endorsed Data  MIROW
+NDC                                                                                 Element X-Walk     Guide
+            an identifier assigned to    The NDC (National Drug         None        None               DQA-
+New Record  a vaccine product type       Code) is assigned by the                                      2022
+Order       identifying the              Food and Drug                              None               DINV-
+            manufacturer/labeler,        Administration and the                     None               2016
+            product and presentation     manufacturer.                                                 INV-2012
+                                         There are different NDCs
+                                         on the outer packaging (or                                    CR-2017
+                                         Unit of Sale, UoS) and the
+                                         Unit of Use (UoU) for the                                     DINV-
+                                         same vaccine product type.                                    2016
+                                                                                                       INV-2012
+            a record that is either the  Examples:                      None
+            result of a consolidation    • 58160-0810-11 (GSK's
+            process or an incoming
+            record that was not               DTaP - Infanrix - vials)
+            matched to an existing       • 58160-0810-52 (GSK's
+            record
+                                              DTaP - Infranix -
+                                              syringes)
+
+                                         None
+
+            a request for vaccines       None                           None
+            placed by a provider
+            organization
+
+                                                                                                       25
+Term              Definition                  Comment                       Term Alias  CDC Endorsed Data  MIROW
+                                                                                        Element X-Walk     Guide
+Order ID          a unique identifier         Each order will have an       None        None               INV-2012
+                  assigned to an order by     ExIS order ID and a VTrckS    None        None               INV-2012
+Order Line        the IIS                     order ID. The numbers will                None               INV-2012
+Order Line Split                              be different. Each order ID
+Indicator         an item of an order         must be unique within its                 None               INV-2012
+                  specifying the vaccine      own system.
+Order Line        product type being
+Status            ordered                     Each order line has a
+                  an indicator of whether     unique identifier.
+                  an order line item
+                  quantity shipped is less    “Order Line Split Indicator”  None
+                  than the quantity           is the new name for the
+                  requested                   field previously called
+                                              “Partial Shipment
+                  the state of an order line  Indicator.” The new name
+                  in process from an order    was selected because the
+                  approval to completion      previous term gave the
+                                              impression that only part
+                                              of the vaccine was shipped
+                                              when in fact it was all
+                                              shipped but was associated
+                                              with multiple delivery
+                                              numbers.
+
+                                              Examples: Received, Open, None
+                                              Backordered, Shipped,
+                                              Cancelled
+
+                                                                                                           26
+Term          Definition                 Comment                  Term Alias  CDC Endorsed Data  MIROW
+                                                                              Element X-Walk     Guide
+Order Status  the state of an order in   Examples: Received,      None        None               INV-2012
+              process from submission    Accepted, Exception,
+Organization  by a provider              Backordered, Cancelled,  None        None               DQA-
+Party         organization to            Completed                None                           2022
+              completion of the order                                         None               RR-2009
+                                                                                                 DQA-
+              a party that is a body of  None                                                    2022
+              people with a particular                                                           RR-2009
+              purpose
+
+              a person or organization None
+
+                                                                                                 27
+Term     Definition              Comment  Term Alias  CDC Endorsed Data              MIROW
+Patient                          None     None        Element X-Walk                 Guide
+         a person who is the
+         actual or potential                          The CDC endorsed data          DQA-
+         recipient of a vaccine                       element list does not          2022
+                                                      include some group-level       CR-2017
+                                                      concepts at this time.         DINV-
+                                                      There are some related         2016
+                                                      terms. For example:            PAIS-
+                                                                                     2015
+                                                      • Patient Alias Name:          INV-2012
+                                                           First: the first name of  DLE-
+                                                           a patient's alternate or  2011
+                                                           also-known-as name        RR-2009
+                                                                                     VD-2006
+                                                      • Patient Alias Name:
+                                                           Last: the last name of a
+                                                           patient's alternate or
+                                                           also-known-as name
+
+                                                      • Patient Alias Name:
+                                                           Middle: The middle
+                                                           name of a patient's
+                                                           alternate or also-
+                                                           known-as name.
+
+                                                      • Patient Name: First: the
+                                                           patient's first name
+
+                                                      • Patient Name: Last: the
+                                                           patient's last name
+
+                                                      • Patient Name: Middle:
+                                                           the patient's middle
+                                                           name
+
+                                                                                     28
+Term            Definition                   Comment  Term Alias  CDC Endorsed Data          MIROW
+                                                      None        Element X-Walk             Guide
+Patient         an indication as to          None
+Eligibility     whether or not a patient     None                 None                       DLE-
+                may receive vaccines                                                         2011
+Patient         from a public health
+Ethnicity       program funding                       None        None                       DQA-
+Patient First   program                               None                                   2022
+Name                                                  None        Patient Name: First: The
+                ethnicity of the patient              None        patient's first name.      DQA-
+                                                      None                                   2022
+                the patient's first name None         None        Patient Gender: the        VD-2006
+                                                      None        patient's gender.
+Patient Gender the patient's gender          None                                            DQA-
+(Gender)                                                          Patient Name: Last: The    2022
+                                                                  patient's last name.       VD-2006
+Patient Last    the patient's last name(s) None
+Name                                                              Patient Name: Middle: The  DQA-
+                                                                  patient's middle name.     2022
+Patient Middle  the patient's middle         None                                            VD-2006
+Name            name(s)                                           None
+                                                                                             DQA-
+                a word or phrase that        None                                            2022
+                                                                                             VD-2006
+Patient Name    constitutes the distinctive
+                                                                                             DQA-
+Patient Phone                                                                                2022
+Number
+                designation of a patient
+
+                the patient's phone          None                 None                       DQA-
+                number                                                                       2022
+
+                                                                                                   29
+Term            Definition                Comment                      Term Alias        CDC Endorsed Data              MIROW
+Patient Race                                                                             Element X-Walk                 Guide
+Patient Record  the patient's race        None                         None              None                           DQA-
+                                                                                         None                           2022
+Patient Status  a record of information   None                         None                                             DQA-
+                for a patient including                                                  None                           2022
+Patient Status  both demographic record                                None                                             CR-2017
+at Geographic   and vaccination event
+Jurisdiction    records for that patient                               Patient Status -                                 PAIS-
+Level                                                                  GJ                                               2015
+                an indicator of an        Patient status does not
+Patient Status  organization's            describe how a patient’s
+at Provider     accountability for a      immunizations relate to
+Organization    patient's immunizations   the recommended
+Level                                     immunization schedule,
+Person                                    i.e., current/not current.
+
+                a patient status with     Examples: Active, Inactive,                    Patient Status Indicator-      PAIS-
+                respect to an             Unknown or Deceased                            Jurisdiction Level: The        2015
+                immunization program                                                     patient/geographic
+                                                                                         jurisdiction status
+                                                                                         determined from address
+                                                                                         information when the
+                                                                                         patient's address within
+                                                                                         the jurisdiction is known.
+
+                a patient status with     Examples: Active, Inactive   Patient Status -  Patient Status Indicator-      PAIS-
+                respect to a provider     or Deceased                  PO                Provider Level: The current    2015
+                organization                                                             active/inactive status of the
+                                                                                         patient in relation to the
+                                                                                         provider organization.
+
+                a human being             None                         None              None                           DQA-
+                                                                                                                        2022
+
+                                                                                                                               30
+Term         Definition                   Comment  Term Alias  CDC Endorsed Data  MIROW
+                                                   None        Element X-Walk     Guide
+Potential    a business function that     None
+Essential    is potentially an essential                       None               BC-2019
+Business     business function
+Function
+Probability  something (such as an        None     None        None               BC-2019
+             event or circumstance)       None     None        None
+Provider     that is likely to occur      None     None        None               DQA-
+(Provider                                                                         2022
+Individual)  a person who is a
+             medical professional or                                              DQA-
+Provider     clinician who works for a                                            2022
+Identifier   provider organization
+
+             a unique identifier that
+             labels and establishes
+             the identify of a provider
+
+                                                                                  31
+Term          Definition                  Comment  Term Alias                CDC Endorsed Data                MIROW
+                                                                             Element X-Walk                   Guide
+
+Provider      an organization that has    • When authorized by IIS, None     No matching term to              DQA-
+Organization  any combination of the           Provider Organization         Provider Organization is         2022
+(PO)          following characteristics:       may be IIS-Authorized         defined. There are some          DINV-
+              • provides vaccination           Organization.                 related terms. For               2016
+                                                                             example:                         PAIS-
+                   services               • Provider Organization            • Administered at                2015
+              • responsible for an             may contain                                                    INV-2012
+                                               organizational units,              Location: The facility      DLE-
+                   entity that provides        such as clinics, facilities,       name/identifier of the      2011
+                   vaccination services        sites, departments, etc.           facility that               VD-2006
+              • manages inventory              Each of these                      administered the
+                   for an entity that          organizational units               immunization. This
+                   provides vaccination        may have IIS-assigned              information may not be
+                   services                    IDs (IIS-AO IDs) that are          available for a historical
+                                               different from IDs of              dose.
+                                               the Provider
+                                               Organization. See the
+                                               MIROW 2013 Data
+                                               Quality Assurance
+                                               guide for a detailed
+                                               discussion.
+
+                                          • When referencing a
+                                               Provider Organization
+                                               in a MIROW guide we
+                                               are referring to an
+                                               organization that is
+                                               also an IIS-Authorized
+                                               Organization.
+
+                                                                                                              32
+Term           Definition                   Comment            Term Alias  CDC Endorsed Data  MIROW
+                                                               None        Element X-Walk     Guide
+Provider       a representation of the      None
+Organization   characteristics associated                                  None               DQA-
+Profile        with a provider                                                                2022
+               organization and its
+Provider       submissions to an IIS
+Organization
+Type           a classification system for  Examples: OB/GYN,  None        None               DQA-
+(PO Type/Sub-  provider organizations       Pediatrician                                      2022
+Type)          based on a combination                                                         PAIS-
+Public Health  of services provided and                                                       2015
+Entity         the cohort served
+                                                                                              RR-2009
+Recommended    a governmental agency        None               None        None
+Immunization   with public health
+Schedule       oversight over a
+               geographic jurisdiction
+               and/or its population
+
+               a collection of antigen      None               None        None               RR-2009
+               series that specify
+               various paths to achieve
+               presumed immunity
+               against respective
+               diseases as defined by an
+               organization (e.g.,
+               Advisory Committee on
+               Immunization Practices)
+
+                                                                                              33
+Term            Definition                  Comment                       Term Alias  CDC Endorsed Data  MIROW
+                                                                                      Element X-Walk     Guide
+Recommended     the vaccine that is         None                          None        None               RR-2009
+Vaccination     recommended based on
+                a patient 's immunization                                             None               DQA-
+Recording       history and in                                                        None               2022
+Organization    accordance with an                                                                       BC-2019
+(Recorder)      immunization schedule                                                 None
+Recovery Point                                                                                           BC-2019
+Objective       an IIS-AO that records      None                          None
+(RPO)           information for
+                submission to an IIS
+Recovery Time
+Objective       the point prior to a        The RPO is linked to the      None
+(RTO)           disruption to which         frequency of the backups
+                information used by a       for the business in order to
+                business function must      minimize the loss of data.
+                be restored to minimize
+                the loss of data resulting
+                from the disruption
+
+                the period of time          The RTO is less than the      None
+                following a disruption      time it would take for
+                within which a business     disruptions to a
+                function must be            product/service or activity
+                resumed                     to become unacceptable
+                                            (MTPD). Resumption of the
+                                            service can be by an
+                                            alternate process or
+                                            through restarting normal
+                                            operations.
+
+                                                                                                         34
+Term             Definition                  Comment                       Term Alias       CDC Endorsed Data            MIROW
+                                                                                            Element X-Walk               Guide
+Relocation       the transfer of people or   None                          None
+                 activities to another                                                      None                         BC-2019
+                 physical location
+
+Reminder/Recall a set of conditions          Examples:                     R/R Criteria     No matching term to          RR-2009
+                                             Individual/Patient age                         Reminder/Recall Criteria is
+Criteria         (filters) used to produce   (DOB), Opt-out from R/R                        defined. There is a related
+                                             process in whole or in part,                   term. For example:
+                 the list of R/R candidates  etc.                                           Reminder/Recall status:
+                                                                                            Whether or not a person
+                                                                                            wishes to be contacted in a
+                                                                                            reminder or recall
+                                                                                            situation. (Publicity Code)
+
+Reminder/Recall  an organization that        Examples: school, provider    R/R Distributor  None                         RR-2009
+Distributor      receives a
+                 reminder/recall
+                 notification from a
+                 reminder/recall
+                 originator and distributes
+                 it to the patient or
+                 responsible party
+
+Reminder/Recall  a repetition rate for a     Reflects how much time        R/R Frequency    None                         RR-2009
+Frequency        reminder/recall             should pass between
+                 notification during the     notification attempts.
+                 R/R process
+
+                                                                                                                         35
+Term             Definition                    Comment                     Term Alias        CDC Endorsed Data  MIROW
+                                                                                             Element X-Walk     Guide
+Reminder/Recall  a communication               The vaccinations may be     R/R Notification  None               RR-2009
+Notification     indicating that a patient     past due, due now or due
+                 has one or more               in the future. The                            None               RR-2009
+                 recommended                   communication is sent to
+                 vaccinations due or past      either the patient or the                     None               RR-2009
+                 due                           responsible party based on
+                                               the established                               None               RR-2009
+                                               reminder/recall protocol.                     None               RR-2009
+
+Reminder/Recall  the organization that is      None                        R/R Originator
+Originator       responsible for
+                 generating the
+                 reminder/recall
+                 notification
+
+Reminder/Recall  the results associated        None                        R/R Outcome
+Outcome          with a r/r notification that
+                 may impact a patient’s
+                 immunization status or
+                 patient status
+
+Reminder/Recall  a set of rules and            None                        R/R Protocol
+Protocol         procedures used to guide
+                 the reminder/recall
+                 process
+
+Reminder/Recall the person to which the        Examples: patient,          R/R Recipient
+                                               parent/guardian, provider,
+Recipient        reminder/recall               etc.
+
+                 notification is addressed
+
+                                                                                                                36
+Term             Definition                  Comment                 Term Alias    CDC Endorsed Data  MIROW
+                                                                                   Element X-Walk     Guide
+Reminder/Recall  a report listing one or     None                    R/R Report    None               PAIS-
+Report           more patients with one                                                               2015
+                 or more recommended                                               None
+                 vaccinations due now or                                                              RR-2009
+                 in the future                                                     None
+                                                                                   None               PAIS-
+Reminder/Recall  a result associated with a  Examples: completed     R/R Response                     2015
+Response         reminder/recall             phone calls, postcards                None               BC-2019
+                 notification that           returned
+                 characterizes the                                                                    INV-2012
+                 communication process
+
+Residence        a location where a          A residence can be derived None
+                 person resides              from an address.
+
+Resource         the people, information     None                    None
+                 and data, technology,
+                 buildings/worksites,
+                 communication systems,
+                 equipment, utilities that
+                 an organization has to
+                 have available to operate
+
+Responsible for  an indicator of whether     Example: Y/N            None
+VFC Inventory    or not a provider
+                 organization is
+                 responsible for VFC
+                 inventory
+
+                                                                                                      37
+Responsible  a person responsible for Examples: parent, mother, Responsible  The CDC endorsed data          DQA-
+Party                                                                        element list does not          2022
+             a patient  father, guardian  Person                             include some group-level       PAIS-
+                                                                             concepts at this time.         2015
+                                                                             There are some related         INV-2012
+                                                                             terms. For example:            DLE-
+                                                                             • Responsible Person           2011
+                                                                                                            RR-2009
+                                                                                  Name: First: The first
+                                                                                  name of the person
+                                                                                  responsible for the
+                                                                                  patient. Multiple names
+                                                                                  for the same person
+                                                                                  are allowed.
+                                                                             • Responsible Person
+                                                                                  Name: Last: The last
+                                                                                  name of the person
+                                                                                  responsible for the
+                                                                                  patient. Multiple names
+                                                                                  for the same person
+                                                                                  are allowed.
+                                                                             • Responsible Person
+                                                                                  Name: Middle: The
+                                                                                  middle name of the
+                                                                                  person responsible for
+                                                                                  the patient. Multiple
+                                                                                  names for the same
+                                                                                  person are allowed.
+                                                                             • Responsible Person
+                                                                                  Relationship to Patient:
+                                                                                  The actual personal
+                                                                                  relationship that the
+                                                                                  responsible person has
+                                                                                  to the patient.
+
+                                                                                                            38
+Term              Definition                  Comment                   Term Alias  CDC Endorsed Data  MIROW
+                                                                                    Element X-Walk     Guide
+Risk              effect of uncertainty on    None                      None        None               BC-2019
+                  objectives                                            None        None               BC-2019
+                                                                        None
+Risk Assessment   an overall process of risk  None                                  None               BC-2019
+                  identification, risk                                  None
+                  analysis and risk                                     None        None               BC-2019
+                  evaluation                                            None
+                                                                                    None               BC-2019
+Risk Mitigation   to implement measures       A way of supporting the               None
+                  so as to lower the          business function.                    None               DINV-
+                  exposure to risk and                                              None               2016
+                  lower the probability or                                                             INV-2012
+                  impact of a risk                                                                     INV-2012
+                                                                                                       INV-2012
+Selected          a business function that None
+Essential         is selected as an essential                                                                   39
+Business          business function
+Function
+
+Service Delivery  a method of delivering a    None
+                  service offered by
+                  business function
+
+Shipment          the vaccine doses sent to None
+                  a provider organization
+
+Shipment ID       a unique identifier         None                      None
+Shipment Line     assigned to a shipment                                None
+                                              Each shipment line has a
+                  an item of a shipment       unique identifier.
+                  specifying the vaccine
+                  being shipped
+Term             Definition                   Comment                     Term Alias     CDC Endorsed Data  MIROW
+                                                                                         Element X-Walk     Guide
+Shipment Status  the state of a shipment in   Examples: in transit,       None           None               DINV-
+                 process from shipping by     shipped                                                       2016
+                 originator to delivery to a                                             None               INV-2012
+                 provider organization                                                   None
+                                                                                                            DINV-
+Shipment Type    an indication of where       Examples: regular           Shipment Type  None               2016
+                 the shipment originated      (distributor), direct                      None
+                                              (manufacturer)                                                DINV-
+                                                                                                            2016
+Storage Model    the way vaccines are         Further information on the  None
+                 physically separated         different storage models                                      DINV-
+                 from each other in the       used can be found in                                          2016
+                 Provider Organization's      MIROW guide                                                   DQA-
+                 storage unit                 "Decrementing Inventory                                       2022
+                                              via Electronic Data                                           PAIS-
+                                              Exchange" (DINV-2016).                                        2015
+                                                                                                            DQA-
+Storage Unit     a refrigerator or freezer    None                        Storage                           2022
+                 used to store vaccine                                                                      CR-2017
+                                                                                                            DINV-
+Submission       a collection of              None                        None                              2016
+                 information sent from an                                                                   PAIS-
+                 IIS-AO to an IIS                                                                           2015
+
+Submission       the date a submission is None                            None           None                        40
+Date             received by an IIS
+Term          Definition                 Comment  Term Alias  CDC Endorsed Data           MIROW
+                                                  None        Element X-Walk              Guide
+Submission    the date a submission is None       None        None                        VD-2006
+Date Loaded   loaded into an IIS
+Submission                                                    None                        DQA-
+Error         is the type of error that  None                                             2022
+              occurred in the receipt
+Submission    and attempted
+Status        acceptance of a
+              submission
+Submitting
+Organization  the state of a submission  None     None        None                        DQA-
+(Submitter)   upon submission to an               None                                    2022
+              IIS
+                                                  None
+              an IIS-AO that submits     None                 No matching term to         DQA-
+              information to an IIS or                        Submitter is defined.       2022
+              to an intermediary                              There are some related      VD-2006
+              submitter with an IIS as                        terms. For example:
+              the destination                                 Sending organization: The   BC-2019
+                                                              identifier of the
+Testing       a procedure for            None                 organization that connects
+              evaluation; a means of                          to the IIS and submits the
+              determining the                                 record.
+              presence, quality, or
+              veracity of something                           None
+
+                                                                                                41
+Term        Definition                  Comment                   Term Alias  CDC Endorsed Data  MIROW
+Threat                                                                        Element X-Walk     Guide
+            a potential cause of an     Some threats such as bad  None        None               BC-2019
+Threat      unwanted incident, which    weather are more          None
+Assessment  may result in harm to       commonly referred to as   None        None               BC-2019
+            individuals, a system or    "Hazards"
+Time Frame  organization, the                                                 None               DQA-
+            environment or the                                                                   2022
+            community                                                                            BC-2019
+
+            an evaluation and           None
+            description of the type,
+            scope and nature of
+            events or actions that
+            can result in adverse
+            consequences to an
+            organization or specific
+            assets
+
+            a period of time            None
+            especially with respect to
+            some action or project
+
+                                                                                                 42
+Term          Definition                 Comment                    Term Alias  CDC Endorsed Data             MIROW
+                                                                                Element X-Walk                Guide
+Trade Name    the manufacturer's         Some trade names include   None
+              proprietary name for a     the intended use in the                None                          DQA-
+Vaccinating   vaccine type               name, such as adults,                                                2022
+Organization                             pediatrics.                                                          DINV-
+(Vaccinator)                                                                                                  2016
+                                         The term "trade name" is                                             INV-2012
+                                         equivalent to the term                                               VD-2006
+                                         "product name" in the CDC
+                                         code sets.
+
+                                         Examples: ACTHIB,
+                                         Comvax, EngerixB-Peds,
+                                         EngerixB-Adult
+
+              an IIS-AO that vaccinates  None                       None        No matching term to           DQA-
+              a patient                                                         Vaccinator is defined.        2022
+                                                                                There are some related
+                                                                                terms. For example:
+                                                                                Administered at Location:
+                                                                                The facility name/identifier
+                                                                                of the facility that
+                                                                                administered the
+                                                                                immunization. This
+                                                                                information may not be
+                                                                                available for a historical
+                                                                                dose.
+
+                                                                                                                    43
+Term            Definition                 Comment                         Term Alias  CDC Endorsed Data             MIROW
+                                                                                       Element X-Walk                Guide
+Vaccination     an opportunity for one or  Vaccination encounter           None
+Encounter       more vaccination events    represents an interaction                   No matching term to           DQA-
+                to occur                   (e.g., office visit) between a              Vaccination Encounter is      2022
+Vaccination                                patient and a provider                      defined.                      PAIS-
+Encounter Date                             organization during which                   There are some related        2015
+                                           zero, one, or more                          terms. For example:           INV-2012
+                                           vaccination events                          Exemptions/refusals of        DLE-
+                                           occurred.                                   vaccine: the reason for an    2011
+                                           In some cases, no                           exemption/refusal             RR-2009
+                                           vaccination events take                                                   VD-2006
+                                           place at a vaccination
+                                           encounter (e.g., a patient
+                                           refuses vaccinations).
+
+                the date of a vaccination None                             None        No matching term to           DQA-
+                encounter                                                              Vaccination Encounter Date    2022
+                                                                                       is defined.                   CR-2017
+                                                                                       There is a related term. For  PAIS-
+                                                                                       example:                      2015
+                                                                                       Exemptions/Refusals Date:
+                                                                                       the date that the refusal or
+                                                                                       deferral was recorded.
+
+Vaccination     a kind of vaccination      Used to indicate if the         None        None                          DQA-
+                                           vaccination encounter was                                                 2022
+Encounter Type encounter                   the result of a special                                                   PAIS-
+                                           event, such as a mass                                                     2015
+                                           vaccination or not.
+
+                                           Example: office visit, mass
+                                           vaccination clinic
+
+                                                                                                                            44
+Term         Definition               Comment                      Term Alias  CDC Endorsed Data             MIROW
+                                                                               Element X-Walk                Guide
+Vaccination
+Event        a medical occurrence of  Vaccination event does not   None        No matching term to           DQA-
+             administering one        include refusals or                      Vaccination Event is          2022
+             vaccine to a patient     contraindications. These                 defined.                      CR-2017
+                                      are reported as part of the              There is a related term. For  DINV-
+                                      vaccination encounter.                   example:                      2016
+                                      Several vaccination events               Vaccination Event ID: The     PAIS-
+                                      can happen within one                    vaccination event’s unique    2015
+                                      vaccination encounter.                   identifier assigned by the    INV-2012
+                                                                               submitting system. Note:      DLE-
+                                                                               this is referred to as the    2011
+                                                                               "Filler Order Number" in      RR-2009
+                                                                               the HL7 Implementation        VD-2006
+                                                                               Guide.
+
+Vaccination  a part of a vaccination  For further information see  None        None                          DQA-
+Event Data   event record             tables A-5 and A-6 in the                                              2022
+Element                               “Consolidating                                                         CR-2017
+             a logical grouping of    Demographic Records and
+Vaccination  vaccination event data   Vaccination Event Records
+Event Data   elements                 (CR-2017) Guide”.
+Group
+                                      Example:                     None        None                          CR-2017
+                                      • Vaccine Product Type                                                          45
+                                      • Manufacturer
+                                      • Lot Number
+
+                                      For further information see
+                                      tables A-5 and A-6 in the
+                                      “Consolidating
+                                      Demographic Records and
+                                      Vaccination Event Records
+                                      (CR-2017) Guide”.
+Term          Definition                Comment                        Term Alias      CDC Endorsed Data            MIROW
+Vaccination                                                                            Element X-Walk               Guide
+Event Date
+              the date of the           Vaccination encounter          Vaccination     Vaccination Administration   DQA-
+Vaccination   vaccination event         represents an interaction      Administration  Date: The date the           2022
+Event Dosage                            (e.g. office visit) between a  Date            vaccination event occurred.  DINV-
+Vaccination                             patient and a provider                                                      2016
+Event Record                            organization during which      None                                         VD-2006
+Vaccination                             zero, one, or more             None
+Event                                   vaccination events             None
+Submission                              occurred.
+                                        In some cases, no
+                                        vaccination events take
+                                        place at a vaccination
+                                        encounter (e.g. a patient
+                                        refuses vaccinations).
+
+              the measurement of how    Example: 1 mL, .5 mL                           None                         DQA-
+              much vaccine was                                                         None                         2022
+              administered during a                                                    None                         VD-2006
+              vaccination event
+                                                                                                                    DQA-
+              a collection of related   None                                                                        2022
+              vaccination event data                                                                                CR-2017
+              elements pertaining to a
+              vaccination event                                                                                     DQA-
+                                                                                                                    2022
+              a submission regarding a None                                                                         DINV-
+              vaccination event (s)                                                                                 2016
+                                                                                                                    VD-2006
+
+                                                                                                                    46
+Term            Definition                  Comment                         Term Alias    CDC Endorsed Data  MIROW
+                                                                                          Element X-Walk     Guide
+Vaccination     the result of applying      None                            None          None               DQA-
+Forecast        rules to determine dates                                                  None               2022
+Vaccine         for the next vaccine(s) to  Vaccine is a classification of  Vaccine Dose
+(Vaccine Dose)  be administered to a        a vaccine product type that                   None               DQA-
+                patient                     is described by a lot                                            2022
+Vaccine         a dose of substance         number and other                                                 DINV-
+Ordering        administered during a       elements. The lot number                                         2016
+System          vaccination event           is not a unique identifier,                                      PAIS-
+                                            rather it identifies a group                                     2015
+                an application that         of vaccines.                                                     INV-2012
+                supports vaccine                                                                             DLE-
+                ordering functions          Example:                        None                             2011
+                                            Vaccine Type = HepB                                              RR-2009
+                                            • CVX Code = 8                                                   VD-2006
+                                            Vaccine Product Type:
+                                            • NDC = 58160-0820-11                                            DINV-
+                                            • Manufacturer/MVX                                               2016
+
+                                                 code = SKB                                                           47
+                                            • Trade Name = ENGERIX
+
+                                                 B-PEDS
+                                            Vaccine:
+                                            • Lot Number = ABCD
+                                            • Lot Number Expiration
+
+                                                 Date = MM/DD/YYYY
+
+                                            None
+Term             Definition                 Comment                      Term Alias    CDC Endorsed Data            MIROW
+                                                                                       Element X-Walk               Guide
+Vaccine Product  the date a product         None                         None
+License Begin    license began                                                         None                         DQA-
+Date                                                                                                                2022
+
+Vaccine Product  the date a product         None                         None          None                         DQA-
+License End      license ended                                                                                      2022
+Date
+
+Vaccine Product  a classification that      The vaccine product type is  Vaccine       No matching term to          DQA-
+Type             describes the              related to the vaccine type  Presentation  Vaccine Product Type is      2022
+                 manufacturer, and          which is a broader           Type          defined.                     DINV-
+                 presentation of a vaccine  grouping, and also the                     There are some related       2016
+                 type                       vaccine that is a specific                 terms. For example:          INV-2012
+                                            value.                                     Vaccine Product: The
+                                                                                       vaccine type that may be
+                                            Examples of Vaccine                        administered, historical or
+                                            Product Types that belong                  refused, and is messaged
+                                            to the same Vaccine Type                   using the NDC or CVX code
+                                            of HepB, CVX Code = 8, but                 sets. Note: based on local
+                                            have different NDC codes:                  need this may include
+                                            Vaccine Product Type 1                     immunoglobulin or other
+                                            • NDC = 58160-0820-11                      medical substances.
+                                            • Manufacturer/MVX
+
+                                                 code = SKB
+                                            • Trade Name = ENGERIX
+
+                                                 B-PEDS
+                                            Vaccine Product Type 2
+                                            • NDC = 00006-4981-00
+                                            • Manufacturer/MVX
+
+                                                 code = MSD
+                                            • Trade Name =
+
+                                                 RECOMBIVAX-PEDS
+
+                                                                                                                          48
+Term             Definition                  Comment                       Term Alias  CDC Endorsed Data            MIROW
+                                                                                       Element X-Walk               Guide
+Vaccine          a part of an                Vaccine Program contains      None
+Program          immunization program        both awardee vaccine                      None                         INV-2012
+                 that focuses on ensuring    program and VFC vaccine                                                DLE-
+Vaccine Route    vaccinations are available  program.                                                               2011
+of               to the population
+Administration
+Vaccine Site of  the method of               Example: Intramuscular,       None        None                         DQA-
+Administration   administration for a        intranasal, oral                                                       2022
+                 vaccine                                                                                            VD2006
+Vaccine Type
+                 the anatomical location     Example: Arm, thigh, nasal None           None                         DQA-
+                 where a vaccine is          passage                                                                2022
+                 administered                                                                                       VD2006
+
+                 a classification of         The vaccine type is related   None        No matching term to          DQA-
+                 vaccines that describes     to:                                       Vaccine Type is defined.     2022
+                 the disease to which it     • one or more vaccine                     There are some related       DINV-
+                 provides immunity                                                     terms. For example:          2016
+                                                  product type(s) which                Vaccine Product: The         PAIS-
+                                                  includes attributes NDC              vaccine type that may be     2015
+                                             • the vaccine which is a                  administered, historical or  VD-2006
+                                                  specific dose.                       refused, and is messaged
+                                             Example: MMR, Hib-HepB,                   using the NDC or CVX code
+                                             HepB-Peds                                 sets. Note: based on local
+                                                                                       need this may include
+                                                                                       immunoglobulin or other
+                                                                                       medical substances.
+
+                                                                                                                    49
+Term         Definition               Comment  Term Alias  CDC Endorsed Data  MIROW
+VFC Program                                    None        Element X-Walk     Guide
+             a federally funded       None
+             program that provides                         None               INV-2012
+             vaccines at no cost to                                           DLE-
+             children who might not                                           2011
+             otherwise be vaccinated
+             because of inability to
+             pay
+
+                                                                              50
+MIROW Guide Reference
+
+The following MIROW guide reference provides a reference for each of the MIROW Guides, the name of each guide, as well as
+the acronym used as a reference in the term reports.
+
+Guide Name                                                                                    Acronym
+Management of Patient Active/Inactive Status in Immunization Information Systems              PAIS-2015
+
+Vaccination Level Deduplication in Immunization Information Systems                           VD-2006
+
+Reminder/Recall in Immunization Information Systems                                           RR-2009
+
+Immunization Information System Collaboration with Vaccines for Children Program and Grantee  DLE-2011
+Immunization Programs                                                                         INV-2012
+
+Immunization Information System Inventory Management Operations
+
+Decrementing Inventory via Electronic Data Exchange                                           DINV-2016
+
+Consolidating Demographic Records and Vaccination Event Records                               CR-2017
+
+Business Continuity Planning for Immunization Information System Programs                     BC-2019
+
+Data Quality Assurance in Immunization Information Systems                                    DQA-2022
+
+                                                                                                         51
+Report Legend
+
+The following report legend provides an explanation of each item captured in support of each term. Note each term will have
+some or all the items completed as appropriate.
+
+Report Label       Description
+
+Term (Acronym)     The term name. If there is an acronym for the term, it appears in parentheses.
+
+Definition         The meaning of the term.
+
+Comment            An observation intended to explain, illustrate, annotate, or critique.
+
+Example            A sample that may be taken as typical or representative.
+
+Term Alias         A synonym of the term.
+
+CDC-Endorsed Data  A reference source showing the mapping between the MIROW term and the term(s) in CDC Endorsed
+Element X-Walk     Data Elements. Each reference will include the associated definition. Category 1 and 2 MIROW terms
+                   should have x-walk reference(s).
+
+MIROW Guide        The MIROW Guide Reference where the term has been defined.
+
+                                                                                                   52
+

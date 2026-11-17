@@ -1,0 +1,288 @@
+CLINICAL
+TRIAL
+DATA
+
+A PATHWAY TO IMMUNIZATION
+INFORMATION SYSTEMS (IIS)
+GUIDANCE
+
+APRIL 2022
+                                                                                 CLINICAL TRIAL DATA | A PATHWAY TO IIS GUIDANCE
+
+BACKGROUND
+
+       Prior to the COVID-19 pandemic, clinical trial vaccinations were not normally
+       reported to the IIS for several reasons, including the strict patient blinding policies
+       in clinical trial protocols.
+
+The COVID-19 pandemic has thrust the role of vaccine clinical trials and their vaccinated participants
+into a new spotlight. There is an urgent need to share participant clinical trial vaccination data
+with appropriate immunization information systems (IIS) to help ensure the capture and inclusion
+of COVID-19 vaccination data in participants’ comprehensive vaccination records. As the need to
+provide evidence of vaccination status for clinical decision making, work, travel, or social purposes
+increases, the urgency for clinical trial data to be captured in an IIS is essential.
+
+PURPOSE
+
+The purpose of this guidance document is to share considerations and data sharing methods that
+may be helpful in facilitating the exchange of data between clinical trial sites and their respective
+jurisdictional IIS.
+
+ 11 AMERICAN IMMUNIZATION REGISTRY ASSOCIATION
+                                                                                CLINICAL TRIAL DATA | A PATHWAY TO IIS GUIDANCE
+
+SCOPE
+
+This guidance is intended to be operational in nature and link to technical guidance where applicable.
+There are two distinct audiences for this guidance: IIS program staff and clinical trial site staff.
+
+CDC GUIDANCE
+
+As of February 2022, the initial CDC guidance provided to the 64 CDC immunization awardees
+maintains that it is appropriate to accept valid doses administered during a clinical trial into the IIS
+and to include those doses in data reports. For a dose of COVID-19 vaccine used in a clinical trial to be
+considered valid, all the following conditions must be met:
+
+         The vaccine received has been authorized by the U.S. Food and Drug Administration (FDA) 		
+         or listed for emergency use by the World Health Organization (WHO).
+         Participants in clinical trials within or outside the United States who received all the
+         recommended primary series doses of a WHO-EUL COVID-19 vaccine (i.e., not placebo) that is
+         not FDA-approved or FDA-authorized are considered fully vaccinated. In addition, people who
+         received a vaccine that is not listed for emergency use by WHO but for which a U.S. data and
+         safety monitoring board or equivalent has independently confirmed efficacy are considered
+         fully vaccinated. https://www.cdc.gov/vaccines/covid-19/clinical-considerations/interim-
+         considerations-us.html#appendix-b
+         The individual received the trial vaccine and not the placebo or comparator vaccine for future
+         studies, i.e., COVID-19 vaccines which have already been approved.
+         The individual received a dose volume that is at least half of the currently authorized dose of
+         the vaccine.
+         The vaccine was administered per a recommended Advisory Committee on Immunization
+         Practices (ACIP) or WHO schedule (e.g., age, interval).
+
+  2 AMERICAN IMMUNIZATION REGISTRY ASSOCIATION
+                                                                                CLINICAL TRIAL DATA | A PATHWAY TO IIS GUIDANCE
+
+CONSIDERATIONS
+
+The following considerations are intended for the noted specific audience, IIS, or clinical trial site.
+
+IMMUNIZATION INFORMATION SYSTEM
+
+The following considerations are tailored to the IIS program in each jurisdiction with a clinical trial
+vaccination clinic site. The IIS program may encounter these scenarios when working with vaccine
+pharmaceutical companies and their contracted clinical trial sites to report clinical trial vaccinations
+to the IIS.
+
+Patient consent (i.e., clinical trial participant consent)
+
+Provide consent language to the clinical trial vaccination clinic site if specific patient consent is
+required for the clinical trial vaccination to be shared with the IIS.
+
+Data submission
+
+Determine the most efficient and logical way to share and exchange data with the clinical trial sites
+in your jurisdiction. Data sharing can occur via electronic messaging, direct data entry, or bulk data
+transfer.
+
+    Electronic messaging: If the clinical trial vaccination site is connected/affiliated with a large
+    medical or hospital group, the data may be transmitted via HL7 through the larger provider
+    organization. It may be possible to explore establishing a new electronic data exchange
+    connection between the clinical trial site and the IIS.
+
+        z This pathway might not reflect the clinical trial site as the name of the provider in the
+             inbound messages, which may affect future reporting of clinical trial vaccinations.
+
+        z If an electronic connection is feasible with the clinical trial site, proceed with testing and
+             HL7 configuration with the IIS. The IIS program monitors this electronic connection in the
+             same manner in which other live connections are monitored.
+
+  3 AMERICAN IMMUNIZATION REGISTRY ASSOCIATION
+                                                                             CLINICAL TRIAL DATA | A PATHWAY TO IIS GUIDANCE
+
+                 Some of the
+                 jurisdictions that have
+                 been successful in
+                 receiving clinical trial
+                 vaccines are Colorado,
+                 Florida, New York, New
+                 York City, Texas, and
+                 Utah.
+
+4 AMERICAN IMMUNIZATION REGISTRY ASSOCIATION
+                                                                                CLINICAL TRIAL DATA | A PATHWAY TO IIS GUIDANCE
+
+    Direct data entry: Direct data entry is necessary for data sharing if an electronic connection is
+    not possible or appropriate.
+
+        z Establish the clinical trial sites in the IIS as a provider. The IIS program should consider
+             characterizing these provider sites as a “Clinical Trial Site” if this is a customizable field in
+             the IIS. This may assist with reporting later.
+
+        z Provide user accounts to the clinical trial staff. Ensure user account agreement protects
+             protected health information. Consider adding language to the user account agreement
+             to include that a user account with the IIS is not a route for identifying future clinical trial
+             participants.
+
+        z Training on how and when users should enter vaccinations into the IIS may be necessary.
+    Bulk data transfer: A flat file upload or other type of bulk data transfer may be a data sharing
+    option. This type of data sharing is more labor intensive and may be a feasible option for initial
+    data capture from trials that have already been unblinded or completed or for long-term trials
+    that are unblinding/ending in the future. It might not be feasible for ongoing reporting.
+
+Technical guidance
+
+Utilize AIRA Standards and Interoperability Steering Committee (SISC) guidance for the technical
+mechanism for constructing a message for clinical trial vaccination events: https://repository.
+immregistries.org/files/resources/61b764e7c5243/clinical_trial_guidance_document_v1_0.pdf.
+
+Core data elements
+
+Utilize the core data elements in Appendix A for applicable data elements for clinical trial vaccine
+events. The data elements listed in Appendix A are a pared down list of the core data elements
+published by CDC.
+
+Lot numbers
+
+The lot numbers for clinical trial vaccines are unique and completely different from lot numbers in
+the IIS inventory. Clinical trial vaccines will not be pulling from VFC or 317 IIS inventory.
+
+Expiration dates and clinical decision support
+
+Expiration dates will pre-date all FDA authorizations and ACIP recommendations. Configure the IIS
+clinical decision support to accept vaccinations administered before ACIP recommendations.
+
+ 5 AMERICAN IMMUNIZATION REGISTRY ASSOCIATION
+ADVICE FROM
+THE FIELD
+
+Bottom up worked better than top down.
+While we were often able to get the
+attention of pharmaceutical execs and
+even their buy-in for sharing data, it didn’t
+really result in much action. Finding the
+clinical trial leads at the physical sites was
+much more successful.
+
+There is a possibility to work directly with
+the pharmaceutical company. You may
+be able to get HL7 files from its employee
+vaccine program.
+
+IIS may have clinical trial vaccines coming
+through with no warning if a clinical trial
+site is contained within a major hospital
+system or academic institution that is
+already connected to the IIS. These doses
+could get automatically submitted.
+                                                                                CLINICAL TRIAL DATA | A PATHWAY TO IIS GUIDANCE
+
+CLINICAL TRIAL VACCINATION SITE
+
+The following considerations are tailored to the clinical trial vaccination site. They represent
+scenarios the clinical trial site may encounter when working to report vaccinations to the IIS.
+
+Consent
+
+If needed, identify a process for capturing consent. This is dependent upon the state or local
+regulations and the operational guidance from the sponsor or vaccine manufacturer and may differ
+by location. Depending upon the stage of the trial, consider adding consent to any initial, re-consent,
+unblinding, or final visit protocols.
+
+Core data elements
+
+Review the core data elements in Appendix A to identify gaps with data collected from the clinical
+trial participants. The data elements listed in Appendix A are a pared down list of the core data
+elements published by CDC. They have been determined to be the minimally required data needed
+in an IIS to achieve a complete vaccination event from a clinical trial vaccination.
+
+  7 AMERICAN IMMUNIZATION REGISTRY ASSOCIATION
+                                                                                CLINICAL TRIAL DATA | A PATHWAY TO IIS GUIDANCE
+
+Data submission
+
+Contact the IIS in the jurisdiction where the clinical trial site is located: https://www.cdc.gov/vaccines/
+programs/iis/contacts-locate-records.html#state. Work with the IIS program to determine how the
+data should be submitted to the IIS. Data submission may occur via the following methods:
+
+    Electronic messaging: An electronic connection may be able to be established between the
+    clinical trial site and the IIS. Direct data entry into the IIS is not needed once an electronic
+    connection is established.
+
+        z Utilize AIRA Standards and Interoperability Steering Committee (SISC) guidance for the
+             technical mechanism for constructing a message for clinical trial vaccination events:
+             https://repository.immregistries.org/files/resources/61b764e7c5243/clinical_trial_
+             guidance_document_v1_0.pdf
+
+    Direct data entry: Signing a user agreement, obtaining a user account, and training may be
+    needed for direct data entry to the IIS.
+
+        z A user account agreement will cover how data are used and shared; specifically, a user
+             account with the IIS is not a route for identifying trial participants.
+
+    Bulk data transfer: This is typically a static file of data that meets a file format specification for
+    the IIS to upload to the system. This may require assistance from the IT department to download
+    data and configure the file to meet the specifications set forth by the IIS.
+If provided, follow any specific sponsor/manufacturer provided guidance for data submission to the
+IIS. Identify the internal process for submitting clinical trial vaccine data.
+    z Consider workflow—at unblinding (if offered), “transitional vaccination” (i.e., patient received
+
+         a previously approved vaccination as the placebo)
+    z Responsible staff person for submitting data to the IIS
+Work with the IIS program to submit data to the IIS in the appropriate format (see above).
+
+  8 AMERICAN IMMUNIZATION REGISTRY ASSOCIATION
+                                    CLINICAL TRIAL DATA | A PATHWAY TO IIS GUIDANCE
+
+APPENDIX A CORE DATA ELEMENTS
+                 FOR CLINICAL TRIAL
+                 VACCINATIONS
+
+DATA ELEMENT                        DEFINITION
+Ethnicity                           The ancestry of the patient
+Patient address: city               The city component of the patient’s address
+Patient address: country            The country component of the patient’s address
+Patient address: state              The state component of the patient’s address
+Patient address: street             The street component of the patient’s address
+Patient address: ZIP code           The ZIP code of the patient’s address
+Patient date of birth               The patient’s date of birth
+Patient email address               The patient’s email address
+Patient gender                      The patient’s gender
+Patient name: first                 The patient’s first name
+Patient name: last                  The patient’s last name
+Patient name: middle                The patient’s middle name
+Patient telephone number            The patient’s phone number
+Patient telephone number type       The type of phone number (e.g., home, cell)
+Race                                The patient’s race
+Responsible person name: first      The first name of the person responsible for the patient
+Responsible person name: last       The last name of the person responsible for the patient
+Responsible person name: middle     The middle name of the person responsible for the patient
+Responsible person relationship to  The personal relationship the responsible person has to the patient
+patient
+Administered at location            The facility name/identifier of the facility that administered the immunization
+Responsible organization            The identifier of the accountable organization
+
+9 APPENDIX A | Core Data Elements for Clinical Trial Vaccinations
+                                 CLINICAL TRIAL DATA | A PATHWAY TO IIS GUIDANCE
+
+DATA ELEMENT                     DEFINITION
+Sending organization             The identifier of the organization that connects to the IIS and submits the
+                                 record
+Vaccination administration date  The date the vaccination event occurred
+Vaccination event ID             The vaccination event’s unique identifier assigned by the submitting system
+Vaccination event record type    Indicates whether the vaccination event is based on a historical record or was
+(administered/historical)        given by the administered at location
+Vaccine administering provider   The name of the provider (person) administering the vaccination
+Vaccine dose volume              The amount of vaccine administered (e.g., 0.5); units for the volume are defined
+                                 separately
+Vaccine dose volume units        The unit of measure of the dose (e.g., ml)
+Vaccine expiration date          The expiration date of the vaccine administered
+Vaccine lot number – uniquely    The lot number of the vaccine administered
+different in clinical trials
+Vaccine manufacturer name        The manufacturer of the vaccine that was administered
+Vaccine ordering provider        The identifier of the provider (person) ordering the immunization
+Vaccine product – likely CVX     The vaccine type that may be administered, historical, or refused
+Vaccine route of administration  The route of administration
+Vaccine site of administration   The anatomical site where the vaccine was given
+
+10 APPENDIX A | Core Data Elements for Clinical Trial Vaccinations
+
