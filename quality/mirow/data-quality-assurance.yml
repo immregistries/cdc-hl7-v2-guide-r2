@@ -1,0 +1,539 @@
+# Comparison: MIROW "Data Quality Assurance in Immunization Information Systems" (August 2022) and this guide.
+#
+# One item per principle or business rule that depends on what is exchanged in a message, in the guide's order (from the
+# companion spreadsheet, mirow/2022-08-data-quality-assurance-principles-and-business-rules.xlsx). Rules that concern
+# only IIS program operations are not itemized: provider organization profiles, agreements, authorization and
+# deauthorization of organizations (BR102-BR104, BR172, BR176-BR181), checks on a patient's whole history (BR140-BR143),
+# monitoring volumes and completeness (BR164-BR167, BR170-BR171), the age calculation (BR150), reports and plans
+# (P01-P04, P11-P17), billing records (P19), retention (P22), and the lot number directories (P23-P25).
+#
+# The national ERR-5 code set (data/err5-codes.yml) is where many of these rules meet the guide: it gives an IIS a code
+# for each condition the guide does not itself make a conformance rule. Items marked "covered" on that basis say so.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026, IGAMT export of 6 Nov 2026, and the national ERR-5 code set of 6 Jul 2026
+summary: >-
+  The guide and the 2022 MIROW data quality guide agree on the approach: data quality is a continuous process shared by
+  submitters and IIS, not something conformance rules or message rejection can deliver; a message should report what
+  actually happened even when it falls short; and IIS should accept and flag rather than reject. Most of the MIROW
+  business rules that check message content (date conflicts, expired lots, age ranges, route and site, license dates,
+  unspecified formulations) are not conformance rules in the guide but have national ERR-5 codes, which is the right
+  connection. The gaps are mostly things MIROW says about message content that the guide does not yet say: how to report
+  a date whose day is unknown, that a combination vaccine is one vaccination event, what RXA-15 may contain, how an
+  unknown dose amount is sent, and which identifier goes with a provider's name. Two clean-ups are needed: the ERR-5 code
+  set still cites the business rule numbers of the retired 2008 and 2013 guides (and one code keeps a 14-day rule that
+  MIROW replaced with 24 hours), and the guide cites this MIROW guide under a title it does not have.
+
+items:
+  # ---------------------------------------------------------------- the guide as a whole
+  - id: mirow-dqa-01
+    section: Introduction; Chapter 2 (data quality throughout the IIS lifecycle)
+    page: 1-12
+    doc: >-
+      Data quality in an IIS is achieved by several approaches together (programmatic and technical), across onboarding,
+      incoming data submissions, and data at rest. This guide is AIRA's best practice reference for it, and replaces the
+      2008 and 2013 MIROW data quality guides and the 2014 lot number micro-guide.
+    result: reworded
+    guide: [shared-responsibility-for-data-quality, data-quality-processes, data-quality-management-beyond-acks]
+    note: >-
+      The guide's data quality sections say the same thing in their own words and cite this MIROW guide as reference [5],
+      but under the title "AIRA's IIS Data Quality Best Practices", which is not its title, and without saying that it is
+      a MIROW best practice guide.
+    owner: narrative
+    recommendation: >-
+      Change reference [5] to the guide's title, "Data Quality Assurance in Immunization Information Systems" (MIROW,
+      2022), and name it in Data Quality Processes as the community's best practices for onboarding, incoming data, and
+      data at rest.
+
+  - id: mirow-dqa-02
+    section: P10 - Accurately reflect vaccination event
+    doc: >-
+      A vaccination event submission should accurately reflect the vaccination event that actually occurred. Even if it
+      does not meet data quality standards (for example, an unusual site for the vaccine), it is accurate if it reflects
+      what happened.
+    result: covered
+    guide: [validation-enforcement-and-borrowing-scenarios--s3, data-quality-management-beyond-acks]
+    note: The guide says the same for funding and eligibility ("report ... what actually applied") and in general.
+
+  - id: mirow-dqa-03
+    section: P05 - Mandatory data elements; P08 - Submit all available information
+    doc: >-
+      Submissions should contain the minimum/mandatory data elements to be accepted, and IIS-AOs should collect and
+      submit as much information as possible ("we do not want minimum data, we want good data").
+    result: covered
+    guide: [interpretation-of-re-required-by-may-be-empty, usage-designations-and-expectations]
+    note: >-
+      The guide's reading of RE (populate whenever the information is known) is the message-level form of P08.
+
+  # ---------------------------------------------------------------- what a submission must contain
+  - id: mirow-dqa-04
+    section: BR001 - Minimum/mandatory data elements (BR001 table)
+    doc: >-
+      Every submission names the submitting organization, the patient's first and last names, and date of birth. An
+      administered vaccination also names the vaccinating organization, and a historical one the recording
+      organization; both have the vaccination event date, the vaccine type, and the administered/historical indicator.
+      A demographic record from Vital Records also has the birth certificate number, birth facility, and gender.
+    result: partial
+    guide: [entering-recording-organization-orc-17, data-standardization-and-integra-cdc-core-data-elements-for-functional-standards, submitting-organization-msh-4-sending-facility--s1, administering-organization-rxa-11--s1]
+    note: >-
+      Most of the list is required in the guide (MSH-4, PID-5, PID-7, RXA-3, RXA-5, RXA-9, and RXA-11 for administered
+      doses). Two elements differ. The recording organization, mandatory for a historical submission in MIROW, is ORC-17
+      in the guide, which is RE and which the guide says IIS "generally do not treat ... as a condition for message
+      acceptance", adding that its usage may be reconsidered if adoption stays limited. The Vital Records elements
+      (birth certificate number, birth facility) are not discussed; Vital Records feeds are outside the guide's main use
+      cases.
+    owner: decision
+    recommendation: >-
+      CDC to decide whether the guide should expect ORC-17 for historical vaccinations, as MIROW does, or say why not.
+      Either way, the ORC-17 section should note that MIROW treats the recording organization as mandatory for historical
+      submissions.
+
+  - id: mirow-dqa-05
+    section: BR101 - Authorized provider organization; BR105 - IIS-AO approved for EDE
+    doc: >-
+      An IIS should accept submissions only from authorized provider organizations, and accept electronic data exchange
+      only from an IIS-AO approved for it.
+    result: covered
+    guide: [submitting-organization-msh-4-sending-facility--s2, submitting-organization-msh-4-sending-facility--s3, responsible-organization-msh-22]
+
+  - id: mirow-dqa-06
+    section: BR173 to BR175 - IIS-AO IDs; P21 - Complete chain of submitting organizations
+    doc: >-
+      Each IIS-AO has a unique ID that is never reused and does not embed information that can change (relationships,
+      location); submitting organizations should include valid IIS-AO IDs for all IIS-AOs involved; and a submission
+      should identify the complete chain of submitting organizations.
+    result: reworded
+    guide: [parent-and-child-organizations--s1, implementation-and-maintenance-considerations, submitting-organization-msh-4-sending-facility, responsible-organization-msh-22]
+    note: >-
+      The guide makes the IIS the authority for unique organization identifiers and gives each role its own field
+      (MSH-4 submitting, MSH-22 responsible, ORC-17 recording, RXA-11 administering). Its model of the "chain" is
+      narrower than P21: one submitting organization per authenticated connection, with intermediaries such as HIEs
+      transparent. That is a reasonable message-level reading of P21, but the guide does not say so, and it does not carry
+      BR174's advice against embedding changeable information in identifiers.
+    severity: note
+    recommendation: >-
+      In Implementation and Maintenance Considerations, add that identifiers should not embed information that can
+      change, such as location or parent organization (MIROW BR174).
+
+  # ---------------------------------------------------------------- timeliness and actions
+  - id: mirow-dqa-07
+    section: BR106 - Administered initial submission
+    doc: >-
+      An administered vaccination should first be submitted within 24 hours of the vaccination event; one reported later
+      remains "administered".
+    result: covered
+    guide: [submission-timing-and-update-frequency--s1, date-of-vaccination-rxa-3]
+
+  - id: mirow-dqa-08
+    section: BR108 - Vaccination event submission action code
+    doc: >-
+      An IIS should record and act on the action code (RXA-21) of every vaccination event submission, supporting at least
+      'A' (add) and 'D' (delete).
+    result: covered
+    guide: [updates-and-deletes, handling-delete-requests--s1]
+
+  # ---------------------------------------------------------------- values and dates
+  - id: mirow-dqa-09
+    section: BR109 - Standard value tables
+    doc: >-
+      An IIS should validate patient gender, race, ethnicity, dose-level eligibility, and dose-level public/private
+      indicator against standard value tables.
+    result: covered
+    guide: [value-sets-and-field-usage, patient-funding-eligibility-per-dose, jurisdiction-specific-eligibility-codes]
+
+  - id: mirow-dqa-10
+    section: BR110 - Valid calendar dates in a submission
+    doc: >-
+      A date in a submission should be a valid calendar date. Complete dates are best, but if the day of a date is not
+      available, the 15th of the month can be submitted.
+    result: missing
+    guide: [date-of-vaccination-rxa-3, historical-vaccinations]
+    note: >-
+      The guide requires RXA-3 to be the calendar date of administration but does not say what to send when only the
+      month and year of a historical dose are known, which is common with vaccine cards and patient recall.
+    owner: decision
+    recommendation: >-
+      CDC to decide how a historical vaccination with an unknown day is reported (the 15th of the month, following MIROW
+      BR110, or a month-precision date), and say it in Historical Vaccinations or Date of Vaccination (RXA-3).
+
+  - id: mirow-dqa-11
+    section: BR151 - Minimum date of birth; BR152 - Date of birth default
+    doc: >-
+      A date of birth should be after January 1, 1900. When a patient does not know their own date of birth, the month
+      defaults to January and the day to 1; this is not a substitute for collecting the date of birth.
+    result: missing
+    guide: [date-of-birth-pid-7--s2]
+    note: >-
+      The guide says to use the date of birth from official documentation but not what to do when it is unknown. Note
+      that MIROW's default for an unknown day is the 1st for a date of birth (BR152) but the 15th for other dates (BR110).
+    severity: note
+    owner: narrative
+    recommendation: >-
+      In Date of Birth (PID-7), point to MIROW BR152 for patients who do not know their date of birth.
+
+  - id: mirow-dqa-12
+    section: BR111 to BR114 - Date order (birth, death, submission)
+    doc: >-
+      A vaccination event date should not be before the date of birth or after the date of death, and a submission should
+      not be dated before the date of birth or the vaccination event.
+    result: covered
+    guide: [err-5-application-error-code]
+    note: >-
+      Not conformance rules in the guide; the national ERR-5 codes 2018, 2019, and 2022 report these conditions.
+
+  - id: mirow-dqa-13
+    section: BR115 - Vaccination event date not after lot number expiration date
+    doc: >-
+      A vaccination should not be dated after the lot's expiration date, but an IIS should accept such submissions, as
+      they may reflect real administration errors.
+    result: covered
+    guide: [err-5-application-error-code, data-quality-management-beyond-acks]
+    note: ERR-5 code 2001 reports the condition; the guide's accept-and-flag approach matches the remark.
+
+  - id: mirow-dqa-14
+    section: BR116 - Vaccination event date for birth vaccine types; BR125 - Patient age within recommended range
+    doc: >-
+      Only vaccines recommended at birth should have a vaccination date equal to the date of birth (others given at
+      birth should still be recorded), and a vaccine should be given within the recommended age range for the product.
+    result: covered
+    guide: [err-5-application-error-code]
+    note: ERR-5 codes 2211 and 2212.
+
+  # ---------------------------------------------------------------- the vaccine
+  - id: mirow-dqa-15
+    section: BR117 - Vaccine type CVX
+    doc: >-
+      IIS programs should teach submitters that CVX is the preferred way to report the vaccine type, rather than CPT.
+    result: reworded
+    guide: [accepted-code-systems-for-administered-vaccinations, cvx-vaccines-administered-code]
+    note: >-
+      Same direction: the guide requires IIS to accept CVX and NDC and keeps CPT only for legacy interfaces. It puts NDC
+      on the same footing as CVX for administered doses, which postdates the MIROW rule.
+
+  - id: mirow-dqa-16
+    section: BR118 - Specified formulation for administered
+    doc: >-
+      An administered vaccination should not use an unspecified formulation CVX code.
+    result: covered
+    guide: [appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s2, appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s4, appropriate-use-of-unspecified-formulation-and-category-level-cvx-codes--s5]
+    note: >-
+      The guide says SHOULD NOT, tells the IIS to accept rather than reject, and to monitor; ERR-5 code 2213 reports it.
+
+  - id: mirow-dqa-17
+    section: BR120 - Combination vaccine reported as single vaccination event
+    doc: >-
+      A combination vaccine dose should be reported as a single vaccination event (MMRV as one dose of MMRV, not a dose of
+      MMR and a dose of varicella).
+    result: missing
+    guide: [cvx-vaccines-administered-code, representation-of-foreign-and-non-standard-products]
+    note: >-
+      The guide does not say this for U.S. combination vaccines. The only statement on combinations is the opposite case:
+      a foreign combination product with no CVX code SHOULD be decomposed into its component antigens, one vaccination
+      event each. Without the general rule, a reader could take the foreign-product rule as the norm.
+    owner: narrative
+    recommendation: >-
+      In the CVX section, state that a combination vaccine is reported as one RXA with the combination's CVX (MIROW
+      BR120), and make clear that decomposing into components applies only to foreign products with no CVX code.
+
+  - id: mirow-dqa-18
+    section: BR121 - Vaccine type available in United States
+    doc: >-
+      An administered vaccination reported by a U.S. organization should not name a vaccine type that has never been
+      available in the United States.
+    result: covered
+    guide: [cvx-requirements-for-administered-vaccinations--s2]
+
+  - id: mirow-dqa-19
+    section: BR122 - Vaccine has vaccine product type
+    doc: A vaccination event record should include the vaccine product type (NDC).
+    result: reworded
+    guide: [administered-vaccinations--s2, ndc-requirements-for-administered-vaccinations--s1, accepted-code-systems-for-administered-vaccinations--s4]
+    note: >-
+      The guide asks for complete product information, including NDC, on administered records when available, and
+      requires submitters to support NDCs, but an IIS must accept an administered dose with only a CVX. That is the
+      message-level form of a completeness rule, not a conflict.
+
+  - id: mirow-dqa-20
+    section: BR124 and BR126 - Manufacturer and product consistent
+    doc: >-
+      The manufacturer should produce the reported product, and the product, vaccine type, and manufacturer should be
+      consistent with one another.
+    result: covered
+    guide: [accepted-code-systems-for-administered-vaccinations--s6, err-5-application-error-code]
+    note: ERR-5 code 2010; the guide requires the IIS to check that CVX and NDC name the same vaccine.
+
+  - id: mirow-dqa-21
+    section: BR127 - Vaccination event dosage
+    doc: >-
+      An administered vaccination should have a dosage that is a positive number with a unit of volume (for example, mL).
+      A value of 999 in HL7 means the amount was not filled in.
+    result: partial
+    guide: [non-identifying-vaccination-fields]
+    note: >-
+      RXA-6 and RXA-7 are required in the administered RXA flavor, but the narrative says nothing about either beyond
+      listing dose volume as a non-identifying field, and does not say how to send an unknown amount. MIROW's remark
+      relies on the Release 1.5 convention of 999.
+    owner: narrative
+    recommendation: >-
+      State in the guide that RXA-6 carries the dose volume with its unit in RXA-7, and that 999 is sent when the amount
+      is unknown (or decide otherwise), consistent with MIROW BR127.
+
+  - id: mirow-dqa-22
+    section: BR128 - Approved vaccine administration method
+    doc: >-
+      Route, site, and dosage should be consistent with the vaccine product and the patient's age (for example, hepatitis
+      B is not given subcutaneously).
+    result: covered
+    guide: [err-5-application-error-code]
+    note: ERR-5 codes 2016 and 2017.
+
+  - id: mirow-dqa-23
+    section: BR131 - Lot number recommended
+    doc: Lot number information should be reported for every vaccine dose administered.
+    result: covered
+    guide: [administered-vaccinations--s2, non-identifying-vaccination-fields]
+    note: RXA-15 is required in the administered RXA flavor.
+
+  - id: mirow-dqa-24
+    section: BR129, BR130, BR132 - Lot number content (Appendix K)
+    doc: >-
+      A lot number should contain only letters, digits, and dashes (no spaces around a dash); hold a single lot number and
+      nothing else; and not be prefixed, appended, or embedded with extraneous strings.
+    result: missing
+    guide: [non-identifying-vaccination-fields, why-hl7-requirements-cannot-substitute-for-data-quality]
+    note: >-
+      The guide names lot number quality as a problem conformance cannot solve but says nothing about what RXA-15 should
+      contain. RXA-15 may repeat in the administered flavor (for a unit-of-sale and a unit-of-use lot), which fits BR130
+      only if each repetition holds one lot number. ERR-5 code 3554 (lot number invalid) exists to report violations.
+    owner: narrative
+    recommendation: >-
+      Add to Non-Identifying Vaccination Fields (or the RXA-15 field notes) that each repetition of RXA-15 carries exactly
+      one lot number as printed on the product, with no other text, and point to MIROW BR129-BR132 and Appendix K.
+
+  - id: mirow-dqa-25
+    section: BR133 - Vaccine product license
+    doc: A vaccination should fall within the product's license begin and end dates (clinical trials may be an exception).
+    result: covered
+    guide: [err-5-application-error-code]
+    note: ERR-5 code 2215.
+
+  - id: mirow-dqa-26
+    section: BR134 - Dose-level eligibility indicated
+    doc: Dose-level eligibility should be indicated for each administered vaccination.
+    result: covered
+    guide: [patient-funding-eligibility-per-dose--s1, patient-funding-eligibility-per-dose--s3]
+    note: The guide already cites MIROW here.
+
+  - id: mirow-dqa-27
+    section: BR135 - Consistent vaccine eligibility
+    doc: >-
+      Dose-level eligibility and the public/private indicator (funding source) should be consistent with each other;
+      this may not apply to pandemic vaccines.
+    result: covered
+    guide: [validation-enforcement-and-borrowing-scenarios--s1, validation-enforcement-and-borrowing-scenarios--s4]
+    note: >-
+      The guide adds that borrowing is reported as it happened and that an IIS may accept and flag an inconsistent pair.
+
+  - id: mirow-dqa-28
+    section: BR136 - When to use historical
+    doc: >-
+      Submitters should report a vaccination as "historical" only if their organization did not administer it.
+    result: covered
+    guide: [historical-vaccinations--s1, administered-vaccinations--s1, administered-versus-historical-vaccinations]
+
+  - id: mirow-dqa-29
+    section: BR137 - Administered/historical indicator should not be defaulted
+    doc: An IIS should not default the administered/historical indicator if it is missing or incorrect in a submission.
+    result: missing
+    guide: [administered-versus-historical-vaccinations]
+    note: >-
+      RXA-9 is required, but the guide does not say what an IIS does when it is missing or invalid. Defaulting to
+      "administered" would decrement inventory for doses the submitter did not give.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Add that an IIS should not assume a value for a missing or invalid RXA-9, and should report it (ERR-5 3051 or
+      3551).
+
+  - id: mirow-dqa-30
+    section: BR138 - Vaccine administrator and prescriber
+    doc: >-
+      A vaccination event submission should include the full name and license number of the provider who prescribed the
+      vaccine and of the provider who administered it.
+    result: partial
+    guide: [non-patient-person-names]
+    note: >-
+      The guide carries both people (RXA-10 administering provider, RE for administered doses; ORC-12 ordering provider,
+      conditional) and says how to format their names, but not which identifier goes with them (license number, NPI, or
+      a local ID), so the license number MIROW asks for has no stated home.
+    severity: note
+    owner: decision
+    recommendation: >-
+      CDC to decide whether the guide names an identifier for RXA-10 and ORC-12 (for example, NPI, with a license number
+      as an alternative) or leaves it to local guides, and to say which.
+
+  - id: mirow-dqa-31
+    section: BR144 - Same antigen on same day
+    doc: >-
+      A patient should not have two vaccination events on the same date with products containing the same antigen; this
+      is usually caught by deduplication.
+    result: covered
+    guide: [record-consolidation-and-deduplication, iis-matching-and-correction-processing]
+    note: >-
+      The guide describes vaccination deduplication and points to the MIROW deduplication guide (compared separately).
+
+  # ---------------------------------------------------------------- the patient
+  - id: mirow-dqa-32
+    section: BR145 - Allowed characters for names
+    doc: >-
+      Names should contain only letters (including accented letters), hyphens, apostrophes, and spaces, with possible
+      exceptions.
+    result: reworded
+    guide: [special-characters, non-patient-person-names--s1]
+    note: >-
+      Consistent. The guide's rules are about preserving characters (spaces, hyphens, the 18 accented letters) rather
+      than listing what is allowed; it does not say that digits or other symbols are invalid in a name.
+
+  - id: mirow-dqa-33
+    section: BR146 - Use official names
+    doc: IIS programs should teach submitters the importance of using the patient's official name.
+    result: covered
+    guide: [official-registry-name--s1, name-consistency-and-matching-expectations--s1]
+
+  - id: mirow-dqa-34
+    section: BR147 - Patient first name (generic names)
+    doc: >-
+      A patient's first name should not remain a generic placeholder (for example, "Baby") beyond a period the IIS sets.
+    result: covered
+    guide: [unnamed-newborns--s2, unnamed-newborns--s5]
+    note: >-
+      The guide goes further: placeholder names are marked with name type 'NB' and resubmitted with the permanent name as
+      soon as it is known. ERR-5 code 2201 reports a temporary name.
+
+  - id: mirow-dqa-35
+    section: BR148 - Patient first and last name two characters
+    doc: A patient's first and last names should each be at least two characters long, with possible exceptions.
+    result: partial
+    guide: [non-patient-person-names]
+    note: >-
+      The guide deliberately sets no minimum length ("typically defined by the IIS"), and says guidance may be added in a
+      future version after community discussion.
+    severity: note
+    recommendation: When minimum name length is discussed, start from MIROW BR148.
+
+  - id: mirow-dqa-36
+    section: BR149 - Mother's name
+    doc: >-
+      IIS programs should work with Vital Records to collect and submit the mother's maiden, first, middle, and last
+      names.
+    result: covered
+    guide: [non-patient-person-names, important-names]
+    note: PID-6 (mother's maiden name) is RE; the guide says how to format it.
+
+  - id: mirow-dqa-37
+    section: BR153 - More than one patient race
+    doc: A demographic record should support multiple values for patient race.
+    result: covered
+    guide: [multiple-race-reporting--s1, multiple-race-reporting--s2]
+
+  - id: mirow-dqa-38
+    section: BR154 to BR156 - Addresses
+    doc: >-
+      A patient address should be complete enough to reach the patient by mail; an IIS should be able to store
+      international addresses; and an IIS program should verify addresses with a standard verification service.
+    result: covered
+    guide: [address-representation-in-hl7-v2--s6, address-cleansing-and-normalization--s1, address-cleansing-and-normalization--s2]
+
+  - id: mirow-dqa-39
+    section: BR157 and BR158 - Patient phone number
+    doc: >-
+      An IIS should be able to hold the country code, area code, and phone number, and a phone number should contain no
+      non-numeric characters (such as dashes).
+    result: missing
+    guide: [phone-and-email, general-principles]
+    note: >-
+      The guide's phone and email sections cover which repetition and use code to send but not how the number itself is
+      split across XTN components (country code XTN-5, area code XTN-6, local number XTN-7) or formatted. ERR-5 code 3532
+      (telephone number invalid) exists.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      Add to Phone and Email that the number is sent in XTN-5 to XTN-7 as digits only (MIROW BR157 and BR158).
+
+  - id: mirow-dqa-40
+    section: BR159 and BR160 - Medical record numbers
+    doc: >-
+      A medical record number should stay unique to one patient and never be reassigned; a newborn should not be given
+      the mother's medical record number; and a Social Security number should not be used as a medical record number.
+    result: partial
+    guide: [primary-patient-identifier-for-exchange]
+    note: >-
+      The guide requires the primary exchange identifier to be stable and never reassigned, but does not mention the
+      two common errors MIROW names: a newborn sent with the mother's identifier, and a Social Security number used as the
+      identifier.
+    severity: note
+    owner: narrative
+    recommendation: >-
+      In Primary Patient Identifier for Exchange, add that the identifier must not be the mother's identifier for a
+      newborn, or a Social Security number (MIROW BR159 and BR160).
+
+  - id: mirow-dqa-41
+    section: P18 - Vital Records
+    doc: Vital Records should be considered the definitive source for a patient's date of birth and date of death.
+    result: reworded
+    guide: [date-of-birth-pid-7--s2, deceased-status]
+    note: >-
+      Consistent: the guide asks for the date of birth from official documentation and recognizes death reporting from
+      external sources; it does not name Vital Records as the authority.
+
+  # ---------------------------------------------------------------- feedback and monitoring
+  - id: mirow-dqa-42
+    section: BR161 - Record submission errors and submission status
+    doc: >-
+      An IIS should record every submission error and the submission status, and the IIS-AO should be notified of errors.
+    result: covered
+    guide: [iis-core-intent-and-message-disposition, issue-level-reporting-using-err-segments]
+
+  - id: mirow-dqa-43
+    section: BR162, BR163, BR166 - Review rejected submissions and submission reports
+    doc: >-
+      An IIS program should review rejected submissions and submissions with errors within five business days, review
+      submission reports for errors and trends, and watch each IIS-AO's rejection rate.
+    result: covered
+    guide: [use-of-acks-in-interface-monitoring, data-quality-management-beyond-acks, shared-responsibility-for-data-quality]
+    note: >-
+      The guide asks both sides to look at ACK feedback in aggregate and to follow up; the five-day review is MIROW
+      program practice.
+
+  - id: mirow-dqa-44
+    section: P20 - Vendor update applications
+    doc: An IIS program should make sure vendors use the most up-to-date version of the HL7 specification.
+    result: covered
+    guide: [support-for-previous-versions]
+    note: >-
+      The guide balances this with continued support for the immediately previous version and no refusal of data solely
+      to force an upgrade.
+
+  # ---------------------------------------------------------------- the ERR-5 code set
+  - id: mirow-dqa-45
+    section: Comparison of past MIROW data quality best practices (published with the guide)
+    doc: >-
+      The 2022 guide renumbered the business rules of the retired 2008 and 2013 data quality guides; its companion
+      comparison maps each old rule to its replacement or marks it retired. For example, old BR118 (date after lot
+      expiration) is now BR115, BR119 (route and site) is BR128, and BR115 (submission within 14 days) became BR106
+      (within 24 hours).
+    result: conflict
+    severity: warning
+    guide: [err-5-application-error-code]
+    note: >-
+      The national ERR-5 code set cites MIROW rules by their old numbers. Seven codes cite numbers that now mean something
+      else: 2001 (BR 118, now BR115), 2010 (BR 116, now BR126), 2016 and 2017 (BR 119, now BR128), 2018 (BR 101, now
+      BR111), 2019 (BR 103, now BR113), and 2022 (BR102, now BR114). Three more cite numbers that do not match the
+      code's content: 2214 cites BR 114 for the provider-type check (old BR113, now BR168), 2215 cites BR 130 for the
+      license date range (old BR120, now BR133), and 2217 cites BR 113 for the patient name type. Code 2023 keeps the
+      retired 14-day submission rule, which MIROW and this guide now put at 24 hours. Code 2024 cites a rule (medical
+      contraindication) that MIROW retired.
+    owner: decision
+    recommendation: >-
+      Ask AIRA, which maintains the code set, to cite the 2022 rule numbers (written "DQA2022 BRnnn"), to align code 2023
+      with the 24-hour expectation, and to decide whether code 2024 is still needed.

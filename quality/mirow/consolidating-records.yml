@@ -1,0 +1,194 @@
+# Comparison: MIROW "Consolidating Demographic Records and Vaccination Event Records" (August 2017) and this guide.
+#
+# One item per principle or business rule, or group of closely related rules, that bears on what is exchanged
+# (numbering as in the MIROW principles and business rules spreadsheet, CR2017). Rules for demographic records (BR1xx to
+# BR12xx) and vaccination event records (BR5xxx) that say the same thing are compared together. The order of applying
+# rules (P06), local tie-breaking (BR903, BR5703), the handling of invalid values (BR501 to BR509), and the method of
+# transmission (P13) are IIS processing and are not itemized.
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide and this MIROW guide share the model of one consolidated patient record and one consolidated vaccination
+  event, assembled from many reports and used for everything the IIS does, including query responses; the guide's
+  statements that returned data may differ from what was submitted, that each source keeps its own ORC-3, and that
+  administered records are generally preferred all follow from it. Three connections need attention. MIROW asks IIS to
+  keep every past IIS patient ID, so a submitter holding an old ID can still be answered, but the guide makes that
+  history optional and does not say what happens when a query names a retired ID. MIROW treats the lot number as a single
+  value, while the administered RXA lets RXA-15 repeat without saying what a second lot means. And the guide never
+  mentions the multiple birth indicator and birth order (PID-24, PID-25), which are what keep twins from being merged.
+
+items:
+  - id: mirow-cr-01
+    section: P01, P02, P05 - One consolidated record, used for all IIS functions
+    doc: >-
+      An IIS creates a single consolidated demographic record for each patient and a single consolidated vaccination
+      event record for each vaccination event, built from the best value for each data element, and uses it for all IIS
+      functions, including clinical decision support and query responses.
+    result: covered
+    guide: [record-consolidation-and-deduplication, name-consistency-and-matching-expectations, use-of-administered-vs-historical-on-output--s1, vaccination-record-identity-and-orc-3]
+    note: >-
+      The guide tells querying systems to expect the consolidated history, with names that may differ from what they
+      sent, rather than an echo of their own submissions.
+
+  - id: mirow-cr-02
+    section: P03 - Make original information accessible
+    doc: The originally submitted values should remain accessible to the IIS.
+    result: reworded
+    guide: [address-cleansing-and-normalization--s3, vaccination-record-identity-and-orc-3--s1, administered-versus-historical-vaccinations]
+    note: >-
+      The guide recommends keeping the link between each source record and the consolidated event, and allows keeping
+      both the submitted and the cleansed address, but leaves retention of submitted values to the IIS.
+
+  - id: mirow-cr-03
+    section: BR202, BR203 - Retain all past IIS patient IDs; use the current one
+    doc: >-
+      All past IIS patient IDs associated with a consolidated record should be retained. The current IIS patient ID
+      should be used in all IIS-originated communications, and in response to a query the IIS should let the submitter
+      know that the IIS patient ID has changed.
+    result: partial
+    guide: [identifier-changes-merges-and-retirement, iis-registry-identifier--s1, optional-use-of-code-5044-patient-identifier-returned--s4]
+    note: >-
+      The guide requires the current SR or LR in every RSP (as BR203 asks), but says retired identifiers "may be
+      retained as aliases, but a complete identifier history is not required". Submitters are told they can store the
+      IIS identifier (from code 5044 or an RSP) and use it in later queries; after a merge, the one they hold may be
+      retired. The guide does not say whether a query naming a retired SR or LR finds the merged record.
+    owner: decision
+    recommendation: >-
+      CDC to decide whether an IIS SHOULD resolve a retired SR or LR in QPD-3 to the current record (which MIROW BR202
+      makes possible), and to say so in Identifier Changes, Merges, and Retirement.
+
+  - id: mirow-cr-04
+    section: BR5103 to BR5105 - IIS vaccination event IDs and alternate vaccination event IDs
+    doc: >-
+      All past IIS vaccination event IDs should be retained, the current one used in all IIS-originated communications,
+      and the submitters' own vaccination event IDs (alternate IDs, with their assigning authority) kept accessible, to
+      reduce problems in bidirectional exchange.
+    result: covered
+    guide: [vaccination-record-identity-and-orc-3--s1, vaccination-record-identity-and-orc-3--s2, vaccination-record-identity-and-orc-3--s3]
+    note: >-
+      The guide's ORC-3 model is this rule in message form: keep the source-assigned ORC-3 with its assigning authority,
+      return it to the same source when possible, and otherwise return the IIS identifier for the consolidated event.
+
+  - id: mirow-cr-05
+    section: BR204, BR702 - Retain past and multiple values
+    doc: >-
+      Past values of alternate patient IDs, addresses, alias names, telephones, and email addresses should remain
+      accessible (they help matching and unmerging), and all unique current values of multi-valued elements should be
+      retained.
+    result: reworded
+    guide: [address-representation-in-hl7-v2--s4, identifier-changes-merges-and-retirement--s2, other-patient-identifiers]
+    note: >-
+      The guide accepts repeated addresses, names, and contact methods and lets the IIS decide how many to keep; it does
+      not recommend retaining past values. That is a reasonable split (retention is IIS policy), but the guide could
+      point to MIROW for the reasons to retain them.
+
+  - id: mirow-cr-06
+    section: BR201, BR5101, BR5102 - What the IIS needs to know about each value
+    doc: >-
+      For each data element, the IIS needs the data source type, the specific data source, the most recent submission
+      date, and a confidence level, and for vaccination events the administered/historical indicator, which the
+      submitter should provide.
+    result: covered
+    guide: [submitting-organization-msh-4-sending-facility, responsible-organization-msh-22, historical-vaccination-recorded--s2, iis-processing-and-reconciliation]
+    note: >-
+      The message carries each of these: the source in MSH-4, MSH-22, and RXA-11; the date in MSH-7; the record type in
+      RXA-9 (required). The RXA-9 historical source codes, which feed the confidence level, are not explained in the
+      narrative (see the deduplication comparison, mirow-vd-08).
+
+  - id: mirow-cr-07
+    section: BR301 to BR304, BR5202 to BR5205 - Data groups
+    doc: >-
+      Some elements form groups that must come from the same source, be kept together, and be consistent: telephone and
+      its type, an alternate patient ID with its assigning authority and type, multiple birth indicator and birth order,
+      a responsible person's name and relationship, dose volume and unit, a contraindication and its date, and an
+      alternate vaccination event ID with its assigning authority.
+    result: covered
+    guide: [assigning-authority-and-identifier-namespace--s2, vaccination-record-identity-and-orc-3, general-principles--s3]
+    note: >-
+      The HL7 structure keeps each group together (XTN, CX, and EI components; NK1-2 with NK1-3; RXA-6 with RXA-7; an OBX
+      with its date), and the guide's insistence on an assigning authority for PID-3 and ORC-3 is what lets an IIS keep
+      identifiers grouped with their source.
+
+  - id: mirow-cr-08
+    section: BR701, BR5301 - Elements with a single value
+    doc: >-
+      Some elements must have a single value: for the patient, date of birth, multiple birth indicator, birth order,
+      birthing facility, and birth state; for a vaccination event, the administration date, product, manufacturer, lot
+      number, expiration date, dose volume and unit, site, route, and ordering and administering providers.
+    result: partial
+    guide: [date-of-birth-pid-7--s5, non-identifying-vaccination-fields]
+    note: >-
+      The profiles allow one value for each of these except the lot number: RXA-15 is required and repeats (1..*) in the
+      administered RXA, and the guide does not say what a second lot number means. The SISC comparison found the same gap
+      (sisc-lot-01).
+    owner: both
+    recommendation: >-
+      State that RXA-15 carries the lot number of the unit administered, and either limit it to one repetition or define
+      what further repetitions carry (for example, a diluent or a separately supplied adjuvant).
+
+  - id: mirow-cr-09
+    section: BR1201, BR6001, P10 - Unmerge, and prevent re-merging (twins)
+    doc: >-
+      An IIS should be able to unmerge a consolidated record and should prevent re-merging records it has unmerged, which
+      happens often with twins.
+    result: missing
+    guide: [patient-information, selecting-a-candidate-match]
+    note: >-
+      Unmerging is IIS processing, but the message is where twins are told apart: the multiple birth indicator (PID-24,
+      RE) and birth order (PID-25, conditional). The narrative never mentions them, so submitters have no reason to send
+      them. MIROW also treats them as values from Vital Records, the definitive source (BR601).
+    owner: narrative
+    recommendation: >-
+      Add a short section on multiple births to Patient Information: send PID-24 and PID-25 whenever known, because they
+      are what keeps an IIS from merging twins, and query with them when known.
+
+  - id: mirow-cr-10
+    section: P07 to P09, BR801, BR802, BR901, BR902, BR5401 to BR5403, BR5601, BR5602, BR5701, BR5702 - Choosing the best value
+    doc: >-
+      Accurate information is preferred over more complete information; then more complete over less, more specific over
+      less, higher confidence over lower, and more recent over older. For a vaccination event, the administered record's
+      values are preferred over a historical record's; two administered records from different sources are investigated;
+      and between two records from the same source, the most recent submission wins.
+    result: covered
+    guide: [iis-processing-and-reconciliation, administered-vaccinations--s1, modifying-non-identifying-vaccination-fields]
+    note: >-
+      The guide's preference for the administering organization's record, and its update model (a later report from the
+      same source replaces the earlier one), match these rules.
+
+  - id: mirow-cr-11
+    section: BR1002, BR5802, P12 - Do not overwrite validated data
+    doc: >-
+      Consolidation should not overwrite data the IIS has validated. If an IIS corrected a value and the same source
+      submits the same wrong value again, the validated value is kept; the general rule of using the most recent value
+      gives way.
+    result: partial
+    guide: [modifying-non-identifying-vaccination-fields, name-consistency-and-matching-expectations--s3]
+    note: >-
+      The guide says IIS "are expected to apply these updates to the existing vaccination record", without the MIROW
+      exception, although it also says returned values may differ from those submitted and that IIS must not require
+      submitters to "correct" names. A submitter whose update is not applied has no way to know.
+    severity: note
+    owner: decision
+    recommendation: >-
+      CDC to decide whether the guide acknowledges that an IIS may keep a validated value instead of applying a
+      resubmitted one (MIROW BR1002 and BR5802), and if so whether the ACK should report it as a warning.
+
+  - id: mirow-cr-12
+    section: BR1101, BR5901, P11 - Local laws control
+    doc: >-
+      Local laws, regulations, and policies on opt-out, foster care, protective custody, and adoption supersede all other
+      rules; information they prohibit using is not used in a consolidated record.
+    result: covered
+    guide: [consent-and-privacy, information-disclosure-constraints, jurisdictional-consent-models]
+
+  - id: mirow-cr-13
+    section: BR601 - Supremacy of vital statistics
+    doc: >-
+      Vital statistics is the definitive source for date of birth, gender, multiple birth indicator, birth order,
+      birthing facility, birth state, mother's maiden name, and birth certificate number.
+    result: reworded
+    guide: [date-of-birth-pid-7--s2]
+    note: >-
+      Consistent with the guide's use of official documentation for the date of birth; the guide does not single out
+      Vital Records or cover the other birth elements (see mirow-cr-09).

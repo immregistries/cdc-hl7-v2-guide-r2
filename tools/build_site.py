@@ -380,7 +380,7 @@ def build(out: Path) -> dict:
         meta.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
                      "f": [sum(f["severity"] == s for f in cmp_f) for s in ("issue", "warning", "note")]})
     review_sets = tab_review.load_all(REPO, by_id)
-    tab_data, sisc_data = review_sets.get("tab"), review_sets.get("sisc")
+    tab_data, sisc_data, mirow_data = review_sets.get("tab"), review_sets.get("sisc"), review_sets.get("mirow")
     tab_anchors = {}
     for key, data in review_sets.items():
         coll = data["coll"]
@@ -471,7 +471,7 @@ def build(out: Path) -> dict:
 {tables_html(c)}
 {refs_html}
 {site_err5.card_panel(c.id, err5, root)}
-{tab_review.card_panel(c.id, tab_data, root)}{tab_review.card_panel(c.id, sisc_data, root)}
+{tab_review.card_panel(c.id, tab_data, root)}{tab_review.card_panel(c.id, sisc_data, root)}{tab_review.card_panel(c.id, mirow_data, root)}
 {children_html}
 {terms_html(card_terms.get(c.id, []))}
 {pager}
@@ -585,6 +585,8 @@ match the conformance profiles? Answers to the Word review comments, conflicts, 
 Technical Advisory Bulletin, without missing or contradicting anything? Requirement by requirement, one page per TAB.</p>
 <p class="callout"><a href="../sisc/index.html"><strong>SISC Guidance</strong></a>: the same check for the SISC guidance
 documents published before the TABs.</p>
+<p class="callout"><a href="../mirow/index.html"><strong>MIROW Documents</strong></a>: where the MIROW best practice guides
+connect with the guide, principle by principle: does the guide carry what each practice needs, and say the same thing?</p>
 <p class="callout"><a href="proposals/index.html"><strong>Proposed Analyses</strong></a>: further comparisons and checks
 proposed for this draft, such as alignment with the MIROW best practice guides and a trace from Release 1.5, for CDC to consider.</p>
 <p class="stats">{len(findings)} findings: {sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes.</p>
