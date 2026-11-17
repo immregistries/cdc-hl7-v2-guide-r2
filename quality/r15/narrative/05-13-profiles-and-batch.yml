@@ -1,0 +1,235 @@
+# Narrative crosswalk: Release 1.5 (2018 Update) chapters 5-13, the introduction, interaction, and dynamic definition of
+# each profile, and the batch chapter, compared with this guide. The static definitions (message and segment tables) are
+# format and are compared in the tables above; their field-level notes are the second pass. Fields: see
+# 01-02-introduction-and-actors.yml.
+
+chapter: "5-13"
+title: Profiles (introductions and dynamic definitions); Batch File Specifications
+pages: 75-290
+reviewed: 2026-11-16
+against: narrative draft of 4 Nov 2026
+summary: >-
+  The profile set is the same (Z22, Z23, Z34, Z32, Z31, Z33, Z44, Z42), but what several of them mean has changed. AR now
+  means the VXU was rejected (core intent not fulfilled), where the 2018 guide used AE for errors, including fatal ones,
+  and kept AR for unsupported message types. Z34 and Z44 are unified: Z42 now carries the complete history, and a Z44 can
+  get a candidate list (Z31) where the 2018 guide returned "no match". A malformed query now gets a Z23 ACK rather than a
+  Z33. HL7 batch files (FHS/BHS) are no longer described; batch is sequential single-message submission over the CDC
+  WSDL.
+
+items:
+  # ---------------------------------------------------------------- Z22 / Z23
+  - id: r15-5-01
+    section: 5. Profile Z22 - Introduction; Interaction Definition
+    page: 75
+    verb: MUST
+    r15: >-
+      Z22 sends an immunization history, new or updated, from an EHR-S, IIS, or other system; its partner is Z23. The
+      trigger may be a new or updated record. The message may pass through intermediaries such as an HIE; the
+      acknowledgement MUST be returned to the initiating system.
+    result: same
+    guide: [vaccination-record-update-vxu-message-profile, vxu-use-case-overview, notes-on-data-intermediaries]
+    note: >-
+      Same purpose. The new guide adds when a VXU is expected (3.2.5 submission scenarios) and that the IIS generates the
+      final response through any intermediary.
+
+  - id: r15-5-02
+    section: 5. Profile Z22 - Dynamic Definition; 6. Profile Z23 - Dynamic Definition
+    page: 76, 132
+    r15: >-
+      AR is returned when the message type, event, or processing ID is unsupported, or the message cannot be processed for
+      reasons unrelated to format or content. Otherwise AA when there are no errors and AE when there are errors; if the
+      errors are fatal the message is rejected (still AE), otherwise the data are integrated.
+    result: changed
+    guide: [msa-1-derivation-of-message-level-disposition, msa-1-derivation-of-message-level-disposition--s1,
+            msa-1-derivation-of-message-level-disposition--s2, iis-core-intent-and-message-disposition, err-4-severity-code]
+    note: >-
+      MSA-1 is now derived from the most severe ERR-4: AR SHALL be returned when the VXU is rejected (any severity E, core
+      intent not fulfilled); AE means accepted with warnings; AA means accepted with no issues needing correction. A
+      rejected message is no longer reported as AE. Systems that read AE as "some data rejected" need to change. (This
+      follows the ACK TAB of June 2026.)
+
+  - id: r15-5-03
+    section: 5. Static Definition - Message Level (Table 5-1)
+    page: 78-79
+    r15: >-
+      A VXU may be new to the receiver or an update to an existing record. Segment table, with comments such as "not
+      described in this guide, may be locally specified" for SFT, PV1/PV2, GT1, IN2/IN3, TQ1/TQ2.
+    result: format
+    guide: [types-of-information-carried-in-a-vxu]
+    note: Segment usage and cardinality are compared in Message structure above.
+
+  - id: r15-6-01
+    section: 6. Profile Z23 - Introduction; Interaction Definition
+    page: 131
+    verb: MUST
+    r15: >-
+      Z23 acknowledges receipt and processing of a VXU or QBP. Through an intermediary, the acknowledgement MUST be
+      returned to the initiating system. The ACK may report errors (ERR, included if there are errors).
+    result: expanded
+    guide: [acknowledgement-ack-message-profile, application-level-scope-of-ack-messages, z23-return-an-acknowledgement,
+            issue-level-reporting-using-err-segments]
+    note: >-
+      The new ACK profile is largely new material (core intent, severity, ERR-5 national codes, follow-up actions,
+      monitoring), adopted from the ACK TAB. ERR segments may now appear in an accepted message.
+
+  # ---------------------------------------------------------------- queries
+  - id: r15-7-01
+    section: 7. Profile Z34 - Introduction
+    page: 142
+    r15: >-
+      Z34 requests a complete immunization history: demographics, immunizations received, and patient conditions that
+      affect immunization (allergies, contraindications, history of vaccine-preventable disease). The response is very
+      similar to a VXU.
+    result: same
+    guide: [purpose-and-scope-of-query-by-parameter-qbp-profiles, z32-return-complete-immunization-history,
+            patient-observations]
+    note: >-
+      The new guide defines the complete history as all immunizations known to the IIS; patient observations
+      (contraindications, immunity) are covered in 4.4.4.4 and 4.8.
+
+  - id: r15-7-02
+    section: 7. Z34 Query Profile (Table 7-1) - Query Characteristics
+    page: 143
+    verb: should
+    r15: >-
+      Query parameters may include demographic and address data; no sorting. The guide does not specify the matching
+      logic; parameters may feed a simple or probabilistic search. The search method should be specified locally.
+    result: expanded
+    guide: [patient-matching-responsibilities, qbp-message-structure, security-and-rate-limiting-considerations]
+    note: >-
+      Matching is still local, but the new guide sets expectations: the querying system SHALL send all known identifying
+      information; the IIS SHALL use all of it and SHOULD use probabilistic or other advanced matching (3.4.5); the IIS
+      SHALL NOT return a record on a single identifier (3.4.7). QBP is used only for immediate responses.
+
+  - id: r15-7-03
+    section: 7. Z34 Response Characteristics; Response to Different Outcomes (Table 7-2)
+    page: 143, 146-147
+    verb: should
+    r15: >-
+      No match: Z33. One high-confidence match: Z32. One or more lower-confidence matches up to the maximum: Z31 "if state
+      law allows" (more than one high-confidence match counts as lower confidence). More than the maximum (the lower of
+      the requested and the IIS limit): Z33, too many matches. One match that does not allow sharing: Z33 "no candidates
+      found". Not well formed with fatal errors: Z33. Unsupported message type, event, or processing ID: ACK with errors.
+      Not identifiable as HL7: no response. The definition of a match is local and should be documented.
+    result: changed
+    guide: [rsp-response-profiles, z31-return-a-list-of-candidates, z33-return-a-response-with-no-person-records,
+            z23-return-an-acknowledgement, purpose-and-scope-of-rsp-profiles--s1]
+    note: >-
+      The outcomes largely carry over (Z32, Z31, Z33 for no match, too many, or not shareable). The change: a query that
+      is malformed or fails before matching (bad MSH or QPD) now gets a Z23 ACK, not a Z33; Z33 means the query was
+      processed but no record can be returned. The new guide also says a Z31 normally holds two or three candidates and
+      the IIS returns SR identifiers for selection. Whether a protected record is reported as "not found" or as "exists
+      but not shareable" is not stated.
+
+  - id: r15-7-04
+    section: 7. Interaction and Dynamic Definition
+    page: 144-145
+    r15: The querying system sends a QBP; the responding system returns one response (sequence and activity diagrams).
+    result: same
+    guide: [purpose-and-scope-of-rsp-profiles--s1, qbp-message-structure]
+    note: IIS SHALL respond to each valid QBP with exactly one RSP.
+
+  - id: r15-8-01
+    section: 8. Profile Z32 - Introduction
+    page: 159
+    r15: >-
+      Z32 returns a complete immunization history in response to Z34, to support transferring a person's record between
+      systems; similar to a VXU in content.
+    result: same
+    guide: [z32-return-complete-immunization-history, information-disclosure-constraints]
+    note: >-
+      The new guide adds that returned demographics are for confirming the match, not for updating local patient
+      records (3.5.3).
+
+  - id: r15-9-01
+    section: 9. Profile Z31 - Introduction
+    page: 204
+    r15: >-
+      Z31 returns a complete list of candidate patients so the requester can re-query on the selected candidate. It is a
+      response to Z34.
+    result: changed
+    guide: [z31-return-a-list-of-candidates, z31-return-a-list-of-candidates--s1, selecting-a-candidate-match]
+    note: >-
+      Z31 may now answer a Z44 as well as a Z34. The new guide adds rules for the re-query: it SHALL use all the
+      identifying information returned for the selected candidate (including the SR), and the selection SHALL NOT become
+      a permanent link without the user's awareness.
+
+  - id: r15-10-01
+    section: 10. Profile Z33 - Introduction; Interaction Definition
+    page: 224
+    r15: >-
+      Z33 returns an acknowledgement with no person records when (1) an error occurred processing the query, (2) no
+      high-confidence match was found, including a match that may not be shared or an IIS that does not support Z31, or
+      (3) too many matches were found.
+    result: changed
+    guide: [z33-return-a-response-with-no-person-records, z23-return-an-acknowledgement, z31-return-a-list-of-candidates]
+    note: >-
+      Cases 2 and 3 carry over (too many matches is QAK-2 TM). Case 1 moves: a query that cannot be processed because the
+      message itself is malformed now gets a Z23.
+
+  - id: r15-11-01
+    section: 11. Profile Z44 - Introduction
+    page: 236
+    r15: >-
+      Z44 requests an evaluated history and forecast: limited demographics, the immunization history validated by a CDS
+      engine, and a forecast of next doses due.
+    result: changed
+    guide: [unified-z34-and-z44-profile-model, unified-z34-and-z44-profile-model--s1, unified-z34-and-z44-profile-model--s2,
+            z42-return-evaluated-immunization-history-and-forecast]
+    note: >-
+      Z34 and Z44 are unified: both return the complete history; Z44 SHALL also include evaluation and recommendations,
+      and Z34 MAY include them. Querying systems should ignore evaluation and forecast content they do not need.
+
+  - id: r15-11-02
+    section: 11. Z44 Response Characteristics; Response Grammar to Different Outcomes (Tables 11-2, 11-3)
+    page: 237-241
+    r15: >-
+      No match: Z33. One high-confidence match: Z42. One or more lower-confidence matches: Z33, "no matches", and no
+      records returned (no candidate list for Z44). Malformed with fatal errors: Z33. Unsupported message type, event,
+      or processing ID: ACK with errors. Not identifiable as HL7: no response.
+    result: changed
+    guide: [z31-return-a-list-of-candidates--s1, z33-return-a-response-with-no-person-records, z23-return-an-acknowledgement]
+    note: A Z44 may now receive a Z31 candidate list, as Z34 does. A malformed query gets a Z23.
+
+  - id: r15-11-03
+    section: 11. Z44 Query Profile (note on protected records)
+    page: 237
+    verb: should
+    r15: >-
+      Each system determines how to handle patients who want their records protected: treat them as not in the system, or
+      respond that the person exists but does not allow sharing. The rule should be documented in the local profile.
+    result: partial
+    guide: [z33-return-a-response-with-no-person-records, information-disclosure-constraints, protection-indicator-pd1-12-usage,
+            jurisdictional-consent-models]
+    note: >-
+      The new guide returns a Z33 when a record cannot be disclosed, and covers consent models in 4.5.6, but does not say
+      whether the response may reveal that a protected record exists, or that the choice should be documented locally.
+    recommendation: >-
+      Add to 3.5.2.4 whether a Z33 for a protected record may differ from "not found" (QAK-2, ERR), and that the IIS SHOULD
+      document its choice in its local guide.
+
+  - id: r15-12-01
+    section: 12. Profile Z42 - Introduction
+    page: 253
+    r15: >-
+      Z42 returns an evaluated history and forecast. It is not intended to support transfer of the complete immunization
+      history.
+    result: changed
+    guide: [z42-return-evaluated-immunization-history-and-forecast, unified-z34-and-z44-profile-model--s2]
+    note: Z42 now returns the complete immunization history along with evaluation and forecast.
+
+  # ---------------------------------------------------------------- batch
+  - id: r15-13-01
+    section: 13. Batch File Specifications - Sending Messages in a Batch
+    page: 283-290
+    r15: >-
+      Systems may send messages in batches (BHS ... BTS), and batches in files (FHS ... FTS); a single batch needs no
+      FHS/FTS, and a stream of messages needs neither. BHS/FHS field tables, with IZ-8/IZ-9 fixing the separators.
+    result: changed
+    guide: [supported-operations]
+    note: >-
+      HL7 batch files are no longer described, and NIST's profiles did not include them. The new guide's only batch rule
+      is transport: the CDC WSDL has no batch protocol, so batch processing SHALL be sequential submitSingleMessage
+      requests. Files of batched VXUs (still used for some flat-file or SFTP uploads) are not covered.
+    recommendation: >-
+      Say explicitly whether FHS/BHS batch files remain a permitted local option (outside this guide) or are retired.
