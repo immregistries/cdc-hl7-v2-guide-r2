@@ -17,7 +17,9 @@ Reviewers comment on the draft through [InteropHub](https://informatics.immregis
 - **Sign-in** uses the InteropHub sign-in shared by AIRA guides (PKCE, app `topic-reference`). One sign-in
   covers every page. Reading comments also requires sign-in.
 - **Authors** (people who can edit topic 52) can record a disposition (Persuasive, Not Persuasive, and so
-  on) with a change note, and close or reopen threads, on the page or in InteropHub.
+  on) with a change note, and close or reopen threads, on the page or in InteropHub. The same check
+  (`permissions.isAuthor` in the guide API) turns on the site's author view; see
+  [architecture.md](architecture.md#reader-and-author-views).
 - **Links from InteropHub** go to the site's home page (`?interophub=signin#comment-<id>` or `#<anchor>`),
   which forwards to the right page.
 - The navigation tree shows a 💬 count on sections that have comment threads (blue while any are open).

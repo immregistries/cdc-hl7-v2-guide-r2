@@ -1,12 +1,12 @@
 """TA Questions: can the guide answer what implementers have asked in technical assistance (TA)?
 
-A working analysis for the authors, built only on a maintainer's machine. The questions come from AIRA's TA records,
-which are not anonymized, so they are never committed here and the published site never has these pages. The data lives
-outside the repository, in the folder that inputs.json names as "ta_dir" (or the TA_REVIEW_DIR environment variable):
+A working analysis for the authors, shown in the author view only (tools/view.py) and left out of a release. The
+questions are consolidated from AIRA's TA records outside this repository and published into quality/ta/ by
+tools/import_ta.py, which leaves out who asked (jurisdictions, IIS vendors, people) and the individual records:
 
-    index.yml           the pages, in order
-    pages/<page>.yml    the questions on a page, each with its consolidated answer and the records it came from (generated)
-    assess/<page>.yml   how well the guide answers each question (written by hand, keyed by question id)
+    quality/ta/index.yml           the pages, in order (generated)
+    quality/ta/pages/<page>.yml    the questions on a page, each with its consolidated answer (generated)
+    quality/ta/assess/<page>.yml   how well the guide answers each question (written by hand, keyed by question id)
 
 The analysis is about the guide, not the past answers: each question gets a result saying whether the current guide
 answers it. Past answers are shown as given, conflicts included, so the authors can copy them in or correct them.
@@ -21,8 +21,6 @@ Questions are grouped by segment and field, then by topic. Questions about the S
 from __future__ import annotations
 
 import html
-import json
-import os
 from collections import Counter
 from pathlib import Path
 
@@ -54,10 +52,8 @@ def esc(text) -> str:
 
 
 def ta_dir(repo: Path) -> Path | None:
-    path = os.environ.get("TA_REVIEW_DIR")
-    if not path and (repo / "inputs.json").exists():
-        path = json.loads((repo / "inputs.json").read_text(encoding="utf-8")).get("ta_dir")
-    return Path(path) if path and (Path(path) / "index.yml").exists() else None
+    path = repo / "quality" / "ta"
+    return path if (path / "index.yml").exists() else None
 
 
 def _check_ref(where: str, ref: str, by_id: dict) -> None:
@@ -135,8 +131,8 @@ def evidence_with_link(ev: dict, root: str) -> str:
 
 # ---------------------------------------------------------------- pages
 
-BANNER = ("Working analysis for the authors, built only on a maintainer's machine from AIRA technical assistance records. "
-          "Not part of the guide, and not on the published site.")
+BANNER = ("Working analysis for the authors, from questions asked of AIRA's technical assistance service. "
+          "Not part of the guide.")
 
 
 def _badge(result: str) -> str:
@@ -166,7 +162,7 @@ def _result_line(cnt: Counter, total: int) -> str:
 
 
 def _years(q: dict) -> str:
-    years = sorted({d[:4] for d in q.get("dates", []) if d})
+    years = sorted({str(y) for y in q.get("years", [])})
     return years[0] if len(years) == 1 else f"{years[0]}–{years[-1]}" if years else ""
 
 
@@ -192,18 +188,6 @@ def _question(q: dict, by_id: dict, root: str, out: Path) -> str:
     answer = (f'<div class="ta-answer"><p class="ta-k">Answer given</p>{minimd.render(q["answer"])}</div>' if q.get("answer")
               else '<p class="ta-answer mini">No answer recorded.</p>')
     flags = "".join(f'<p class="ta-flag"><strong>Flagged when consolidated:</strong> {esc(f)}</p>' for f in q.get("flags", []))
-    recs = q.get("records", [])
-    if len(recs) > 1 or (recs and q.get("answer") and recs[0].get("answer") and recs[0]["answer"] != q["answer"]):
-        lis = []
-        for r in recs:
-            ans = minimd.render(r["answer"]) if r.get("answer") else '<p class="mini">No answer recorded.</p>'
-            note = f'<p class="mini">TA note: {esc(r["note"])}</p>' if r.get("note") else ""
-            lis.append(f'<li><p class="ta-k">{esc(r["date"])} · {esc(STATUS_LABEL.get(r["status"], r["status"]))}</p>'
-                       f'<p><em>{esc(r["question"])}</em></p>{ans}{note}</li>')
-        records = (f'<details class="ta-records"><summary>Each time it was asked ({len(recs)})</summary>'
-                   f'<ol>{"".join(lis)}</ol></details>')
-    else:
-        records = ""
     a = q.get("assess")
     if a:
         sev = severity(a)
@@ -223,7 +207,7 @@ def _question(q: dict, by_id: dict, root: str, out: Path) -> str:
     return f"""<section class="ta-q {result_cls}" id="{esc(q['id'])}">
 <h3>{esc(q['question'])}</h3>
 <p class="mini">{meta_html}</p>
-<div class="ta-grid"><div>{answer}{flags}{records}</div>
+<div class="ta-grid"><div>{answer}{flags}</div>
 <div class="ta-assess"><p class="ta-k">Can the guide answer it?</p>{body}</div></div>
 </section>"""
 
@@ -290,11 +274,11 @@ def index_html(data: dict, root: str) -> str:
 <p class="callout">{BANNER}</p>
 <p class="lede">Implementers have asked AIRA's technical assistance service about HL7 v2 immunization messaging for ten
 years. The guide should be able to answer those questions, directly or by appeal to its rules and principles. These pages
-go through each question and record whether the current guide answers it, and show every answer given in the past, as
-given, including answers that conflict. The past answers are not reviewed here: they are there to copy into the guide, or to
-show where the guide now says something different.</p>
+go through each question and record whether the current guide answers it, next to the answer given at the time. The past
+answers are not reviewed here: they are there to copy into the guide, or to show where the guide now says something
+different. Who asked is left out: it does not matter to the guide.</p>
 <p>{n} questions, consolidated from the TA records, grouped by segment and field and then by topic. {assessed} assessed so far.
-Left out: {len(ex.get("smm", []))} questions about the Simple Message Mover (SMM), which is not in this guide's scope, and
+Left out: {ex.get("smm", 0)} questions about the Simple Message Mover (SMM), which is not in this guide's scope, and
 {ex.get("not_generalizable", 0)} one-off troubleshooting questions that do not generalize. Questions the guide does not fully
 answer also appear as quality findings (category "ta") on the section where the answer belongs.</p>
 {"<h2>Coverage so far</h2>" + score if score else ""}
@@ -302,7 +286,8 @@ answer also appear as quality findings (category "ta") on the section where the 
 <h2>By topic</h2>{table("topic")}
 <h2>What the results mean</h2>
 <ul class="tab-legend">{legend}</ul>
-<p class="mini">Data: <code>{esc(data["dir"])}</code> (pages generated from the TA consolidation; assessments in <code>assess/</code>).</p>
+<p class="mini">Data: <code>quality/ta/</code> (pages published by <code>tools/import_ta.py</code> from the TA consolidation,
+without who asked; assessments in <code>quality/ta/assess/</code>).</p>
 </article>"""
 
 

@@ -6,8 +6,9 @@
    what they need. Short sections, one topic each, with stable links and
    consistent placement of requirements, figures, examples, and related
    material.
-2. **Visible quality.** Automated and editorial checks run on every build, and
-   their findings appear next to the content they concern.
+2. **Visible quality, for the authors.** Automated and editorial checks run on
+   every build, and their findings appear next to the content they concern, in
+   the author view. Readers see the guide alone.
 3. **Reviewable.** Every card and structured artifact has a permanent address
    and can be commented on.
 4. **One source, several outputs.** The website, the quality report, and the
@@ -81,8 +82,24 @@ A static, multi-page site:
 - a document tree on the left;
 - a card or structured artifact on the right;
 - breadcrumbs, permanent links, and previous/next;
-- quality findings shown in place;
+- quality findings shown in place, in the author view;
 - card-level comments through AIRA InteropHub.
+
+### Reader and author views
+
+The guide is for readers. Material for the authors (quality findings, the comparisons with Release 1.5, IGAMT, the
+TABs, SISC, MIROW, and the TA questions, the proposed analyses, and "How this guide is made") is marked author-only
+(`tools/view.py`) and shown only in the author view. It is not secret (it is all in this public repository); it is
+hidden because readers do not need it.
+
+- **Who is an author.** InteropHub decides. The guide API (`GET /api/guide/{documentKey}`) returns
+  `permissions.isAuthor` for the signed-in person: true for editors of the guide's topic, the same check that lets
+  them dispose of and close comments. `site/theme/comments.js` caches the answer with the sign-in's expiry, and a
+  script in each page's `<head>` turns the author view on before the page is drawn. Everyone else sees the reader
+  view, with no switch and no mention of it.
+- **Switching.** Authors get a Reader view / Author view button; the choice is remembered in the browser.
+- **Editions** (`build_site.py --edition`): `draft` (default, as above), `author` (always on, for local previews),
+  and `release` (no author material, author pages, or switch at all, for formal releases).
 
 The presentation is a project-owned theme (`site/theme/`) for joint CDC/AIRA
 branding.
@@ -142,6 +159,16 @@ with the guide requirement by requirement in `quality/tabs/<id>.yml` (covered, i
 missing, conflict, or added by the guide). `tools/tab_review.py` checks that every reference to a section, statement, or
 figure exists, turns results that need attention into quality findings, and builds the **TAB Comparison** pages (below the
 line in the contents, one menu item per TAB). Sections a TAB affects link to it, and section 6.2 lists every TAB.
+
+## TA questions
+
+The questions implementers have asked AIRA's technical assistance (TA) service are consolidated outside this repository
+from AIRA's TA records. `tools/import_ta.py` publishes them into `quality/ta/` with who asked left out: no jurisdictions,
+IIS vendors, or people, no individual records or source references, and years instead of dates. Replacements come from
+`scrub.yml` in the TA folder (kept outside the repository, since it lists the names), and the import fails if a forbidden
+name or a US state or territory name remains. EHR products are kept by name. Whether the guide answers each question is
+assessed by hand in `quality/ta/assess/<page>.yml`; `tools/ta_review.py` turns gaps into findings and builds the
+**TA Questions** pages, in the author view only.
 
 ## National ERR-5 code set
 

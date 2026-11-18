@@ -295,6 +295,27 @@ class TabReviewTest(unittest.TestCase):
                 tab_review.load(root, by_id)
 
 
+class TaQuestionsTest(unittest.TestCase):
+    """quality/ta/: published without who asked, and every guide reference in the assessments exists."""
+
+    def test_committed_ta_questions(self):
+        import import_ta
+        import ta_review
+        if not (REPO / "quality" / "ta" / "index.yml").exists():
+            self.skipTest("no TA questions published")
+        by_id = {c.id: c for c in walk(load_tree(CARDS_DIR))}
+        data = ta_review.load(REPO, by_id)
+        self.assertTrue(data["pages"])
+        scrub = import_ta.Scrubber({"allow": ["Alaska Native"]})
+        for page in (REPO / "quality" / "ta" / "pages").glob("*.yml"):
+            d = yaml.safe_load(page.read_text(encoding="utf-8"))
+            for q in d["questions"]:
+                self.assertFalse({"records", "sources", "dates"} & set(q), q["id"])
+            scrub.text(page.name, d)
+        self.assertEqual(scrub.problems, [])
+        self.assertTrue(all(f["card"] in by_id for f in ta_review.findings(data)))
+
+
 class Err5Test(unittest.TestCase):
     def test_published_dates_and_data(self):
         import import_err5
@@ -333,7 +354,34 @@ class SiteTest(unittest.TestCase):
                              "structure/segments/rxa/index.html", "quality/igamt/index.html"):
                     self.assertTrue((out / page).exists(), page)
             self.assertEqual(broken_links(out), [])
+            # author material is marked author-only, and the author pages are kept out of search engines
+            import re
+            card = next(p for p in out.glob("*/index.html") if 'class="findings ' in p.read_text(encoding="utf-8"))
+            for aside in re.findall(r'<aside class="findings [^"]*"', card.read_text(encoding="utf-8")):
+                self.assertIn("author-only", aside)
+            self.assertIn('name="robots" content="noindex"', (out / "quality" / "index.html").read_text(encoding="utf-8"))
+            self.assertNotIn("noindex", (out / "index.html").read_text(encoding="utf-8"))
+            self.assertIn('class="view-toggle"', (out / "index.html").read_text(encoding="utf-8"))
         finally:
+            shutil.rmtree(out)
+
+    def test_build_release_edition(self):
+        """A release has no author material at all: no author pages, findings, author-only blocks, or view switch."""
+        import build_site
+        import view
+        out = Path(tempfile.mkdtemp())
+        try:
+            build_site.build(out, "release")
+            for page in ("quality", "about", "tabs", "mirow", "sisc", "ta", "r15"):
+                self.assertFalse((out / page).exists(), page)
+            for page in out.rglob("*.html"):
+                text = page.read_text(encoding="utf-8")
+                for marker in ("author-only", "view-toggle", "guide-author", 'class="findings'):
+                    self.assertNotIn(marker, text, f"{page.relative_to(out)} has {marker}")
+            self.assertIn('"meta":[]', (out / "assets" / "nav.js").read_text(encoding="utf-8"))
+            self.assertEqual(broken_links(out), [])
+        finally:
+            view.set_edition("draft")
             shutil.rmtree(out)
 
 

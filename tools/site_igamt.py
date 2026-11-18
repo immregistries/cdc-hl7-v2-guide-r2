@@ -6,6 +6,7 @@ import csv
 import html
 import io
 from collections import Counter
+import view
 
 SEV_ORDER = ("issue", "warning", "note")
 SEV_LABEL = {"issue": "Issue", "warning": "Warning", "note": "Note"}
@@ -79,7 +80,7 @@ def structure_panel(items: list[dict], root: str, st=None) -> str:
     return f"""<section class="xref" aria-labelledby="xref-h"><details>
 <summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">{len(items)} field{'s' if len(items) != 1 else ''} · from the IGAMT export</span></summary>
 <p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
-conformance statements that test it. <a href="{root}quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+conformance statements that test it.{view.author(f' <a href="{root}quality/igamt/index.html">How the narrative compares with these profiles</a>.', "span")}</p>
 <div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table></div></details></section>"""
 
