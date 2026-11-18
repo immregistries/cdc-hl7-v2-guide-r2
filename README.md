@@ -79,6 +79,9 @@ python tools/check_cards.py          # writes output/quality/report.md
 # Anyone: build the website (open output/site/index.html)
 python tools/build_site.py
 
+# Anyone: build the PDF edition, a prototype (needs Chrome or Edge and PyMuPDF; writes output/pdf/)
+python tools/build_pdf.py
+
 # Tests
 python -m unittest discover -s tests
 ```
@@ -93,7 +96,8 @@ python -m unittest discover -s tests
 | Website | Published from `main` on every push |
 | Card comments (InteropHub) | Open on topic 52 ([how it works](docs/comments.md)) |
 | Example messages | 81 examples on 50 sections, assembled into whole messages and checked against the IGAMT profiles ([Appendix A](https://immregistries.github.io/cdc-hl7-v2-guide-r2/main/examples/)) |
-| Ballot document (Word/PDF) | Planned |
+| PDF edition | Prototype (`tools/build_pdf.py`): reader content reorganized for print; sent to CDC for review |
+| Ballot document (Word) | Planned |
 
 ## License
 
