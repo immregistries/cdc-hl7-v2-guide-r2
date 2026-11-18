@@ -295,6 +295,27 @@ class TabReviewTest(unittest.TestCase):
                 tab_review.load(root, by_id)
 
 
+class TaQuestionsTest(unittest.TestCase):
+    """quality/ta/: published without who asked, and every guide reference in the assessments exists."""
+
+    def test_committed_ta_questions(self):
+        import import_ta
+        import ta_review
+        if not (REPO / "quality" / "ta" / "index.yml").exists():
+            self.skipTest("no TA questions published")
+        by_id = {c.id: c for c in walk(load_tree(CARDS_DIR))}
+        data = ta_review.load(REPO, by_id)
+        self.assertTrue(data["pages"])
+        scrub = import_ta.Scrubber({"allow": ["Alaska Native"]})
+        for page in (REPO / "quality" / "ta" / "pages").glob("*.yml"):
+            d = yaml.safe_load(page.read_text(encoding="utf-8"))
+            for q in d["questions"]:
+                self.assertFalse({"records", "sources", "dates"} & set(q), q["id"])
+            scrub.text(page.name, d)
+        self.assertEqual(scrub.problems, [])
+        self.assertTrue(all(f["card"] in by_id for f in ta_review.findings(data)))
+
+
 class Err5Test(unittest.TestCase):
     def test_published_dates_and_data(self):
         import import_err5

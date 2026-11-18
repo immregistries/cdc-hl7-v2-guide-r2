@@ -67,6 +67,7 @@ python tools/convert_narrative.py
 python tools/import_igamt.py
 python tools/import_examples.py
 python tools/import_err5.py          # national ERR-5 code set (xlsx from AIRA)
+python tools/import_ta.py            # TA questions, without who asked (folder from AIRA's TA consolidation)
 python tools/import_r15.py --download  # Release 1.5 baseline: NIST test tool profiles (public)
 
 # Anyone: compare the profiles with Release 1.5 (writes output/r15/changes.csv and summary.md)

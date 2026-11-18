@@ -160,6 +160,16 @@ missing, conflict, or added by the guide). `tools/tab_review.py` checks that eve
 figure exists, turns results that need attention into quality findings, and builds the **TAB Comparison** pages (below the
 line in the contents, one menu item per TAB). Sections a TAB affects link to it, and section 6.2 lists every TAB.
 
+## TA questions
+
+The questions implementers have asked AIRA's technical assistance (TA) service are consolidated outside this repository
+from AIRA's TA records. `tools/import_ta.py` publishes them into `quality/ta/` with who asked left out: no jurisdictions,
+IIS vendors, or people, no individual records or source references, and years instead of dates. Replacements come from
+`scrub.yml` in the TA folder (kept outside the repository, since it lists the names), and the import fails if a forbidden
+name or a US state or territory name remains. EHR products are kept by name. Whether the guide answers each question is
+assessed by hand in `quality/ta/assess/<page>.yml`; `tools/ta_review.py` turns gaps into findings and builds the
+**TA Questions** pages, in the author view only.
+
 ## National ERR-5 code set
 
 `tools/import_err5.py` imports AIRA's National Set of ERR-5 Application Error Codes (xlsx, kept local) into

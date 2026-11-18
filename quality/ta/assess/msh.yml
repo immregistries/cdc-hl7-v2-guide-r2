@@ -1,0 +1,292 @@
+# How well the guide answers the TA questions on the MSH page. Keyed by question id (pages/msh.yml).
+# result: answers | appeal | partial | gap | differs | out-of-scope. guide: card, statement (<card>--sN) or figure IDs;
+# the first one is where a finding is attached (where the answer belongs).
+
+reviewed: 2026-11-17
+against: narrative draft of 4 Nov 2026 and IGAMT export of 6 Nov 2026
+summary: >-
+  The guide answers the organization questions well: section 2.7 defines MSH-4 and MSH-22, and their roles in queries,
+  more clearly than any past TA answer. The IGAMT profiles answer most of the fixed-value questions (MSH-2, MSH-9, MSH-15,
+  MSH-16, MSH-21, SFT). The narrative says nothing about the other MSH fields. MSH-3, MSH-5, MSH-6 and MSH-23
+  (how values are agreed, and whether intermediaries change them), MSH-10 uniqueness and duplicate messages, MSH-11 test
+  data, and the plausibility of MSH-7 are all asked about repeatedly and left to the reader. A short Message Header section
+  in chapter 2 would answer most of them. Two past answers differ from the guide: queries with header errors now get a
+  Z23 ACK rather than a Z33 RSP, and MSH-4 is now required on queries.
+
+items:
+  ta-q31-006:
+    result: answers
+    note: IGAMT conformance statement IZ-13 says MSH-2 SHALL be '^~\&'. The narrative does not mention MSH-2.
+
+  ta-q03-098:
+    result: gap
+    severity: note
+    guide: [message-structure-and-terminology]
+    note: >-
+      The SFT segment is optional in every profile, but the narrative never mentions it, so there is no guidance on
+      where to identify the sending software.
+    recommendation: >-
+      Add a sentence to a Message Header section that SFT identifies the sending software and its version, and that MSH-3
+      identifies the application, not its version.
+
+  ta-q44-014:
+    result: appeal
+    guide: [focus-on-data-quality-and-program-goals, use-of-acks-in-interface-monitoring--s2]
+    note: >-
+      IGAMT gives no length for MSH-3, and the guide says not to enforce arbitrary rules or reject for minor conformance
+      preferences. But it never says what the lengths that IGAMT does carry (MSH-8 up to 40, MSH-10 up to 199) mean, or
+      that base-standard lengths are not normative.
+    recommendation: >-
+      In 5.11 (compatibility with the base standard) or 4.1, say what a length in the profiles means, and that IIS should
+      not reject a value only because it is longer than a base-standard length.
+
+  ta-q24-009:
+    result: answers
+    guide: [use-in-query-transactions-qbp-rsp--s1, submitting-organization-msh-4-sending-facility]
+
+  ta-q01-061:
+    result: answers
+    guide: [submitting-organization-msh-4-sending-facility, responsible-organization-msh-22, parent-and-child-organizations]
+    note: Asked four times from 2016 to 2019, never fully answered then. Section 2.7 now answers it.
+
+  ta-q02-078:
+    result: differs
+    guide: [use-in-query-transactions-qbp-rsp--s1, submitting-organization-msh-4-sending-facility--s1]
+    note: >-
+      The 2017 answer said an IIS need not require MSH-4 on queries if it does not use it. The guide now makes MSH-4
+      required (R) and says query messages SHALL include it. A deliberate change.
+
+  ta-q03-075:
+    result: answers
+    guide: [responsible-organization-msh-22, submitting-organization-msh-4-sending-facility]
+
+  ta-q03-099:
+    result: differs
+    guide: [submitting-organization-msh-4-sending-facility, parent-and-child-organizations--s3, administering-organization-rxa-11--s2]
+    note: >-
+      The guide answers how to represent several facilities: MSH-4 is the submitting organization operating the interface,
+      and child facilities go in RXA-11.4 or ORC-17. The 2022 answer suggested copying RXA-11.4 into MSH-4, which the guide
+      no longer allows.
+
+  ta-q03-043:
+    result: partial
+    severity: note
+    guide: [organization-identifier-data-types]
+    note: >-
+      Section 2.7.1 says HD.1 carries the organization identifier and the other HD components are optional. It does not
+      say they must not carry a second identifier (past answer: move it to MSH-22 or the WSDL Facility ID).
+    recommendation: >-
+      Say that HD.2 and HD.3 qualify the identifier in HD.1 (its namespace) and are not for additional identifiers.
+
+  ta-q03-041:
+    result: partial
+    severity: note
+    guide: [organization-identifier-data-types, assigning-authority-and-identifier-namespace]
+    note: >-
+      The guide mentions OID-based identifiers only as a possible future use, and leaves assigning authorities to each
+      IIS. There is no general guidance on when to use OIDs.
+
+  ta-q04-034:
+    result: answers
+    guide: [use-in-query-transactions-qbp-rsp]
+    note: >-
+      The guide says query identifiers are at the organization level and do not identify facilities, and calls this
+      a current limitation. Matches the 2020 answer (no national guidance).
+
+  ta-q14-009:
+    result: partial
+    severity: note
+    guide: [notes-on-data-intermediaries]
+    note: >-
+      MSH-5 and MSH-6 are RE in IGAMT, and the guide says intermediaries must be transparent. It does not say who defines
+      their values, whether an IIS may reject a message when they are empty, or that the IZ Gateway does not change them
+      (the IZ Gateway is out of scope).
+
+  ta-q19-019:
+    result: answers
+    guide: [use-in-query-transactions-qbp-rsp]
+    note: >-
+      2.7.7 says MSH-4 and MSH-22 are "typically mirrored back" in acknowledgements. Like the past answer, this is not a
+      requirement. It sits in the query section, though it applies to the VXU ACK too.
+
+  ta-q20-015:
+    result: gap
+    guide: [message-structure-and-terminology]
+    note: >-
+      The guide says nothing about MSH-3, MSH-5 or MSH-6 values: that they are agreed between trading partners, that an
+      IIS should require specific values only when it needs them for routing, or which party to name when an HIE passes
+      a message through. TA has answered this the same way several times.
+    recommendation: >-
+      Add a short Message Header section to chapter 2 covering MSH-3, MSH-5, MSH-6 and MSH-23: agreed during onboarding,
+      required by an IIS only when needed for routing or processing, not changed by intermediaries, and in an ACK or RSP
+      normally echoing the sender's MSH-3 and MSH-4.
+
+  ta-q02-104:
+    result: answers
+    guide: [message-header-date-time-msh-7, data-type-flavors]
+    note: TS_Z in IGAMT; 4.1.3 explains that the time zone is required.
+
+  ta-q03-100:
+    result: out-of-scope
+    note: The question itself was not recorded, so there is nothing to assess.
+
+  ta-q02-088:
+    result: answers
+    guide: [message-header-date-time-msh-7--s2, message-header-date-time-msh-7--s3]
+
+  ta-q02-109:
+    result: partial
+    severity: note
+    guide: [message-header-date-time-msh-7]
+    note: >-
+      2.8.1 says consistent precision is required, but not what precision is allowed or that a receiver must accept
+      fractional seconds.
+    recommendation: State that receivers SHALL accept any precision the DTM data type allows, down to fractions of a second.
+
+  ta-q12-016:
+    result: answers
+    guide: [data-type-flavors, message-header-date-time-msh-7]
+    note: TS_Z applies to MSH-7 in every profile, responses included.
+
+  ta-q33-016:
+    result: answers
+    guide: [message-header-date-time-msh-7--s1, message-header-date-time-msh-7--s2]
+
+  ta-q04-039:
+    result: gap
+    severity: note
+    guide: [message-header-date-time-msh-7]
+    note: >-
+      The 2020 answer said not to accept messages dated far in the past. The guide says MSH-7 is not for clinical use
+      but not whether an IIS may check it for plausibility, and 3.3.5 s2 discourages rejecting for minor conformance
+      issues.
+    recommendation: Say whether an implausible MSH-7 (far past or future) is an Error, a Warning, or ignored.
+
+  ta-q03-067:
+    result: answers
+    guide: [connection-parameters-and-authentication, submitting-organization-msh-4-sending-facility]
+    note: MSH-8 is optional (O) in IGAMT, and credentials belong to the transport layer.
+
+  ta-q13-019:
+    result: answers
+    note: >-
+      The Z23 profile fixes MSH-9 (ACK, V04 or Q11, ACK). The ERR-2 part of the answer is a datatype rule in IGAMT. The
+      narrative does not mention either.
+
+  ta-q40-013:
+    result: answers
+    guide: [scope, patient-demographic-records-and-vxus-without-immunizations]
+    note: ADT is out of scope, and 3.2.5.6 points to ADT for routine demographic updates.
+
+  ta-q33-020:
+    result: partial
+    guide: [msa-1-guidance]
+    note: >-
+      The MSA-1 guidance says 'AR' was "previously" used for an unsupported message type, event code or processing ID,
+      and removes only the fourth reason. It never says, in the present tense, that these conditions still get 'AR', or
+      that "message type" covers all of MSH-9 (code, trigger event, structure). AIRA promised this clarification in 2024.
+    recommendation: >-
+      Add a statement: an IIS SHALL return 'AR' when any component of MSH-9, MSH-11 or MSH-12 is not supported, with an
+      ERR segment naming the field.
+
+  ta-q06-001:
+    result: gap
+    severity: note
+    guide: [application-level-scope-of-ack-messages--s3, record-consolidation-and-deduplication]
+    note: >-
+      The guide requires one ACK for every VXU and has IIS deduplicate records, but says nothing about a message received
+      twice (same MSH-10 and content): whether the IIS may reject it, and with what severity.
+    recommendation: Say how an IIS acknowledges a duplicate message (accept and deduplicate, or reject with a Warning).
+
+  ta-q20-004:
+    result: gap
+    guide: [message-structure-and-terminology]
+    note: >-
+      MSH-10 is required, but the guide never says it must be unique (the past answer says per sender, at least per day)
+      or that MSA-2 echoes it. The query tag in QPD-2 is not discussed either.
+    recommendation: In a Message Header section, say MSH-10 SHALL be unique for the sender and is echoed in MSA-2.
+
+  ta-q25-014:
+    result: partial
+    severity: note
+    guide: [msa-1-guidance]
+    note: >-
+      MSH-11 is required and bound to HL70103, and the MSA-1 guidance mentions an unsupported processing ID. The guide
+      does not say what an IIS does with 'T' or 'D' arriving at a production endpoint.
+    recommendation: State that production interfaces SHALL send 'P', and how an IIS treats other values (see ta-q33-020).
+
+  ta-q03-033:
+    result: answers
+    note: IGAMT IZ-42 (MSH-15 SHALL be 'NE') and IZ-41 (MSH-16 SHALL be 'AL'). The narrative does not mention them.
+
+  ta-q01-007:
+    result: partial
+    guide: [application-level-scope-of-ack-messages]
+    note: >-
+      IGAMT fixes MSH-15 to 'NE' and MSH-16 to 'AL', but the narrative never explains acknowledgement modes. 3.3.2 has an
+      intermediary return 'CR' (a commit acknowledgement), which the sender's MSH-15 'NE' says it does not want.
+    recommendation: >-
+      Explain in the ACK profile that MSH-15 'NE' and MSH-16 'AL' mean one application acknowledgement and no commit
+      acknowledgement, and square that with the 'CR' an intermediary may return.
+
+  ta-q08-029:
+    result: answers
+    guide: [application-level-scope-of-ack-messages--s3]
+    note: >-
+      MSH-16 SHALL be 'AL' (IZ-41), and the IIS SHALL return exactly one ACK for each VXU. That is stronger than the
+      2021 answer, which let an IIS honor 'ER'.
+
+  ta-q03-038:
+    result: answers
+    note: IZ-41 settles MSH-16 ('AL'). Only IGAMT says so.
+
+  ta-q09-029:
+    result: answers
+    note: The Z23 profile requires MSH-21.1 'Z23'.
+
+  ta-q03-092:
+    result: answers
+    guide: [scope]
+
+  ta-q03-107:
+    result: differs
+    severity: warning
+    guide: [z23-return-an-acknowledgement, transport-level-vs-message-level-responses]
+    note: >-
+      Asked in 2019 and 2020 and answered: return a Z33 RSP, not a Z23. The guide now says a query that cannot be processed
+      (malformed MSH or QPD, missing required header information) gets a Z23 ACK, and IGAMT allows MSH-9.2 'Q11' in the
+      Z23 profile. Systems built to the past answer will send and expect Z33.
+    recommendation: >-
+      Confirm the change, record it in the change history, and say which query errors get a Z23 ACK and which a Z33 RSP
+      (for example, an invalid QPD parameter). Z23 is also listed under the RSP profiles, though it is an ACK; say so.
+
+  ta-q30-015:
+    result: differs
+    guide: [z23-return-an-acknowledgement]
+    note: >-
+      The 2024 answer: run the query anyway with a Warning, or reject with a Z33 RSP (MSA-1 'AE', ERR on MSH-21). Under the
+      guide, missing required header information gets a Z23 ACK, and 'AE' no longer means rejected. See ta-q03-107.
+
+  ta-q38-003:
+    result: partial
+    guide: [responsible-organization-msh-22, submitting-organization-msh-4-sending-facility--s2]
+    note: >-
+      The guide ties transport credentials to MSH-4 and says authorization to submit for another organization is set up
+      at onboarding. It does not say whether an IIS should check MSH-22 against that authorization, or what severity to
+      give a mismatch.
+    recommendation: >-
+      Add a statement on MSH-22 that is not authorized for the submitting organization: for example, IIS MAY validate it
+      against onboarding records, and report a mismatch as an Error or Warning by local policy.
+
+  ta-q19-008:
+    result: partial
+    severity: note
+    guide: [organization-identifier-data-types]
+    note: >-
+      The IGAMT binding answers the identifier type question (HL70203). The narrative never mentions MSH-23, and 2.7.1
+      says the components after HD.1 are optional. The past advice not to require MSH-22 components 6 to 10 is not in the
+      guide.
+
+  ta-q03-020:
+    result: answers
+    note: SFT is optional (O) in the Z23 profile and in every other profile.
