@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4.2 CDC Core Data Elements for Functional Standards · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="data-standardization-and-integra-cdc-core-data-elements-for-functional-standards">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a></nav>
 <header class="card-head"><h1><span class="num">4.2</span> CDC Core Data Elements for Functional Standards</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">3 notes</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-duplicate-title-262fb3b2"><span class="sev">Note</span> Another card has the same title (2.3.1 CDC Core Data Elements for Functional Standards). Distinct titles make navigation and links clearer.<a class="f-id" href="../quality/index.html#qf-duplicate-title-262fb3b2">qf-duplicate-title-262fb3b2</a></li><li class="finding sev-note" id="qf-long-card-429375b4"><span class="sev">Note</span> Narrative is 4 blocks and 377 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-429375b4">qf-long-card-429375b4</a></li><li class="finding sev-note" id="qf-normative-prose-4997c944"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Each CDE must be supported by several key functions within an IIS: facilitating input, processing, validation, updates, and deletion to maintain data accuracy and consistency; secure storage to guarantee accessibility and preservation for future use; and, where needed, generation or transformation …</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-4997c944">qf-normative-prose-4997c944</a></li></ul></details></aside>
 <div class="narrative"><p>The CDC Core Data Elements for Functional Standards (CDEs) are the baseline set of data elements that CDC has identified as essential to IIS functionality, ensuring the completeness of patient and vaccination records for each vaccination event. CDEs are documented in the CDC Core Data Elements (CDE) for Functional Standards resource, which provides definitions, rationale, and standards mappings for each element. Each CDE is mapped to a corresponding HL7 v2.5.1 field or component, meaning that the HL7 messaging conformance defined throughout this guide is, in large part, the mechanism by which CDEs are actually captured, transmitted, and exchanged between systems. This guide focuses on that HL7 messaging conformance and does not restate the full CDE catalog, definitions, or rationale, which are maintained in the CDE resource itself <a class="cite" href="../resources/index.html#ref-3">[3]</a>.</p>
 <p>Each CDE must be supported by several key functions within an IIS: facilitating input, processing, validation, updates, and deletion to maintain data accuracy and consistency; secure storage to guarantee accessibility and preservation for future use; and, where needed, generation or transformation of CDEs, such as creating unique identifiers or combining data. Many of these functions are expressed directly in this guide's HL7 conformance requirements: for example, a CDE's usage designation (R, RE, O, etc.) reflects expectations for how consistently that element should be populated in a VXU, and specific HL7 fields such as <a class="sref" href="../structure/segments/msh/index.html#f4" title="Sending Facility">MSH-4</a>, <a class="sref" href="../structure/segments/pid/index.html#f7" title="Date/Time of Birth">PID-7</a>, and <a class="sref" href="../structure/segments/rxa/index.html#f3" title="Date/Time Start of Administration">RXA-3</a> exist precisely to carry designated CDEs across systems in a standardized way.</p>
@@ -48,7 +48,7 @@
 <section class="xref" aria-labelledby="xref-h"><details>
 <summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">3 fields · from the IGAMT export</span></summary>
 <p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
-conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+conformance statements that test it.<span class="author-only"> <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</span></p>
 <div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
 <tbody><tr><th scope="row"><a href="../structure/segments/msh/index.html#f4"><code>MSH-4</code></a><div class="mini">Sending Facility</div></th><td><div class="u-row"><span class="u">R [1..1] HD_IZ01</span> <span class="u-where">Z22 MSH_#ConsolidatedIG_IZ01, Z23 MSH_#ConsolidatedIG_IZ01, Z34 MSH_#ConsolidatedIG_IZ01, Z44 MSH_#ConsolidatedIG_IZ01, Z31 MSH_#ConsolidatedIG_IZ01, Z32 MSH_#ConsolidatedIG_IZ01, Z33 MSH_#ConsolidatedIG_IZ01, Z42 MSH_#ConsolidatedIG_IZ01</span></div></td><td><a href="../structure/value-sets/hl70300/index.html"><code>HL70300</code></a>, <a href="../structure/value-sets/hl70361/index.html"><code>HL70361</code></a>, <a href="../structure/value-sets/hl70362/index.html"><code>HL70362</code></a>, <a href="../structure/value-sets/hl70363-iz01/index.html"><code>HL70363_IZ01</code></a></td><td><span class=mini>—</span></td></tr><tr><th scope="row"><a href="../structure/segments/pid/index.html#f7"><code>PID-7</code></a><div class="mini">Date/Time of Birth</div></th><td><div class="u-row"><span class="u">R [1..1] TS_NZ</span> <span class="u-where">Z22 PID_IZ01, Z22 PID_IZ01 (slice), Z22 PID_IZ03 (slice), Z31 PID_IZ01, Z32 PID_IZ01</span></div><div class="u-row"><span class="u">R [1..1] TS_IZ01</span> <span class="u-where">Z42 PID_IZ02</span></div></td><td><span class="mini">—</span></td><td><span class=mini>—</span></td></tr><tr><th scope="row"><a href="../structure/segments/rxa/index.html#f3"><code>RXA-3</code></a><div class="mini">Date/Time Start of Administration</div></th><td><div class="u-row"><span class="u">R [1..1] TS_NZ</span> <span class="u-where">Z22 RXA_IZ01, Z22 RXA_IZ01_Adm (slice), Z22 RXA_IZ01_His (slice), Z22 RXA_IZ01_Ref (slice), Z22 RXA_IZ01_Con (slice), Z22 RXA_IZ01_NVx (slice), Z32 RXA_IZ02, Z42 RXA_IZ03</span></div></td><td><span class="mini">—</span></td><td><abbr class="cs" title="RXA_IZ01: If RXA-4.1 (Time) is valued then RXA-4.1 (Time) shall be identical to RXA-3.1 (Time)">IZ-30</abbr></td></tr></tbody></table></div></details></section>
 
@@ -66,8 +66,8 @@ conformance statements that test it. <a href="../quality/igamt/index.html">How t
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

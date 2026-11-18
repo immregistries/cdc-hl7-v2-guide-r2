@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4.1.2 Data Types and Value Sets · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="data-types-and-value-sets-data-types-and-value-sets">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../data-types-and-value-sets/index.html">4.1 Data Types and Value Sets</a></nav>
 <header class="card-head"><h1><span class="num">4.1.2</span> Data Types and Value Sets</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-duplicate-title-76b436a0"><span class="sev">Note</span> Another card has the same title (4.1 Data Types and Value Sets). Distinct titles make navigation and links clearer.<a class="f-id" href="../quality/index.html#qf-duplicate-title-76b436a0">qf-duplicate-title-76b436a0</a></li></ul></details></aside>
 <div class="narrative"><p>In HL7 v2 messages, data types define the structure and format of fields and their components. Value sets and code systems are separate enumerations applied within coded fields; they are not data types themselves. See Section 7.3, Data Types, for the formal HL7 v2 data type taxonomy and Section 7.4, Value Sets, for the ValueSets and authoritative field-to-value-set mappings.</p>
 <ul><li><strong>Primitive (simple) data types</strong> are unstructured or atomic values used to represent a single piece of information, such as a string or text value (e.g., patient name, street address), a numeric value (e.g., administered dose amount, birth order), or a date/time value (e.g., date of birth, administration date, message sent date).</li><li><strong>Composite (complex) data types</strong> are composed of multiple components, each with its own data type. Coded data fields are one example, using data types such as CE or CWE to represent coded elements. The specific code set applied to a given CE or CWE value is determined by the field definition itself, not by the CE/CWE data type; for instance, a field may require CVX codes to represent vaccine type.</li><li>Common code systems and value sets referenced in coded fields include CVX (Vaccination Codes) and NDC (National Drug Codes), and the authoritative mapping of which code system applies to each field is documented in Section 7.4, Value Sets, and in the profile field tables (see Section 7.1). XPN (Extended Person Name) is another example of a composite data type, including components such as family name (FN), given name, and name type, where FN is itself a data type.</li><li><strong>Special-purpose data types</strong> serve specific, narrow purposes within HL7 messaging. Examples include VID (Version ID), used to represent version identifiers, and HD (Hierarchic Designator), used to represent system, facility, or namespace identifiers.</li></ul></div>
@@ -59,8 +59,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

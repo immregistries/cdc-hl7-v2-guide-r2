@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Local Profiles &amp; Jurisdictional Constraints · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Local Profiles &amp; Jurisdictional Constraints</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">18 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions in this section concern how far an IIS may go in adding local requirements on top of the national HL7 v2.5.1 Immunization IG, how local guides should be written and documented, and how EHR vendors serving many jurisdictions should cope with the variation. A large cluster arose during the 2020-2021 COVID-19 vaccine rollout, when jurisdictions added data elements (priority group, playbook elements) and vendors asked whether national specifications existed. Recurring themes are the difference between "legal" local constraints and helpful ones, the preference for RE over R for policy-driven requirements, and state laws (consent, SOGI) that force local deviations.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (7)</summary><ul><li>Document the rules for constraining usage codes in local profiles (which transitions are allowed, e.g., RE to R, O to X, X to O).</li><li>Limit the scope of local constraints and encourage RE over R for policy-driven requirements.</li><li>Jurisdictional requirement tables should use HL7 usage codes precisely and state the consequence of a missing value (rejection vs. warning).</li><li>Address consent/registry status resending: the IG assumes it can be sent with every update, conflicting with send-once consent policies.</li><li>Add guidance on submitting on behalf of another organization, including identification of the responsible organization when one sender transmits for multiple organizations.</li><li>Consider national race/ethnicity codes for unknown values so EHRs can build one solution for all IIS.</li><li>Clarify the IG&#x27;s position on Z-segments in local guides.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">COVID-19 Reporting Requirements</a> <span class="mini">6</span></li><li><a href="#g-1">Constraining National IG Usage Locally (R, RE, O, X)</a> <span class="mini">5</span></li><li><a href="#g-2">Local Implementation Guides &amp; Documentation</a> <span class="mini">3</span></li><li><a href="#g-3">State Law, Policy &amp; Multi-Jurisdiction Reporting</a> <span class="mini">4</span></li></ul>
+<h2 id="g-0">COVID-19 Reporting Requirements</h2><section class="ta-q r-unassessed" id="ta-q06-027">
+<h3>Is there a plan to define a minimum data set that EHRs should support for COVID vaccine reporting to IIS, and is anyone tracking state-specific COVID requirements?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No national plan to define a minimum data set for EHR reporting was known. Some IIS were defining requirements for EHRs, e.g., asking for priority group or encouraging currently optional fields such as multiple race codes. There is no formal process requiring IIS to clear such requirements with CDC or another national body; AIRA can coordinate through SISC when IIS ask.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q06-010">
+<h3>The CDC COVID playbook lists data elements such as administered-at location type, dose number, vaccination series complete, comorbidity status (Y/N) and recipient missed vaccination appointment (Y/N). Are EHRs expected to send these to the IIS, and where in the VXU?</h3>
+<p class="mini">Asked 2× · 2020 · VXU · Answered · Related: RXA, OBX</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Most do not need to be submitted by EHRs. - Administered-at location type should be metadata the IIS captures during onboarding; there is no need to send it with each VXU, and the IIS reports it to CDC. - Dose number and series complete are calculated by the IIS with its CDS engine when reporting to CDC. - Missed vaccination appointment was removed as a CDC requirement. - Comorbidity status was still under discussion; as defined by CDC, most IIS could not accept it and there is no standardized way to send it in HL7 Z22.</p>
+<p>(The same answer was given both times the question was asked.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q06-033">
+<h3>Are there additional HL7 specifications for submitting COVID immunizations?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There are no additional national specifications for COVID vaccinations. Jurisdictions may have additional requirements (e.g., priority group or non-vaccine products). Follow the current national IG and confirm with each jurisdiction whether it has additional requirements.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q06-028">
+<h3>Is there a central list tracking changes IIS are making to their HL7 interface requirements for COVID, so EHR vendors can prepare customers?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q07-001">
+<h3>An IIS publishes a table of &quot;required&quot; COVID-19 data elements for HL7 connections. Is there anything in the table that should be changed?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · Answered · Related: Data Quality &amp; Validation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The requirements outlined looked good overall. The main concern is the use of the word "required". It needs to be clear whether "required" means a message will be rejected if any of those fields are missing. The table itself only nominally distinguished a few optional fields, a couple of RE fields and a few conditionally required fields. Setting the bar that high risks getting bad data: if submitters read "required" as meaning they must put something in the field or nothing will be accepted, they may fill the fields with junk values just to get the message accepted.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q05-010">
+<h3>For COVID vaccine reporting, is the EHR expected to honor a patient&#x27;s consent-to-share choice, or should the VXU be sent even if the patient says &quot;do not share&quot; because COVID vaccine reporting is mandatory?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · No answer recorded · Related: PD1</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">Constraining National IG Usage Locally (R, RE, O, X)</h2><section class="ta-q r-unassessed" id="ta-q01-024">
+<h3>Where is the guidance documented on how usage codes (R, RE, O, X) may be changed in a local profile (e.g., RE may be constrained to R but not to X)? Specifically, can a usage of X be changed to O?</h3>
+<p class="mini">Asked 1× · 2016 · general · No answer recorded · Related: Version &amp; IG Interpretation</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q08-017">
+<h3>Can an IIS local implementation guide mark most national IG optional (O) fields as X (Not Supported) to tell providers it won&#x27;t use them? Is there any expectation that an IIS accepts and stores optional fields?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Answered · Related: Version &amp; IG Interpretation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes, that is acceptable, and IIS are not expected to accept or store optional fields. What matters is how the interface behaves when a submitter populates one of these fields. It should be forgiving, not strict: a field that is X in one IIS may be RE in another, and EHRs struggle when both IIS are extremely strict.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q40-011">
+<h3>The IG says local implementers may further constrain the guide (e.g., make optional fields required). Is that license to impose any local rule, such as requiring ZIP code on every patient, and how should a multi-state vendor handle such requirements without maintaining many HL7 variants?</h3>
+<p class="mini">Asked 1× · 2025 · VXU/ACK · Answered · Related: PID-11, Data Quality &amp; Validation, Version &amp; IG Interpretation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Adding a local requirement is technically legal under the IG, but that does not mean it solves problems, and it can create others. IIS must retain some flexibility for inherently local values (e.g., MSH-4, RXA-11.4) and jurisdictional policy choices. AIRA's Measurement &amp; Improvement (M&amp;I) process distinguishes expected from unexpected local differences: IIS that add requirements like patient address can still be validated, but only as "Complete Minor Difference".</p>
+<p>Talking points: - Most policy requirements should be RE (required if known) rather than R, allowing legitimate unknowns. - Staying close to the national standard lowers integration and maintenance burden. - "Always required" policies do not produce better data; they convert missing data into bad placeholder data that is harder to detect. - The HL7 interface is an automated data feed, not a data-entry screen; rejecting messages for missing data rarely leads to correction and loses vaccination data. - Manage completeness through data quality monitoring and outreach (e.g., one missing ZIP in 150,000 records is noise; 95% missing from one provider indicates a process problem). - Vendors should implement configurable validation severity (error/warning/informational per jurisdiction) in a single interface rather than multiple message variants. - The IIS may already have the ZIP for the patient or could derive it via address services, so rejecting for a missing ZIP should be revisited.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q23-013">
+<h3>An IIS accepts VXU messages with an empty patient phone number (PID-13) and an empty dose amount (RXA-6). Staff listed these as gaps against national standards. Should the IIS start rejecting messages missing these values to align with national standards?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Related: PID-13, RXA-6, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AART Assessment and Validation does not ask for this change. Accepting messages without the patient phone number or dose amount is not a deviation the national standard requires the IIS to fix. If the IIS makes these fields mandatory anyway, it adds local requirements beyond the national standard, and those must be documented for trading partners.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q16-009">
+<h3>Does a state&#x27;s local implementation guide take precedence over the national CDC IG? A provider&#x27;s vendor refuses to change race/ethnicity handling to meet the state&#x27;s requirements, citing the CDC guide.</h3>
+<p class="mini">Asked 1× · 2022 · VXU · Answered · Related: PID-10, PID-22, Version &amp; IG Interpretation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It is more complicated. A jurisdiction can set additional expectations locally, such as making RE/O fields required or adding values to code sets, but it must communicate and negotiate with its community during implementation. A certified system cannot be expected to meet arbitrary state requirements without modification and cost; seemingly simple changes can be expensive and complicate the EHR's deployments in other states. AIRA hopes CDC will add race/ethnicity codes for unknown values nationally, which would let EHRs build one solution for all IIS. Meanwhile, the IIS should accommodate EHR partners that meet the national standard but cannot yet meet local requirements.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">Local Implementation Guides &amp; Documentation</h2><section class="ta-q r-unassessed" id="ta-q01-051">
+<h3>What guidance exists for creating a local delta guide (a local IG that documents only differences from the national IG)?</h3>
+<p class="mini">Asked 1× · 2016 · general · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-006">
+<h3>An IIS is updating its local HL7 implementation guide. Are there resources or supporting documents to help?</h3>
+<p class="mini">Asked 1× · 2021 · general · Answered · Related: Version &amp; IG Interpretation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA shared an example local guide showing how an IIS might document only its differences from the national guide. Since submitters generally do not read full guides, AIRA encourages states to publish short, easy-to-navigate guides that highlight important local requirements rather than restating the national IG. AIRA also pointed to national projects using the NIST IGAMT tool to document IIS requirements as conformance profiles, which is another avenue for documenting local requirements that AIRA can help with.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q17-016">
+<h3>Is there a repository of all IIS local implementation guides that could be reviewed to see how other IIS format RSP messages?</h3>
+<p class="mini">Asked 1× · 2022 · RSP · Answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA has some IIS IGs but does not maintain a repository, so what it has is not necessarily up to date. Also, many local IGs do not document how their RSPs look. AIRA offered instead to share a few anonymized sample RSP messages it has seen IIS create that follow the standard.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">State Law, Policy &amp; Multi-Jurisdiction Reporting</h2><section class="ta-q r-unassessed" id="ta-q05-019">
+<h3>Why does one state IIS have unique registry consent requirements that EHRs must build specifically, and how have others handled them? This seems to be a barrier to bidirectional functionality across states.</h3>
+<p class="mini">Asked 1× · 2020 · VXU · Answered · Related: Bidirectional Exchange, PD1 (registry status/consent)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Some IIS variation exists because state laws and regulations require things the national standard does not support. This state requires more consent detail than yes/no; AIRA worked with the IIS to put this in the message in a way consistent with the standard, but it still requires EHR changes, and changing it would likely require legislative action.</p>
+<p>An additional hurdle: the IIS lacks an effective process for handling withdrawn patients. Withdrawal removes the person entirely from the database, so resubmitting the patient with a positive consent, even old information, would re-consent them. To prevent this, the IIS's policy is that submitters may not use the real-time bidirectional interface unless they can send consent once for a patient and never again. This is very difficult to implement and technically breaks the national standard, which expects this information to be sent whenever the patient record is updated. The IIS is aware and looking for workarounds that would allow EHRs to report consent whenever they like, but until then its policy is to submit consent using its state-specific codes and only once.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q33-003">
+<h3>Are other jurisdictions requiring sexual orientation and gender identity (SOGI) data in HL7 submissions, and is there data on how many IIS collect it even if not required?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Partly answered · Related: PID-8</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA does not have firm numbers on SOGI requirements or collection across IIS and suggested an AIRA Information Request to the community. AIRA has received SOGI questions from several jurisdictions about supporting it in HL7 processing; one state has legislation (HB22-1157) with additional data collection requirements. AIRA is not aware of any IIS requiring SOGI and sees no evidence of it in Measurement &amp; Improvement submission assessment. Testing for SOGI support is limited: a VXU with SOGI data can be submitted and the patient queried, but at best this shows whether the IIS rejects the data; acceptance does not show it was stored, and IIS are unlikely to return SOGI in an RSP.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q08-005">
+<h3>A practice has locations in multiple states (and in cities with their own IIS). Is there guidance on reporting the same patient to multiple IIS (city and state; patient&#x27;s state of residence versus the office&#x27;s state), and do MOUs apply? Is there a use case for querying more than one IIS, and if so, should those queries be sequential?</h3>
+<p class="mini">Asked 1× · 2021 · VXU/QBP · No answer recorded · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q45-008">
+<h3>A health system sold a practice that continues to use the health system&#x27;s hosted EHR, so the health system will keep submitting that practice&#x27;s immunizations to the IIS. After separating the site, its data was rejected. The interface team proposed a configurable interface-engine lookup to populate the IIS organization identifiers (MSH-4) for the new owner, but the IIS is considering requiring separate credentials or a separate interface. Is there a best practice for this arrangement?</h3>
+<p class="mini">Asked 1× · 2026 · VXU · Partly answered · Related: MSH-4, Onboarding &amp; Interface Testing</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA has no published guidance on this; it is primarily a policy question for the IIS. The upcoming IG is adding guidance on how a system submits on behalf of another organization, so this kind of arrangement is known and technically supported. At a technical level, using a configurable lookup to populate the new owner's IIS organization identifiers looks sensible, and there is no national-level reason not to solve it this way. The question could also be submitted to the AIRA weekly update to gather experiences from other jurisdictions.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

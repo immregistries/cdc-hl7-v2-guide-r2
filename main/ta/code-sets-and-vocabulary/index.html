@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Code Sets &amp; Vocabulary · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Code Sets &amp; Vocabulary</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">26 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>This section covers questions about the vaccine and related code sets used in immunization messaging. These include CVX, CPT-to-CVX mappings, NDCs and their start/end dates, and value sets distributed through the CDC IIS code set pages and PHIN VADS. It also covers vocabulary for demographic data (race/ethnicity, sexual orientation and gender identity, character sets). Recurring themes are: - How to code products that do not fit cleanly: unspecified, non-US, clinical trial, non-vaccine and newly released products. - How to interpret mapping changes and NDC end dates. - Why coded values are required instead of free text. - Where to find authoritative value sets as PHIN VADS is retired.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (6)</summary><ul><li>Provide a stable, published home (or embedded tables) for value sets currently on PHIN VADS: contraindications, reactions, VIS vaccines/barcodes and special indications. The IG should also name an alternative authoritative source once PHIN VADS is retired.</li><li>Clarify the vaccine group mapping for ambiguous unspecified codes (e.g., CVX 109), including what vaccine group value an IIS should return in RSP messages, and whether unspecified CVX may appear in forecasts.</li><li>Define the supported character set for names (likely Latin-1, versus the current ASCII 32-126 string guidance) and how to represent characters outside it. Clarify MSH-18/MSH-19 use.</li><li>Address how to message sexual orientation and gender identity separately from administrative sex (PID-8), aligned with the HL7 O&amp;O work.</li><li>Clarify expectations for HL7 table values unlikely to apply to IIS (e.g., Table 0203 ANT, DEA, GL), covering both acceptance and return in RSP.</li><li>Consider guidance on whether and how non-vaccine products (immune globulins, TB tests) are recorded and messaged.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">Code Set Sources, Governance and Maintenance</a> <span class="mini">5</span></li><li><a href="#g-1">CVX Codes and Vaccine Groups</a> <span class="mini">10</span></li><li><a href="#g-2">CPT-to-CVX Mapping</a> <span class="mini">4</span></li><li><a href="#g-3">NDC Codes</a> <span class="mini">3</span></li><li><a href="#g-4">Demographic Vocabulary, Character Sets and HL7 Tables</a> <span class="mini">4</span></li></ul>
+<h2 id="g-0">Code Set Sources, Governance and Maintenance</h2><section class="ta-q r-unassessed" id="ta-q41-001">
+<h3>Our local HL7 implementation guide links to PHIN VADS value sets (e.g., PHVS_VaccinationSpecialIndications_IIS), but the links no longer work. What should we link to for the immunization reaction, contraindication and VIS value sets?</h3>
+<p class="mini">Asked 1× · 2025 · VXU · Partly answered · Related: OBX-5, OBX-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The PHIN VADS site had been offline for a period but was back up, so the existing value sets could be linked again: PHVS_VISVaccines_IIS, PHVS_VISBarcodes_IIS, PHVS_VaccinationContraindication_IIS and PHVS_VaccinationReaction_IIS. However, CDC plans to sunset PHIN VADS, so CDC was copied for additional guidance on long-term access to these value sets. Access to these value sets is being considered as part of the work on the next version of the v2.5.1 Implementation Guide (Release 2.0).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q43-010">
+<h3>Is the retirement of PHIN VADS (the source of value sets used in IIS HL7 messaging) final, or did advocacy against it succeed?</h3>
+<p class="mini">Asked 1× · 2026 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>From what AIRA was hearing, the retirement is a done deal. AIRA is advocating for a viable replacement, or at least for a retirement date further out than about two months.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q07-013">
+<h3>In one IIS, new vaccines cannot be created in the application; related records must be added to several back-end tables. Is that typical, and is there a standard process or documentation for managing vaccine code sets?</h3>
+<p class="mini">Asked 1× · 2020 · general · Partly answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA pointed to its recently published guidance on Vaccine Code Set Management as a starting point. It also pointed to the slide deck and recording from the May AIRA Discovery Session on that project (https://vimeo.com/424041599).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q19-004">
+<h3>ACIP publishes recommended abbreviations (short names) for vaccines. Are IIS expected to follow these abbreviations or create their own short names? Does any standard require them?</h3>
+<p class="mini">Asked 1× · 2022 · general · Answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No published standard requires IIS (or EHRs) to adopt specific vaccine short names, such as those shown in drop-downs. CDC distributes the official codes and names for vaccines in the CVX code set. Short names do not matter for interoperability: IIS ignore the text label sent in HL7 messages and process only the code. The ACIP abbreviation list exists so readers can understand ACIP recommendations. It is not a standard for clinical settings or for how EHR systems must be configured, although adopting it might help correlate clinical practice with ACIP. There are no national requirements for IIS short name conventions.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q27-007">
+<h3>What is the benefit of requiring coded values (e.g., VXC50) instead of human-readable values (e.g., &quot;Public Funds&quot;)? The receiving computer only needs a value that matches its database, so why not allow, for example, &quot;Left Deltoid&quot; in RXR, or map several incoming variants to one local value?</h3>
+<p class="mini">Asked 1× · 2023 · VXU/general · Answered · Related: RXR-1, RXR-2, OBX-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>A computer does not care whether a code is readable, but there are practical reasons for opaque codes. Codes need to be technically stable, while labels often get debated and changed for years. Keeping human meaning out of codes lets labels change without affecting operations.</p>
+<p>Historically, IIS did accept free-form local values when electronic exchange began (and not always in HL7). Each provider used different text for the same concept ("LD", "123" and "LefDel" for left deltoid), and even for vaccines (Pnu, Pneumo, PCV, 48, etc.). This required extensive mapping and maintenance for each trading partner and was not a sustainable model. Standard code sets avoid that ambiguity and streamline onboarding.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">CVX Codes and Vaccine Groups</h2><section class="ta-q r-unassessed" id="ta-q08-028">
+<h3>Was CVX 213 (SARS-COV-2 / COVID-19 vaccine, unspecified) removed? It doesn&#x27;t appear on the COVID-19 CVX list.</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. CVX 213 is still in the code set. It does not appear in the COVID-19 summary table on the CDC website, but it is in the full CVX file.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q33-001">
+<h3>The CDC CVX-to-vaccine-group mapping lists CVX 109 (pneumococcal, unspecified) under two vaccine groups (PPSV and PCV), and maps it to specific codes (33, 152) instead of back to itself as most unspecified codes do. Why would one CVX map to two groups, and is that allowed from an HL7 standpoint?</h3>
+<p class="mini">Asked 1× · 2024 · RSP · Answered · Related: OBX-5, RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>CVX 109 is mapped to both groups because the code is not specific enough to show whether the dose was a pneumococcal conjugate (PCV) or a pneumococcal polysaccharide (PPSV) vaccine. In effect, the listing represents that code 109 includes both PCV and PPSV. Because of this ambiguity, code 109 is one of the most problematic unspecified codes. For context, the CDSi project lumps PCV and PPSV into a single Pneumococcal vaccine group. Given recent PCV advances, PPSV is expected to see very limited use going forward (PPSV is not recommended at all after PCV20 or PCV21).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-037">
+<h3>Should &quot;unspecified&quot; CVX codes be used in a forecast returned in a response?</h3>
+<p class="mini">Asked 1× · 2016 · RSP · No answer recorded · Related: RXA-5, OBX-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-028">
+<h3>Which CVX codes should be used for the various influenza products, and how should new seasonal flu NDCs (e.g., 2017-2018 Flulaval) be mapped to the proper CVX?</h3>
+<p class="mini">Asked 2× · 2017 · VXU · No answer recorded · Related: RXA-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-042">
+<h3>CVX 102 (DTaP/DTP-Hib-Hep B, non-US) is described as containing DTP before 2007 and DTaP now. The Pink Book shows Mexico&#x27;s Pentavalente (DTP/Hep B/Hib) before July 2007 and Pentavalente Acelular (DTaP/polio/Hib) from August 2007. Is the CVX description correct?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Related: RXA-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-043">
+<h3>A non-US hepatitis A vaccine (Biovac-A) does not have a CVX code. How should it be reported?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Related: RXA-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-013">
+<h3>How do IIS handle vaccination events from clinical trials?</h3>
+<p class="mini">Asked 1× · 2018 · VXU · Partly answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA was unsure at the time how IIS handle these. CVX codes for clinical trial vaccines are usually created on a per-request basis.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-067">
+<h3>Will CVX codes be added for TB tests?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Related: RXA-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-075">
+<h3>How should adjuvants be recorded or reported?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Related: RXA-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q20-008">
+<h3>Is there best practice guidance on which non-vaccine products (those listed at the bottom of the CDC CVX table) should or should not be recorded in an IIS, or on what non-vaccine data other jurisdictions ask providers to send?</h3>
+<p class="mini">Asked 2× · 2022 · VXU · No answer recorded · Related: RXA-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">CPT-to-CVX Mapping</h2><section class="ta-q r-unassessed" id="ta-q02-053">
+<h3>The CPT-to-CVX mapping maps vague CPT codes to unspecified-formulation CVX codes. Why? This could cause problems if used incorrectly.</h3>
+<p class="mini">Asked 1× · 2017 · VXU · Partly answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There was no change to the CPT-to-CVX mappings. However, updated language would be added to the webpage describing the intent and appropriate use of the table.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-113">
+<h3>Why does CPT 90689 map to CVX 150?</h3>
+<p class="mini">Asked 1× · 2019 · VXU · Answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It was an odd mapping. CDC changed the mapping from CVX 150 to 161, which is still not perfect. The real problem is that CPT 90689 does not represent a flu vaccine currently on the market, so there is no corresponding CVX.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-004">
+<h3>Why did the CPT code mapping change for Tenivac?</h3>
+<p class="mini">Asked 1× · 2019 · VXU · Partly answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>After discussion with CDC: the change stems from AMA's decision to combine CPT codes into one CPT code, and there was no great solution to the resulting mapping problem.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q12-005">
+<h3>New CPT codes distinguish COVID booster/third doses for reimbursement. Could HL7 messages use these codes so that IIS can track third doses and boosters without relying on internal evaluation logic?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It is not as simple as it appears. The CPT vaccine product code stays the same (e.g., 91300 for Pfizer). Only the administration code differs (e.g., 0001A, 0002A, 0003A), and IIS are not known to collect administration codes, nor EHRs to submit them. The immunocompromised additional dose is the same formulation, so there will be no new NDC or CVX codes. Those code systems describe the formulation of the product, not the intent of administration or the condition of the patient. If booster formulations differ (e.g., a half-dose formulation), new NDC/CVX codes would follow.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">NDC Codes</h2><section class="ta-q r-unassessed" id="ta-q03-011">
+<h3>How should NDC start and end dates be managed? What does it mean when a vaccine NDC is retired or has an end date in the CDC NDC crosswalk, and can an IIS safely inactivate NDCs with an end date?</h3>
+<p class="mini">Asked 2× · 2018–2025 · VXU · Answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>CDC NDC start and end dates are approximations derived from the marketing start/end dates in FDA drug listings. The end date is when CDC considers the NDC retired in its code sets, and the FDA retired status may lag behind it. Manufacturers use the marketing end date inconsistently. Some mean the product can no longer be ordered, although unexpired stock may remain in provider inventories. Others retire the NDC only once all product has expired.</p>
+<p>Dates are more precise in two cases: - Seasonal influenza: the end date is the season end (e.g., 06/30), and vaccine should not be given after it. - COVID-19/EUA vaccines: dates are aligned with EUA authorization.</p>
+<p>The Consolidated NDC Crosswalk gives end dates for both unit of sale and unit of use. AIRA's interpretation is that the end date cannot be trusted for classical data quality purposes, such as rejecting doses after it. Depending on the manufacturer, it may represent last order, last expiry, last shipment or marketing end. "Date no longer marketed" is not trustworthy as a last-expiry date, and even with an expiry date a buffer would be prudent. An IIS should therefore not simply inactivate NDCs at their end date if providers could still be administering doses.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-028">
+<h3>Should the box (unit of sale) or vial (unit of use) NDC be used, and how should NDC codes be formatted?</h3>
+<p class="mini">Asked 1× · 2018 · VXU · Partly answered · Related: RXA-5, RXA-15</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The response provided a link to a lot number pattern matching document, plus best practices. Details are not recorded.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q32-007">
+<h3>Is there any national activity to create an NDC list/crosswalk for non-vaccine CVX codes (e.g., immune globulins) like the one maintained for vaccines?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is currently no such list. CDC has discussed adding NDCs and crosswalks for non-vaccine immune products such as immune globulins and has done a feasibility analysis. The barrier is interpretive, not technical. Treating these products like vaccines could imply that they are immunizations or confer immunity, which may be misleading: IGs are not always antigen- or disease-specific and may not provide durable immunity. CDC keeps this on its agenda. CDC does not maintain the older non-vaccine CVX codes, many of which are not retired and are still used by some jurisdictions. CDC is interested in learning which jurisdictions report non-vaccine administrations and why.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">Demographic Vocabulary, Character Sets and HL7 Tables</h2><section class="ta-q r-unassessed" id="ta-q30-003">
+<h3>Is there a standard list of acceptable special characters (e.g., accented characters in non-English names) that AIRA plans to use as the basis for guidance and AART testing? The only sources found so far are the ISO reference behind the MSH character set field and the Unicode/MES-2 lists.</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Partly answered · Related: MSH-18, MSH-19, PID-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA expects that its future guidance on special characters will probably be limited to Latin-1 upper- and lower-case letters, because most systems operate in English and other characters are rarely used. It also plans to include guidance on representing names as accurately as possible when their special characters fall outside the supported set.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-041">
+<h3>Will IIS come to expect the more granular (lower-hierarchy) race and ethnicity value set, or will the top-level value set continue to be accepted for the foreseeable future?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Related: PID-10, PID-22</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q11-002">
+<h3>What code sets and data elements should be used to collect and exchange sexual orientation and gender identity (SOGI) in immunization messaging (e.g., where state law requires the IIS to collect SOGI)?</h3>
+<p class="mini">Asked 2× · 2021–2022 · VXU/general · Partly answered · Related: PID-8, OBX-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The HL7 Orders and Observations work group is working on this topic. Its Confluence page (Sexual Orientation, Gender Identity, Administrative Sex, Birth Sex etc.) has the LOINC codes already developed, notes from past discussions, and contributions from jurisdictions on how they capture this information. (One of the two requests had no answer recorded.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-088">
+<h3>The CDC 2.5.1 Release 1.5 guide includes HL7 values unlikely to apply to IIS, e.g., Table 0203 Identifier Type values ANT, DEA and GL. Is an IIS expected to accept these values, and if it stores them, should they be returned to providers that query for the patient?</h3>
+<p class="mini">Asked 1× · 2016 · VXU/RSP · No answer recorded · Related: PID-3</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

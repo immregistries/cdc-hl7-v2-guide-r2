@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: QAK Query Acknowledgment · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · segment</p>
+<h1>QAK Query Acknowledgment</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">6 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>QAK questions center on QAK-2 (Query Response Status) and how it combines with the RSP response profile (Z31, Z32, Z33, Z42) for each query outcome: errors, not found, a single match, a list of candidates, and too many matches. Several questions come from AART query assessment results. One question addresses QAK-3 and whether it echoes the query name or names the response profile.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (3)</summary><ul><li>Provide a single normative table mapping each query outcome to response profile, MSA-1, QAK-2 and ERR-4 (currently in AIRA&#x27;s RSP guidance and IG diagrams).</li><li>Clarify when a Z23 ACK (message-level rejection) versus a Z33 RSP (query processing error) is returned.</li><li>State whether Z31 may be returned for Z44 queries.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">QAK-2 Query Response Status</a> <span class="mini">5</span></li><li><a href="#g-1">QAK-3 Message Query Name</a> <span class="mini">1</span></li></ul>
+<h2 id="g-0">QAK-2 Query Response Status</h2><section class="ta-q r-unassessed" id="ta-q44-013">
+<h3>For a query test expecting a Z31 list of patients, is QAK-2 = OK correct when returning a list of possible matches, even though the response also had MSA-1 = AE with a warning ERR about an unrecognized city in QPD-8?</h3>
+<p class="mini">Asked 1× · 2026 · RSP · Answered · Fields: <a href="../../structure/segments/qak/index.html#f2">QAK-2</a> · Related: MSA-1, ERR, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes, OK is correct. It is somewhat confusing because MSA-1 = AE indicates something was wrong with the query, but the IIS was able to cope and still execute it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q14-019">
+<h3>Which response profile and QAK-2 value apply to each query outcome? Is Z33 for no match, Z32 for a single high-confidence match, and Z31 for low-confidence or multiple matches, and what is used for too many matches?</h3>
+<p class="mini">Asked 1× · 2021 · QBP/RSP · Answered · Fields: <a href="../../structure/segments/qak/index.html#f2">QAK-2</a> · Related: MSH-21, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It depends on whether the query is history only (Z34) or history and forecast (Z44). Z33 is used for query fatal errors, no patients found, and too many matches, and also as the acknowledgment to a VXU; the query outcome is communicated in QAK-2. Z32 is for an exact match to a history-only query; Z42 is the exact-match response to a history-and-forecast (Z44) query. Z31 (list of candidate matches) is defined only for history-only queries; some IIS also use it for Z44, but that is beyond the standard and not required. Too many matches uses Z33 with QAK-2 indicating too many.</p>
+<p>Summary: message rejection error -&gt; Z23 with no QAK (both); processing error -&gt; Z33 QAK-2 = AE; no match -&gt; Z33 QAK-2 = NF; one match -&gt; Z32 (Z34) or Z42 (Z44) with QAK-2 = OK; multiple matches below the maximum -&gt; Z31 (QAK-2 = OK) or Z33 (QAK-2 = NF) for Z34, and Z33 (NF or TM) for Z44; more than the maximum -&gt; Z33 with QAK-2 = NF or TM. This is adapted from AIRA's RSP MSA-1/QAK-2/ERR-4 guidance document; see also the IG response diagrams for Z34 (around p. 151) and Z44 (around p. 232).</p></div><p class="ta-flag"><strong>Flagged when consolidated:</strong> The answer says Z33 is also used &quot;as the acknowledgment to a VXU&quot;; the VXU acknowledgment profile is normally Z23 (see the summary line and MSH-21 entries). Check the wording.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q32-014">
+<h3>For a Z34 query with only patient sex (missing name and birth date), the IIS returned a Z33 with MSA-1 = AE and an ERR, but either omitted QAK/QPD or returned QAK-2 = AR. What response is expected?</h3>
+<p class="mini">Asked 1× · 2024 · QBP/RSP · Answered · Fields: <a href="../../structure/segments/qak/index.html#f2">QAK-2</a> · Related: MSA-1, ERR, QPD, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The expected response is a Z33 RSP that includes QAK and QPD, with QAK-2 (Query Response Status) = AE (application error). An earlier response missing QAK/QPD did not meet; after the IIS's fixes, one-off retesting showed a Z33 with MSA-1 AE, an ERR for the missing date of birth, and QAK/QPD present, which is close to passing, but QAK-2 was AR rather than the expected AE. Results also depend on when the IIS deployed fixes relative to when the assessment was generated.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q13-021">
+<h3>When an IIS responds to a query that has an error, should it return a Z23 ACK or a Z33 RSP?</h3>
+<p class="mini">Asked 1× · 2021 · RSP/ACK/QBP · Answered · Fields: <a href="../../structure/segments/qak/index.html#f2">QAK-2</a> · Related: MSH-9, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>In the AART query measure, the IIS was returning a Z23 but should have been returning a Z33 response with the appropriate error.</p></div><p class="ta-flag"><strong>Flagged when consolidated:</strong> Compare with the outcome summary above, which still lists &quot;message rejection error -&gt; Z23 with no QAK&quot; (the Figure 41 cases: unsupported message type/event/processing ID). Clarify that Z23 applies only to those message-level rejections and Z33 to other query errors.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-058">
+<h3>Is a Z31 response appropriate when the result is TM (too many matches)?</h3>
+<p class="mini">Asked 1× · 2017 · RSP · Answered · Fields: <a href="../../structure/segments/qak/index.html#f2">QAK-2</a> · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. Per the IG and subsequent guidance document, a too-many-matches result should be returned as a Z33.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">QAK-3 Message Query Name</h2><section class="ta-q r-unassessed" id="ta-q12-014">
+<h3>When returning a Z31 to a Z34 or Z44 query, should QAK-3 echo the query name from the request (e.g., `Z34^Request Complete Immunization History^CDCPHINVS`) or represent the response profile?</h3>
+<p class="mini">Asked 1× · 2021 · RSP · Answered · Fields: <a href="../../structure/segments/qak/index.html#f3">QAK-3</a> · Related: QPD-1, MSH-21</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>QAK-3 should echo what was in the query that was sent (the QPD-1 message query name). The response profile is identified in MSH-21 (e.g., `Z31^CDCPHINVS`). NIST's example shows MSH-21 = `Z31^CDCPHINVS` with `QAK|37374859|OK|Z34^Request Immunization History^CDCPHINVS` and QPD-1 = `Z34^Request Immunization History^CDCPHINVS`.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

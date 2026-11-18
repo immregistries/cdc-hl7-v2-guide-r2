@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2.6 Data Quality Processes · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="data-quality-processes">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a></nav>
 <header class="card-head"><h1><span class="num">2.6</span> Data Quality Processes</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-mirow-pbr-01"><span class="sev">Note</span> MIROW guide MIROW Principles and Business Rules Reports (The report and spreadsheet): Missing. The guide cites individual MIROW guides but not the compiled rules, which are the stable way to point to a MIROW rule. The ERR-5 code set cites MIROW rules by bare number (BR 116) without the guide, which is how its citations became ambiguous (see mirow-dqa-45).<div class="evidence"><div class="ev-tags"><span>Missing</span><span>Action: Narrative</span></div><div class="ev"><span class="ev-k">Best practice</span> All principles and business rules from the ten MIROW guides, with their current wording, numbered by guide and year, with examples and remarks, and with terms from the MIROW Common Vocabulary marked.</div><div class="ev"><span class="ev-k">Recommendation</span> Cite the MIROW Principles and Business Rules report among the references. Ask AIRA to cite rules in the ERR-5 code set by their full name (for example, DQA2022 - BR115).</div></div><p class="mini"><a href="../mirow/principles-and-business-rules/index.html#mirow-pbr-01">See the MIROW comparison</a></p><a class="f-id" href="../quality/index.html#qf-mirow-pbr-01">qf-mirow-pbr-01</a></li></ul></details></aside>
 <div class="narrative"><p>High-quality immunization information depends on more than technical message validation. While HL7 conformance checks ensure that messages meet the structural requirements of the interface specification, data quality is a broader, end-to-end process that spans clinical workflows, correct system configuration, effective onboarding of submitting systems, and ongoing monitoring long after an HL7 interface is certified. This guide treats data quality as a shared, continuous responsibility between submitting systems, vendors, and IIS programs, focused on producing data that is accurate, complete, timely, and usable for public health and clinical decision-making.</p>
 <p>IIS programs improve data quality by focusing on three foundational dimensions, accuracy, completeness, and timeliness, and by ensuring that issues detectable at message receipt are communicated early through acknowledgement feedback, while also feeding into longer-term data-quality monitoring and improvement activities.</p>
@@ -49,7 +49,7 @@
 
 
 
-<section class="related tab-related"><h2>MIROW Best Practice Guides</h2><ul><li><a href="https://repository.immregistries.org/files/resources/62fbd92c465fe/data_quality_assurance_8_2022.pdf" rel="noopener" target="_blank">Data Quality Assurance in Immunization Information Systems</a> <span class="mini">August 2022 · <a href="../mirow/data-quality-assurance/index.html">comparison with this guide</a></span></li></ul></section>
+<div class="author-only"><section class="related tab-related"><h2>MIROW Best Practice Guides</h2><ul><li><a href="https://repository.immregistries.org/files/resources/62fbd92c465fe/data_quality_assurance_8_2022.pdf" rel="noopener" target="_blank">Data Quality Assurance in Immunization Information Systems</a> <span class="mini">August 2022 · <a href="../mirow/data-quality-assurance/index.html">comparison with this guide</a></span></li></ul></section></div>
 <section class="children"><h2>In this section</h2><ol><li><a href="../interpretation-of-re-required-by-may-be-empty/index.html"><span class="num">2.6.1</span> Interpretation of RE (&quot;Required by may be Empty&quot;)</a></li><li><a href="../shared-responsibility-for-data-quality/index.html"><span class="num">2.6.2</span> Shared Responsibility for Data Quality</a></li></ol></section>
 <section class="filter-terms" aria-label="Filter terms"><span class="mini">Filter the contents by:</span> <button type="button" class="term" data-term="data quality">data quality</button></section>
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../shared-responsibility/index.html"><span>Previous</span>2.5.6 Shared Responsibility</a><a class="next" href="../interpretation-of-re-required-by-may-be-empty/index.html"><span>Next</span>2.6.1 Interpretation of RE (&quot;Required by may be Empty&quot;)</a></nav>
@@ -60,8 +60,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

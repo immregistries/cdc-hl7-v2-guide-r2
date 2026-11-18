@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: NK1 Next of Kin / Associated Parties · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · segment</p>
+<h1>NK1 Next of Kin / Associated Parties</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">11 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions about NK1 cover who belongs in the segment (responsible party, guardian, emergency contact, foster parent), relationship coding in NK1-3 (Table 0063), address and phone component handling (NK1-4, NK1-5), and whether NK1 may or should be returned in query responses. Recurring themes are the IG's loose "suggested values" for relationships, the lack of a way to flag a legal guardian, and IIS validation that is stricter than the standard (e.g., warnings on deprecated XTN components).</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (4)</summary><ul><li>Define how to indicate that an NK1 person is the patient&#x27;s legal guardian (future guidance planned).</li><li>Remove meaning assigned to the first occurrence of repeating fields (e.g., &quot;primary&quot;/mailing address first) and rely on type codes.</li><li>Allow NK1 in the Z42 response profile (now in AIRA TAB).</li><li>Clarify the NK1-35 race coding system (CDCREC vs HL70005) to match PID-10.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">NK1 Segment (general)</a> <span class="mini">4</span></li><li><a href="#g-1">NK1-3 Relationship</a> <span class="mini">3</span></li><li><a href="#g-2">NK1-4 Address</a> <span class="mini">2</span></li><li><a href="#g-3">NK1-5 Phone Number</a> <span class="mini">1</span></li><li><a href="#g-4">NK1-35 Race</a> <span class="mini">1</span></li></ul>
+<h2 id="g-0">NK1 Segment (general)</h2><section class="ta-q r-unassessed" id="ta-q01-068">
+<h3>What type of person should be sent in an NK1 segment, and what does &quot;responsible party&quot; mean? Is it acceptable to send someone who is a &quot;bill to&quot; party but may not be responsible for vaccination decisions?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Related: NK1-3 (see also the NK1-3 foster parent entry, which notes the IG does not require NK1 to be the guardian)</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-003">
+<h3>Can the NK1 segment be used to transmit emergency contact information in an immunization message?</h3>
+<p class="mini">Asked 1× · 2015 · VXU · No answer recorded · Related: NK1-7</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q45-015">
+<h3>The national IG&#x27;s Z42 response profile does not include NK1, but trading partners want NK1 returned. Is there guidance allowing NK1 in Z42 responses?</h3>
+<p class="mini">Asked 1× · 2026 · RSP · Answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. AIRA's latest TAB on returning patient and vaccination record information in an RSP now allows NK1 to be returned: https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_returning_patient_vaccination_record_information_in_an_rsp__1_.pdf</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q43-005">
+<h3>An IIS is coding vaccine exemptions into its query response. Should the RSP include NK1 and NTE segments?</h3>
+<p class="mini">Asked 1× · 2026 · RSP · Answered · Related: NTE; Immunization Evidence (refusals, immunity, contraindications)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>NK1 may be sent in any query response; it is not required, but the information can help the querying system confirm the patient match. NTE is optional, and AIRA would not send it unless there is a particular reason to do so.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">NK1-3 Relationship</h2><section class="ta-q r-unassessed" id="ta-q29-003">
+<h3>Is there a relationship code for a foster parent in NK1? Providers cannot find an appropriate option for a child in foster care (a ward of the state).</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Answered · Fields: <a href="../../structure/segments/nk1/index.html#f3">NK1-3</a> · Related: NK1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>A foster parent is usually not considered a guardian but a caregiver, so code the relationship in NK1-3 as CGV (Caregiver).</p>
+<p>Also, the current IG supports sending Next-of-Kin (usually the mother or father) but does not require that the NK1 is the guardian or that the submitter say whether the person is the guardian. IIS sometimes assume the mother is the guardian for patients under 18, but that is not always true (some mothers lack parental rights, and some care for disabled adult children). If an IIS needs to determine the actual guardian, AIRA can provide further guidance. This area is planned for more formal guidance.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q27-004">
+<h3>An EHR is sending the value &quot;27&quot; in NK1-3 instead of a valid code from HL7 Table 0063, causing errors. How should this be resolved?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Fields: <a href="../../structure/segments/nk1/index.html#f3">NK1-3</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>NK1-3 is the next-of-kin relationship. The site appears to be sending its internal relationship codes rather than the standard HL7 values (from Table 0063, such as MTH, FTH, GRD). AIRA had not heard of this specific issue with this vendor. The resolution is to tell the site that it needs to configure its system to send the correct standard relationship codes. How to do this varies by vendor and the site may need to contact its vendor, but because the vendor had to demonstrate this capability to certify its system, the local site should be able to make the change using the software it already has.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q31-012">
+<h3>Is there an expected set of NK1-3 relationship values an IIS must accept and store, or must it accept all CDC values (e.g., PHIN VADS relationship value set 2.16.840.1.114222.4.11.3365)?</h3>
+<p class="mini">Asked 1× · 2024 · VXU/RSP · Answered · Fields: <a href="../../structure/segments/nk1/index.html#f3">NK1-3</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>In the current IG the relationship values are "suggested values", and there is no requirement that any specific values on the list be accepted or stored. The PHIN VADS value set contains the same values as the guide. An IIS may choose to accept any or all of them, but AIRA encourages accepting all the values defined in the guide since that gives the most information about the patient. AIRA is updating guidance for these values and welcomes feedback on values IIS see and do not want to accept.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">NK1-4 Address</h2><section class="ta-q r-unassessed" id="ta-q01-095">
+<h3>How is the &quot;primary&quot; address defined for NK1 (and other repeating address fields)? Does the first occurrence equate to the mailing address?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · Answered · Fields: <a href="../../structure/segments/nk1/index.html#f4">NK1-4</a> · Related: PID-11; Version &amp; IG Interpretation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>"Primary" is not well defined. A SISC survey of IIS found inconsistent definitions; in some cases primary equates to mailing, but that is not guaranteed. The survey is partly to see whether the next IG version can remove text assigning meaning to a particular occurrence of a repeating field, which would require systems to use the type code that is part of the address, telecommunication number, name, etc. For now, a sending system should determine what it considers its "primary" address, and a receiving system should not assume anything about the first occurrence other than that it is what the sender considers primary. Sending and receiving systems should discuss and agree on what data is sent and where during integration.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q31-023">
+<h3>What address type should be used in NK1-4 (address type component) when returning NK1 in an RSP: P, L, M or H? State IGs vary.</h3>
+<p class="mini">Asked 1× · 2024 · RSP/VXU · Answered · Fields: <a href="../../structure/segments/nk1/index.html#f4">NK1-4</a> · Related: PID-11; Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Ideally the system knows what type the address actually is and codes it accordingly, but few systems capture this and end users may not document it correctly, so a default value is often used. Conformance testing will not fail any legal value from the table, since it cannot know whether the value is correct (there is no context-based test comparing what was sent with what was returned). If the type is unknown, "P" is as good as any other value. The current standard says the mailing address must be sent first, but the next guide is expected to remove that requirement. When sending, code the address type as best you know; when receiving, accept what is sent.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">NK1-5 Phone Number</h2><section class="ta-q r-unassessed" id="ta-q14-001">
+<h3>An IIS warns that it does not recognize a phone number unless NK1-5.1 (the deprecated telephone number component) is populated, even though area code and local number components are sent. Should it issue this warning?</h3>
+<p class="mini">Asked 1× · 2021 · VXU/ACK · Answered · Fields: <a href="../../structure/segments/nk1/index.html#f5">NK1-5</a> · Related: PID-13, ERR-4</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>XTN component 1 is deprecated by the standard, so its absence should not cause an error. AIRA would not issue a warning for this; it is likely a configurable item in the IIS that can be turned off.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">NK1-35 Race</h2><section class="ta-q r-unassessed" id="ta-q01-027">
+<h3>The NIST tool expects CDCREC in PID-10 but HL70005 in NK1-35 (&quot;NK1[1]-35[1].3: Invalid Code System. Expected: &#x27;HL70005&#x27;, Found: &#x27;CDCREC&#x27;&quot;). The Addendum changed race from HL70005 to CDCREC. Which coding system is correct for NK1-35?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Fields: <a href="../../structure/segments/nk1/index.html#f35">NK1-35</a> · Related: PID-10; Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

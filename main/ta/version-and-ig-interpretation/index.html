@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Version &amp; IG Interpretation · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Version &amp; IG Interpretation</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">15 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions in this section are about which version of HL7 and of the immunization IG applies, and how to read and apply the IG. They cover retiring HL7 2.3.1/2.4, the status of v2.8.2, and whether FHIR will replace v2. Others concern reading conventions: data type components, R versus RE usage, CE versus CWE, and the difference between message conformance and required receiving functionality. Others ask where newer guidance lives (SISC TABs) when the IG is silent, for example on VXU trigger events, SOGI and disability data, or regulatory changes (Meaningful Use, ONC HTI-1).</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (4)</summary><ul><li>Explain how receivers should handle CE-formatted data where CWE is specified.</li><li>Provide a functional guide (or functional requirements) that defines how receiving systems must support the data in each field, beyond message conformance.</li><li>Define required and prohibited VXU trigger events, including demographic-only changes.</li><li>Incorporate SOGI messaging guidance, unknown/declined race and ethnicity, and possibly disability observations.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">HL7 Versions: Older Versions and Future Direction</a> <span class="mini">4</span></li><li><a href="#g-1">Reading and Applying the IG</a> <span class="mini">5</span></li><li><a href="#g-2">VXU Triggers and Scope of Submitted Content</a> <span class="mini">2</span></li><li><a href="#g-3">Regulatory and Certification Context</a> <span class="mini">2</span></li><li><a href="#g-4">Supplemental Guidance (SISC TABs) and Emerging Data Elements</a> <span class="mini">2</span></li></ul>
+<h2 id="g-0">HL7 Versions: Older Versions and Future Direction</h2><section class="ta-q r-unassessed" id="ta-q01-039">
+<h3>Should an IIS keep supporting HL7 v2.3.1 and/or v2.4 immunization messages alongside v2.5.1, or phase them out? Is that decision left to each jurisdiction or made by AIRA/CDC?</h3>
+<p class="mini">Asked 3× · 2016–2024 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA published a document in 2017 (the SISC statement on the sunset of HL7 2.3.1) supporting the retirement of HL7 2.3.1 and proposing June 30, 2018 as the sunset date for old interfaces. It does not require ending support, but says systems SHOULD end support for 2.3.1. SISC has not revisited the topic since. HL7 2.4 was never an immunization standard, so there is no official community position on discontinuing it, and the decision is effectively left to each IIS.</p>
+<p>The earliest instance (2016, asking whether an IIS should support both 2.3.1 and 2.5.1) has no recorded answer. The 2017 instance about v2.4 was answered only by a reference to the SISC 2.3.1 sunset statement.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-026">
+<h3>When will HL7 v2.8.2 (the v2.8.2 immunization IG) roll out?</h3>
+<p class="mini">Asked 1× · 2020 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no schedule or ETA. The CDC HL7 resources page describes the v2.8.2 IG as reserved for future release but not yet recommended.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q10-001">
+<h3>Is there a plan or recommendation for IIS to move to an HL7 version newer than v2.5.1, and why is HL7 v3 not being followed (e.g., by a non-US jurisdiction)?</h3>
+<p class="mini">Asked 1× · 2021 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Nothing is official yet, but given the overall US trend, any move will likely be to FHIR rather than HL7 v3. It is not yet known when or which interoperability functions will move to FHIR, or how long that will take. FHIR also opens possibilities beyond today's v2 exchange (e.g., querying for an official school report, inventory management/decrementing, bulk queries). For non-US jurisdictions, HL7 v3 is a dead end for new installations and is not recommended. FHIR was created partly to address difficulties implementing v3 in Canada and the UK, is much simpler than v3, and is better suited to international use.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q24-020">
+<h3>Will FHIR replace HL7 v2 VXU and QBP messaging for IIS, and how should an interoperability team prepare for FHIR?</h3>
+<p class="mini">Asked 1× · 2023 · VXU, QBP, general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>HL7 v2 is not going away soon. A revised HL7 v2 guide was being written to fix documentation problems in the current one, and v2 is expected to be supported for years and likely decades. FHIR is being used for problems VXU and QBP cannot handle, such as FHIR Bulk Query for standardized bulk extraction from an IIS. It complements HL7 v2 rather than replacing it, which is why there is no roadmap away from v2. To prepare, software developers on new interoperability projects should know FHIR or related technologies (JSON, REST). For interoperability staff generally, look for interest in new technologies including FHIR, and consider "interest or experience in working with FHIR" as a hiring qualification.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">Reading and Applying the IG</h2><section class="ta-q r-unassessed" id="ta-q06-024">
+<h3>How do you use the CDC IG to find the requirements for a specific component of a field, such as ORC-3.2 or NK1-5.2?</h3>
+<p class="mini">Asked 1× · 2020 · general · Answered · Related: ORC-3, NK1-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Each HL7 field has a defined data type, shown in the segment table in the IG. Data types are reusable and are defined in detail in the data types chapter (Chapter 4). The "dot" parts are formally called components, and their requirements come from the data type definition. ORC-3 is an EI (Entity Identifier), so its components are described under EI. NK1-5 (phone number) is an XTN, so its components are described under XTN.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-094">
+<h3>What is the difference between R and RE usage?</h3>
+<p class="mini">Asked 1× · 2016 · general · Answered · Related: RXA-15, RXA-9, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>A conformant system must support both R and RE elements. Operationally, RE elements can be empty, while R elements are expected to be populated 100% of the time. For example, date of birth has usage R and must always be populated to be conformant. Race has usage RE: both systems must be able to exchange it, but it is conformant to leave it empty if the sending system does not know it. For assessment, all R elements should be included in test cases, but only some test cases may include RE elements. For receiving systems, it is important to confirm they handle an unpopulated RE element gracefully.</p>
+<p>It is also important to distinguish "conformant" from "usable". Per Release 1.5, an administered dose (RXA-9 = 00) must contain a lot number (usage R). Omitting it is a technical conformance error, but the IIS might still keep the vaccination event because the rest of the information is usable, or it might not. That decision is up to the local IIS.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q07-003">
+<h3>Is the CDC Immunization IG (Release 1.5) the right reference for the data types an IIS should accept and send, given that the IIS still accepts older data types such as CE where the guide specifies CWE?</h3>
+<p class="mini">Asked 1× · 2020 · general · Answered · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes, the CDC IG is the right document. Technically CE and CWE are very similar, especially in Release 1.5, and some providers will probably still submit CE. It can be hard to tell CE from CWE even when a message declares one or the other, because the last three components of CWE are optional. The IIS should build in flexibility to accept both.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-034">
+<h3>Which fields and related functionality is an IIS required to implement? (A client believed the standard required certain functionality supporting an HL7 field; the vendor thought otherwise.)</h3>
+<p class="mini">Asked 1× · 2017 · general · Answered · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IG defines the conformance of messages, but it does not define exactly how the receiving system supports the data in a given field. That would belong in a functional guide, which did not exist. The question was therefore a grey area: the functionality could be described neither as absolutely required nor as clearly optional. AIRA then reviewed current test results and pointed out areas that should be improved under current standards.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q18-011">
+<h3>Does an IIS need to make its interface stricter (reject more messages, including over non-critical fields such as NK1-1) to be &quot;in compliance with HL7&quot; for connections such as the VA and the IZ Gateway?</h3>
+<p class="mini">Asked 1× · 2022 · VXU · Partly answered · Related: NK1-1, Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA reviewed the IIS's spreadsheet of proposed changes, met with the IIS, and talked it out of several of the stricter rejection changes. Being "HL7 compliant" does not require rejecting messages over non-critical fields.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">VXU Triggers and Scope of Submitted Content</h2><section class="ta-q r-unassessed" id="ta-q11-019">
+<h3>What events should trigger an EHR to send a VXU, and how can an IIS make sure vendors send demographic updates only for patients previously reported (rather than for every patient regardless of immunization status)?</h3>
+<p class="mini">Asked 2× · 2021 · VXU · Partly answered · Related: Data Quality &amp; Validation; Message Structure &amp; Cardinality (demographic-only VXU updates)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IG leaves triggers broad: "The sender sends an immunization record in a VXU message. The trigger may be an update or new record in the sending system records or may be triggered by some other event" (p. 67), and "Some event triggers the sending system to create and send a VXU" (p. 68). For the Z22 profile (Appendix B, p. 43), the goal is to send up-to-date information about a vaccination event and the patient. A conformant message may contain the entire vaccination history known to the sender but is not required to, and may contain only the vaccination events added, updated or deleted as part of the triggering event. For certification, EHRs must show they send a VXU when an administered vaccination is given, a historical vaccination is recorded, a vaccination is deleted, and a vaccination is updated. Beyond this, there are no national standards for additional triggers that require a submitter to send, and no guidance on when a submitter must not send. An IIS can add such requirements to its local guide as long as they do not contradict the national guidance. (The part of the question about limiting demographic updates to previously reported patients is not directly answered.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q36-011">
+<h3>Can an EHR submit its own dose validity flag for a dose in a VXU, or is dose validity determined only by the IIS?</h3>
+<p class="mini">Asked 1× · 2025 · VXU, RSP · Answered · Related: OBX-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Dose validity is not part of the standard HL7 VXU submission from an EHR to an IIS. The IIS returns evaluation and forecasting information in response to a query, typically in a Z42 and sometimes in a Z32 RSP. This information is produced by the IIS's immunization clinical decision support engine, based on the patient's history and current ACIP recommendations. AIRA is also working with its Standards and Interoperability Steering Committee on specifications to further standardize how IIS message this information.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">Regulatory and Certification Context</h2><section class="ta-q r-unassessed" id="ta-q01-079">
+<h3>Meaningful Use Stage 3 requires bidirectional QBP/RSP and the ability to accept NDC. Are the CDC v1.5 changes, specifically the split query profiles, required for MU3, or is an IIS that supports QBP/RSP and NDC under v1.4 already compliant?</h3>
+<p class="mini">Asked 1× · 2016 · QBP, RSP · No answer recorded · Related: QPD-1, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q41-007">
+<h3>What do the ONC HTI-1 regulations for 2026 change for immunization reporting to IIS, and what resources should a provider organization consult?</h3>
+<p class="mini">Asked 1× · 2025 · VXU, general · Answered · Related: Onboarding &amp; Interface Testing</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>For immunization reporting to IIS under certification criterion 170.315(f)(1) (Transmission to immunization registries), there are no notable changes for 2026. Provider systems can keep exchanging with IIS as they always have, in line with certification/re-certification requirements. There is a Standards Version Advancement Process (SVAP) option for immunization exchange, but it is not required, and no IIS is known to require it or plan to. Separately, 2026 introduces Insights Condition requirements related to immunizations: data collection begins in 2026 and reporting happens later (no later than July 2027). ASTP has issued several enforcement discretion notices that affect these timelines. Resources: the ONC SVAP standards document, Insights Condition measure education materials (including the Immunization Administered measure), and the ASTP enforcement discretion page.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">Supplemental Guidance (SISC TABs) and Emerging Data Elements</h2><section class="ta-q r-unassessed" id="ta-q44-017">
+<h3>Where can a list of the most recent AIRA Technical Advisory Bulletins (TABs) be found?</h3>
+<p class="mini">Asked 1× · 2026 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>All final TABs are posted on the AIRA Repository at https://repository.immregistries.org/resource/tab-resources/ (also linked from the SISC webpage under "Technical Advisory Bulletin (TAB) Resources"), in publication order. The Acknowledgement TAB is the latest; SISC approved it in June 2026. TAB work is expected to slow as the latest guidance, including TAB content, is folded into the next version of the HL7 IG.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q29-001">
+<h3>A state law requires the IIS to collect sexual orientation and gender identity (SOGI), updated race/ethnicity, and disability information. What national discussions are under way on HL7 v2 changes to support these concepts, and what are the expected timelines?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Answered · Related: PID-10, PID-22, OBX-3, OBX-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Do not wait for the next national IG. The next version is at least a year away from HL7 ballot, and not every topic will be in it (disability will not be in the next round). Look instead at SISC Technical Advisory Bulletins (TABs) and older SISC guidance documents, which will be rolled into the next version of the standard. Some IIS vendors have historically treated published SISC guidance as enough to start development.</p>
+<p>Race/ethnicity: HL7 v2 already supports these concepts. A TAB is planned on how to send "unknown" race and ethnicity, including "declined to answer". National efforts to revise and expand race/ethnicity codes are under way, but for now the community is keeping the standard value sets until there is clearer national direction.</p>
+<p>SOGI: SISC published a guidance document about two years earlier (a predecessor to the TABs) that describes how to send sexual orientation and gender identity in HL7 v2. It was adapted from HL7 interim guidance for both lab and immunization messaging, so it matches national practice.</p>
+<p>Disability: There is no guidance yet. It can be done in HL7 v2, but no IIS had asked for it. AIRA offered to convene a SISC subgroup to design a technical solution and publish a TAB, with the requesting IIS bringing its requirements.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

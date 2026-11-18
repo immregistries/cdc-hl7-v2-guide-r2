@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>3.4.4.1 User-Initiated Query Scenarios · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="user-initiated-query-scenarios">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,21 +34,21 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../query-by-parameter-qbp-message-profiles/index.html">3.4 Query by Parameter (QBP) Message Profiles</a> <span>›</span> <a href="../scenarios-that-trigger-qbp-messages/index.html">3.4.4 Scenarios That Trigger QBP Messages</a></nav>
 <header class="card-head"><h1><span class="num">3.4.4.1</span> User-Initiated Query Scenarios</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-warning" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-warning author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 warning</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-warning" id="qf-tab-sc-13"><span class="sev">Warning</span> <a class="f-loc" href="#user-initiated-query-scenarios--s1">Statement s1</a> TAB Scenarios for Updates and Queries (Table 2: Patient or guardian portal): Reworded. The trigger and re-query statements match. The limits are weakened: &quot;Jurisdictions and implementers SHOULD agree on reasonable daily limits and controls to prevent over-querying&quot;, where the TAB has three SHALLs for portals.<div class="evidence"><div class="ev-tags"><span>Reworded</span><span>Action: Narrative</span></div><div class="ev"><span class="ev-k">TAB</span> A patient or guardian request through a portal SHALL trigger a QBP. The system SHALL allow a limited number of queries per patient per day, SHALL coordinate with the IIS to define the limit, and SHALL have controls to prevent over-querying. It SHOULD allow a re-query after too many or no matches.</div><div class="ev"><span class="ev-k">Recommendation</span> Replace s3 with: &quot;For patient or guardian portal queries, systems SHALL limit the number of queries per patient per day, SHALL coordinate the limit with the IIS, and SHALL have controls to prevent over-querying.&quot;</div></div><p class="mini"><a href="../tabs/scenarios-for-updates-and-queries/index.html#tab-sc-13">See the TAB comparison</a></p><a class="f-id" href="../quality/index.html#qf-tab-sc-13">qf-tab-sc-13</a></li></ul></details></aside>
 <div class="narrative"><p>User-initiated queries are driven by a person (clinician, patient, or guardian) who needs immunization information for a specific patient and is actively waiting for the result. These scenarios most commonly support clinical care, where the information returned by the IIS is used immediately to inform vaccination decisions. They may also occur when a patient or guardian requests information via a portal, or when a clinician initiates a patient lookup as part of an active clinical workflow.</p>
 <p>Because a user is waiting for the response, these queries represent the primary and highest-priority use of the IIS query interface. Availability and responsiveness are critical, and IIS operations should ensure that these queries are not delayed or degraded by background activity.</p></div>
 
-<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="user-initiated-query-scenarios--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">When a clinical user requests a patient&#x27;s immunization record, or when a patient or guardian requests immunization information via a portal, the system SHALL initiate a user-initiated QBP for that patient.</span><span class="s-meta"><a class="s-flag sev-warning" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#user-initiated-query-scenarios--s1" title="Link to this statement">s1</a></span></li><li id="user-initiated-query-scenarios--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">Systems SHALL allow repeated user-initiated queries for a single selected patient.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s2" title="Link to this statement">s2</a></span></li><li id="user-initiated-query-scenarios--s3"><span class="verb verb-should">SHOULD</span><span class="s-text">Jurisdictions and implementers SHOULD agree on reasonable daily limits and controls to prevent over-querying.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s3" title="Link to this statement">s3</a></span></li><li id="user-initiated-query-scenarios--s4"><span class="verb verb-should">SHOULD</span><span class="s-text">Systems SHOULD allow re-query after no matches or too many matches are returned, to support interactive resolution of matching issues.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s4" title="Link to this statement">s4</a></span></li></ol></section>
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="user-initiated-query-scenarios--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">When a clinical user requests a patient&#x27;s immunization record, or when a patient or guardian requests immunization information via a portal, the system SHALL initiate a user-initiated QBP for that patient.</span><span class="s-meta"><a class="s-flag sev-warning author-only" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#user-initiated-query-scenarios--s1" title="Link to this statement">s1</a></span></li><li id="user-initiated-query-scenarios--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">Systems SHALL allow repeated user-initiated queries for a single selected patient.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s2" title="Link to this statement">s2</a></span></li><li id="user-initiated-query-scenarios--s3"><span class="verb verb-should">SHOULD</span><span class="s-text">Jurisdictions and implementers SHOULD agree on reasonable daily limits and controls to prevent over-querying.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s3" title="Link to this statement">s3</a></span></li><li id="user-initiated-query-scenarios--s4"><span class="verb verb-should">SHOULD</span><span class="s-text">Systems SHOULD allow re-query after no matches or too many matches are returned, to support interactive resolution of matching issues.</span><span class="s-meta"><a class="s-id" href="#user-initiated-query-scenarios--s4" title="Link to this statement">s4</a></span></li></ol></section>
 
 
 
 
 
 
-<section class="related tab-related"><h2>Technical Advisory Bulletins</h2><ul><li><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_scenarios_for_updates_and_queries__1_.pdf" rel="noopener" target="_blank">Scenarios for Updates and Queries</a> <span class="mini">January 2024 · <a href="../tabs/scenarios-for-updates-and-queries/index.html">comparison with this guide</a></span></li></ul></section><section class="related tab-related"><h2>SISC Guidance Documents</h2><ul><li><a href="https://repository.immregistries.org/files/resources/593835a0bf6bb/rsp__msa-1_qak-2_err-4__guidance_document_v1_0_for_publication_new_logo.pdf" rel="noopener" target="_blank">Guidance for HL7 RSP Messages to Support Interoperability</a> <span class="mini">June 2017 · <a href="../sisc/rsp-messages/index.html">comparison with this guide</a></span></li></ul></section>
+<div class="author-only"><section class="related tab-related"><h2>Technical Advisory Bulletins</h2><ul><li><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_scenarios_for_updates_and_queries__1_.pdf" rel="noopener" target="_blank">Scenarios for Updates and Queries</a> <span class="mini">January 2024 · <a href="../tabs/scenarios-for-updates-and-queries/index.html">comparison with this guide</a></span></li></ul></section><section class="related tab-related"><h2>SISC Guidance Documents</h2><ul><li><a href="https://repository.immregistries.org/files/resources/593835a0bf6bb/rsp__msa-1_qak-2_err-4__guidance_document_v1_0_for_publication_new_logo.pdf" rel="noopener" target="_blank">Guidance for HL7 RSP Messages to Support Interoperability</a> <span class="mini">June 2017 · <a href="../sisc/rsp-messages/index.html">comparison with this guide</a></span></li></ul></section></div>
 
 <section class="filter-terms" aria-label="Filter terms"><span class="mini">Filter the contents by:</span> <button type="button" class="term" data-term="query">query</button><button type="button" class="term" data-term="guardian/next of kin">guardian/next of kin</button><button type="button" class="term" data-term="QBP">QBP</button></section>
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../scenarios-that-trigger-qbp-messages/index.html"><span>Previous</span>3.4.4 Scenarios That Trigger QBP Messages</a><a class="next" href="../system-initiated-query-scenarios/index.html"><span>Next</span>3.4.4.2 System-Initiated Query Scenarios</a></nav>
@@ -59,8 +59,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

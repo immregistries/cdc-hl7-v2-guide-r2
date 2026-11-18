@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>3.1 Use Cases and Profiles · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="use-cases-and-profiles">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a></nav>
 <header class="card-head"><h1><span class="num">3.1</span> Use Cases and Profiles</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">3 notes</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-long-card-02ad8c50"><span class="sev">Note</span> Narrative is 4 blocks and 358 words (target: up to 3 paragraphs). Consider splitting into child cards or tightening the text.<a class="f-id" href="../quality/index.html#qf-long-card-02ad8c50">qf-long-card-02ad8c50</a></li><li class="finding sev-note" id="qf-normative-prose-39e33595"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>A use case represents a real-world scenario involving one or more actors and the actions they perform. For example, a submitting system may report a new vaccination to an IIS, or a querying system may request a patient&#x27;s consolidated immunization history. Each use case describes a specific function…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-39e33595">qf-normative-prose-39e33595</a></li><li class="finding sev-note" id="qf-normative-prose-53b6239b"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>A profile is a set of conformance requirements-rules layered on top of the base HL7 v2 message structures-to meet the needs of a particular use case. The HL7 v2 standard is intentionally flexible; this guide narrows that flexibility by defining specific expectations for each profile so that message…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-53b6239b">qf-normative-prose-53b6239b</a></li></ul></details></aside>
 <div class="narrative"><p>This section explains how use cases and messaging profiles work together to support the immunization data exchange workflows addressed by this guide. At a high level, the primary use cases focus on two essential needs: submitting administered and historical immunizations to the IIS to maintain a complete record, and retrieving a consolidated immunization history and forecast for use in clinical decision making. Supporting these core interactions are additional profiles that confirm receipt and processing of submissions and enable reliable querying, including patient matching, which is inherently complex and jurisdiction-specific.</p>
 <p>A use case represents a real-world scenario involving one or more actors and the actions they perform. For example, a submitting system may report a new vaccination to an IIS, or a querying system may request a patient's consolidated immunization history. Each use case describes a specific functional interaction that must be supported across systems.</p>
@@ -61,8 +61,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

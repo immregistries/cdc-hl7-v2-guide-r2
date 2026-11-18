@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Data Quality &amp; Validation · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Data Quality &amp; Validation</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">16 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>This section gathers questions about how IIS validate, accept, reject or clean incoming data, and about related format issues. Format issues include timestamp syntax, time zones and non-ASCII characters. Validation issues include inconsistent vaccine codes (CVX/MVX/NDC/lot) and product-specific documentation such as nirsevimab. Recurring themes: - Distinguishing "impossible" errors (reject or flag) from "possible" errors (accept and review). - Many acceptance and cleaning decisions are IIS business rules that should be documented in local guides. - Timestamp formatting edge cases (fractional seconds, offsets) cause avoidable rejections.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (1)</summary><ul><li>No ig_notes were recorded for this section. Possible clarifications:</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">Timestamps and Time Zones</a> <span class="mini">5</span></li><li><a href="#g-1">Character Encoding</a> <span class="mini">1</span></li><li><a href="#g-2">Consistency and Accuracy of Vaccination Data</a> <span class="mini">5</span></li><li><a href="#g-3">Acceptance and Rejection Rules</a> <span class="mini">4</span></li><li><a href="#g-4">Test Data and De-identification</a> <span class="mini">1</span></li></ul>
+<h2 id="g-0">Timestamps and Time Zones</h2><section class="ta-q r-unassessed" id="ta-q03-059">
+<h3>What is the correct handling of timestamp data types in HL7? (A timestamp handling issue was also found during a Discovery Report review.)</h3>
+<p class="mini">Asked 2× · 2019 · general · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-008">
+<h3>A vendor is sending the date/time value 20160108122818419-0500, and it is causing processing issues for the IIS. What is wrong with this value?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · Partly answered · Related: MSH-7, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The date/time value was not formatted properly according to the HL7 date/time (DTM/TS) format. The NIST validation tool can be used to run the message and see the specific formatting issue.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-097">
+<h3>An IIS rejects messages where the timestamp contains a decimal point. Is a decimal point (fractional seconds) allowed in timestamps?</h3>
+<p class="mini">Asked 1× · 2019 · general · Answered · Related: MSH-7</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. The CDC IG allows a decimal (fractional seconds) in a timestamp, so the IIS should accept it. Examples were provided, and after the fix the messages passed in AART.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-042">
+<h3>How do time zone offsets work in HL7 timestamps? In particular, is an offset of +0000 or -0000 valid?</h3>
+<p class="mini">Asked 1× · 2018 · general · Answered · Related: MSH-7</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>+0000 is a valid time zone offset, but -0000 is not.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-047">
+<h3>How should an IIS convert received messages from submitters in different time zones?</h3>
+<p class="mini">Asked 1× · 2019 · general · Answered · Related: MSH-7, RXA-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The receiving system needs to convert timestamps from a sender in a different time zone into its own time zone before processing. The IIS's proposed table of submitters, showing how each message should be recorded in Central time, was correct, with a few caveats and suggestions to make sure all aspects were considered.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">Character Encoding</h2><section class="ta-q r-unassessed" id="ta-q09-021">
+<h3>A provider&#x27;s system fails to parse a QBP response because the response contains a non-ASCII character (a UTF-8 en dash, hex E2 80 93) in a provider name, and MSH-18 does not declare a character set. Is there guidance on handling non-ASCII characters in outbound messages? Should the IIS strip or replace them?</h3>
+<p class="mini">Asked 1× · 2021 · RSP · Answered · Related: MSH-18 (see also section 29, special characters / Latin-1 guidance)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IZ guide specifies that string values must use ASCII characters 32 through 126. Before sending, characters outside this range should be replaced with the ASCII character that best represents them, replaced with some other value, or removed. If the occurrence is rare and the data is not critical, the IIS may choose to handle it as a one-off data quality fix.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">Consistency and Accuracy of Vaccination Data</h2><section class="ta-q r-unassessed" id="ta-q03-090">
+<h3>How should an IIS handle RXA fields that disagree with each other, such as mismatched vaccine codes or mismatched MVX, lot number and CVX values?</h3>
+<p class="mini">Asked 3× · 2019–2020 · VXU/RSP · Partly answered · Related: RXA-5, RXA-15, RXA-17</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>These questions were referred to the MIROW guidance/rules on this topic, which address conflicting vaccine codes and RXA fields. The specifics are not recorded. (The 2020 question about MVX/lot/CVX mismatches had no answer recorded.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-055">
+<h3>Is there an updated document or other guidance on NDC and lot number patterns?</h3>
+<p class="mini">Asked 1× · 2017 · VXU · Partly answered · Related: RXA-5, RXA-15</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. There is a new guide on this, now owned and maintained by SISC.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q33-004">
+<h3>Is there a document IIS follow for nirsevimab documentation? Will an IIS reject a nirsevimab immunization if it is documented incorrectly?</h3>
+<p class="mini">Asked 1× · 2024 · VXU/ACK · Answered · Related: RXA-5, ERR-4</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>IIS process reported nirsevimab administrations the same way as other reported immunizations. If nirsevimab is reported as administered, the IIS expects the fields associated with an administered dose to be accurately populated in the VXU. As with any VXU, the IIS will return errors in the ACK if it encounters issues, such as expected fields not populated or invalid data. Treat nirsevimab like any other immunization for data capture and reporting.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q33-005">
+<h3>Can a site document a single nirsevimab (Beyfortus) administration of 200 mg with injection site &quot;both thighs IM&quot; when it was actually given as two separate doses, or will the IIS reject it?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Answered · Related: RXA-6, RXR-2</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>IIS strive for records that accurately reflect the vaccination event that actually occurred (AIRA Data Quality Assurance in IIS guide). That guide divides data quality issues into two kinds: - <strong>Impossible errors</strong> physically could not have occurred. They should not enter the IIS, or they should be flagged and rectified. - <strong>Possible errors</strong> could have clinically occurred. They should not be rejected, but should be flagged for review or surfaced by trend reports.</p>
+<p>Given the available product formulations, a report of a single 200 mg nirsevimab administration is closer to an impossible error. At a minimum, IIS would likely flag it for follow-up, to understand what was administered and make the record reflect reality. Report the two injections as they were given.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q05-014">
+<h3>If all COVID vaccine should use the recommended funding/eligibility codes, should the IIS clean incoming data that uses other codes?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · Answered · Related: OBX-5, VFC &amp; Funding Eligibility (see section 31)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>That is an IIS-specific decision. Cleaning can take many forms, from ignoring the values to transforming them.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">Acceptance and Rejection Rules</h2><section class="ta-q r-unassessed" id="ta-q29-014">
+<h3>Is there a list of the core data elements whose absence makes an IIS reject an HL7 VXU (and of those that produce AE warnings while still loading)? Or must each element be tested individually and the ACK recorded?</h3>
+<p class="mini">Asked 1× · 2024 · VXU/ACK · Partly answered · Related: Acknowledgement &amp; Error Handling, Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA did not point to an existing list. As a starting point, it shared a minimal VXU that the IIS had accepted during prior testing. That message contained: - MSH with sending/receiving facility. - PID with only an ID, legal name, birth date and sex. - A basic ORC. - RXA with administration date, CVX, amount and units, administered information source, lot number and manufacturer. - OBX segments for VFC eligibility and VIS document type/date presented.</p>
+<p>AIRA suggested trimming elements from this message, starting with the VIS information, to find what the IIS still accepts.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q31-022">
+<h3>When a VXU for a new patient contains an RXA with invalid or missing required information (e.g., administration before birth, missing lot, or no RXA at all), should the IIS save the patient and ignore the RXA, or reject the whole patient record? Should patient-only data be sent via ADT instead?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Partly answered · Related: RXA, Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Whether to reject messages without valid vaccination information is a business decision for the IIS. If the IIS chooses to reject such records, its local implementation guide should document that business rule.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-010">
+<h3>Should an IIS apply the same rules to data received via HL7 as it does to data entered in the UI?</h3>
+<p class="mini">Asked 1× · 2019 · VXU · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q43-003">
+<h3>How should a submitter/IIS handle processing a large set (about 25,000) of old immunization records through HL7 submission?</h3>
+<p class="mini">Asked 1× · 2026 · VXU · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">Test Data and De-identification</h2><section class="ta-q r-unassessed" id="ta-q24-022">
+<h3>Is there a safe, low-cost tool that de-identifies HL7 messages by replacing PHI fields (e.g., patient names) with fake values?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Partly answered · Related: PID, NK1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA has no tool to recommend for de-identifying HL7 messages. As an alternative, AIRA offers synthetic test data at https://florence.immregistries.org/#generatedData, which may work in place of de-identified real messages.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

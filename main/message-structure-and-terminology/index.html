@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2.1.3 Message Structure and Terminology · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="message-structure-and-terminology">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,10 +34,10 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a> <span>›</span> <a href="../messaging-standards-overview/index.html">2.1 Messaging Standards Overview</a></nav>
 <header class="card-head"><h1><span class="num">2.1.3</span> Message Structure and Terminology</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
-<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 notes</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
-<ul><li class="finding sev-note" id="qf-image-figure-e1cde93f"><span class="sev">Note</span> <a class="f-loc" href="#fig-2">Figure 2</a> This figure is an image. If it holds a table or text, convert it to a structured table so it can be searched, read by screen readers, and commented on; diagrams can become Mermaid. It also needs alternative text.<a class="f-id" href="../quality/index.html#qf-image-figure-e1cde93f">qf-image-figure-e1cde93f</a></li><li class="finding sev-note" id="qf-normative-prose-a9644cdc"><span class="sev">Note</span> Narrative uses &quot;are required&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>The guide defines message profiles that constrain these structures for immunization-specific use, specifying which segments, fields, and values are required, optional, or conditionally required.</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-a9644cdc">qf-normative-prose-a9644cdc</a></li></ul></details></aside>
+<aside class="findings sev-warning author-only" id="findings" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 warnings · 3 notes</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
+<ul><li class="finding sev-warning" id="qf-ta-q20-004"><span class="sev">Warning</span> TA question (MSH Message Header, MSH-10 Message Control ID): Gap. MSH-10 is required, but the guide never says it must be unique (the past answer says per sender, at least per day) or that MSA-2 echoes it. The query tag in QPD-2 is not discussed either.<div class="evidence"><div class="ev-tags"><span>Gap</span></div><div class="ev"><span class="ev-k">Asked</span> How commonly do EHRs populate the query tag (QPD-2) and message control ID (MSH-10) with unique IDs versus static values, and how should a receiving IIS treat them?</div><div class="ev"><span class="ev-k">Recommendation</span> In a Message Header section, say MSH-10 SHALL be unique for the sender and is echoed in MSA-2.</div></div><p class="mini"><a href="../ta/msh/index.html#ta-q20-004">See the TA question</a></p><a class="f-id" href="../quality/index.html#qf-ta-q20-004">qf-ta-q20-004</a></li><li class="finding sev-warning" id="qf-ta-q20-015"><span class="sev">Warning</span> TA question (MSH Message Header, MSH-6 Receiving Facility): Gap. The guide says nothing about MSH-3, MSH-5 or MSH-6 values: that they are agreed between trading partners, that an IIS should require specific values only when it needs them for routing, or which party to name when an HIE passes a message through. TA has answered this the same way several times.<div class="evidence"><div class="ev-tags"><span>Gap</span></div><div class="ev"><span class="ev-k">Asked</span> When an HIE is a pass-through for immunization queries, should senders put the HIE or the IIS (the ultimate destination) in MSH-6?</div><div class="ev"><span class="ev-k">Recommendation</span> Add a short Message Header section to chapter 2 covering MSH-3, MSH-5, MSH-6 and MSH-23: agreed during onboarding, required by an IIS only when needed for routing or processing, not changed by intermediaries, and in an ACK or RSP normally echoing the sender&#x27;s MSH-3 and MSH-4.</div></div><p class="mini"><a href="../ta/msh/index.html#ta-q20-015">See the TA question</a></p><a class="f-id" href="../quality/index.html#qf-ta-q20-015">qf-ta-q20-015</a></li><li class="finding sev-note" id="qf-image-figure-e1cde93f"><span class="sev">Note</span> <a class="f-loc" href="#fig-2">Figure 2</a> This figure is an image. If it holds a table or text, convert it to a structured table so it can be searched, read by screen readers, and commented on; diagrams can become Mermaid. It also needs alternative text.<a class="f-id" href="../quality/index.html#qf-image-figure-e1cde93f">qf-image-figure-e1cde93f</a></li><li class="finding sev-note" id="qf-normative-prose-a9644cdc"><span class="sev">Note</span> Narrative uses &quot;are required&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>The guide defines message profiles that constrain these structures for immunization-specific use, specifying which segments, fields, and values are required, optional, or conditionally required.</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-a9644cdc">qf-normative-prose-a9644cdc</a></li><li class="finding sev-note" id="qf-ta-q03-098"><span class="sev">Note</span> TA question (MSH Message Header, MSH-3 Sending Application): Gap. The SFT segment is optional in every profile, but the narrative never mentions it, so there is no guidance on where to identify the sending software.<div class="evidence"><div class="ev-tags"><span>Gap</span></div><div class="ev"><span class="ev-k">Asked</span> How can the software version of the IIS be encoded within the MSH header rather than in an SFT segment?</div><div class="ev"><span class="ev-k">Recommendation</span> Add a sentence to a Message Header section that SFT identifies the sending software and its version, and that MSH-3 identifies the application, not its version.</div></div><p class="mini"><a href="../ta/msh/index.html#ta-q03-098">See the TA question</a></p><a class="f-id" href="../quality/index.html#qf-ta-q03-098">qf-ta-q03-098</a></li></ul></details></aside>
 <div class="narrative"><p>HL7 v2 messages are composed of:</p>
 <p>Segments (e.g., MSH, PID, RXA, OBX): Represent lines in the message, each with a defined structure.</p>
 <p>Fields: Separated by the pipe (|) character, representing data elements within each segment.</p>
@@ -52,7 +52,7 @@
 
 
 
-
+<div class="author-only"><section class="related tab-related"><h2>TA questions</h2><p class="mini">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p><ul><li><a href="../ta/msh/index.html#ta-q03-098">How can the software version of the IIS be encoded within the MSH header rather than in an SFT segment?</a> <span class="tab-result r-missing" title="The guide does not address the question.">Gap</span></li><li><a href="../ta/msh/index.html#ta-q20-015">When an HIE is a pass-through for immunization queries, should senders put the HIE or the IIS (the ultimate destination) in MSH-6?</a> <span class="tab-result r-missing" title="The guide does not address the question.">Gap</span></li><li><a href="../ta/msh/index.html#ta-q20-004">How commonly do EHRs populate the query tag (QPD-2) and message control ID (MSH-10) with unique IDs versus static values, and how should a receiving IIS treat them?</a> <span class="tab-result r-missing" title="The guide does not address the question.">Gap</span></li></ul></section></div>
 
 
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../core-messaging-functions/index.html"><span>Previous</span>2.1.2 Core Messaging Functions</a><a class="next" href="../vocabulary-standards/index.html"><span>Next</span>2.1.4 Vocabulary Standards</a></nav>
@@ -63,8 +63,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

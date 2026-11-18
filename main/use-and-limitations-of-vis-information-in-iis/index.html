@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4.6.6.2 Use and Limitations of VIS Information in IIS · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="use-and-limitations-of-vis-information-in-iis">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../immunization-information/index.html">4.6 Immunization Information</a> <span>›</span> <a href="../vaccine-information-statements/index.html">4.6.6 Vaccine Information Statements</a></nav>
 <header class="card-head"><h1><span class="num">4.6.6.2</span> Use and Limitations of VIS Information in IIS</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 notes</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-normative-prose-9c35cb45"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>VIS information may support local program monitoring needs, but it has no nationally defined operational role for IIS. VIS does not influence forecasting, dose validity, patient matching, deduplication, inventory management, or official immunization histories. Programs must determine whether they h…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-9c35cb45">qf-normative-prose-9c35cb45</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-02d0000b"><span class="sev">Note</span> 4 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3, s4.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-02d0000b">qf-statement-from-paragraph-02d0000b</a></li></ul></details></aside>
 <div class="narrative"><p>VIS information may support local program monitoring needs, but it has no nationally defined operational role for IIS. VIS does not influence forecasting, dose validity, patient matching, deduplication, inventory management, or official immunization histories. Programs must determine whether they have a legitimate operational need for VIS data before prioritizing completeness or auditing.</p>
 <p>Because VIS data often reflects EHR configuration rather than clinical encounter behavior, IIS should expect variation. Unexpected VIS identifiers, publication dates, or dates-given may indicate configuration drift, not clinical problems. Accepting and reviewing this data through quality-improvement processes is preferable to rejecting administered doses.</p></div>
@@ -59,8 +59,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

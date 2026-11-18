@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2.7 Identifying Organizations · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="identifying-organizations">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../immunization-messaging-fundamentals/index.html">2 Immunization Messaging Fundamentals</a></nav>
 <header class="card-head"><h1><span class="num">2.7</span> Identifying Organizations</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-mirow-cv-03"><span class="sev">Note</span> MIROW guide MIROW Common Vocabulary (Submitter, Recorder, Vaccinator, IIS-Authorized Organization; notes on provider organization and IIS-AO): Reworded. The guide&#x27;s roles line up with MIROW&#x27;s: submitter is MSH-4, vaccinator is RXA-11.4, and recorder is ORC-17 (which the guide names &quot;Entering (Recording) Organization&quot;). The IIS assigns every organization identifier. The guide adds the responsible organization (MSH-22) and keeps the &quot;accountable&quot; wording MIROW questioned. When a message passes through an intermediary (an HIE, for example), MSH-4 names the organization on the connection. The message has no place for the other organizations in MIROW&#x27;s chain of submission, so the IIS has to know them from onboarding.<div class="evidence"><div class="ev-tags"><span>Reworded</span></div><div class="ev"><span class="ev-k">Best practice</span> An IIS-authorized organization (IIS-AO) has an agreement with an IIS to submit or retrieve information, and always has an IIS-AO ID assigned by the IIS. In a submission an IIS-AO plays one or more roles: recorder (records the information), vaccinator (vaccinates the patient), or submitter (submits to the IIS, or to an intermediary with the IIS as destination). One IIS-AO may submit for another. The IIS needs to know every IIS-AO in the chain of submission. MIROW also notes that the CDC-endorsed definition of responsible organization (&quot;originated and is accountable for the content&quot;) should change, because not every IIS-AO is accountable for the content.</div></div><p class="mini"><a href="../mirow/common-vocabulary/index.html#mirow-cv-03">See the MIROW comparison</a></p><a class="f-id" href="../quality/index.html#qf-mirow-cv-03">qf-mirow-cv-03</a></li></ul></details></aside>
 <div class="narrative"><p>Accurate identification of organizations involved in immunization reporting is foundational to IIS operations. IIS rely on these identifiers to attribute data correctly, manage accountability, support program operations, and troubleshoot data quality issues. Incorrect or ambiguous organization identification can undermine trust in the data and create downstream operational risk.</p>
 <p>Submitting systems and healthcare organizations are structured in many different ways. A single clinic may operate independently, or it may function as one unit within a larger parent organization such as a health system, pharmacy chain, or public health program. Technically, multiple organizations may share a single software instance or gateway, while legally they remain distinct entities. These organizational and technical structures do not always align with how IIS assign identifiers, creating the need for clear conventions and shared understanding.</p>
@@ -49,7 +49,7 @@
 
 
 
-<section class="related tab-related"><h2>MIROW Best Practice Guides</h2><ul><li>MIROW Common Vocabulary <span class="mini">September 2022 · <a href="../mirow/common-vocabulary/index.html">comparison with this guide</a></span></li></ul></section>
+<div class="author-only"><section class="related tab-related"><h2>MIROW Best Practice Guides</h2><ul><li>MIROW Common Vocabulary <span class="mini">September 2022 · <a href="../mirow/common-vocabulary/index.html">comparison with this guide</a></span></li></ul></section></div>
 <section class="children"><h2>In this section</h2><ol><li><a href="../organization-identifier-data-types/index.html"><span class="num">2.7.1</span> Organization Identifier Data Types</a></li><li><a href="../submitting-organization-msh-4-sending-facility/index.html"><span class="num">2.7.2</span> Submitting Organization (MSH-4 Sending Facility)</a> <span class="mini">5 statements</span></li><li><a href="../responsible-organization-msh-22/index.html"><span class="num">2.7.3</span> Responsible Organization (MSH-22)</a></li><li><a href="../entering-recording-organization-orc-17/index.html"><span class="num">2.7.4</span> Entering (Recording) Organization (ORC-17)</a></li><li><a href="../administering-organization-rxa-11/index.html"><span class="num">2.7.5</span> Administering Organization (RXA-11)</a> <span class="mini">5 statements</span></li><li><a href="../parent-and-child-organizations/index.html"><span class="num">2.7.6</span> Parent and Child Organizations</a> <span class="mini">4 statements</span></li><li><a href="../use-in-query-transactions-qbp-rsp/index.html"><span class="num">2.7.7</span> Use in Query Transactions (QBP/RSP)</a> <span class="mini">3 statements</span></li><li><a href="../implementation-and-maintenance-considerations/index.html"><span class="num">2.7.8</span> Implementation and Maintenance Considerations</a> <span class="mini">4 statements</span></li></ol></section>
 
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../shared-responsibility-for-data-quality/index.html"><span>Previous</span>2.6.2 Shared Responsibility for Data Quality</a><a class="next" href="../organization-identifier-data-types/index.html"><span>Next</span>2.7.1 Organization Identifier Data Types</a></nav>
@@ -60,8 +60,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

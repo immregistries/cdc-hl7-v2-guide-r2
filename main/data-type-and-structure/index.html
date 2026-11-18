@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4.5.2.5 Data Type and Structure · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="data-type-and-structure">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../patient-information/index.html">4.5 Patient Information</a> <span>›</span> <a href="../patient-and-other-names/index.html">4.5.2 Patient and Other Names</a></nav>
 <header class="card-head"><h1><span class="num">4.5.2.5</span> Data Type and Structure</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-issue" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-issue author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 issue · 1 warning · 1 note</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-issue" id="qf-igamt-c36-name-flavors"><span class="sev">Issue</span> Newborn (&#x27;NB&#x27;) names are not held to the family-and-given rule, and other names are over-constrained when an &#x27;L&#x27; name is present. The profiles implement the two XPN flavors by slicing the whole PID segment on PID-5.7, not by name repetition. If any repetition is &#x27;L&#x27;, every repetition (nickname, maiden, and so on) must use XPN_IZ01 and have both family and given name. If no repetition is &#x27;L&#x27;, every repetition uses XPN_IZ02, where only one of family or given is needed, so an &#x27;NB&#x27; placeholder name with one part passes. The two slice conditions also overlap: a patient with an &#x27;L&#x27; and an &#x27;N&#x27; name matches both. Slicing exists only in Z22; the response profiles (Z31, Z32) always use PID_IZ01 and Z42 uses PID_IZ02.<div class="evidence"><div class="ev-tags"><span>Conflict</span><span>Action: IGAMT</span><span>Answers Word comment 36</span></div><div class="ev"><span class="ev-k">Narrative</span> &quot;Official registry and newborn names must contain both a family and given name, while other types (e.g., nickname, maiden) may have only one component.&quot; Word comment 36 asks to confirm three statements: (1) XPN.1 and XPN.2 populated for &#x27;L&#x27; and &#x27;NB&#x27; names; (2) XPN.7 populated for all repetitions; (3) cardinalities and flavors as defined in the data type section.</div><div class="ev"><span class="ev-k">IGAMT export</span><ul><li>Slicing (Z22, PID): PID_IZ01 if at least one PID-5.7 = &#x27;L&#x27;; PID_IZ03 if at least one PID-5.7 is not &#x27;L&#x27;.</li><li>PID_IZ01.PID-5 uses XPN_IZ01: XPN.1 R, XPN.2 R, XPN.7 R.</li><li>PID_IZ03.PID-5 uses XPN_IZ02: XPN.1 C(R/RE) if XPN.2 not valued, XPN.2 RE, XPN.7 R.</li><li>Z31/Z32 PID_IZ01 (XPN_IZ01) and Z42 PID_IZ02 are not sliced.</li></ul></div><div class="ev"><span class="ev-k">Recommendation</span> Statement (2) exists: XPN.7 is R in every PID-5 flavor. Statement (1) holds for &#x27;L&#x27; only. Ask IGAMT whether a slice or co-constraint can apply per repetition (by XPN.7). If not, use a conformance statement such as &quot;each PID-5 repetition with XPN.7 in (&#x27;L&#x27;,&#x27;NB&#x27;) SHALL value XPN.1 and XPN.2&quot;. Make the two slice conditions mutually exclusive. Decide whether responses should follow the same rule. Statement (3) has no counterpart in the narrative yet; the card should state it once the data type pages exist.</div></div><a class="f-id" href="../quality/index.html#qf-igamt-c36-name-flavors">qf-igamt-c36-name-flavors</a></li><li class="finding sev-warning" id="qf-tab-pn-06"><span class="sev">Warning</span> TAB Patient Name (PID-5) Updates to Support Patient Matching (Data type specifications by name type code (Table 2)): Partly covered. The guide describes this in narrative (&quot;official registry and newborn names must contain both a family and given name, while other types ... may have only one component&quot;) and says two flavors &quot;will be defined&quot;, but this is the guide that was to define them. There is no statement, no component table, and no flavor names. In IGAMT, the two XPN flavors exist but are applied by slicing the whole PID segment, so &#x27;NB&#x27; names are not held to the family-and-given rule (see the IGAMT review, qf-igamt-c36-name-flavors).<div class="evidence"><div class="ev-tags"><span>Partly covered</span><span>Action: Narrative and IGAMT</span></div><div class="ev"><span class="ev-k">TAB</span> Systems SHALL follow the data type for the name type. &#x27;L&#x27; and &#x27;NB&#x27; names are XPN: given R, middle RE, family R, type R. &#x27;M&#x27;, &#x27;N&#x27;, &#x27;A&#x27;, and &#x27;U&#x27; names are XPN_[Flavor]: given RE, middle RE, family R when given is not valued (otherwise RE), type R. The flavor is to be named in the next national guide.</div><div class="ev"><span class="ev-k">Recommendation</span> Name the flavors (XPN_IZ01, XPN_IZ02), add Table 2 and a SHALL statement to 4.5.2.5, and resolve the IGAMT slicing finding so the rule applies per repetition.</div></div><p class="mini"><a href="../tabs/patient-name-pid-5/index.html#tab-pn-06">See the TAB comparison</a></p><a class="f-id" href="../quality/index.html#qf-tab-pn-06">qf-tab-pn-06</a></li><li class="finding sev-note" id="qf-normative-prose-a26d4659"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Different name types carry different completeness expectations. Official registry and newborn names must contain both a family and given name, while other types (e.g., nickname, maiden) may have only one component.</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-a26d4659">qf-normative-prose-a26d4659</a></li></ul></details></aside>
 <div class="narrative"><p>Different name types carry different completeness expectations. Official registry and newborn names must contain both a family and given name, while other types (e.g., nickname, maiden) may have only one component.</p>
 <p>Two flavors of the XPN data type will be defined for this guide-one for the Official Registry Name and one for all other name types-to reflect these differing expectations.</p></div>
@@ -48,7 +48,7 @@
 
 
 
-<section class="related tab-related"><h2>Technical Advisory Bulletins</h2><ul><li><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_patient_name__pid-5__final.pdf" rel="noopener" target="_blank">Patient Name (PID-5) Updates to Support Patient Matching</a> <span class="mini">October 2025 · <a href="../tabs/patient-name-pid-5/index.html">comparison with this guide</a></span></li></ul></section>
+<div class="author-only"><section class="related tab-related"><h2>Technical Advisory Bulletins</h2><ul><li><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_patient_name__pid-5__final.pdf" rel="noopener" target="_blank">Patient Name (PID-5) Updates to Support Patient Matching</a> <span class="mini">October 2025 · <a href="../tabs/patient-name-pid-5/index.html">comparison with this guide</a></span></li></ul></section></div>
 
 
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../optional-name-types/index.html"><span>Previous</span>4.5.2.4 Optional Name Types</a><a class="next" href="../alignment-with-broader-health-standards/index.html"><span>Next</span>4.5.2.6 Alignment with Broader Health Standards</a></nav>
@@ -59,8 +59,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

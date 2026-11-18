@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: PD1 Patient Additional Demographic · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · segment</p>
+<h1>PD1 Patient Additional Demographic</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">11 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions about PD1 cluster around three fields: PD1-11 (publicity code / reminder-recall contact preference), PD1-12 (protection indicator) and PD1-16 (immunization registry status). PD1-12 dominates: what it means, whether it is tied to consent, how strict an IIS may be about it (requiring, forbidding, repeating it) and what ACK severity is appropriate. PD1-11 questions concern the outdated HL7 Table 0215 values and NIST/AART value-set validation; PD1-16 questions concern mapping registry status codes to IIS patient statuses (MIROW) and their relationship to the PID-30 death indicator.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (3)</summary><ul><li>Update Table 0215 (publicity code) with modern contact methods such as text and email, via a community code-set exercise.</li><li>Clarify the semantics of PD1-16 code P (permanently inactive) and whether it implies death in the absence of PID-29/PID-30; document the mapping to MIROW statuses.</li><li>Clarify PD1-12 meaning (stated preference, local policy, no default) and guidance for jurisdictions that need multiple consent types (with PD1-13 alignment).</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">PD1-11 Publicity Code</a> <span class="mini">2</span></li><li><a href="#g-1">PD1-12 Protection Indicator</a> <span class="mini">5</span></li><li><a href="#g-2">PD1-16 Immunization Registry Status</a> <span class="mini">4</span></li></ul>
+<h2 id="g-0">PD1-11 Publicity Code</h2><section class="ta-q r-unassessed" id="ta-q16-011">
+<h3>Table 0215 (publicity code) lacks modern contact methods such as text and email. Is there community work on extending this code set for reminder/recall contact preferences?</h3>
+<p class="mini">Asked 1× · 2022 · VXU · Partly answered · Fields: <a href="../../structure/segments/pd1/index.html#f11">PD1-11</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA agreed the suggested 0215 values are nearly worthless to IIS because text and email are not included, and questioned how well the list is implemented. It needs discussion among EHR and IIS stakeholders to decide what is needed today; a small-group exercise could produce an updated code set (similar to the ERR-5 work). AIRA proposed raising it at the next SISC meeting. No resolution was reached.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q25-005">
+<h3>NIST rejects PD1-11.1 values (e.g., `F^Family Only^HL70215`) as &quot;not a member of the value set HL70215 / HL70215_IZ&quot;. What values are valid in PD1-11, and can an IIS send the base HL7 values (F, N, O, U)?</h3>
+<p class="mini">Asked 2× · 2023–2026 · RSP · Answered · Fields: <a href="../../structure/segments/pd1/index.html#f11">PD1-11</a> · Related: Code Sets &amp; Vocabulary; Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The values F, N, O and U are the suggested values in the HL7 base standard, but they were replaced in the IZ implementation guide. AART (and the NIST tool) test against the IZ IG, not the base standard, so the national IG requirements must be followed to pass validation. Specifically: (1) PD1-11 should contain only values supported in the IG; (2) F, N, O and U are not supported by the current IG; only the values in the IG table for PD1-11 (the 0X codes, e.g., `02^^HL70215`, which passed a 2023 assessment) are acceptable; (3) because F/N/O/U are not directly mappable to the IG's codes, an IIS that crosswalks its internal codes to the base values cannot simply map them back to the outbound 0X codes.</p>
+<p>An earlier (2023) report of the same NIST error, where the IIS believed it was sending a valid code from the PHIN VADS Publicity Code value set, had no answer recorded.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">PD1-12 Protection Indicator</h2><section class="ta-q r-unassessed" id="ta-q02-093">
+<h3>What does PD1-12 (protection indicator) mean and how should it be sent? Some vendors treat it as opt-in/opt-out; others use it only for special situations (witness protection, domestic violence, adoption). How does it apply in a state with opt-in consent?</h3>
+<p class="mini">Asked 3× · 2018–2024 · VXU/RSP · Answered · Fields: <a href="../../structure/segments/pd1/index.html#f12">PD1-12</a> · Related: PD1-13; Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>PD1-12 reports the patient's or guardian's stated preference about protecting (not sharing) the patient's record. It is not a flag that should be set automatically, although the patient or guardian may choose protection for any of those reasons. If the patient or guardian has not stated a preference, leave the field empty. No default value should be set, because the field records their wishes.</p>
+<p>The actual meaning is governed by local jurisdiction law and policy. A value of Y means the patient or guardian wants the local protection law or policy applied, whatever that is locally. The exact meaning does not carry over between jurisdictions.</p>
+<p>The earlier general question about "standards for sending the protection indicator" (2019) and a question about use under a state's opt-in consent status (2018) had no answer recorded; the 2024 answer above covers them.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q33-014">
+<h3>Because PD1-12 is an HL7 field, does an IIS need to collect patient consent in order to populate it?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Partly answered · Fields: <a href="../../structure/segments/pd1/index.html#f12">PD1-12</a> · Related: PD1-13</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. The IIS does not need to collect consent just because the field exists in the HL7 message; whether to collect and use the protection indicator is a jurisdictional policy decision, and the field only needs to be handled properly if the jurisdiction uses it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-005">
+<h3>Should a sender filter out patients who have not consented to IIS participation, rather than submitting them?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Fields: <a href="../../structure/segments/pd1/index.html#f12">PD1-12</a> · Related: Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q15-018">
+<h3>The IG says PD1-12 is not required and empty implies consent, but an IIS returns MSA-1 = AE with ERR-4 = E when PD1-12 is missing, while ERR-8 says it is &quot;informational&quot; and the patient is actually stored. Can the severity be lowered to W or I?</h3>
+<p class="mini">Asked 1× · 2022 · VXU/ACK · Answered · Fields: <a href="../../structure/segments/pd1/index.html#f12">PD1-12</a> · Related: ERR-4, ERR-8, MSA-1; Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IIS agreed and updated the error severity (ERR-4) and descriptions (ERR-8) across its acknowledgements for an upcoming release. The underlying principle is that ACK severity should match what actually happened: a condition that does not prevent the record from being stored should be reported as a warning or informational, not as an error.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q34-011">
+<h3>An IIS rejects messages with PD1-12 populated (ERR-4 = E, &quot;patient consent is unwanted - Segment Rejected&quot;), effectively making an RE field X. Would changing it back to RE but limiting allowed values meet the standard?</h3>
+<p class="mini">Asked 1× · 2024 · VXU/ACK · Answered · Fields: <a href="../../structure/segments/pd1/index.html#f12">PD1-12</a> · Related: ERR-4; Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA prefers that the usage of PD1-12 not be changed and that the national value set (Y, N) be honored, because it is an uphill battle to keep providers from sending values in a national value set. However, the IIS does not have to save or act on the data if policy prohibits it. A suggested approach is to change the ERR-4 severity for this condition from E to I (informational): the patient data continues to be saved, and the ACK tells the sender the PD1-12 value is not being stored.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">PD1-16 Immunization Registry Status</h2><section class="ta-q r-unassessed" id="ta-q02-083">
+<h3>Can a message with CVX 998 be used to update patient status (active, inactive, deceased)?</h3>
+<p class="mini">Asked 1× · 2017 · VXU · Partly answered · Fields: <a href="../../structure/segments/pd1/index.html#f16">PD1-16</a> · Related: PID-30, RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA provided a sample message conveying patient status using PID-30 (death indicator) and PD1-16 (immunization registry status). (Sample message content not recorded.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-087">
+<h3>How does PD1-16 (registry status) relate to PID-30 (death indicator)?</h3>
+<p class="mini">Asked 1× · 2018 · VXU/RSP · Partly answered · Fields: <a href="../../structure/segments/pd1/index.html#f16">PD1-16</a> · Related: PID-30</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The v1.5 IG treats PD1-16 and PID-30 independently.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-105">
+<h3>There is a discrepancy between MIROW patient status definitions and the CDC IG definitions. How do the HL7 PD1-16 codes map to MIROW statuses?</h3>
+<p class="mini">Asked 1× · 2018 · VXU · Partly answered · Fields: <a href="../../structure/segments/pd1/index.html#f16">PD1-16</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA provided a mapping table relating the HL7 code, MIROW status and MIROW reason (table content not recorded).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q21-021">
+<h3>In HL7 Table 0441, what is the intended use of code P &quot;Inactive-Permanently inactive&quot;? Is it meant only for deceased patients, and should an IIS map it to &quot;Inactive-Deceased&quot; only when a date of death is sent in PID?</h3>
+<p class="mini">Asked 1× · 2022 · VXU · Partly answered · Fields: <a href="../../structure/segments/pd1/index.html#f16">PD1-16</a></p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no definitive answer. The AIRA/MIROW document <em>Patient Status in Immunization Information Systems</em> (page 28, Functionality Challenge 2) indicates IIS should consider "permanently inactive" to be mappable to "deceased", as long as local terminology can be mapped to the minimum recommended statuses (active, inactive-outside jurisdiction, deceased). However, that document does not describe how submitting systems define the field, and there is little national information on how EHRs have implemented it. Recommendation: investigate a random sample of affected records to determine their actual status, and consider following up with providers on how they use the code.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

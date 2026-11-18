@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: QPD Query Parameter Definition · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · segment</p>
+<h1>QPD Query Parameter Definition</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">11 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>QPD questions cover the query name in QPD-1 (Z34 vs Z44 and the correct coding system), how patient identifiers in QPD-3 should be used and matched (submitter MRNs, IIS IDs, re-querying after a Z31 selection), demographic matching on name and address (QPD-4, QPD-8), and how an IIS should echo the QPD in its RSP even when the query contained invalid or non-conformant values. A recurring theme is that query demographic fields are RE in the national IG and that IIS should not let unknown or missing values block a match unnecessarily.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (4)</summary><ul><li>Consistently show CDCPHINVS as the QPD-1 coding system.</li><li>State that the RSP echoes the QPD exactly as received, even with invalid values, and validators should not fail it.</li><li>Describe how to populate QPD-3 when re-querying after a Z31 candidate selection, including the local MRN.</li><li>Explain that query demographic fields are RE and give guidance on IIS minimum-match requirements versus local R constraints.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">QPD (segment-level)</a> <span class="mini">2</span></li><li><a href="#g-1">QPD-1 Message Query Name</a> <span class="mini">1</span></li><li><a href="#g-2">QPD-3 Patient List</a> <span class="mini">4</span></li><li><a href="#g-3">QPD-4 Patient Name</a> <span class="mini">1</span></li><li><a href="#g-4">QPD-8 Patient Address</a> <span class="mini">3</span></li></ul>
+<h2 id="g-0">QPD (segment-level)</h2><section class="ta-q r-unassessed" id="ta-q03-050">
+<h3>An EHR did not support the Z44 query profile. Can an IIS expect EHRs to support Z44?</h3>
+<p class="mini">Asked 1× · 2019 · QBP · Answered · Related: MSH-21</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. If the EHR is certified for 2015 Edition, the IIS can expect it to support Z44. A screenshot of the draft updates to the Interop Checklist for the NIST 2015 Query section was shared.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q07-023">
+<h3>When the IIS echoes the query&#x27;s QPD in its RSP, NIST flags conformance errors in the echoed content (e.g., an invalid date, or &quot;The required Component QPD-8.7 (Address Type) is missing&quot;). Does this affect results, and should the IIS flag such values instead of, say, returning NF?</h3>
+<p class="mini">Asked 2× · 2021–2024 · QBP/RSP · Answered · Related: QPD-8, MSA-1, Query &amp; Response Behavior, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IIS should echo the QPD back as received, even if it contains invalid values. AART shows QPD conformance errors but doesn't score them, because the QPD in the RSP is an echo of what the tester sent; some test cases intentionally send poor HL7, so echoed errors sometimes can't be avoided. In one case AIRA fixed the test case so the QPD-8.7 issue wouldn't recur (2021). For a query containing an invalid date (2024): NIST will see the echoed date as a problem in the response, but AIRA does not consider it something the IIS should fix, and it should not cause a failure. The test case (probably Query measure 6) is most likely checking that the IIS recognizes the error and returns AE with an ERR segment instead of AA, so returning an error is preferable to only reporting not found.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">QPD-1 Message Query Name</h2><section class="ta-q r-unassessed" id="ta-q01-036">
+<h3>What are the correct QPD-1 values? The 2.5.1 IG uses both HL70471 and CDCPHINVS as the coding system; for a history request, send `Z34^Request Immunization History^HL70471` or `Z34^Request Complete Immunization History^CDCPHINVS`?</h3>
+<p class="mini">Asked 2× · 2016–2022 · QBP · Answered · Fields: <a href="../../structure/segments/qpd/index.html#f1">QPD-1</a> · Related: MSH-21, Code Sets &amp; Vocabulary, Version &amp; IG Interpretation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Use CDCPHINVS. The NIST Immunization Test Suite, which follows the current CDC IG and is used for EHR certification, does not allow HL70471 in QPD-1 for QBP Z34 messages, so for certification always use CDCPHINVS. It works with all IIS. HL70471 may work with some IIS, but it has not been tested and is not seen in practice. The HL7-balloted version of the IG also uses CDCPHINVS (2022). An earlier (2016) question noting that the IG's QPD-1 values appear incorrect has no separate answer recorded.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">QPD-3 Patient List</h2><section class="ta-q r-unassessed" id="ta-q35-011">
+<h3>When a querying provider includes its own MRN in QPD-3 for a patient the IIS has never associated with that provider, the IIS returns no match, but removing the MRN returns the patient. Should an unknown provider MRN prevent a match?</h3>
+<p class="mini">Asked 1× · 2025 · QBP/RSP · Answered · Fields: <a href="../../structure/segments/qpd/index.html#f3">QPD-3</a> · Related: QPD-4, QPD-6</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. Including the MRN with every query is a customary and encouraged practice, and it is common for a submitter to have no prior relationship with a patient in the IIS (e.g., a patient registers at a pharmacy that then queries the IIS for history). A known provider MRN can help the IIS find a match, but if the IIS does not know that provider's MRN this should not prevent the IIS from finding the patient using the other demographics; the IIS search logic should be reconsidered.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q22-011">
+<h3>After a Z31 candidate list, when the clinician selects the correct patient, how should the follow-up query populate QPD-3: (a) echo the identifier list received in the selected PID, (b) send only the local MRN with the registry&#x27;s demographics, or (c) send both?</h3>
+<p class="mini">Asked 1× · 2023 · QBP/RSP · Partly answered · Fields: <a href="../../structure/segments/qpd/index.html#f3">QPD-3</a> · Related: PID-3, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IG does not single out PID-3 identifiers as different from the other PID fields when re-querying from a Z31 selection, so the follow-up query should echo the identifier list (and demographics) returned for the selected candidate, i.e., option (a), which helps the IIS make a single exact match.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q07-019">
+<h3>How can a submitter retrieve the complete immunization history for a patient it just reported, when QPD doesn&#x27;t seem to have a unique identifier?</h3>
+<p class="mini">Asked 1× · 2021 · QBP · Answered · Fields: <a href="../../structure/segments/qpd/index.html#f3">QPD-3</a> · Related: PID-3, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>QPD-3 (PatientList) is the equivalent of PID-3 (Patient Identifier List). Put your MRN in QPD-3 just as you would in PID-3. Most IIS require this field and treat the submitter's MRN as a strong indicator of which patient to return.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q22-012">
+<h3>If an EHR stores the IIS patient identifier returned in a response and sends it in QPD-3 on future queries (with its own current demographics), will the IIS find a unique match, or still do a demographic lookup that may return multiple matches?</h3>
+<p class="mini">Asked 1× · 2023 · QBP/RSP · No answer recorded · Fields: <a href="../../structure/segments/qpd/index.html#f3">QPD-3</a> · Related: Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">QPD-4 Patient Name</h2><section class="ta-q r-unassessed" id="ta-q12-010">
+<h3>A consumer portal queries with the identity-proofed legal name (e.g., David) while the IIS record has a nickname (Dave), causing no match. Should the IIS match nicknames, and if so from a pre-generated nickname table or aliases stored on the record, or require an exact name match?</h3>
+<p class="mini">Asked 1× · 2021 · QBP/RSP · Answered · Fields: <a href="../../structure/segments/qpd/index.html#f4">QPD-4</a> · Related: Patient Matching &amp; Deduplication, PID-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Most patient matching algorithms handle this through a nickname lookup that links known names as common replacements, typically curated from name resources. If all other data elements agree, matching TIMOTHY to TIM using a pre-generated list (or another technique) is reasonable. Many algorithms compute a confidence score across all demographic elements that must meet a threshold; each IIS needs to decide where that threshold is, and it may be the same or different for VXU and QBP. String comparison techniques such as Soundex, Jaro-Winkler and edit distance also help with nicknames, spelling variants (Sara/Sarah) and city names. Requiring an exact name match from external systems, whose demographics may change without notifying the IIS, will lead to a low match rate. The CDC de-duplication best practices document also covers many matching nuances that remain applicable.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">QPD-8 Patient Address</h2><section class="ta-q r-unassessed" id="ta-q21-011">
+<h3>In IIS-to-IIS query, one IIS may hold a different address for a patient than another. Would sending a different address cause many &quot;not found&quot; responses?</h3>
+<p class="mini">Asked 1× · 2022 · QBP/RSP · Partly answered · Fields: <a href="../../structure/segments/qpd/index.html#f8">QPD-8</a> · Related: Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>This has come up before and most IIS reported that address differences would not have a large impact on found vs. not-found results, since matching relies on other demographics as well. Allowing a user to send an address not saved in the IIS via a manual query was considered a good feature to add.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-051">
+<h3>Which component of QPD-8 carries the address type (asked as QPD-8.6)?</h3>
+<p class="mini">Asked 1× · 2019 · QBP · Partly answered · Fields: <a href="../../structure/segments/qpd/index.html#f8">QPD-8</a> · Related: PID-11</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Guidance was given for QPD-8.7 and PID-11.7, i.e., the address type is component 7 of the XAD data type (not component 6).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q23-001">
+<h3>A jurisdiction changed QPD-8 (patient address) from RE to R in its local guide, and providers querying for transient clients with unknown or outdated addresses now get many &quot;Not Found&quot; responses. The national guide lists QPD-8 as RE. What is recommended?</h3>
+<p class="mini">Asked 1× · 2023 · QBP · Answered · Fields: <a href="../../structure/segments/qpd/index.html#f8">QPD-8</a> · Related: QPD-3, QPD-4, QPD-6, Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The patient address in QPD-8 is RE in the national IG, as are all the patient-identifying query fields. In practice nearly all IIS require some minimum patient information before running a query. Testing commonly shows IIS requiring the patient ID, name and date of birth. Those fields are normally required for VXU submission and present on the patient record, so requiring them is not usually a problem.</p>
+<p>The AIRA IIS Functional Guide for query (section 6.1, p. 28) says "The Querying System SHALL include all known data from the Querying System at the time of the query." This supports keeping the query data fields RE, as the national IG has them.</p>
+<p>General recommendations when an IIS wants to move a field from RE to R locally: - IIS may tighten requirements in their local guides. These are constraints on the national standard. - Make the change only to support a specific local policy, after weighing what happens when the data is truly missing. Document why the constraint exists so partners understand the impact on their systems. - It can affect AART assessment and validation. Moving RE to R can produce a "Deviates From Standard" result instead of "Meets", which flags the local constraint for partners. - Overall, IIS are encouraged to follow the national standard as closely as possible and minimize local constraints. This shortens onboarding and keeps the most capability available.</p>
+<p>For this case it depends on policy. If a patient record truly cannot be retrieved without an address, the IIS has to keep QPD-8 as R. Patients without an address then cannot be found through the HL7 query interface, and the IIS should document that limitation and the workarounds (such as requesting the record by other means). If the IIS wants to support queries for patients without an address, it should move QPD-8 back to RE, in line with the national standard.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

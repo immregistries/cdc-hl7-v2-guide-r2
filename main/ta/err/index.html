@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: ERR Error Segment · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · segment</p>
+<h1>ERR Error Segment</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">30 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>ERR questions cluster around four issues: how many ERR segments an RSP may carry and where they may appear; how to encode the error location in ERR-2; which HL7 table 0357 codes belong in ERR-3 (207 vs 999, 200-203, 100); and, most frequently, how to choose ERR-4 severity (E, W, I) and what each severity means for the sender. ERR-5 questions reflect a long-running need for a national, expanded set of application error codes. Many of the questions arise from AART/NIST assessment findings, and the answers lean heavily on AIRA's "Guidance for HL7 Acknowledgement Messages to Support Interoperability".</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (6)</summary><ul><li>Allow multiple ERR segments in RSP profiles (currently limited to one); note the base-standard origin of the limit.</li><li>State explicitly that ERR-4 = E means the data was not accepted and must be corrected and resubmitted.</li><li>State that HL70357 codes 200-203 pair with ERR-4 = E and MSA-1 = AR; clarify 207 vs 999 and when ERR-5 (table 0533) should be populated, fixing inconsistent Appendix B examples.</li><li>Publish a national, expanded ERR-5 application error code set, including codes for data quality situations.</li><li>Address partial acceptance and &quot;accepted but not stored by local policy&quot; through Advanced ACK guidance.</li><li>Local profiles should not loosen the RSP ERR segment from RE to O.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">ERR (segment-level)</a> <span class="mini">6</span></li><li><a href="#g-1">ERR-2 Error Location</a> <span class="mini">5</span></li><li><a href="#g-2">ERR-3 HL7 Error Code</a> <span class="mini">5</span></li><li><a href="#g-3">ERR-4 Severity</a> <span class="mini">10</span></li><li><a href="#g-4">ERR-5 Application Error Code</a> <span class="mini">4</span></li></ul>
+<h2 id="g-0">ERR (segment-level)</h2><section class="ta-q r-unassessed" id="ta-q04-048">
+<h3>The IG allows only one ERR segment in the RSP (0..1, including the Z33 response), but providers would benefit from seeing all errors at once. Why is it limited, and should an IIS that returns multiple ERR segments change?</h3>
+<p class="mini">Asked 3× · 2020–2024 · RSP · Answered · Related: Message Structure &amp; Cardinality</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Guidance has changed over time.</p>
+<p>Earlier guidance (2020): This is a known limitation of the base standard / HL7 version in use. AIRA convinced HL7 International of it and it will be corrected, but only in a later HL7 version that the community is not yet using; HL7 cannot go back and correct older versions. Until then, the one-ERR constraint in the Z33 response stands. Guidance was given on how to pick the one error to return when multiple errors exist (details not recorded).</p>
+<p>Later guidance (2024): No change was needed on the IIS side. The current IG profile allows only one ERR segment in the RSP, but returning multiple ERR segments in this rare scenario is considered the better practice, so AART was updated to exclude this from assessment reporting. The NIST tool will still flag it if messages are run directly there; IIS should keep using NIST during development but ignore the multiple-ERR finding. The multiple-ERR scenario was identified for the next IG revision, with AIRA recommending that IIS be allowed to send multiple ERR segments in RSP messages.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-002">
+<h3>Testing feedback indicated something wrong with the ERR segments in an IIS&#x27;s ACK messages. What is the correct way to construct ERR segments in an acknowledgement?</h3>
+<p class="mini">Asked 1× · 2015 · ACK · No answer recorded · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-091">
+<h3>How should the ERR segment be used when there are multiple patient matches?</h3>
+<p class="mini">Asked 1× · 2018 · ACK/RSP · No answer recorded · Related: Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-033">
+<h3>Can an ERR segment be returned in a response where a patient is found (Z31, Z32, Z42), and where may it appear? (The Release 1.5 IG shows ERR in the Z31/Z32 profiles but a diagram suggests it is allowed only in Z33.)</h3>
+<p class="mini">Asked 3× · 2016–2020 · RSP · Answered · Related: Message Structure &amp; Cardinality, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Sending an ERR segment at the bottom of the RSP when a patient is found is not within the standard. It is valid to include one ERR segment after the MSA and before the QAK segment, even when a patient is found; this is rare but not wrong (2020). The two earlier questions (2016) about the diagram and whether ERR makes sense in Z32/Z42 have no separate answer recorded.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-026">
+<h3>What error should be returned for a bad query, given that the response to a bad query is only allowed to have one ERR segment?</h3>
+<p class="mini">Asked 1× · 2016 · ACK/QBP · No answer recorded · Related: Acknowledgement &amp; Error Handling, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-031">
+<h3>When a query is rejected with AR, the response gives no explanation (e.g., MSH-2 too long, QPD-9 badly formatted), while AE and TM responses do. Shouldn&#x27;t the IIS explain AR rejections?</h3>
+<p class="mini">Asked 1× · 2017 · ACK/RSP/QBP · Answered · Related: MSA-1, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. If an IIS cannot process a query it should return one of two messages, both of which must include at least one ERR segment indicating the issue. Not returning details is inconsistent with current IIS standards. See IG Release 1.5 pages 139-140 (Figure 41), which diagrams how a QBP should be processed.</p>
+<p>If the QBP fails for one of the reasons at the top of Figure 41 (unsupported message type, unsupported event code, unsupported processing ID, or unable to process for reasons unrelated to format or content), an ACK must be returned. Per the AIRA ACK Guidance document, an ACK with AR should include at least one ERR segment indicating the issue.</p>
+<p>If none of those apply but a fatal error still prevents the query from being processed, the diagram shows an RSP should be returned. The RSP definition allows an ERR segment, and for practical purposes it should be included to indicate the reason so the submitter can fix and resubmit. Either way, the response should indicate the problem in an ERR segment; this is fully supported by the current standard.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">ERR-2 Error Location</h2><section class="ta-q r-unassessed" id="ta-q24-012">
+<h3>What is the correct format for ERR-2 (Error Location)? An IIS encoded locations as `PID^7` or `PID^^5.2`.</h3>
+<p class="mini">Asked 2× · 2023–2025 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f2">ERR-2</a> · Related: PID-7, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Each part of the location belongs in its own component rather than using dotted notation: segment ID ^ segment sequence ^ field position ^ field repetition ^ component number. For example, an error in PID-7 is written `PID^1^7` (segment ID, then segment sequence where 1 = first PID, then field position), and an error in PID-5.2 is `PID^1^5^1^2`. The sequence matters little for PID but is critical for segments that can repeat, such as RXA. Changing `PID^7` to `PID^1^7` passed the AART test, which checks that the error is reported in PID-7 (2023). For `PID^^5.2`, the extra ^ was not the real problem; the issue was the dotted notation (2025). The question of whether ERR-2 can repeat was not specifically addressed; the TA offered to review the original ACK to confirm all needed changes.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q31-021">
+<h3>In an ACK for a new patient whose only vaccination has an administration date before the birth date, the IIS returns a second ERR (&quot;Update rejected. Patient does not exist in the registry&quot;) with ERR-2 valued `^1` and no segment ID, which NIST flags. Should it point to PID or RXA, and what should ERR-2.3 contain?</h3>
+<p class="mini">Asked 1× · 2024 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f2">ERR-2</a> · Related: Acknowledgement &amp; Error Handling, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The second ERR can point to the PID segment (ERR-2.1 = PID, with sequence 1). ERR-2.3 (field position) does not have to be valued for this error. With PID in ERR-2, the NIST test suite no longer identifies an error.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q24-006">
+<h3>When an error concerns information normally sent in an OBX, but no OBX was sent, where should ERR-2 point?</h3>
+<p class="mini">Asked 1× · 2023 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f2">ERR-2</a> · Related: ORC, RXA, OBX</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>If no OBX was sent there is nothing to reference, so the specific error should point to the ORC/RXA level of the affected vaccination. AIRA supported the IIS vendor's proposed option to populate ERR-2 that way. (Context: an EHR complained that some IIS error messages lack an ERR-2 location and are not actionable.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q18-010">
+<h3>How specific should ERR-2 locations be? Is segment and field enough (e.g., `PID^1^13`), or should repetition and component be included (e.g., `PID^1^13^2^4` for a second email address, `PID^1^5^1^1` for missing given name)? Are subcomponents needed?</h3>
+<p class="mini">Asked 1× · 2022 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f2">ERR-2</a> · Related: Acknowledgement &amp; Error Handling, PID-13, PID-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Identifying the issue down to the field (e.g., PID-13 or PID-5) is very good and is what matters if AIRA measures whether the IIS detects an issue. Indicating the repetition is even better, especially if submitters regularly send multiple email addresses, but if not the impact is small since the list is usually short and problems can be found quickly. The same applies to components: they may be indicated but are not required, particularly when the ERR-8 description clearly states the problem.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q18-004">
+<h3>How should ERR segments appear in an acknowledgement with MSA-1 = AE? Should ERR-2 and ERR-4 be populated, and should the IIS vendor be asked to change how ERR is returned?</h3>
+<p class="mini">Asked 1× · 2022 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f2">ERR-2</a> · Related: ERR-4, ERR-5, MSA-1, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The key fields to fill in are MSA-1, ERR-2 and ERR-4, and the example shown did this well. ERR-2 indicates where the error occurred and ERR-4 indicates how severe it is. In this IIS, ERR-4 is linked to the import profile: conditions configured with an outcome of Error reject the data and issue "E", and Warn issues "W", which is consistent and adjustable by the IIS. ERR-2 values looked correct in the data quality assessment. A minor cleanup item is that the ACKs are verbose and often repeat identical ERR segments; this is not against any standard but is worth addressing at low priority. ERR-5 (what the error is) still needs a national set of error codes, which AIRA hopes to work on, so that eventually ACKs will convey where (ERR-2), how severe (ERR-4) and what (ERR-5) the error is.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">ERR-3 HL7 Error Code</h2><section class="ta-q r-unassessed" id="ta-q22-010">
+<h3>An EHR receives an ACK with error code 207 indicating the account is locked, but the IIS sees no connection attempts in its logs. Why?</h3>
+<p class="mini">Asked 1× · 2023 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f3">ERR-3</a> · Related: MSA-1, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It appears the interface the EHR is pointing to is reporting too many attempts with a bad password and has locked the account. If the EHR is using the correct connection parameters, the IIS's system (e.g., its HL7 hub) is generating the message. Such a message would likely not be logged under the account because the system treats it as a bad-faith request. Check documentation on how the system handles account locking after repeated bad credentials, confirm with the vendor that it generates this error, and most likely follow the account unlock process and issue new credentials before the EHR retries.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-092">
+<h3>How should ERR-3 999 (Application error) be distinguished from 207 (Application internal error)? Do table 0533 codes in ERR-5 apply only when ERR-3 is 207 or 999, and should ERR-5 be blank for other ERR-3 values (100, 101, etc.)?</h3>
+<p class="mini">Asked 1× · 2016 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f3">ERR-3</a> · Related: ERR-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>207 is for internal errors, such as the database being down. 999 is for business rule failures. ERR-5 has usage RE and is technically independent of whether ERR-3 is 207 or 999, but it is more likely to be populated with 100-class or 999 errors. Discussion continued as the new IG was being developed, and implementers might wait for final clarification. (The questioner noted that IG Appendix B examples and the AIRA ACK guidance populate ERR-5 inconsistently.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q26-010">
+<h3>What error code should an ACK use if the received message has no MSH segment? Would 200 (Unsupported message type) be right?</h3>
+<p class="mini">Asked 1× · 2023 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f3">ERR-3</a> · Related: MSH, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA would lean toward 100 (Segment sequence error), but 200 is not wrong. A message without an MSH has a fundamental problem, so the ACK can only do its best.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q26-009">
+<h3>Which message fields do ERR-3 codes 200-203 refer to?</h3>
+<p class="mini">Asked 1× · 2023 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f3">ERR-3</a> · Related: MSH-9, MSH-11, MSH-12</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>200 Unsupported message type relates to MSH-9.1 (message code), 201 Unsupported event code to MSH-9.2 (trigger event), 202 Unsupported processing id to MSH-11, and 203 Unsupported version id to MSH-12. All are MSH fields, not RXA fields.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q26-005">
+<h3>Should ERR-3 codes 200, 201, 202 and 203 be used only for application rejections, i.e., with ERR-4 = E and MSA-1 = AR?</h3>
+<p class="mini">Asked 1× · 2023 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f3">ERR-3</a> · Related: ERR-4, MSA-1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. Error codes 200-203 go with ERR-4 = "E" and MSA-1 = "AR". This will be stated explicitly in the next version of the IG.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">ERR-4 Severity</h2><section class="ta-q r-unassessed" id="ta-q02-001">
+<h3>How should an IIS decide which issues are errors (E) versus warnings (W) in ERR-4, and is there a resource defining the criteria? (e.g., if one of three immunizations in a VXU has an invalid vaccination date, should that be E?)</h3>
+<p class="mini">Asked 4× · 2016–2024 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: MSA-1, ERR-5, RXA-3, Acknowledgement &amp; Error Handling, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Per the AIRA ACK guidance ("Guidance for HL7 Acknowledgement Messages to Support Interoperability", repository.immregistries.org), error severity is determined by the system creating the ACK based on its local requirements and business rules, but the severity chosen should reflect what the receiving system is expected to do. The guidance includes a table translating each severity into expectations that the other system correct an issue in its system and/or resend the data. Different systems may therefore assign different severities to the same issue depending on how they want the other system to react, which reflects how important that information is to them (2016). The severity for a given issue depends on the IIS's data quality rules and policy for that field, not on HL7 conformance rules; an HL7 conformance problem can be reported, but its severity is an IIS policy decision (2021).</p>
+<p>Severity is at the IIS's discretion: if the IIS cannot save data it deems critical and wants the sender to correct and resubmit the entire VXU, use E; otherwise use W or no error at all (e.g., a missing zip code might produce nothing, a W, or an E depending on the IIS's needs). For an invalid vaccination date on one of three doses, E is the universally accepted approach because IIS never want to lose vaccination events. Since HL7 cannot easily message partial rejections, the submitter resubmits the entire message, including the doses the IIS probably accepted. For a less critical problem, such as one bad NK1 among several, each IIS makes its own business decision: E if it needs a correction and resubmission, W to notify of a data quality problem, or possibly nothing (2024).</p>
+<p>For ERR-5, the national set of error codes (2017 publication) provides additional guidance, and a working group drafted additional codes (an "ERR-5 minimum error set" with High/Medium/Low implementation priority) listing data quality situations an IIS might want to signal; an IIS does not have to send these codes but can use the list to decide which issues to detect. Also include the NIST IZ validation tool in ACK development and testing: many IIS that complain about submitters' HL7 conformance return ACKs that are themselves non-conformant, often because they were built before a robust testing tool existed (2021).</p>
+<p>In one review (2018), AIRA confirmed an IIS's described usage of W and E was correct (details not recorded).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q34-003">
+<h3>Does an ERR-4 = E cause AART to treat a message as not accepted, and where is it stated that E means the message was not accepted (is it from NIST)?</h3>
+<p class="mini">Asked 2× · 2024 · ACK/RSP · Answered · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: MSA-1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. Any ERR segment with ERR-4 = E causes AART to interpret the message as not accepted (rejected, fully or partially), so the test case fails (e.g., an ACK with AE, one W and one E "VIS Identifier submitted value is not a valid option. Data rejected."). The AART testing log shows how each test case is assessed. The interpretation comes from AIRA/SISC guidance documents rather than NIST: "Guidance for HL7 Acknowledgement Messages to Support Interoperability" and "Guidance for HL7 RSP Messages to Support Interoperability" explain ERR-4 = E and describe how AART evaluates test cases.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q45-007">
+<h3>Does ERR-4 = E mean the entire message was rejected, or can E be returned when only one piece of data (e.g., a field-level validation failure such as code 207) was rejected?</h3>
+<p class="mini">Asked 1× · 2026 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: MSA-1, ERR-5, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>ERR-4 = E does not indicate whether the IIS processed the message; it indicates whether the sending system needs to fix the issue and resubmit. If the IIS could not save the patient or vaccination because of the problem, it should send E in ERR-4. Even when ERR-4 = E is sent, the IIS may still choose to process and accept some of the data in the message; it may, but is not required to, reject the entire message. More detail is in AIRA's latest ACK TAB (https://repository.immregistries.org/resource/tab-resources/).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-040">
+<h3>What is the relationship between ERR-4 (severity) and the MSA acknowledgment fields?</h3>
+<p class="mini">Asked 1× · 2018 · ACK · No answer recorded · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: MSA-1</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q34-009">
+<h3>The ACK guidance says W means the sender must correct the issue but does not have to resend. How is it corrected if it is not resent?</h3>
+<p class="mini">Asked 1× · 2024 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: Data Quality &amp; Validation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>W is used for systemic problems, placeholder data and similar issues, such as a phone number of 555-1212. These are usually best reviewed in aggregate over a week, month or quarter to find data quality improvement opportunities. A W on an individual message is not concerning, but if the same W shows up in every message the sender should fix its system or process going forward; the correction applies to future submissions rather than resending that message.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q34-005">
+<h3>How can an IIS indicate that it rejected one vaccination in a VXU but accepted the others, if AE with W means accepted and AE with E means failed?</h3>
+<p class="mini">Asked 1× · 2024 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: MSA-1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>This is not possible in the base HL7 v2 standard, which has no concept of a partially accepted message. An ERR segment with ERR-4 = E is interpreted as a rejection, full or partial, telling the EHR that some data was not saved and the submission must be fixed and resubmitted. If the IIS is satisfied with the message and does not expect resubmission, the highest ERR-4 severity it should use is W. AIRA's short ACK guidance document describes the logic AART uses. The partial-acceptance concept was raised with the SISC ACK improvement group; it is out of scope for the current improvements but on the radar, and SISC is developing an "Advanced ACK".</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q39-007">
+<h3>Is it appropriate for an IIS to return MSA-1 = AE with ERR-4 = E (e.g., `ERR||RXA^1^9^1|207^Application internal error^HL70357|E||||Immunization source must be 00 to deduct inventory`) for every valid historical vaccination (RXA-9 = 01)? How should the EHR handle this?</h3>
+<p class="mini">Asked 1× · 2025 · VXU/ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: RXA-9, MSA-1, ERR-2</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. Returning an "E" for a good historical vaccination does not follow the national standard; such an IIS would fail Basic Validation for Submission and Acknowledgement (measure #2). Per AIRA guidance published in 2018, ERR-4 = E means the submitter must correct and resubmit, whereas ERR-4 = I indicates information that can be reviewed with no follow-up action required. EHR vendors reasonably assume IIS follow this. In the most recent M&amp;I measurement, 92% of measured IIS did not return an E-level error for historical vaccinations. The standard way to send an informational message such as "this immunization is historical / not deducted from inventory" is ERR-4 = I.</p>
+<p>Two ways forward: (1) preferred - the IIS changes the severity to I so it aligns with national standards; (2) not ideal - the EHR adapts locally, e.g., treating a message as rejected only when the word "reject" appears in the ACK text (an approach common in early IIS interface testing). Each IIS sets its own onboarding standards, but when its interface deviates from the national standard it should clearly communicate that to trading partners. (The IIS in this case explained the message appears only for providers set up for automated inventory deduction and could be avoided by turning off the inventory module for that provider.) See Submission and Acknowledgement Validation: Basic Level in the AIRA repository.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q40-005">
+<h3>A jurisdiction&#x27;s local guidance says refusals should not be sent to the IIS, so the IIS returns ERR-4 = E when a refusal is submitted. Is this a local deviation, and what is the right ACK behavior?</h3>
+<p class="mini">Asked 1× · 2025 · VXU/ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: Local Profiles &amp; Jurisdictional Constraints, Immunization Evidence (refusals, immunity, contraindications)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Current guidance, given the existing ACK structure, is to return ERR-4 = I or W with the same error message rather than E. Returning E means the submitter should fix an issue and resubmit; since the IIS does not accept refusals, resubmission makes no sense. Returning I or W with a clear message that refusals are not stored is the best current approach. SISC technical small groups are working on an "Advanced ACK" TAB to let IIS communicate such situations in a more structured way.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q13-027">
+<h3>An IIS matches QBPs on name, DOB, patient ID (QPD-3.1) and the IIS provider ID (QPD-3.4). If QPD-3.4 is not a valid provider ID, can it return an error segment while still returning a match found by name and DOB?</h3>
+<p class="mini">Asked 1× · 2021 · QBP/RSP · Answered · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: MSA-1, QPD-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. An error may be returned, but since the request succeeded it should be indicated as a Warning or Information in ERR-4. If it is a Warning, MSA-1 should be AE to indicate there is an issue to look at. Here it is probably Information (I), because it is completely valid to include an identifier the IIS does not know, though it is good to inform the sender; in that case MSA-1 should remain AA.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q37-005">
+<h3>When fixing ACK conformance errors, should ERR-4 contain only E or W, and should ERR-5 use the 99zzz or L coding system for local codes?</h3>
+<p class="mini">Asked 1× · 2025 · ACK · Partly answered · Fields: <a href="../../structure/segments/err/index.html#f4">ERR-4</a> · Related: ERR-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The TA reviewer said the IIS was on the right track with its list of fixes but did not specifically comment on ERR-4 or ERR-5, and offered to review the original ACK to confirm what should be changed. The IIS made its fixes and requested a re-run of testing.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">ERR-5 Application Error Code</h2><section class="ta-q r-unassessed" id="ta-q02-062">
+<h3>The national ACK error code set (HL7 table 0533 in ERR-5) lacks codes for some needed situations, including some defined in the Data Quality guides. How can it be expanded, and what should be sent meanwhile?</h3>
+<p class="mini">Asked 3× · 2017–2020 · ACK · Partly answered · Fields: <a href="../../structure/segments/err/index.html#f5">ERR-5</a> · Related: Code Sets &amp; Vocabulary, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>As of 2017 this was still being determined. NIST tooling did not allow expansion, so any expansion would be flagged as an error. SISC was working on a list of codes, but progress was slow; the approach the IIS suggested was probably the best for now, though not ideal. By 2019 AIRA had started working on additional codes and planned to propose them to SISC, then bring CDC into the process. A 2020 question about what to send when no code exists for a data quality situation has no answer recorded. (See also the ERR-5 "minimum error set" and the expanded code set planned for around March 2025, noted under ERR-4 and below.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-090">
+<h3>An IIS needs to return additional information when VXUs are submitted. Can this fit within a Z23 ACK?</h3>
+<p class="mini">Asked 1× · 2018 · ACK · Partly answered · Fields: <a href="../../structure/segments/err/index.html#f5">ERR-5</a> · Related: Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>After a conference call, error codes were added to the national error code list so the IIS could convey what it needed in the ACK; some of the needed codes already existed.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q26-008">
+<h3>When an ACK has MSA-1 = AR, is ERR-5 expected to be empty?</h3>
+<p class="mini">Asked 1× · 2023 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f5">ERR-5</a> · Related: MSA-1, ERR-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Not necessarily. You may populate ERR-5, but usually no ERR-5 code fits a message-level rejection, and ERR-3 is enough.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q35-010">
+<h3>An IIS wants to return an informational ERR when it accepts an RXA update (RXA-21 = U), using ERR-3 = 0 (Message accepted). Is ERR-5 then mandatory? Table 0533 has no success code - can the IIS create its own, or will that fail AART testing?</h3>
+<p class="mini">Asked 1× · 2025 · ACK · Answered · Fields: <a href="../../structure/segments/err/index.html#f5">ERR-5</a> · Related: ERR-3, ERR-4, RXA-21</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>New ACK formats should always be checked with the NIST IZ Tool; if the ACK passes, its structure will not cause problems in Measurement &amp; Improvement (M&amp;I) testing. ERR-3 is not a critical field and provides little value; M&amp;I only verifies the code comes from the correct table. `0^Message Accepted` is appropriate and means the issue did not prevent the message from being accepted or the update action from being taken. ERR-5 is RE, so if there is no applicable application error code it can be left blank; NIST and M&amp;I both accept this. Alternatively, a local internal application error code can be placed in ERR-5, which is what the field was originally defined for. The recommendation is to leave it blank for now and adopt the expanded, coordinated set of application error codes AIRA was preparing for release (around March 2025), along with forthcoming Advanced ACK guidance.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

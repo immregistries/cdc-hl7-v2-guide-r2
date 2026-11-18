@@ -1,4 +1,4 @@
-/* Navigation tree, filter, findings toggle, figure lightbox, and permalink copy. No dependencies. */
+/* Navigation tree, filter, reader/author view switch, figure lightbox, and permalink copy. No dependencies. */
 (function () {
   "use strict";
   var body = document.body;
@@ -32,11 +32,12 @@
     return (node.c || []).some(function (k) { return contains(k, id); });
   }
 
-  function badge(f) {
-    if (f[0]) return '<span class="badge sev-issue" title="' + f[0] + ' issue(s)">' + f[0] + "</span>";
-    if (f[1]) return '<span class="badge sev-warning" title="' + f[1] + ' warning(s)">' + f[1] + "</span>";
+  function badge(f) {  // quality findings: author view only
+    if (f[0]) return '<span class="badge sev-issue author-only" title="' + f[0] + ' issue(s)">' + f[0] + "</span>";
+    if (f[1]) return '<span class="badge sev-warning author-only" title="' + f[1] + ' warning(s)">' + f[1] + "</span>";
     return "";
   }
+  function authorView() { return document.documentElement.classList.contains("author-view"); }
 
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; });
@@ -62,9 +63,11 @@
   var tree = document.getElementById("tree");
   var treeBody = tree && tree.querySelector(".tree-body");
   if (treeBody && nav.nodes.length) {
-    // the guide (chapters, chapter 7, appendices), then below a line the pages about the draft and its review
+    // the guide (chapters, chapter 7, appendices), then, in the author view only, below a line: how the guide is made
+    // and the review tools
+    var meta = nav.meta || [];
     treeBody.innerHTML = "<ul>" + nav.nodes.concat(nav.extra).map(function (n) { return item(n, 0); }).join("") + "</ul>" +
-      '<div class="sep"></div><ul>' + (nav.meta || []).map(function (n) { return item(n, 0); }).join("") + "</ul>";
+      (meta.length ? '<div class="author-only"><div class="sep"></div><ul>' + meta.map(function (n) { return item(n, 0); }).join("") + "</ul></div>" : "");
     treeBody.addEventListener("click", function (e) {
       var t = e.target.closest(".twisty");
       if (!t || t.classList.contains("leaf")) return;
@@ -122,7 +125,9 @@
     var tokens = q.toLowerCase().split(/[\s,]+/).filter(Boolean);
     var count = 0;
     all.forEach(function (li) { li.classList.add("hidden"); });
+    var author = authorView();
     all.forEach(function (li) {
+      if (!author && li.closest(".author-only")) return;
       var hits = nodeMatches(li, tokens);
       if (!hits) return;
       count++;
@@ -165,20 +170,25 @@
     });
   }
 
-  // ------------------------------------------------------------ findings toggle
-  var ft = document.querySelector(".findings-toggle");
-  function syncFindings() {
-    var hidden = document.documentElement.classList.contains("hide-findings");
-    if (ft) { ft.textContent = hidden ? "Show findings" : "Hide findings"; ft.setAttribute("aria-pressed", String(hidden)); }
+  // ------------------------------------------------------------ reader / author view
+  // The switch is shown only to authors (html.is-author: set before drawing by the script in <head>, from InteropHub's
+  // answer cached by comments.js). It moves between the author view and the reader view and remembers the choice.
+  var vt = document.querySelector(".view-toggle");
+  function syncView() {
+    var on = authorView();
+    if (vt) { vt.textContent = on ? "Reader view" : "Author view"; vt.setAttribute("aria-pressed", String(!on));
+      vt.title = on ? "See the guide as readers see it" : "Show the quality findings and the pages for the authors"; }
+    if (filter && filter.value.trim()) applyFilter(filter.value.trim());
   }
-  if (ft) {
-    ft.addEventListener("click", function () {
-      var hidden = document.documentElement.classList.toggle("hide-findings");
-      store("guide-hide-findings", hidden ? "1" : "0");
-      syncFindings();
+  if (vt) {
+    vt.addEventListener("click", function () {
+      var on = document.documentElement.classList.toggle("author-view");
+      store("guide-view", on ? "author" : "reader");
+      syncView();
     });
-    syncFindings();
+    syncView();
   }
+  document.addEventListener("guide-author", syncView);  // comments.js learned whether this person is an author
 
   // ------------------------------------------------------------ lightbox
   var box = document.querySelector("dialog.lightbox");

@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>3.3.5 Use of ACKs in Interface Monitoring · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="use-of-acks-in-interface-monitoring">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,21 +34,21 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../messaging-profiles-and-transactions/index.html">3 Messaging Profiles and Transactions</a> <span>›</span> <a href="../acknowledgement-ack-message-profile/index.html">3.3 Acknowledgement (ACK) Message Profile</a></nav>
 <header class="card-head"><h1><span class="num">3.3.5</span> Use of ACKs in Interface Monitoring</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-tab-ack-g05"><span class="sev">Note</span> <a class="f-loc" href="#use-of-acks-in-interface-monitoring--s1">Statement s1</a> TAB Acknowledgment (ACK) Messaging: Updated Specifications and Guidance (Not in the TAB): Guide adds. &quot;IIS SHALL ensure that severities ... accurately reflect expected follow-up actions&quot; and &quot;Submitting systems SHALL analyze ACK feedback in aggregate to identify recurring data quality patterns.&quot; The TAB asks for issues to be conveyed in aggregate, but does not require submitters to analyze them.<div class="evidence"><div class="ev-tags"><span>Guide adds</span><span>Action: CDC decision</span></div></div><p class="mini"><a href="../tabs/ack-messaging/index.html#tab-ack-g05">See the TAB comparison</a></p><a class="f-id" href="../quality/index.html#qf-tab-ack-g05">qf-tab-ack-g05</a></li></ul></details></aside>
 <div class="narrative"><p>ACK messages provide structured signals about both individual transactions and aggregate interface performance <a class="cite" href="../resources/index.html#ref-6">[6]</a>. While this section defines interpretation of a single ACK, consistent generation and interpretation across systems enables scalable monitoring of data quality and operational stability.</p>
 <p>ACKs are not intended to enforce perfection or report every possible conformance deviation. Their purpose is to highlight conditions that materially affect the IIS's ability to maintain a complete and accurate immunization history.</p></div>
 
-<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="use-of-acks-in-interface-monitoring--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL ensure that severities assigned in ACK messages accurately reflect expected follow-up actions.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#use-of-acks-in-interface-monitoring--s1" title="Link to this statement">s1</a></span></li><li id="use-of-acks-in-interface-monitoring--s2"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">IIS SHALL NOT use rejection solely as a mechanism to enforce minor conformance preferences that do not result in loss of Critical Data or failure to fulfill core intent.</span><span class="s-meta"><a class="s-id" href="#use-of-acks-in-interface-monitoring--s2" title="Link to this statement">s2</a></span></li><li id="use-of-acks-in-interface-monitoring--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL analyze ACK feedback in aggregate to identify recurring data quality patterns.</span><span class="s-meta"><a class="s-id" href="#use-of-acks-in-interface-monitoring--s3" title="Link to this statement">s3</a></span></li></ol></section>
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="use-of-acks-in-interface-monitoring--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">IIS SHALL ensure that severities assigned in ACK messages accurately reflect expected follow-up actions.</span><span class="s-meta"><a class="s-flag sev-note author-only" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#use-of-acks-in-interface-monitoring--s1" title="Link to this statement">s1</a></span></li><li id="use-of-acks-in-interface-monitoring--s2"><span class="verb verb-shall-not">SHALL NOT</span><span class="s-text">IIS SHALL NOT use rejection solely as a mechanism to enforce minor conformance preferences that do not result in loss of Critical Data or failure to fulfill core intent.</span><span class="s-meta"><a class="s-id" href="#use-of-acks-in-interface-monitoring--s2" title="Link to this statement">s2</a></span></li><li id="use-of-acks-in-interface-monitoring--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL analyze ACK feedback in aggregate to identify recurring data quality patterns.</span><span class="s-meta"><a class="s-id" href="#use-of-acks-in-interface-monitoring--s3" title="Link to this statement">s3</a></span></li></ol></section>
 
 
 
 
 <section class="related"><h2>Resources cited</h2><ul><li><a href="../resources/index.html#ref-6">[6]</a> <a href="https://www.himss.org/resources/aggregate-immunization-acknowledgment-message-reports-guidance-white-paper/" rel="noopener" target="_blank">HIMSS Aggregate Immunization Acknowledgment Message Reports Guidance White Paper</a></li></ul></section>
 
-<section class="related tab-related"><h2>Technical Advisory Bulletins</h2><ul><li><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_acknowledgment__ack__messaging_updated_specifications_and_guidance__1_.pdf" rel="noopener" target="_blank">Acknowledgment (ACK) Messaging: Updated Specifications and Guidance</a> <span class="mini">June 2026 · <a href="../tabs/ack-messaging/index.html">comparison with this guide</a></span></li></ul></section>
+<div class="author-only"><section class="related tab-related"><h2>Technical Advisory Bulletins</h2><ul><li><a href="https://repository.immregistries.org/files/resources/6644ed1c1e7bc/tab_acknowledgment__ack__messaging_updated_specifications_and_guidance__1_.pdf" rel="noopener" target="_blank">Acknowledgment (ACK) Messaging: Updated Specifications and Guidance</a> <span class="mini">June 2026 · <a href="../tabs/ack-messaging/index.html">comparison with this guide</a></span></li></ul></section><section class="related tab-related"><h2>TA questions</h2><p class="mini">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p><ul><li><a href="../ta/msh/index.html#ta-q44-014">Is there a maximum length for MSH-3 (Sending Application)? A local IG lists 20 characters but the CDC IG does not; where did the limit come from, and what maximum is recommended?</a> <span class="tab-result r-prose" title="The answer follows from the guide&#x27;s rules or principles, but the guide does not say it.">By appeal</span></li></ul></section></div>
 
 <section class="filter-terms" aria-label="Filter terms"><span class="mini">Filter the contents by:</span> <button type="button" class="term" data-term="acknowledgement">acknowledgement</button><button type="button" class="term" data-term="data quality">data quality</button><button type="button" class="term" data-term="ACK">ACK</button></section>
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../msa-1-guidance/index.html"><span>Previous</span>3.3.4.1 MSA-1 Guidance</a><a class="next" href="../query-by-parameter-qbp-message-profiles/index.html"><span>Next</span>3.4 Query by Parameter (QBP) Message Profiles</a></nav>
@@ -59,8 +59,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

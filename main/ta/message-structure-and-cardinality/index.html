@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Message Structure &amp; Cardinality · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Message Structure &amp; Cardinality</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">14 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions in this section are about how HL7 v2 immunization messages are put together: which message types an IIS should accept (VXU, ADT, batch wrappers), whether a VXU may carry zero vaccinations (demographic-only updates), how many ORC/RXA groups a VXU should contain, and how order groups are arranged in Z32/Z42 responses. Low-level encoding rules come up often: segment terminators (CR versus LF, especially inside SOAP), escape sequences for delimiter characters, field lengths, and segment order. A recurring theme is the gap between what the IG permits and what EHRs can actually trigger and send.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (5)</summary><ul><li>State expectations (or explicitly none) for ADT support between EHRs and IIS.</li><li>Add guidance on trigger events for demographic-only VXU updates.</li><li>Consider making separate Z42 order groups for patient-level observations and forecasts a requirement rather than a recommendation.</li><li>Address the CR versus LF conflict for HL7 carried in the CDC WSDL, and require receivers to accept CR, LF or CR+LF.</li><li>Explicitly cover escape sequences and require senders to escape all user-entered values.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">Message Types and Batch Wrappers</a> <span class="mini">2</span></li><li><a href="#g-1">VXU Content: Demographic-Only Updates and Number of Vaccinations</a> <span class="mini">4</span></li><li><a href="#g-2">ORC/RXA Group Integrity</a> <span class="mini">1</span></li><li><a href="#g-3">RSP Order Group Structure (Z32/Z42)</a> <span class="mini">2</span></li><li><a href="#g-4">Encoding Rules: Segment Terminators, Escape Sequences, Length, and Order</a> <span class="mini">4</span></li><li><a href="#g-5">Profile Definitions</a> <span class="mini">1</span></li></ul>
+<h2 id="g-0">Message Types and Batch Wrappers</h2><section class="ta-q r-unassessed" id="ta-q16-002">
+<h3>Should an IIS accept ADT messages for demographic updates (e.g., from providers whose EHR cannot send demographic-only VXUs), and how should an IIS approach them?</h3>
+<p class="mini">Asked 2× · 2022–2024 · ADT, VXU · Answered · Related: IN1, PID, Bidirectional Exchange, Transport/Connectivity</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The national immunization IG lists ADT as an option for demographic information but gives no real guidance or expectation for ADT support by either IIS or submitters. Certified EHRs are not required to produce ADT messages for IIS. AIRA does not test ADT messages, so an IIS should check with its platform vendor whether ADT is supported, then decide whether to encourage providers to send ADTs and with which trigger events. (In the triggering case, a provider's ADT to an IIS test interface failed with an error on the IN1 segment.)</p>
+<p>EHRs generally cannot trigger a vaccineless VXU on a demographic update, but they easily generate ADTs from their registration systems. ADT is included in AIRA's HL7 2.8.2 guide (2017/2018) for exactly this purpose. There is no expectation to implement it, but the guide has useful ADT information. ADT shares many segments with VXU (e.g., PID), so code may be reused. At least one IIS is believed to accept ADTs.</p>
+<p>In general it is helpful for an IIS to be able to receive ADTs; standards are a means, not an end. Cautions: (1) Volume: ADT systems are verbose and can produce many duplicate transactions, so agree on which trigger events you want, since choosing key triggers is a good way to control volume. (2) The ADT system defines the ADT format and broadcasts the same message to many listeners. Unlike a VXU (whose format the IIS defines), the IIS must accept the message as is. Its processing engine should focus on the demographic data of interest and ignore irrelevant fields.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-056">
+<h3>Can HL7 messages be bundled with FHS and BHS segments (e.g., to send in an email)?</h3>
+<p class="mini">Asked 1× · 2020 · general · Answered · Related: FHS, BHS; Transport/Connectivity (multiple messages per SOAP call)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. An IIS can use FHS/BHS to bundle messages. This is not very common today but the standard allows it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">VXU Content: Demographic-Only Updates and Number of Vaccinations</h2><section class="ta-q r-unassessed" id="ta-q04-046">
+<h3>Are there national standards for an IIS accepting demographic-only updates (a VXU with patient information but no ORC/RXA), and do other IIS accept them? How can a patient update be sent using a VXU?</h3>
+<p class="mini">Asked 4× · 2020–2021 · VXU · Answered · Related: ORC, RXA, PID; Version &amp; IG Interpretation (VXU trigger events)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. A VXU can be sent without vaccinations to update patient information. The current IG defines the VXU as patient information plus zero or more vaccinations, so the national standard expects IIS to accept a demographic-only update with no immunizations. A few IIS have policies that reject these records, but that deviates from the national standard, and some of those IIS are reversing those policies. Most IIS accept a patient record without any immunization records. EHRs sometimes send duplicates, but as long as the information is accurate and can be matched to previously submitted data, most IIS handle them well. The volume concerns IIS report today come more from QBP queries than from VXU updates.</p>
+<p>On how vendors should decide when to send (so they do not send every patient regardless of immunization status): the IG says the sender sends a VXU when there is an update or new record in the sending system, or on some other event (pp. 67-68). The Z22 profile (Appendix B, p. 43) notes that a message may contain the full history but is not required to, and typically contains only the events added, updated or deleted that triggered the message. For certification, EHRs must show they send a VXU when an administered vaccination is given, a historical vaccination is recorded, a vaccination is deleted, and a vaccination is updated. There are no national standards for other triggers and no guidance on when a submitter must not send. An IIS may add such requirements to its local guide as long as they do not contradict the national guidance.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-018">
+<h3>When non-vaccine patient information changes (name, address, deceased status, consent/publicity, active/inactive status), should the EHR send a VXU^V04 without RXA/RXR segments, or is a different message type expected?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Partly answered · Related: PID, PD1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no national guidance on the full list of situations that must trigger an update to the IIS. The IIS should be updated with any change to the immunization record and could be updated when the patient record changes, but no standards say which demographic updates IIS want. Some IIS would want some of these updates, and others would rather not receive a large, constant flow of them. The ideal solution is to make these triggers configurable on/off according to each IIS's policy.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q45-013">
+<h3>An EHR sends each historical immunization for a patient as a separate VXU, milliseconds apart, instead of one VXU with multiple ORC/RXA groups, which causes the IIS matching process to create many duplicate patients (up to 19). Is one VXU per patient with all the historical doses expected, and can this be fixed with the EHR?</h3>
+<p class="mini">Asked 1× · 2026 · VXU · Answered · Related: RXA, ORC, Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>ONC certification requirements (f)(1) (transmission to immunization registries) include test cases 1 and 2, which expect an EHR to combine multiple immunizations for a patient into a single HL7 message. No exception lets an EHR pass by sending multiple messages. NIST confirmed this interpretation, citing the ONC test method (https://healthit.gov/test-method/transmission-immunization-registries). AIRA contacted the EHR vendor's interface development team, which said the product has appropriate controls and recommended opening a support ticket so the local install could be configured properly.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q37-008">
+<h3>An IIS rejects or times out on VXUs for patients with more than about 70 immunizations (ORC/RXA groups). Is there a standard maximum number of ORC groups in a VXU, or should the sender split such messages?</h3>
+<p class="mini">Asked 1× · 2025 · VXU · Answered · Related: ORC, RXA</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No general limit is defined, but a VXU with 70+ vaccinations is unusual, and it is probably sensible for an IIS not to accept it. In day-to-day transactions a VXU is expected to contain only the vaccinations given in a single visit, usually 1 to 5, never 70. Such large messages could legitimately occur only during an initial historical load. Rather than splitting messages or retrying indefinitely (which backs up the queue), the sender could catch the failure and move on to the next message, since the situation is rare and should be reviewed by a person anyway. Sites should send only new immunizations, not the patient's entire history.</p></div><p class="ta-flag"><strong>Flagged when consolidated:</strong> This answer (sites should send only new immunizations; 70+ groups are unusual) and the ONC certification expectation in the previous entry (combine a patient&#x27;s multiple immunizations into one message) are compatible but should be presented together, so the FAQ does not appear to give conflicting advice on historical loads.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">ORC/RXA Group Integrity</h2><section class="ta-q r-unassessed" id="ta-q13-026">
+<h3>An IIS made ORC/RXA optional to allow demographic-only VXUs. When a message has an ORC without an RXA (or the reverse), it returns AA but loses the shot data. Should this be AR or AE, and should rules say &quot;ORC is required if RXA is present&quot; and vice versa?</h3>
+<p class="mini">Asked 1× · 2021 · VXU, ACK · Answered · Related: ORC, RXA, ERR-4, MSA-1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>An IIS never has to accept a message with an ORC but no RXA, or the reverse. This is a major issue: return an ERR segment with ERR-4 = E, meaning the problem must be fixed and the message resubmitted, which makes the acknowledgement AE. AR is reserved for a narrow set of circumstances and does not apply here. The IIS should probably not process any of the message data; it should just return the error and stop processing. In practice, no certified EHR would have passed certification sending messages like this, so it is unlikely to be seen in production, and such a system should be fixed before its data is accepted.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">RSP Order Group Structure (Z32/Z42)</h2><section class="ta-q r-unassessed" id="ta-q36-013">
+<h3>In a Z32 RSP, should patient-level observations such as contraindications, precautions or presumed immunity follow the immunization history in an order group whose RXA is &quot;No vaccine administered&quot;?</h3>
+<p class="mini">Asked 1× · 2025 · RSP, VXU · Answered · Related: RXA-5, RXA-20, OBX-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. Patient-level observations (OBX) not directly tied to a vaccination should be sent in a VXU or RSP under an ORC/RXA with RXA-5 = 998^No vaccine administered^CVX and RXA-20 = NA (not administered). The OBX segments (e.g., 59784-9 Disease with presumed immunity, 30945-0 Vaccination contraindication/precaution) follow that RXA.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q36-014">
+<h3>In a Z42 RSP, should patient-level observations (contraindications, precautions, immunity) be in an order group separate from the forecast order group, or can they be combined with the forecast OBXs in one &quot;No vaccine administered&quot; order group?</h3>
+<p class="mini">Asked 1× · 2025 · RSP · Answered · Related: RXA-5, OBX-3, OBX-4</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>For consistency and readability, the latest guidance recommends this order: (1) vaccination history order groups (with evaluations), (2) other order groups (contraindications, history of disease, immunity, etc.), (3) the forecast order group (with forecasts). Observations SHOULD be in an order group separate from the forecast, but this is not absolutely required, and receiving systems should be able to process either structure. Both the two-group and single-group examples pass the NIST validator. The latest guidance prefers separate groups.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">Encoding Rules: Segment Terminators, Escape Sequences, Length, and Order</h2><section class="ta-q r-unassessed" id="ta-q02-065">
+<h3>Must HL7 segments be terminated with a carriage return (CR), or are line feeds (LF) acceptable, including when messages are carried in the CDC SOAP WSDL?</h3>
+<p class="mini">Asked 3× · 2017–2021 · general · Answered · Related: Transport/Connectivity (segment terminators in SOAP payloads)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>HL7 requires segments to end with CR. However, most systems allow either CR or LF. When an HL7 message is placed in a SOAP message, XML's handling of text normalizes line endings to LF, so the tooling often produces LF instead of CR. This conflict between the two standards was not noticed when the CDC SOAP standard was adopted. In one case a new SOAP endpoint returned LF at the end of every segment except the last. Operationally it is rarely a problem, because most software stacks read either without noticing. AIRA advises receivers to accept either: extract the HL7 message from the SOAP envelope and parse it with an HL7 parser that is not picky about line endings and accepts CR, LF or CR+LF, which most technology stacks support out of the box.</p>
+<p>An earlier question (2017) on CR versus LF was answered only by explaining the standard in the context of SOAP (no further detail recorded).</p></div><p class="ta-flag"><strong>Flagged when consolidated:</strong> The 2017 answer says the CDC WSDL, &quot;being XML-based, requires &lt;LF&gt;&quot;. The 2021 answer describes this more precisely: XML normalizes line endings to LF, and it does not &quot;require&quot; LF. Confirm the wording against Appendix B of the CDC WSDL specification.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q43-019">
+<h3>Providers send email addresses that contain a tilde (e.g., john~smith@gmail.com), and the IIS reads the tilde as a repetition separator. Testing with john\T\smith@gmail.com produced an invalid email warning. How should a tilde in an email address be sent?</h3>
+<p class="mini">Asked 1× · 2026 · VXU · Answered · Related: PID-13, MSH-2</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>A tilde cannot be sent unescaped, because the receiver must read it as the repetition separator defined in MSH-2. It must be sent with the \R\ escape sequence. \T\ is the subcomponent separator escape and decodes to john&amp;smith@gmail.com, which explains the result. Per HL7 v2.5.1 section 2.7, the escape sequences are \H\ (start highlighting), \N\ (normal text), \F\ (field separator), \S\ (component separator), \T\ (subcomponent separator), \R\ (repetition separator), \E\ (escape character), \Xdddd...\ (hex data), and \Zdddd...\ (locally defined). The separator and escape sequences are also valid in ST fields, and escape sequences cannot be nested. Both john~smith and john&amp;smith are technically valid email formats, but they are unusual, and the receiving system may still reject them on email validation even when they are decoded correctly. Senders must properly escape all user-entered values, and receivers must decode escape sequences.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-012">
+<h3>Must the message/field length specifications (table 7-4, p. 79 of the HL7 IG) always be enforced for VXU messages?</h3>
+<p class="mini">Asked 1× · 2018 · VXU · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-015">
+<h3>What should an IIS do if segments are submitted out of order?</h3>
+<p class="mini">Asked 1× · 2019 · VXU, ACK · Answered · Related: ERR, MSA-1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Return an ACK with AE and error code 101.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-5">Profile Definitions</h2><section class="ta-q r-unassessed" id="ta-q01-032">
+<h3>In CDC IG v1.5, the message-level static definitions for the Z34 and Z44 query profiles look the same, but the segment-level definitions for Z44 include extra segments such as ERR and MSA, which would not be expected in a request. Why?</h3>
+<p class="mini">Asked 1× · 2016 · QBP · No answer recorded · Related: ERR, MSA</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

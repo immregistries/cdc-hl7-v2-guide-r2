@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4.4.4.4 Patient Observations · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="patient-observations">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../loinc-in-observation-segments/index.html">4.4 LOINC in Observation Segments</a> <span>›</span> <a href="../order-segment-group-flavors/index.html">4.4.4 Order Segment Group Flavors</a></nav>
 <header class="card-head"><h1><span class="num">4.4.4.4</span> Patient Observations</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-warning" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-warning author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 warnings · 2 notes</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-warning" id="qf-verb-in-prose-1d75f2c2"><span class="sev">Warning</span> Narrative uses the conformance verb SHALL. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>Represents observations that apply to the patient as a whole and are not associated with any specific immunization event. All patient-level observations SHALL be conveyed within a single Patient Observation Order Segment Group per message.</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-1d75f2c2">qf-verb-in-prose-1d75f2c2</a></li><li class="finding sev-warning" id="qf-verb-in-prose-85b8840b"><span class="sev">Warning</span> Narrative uses the conformance verb SHALL. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>If multiple patient-level observations are reported, they SHALL be included within the same group. Creating multiple Patient Observation groups does not convey additional meaning. If observations need to be logically linked, OBX-4 SHALL be used.</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-85b8840b">qf-verb-in-prose-85b8840b</a></li><li class="finding sev-note" id="qf-sisc-msl-04"><span class="sev">Note</span> SISC guidance Guidance on Detailed Message Structure and the Use of Specific LOINC Codes (Structure of the VXU (Z22) message): Missing. The guide sets an order only for the RSP (the Forecast group comes last). It says nothing about where the Patient Observations group goes in a VXU or an RSP.<div class="evidence"><div class="ev-tags"><span>Missing</span><span>Action: Narrative</span></div><div class="ev"><span class="ev-k">Guidance</span> All Immunization Event groups, of any type, should come before the Patient Observations group (if present).</div><div class="ev"><span class="ev-k">Recommendation</span> State that the Patient Observations group, when present, follows all immunization event groups (and, in an RSP, comes before the Forecast group), or decide that order does not matter and say so.</div></div><p class="mini"><a href="../sisc/message-structure-and-loinc-codes/index.html#sisc-msl-04">See the SISC guidance comparison</a></p><a class="f-id" href="../quality/index.html#qf-sisc-msl-04">qf-sisc-msl-04</a></li><li class="finding sev-note" id="qf-sisc-msl-17"><span class="sev">Note</span> SISC guidance Guidance on Detailed Message Structure and the Use of Specific LOINC Codes (Tables 1-3 (value sets)): Partly covered. The other bindings match IGAMT. IGAMT binds 59784-9 to PHVS_HistoryOfDisease_IIS, a different name; check that it is the same PHIN VADS value set. 75323-6 still has no value set in IGAMT or the narrative. 30982-3 is &#x27;ST&#x27; only in IGAMT. 59783-1 now uses LOINC answer codes, following the CDS in RSP TAB.<div class="evidence"><div class="ev-tags"><span>Partly covered</span><span>Action: IGAMT</span></div><div class="ev"><span class="ev-k">Guidance</span> OBX-5 value sets: presumed immunity (59784-9) uses PHVS_HistoryOfDiseaseAsEvidenceOfImmunity_IIS; patient condition (75323-6) is &quot;TBD&quot;; reason (30982-3) may be CWE or ST; status in series (59783-1) uses locally defined values.</div><div class="ev"><span class="ev-k">Recommendation</span> Confirm the 59784-9 value set name, and bind 75323-6 to a value set (or say in the narrative that it is locally defined).</div></div><p class="mini"><a href="../sisc/message-structure-and-loinc-codes/index.html#sisc-msl-17">See the SISC guidance comparison</a></p><a class="f-id" href="../quality/index.html#qf-sisc-msl-17">qf-sisc-msl-17</a></li></ul></details></aside>
 <div class="narrative"><p>Represents observations that apply to the patient as a whole and are not associated with any specific immunization event. All patient-level observations SHALL be conveyed within a single Patient Observation Order Segment Group per message.</p>
 <p>If multiple patient-level observations are reported, they SHALL be included within the same group. Creating multiple Patient Observation groups does not convey additional meaning. If observations need to be logically linked, <a class="sref" href="../structure/segments/obx/index.html#f4" title="Observation Sub-ID">OBX-4</a> SHALL be used.</p>
@@ -54,14 +54,14 @@
 <section class="xref" aria-labelledby="xref-h"><details>
 <summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">1 field · from the IGAMT export</span></summary>
 <p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
-conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+conformance statements that test it.<span class="author-only"> <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</span></p>
 <div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
 <tbody><tr><th scope="row"><a href="../structure/segments/obx/index.html#f4"><code>OBX-4</code></a><div class="mini">Observation Sub-ID</div></th><td><div class="u-row"><span class="u">R [1..1] NM</span> <span class="u-where">Z22 OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17, Z32 OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18, Z42 OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15</span></div></td><td><span class="mini">—</span></td><td><abbr class="cs" title="Z22.ORDER: If RXA-20 is valued &#x27;CP&#x27; or &#x27;PA&#x27; and the first occurrence of RXA-9.1 is valued &#x27;00&#x27; and RXA-5.1 is valued with a CVX code from table PHVS_VISVaccines_IIS (See Appendix A) then for each vaccine information statement that was shared there SHALL be:[one OBX segment with OBX-3.1 valued &#x27;69764-9&#x27; (bar coded) and one OBX with OBX-3.1 valued &#x27;29769-7&#x27; (presentation or delivery date) associated. Both OBX shall have the same value in OBX-4] OR [one OBX segment with OBX-3.1 valued &#x27;30956-7&#x27; (vaccine type) and one OBX segment with OBX-3.1 valued &#x27;29768-9&#x27; (version date) and one OBX with OBX-3.1 valued &#x27;29769-7&#x27; (presentation or delivery date) associated. All three OBX shall have the same value in OBX-4]">IZ-24</abbr> <abbr class="cs" title="OBX_IZ01: OBX-4 (Observation Sub-ID) shall contain a positive integer.">IZ-44</abbr></td></tr></tbody></table></div></details></section>
 
 
 
 
-<section class="related tab-related"><h2>SISC Guidance Documents</h2><ul><li><a href="https://repository.immregistries.org/files/resources/5938386822754/message_structure_guidance_document_v1_1__formatted.docx" rel="noopener" target="_blank">Guidance on Detailed Message Structure and the Use of Specific LOINC Codes</a> <span class="mini">April 2018 · <a href="../sisc/message-structure-and-loinc-codes/index.html">comparison with this guide</a></span></li></ul></section>
+<div class="author-only"><section class="related tab-related"><h2>SISC Guidance Documents</h2><ul><li><a href="https://repository.immregistries.org/files/resources/5938386822754/message_structure_guidance_document_v1_1__formatted.docx" rel="noopener" target="_blank">Guidance on Detailed Message Structure and the Use of Specific LOINC Codes</a> <span class="mini">April 2018 · <a href="../sisc/message-structure-and-loinc-codes/index.html">comparison with this guide</a></span></li></ul></section></div>
 
 <section class="filter-terms" aria-label="Filter terms"><span class="mini">Filter the contents by:</span> <button type="button" class="term" data-term="observation">observation</button><button type="button" class="term" data-term="order segment group">order segment group</button><button type="button" class="term" data-term="data type flavor">data type flavor</button><button type="button" class="term" data-term="LOINC">LOINC</button><button type="button" class="term" data-term="immunity">immunity</button><button type="button" class="term" data-term="adverse event">adverse event</button><button type="button" class="term" data-term="OBX-4">OBX-4</button><button type="button" class="term" data-term="31044-1">31044-1</button><button type="button" class="term" data-term="75505-8">75505-8</button><button type="button" class="term" data-term="59784-9">59784-9</button><button type="button" class="term" data-term="75323-6">75323-6</button><button type="button" class="term" data-term="85585-8">85585-8</button><button type="button" class="term" data-term="88878-4">88878-4</button></section>
 <nav class="pager" aria-label="Previous and next"><a class="prev" href="../immunization-event-refused/index.html"><span>Previous</span>4.4.4.3 Immunization Event (Refused)</a><a class="next" href="../immunization-event-with-evaluation/index.html"><span>Next</span>4.4.4.5 Immunization Event with Evaluation</a></nav>
@@ -72,8 +72,8 @@ conformance statements that test it. <a href="../quality/igamt/index.html">How t
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

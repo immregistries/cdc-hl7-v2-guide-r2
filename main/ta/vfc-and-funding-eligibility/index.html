@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: VFC &amp; Funding Eligibility · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>VFC &amp; Funding Eligibility</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">10 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions in this section cover how vaccine funding source and dose-level funding program eligibility (VFC, CHIP, state programs) are messaged in VXU OBX segments, and how IIS use these values for inventory decrementing. Recurring themes: - The relationship between funding source and eligibility, and which one an IIS should rely on. - Recommended COVID-19 funding/eligibility codes. - Whether eligibility is required for adults and for historical doses. - Jurisdiction-specific models such as replacement (borrow/replenish) inventory.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (1)</summary><ul><li>No ig_notes were recorded for this section. Possible clarifications:</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">Funding Source vs Eligibility: Concepts and Codes</a> <span class="mini">4</span></li><li><a href="#g-1">COVID-19 Funding and Eligibility</a> <span class="mini">2</span></li><li><a href="#g-2">Eligibility by Age and for Historical Doses</a> <span class="mini">2</span></li><li><a href="#g-3">Patient-Level Eligibility and Overrides</a> <span class="mini">2</span></li></ul>
+<h2 id="g-0">Funding Source vs Eligibility: Concepts and Codes</h2><section class="ta-q r-unassessed" id="ta-q04-036">
+<h3>How should vaccine funding source and vaccine funding program eligibility be messaged, and how are the two concepts related? Why are some IIS requests for these values hard for providers to implement?</h3>
+<p class="mini">Asked 2× · 2020–2021 · VXU · Answered · Related: OBX-5, RXA-9, RXA-15</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>EHR systems should be able to message both concepts. Each IIS decides which one (if not both) it wants to read and use in its vaccine program. (The 2021 request about why IIS requests are hard for providers to implement had no answer recorded.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q24-001">
+<h3>Is there a standard practice for consuming, storing and using funding source and eligibility from HL7? For example, one IIS ignores funding source, bases inventory deduction only on the financial class (VFC eligibility) code and provider type, and rejects some CDC eligibility codes (e.g., wrong for age or clinic type). How do jurisdictions distinguish the Public, Public VFC and Public non-VFC funding codes?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Related: OBX-5, OBX-3, RXA-9</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Much of how funding source and eligibility are captured is set by each jurisdiction's policy. Helpful resources: - "IIS and EHR Common Areas of Variability Based on Jurisdictional Law/Policy": explains national-level reasons for variability and describes different funding source models (from p. 3), which help decide which codes map to which funding categories. It links to the MIROW guides "Decrementing Inventory Via Electronic Data Exchange" and "IIS Collaboration with VFC and Grantee Immunization Programs". - IIS Functional Guide, Volume 2: eligibility and funding source recommendations start on p. 66. - "Recording Dose Level Eligibility in Immunization Information Systems (IIS)": the national view of challenges and opportunities in capturing dose-level eligibility.</p>
+<p>Whether to use a single Public funding source or to split Public VFC and Public non-VFC is a jurisdictional choice. The main recommendation is that what is sent over HL7 should record what actually happened, so that the IIS captures complete data. Do not reject at the interface. Instead, find and fix illogical eligibility/funding combinations afterward through data quality checks such as provider report cards. AIRA's Data At Rest assessment also measures how often these illogical combinations occur among 0-2 year olds.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-012">
+<h3>What is the most recent list of HL7 funding source codes available for use in decrementing vaccine inventory?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Related: OBX-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q32-011">
+<h3>For VFC sites using a vaccine &quot;replacement model&quot; (privately purchased stock replenished with VFC vaccine), how should clinics document funding source and eligibility? Are HL7 submitters handled differently from manual reporters?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Partly answered · Related: OBX-5, OBX-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Little community input was received. One past implementation essentially ignored funding source and relied on patient eligibility, because all vaccine is initially privately funded and then replenished based on eligibility values. This approach was simple, but it is unknown whether other jurisdictions did the same.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">COVID-19 Funding and Eligibility</h2><section class="ta-q r-unassessed" id="ta-q05-012">
+<h3>Which funding source and eligibility codes should providers send for COVID-19 vaccine doses so that the IIS will decrement inventory correctly, given that private and VFC are not appropriate? Is there a standard HL7 code?</h3>
+<p class="mini">Asked 3× · 2020 · VXU · Answered · Related: OBX-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>At the October 2020 SISC call, most participants agreed that the proposed solution is workable: code the funding source as Public (VXC50) and eligibility as Not VFC Eligible (V01). This applies during the first phase, while the vaccines are federally funded and freely available. Once they are no longer federally funded, COVID vaccines should be coded as appropriate.</p>
+<p>SISC discussed various options (creating new codes, various combinations) and settled on this recommended combination, recognizing that no combination was perfect, and followed up with a poll. It is a best practice or recommendation rather than a hard rule, for several reasons: - Some providers may not be trained to select these values correctly. - All COVID vaccine is federally funded. - Provider systems, end users and IIS inventory decrementing rules are complex.</p>
+<p>VAMS, being COVID-specific, hard-codes these values in its HL7 instead of asking end users to populate them.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q05-013">
+<h3>Are the recommended COVID funding type and eligibility codes important only for HL7 messaging, for systems using the IZ Gateway, and for IIS internal processing? Would this information need to go back to CDC?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · Answered · Related: OBX-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes, they are important for HL7 messaging and for systems using the IZ Gateway, most specifically VAMS, a short-term COVID-specific application, to meet HL7 requirements. The biggest concern was how each IIS uses the codes for internal processing. At that time the information was not in the CDC data lake (CVRS) file, and there had been no discussion of reporting it to CDC.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">Eligibility by Age and for Historical Doses</h2><section class="ta-q r-unassessed" id="ta-q02-048">
+<h3>Which funding eligibility codes can be used for adults? Do V22-V25 apply to adults?</h3>
+<p class="mini">Asked 2× · 2017 · VXU · Answered · Related: OBX-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>V22 through V25 can be used.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-087">
+<h3>Per the core data elements list, are funding eligibility and funding source required for patients older than 19?</h3>
+<p class="mini">Asked 1× · 2019 · VXU · Answered · Related: OBX-5, RXA-9</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The core data elements documentation does not specify that they must be sent for all patients of all ages. Links to the updated CDC list and the new Functional Guide were provided. Programs sometimes add their own requirements (e.g., the state VFC program may need it). Requiring it may also require EHR screen changes if the VFC questions are currently age-based.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">Patient-Level Eligibility and Overrides</h2><section class="ta-q r-unassessed" id="ta-q03-023">
+<h3>Regarding OBX-17 and vaccine eligibility, what are other IIS doing to populate patient-level eligibility from HL7 messages?</h3>
+<p class="mini">Asked 1× · 2018 · VXU · Partly answered · Related: OBX-17, OBX-3, OBX-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The guidance was to apply the eligibility data received at the vaccination level to the patient.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-012">
+<h3>How is a VFC override reason sent via HL7?</h3>
+<p class="mini">Asked 1× · 2019 · VXU · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no way to send it in HL7. This is done by logging into the IIS.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: MSA Message Acknowledgment · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · segment</p>
+<h1>MSA Message Acknowledgment</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">14 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Nearly all MSA questions concern MSA-1 (Acknowledgment Code): when to return AA, AE or AR, and how MSA-1 must agree with the severities in ERR-4. The dominant theme is that AR is reserved by the base HL7 v2 standard for a small set of message-level conditions, so content rejections are signaled with AE plus an ERR-4 = E, while AA is used only when there are no ERR segments or only informational ones. Later questions (2024-2026) track draft guidance expanding the use of AR and concern about EHR interfaces that shut down when they receive AR. A few questions address MSA-3 and MSA-6.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (3)</summary><ul><li>State explicitly that receiving AR must not cause a sender to shut down its interface; clarify sender reactions to AR vs CR.</li><li>Publish the MSA-1 / ERR-4 combination table (AIRA ACK guidance Table 5) as normative guidance.</li><li>Document the planned expansion of AR use and its relationship to the base-standard AR conditions.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">MSA-1 Acknowledgment Code</a> <span class="mini">12</span></li><li><a href="#g-1">MSA-3 Text Message</a> <span class="mini">1</span></li><li><a href="#g-2">MSA-6 Error Condition</a> <span class="mini">1</span></li></ul>
+<h2 id="g-0">MSA-1 Acknowledgment Code</h2><section class="ta-q r-unassessed" id="ta-q27-014">
+<h3>In the AART Submission/Acknowledgement assessment, several test cases fail with &quot;IIS did not accept message,&quot; but the IIS actually processed those messages. What is expected, and how can these test cases pass?</h3>
+<p class="mini">Asked 1× · 2024 · VXU/ACK · Answered · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: ERR-4, Acknowledgement &amp; Error Handling, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>For the failed test cases AART is submitting VXUs that are conformant to the standard, but the IIS acknowledgements indicate the system does not like what was submitted: they return an "E" (error), indicating something needs to be corrected. Since the VXUs are conformant, it is the acknowledgements that need to be corrected so they do not report errors for valid content. Other users of the same IIS product have faced similar issues and may be able to share the ACK updates they made to pass.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-069">
+<h3>What should be returned if the IIS is down and can&#x27;t process the message?</h3>
+<p class="mini">Asked 1× · 2017 · ACK · Answered · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: ERR-3, ERR-4</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>MSA-1 = AR, ERR-3 = 207 (Application internal error), ERR-4 = E.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q11-015">
+<h3>An IIS business rule prevents deleting an immunization linked to an inventory lot. When a well-formed delete is not processed for this reason, should MSA-1 be AE or AR?</h3>
+<p class="mini">Asked 1× · 2021 · ACK/VXU · Answered · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: ERR-4, ERR-8</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It should be AE, not AR; AR is not appropriate since the message was processed. The more important question is ERR-4: severity E means the sender is expected to correct the information and resend, which is probably the best code here, assuming the IIS wants the sender to take further steps (fix data on their side and/or contact the IIS to fix the record). Consider stating those next steps in the error text, e.g., adding "Please contact the IIS help desk to resolve this issue."</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q06-005">
+<h3>When an IIS rejects a VXU (does not store it), for example because patient first name, last name or DOB is missing or invalid, should it return MSA-1 = AR? Some EHR interfaces treat AE as &quot;processed with errors&quot; and act only on AR.</h3>
+<p class="mini">Asked 3× · 2020–2024 · ACK · Answered · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: ERR-4, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. These should be AE with ERR severity E. The base HL7 v2 standard is very specific that AR can only be used in very limited situations (four specific situations, which are rare in practice). If the IIS must reject for other reasons (for example, a future-dated administration or a missing address when required), it cannot use AR; it must return AE in MSA-1 with ERR-4 = E. Senders therefore need to look at ERR-4: AE with an E-severity ERR indicates rejection. The table of MSA and ERR-4 combinations and their expected meaning in AIRA's "Guidance for HL7 Acknowledgement Messages to Support Interoperability" (Table 5) is the best description.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q06-006">
+<h3>What MSA-1 should be returned when the message is accepted but has only warnings or only informational issues (e.g., the IIS accepts the message even though RXA is missing fields it deems necessary)?</h3>
+<p class="mini">Asked 4× · 2020–2023 · ACK · Answered · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: ERR-4, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>If you are satisfied enough with the message that you would not expect the provider or EHR to take action and resubmit, the ACK should be AA with no ERR segments, AA with only I-severity ERR segments, or AE with W-severity ERR segments, with no E-severity ERR segments. Messages with only I-severity issues return AA, provided there are no W or E severity errors. Confirmed again in 2023: if the only ERR segments are informational, MSA-1 should be AA (consistent with the AIRA ACK guidance). A 2023 question asking whether an ACK with MSA-1 = AE and only informational errors is acceptable has no separate answer recorded; the guidance above indicates AA.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q18-022">
+<h3>Can an ACK use MSA-1 = AA together with an ERR of severity I (e.g., `ERR|||0^Message Accepted^HL70357|I||||Incoming immunization already exists...`)? How should an IIS decide between E, W and I in ERR-4 when some conditions currently returned as AE with a warning are not really errors?</h3>
+<p class="mini">Asked 1× · 2022 · ACK · Answered · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: ERR-4, ERR-3, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Follow AIRA's Guidance for HL7 Acknowledgement Messages to Support Interoperability (https://repository.immregistries.org/resource/guidance-for-hl7-acknowledgement-messages-to-support-interoperability/). MSA-1 should be AA if there are no ERR segments or all ERR segments are severity I; if at least one ERR is W or E then MSA-1 should be AE (or AR in a few corner cases). The proposed AA with an informational ERR for a duplicate immunization is good, since resubmitting a vaccination is not a problem. IIS decide what are true errors but must flag them consistently: E means the issue must be fixed and resubmitted, W means the data needs fixing but need not be resubmitted, and I conveys information without requesting action. There is no firm national stance on which specific issues are E, W or I; it rests on IIS policy. Nationally the priority is that E is used correctly and not for issues that do not need fixing or resubmission. W can drive data quality, including for issues that may be correct as reported (e.g., an unexpected dose amount), as long as the message says something like "The dose amount may be incorrect, please verify."</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-007">
+<h3>An IIS returns MSA-1 = AA for every message, including submissions containing errors that it reports in ERR segments. Is that appropriate, and how do other IIS handle ACKs?</h3>
+<p class="mini">Asked 2× · 2016–2024 · ACK · Answered · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: ERR-4, ERR, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. Provider organizations will likely read AA as "accepted without error" and will not review or aggregate the ERR segments. The IIS should return AE in MSA-1, which means the message was processed and errors are being reported. Send AE whenever the IIS detects an error more severe than informational (warnings and errors), from data ignored because it is not wanted up to rejection of the whole message. See AIRA's "Guidance for HL7 Acknowledgement Messages to Support Interoperability" for MSA-1 values (2024). In an earlier case (2016), after discussing how other IIS handle acknowledgements, the IIS agreed to update its ACKs to be more meaningful (reflecting actual processing results and errors) for providers submitting via the CDC WSDL rather than always returning AA.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-063">
+<h3>What is the proper use and purpose of the AR acknowledgement code, if rejected data is indicated with AE plus ERR-4 = E?</h3>
+<p class="mini">Asked 3× · 2019–2024 · ACK · Partly answered · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AR has a quite limited purpose defined by the base HL7 v2 standard, reserved for a small set of specific conditions (such as an unsupported message type) rather than for rejecting message content. Changing this would be far larger than a national IG change because the AR definitions apply to all HL7 v2 ACK messages, not just immunizations (2024). An earlier (2020) answer gave an overview of the ACK Guidance document recommendations (details not recorded); a 2019 question has no answer recorded.</p>
+<p>Note: later questions (2026, below) refer to draft guidance expanding the use of AR.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-072">
+<h3>Is there documentation about moving toward not using AR in MSA-1 of ACK messages?</h3>
+<p class="mini">Asked 1× · 2016 · ACK · No answer recorded · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q42-018">
+<h3>Is there documentation on the expanded use of AR, and is it a problem that some EHR interfaces shut down when they receive an AR?</h3>
+<p class="mini">Asked 2× · 2026 · ACK · Answered · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Draft guidance expanding AR use was to be presented to SISC with a vote the following month (early 2026). Nothing in the base HL7 v2 standard, the current IG (2015), the current ACK guidance (2015), or the new document suggests shutting down an interface when an AR is received, and AIRA was not aware of other EHRs that do this. A few IIS have issued AR for years despite the AE/E guidance because migrating their provider community to AE was difficult. The concern about interfaces shutting down is warranted, and AIRA asked which IIS were causing the most shutdowns.</p>
+<p>AIRA then met with the EHR vendor's interface team, which was not concerned about the movement toward IIS returning AR. The vendor suggested some intermediary language around use of CR (Commit Reject), and that language was added to the appendix of the ACK guidance.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q31-003">
+<h3>An EHR vendor reported differing interpretations of the use and behavior of AA, AE and AR and asked to discuss the standard&#x27;s expectations.</h3>
+<p class="mini">Asked 1× · 2024 · ACK · No answer recorded · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: ERR-4, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-077">
+<h3>What MSA-1 value should be returned for &quot;segments out of proper order&quot;? The vendor sets AR, but the guide seems to indicate AE.</h3>
+<p class="mini">Asked 1× · 2016 · ACK · No answer recorded · Fields: <a href="../../structure/segments/msa/index.html#f1">MSA-1</a> · Related: ERR-3</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">MSA-3 Text Message</h2><section class="ta-q r-unassessed" id="ta-q37-004">
+<h3>Should an IIS leave MSA-3 empty in its ACK to resolve a conformance finding?</h3>
+<p class="mini">Asked 1× · 2025 · ACK · Answered · Fields: <a href="../../structure/segments/msa/index.html#f3">MSA-3</a> · Related: Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA's M&amp;I testing ignores MSA-3 being populated, because some IIS send it and some receiving systems depend on finding it there. AIRA would not recommend removing MSA-3 from a production system without first talking with downstream systems (trading partners) to make sure they are not relying on it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">MSA-6 Error Condition</h2><section class="ta-q r-unassessed" id="ta-q03-029">
+<h3>How should MSA-6 in the ACK be interpreted according to the IG?</h3>
+<p class="mini">Asked 1× · 2018 · ACK · Answered · Fields: <a href="../../structure/segments/msa/index.html#f6">MSA-6</a></p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>MSA-6 has usage "X" (not supported) in the IG, and there is no expectation for the EHR to read this data.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

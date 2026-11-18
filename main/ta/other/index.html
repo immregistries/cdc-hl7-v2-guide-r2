@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Other · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Other</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">22 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>This section collects questions that do not fit a single core VXU/QBP field: batch header segments, message types other than VXU (ADT, ORU), data elements that the immunization IG does not support (disability status, occupation, SOGI, Medicaid ID, school/grade, geolocation, home self-administration, adjuvants, free text), booster/series designation, provider identifiers, and HL7 tools and training. The dominant theme is requests to carry new data elements in the VXU; the usual answer is that the current IG has no mechanism, that the data may be better collected outside HL7 immunization messaging, or that a new requirement would need to go through the SISC/IG process. Where an item clearly belongs to a specific field or topic, a "Suggested home" is given.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (6)</summary><ul><li>No guidance for occupation data; the OH2 segment or a priority-group style observation could be considered.</li><li>No field for geographic coordinates of the administration location (e.g., mobile clinics).</li><li>No guidance for self-administered or home-administered vaccines (e.g., FluMist at home via a third-party pharmacy).</li><li>No standard way to convey school enrollment/grade in VXU.</li><li>No guidance on SOGI; alignment with HL7 O&amp;O cross-program guidance (OBX with LOINC) would be needed.</li><li>Clarify the use of free text (NTE/OBX-5) and the handling/optionality of batch header segments.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">Batch Header/Trailer Segments (FHS, BHS, FTS, BTS)</a> <span class="mini">2</span></li><li><a href="#g-1">Other Message Types (ADT, ORU) and Non-Vaccination Data</a> <span class="mini">5</span></li><li><a href="#g-2">Data Elements Not Supported by the IG</a> <span class="mini">10</span></li><li><a href="#g-3">Booster vs. Primary Series Designation</a> <span class="mini">2</span></li><li><a href="#g-4">Provider Identifiers</a> <span class="mini">1</span></li><li><a href="#g-5">HL7 Tools, Libraries &amp; Training</a> <span class="mini">2</span></li></ul>
+<h2 id="g-0">Batch Header/Trailer Segments (FHS, BHS, FTS, BTS)</h2><section class="ta-q r-unassessed" id="ta-q12-022">
+<h3>Are batch header/trailer segments (FHS/FTS, BHS/BTS) needed in HL7 2.5.1 batch files, and should they ever be used in web service messages?</h3>
+<p class="mini">Asked 1× · 2021 · general · Answered · Related: FHS, BHS, FTS, BTS; Transport/Connectivity</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>FHS, BHS, FTS and BTS are part of HL7 2.5.1 and are defined in the CDC IG Release 1.5. FHS/FTS would normally be expected when saving messages to a file (e.g., for FTP), not in web service calls where no file is created, so IIS should not require FHS/FTS via the CDC WSDL. BHS/BTS may wrap multiple messages but are not required; a batch can simply be a series of messages one after another. IIS could accept data through submitSingleMessage with or without these segments. IIS should not take a hard position: where possible simply ignore these segments since they contain no relevant clinical data.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q12-023">
+<h3>If a message arrives with FHS and BHS segments containing invalid data (e.g., `FHS|^~\&amp;|MTAB||EXT|1|20210903102906|||20210903102906||P|2.3`), should it be hard rejected, or should the optional segments be ignored?</h3>
+<p class="mini">Asked 1× · 2021 · general · Answered · Related: BHS, FHS; Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>An IIS is not required to hard reject a message for violating national or local standards; severe errors should be reserved for issues that impact data quality or critical business needs. Unless there is a compelling reason, ignore these segments completely. Never require them for any transaction, and if they are present, ignore them as much as possible.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">Other Message Types (ADT, ORU) and Non-Vaccination Data</h2><section class="ta-q r-unassessed" id="ta-q03-091">
+<h3>Could ADT messages be used to get better updates on patient status?</h3>
+<p class="mini">Asked 1× · 2019 · ADT/VXU · Answered · Related: Bidirectional Exchange</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>ADT could be used, but the IIS would likely have little influence on the format of the message and may struggle to get partners to trigger it when wanted. Alternatively, a VXU without immunizations can be used; this is permissible in the standard. The IIS was also told to talk to another IIS that might be doing something similar.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-053">
+<h3>Are there specifications for ADT messages for IIS?</h3>
+<p class="mini">Asked 1× · 2020 · ADT · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is currently no specification for ADT messages for immunization; background on the history and characteristics of ADT messages was provided.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q24-011">
+<h3>An IIS wants to receive lead screening test results through HL7 (ORU messages), alongside manual entry and file uploads. What standards and guidance exist for messaging lead results to the IIS?</h3>
+<p class="mini">Asked 1× · 2023 · general (ORU) · Partly answered · Related: OBX</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Lead results fall under laboratory reporting to public health, which has its own HL7 v2 implementation guide (HL7 product brief: https://www.hl7.org/implement/standards/product_brief.cfm?product_id=185). It has one lead test example but no other lead-specific guidance. It is still the format to expect from laboratory systems. NIST has an ELR test suite at https://hl7v2-elr-testing.nist.gov/mu-elr/ for validating messages, and its Documentation tab ("User Documentation") lists the supporting documents used to build it. The topic was then moved to an emerging-standards effort with other interested IIS.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q27-005">
+<h3>A state law requires providers to report TB test results to the IIS. Are any IIS accepting TB screening tests via data exchange, and if so, in a VXU or another message type? Which coding system is used, CVX or CPT?</h3>
+<p class="mini">Asked 1× · 2023 · VXU/general · Answered · Related: RXA-5; Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA does not know of any IIS today that is receiving TB screening tests. CVX codes exist for TB indurations (skin tests), but these only record that the test was done, not the result, and they have been deprecated. Historically IIS may have received them as part of care workflows to ensure people were screened; results were not sent because they were usually negative and positives were tracked in other systems. The VXU message is intended for submitting vaccinations; its structure does allow reporting administration of other pharmaceuticals, but using it to report lab results is a stretch beyond its purpose. Lab test results are more properly communicated in an ORU message as defined by lab reporting standards. CPT codes are generally used for procedures performed and are not used for reporting lab results; LOINC is the more appropriate direction.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q27-001">
+<h3>Is there guidance on how to express vaccine inventory &quot;wastage&quot; in an HL7 v2 message?</h3>
+<p class="mini">Asked 1× · 2023 · VXU/general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no guidance because HL7 v2 immunization messaging does not support this. It is a fundamental limitation of v2: the messages are about the person (patient and their vaccinations), not about anything else, so there is no way to submit inventory-management style messages (e.g., order, decrement, waste). Inventory use cases such as wastage are being considered for FHIR instead.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">Data Elements Not Supported by the IG</h2><section class="ta-q r-unassessed" id="ta-q08-030">
+<h3>FEMA requires vaccination sites to report disability status (Yes/No/No response) for COVID-19 vaccine recipients, but the IIS has no field for it and there is no established HL7 mechanism. Is disability collected by EHRs/IIS or part of the HL7 immunization message, and how should it be captured and reported?</h3>
+<p class="mini">Asked 4× · 2021 · VXU · Answered · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Disability is not information IIS collect, and it is not part of the HL7 immunization exchange or a CDC-endorsed data element. CDC IISSB was aware and encouraged FEMA to collect it through another avenue; others were advised to respectfully tell FEMA that because it is not part of the HL7 messaging standard, IIS cannot collect it at this time, and to contact the IISSB SME working with FEMA and HRSA (2021-03-26).</p>
+<p>Per CDC/FEMA talking points (described as draft in one record, 2021-04-22, and as final in another, 2021-04-06): FEMA will work with jurisdictions to collect disability information through alternatives such as FEMA-implemented methods and tools, the CVC pilot site scheduler, or another process agreed between the jurisdiction and FEMA, and FEMA can help overcome obstacles. There is no expectation that this information will be received or stored in the IIS or reported by the IIS to CDC. Coding of conditions not specific to immunization is not part of IIS data exchange requirements, and the CDC HL7 IG does not include disability data elements, so EHRs and IIS are not expected to receive, store, or report it. As of April 2021 AIRA had not yet heard how other jurisdictions met the requirement.</p>
+<p>One instance of the question (2021-03-15, asking how IIS were collecting a Y/N disability flag and whether it could be reported via HL7) had no answer recorded.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-004">
+<h3>Is there guidance for EHRs submitting immunizations per the federal specification on disability status, and will the national HL7 message specification be modified (e.g., to add a DB1 segment) to communicate it?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Answered · Related: PID; DB1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>CDC has explained that disability status is not a data element an IIS captures or could send, and it is not part of a vaccination message. Submitters were directed to follow the COVID-19 Vaccination Reporting Specification (CVRS) requirements, and CDC is not expected to alter the CVRS to require it, since it poses challenges similar to comorbidity (which was included but is poorly populated). Other means outside the IIS/HL7 immunization message should be used to gather disability information, while recognizing it is important to understand how well people of all abilities are being vaccinated.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q31-016">
+<h3>Can patient occupation be submitted to an IIS via HL7 v2 (e.g., to identify farmworkers for funding or a CDC flu project), which HL7 code table should be referenced, and how do other IIS capture it?</h3>
+<p class="mini">Asked 2× · 2024 · VXU · Answered · Related: OH2; Code Sets &amp; Vocabulary; Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no standard HL7 v2 immunization field or guidance for occupation, and as of 2024 AIRA had received no requests from CDC or SISC to update the standards to support it. Sending occupation in HL7 v2 is technically possible, but guidance would need to be developed. Questions to resolve include what information is needed (occupation code, occupation description, employment status, employer details) and which code system to use (e.g., O*NET, ISCO from the ILO, or the BLS Standard Occupational Classification (SOC)). HL7 v2 defines an OH2 (Past or Present Job) segment with fields such as OH2-4 Occupation, OH2-5 Industry, OH2-6 Work Classification, OH2-7 Work Start Date and OH2-8 Job End Date, and HL7 v2 has related code sets (see PHIN VADS code system 2.16.840.1.114222.4.5.314), though their correspondence to other occupation code sets needs research. Coding occupation is very complex (comparable to coding vaccinations).</p>
+<p>A simpler alternative may be a flag such as "works with livestock / dairy or poultry farmworker", modeled on AIRA's pandemic-era priority group messaging guidance (https://repository.immregistries.org/resource/priority-group-preliminary-guidance/); it is unclear whether that guidance is appropriate for this use.</p>
+<p>What jurisdictions did: one jurisdiction decided to capture the data outside HL7; another reported that, after discussion with CDC, collecting it via HL7 was agreed to be impractical and would need to be collected another way; a third added "Farmworkers" to the occupation dropdown in its IIS user interface and used aggregate doses reported through its vaccine inventory system.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-044">
+<h3>How should occupation/priority tiering be messaged in HL7, and how quickly must EHRs accommodate new guidance?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · No answer recorded · Related: see the occupation entry above and AIRA&#x27;s priority group preliminary guidance</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-007">
+<h3>Has AIRA given guidance on how to report a patient&#x27;s sexual orientation and gender identity (SOGI) in immunization messages, ideally consistent with other public health messages such as ELR?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Partly answered · Related: OBX-3; PID-8</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA was just beginning to engage on this; HL7 Orders &amp; Observations is leading the work (see the HL7 Confluence page on Sexual Orientation, Gender Identity, Administrative Sex, Birth Sex). It was still in the data collection phase, with some programs suggesting values, and it appeared the approach would use OBX segments with existing LOINC codes. No immunization-specific guidance existed yet.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q27-003">
+<h3>An IIS is trying to capture patients&#x27; Medicaid IDs, but getting providers to report the Medicaid ID in submissions has been difficult. What approaches are other IIS using to exchange Medicaid ID data?</h3>
+<p class="mini">Asked 1× · 2023 · general · Answered · Related: Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Jurisdictions that are most successful at getting Medicaid IDs or identifying Medicaid patients get the information directly from the Medicaid agency, not from providers. Getting Medicaid ID entered and messaged consistently by providers is a significant lift and likely to be spotty at best, a continuous uphill battle. Historically, IIS-Medicaid exchanges have usually used SFTP with a custom, jurisdiction-specific flat file rather than HL7. Having the Medicaid ID helped somewhat with patient matching, though only Medicaid was sending it. Vaccination data received from Medicaid is secondary-source billing data of lower quality, and vaccination dates can be off by a few days, which complicates matching and deduplication. Such data did help fill gaps where providers were not connected. One state has a longstanding interagency agreement with its Medicaid program that supports data exchange and funding match, and its language could serve as a model.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q22-016">
+<h3>Jurisdictions want to send a patient&#x27;s school and grade via HL7 to track school rosters. In v2.3.1 one jurisdiction sent the school in RXA-11 (administered-at location) and the grade in a ZSV Z-segment. Is that still supported in 2.5.1, and what is the recommendation?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Partly answered · Related: RXA-11; Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>An HL7 solution should be possible, but none exists in the national standard; it would normally be developed through the SISC small groups process. AIRA asked for initial requirements and details of the prior implementation to start that work.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q23-012">
+<h3>Can locational data (latitude/longitude) for where a vaccine was administered, such as by a mobile vaccination unit that moves daily, be submitted in an HL7 VXU message?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Related: RXA-11; RXA</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The VXU currently has no way to give the latitude and longitude of where a vaccination took place. Before deciding on an approach, clarify whether the lat/long is the facility's or the patient's location at administration, and what the data will be used for.</p>
+<p>For mobile units, options include: - Use the address the HL7 message already supports and convert it to lat/long in post-processing. Addresses may be better for data quality, since people can verify an address but not easily verify coordinates. - Collect the bus's location separately and correlate it with the vaccination records afterward. This works if units move daily, but not if they move several times a day unless the time of administration is also received and stored. - Find out what system records the doses and whether it can be changed to report location (as an address or lat/long), and whether this is already being captured somewhere.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q33-006">
+<h3>Now that FDA has approved home self-administration of FluMist, how will those doses be ingested by IIS, and is there anywhere in an HL7 message to indicate home administration versus administration by a health care provider?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · No answer recorded · Related: RXA-11</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-067">
+<h3>Do IIS accept free text in HL7 messages, and how is it messaged?</h3>
+<p class="mini">Asked 1× · 2017 · VXU · Partly answered · Related: OBX-5; NTE</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The 1.5 guide isn't very clear on this, but it has been made more explicit in the 2.8.2 work. To date, AIRA doesn't know of any IIS that collect that type of information.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">Booster vs. Primary Series Designation</h2><section class="ta-q r-unassessed" id="ta-q23-015">
+<h3>The current IG doesn&#x27;t cover sending or receiving whether a dose (e.g., COVID-19) is part of the primary series or a booster. Should HL7 messages carry a booster designation, or is that left to IIS logic?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Related: RXA; Version &amp; IG Interpretation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Correct: the current guide does not say how to message this, and a "booster" designation is not a CDC core data element. It appeared only in CDC's requirements for IIS reporting of COVID-19 vaccinations to CDC. AIRA's current view: - CDS logic does not consider the intended purpose of a dose. Whether a dose is a booster or a series dose is something a CDS engine works out from the full immunization history. The standards therefore treat it as a CDS output, not something reported to the IIS. - If EHRs did send it, the IIS would need to decide how to use it: show it to users, let it affect CDS, and handle conflicts when CDS disagrees (for example, the clinician says booster but the history makes it a second dose).</p>
+<p>For now the booster designation is assumed to stay a concept assigned by CDS. AIRA wants to hear about any real need to collect it from providers and how the data would be used. It can be raised for future guide discussion.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q14-022">
+<h3>Providers ask how COVID-19 booster doses are recorded: the IIS records a booster as another dose (e.g., dose 3) rather than labeling it a booster, and a booster of a different brand appears as its own dose. Is there a better way to explain how boosters are recorded?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>IIS do not track the provider's intention for a specific dose (for example, that a DTaP was intended as dose 3); a clinician may intend a dose as a booster, but that is not stored and is not a factor in determining whether the patient received the right vaccines at the right time. The IIS collects the entire vaccination history and runs it through a clinical decision support engine that evaluates each dose against the schedules (combination vaccines against multiple schedules, COVID against a single schedule). The IIS can then annotate which dose each was, e.g., two primary doses and a booster, based on dates and vaccine types. ACIP is continually revising the COVID schedule, so what is a booster today could later be considered part of the primary series, and intentions at administration are temporary. When earlier doses are unknown, a full history cannot be established by asserting the first recorded dose is a booster; each dose with vaccine type and date must be recorded, as for all other vaccines.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">Provider Identifiers</h2><section class="ta-q r-unassessed" id="ta-q04-011">
+<h3>How should an NPI be sent in an HL7 message?</h3>
+<p class="mini">Asked 1× · 2019 · VXU · Partly answered · Related: RXA-10; ORC-12</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It is possible to send NPIs in an HL7 message; the details given are not recorded.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-5">HL7 Tools, Libraries &amp; Training</h2><section class="ta-q r-unassessed" id="ta-q40-002">
+<h3>Are there resources to help new IIS staff learn HL7 v2 message structure, what each segment means, and how ACK messages work?</h3>
+<p class="mini">Asked 1× · 2025 · VXU/ACK/general · Answered · Related: Message Structure &amp; Cardinality; Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA published two free eLearning courses: "HL7 v2.5.1 Immunization Update (VXU) Messages" and "HL7 v2.5.1 Acknowledgment (ACK) Messages and their Role in Ensuring Immunization Interoperability", which cover VXU and ACK use, structure and contents in depth; they are part of AIRA's Interoperability Course Series. For staff new to interoperability, first take the Public Health Informatics Institute introductory courses from the Fundamentals of IIS series: "Interoperability for IIS" (interoperability and data flow), "HL7 Basics for IIS" (HL7 standard, National IG, message types, structure, and relation to data quality), and "Advanced HL7 for IIS" (conformance, constraints and testing tools).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q23-017">
+<h3>What third-party HL7 v2 messaging engines (stand-alone routing applications or software integrated into the local stack for parsing) are other IIS using?</h3>
+<p class="mini">Asked 1× · 2023 · general · Partly answered · Related: Transport/Connectivity</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA put the question in its Weekly Update to gather community input. A generic HL7 engine can fix some technical problems with reading and parsing messages correctly. These tools are limited, though, in helping the incoming data get correctly absorbed into, and later retrieved from, the IIS database, which is usually the harder part. AIRA offered a call to review the specific problems the IIS wants an engine to solve.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

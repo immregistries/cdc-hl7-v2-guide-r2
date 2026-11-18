@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Patient Matching &amp; Deduplication · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Patient Matching &amp; Deduplication</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">16 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions in this section cover how IIS match and consolidate patient records (from incoming VXUs and at query time) and how they deduplicate vaccination events. Recurring themes are which demographics to keep when merging, false-positive and overly loose query matches, the lack of a national matching standard, how to test matching changes, and the special same-day multiple-dose case for nirsevimab (CVX 307). Several answers point to MIROW best-practice guides and AIRA's AART HL7 Patient Matching tests.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (3)</summary><ul><li>Define deduplication rules and reliable HL7 indicators (e.g., RXR-2 site, ORC-3 filler order number, age) for multi-injection or same-day multiple doses such as nirsevimab.</li><li>Explicitly bridge submitter-side TAB guidance (delete+add on identifying field changes) with IIS-side MIROW consolidation expectations.</li><li>Consider guidance on messaging patient names (name types, aliases, hyphenated names) to support matching. AIRA was developing this.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">Patient Record Consolidation and Demographics</a> <span class="mini">2</span></li><li><a href="#g-1">Matching at Query Time</a> <span class="mini">5</span></li><li><a href="#g-2">Testing and Improving Patient Matching</a> <span class="mini">3</span></li><li><a href="#g-3">Vaccination Event Deduplication</a> <span class="mini">2</span></li><li><a href="#g-4">Same-Day Multiple Doses (Nirsevimab)</a> <span class="mini">4</span></li></ul>
+<h2 id="g-0">Patient Record Consolidation and Demographics</h2><section class="ta-q r-unassessed" id="ta-q34-022">
+<h3>When merging duplicate patients, an IIS&#x27;s SOP uses the vital records name, but providers often use a different name (e.g., a shorter last name), causing new duplicates with each VXU. Is there a best practice, and would prioritizing the most recent name cause problems?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Answered · Related: PID-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>This aligns with Scenario S108 in AIRA's Consolidating Records guide, where the vital statistics last name differs from the provider-submitted last name and the more recent provider name is retained in the consolidated record. Vital statistics data is generally given priority but not necessarily for patient name. Selecting the more recent name may help reduce new duplicates, but consider jurisdictional policies on retaining vital records names (e.g., whether choosing the provider name removes the vital records name). To support matching, retain all names the patient has been known by, as alias names, since they support automated matching, deduplication and unmerging; which name is displayed is a program preference. Also educate providers to use official patient names (DQA guide). AIRA was developing guidance on messaging patient names in HL7, including name types and hyphenated names.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q10-009">
+<h3>When multiple or low-threshold matches stem from outdated demographics in the IIS, do IIS let patients or providers correct demographics, and what does the correction/merge process typically look like?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Answered · Related: PID</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Generally yes: IIS update patient demographics from the information in VXU messages. But this is governed by IIS data processing rules rather than HL7 requirements: records seeded from vital birth records may have locked fields; consent issues may prevent updates; IIS may choose not to accept demographic updates from less trusted submitters (e.g., temporary flu clinics); and address standardization tools may alter addresses. A personal observation: IIS are often the last to learn about name/address changes and receive only the new data, not the old, which makes matching harder; an explicit change-of-demographics message carrying both old and new values could help.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">Matching at Query Time</h2><section class="ta-q r-unassessed" id="ta-q02-082">
+<h3>An IIS is returning false-positive matches to queries. Should the EHR be expected to double-check and treat these as &quot;possible match&quot; scenarios?</h3>
+<p class="mini">Asked 1× · 2017 · RSP · Partly answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA verified the false-positive scenario, suggested possible solutions, and suggested test scenarios for this behavior (details not recorded).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q33-017">
+<h3>A query for a newborn to one IIS returned the mother&#x27;s immunizations and forecast as if they were the infant&#x27;s. Where can a trading partner get documentation of an IIS&#x27;s QBP matching logic, and is there a national standard?</h3>
+<p class="mini">Asked 1× · 2024 · QBP/RSP · Answered · Related: QPD-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Documentation of a specific IIS's matching criteria must come from the IIS vendor. National guidance (the IIS functional guide / query guidance) specifies the responsibilities of the querying system and the IIS but not how the IIS performs matching. Diagnosing why another IIS returned the mother's record would require a detailed inspection, and problems in data previously submitted to that IIS could also be a factor; matching in a different IIS is completely different, so a problem in one would not necessarily occur in another. When requesting documentation, distinguish two matching points: matching performed when a VXU is received (to consolidate records) and matching performed when a query is received (to identify which record to return). Vendors may use the same or different logic for each.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q16-014">
+<h3>During testing, a Z44 query for a specific first name, last name, sex F and DOB returned five patients with the same first name but different last names and non-matching DOBs; the submitter also appeared to swap first and last names. Why would an IIS return such candidates, and can it match on first name with differing last names?</h3>
+<p class="mini">Asked 1× · 2022 · QBP/RSP · Partly answered · Related: QPD-3, PID-5, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>This behavior has been seen before and likely relates to the IIS product's patient matching / query match settings, which control how strict a match must be before records are returned. The IIS should work with its vendor to tune these settings; AIRA offered to help test further if needed. (Separately, the swapped first/last name in the sender's message should be corrected so the query is built correctly.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-046">
+<h3>Could query/response use a two-step patient match paradigm?</h3>
+<p class="mini">Asked 1× · 2019 · QBP/RSP · No answer recorded · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q08-004">
+<h3>A state is building a COVID-19 vaccination registration app that would query the IIS to see whether a registrant already has a COVID dose and, if so, remove them from the clinic list. Have others done this, and what should they watch for?</h3>
+<p class="mini">Asked 1× · 2021 · QBP/RSP · Answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA hadn't heard of other IIS doing this, and calling the new system a "registry" is likely to cause confusion. Patient matching would presumably happen through the HL7 query: registrant demographics go to the IIS, and if there's a match the history is checked for COVID doses. But matching isn't 100% accurate, and there can be legitimate reasons to book even when a dose is on record. If the volume is low, manually reviewing flagged appointments may be more efficient. If appointments are blocked automatically, there needs to be an appeal process with human review. It's better to keep registration simple, with fewer things that can go wrong, and only block in targeted cases such as people actively seeking extra doses.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">Testing and Improving Patient Matching</h2><section class="ta-q r-unassessed" id="ta-q29-007">
+<h3>What resources or guidance are available on patient deduplication for an IIS?</h3>
+<p class="mini">Asked 1× · 2024 · general · Partly answered · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA's resource repository has deduplication material, including presentations from IIS that ran patient-matching improvement projects (repository.immregistries.org, search "deduplication"), and the 2013 IIS Patient-Level De-duplication Best Practices, which is a good starting point. AIRA's Measurement and Improvement initiative also has an HL7 Patient Matching content area that tests whether an IIS can match records across different HL7 messages. Participating IIS can view detailed results in AART. AIRA can also run an "AART clinic" to go through those reports and provide technical assistance.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q21-018">
+<h3>An IIS adjusted its patient deduplication algorithm (adding email, phone number and maiden name as match elements) and wants to test it on a real data set and quantify the results. Is there documented guidance on how to test such changes and what to expect?</h3>
+<p class="mini">Asked 1× · 2022 · VXU · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is nothing formal yet. The community Patient Matching (de-duplication) document from CDC (https://www.cdc.gov/vaccines/programs/iis/interop-proj/downloads/de-duplication.pdf) is over 10 years old but still relevant, though email and phone may be more trusted today. AIRA is starting HL7 patient matching testing in AART that looks for blind spots where an IIS creates duplicates when demographics change between a first and second VXU (nicknames, spelling variations, middle name vs initial, etc.), testing one variation at a time.</p>
+<p>Recommendation: review records in the IIS's own patient matching (review) queue that should or should not have matched and add those expectations to a training set, repeating regularly (e.g., yearly) to tune the algorithm. National efforts have struggled because local systems differ in available matching data and there is no definitive standard for matching thresholds; the planned national test process will have limitations.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q29-018">
+<h3>Most failures on the AART query measure for multiple possible patients occur because the IIS test region has only one record for the queried patient, so it cannot return a Z31 or Z33. Did the test add the patient twice, and could the IIS be auto-deduplicating it?</h3>
+<p class="mini">Asked 1× · 2024 · QBP/RSP/VXU · Answered · Related: Query &amp; Response Behavior, QPD, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The measure sends prep VXU messages that create two unique but very similar patients (for example the same name, birth date, mother's maiden name, and address, but a different middle name, MRN, and multiple-birth order). The query then targets them. In this case the IIS matched the second prep patient to the first and updated it instead of creating a second patient, so the query found only one record. After the missing patient was added manually and the assessment re-run, the correct response profile was returned (with remaining NIST conformance findings in the RSP). AIRA is revising the Measure 5 test cases.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">Vaccination Event Deduplication</h2><section class="ta-q r-unassessed" id="ta-q13-016">
+<h3>Is there guidance on deduplicating COVID-19 vaccination records submitted in close succession, similar to the interval (e.g., 10 days) commonly used for routine childhood vaccines?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Answered · Related: RXA-3, RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is nothing COVID-specific, but the MIROW best practice guide "Vaccination Level Deduplication in Immunization Information Systems" remains a solid resource. Be aware that its "24 day window" does not apply to vaccines with shorter dosing intervals; the guide mentions rabies, and Pfizer COVID-19 vaccine also falls into that category.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q39-009">
+<h3>If an IIS implements the TAB guidance that a CVX change requires delete + add, will that conflict with the DQI Measure 27 expectation that an update changing CVX (e.g., 45 to 08, same group and date) consolidates with the existing dose without a duplicate warning?</h3>
+<p class="mini">Asked 1× · 2025 · VXU/ACK · Answered · Related: RXA-5, RXA-20</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The TAB: Scenarios for Updates and Queries is submitter-side guidance (EHRs should send delete+add when identifying fields change). DQI Measure 27 is based on MIROW (2017) Consolidating Demographic and Vaccination Event Records, which is IIS-side guidance: the IIS should be capable of matching and consolidating obvious updates even when identifiers change (e.g., unspecified CVX to specific) and return the consolidated history. The IIS should not back out an enhancement that lets same-date, same-vaccine-group CVX changes update the existing event; that aligns with MIROW and supports Measure 27. Implementing the TAB behavior for submitters does not change the expected ACK behavior for Measure 27. Expectations are dual: submitters send delete+add; IIS remain robust at consolidation. AIRA is drafting bridging language to make this explicit.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">Same-Day Multiple Doses (Nirsevimab)</h2><section class="ta-q r-unassessed" id="ta-q26-016">
+<h3>How likely is it that IIS will receive two same-day nirsevimab doses this season? Will these come in as CVX 307, or are they only trial doses?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It is a real possibility. These products are fully licensed and ACIP recommended, not trial doses, so they will arrive as CVX 307. Volume should be small (reportedly under 2%), but American Indian/Alaska Native children are among the recommended groups, so some jurisdictions may see much more. Other groups are medical (chronic lung disease, cystic fibrosis, severe immunocompromise).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q26-014">
+<h3>When allowing multiple same-day nirsevimab doses during VXU deduplication, is it safe to allow this only for CVX 307 (100 mg), or should other codes (e.g., 306 or unspecified) also be allowed?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Related: RXA-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Limiting it to CVX 307 is reasonable. Same-day multiples of other codes can't be ruled out but should be very unlikely: 306 reportedly costs about the same as 307, and insurers are unlikely to pay for two or four 306 doses to reach 100 mg or 200 mg.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q26-017">
+<h3>How reliable are these indicators for telling a true same-day second nirsevimab dose from an update to an existing dose: different body site (RXR-2), different filler order number (ORC-3), and age at administration of 8 to &lt;24 months? Should an incoming dose be added as new when a 50 mg/0.5 mL dose already exists that day, or when two 307 doses already exist that day?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Partly answered · Related: RXA-5, RXA-6, RXR-2, ORC-3, RXA-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>None of these indicators is guaranteed. Body site should differ but may be wrong or missing. Some EHRs report that the filler order number is less unique or reliable than hoped, so it helps but isn't definitive. Age 8 to &lt;24 months is useful, and some suggest allowing slightly below 8 months or slightly above 24 months. If a 50 mg/0.5 mL dose already exists that day, a second dose is unlikely to be new, though not impossible. Three or more 307 doses on one day is very unlikely, so an incoming dose in that case is most likely an update to an existing record. AIRA and IIS were still reviewing HL7 fields for good indicators.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q26-015">
+<h3>What should an IIS do when an incoming CVX 307 nirsevimab dose is two days after an existing 307 dose? Is it a correction or a separate dose?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Partly answered · Related: RXA-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no definitive answer yet; it is a local IIS decision until EHR data trends are visible. Choose whichever is easier to fix later (merge or keep separate), and add daily or nightly checks to detect patterns. Licensure and ACIP allow only one "double dose" in a lifetime, so repeated double-307 events on different dates (e.g., Oct 1 and Nov 1) mean something is wrong.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4.6.2.7 Code Retirement and Long-Term Data Fidelity · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="code-retirement-and-long-term-data-fidelity">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../immunization-information/index.html">4.6 Immunization Information</a> <span>›</span> <a href="../vaccine-product-and-administration-codes/index.html">4.6.2 Vaccine Product and Administration Codes</a></nav>
 <header class="card-head"><h1><span class="num">4.6.2.7</span> Code Retirement and Long-Term Data Fidelity</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">4 notes</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-normative-prose-5a2b6cc8"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>In practice, there is often a lag between when a product is no longer available for ordering and when it is no longer administered. Products may remain in circulation for a period of time after retirement, and submitting systems may continue to report administered vaccinations using retired CVX cod…</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-5a2b6cc8">qf-normative-prose-5a2b6cc8</a></li><li class="finding sev-note" id="qf-normative-prose-f98c31e3"><span class="sev">Note</span> Narrative uses &quot;must&quot;, which reads as a requirement. If it is one, state it as a conformance statement; otherwise consider softer wording.<blockquote>Over time, vaccine products are discontinued, replaced, or updated, and corresponding CVX codes may be marked as inactive or retired. In most cases, retirement indicates that a vaccine product is no longer valid for administration in the United States, not that previously recorded vaccinations are …</blockquote><a class="f-id" href="../quality/index.html#qf-normative-prose-f98c31e3">qf-normative-prose-f98c31e3</a></li><li class="finding sev-note" id="qf-statement-from-paragraph-b3d16190"><span class="sev">Note</span> 7 requirements were written as paragraphs in the draft and are shown here as conformance statements (wording unchanged): s1, s2, s3, s4, s5, s6, s7.<a class="f-id" href="../quality/index.html#qf-statement-from-paragraph-b3d16190">qf-statement-from-paragraph-b3d16190</a></li><li class="finding sev-note" id="qf-statements-mid-section-bd07cb40"><span class="sev">Note</span> In the draft, explanatory text continues after the conformance statements. Cards show statements after the narrative, so check that the order still reads well.<a class="f-id" href="../quality/index.html#qf-statements-mid-section-bd07cb40">qf-statements-mid-section-bd07cb40</a></li></ul></details></aside>
 <div class="narrative"><p>Over time, vaccine products are discontinued, replaced, or updated, and corresponding CVX codes may be marked as inactive or retired. In most cases, retirement indicates that a vaccine product is no longer valid for administration in the United States, not that previously recorded vaccinations are invalid or should be removed. Historical vaccination records that reference retired CVX codes remain clinically meaningful and must be preserved.</p>
 <p>In practice, there is often a lag between when a product is no longer available for ordering and when it is no longer administered. Products may remain in circulation for a period of time after retirement, and submitting systems may continue to report administered vaccinations using retired CVX codes that accurately reflect what was given. IIS and submitting systems must therefore balance two competing needs: preserving accurate historical data while ensuring that current workflows transition away from retired codes for new administrations.</p>
@@ -61,8 +61,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

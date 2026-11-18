@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Transport &amp; Connectivity · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Transport &amp; Connectivity</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">53 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions in this section are about how HL7 v2 immunization messages move between submitters (EHRs, HIEs, middleware, gateways) and IIS. Most of them concern the CDC SOAP Web Service (the "CDC WSDL"): where the specification lives, whether it is required, how to implement it exactly (operation names, namespace, faults), how to encode the HL7 payload inside SOAP XML, and how to handle segment terminators.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (6)</summary><ul><li>Publish the CDC WSDL as a directly downloadable file, and state the expected SOAP version and Content-Type header explicitly.</li><li>Clarify segment terminator handling inside the SOAP hl7Message element (CR versus LF), require receivers to accept CR, LF or CR+LF, and state that intermediaries must not alter the HL7 content.</li><li>Define the meaning of the WSDL username/facilityID (submitting organization/system, not an individual user) and tie WSDL credentials to MSH-4, with MSH-22 for responsible organizations, as in the draft next-IG language.</li><li>Allow authentication by any system before the IIS acts on a message, give guidance for HIE/intermediary scenarios, and require intermediaries to relay the IIS ACK unchanged to the original submitter.</li><li>Document alternatives to username/password (OAuth, client certificates/mTLS, multi-factor), which the current transport guidance does not address.</li><li>Add retry guidance that separates transport failures (backoff, limits, suspend/throttle) from application-level rejections (no automatic resend of unchanged messages).</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">CDC WSDL Standard: Specification, Status, and Adoption</a> <span class="mini">10</span></li><li><a href="#g-1">Alternative Transports (REST, HTTP, FTP, Batch, Asynchronous)</a> <span class="mini">5</span></li><li><a href="#g-2">Implementing and Verifying a CDC WSDL Endpoint</a> <span class="mini">11</span></li><li><a href="#g-3">SOAP Payload: Encoding, Escaping, and Message Count</a> <span class="mini">4</span></li><li><a href="#g-4">Segment Terminators in SOAP Payloads</a> <span class="mini">3</span></li><li><a href="#g-5">Authentication, Credentials, and Transport Security</a> <span class="mini">6</span></li><li><a href="#g-6">SOAP Faults and Transport-Level Errors</a> <span class="mini">4</span></li><li><a href="#g-7">Troubleshooting Connectivity</a> <span class="mini">2</span></li><li><a href="#g-8">Endpoints, Routing, and Intermediaries</a> <span class="mini">3</span></li><li><a href="#g-9">Performance, Volume, and Retry Behavior</a> <span class="mini">5</span></li></ul>
+<h2 id="g-0">CDC WSDL Standard: Specification, Status, and Adoption</h2><section class="ta-q r-unassessed" id="ta-q32-018">
+<h3>Is the CDC immunization SOAP WSDL referenced in the ONC Interoperability Standards Advisory the current standard, and are IIS intentionally migrating to it from older SOAP WSDLs?</h3>
+<p class="mini">Asked 1× · 2024 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. The WSDL referenced in the ISA (Transport - Immunization Submission and Query/Response, https://www.healthit.gov/isp/transport-immunization-submission-and-queryresponse) is the CDC WSDL. It is the same one that has been in use since 2011, with two very minor tweaks. Most of the nation has used the CDC WSDL for years (some IIS for over a decade), so EHR vendors likely already have tooling to support it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-045">
+<h3>Where is the official CDC WSDL, and where can a downloadable copy be found?</h3>
+<p class="mini">Asked 2× · 2018–2021 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The official specification is at https://www.cdc.gov/vaccines/programs/iis/technical-guidance/soap/services.html. CDC publishes it as a Word document with the WSDL in its appendix, so download the document and copy the WSDL from there. An unofficial copy is also available from the AIRA IIS Sandbox at https://florence.immregistries.org/iis-sandbox/soap?wsdl=true.</p>
+<p>One earlier instance of this question (2018) has no recorded answer.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-010">
+<h3>Which specification and documentation cover web service (SOAP) transport of HL7 immunization messages to an IIS, and does the CDC WSDL support immunization messaging?</h3>
+<p class="mini">Asked 4× · 2018–2023 · general · Answered · Related: Conformance Testing &amp; Validation Tools; Acknowledgement &amp; Error Handling; Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>IIS use a community standard: the CDC SOAP web service transport specification (https://www.cdc.gov/vaccines/programs/iis/technical-guidance/soap/services.html). The CDC WSDL defines the SOAP web service transport used to exchange HL7 v2 immunization messages between EHRs and IIS. It is in the appendix of the Formal Specification. Endpoints, credentials and onboarding come from each IIS.</p>
+<p>NIST has a SOAP connectivity tester (https://hl7v2-iz-r1-5-testing.nist.gov/iztool/#/soapConn) that implementers can use to verify they support the CDC WSDL correctly. It is part of the Immunization Test Suite, but the SOAP test works for any HL7 v2 message because it only checks that the payload is HL7 v2. Immunization content is checked in the suite's Context-Free and Context-Based sections. Passing these tests means a client should be in good shape to connect at the transport layer.</p>
+<p>Other reference documents shared in response to this question: Guidance for HL7 Acknowledgement Messages to Support Interoperability; IIS Functional Guide, Vol. 1: Query and Response; and SOAP Web Services Guidance and Specifications.</p></div><p class="ta-flag"><strong>Flagged when consolidated:</strong> One record (2023) says &quot;The CDC page link is out of date&quot; without saying which link. Check whether the NIST tester link on the CDC page is stale. Another record (2021) gives the NIST URL as &quot;hl7v2-iz-r1.5-testing.nist.gov&quot; while others use &quot;hl7v2-iz-r1-5-testing.nist.gov&quot;. Confirm which is correct.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q17-012">
+<h3>Developers building an IIS SOAP interface are having trouble with a WSDL they believe is the CDC WSDL. Which WSDL must an IIS support for incoming connections?</h3>
+<p class="mini">Asked 1× · 2022 · general · Answered · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The WSDL they were using appeared to be the IZ Gateway WSDL. It is very similar, and an IIS uses it when connecting outward to another IIS through the IZ Gateway. For incoming connections, an IIS must support the CDC WSDL defined at https://www.cdc.gov/vaccines/programs/iis/technical-guidance/soap/services.html. The NIST test site follows this CDC specification, and AIRA uses the NIST site to test all IIS. An interface that works with the NIST tool is consistent with the rest of the community.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q20-023">
+<h3>Must vendors use the CDC WSDL SOAP transport, or can other methods be used?</h3>
+<p class="mini">Asked 1× · 2022 · VXU, QBP · Answered · Related: Onboarding &amp; Interface Testing</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The CDC WSDL is the national standard, but it is not a requirement. Vendors sometimes want to use other methods. If they can transport messages securely using the credentials provided and the IIS agrees, they may attempt testing. The IIS should record such differences in its onboarding project tracking tool in case troubleshooting is needed later.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q35-021">
+<h3>Is there a CDC-mandated date by which all IIS must accept submissions only over the CDC WSDL, with data at risk of not being accepted by CDC otherwise?</h3>
+<p class="mini">Asked 1× · 2025 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No CDC-mandated deadline is known that requires IIS to use only the CDC WSDL. The CDC WSDL was selected as the preferred transport and IIS were encouraged to support it. As of 2024, 59 of 61 IIS had a CDC WSDL available that met the Basic level of support, so most interfaces can be moved to it. The WSDL is a standardized transport and does not change the data, and CDC accepts data from IIS however the IIS received it. IIS were told they could keep legacy interfaces indefinitely, though some choose to retire older methods to reduce maintenance. Vendors may benefit from moving all their IIS partners to the CDC WSDL for consistency and less complexity.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q29-009">
+<h3>Is there a list of IIS preferred transport methods for HL7 exchange?</h3>
+<p class="mini">Asked 1× · 2024 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The preferred transport is SOAP using the CDC-defined WSDL (specification on the CDC IIS technical guidance SOAP services page). Nearly all IIS implement it, and AIRA regularly measures IIS against the CDC WSDL specification (see the "Transport Validation - Basic Level" report in the AIRA repository). IIS and EHR partners may agree on other transport methods, but AIRA does not publish a list of alternatives. Most IIS are believed to use the CDC WSDL as their primary transport.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q25-009">
+<h3>How many IIS can receive data over each of these transports: SOAP (CDC WSDL), IHE XDR / Direct Edge, Direct SMTP, IHE ITI SMTP-based edge protocol, FHIR R4 API, and Bulk FHIR API?</h3>
+<p class="mini">Asked 1× · 2023 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Nearly all IIS support SOAP via the CDC WSDL. In the prior quarter AIRA measured 56 IIS with the CDC WSDL, a 57th was expected soon, and a couple more were in progress (mostly because of system migrations). The other transports are not formally measured. Most or all IIS likely do not support XDR, Direct SMTP, or the IHE ITI SMTP-based edge protocol, though an HIE in front of an IIS might. "FHIR R4 API" is too broad to answer simply, much like asking whether an IIS supports all of HL7 v2. Some IIS are exploring it. Bulk FHIR is in progress with a handful of IIS or IIS vendors. One IIS was furthest along and looking for an EHR partner.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q12-015">
+<h3>Should IIS use the ONC Interoperability Standards Advisory (ISA) comment process to push for a single transport standard for immunization exchange, as the IIP Collaborative recommended?</h3>
+<p class="mini">Asked 1× · 2021 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Transport is covered in the ISA services/exchange section (Transport - Immunization Submission and Query/Response). Its adoption level had already been raised to 5 after an earlier AIRA comment. The "see your local..." language comes from the content standard section (Exchanging Immunization Data with Immunization Registries). The suggestion was to comment asking the content standard page to link to the exchange standard page, with a note that the community prefers SOAP.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q21-017">
+<h3>Does ONC EHR certification for immunization reporting cover the CDC WSDL, including mutual TLS (mTLS), since the CDC WSDL specification references TLS?</h3>
+<p class="mini">Asked 1× · 2022 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. EHR certification does not test the CDC WSDL at all, so certification gives no assurance here. There is no information on whether EHRs are prepared to use mTLS.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">Alternative Transports (REST, HTTP, FTP, Batch, Asynchronous)</h2><section class="ta-q r-unassessed" id="ta-q03-058">
+<h3>Can a REST interface be used instead of the CDC SOAP WSDL?</h3>
+<p class="mini">Asked 1× · 2019 · general · Partly answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA found the original REST specification used in the community and discussed the merits of the CDC WSDL, while still supporting providers in whatever real-time interface they choose. (No further detail recorded.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q23-020">
+<h3>People talk about &quot;SOAP&quot; and &quot;HTTP&quot; connections when moving providers from an intermediary to point-to-point connections with the IIS. Are these two separate methods, or related?</h3>
+<p class="mini">Asked 1× · 2023 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>They are related. SOAP sends its information over an HTTPS connection, so a SOAP connection uses both SOAP and HTTPS. An "HTTP" connection means HTTP is used directly, with no additional standard defining the request. SOAP adds a standard framework for formatting the request and data, which makes connections smoother for submitting systems. Middleware users (e.g., Rhapsody) use these terms as shorthand for connection types. For the IIS, they should use a SOAP connection (the CDC WSDL), not a plain HTTPS connection.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q29-012">
+<h3>Can AIRA&#x27;s IIS conformance testing deliver HL7 test messages to an IIS that picks up HL7 messages from an FTP server?</h3>
+<p class="mini">Asked 1× · 2024 · general · Answered · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. FTP is not an option for AIRA's testing program. The IIS community chose SOAP with the CDC WSDL to transport immunization messages between systems. The IIS must implement the CDC WSDL (described on the CDC website) before AIRA can connect and start testing.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-083">
+<h3>An IIS wants providers to move from manual batch uploads of VXUs to web services but is getting pushback. Where is the Meaningful Use Stage 2 language supporting web services submission, and how have other states handled this?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q19-002">
+<h3>An IIS web service is asynchronous: the EHR sends a VXU or QBP, gets no immediate ACK/RSP, and must call back later to retrieve a batch zip file of ACKs/RSPs. Is there a synchronous option, and would an EHR vendor be out of compliance with its Immunization Integration Program (IIP) recognition if it implemented this non-real-time process (or did not implement it)?</h3>
+<p class="mini">Asked 1× · 2022 · VXU, QBP, ACK, RSP · Answered · Related: Bidirectional Exchange; Onboarding &amp; Interface Testing</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>That IIS did not have a synchronous solution. It was considering one for the future, with no set timeline. It offered an asynchronous solution and a RESTful asynchronous approach. Implementing either approach would not jeopardize the vendor's IIP recognition, provided the vendor can still meet all the requirements it met before.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">Implementing and Verifying a CDC WSDL Endpoint</h2><section class="ta-q r-unassessed" id="ta-q04-067">
+<h3>Must the operation names and parameters in an IIS&#x27;s WSDL match the CDC WSDL exactly?</h3>
+<p class="mini">Asked 1× · 2020 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. Operation names and parameters must be exactly as defined in the CDC WSDL. Otherwise EHRs must build special operations just for that IIS. For example, the connectivity test operation must be named connectivityTest (lowercase c) with a single parameter echoBack, and names must match exactly, including case. AIRA tests three things: connectivityTest, submitSingleMessage, and the SecurityFault. Publicly available, validated endpoints (e.g., some IIS test WSDLs) can be used as references.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-066">
+<h3>What targetNamespace should an IIS&#x27;s CDC WSDL implementation use?</h3>
+<p class="mini">Asked 1× · 2020 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It must stay urn:cdc:iisb:2011. Keeping it claims conformance to a known, defined targetNamespace, so providers can submit to the same namespace for every IIS without changing it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q11-006">
+<h3>How can an IIS add a new operation (e.g., submitMultipleMessages()) to the CDC WSDL as an extension, given compile problems caused by references to the CDC namespace?</h3>
+<p class="mini">Asked 1× · 2021 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Extensions are generally left to implementers, as long as the CDC-defined operations, faults, etc. are not changed and the WSDL stays backwards compatible. The simplest approach is to add the new operation to the IIS's copy of the CDC WSDL and present it to the tooling stack as if it were part of the CDC WSDL base. Anyone retrieving the WSDL would see an extra operation, but this does not affect the other operations. AART testing checks the operations, not the WSDL itself, and would not notice the extra operation. Alternatively, a second WSDL could be created that leaves the CDC WSDL as is, though this would mean two different endpoints.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-058">
+<h3>How should an IIS that already has its own WSDL in use support the CDC WSDL, how does its current WSDL compare, and what is needed to install the CDC WSDL?</h3>
+<p class="mini">Asked 2× · 2016–2018 · general · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-074">
+<h3>How should the CDC WSDL be implemented properly, and how should the configuration values for an implementation be set?</h3>
+<p class="mini">Asked 2× · 2017–2018 · general · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q21-014">
+<h3>When building against the CDC WSDL, the IDE reports: &#x27;SOAP port &quot;ws_Port_Soap12&quot;: uses a non-standard SOAP 1.2 binding.&#x27; What causes this warning?</h3>
+<p class="mini">Asked 1× · 2022 · general · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-073">
+<h3>What should be considered about the CDC WSDL and the triggers for queries?</h3>
+<p class="mini">Asked 1× · 2017 · QBP · Partly answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>EHRs find the CDC WSDL easy to integrate with. (No further detail recorded.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-005">
+<h3>An HIE plans to add a CDC WSDL SOAP web service so providers can connect through it as a pass-through to the IIS. Are its design requirements on the right track, and is anything missing?</h3>
+<p class="mini">Asked 1× · 2021 · general · Answered · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The requirements were technically sound but did not mention verifying the endpoint with the NIST tools. NIST provides a complete SOAP transport testing solution (the NIST IZ tool SOAP environment) that lets developers verify their CDC WSDL implementation works. AIRA's Measurement &amp; Improvement program can also independently verify that an endpoint conforms to the CDC WSDL using the same software. Other IIS have used this, and it has caught critical issues that contractors missed during testing and user acceptance. AIRA recommended adding a requirement that the implementation team validate with NIST and work with AIRA for independent verification.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q25-020">
+<h3>When an IIS migrates to a new system, its SOAP endpoint will change. Will anything about the WSDL itself change, given that the CDC WSDL is a national specification?</h3>
+<p class="mini">Asked 1× · 2023 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The WSDL is a national specification, but implementations differ in small ways. In this case the IIS's current SOAP implementation was close to the standard but not exact, while the new vendor's implementation was fully on standard. Whether an EHR is affected depends on how tightly its interface was built around the old system's quirks. EHRs that already connect to other IIS using the new vendor's software should be in good shape.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q34-018">
+<h3>When building SOAP connections to many IIS, does a submitter need to obtain each IIS&#x27;s production WSDL, or can one generic connector be used?</h3>
+<p class="mini">Asked 1× · 2024 · general · Answered · Related: Onboarding &amp; Interface Testing</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Submitters should implement against the CDC WSDL and verify their support with the NIST transport test tool. They should then be able to connect to every IIS without asking for each one's WSDL. Some IIS also offer their own proprietary WSDL, which the submitter does not need to support. AIRA connects to almost every IIS using the CDC WSDL without requesting their WSDLs, and its testing program has found and removed implementation inconsistencies.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q25-010">
+<h3>When replacing SOAP middleware that connects to many IIS, what does each IIS require in the SOAP body, and what custom transformations does each require? Is there a concise list?</h3>
+<p class="mini">Asked 1× · 2023 · VXU, general · Answered · Related: Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>IIS SOAP solutions are now nearly 100% standardized on the CDC WSDL. Each IIS expects authentication credentials in the SOAP Body along with the HL7 message. Resources: SOAP request/response examples in the NIST IZ tool, a working demonstration in the AIRA IIS Sandbox (Florence), the CDC SOAP specification, AIRA's short training videos on the CDC WSDL, and AIRA's 2022 transport validation results. AIRA does not keep a list of local message modifications. The existing per-IIS configurations must be collected to see what is actually happening. Many IIS have moved closer to the standard, so transformations that were once needed may no longer be. Test and confirm that each modification is still required before supporting it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">SOAP Payload: Encoding, Escaping, and Message Count</h2><section class="ta-q r-unassessed" id="ta-q08-015">
+<h3>Should the HL7 message inside the CDC WSDL SOAP request be Base64 encoded?</h3>
+<p class="mini">Asked 1× · 2021 · general · Answered · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. The NIST site is the official test site for the specification, and it is correct: the HL7 content should not be Base64 encoded.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-101">
+<h3>An IIS updating its CDC web service will drop Base64 encoding of the HL7 payload and wants to require senders to wrap the message in a CDATA section. Is that okay?</h3>
+<p class="mini">Asked 1× · 2019 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>CDATA and XML escaping are part of the XML encoding standard that SOAP is built on, not part of the CDC WSDL or SOAP standards, which is why the CDC WSDL documentation does not detail them. It is fine to recommend CDATA for encoding the HL7 data, but the IIS should still support either method: CDATA, or escaping characters with XML entities (e.g., `&amp;` as `&amp;amp;`).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q31-005">
+<h3>How should HL7 reserved characters be escaped when an IIS returns RSP/ACK messages inside the CDC WSDL submitSingleMessageResponse? (One IIS was double-escaping, e.g., `MSH|^~\&amp;amp;amp;|` and O&#x27;Brien as `O&amp;amp;#39;Brien`.)</h3>
+<p class="mini">Asked 1× · 2024 · RSP, ACK · Answered · Related: MSH-2, PID-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Only a single XML escape is needed. The ampersand in MSH-2 should appear as `&amp;amp;` in the XML, not `&amp;amp;amp;`. The extra "amp;" causes some parsers to misread the HL7. Escaping the apostrophe as `&amp;amp;#39;` also parsed poorly (AIRA's test tooling could not interpret it). A simpler, broad approach is to wrap the whole HL7 message in a CDATA section, e.g. `&lt;return&gt;&lt;![CDATA[MSH|^~\&amp;|...rest of message...]]&gt;&lt;/return&gt;`. CDATA removes the need for character-specific escaping, so values such as "&amp;" and O'Brien can be returned as-is without complicated escaping logic for HL7 embedded in XML.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q12-021">
+<h3>Is the CDC WSDL submitSingleMessage operation only for one message (one patient)? Should an IIS accept multiple HL7 messages, possibly of different types (e.g., VXU, QBP, VXU), or batches in one payload?</h3>
+<p class="mini">Asked 2× · 2021–2024 · VXU, QBP, general · Answered · Related: Message Structure &amp; Cardinality (FHS/BHS batch)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The operation is "submit single message", so senders should send only one message per call. An IIS may choose to process more than one message per call if it wants. An IIS that wants only one may return an error such as "too many messages" or the MessageTooLargeFault exception. A payload can be too large by number of characters or by number of messages, i.e., anything too big for the IIS to process.</p>
+<p>The standard does not rule out batch submissions. "Batch" can mean two or more messages in the same request, messages wrapped in BHS/BTS, or a series of single messages sent individually over the same period. Batch has not been standardized, largely because submitSingleMessage works efficiently: with multi-channel connections and connections held open, sending one message at a time can be very efficient.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">Segment Terminators in SOAP Payloads</h2><section class="ta-q r-unassessed" id="ta-q33-009">
+<h3>In CDC WSDL testing, HL7 segments were sometimes separated by line feeds instead of carriage returns, and the IIS returned a very generic error. Which end-of-line characters should separate HL7 segments in a SOAP payload, and how should an IIS handle the alternative?</h3>
+<p class="mini">Asked 1× · 2024 · general · Answered · Related: Message Structure &amp; Cardinality (segment terminators)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The HL7 standard requires each segment to end with a carriage return (ASCII 13, \r, #xD). The XML standard that SOAP is built on normalizes end-of-line characters to a line feed (ASCII 10, \n, #xA). In practice the two get mixed up, and HL7 sometimes arrives separated by XML line feeds. An IIS that accepts only carriage returns is not off-standard, but it should either give clearer error messages when this happens or, as most IIS have done (based on AIRA testing), be more forgiving and accept the other line-ending characters. See Appendix B of the CDC WSDL transport specification. This is not required to pass AART tests. The IIS in this case later fixed it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q25-007">
+<h3>An IIS returns ACK and RSP messages over the CDC WSDL without segment terminators, so all segments appear on one line. Is this acceptable?</h3>
+<p class="mini">Asked 1× · 2023 · ACK, RSP · Partly answered · Related: Message Structure &amp; Cardinality</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. Segments must be separated by the HL7 segment terminator (carriage return) so each segment is on its own line. Without terminators the ACK and RSP are off standard and hard to parse. AIRA sent examples comparing the IIS's ACK with a typical IIS response and pointed to the CDC WSDL appendix that covers this requirement. The IIS believed the problem happened after the message left its system, and the issue was left unresolved.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q42-019">
+<h3>In CDC WSDL testing, CR LF (0d0a) segment separators in the hl7Message element are stripped on the way into the IIS, and in the ACK they are turned into spaces, so messages cannot be parsed without workarounds. What is the expected behavior?</h3>
+<p class="mini">Asked 1× · 2026 · VXU, ACK · Partly answered · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>From a testing perspective, the transport layer must not alter the HL7 content. Segment terminators in the hl7Message element should arrive intact, and responses should not have line terminators turned into spaces, so messages parse without manual work by the client. The IIS suggested that senders replace carriage returns with line feeds before placing content in hl7Message (matching IZ Gateway traffic and its reading of Appendix B). AIRA noted that this is a client workaround that does not fix the outbound stripping, and asked the IIS to review the logs of intermediate systems to confirm whether content was being altered. The issue remained under investigation.</p></div><p class="ta-flag"><strong>Flagged when consolidated:</strong> The IIS&#x27;s reading of Appendix B (senders should convert CR to LF) differs from other guidance in this section that HL7 requires CR and receivers should accept CR, LF or CR+LF. Confirm what Appendix B of the CDC WSDL specification actually says.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-5">Authentication, Credentials, and Transport Security</h2><section class="ta-q r-unassessed" id="ta-q03-057">
+<h3>What strategies can be used to authenticate and authorize HL7 requests using the SOAP and HL7 fields currently available?</h3>
+<p class="mini">Asked 1× · 2019 · general · No answer recorded · Related: MSH-4</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q19-014">
+<h3>What does the CDC WSDL &quot;username&quot; represent? Should an IIS issue a unique SOAP username/password per site or organization, or one per submitting system (e.g., one for an HIE or a multi-tenant EHR)?</h3>
+<p class="mini">Asked 2× · 2022–2025 · QBP, VXU · Answered · Related: MSH-4, MSH-22, RXA-11</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Earlier guidance (2022): The CDC WSDL uses the term "username", but it is meant to be a unique ID given to the site doing the query (the hospital, clinic, or physician practice group), not to an individual user. The IIS would want to assign a "username" to each unique system that connects to it. The IIS's technical team appeared to be on the right track.</p>
+<p>Later guidance (2025), on an IIS proposing to require unique SOAP credentials per organization (with unique MSH-4 per site, and RXA-11.4 for inpatient departments) instead of one global credential per EHR: AIRA did not believe separate credentials per site would give more protection, and they may cause operational problems and pushback from EHRs that increasingly use multi-tenant hosting. In a cyber incident involving one site, you would most likely want to cut off all communication from that EHR system (which may serve many organizations), and a single connection makes that easier to find and switch off. Realistically, an incident would be handled with non-IIS measures such as network blocking, because disabled credentials at the IIS still let traffic reach the IIS and database for authentication checks. Managing many username/password pairs on what is effectively one client system is also a burden and increases risk by storing many credentials in one place.</p>
+<p>Draft material for the next HL7 v2 IG defines a submitting organization as one software system instance (EHR, gateway, or service bureau node) sending over one authenticated connection, possibly on behalf of other responsible organizations when authorized during onboarding. Authentication happens at the transport layer (CDC WSDL username/facility ID, client certificate, or whitelisted IP), and MSH-4 carries the same organizational identity. Draft rules: systems SHALL populate MSH-4 in all VXU and QBP messages to identify the submitting organization. The IIS SHALL authenticate via CDC WSDL credentials and confirm they correspond to MSH-4. A single MSH-4 MAY be authorized to submit for multiple responsible organizations identified in MSH-22. WSDL credential values MAY differ from the MSH-4 string, but the IIS SHALL document the mapping and SHALL NOT rely only on transport headers to infer other roles such as MSH-22 or RXA-11.</p></div><p class="ta-flag"><strong>Flagged when consolidated:</strong> The 2022 answer ties the username to the &quot;site&quot; (hospital, clinic, practice group) and also to &quot;each unique system&quot;. The 2025 answer and draft IG language tie it to the submitting software system instance. Reconcile the wording in the FAQ.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q05-001">
+<h3>Messages pass through a state HIE before reaching the IIS. Where should the CDC WSDL identification fields (username, password, facility ID) be validated: in the IIS or in the HIE? Is it acceptable to pass IIS-assigned credentials back to the HIE for validation?</h3>
+<p class="mini">Asked 1× · 2020 · general · Answered · Related: MSH-4, MSH-22</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The CDC WSDL transport specification does not define how these fields are implemented. It only says there are three identification/authentication fields that may be used, and the IIS can assign the values submitters should send. The security requirement is that the credentials are checked at some point before the IIS acts on the message. They do not have to be checked by the first system in the network path (the Internet and internal networks also carry the messages unauthenticated). So if the HIE exposes a CDC WSDL endpoint that accepts the values and forwards them directly to the IIS, it is perfectly acceptable for the IIS to be fully responsible for verifying identity (like airport security checking identity at the gate rather than in the parking lot).</p>
+<p>If management requires the HIE layer to authenticate, there are two options. (1) The HIE is fully responsible for managing and assigning credentials. Once it authorizes a sender, it passes the right tokens to the IIS so the IIS knows who the authorized party is (some IIS do this by putting the facility ID in MSH-4/MSH-22 or in the CDC WSDL fields). This requires the HIE to manage all credentials and coordinate facility identification with the IIS. (2) Synchronize credentials from the IIS back to the HIE. This is not ideal and actually reduces security: credentials are stored in more than one place and transmitted regularly, they are hard to keep in sync, and troubleshooting authentication faults becomes harder (did it fail at the HIE or the IIS?).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q12-017">
+<h3>State IT now requires multi-factor authentication for all connections, including web service accounts. Can EHRs support this, should the IIS use WS-Security or a custom certificate wrapper, and are other IIS (or the IZ Gateway) doing this?</h3>
+<p class="mini">Asked 1× · 2021 · general · Partly answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>This is unresolved in the community. It has been discussed but never implemented across organizations. The most recent effort was the IZ Gateway and the DCH API looking into it, without resolution.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-022">
+<h3>During a CDC WSDL pilot with an EHR vendor there was an authentication problem. Does the IIS need a custom WSDL interface?</h3>
+<p class="mini">Asked 1× · 2018 · general · Partly answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IIS's interface engine (Cloverleaf) was scripting around the problem for the vendor, but the IIS did not want every IIS to have to do this. No standard solution is recorded.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q15-014">
+<h3>For an interface risk assessment worksheet, how should an IIS describe the HL7 interface&#x27;s message format, planned encryption, and source authentication?</h3>
+<p class="mini">Asked 1× · 2022 · general · Partly answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Message format: HL7 v2 encoded as a parameter in an HTTPS POST, or HL7 v2 embedded in a SOAP transaction (the IIS likely supports both, possibly others). Encryption: depends on the production interface. State the TLS version used and whether specific certificates are required. Source authentication: username/password supplied in HTTPS POST parameters or in the SOAP message, plus any other requirements such as IP whitelisting or specific certificates. The endpoint is the URL given to submitters for the message-processing hub, not the main web application login URL.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-6">SOAP Faults and Transport-Level Errors</h2><section class="ta-q r-unassessed" id="ta-q29-019">
+<h3>CDC WSDL transport testing reported that the SecurityFault child elements are not in the SecurityFault namespace. How should the SecurityFault be structured?</h3>
+<p class="mini">Asked 1× · 2024 · general · Answered · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA checked the result in SoapUI and in the NIST tooling directly. Both showed the same returned structure: the soap: prefix was present, but the SecurityFault child elements were not in the SecurityFault namespace (urn:cdc:iisb:2011). Connectivity Test and Submit Single Message pass because they lack the nested structure that SecurityFault needs. The child elements (Code, Reason, Detail) must be qualified in the urn:cdc:iisb:2011 namespace, either by giving them the same prefix as SecurityFault (e.g., ns2:Code, ns2:Reason, ns2:Detail) or by using default namespace declarations instead of prefixes. For example, declare xmlns="urn:cdc:iisb:2011" on SecurityFault so unprefixed Code/Reason/Detail inherit it, inside a SOAP 1.2 Fault with Code/Value = Sender, Reason/Text, and Detail. Example: SecurityFault Code 10 with Detail "Invalid Username or Password". The NIST IZ tool (hl7v2-iz-r1-5-testing.nist.gov/iztool, SOAP connectivity tests) can test an endpoint directly against the CDC WSDL specification.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q21-008">
+<h3>When implementing the CDC SOAP WSDL (e.g., for IZ Gateway exchange), how should an IIS return proper SOAP faults?</h3>
+<p class="mini">Asked 1× · 2022 · general · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-024">
+<h3>How can a SOAP security fault error on the CDC WSDL interface be fixed?</h3>
+<p class="mini">Asked 1× · 2018 · general · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q20-005">
+<h3>If a backend API used by the IIS SOAP service fails (e.g., timeout, too many requests, HTTP 4XX-5XX), should the IIS return a Z23 ACK or a SOAP fault?</h3>
+<p class="mini">Asked 1× · 2022 · ACK · Answered · Related: MSA-1, ERR, Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Rule of thumb: if the problem is in processing the HL7 message, return an HL7 response. If the problem is with transport, authentication, or the SOAP envelope, return a SOAP Fault. These errors mean the IIS cannot process the message for reasons unrelated to its content, so this is probably a Z23 ACK with MSA-1 = AR (one of the rare appropriate uses of AR), with as much detail as possible in ERR segments so the sender knows what to do. The IIS has a lot of discretion here, and AIRA cannot test these conditions. Either approach is acceptable as long as the message is clear and the receiver knows what to do.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-7">Troubleshooting Connectivity</h2><section class="ta-q r-unassessed" id="ta-q03-081">
+<h3>A submitter&#x27;s CDC WSDL requests fail because of the HTTP Content-Type (e.g., &quot;HTTP 415 Unsupported Media Type&quot;, or VXUs succeed but QBPs are rejected). How should the SOAP 1.1/1.2 content type be set?</h3>
+<p class="mini">Asked 2× · 2019–2020 · general, QBP · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The problem is most likely the Content-Type header. This is common: the submitter sends the SOAP 1.1 content type while the server expects SOAP 1.2, or the other way around. It cannot be troubleshot without seeing the HTTP headers on the request. In the 415 case (ConnectionTest and SubmitSingleMessage worked from SoapUI but not from the submitter's system), capture and compare the headers the submitting system sends with the ones SoapUI sends. In an earlier case (2019), AIRA gave background on how the SOAP 1.2 content type should be populated (details not recorded) and referred the IIS to another IIS working with the same provider organization.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q08-026">
+<h3>An EHR vendor or provider cannot connect to the IIS CDC WSDL web service because of problems with its SOAP request. What does a correct request look like, and how should the IIS troubleshoot it?</h3>
+<p class="mini">Asked 2× · 2021–2023 · VXU, general · Answered · Related: Conformance Testing &amp; Validation Tools; Onboarding &amp; Interface Testing</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>In the cases recorded, the SOAP request was malformed (in one case probably an older SOAP version). A SOAP request that sends a VXU via the CDC WSDL consists of: (1) the start of the SOAP Envelope (and Body); (2) the operation element, submitSingleMessage; (3) the operation's parameters: username, password, facilityID, and hl7Message (the VXU content); (4) the end of the operation element; and (5) the end of the SOAP Body/Envelope. Credentials go in the SOAP body as parameters of submitSingleMessage, with placeholders such as insert_your_username / insert_your_password / insert_your_facility_ID.</p>
+<p>To troubleshoot, ask the provider for the redacted SOAP wrapper and the exact error/response returned, compare them against the CDC WSDL specification, and point the provider and vendor to the NIST IZ test tool (which can test SOAP envelope structure), the CDC SOAP specification, and AIRA's transport training videos. AIRA has also sent vendors an example of a correctly formatted request.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-8">Endpoints, Routing, and Intermediaries</h2><section class="ta-q r-unassessed" id="ta-q01-034">
+<h3>For QBP/RSP over web services, should submitters use the same endpoint URL and WSDL for both QBP/RSP and VXU/ACK, or separate endpoints (or WSDLs)? Is an HIE&#x27;s request that QBPs go to a separate endpoint consistent with the national standard?</h3>
+<p class="mini">Asked 2× · 2016 · VXU, QBP · Partly answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Separate submitter-facing endpoints for VXU and QBP are not the national standard and would likely block implementation. Submitters should be able to send both VXU and QBP to the same endpoint. (The 2016 question on whether jurisdictions use the same or separate endpoints/WSDLs has no separate recorded answer.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-065">
+<h3>If submitters send both VXU and QBP to the same endpoint, do other jurisdictions split the messages internally to separate endpoints (e.g., at an HIE)? Have similar requests from HIEs been seen?</h3>
+<p class="mini">Asked 1× · 2016 · VXU, QBP · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q17-001">
+<h3>Is there summary information on active immunization HIEs, and what are the drawbacks of routing immunization HL7 messages through an HIE?</h3>
+<p class="mini">Asked 1× · 2022 · VXU, ACK · Partly answered · Related: Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No definitive tracking of active immunization HIEs was found, and AIRA said it would look further. Anecdotally, most HIEs involved are pass-through intermediaries that do not store immunization data, similar to the IZ Gateway. The main problem seen is when the HIE does not return the IIS acknowledgement (ACK) to the provider. The provider may then believe the IIS is accepting all its data when the IIS is in fact rejecting some of it, and because the HIE does not relay the ACK showing the rejection, the provider never finds out. Some HIEs also had to work harder to build and support the CDC WSDL, though that is largely resolved. Otherwise, major issues are not commonly reported, and HIEs could help supplement IIS data, for example with better demographic data (race, ethnicity, name and address changes). A 2019 document listing other problems was shared, though some items may no longer be relevant.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-9">Performance, Volume, and Retry Behavior</h2><section class="ta-q r-unassessed" id="ta-q02-099">
+<h3>What is the average response time for the CDC WSDL?</h3>
+<p class="mini">Asked 1× · 2018 · general · Partly answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The WSDL, or any other transport technology, will not be the bottleneck in a system. Message processing will be.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q13-018">
+<h3>Is the CDC WSDL web service timeout set by each jurisdiction, with no hard rule, so that some IIS allow longer timeouts and accept batch files over the WSDL? (The IIS has a 10-second timeout and is considering batch uploads/queries via the WSDL, including from the IZ Gateway.)</h3>
+<p class="mini">Asked 1× · 2021 · general · Partly answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>A timeout normally happens when one side gives up on a connection because of inactivity. When a large file is being loaded there is continuous activity, so the connection simply stays open longer. A 10-second limit may therefore be an IT network policy that ends any connection open longer than 10 seconds. The record does not say definitively whether the timeout is set by the jurisdiction.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q36-012">
+<h3>Is there a standard for how many HL7 messages per time period an IIS should be able to process without performance degradation? Should capacity be based on current volume or a set standard?</h3>
+<p class="mini">Asked 1× · 2025 · VXU, QBP, general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no official national standard for IIS message volume capacity. In the Measurement &amp; Improvement initiative, the performance standard is that 95% of responses return within 5 seconds. This is a low bar meant to catch systemic underperformance, and it is tested in pre-production with controlled traffic. Production systems should aim to be faster; about 1 second is typical in normal use. Rather than basing targets strictly on current volume, build a baseline performance profile: monitor average and percentile response times for updates and queries, track performance over time and at peak hours, and watch for degradation as volume grows. Degradation usually means better provisioning is needed (compute, database, or interface engine changes). AIRA's Security Guidance recommends capping query volumes per site, especially for low-security endpoints, so one provider cannot degrade performance. The TAB on Scenarios for Updates and Queries encourages coordination with high-volume partners (e.g., a hospital querying its whole population at once). Acceptable performance is ultimately up to each IIS, but most will want to exceed the national minimums.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q07-022">
+<h3>Mass vaccination sites may administer 50,000+ doses a day. Have IIS raised concerns about VXU and query volume, and how should submitters reduce the impact?</h3>
+<p class="mini">Asked 1× · 2021 · VXU, QBP · Answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA asked IIS vendors and a few states with standalone IIS. None raised specific concerns, though volume increases are always a concern and they appreciated the warning. Recommendations: (1) Keep communicating with IIS as usual. (2) 50,000 doses a day is not a show-stopper by itself, but queuing all 50,000 and sending them in one batch at the end of the day is a problem, so spread submissions across the day. (3) Control query patterns to avoid repeat queries for the same patient. Sending 50,000 queries at once the night before can cause problems, especially with multithreaded clients. (4) Tell the IIS program staff ahead of time when high-volume sites will start and what volumes to expect. (5) Impact is relative: a very large IIS may barely notice the increase, while smaller IIS will feel it more. IIS had been preparing for higher loads, but actual loads are hard to predict.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q45-012">
+<h3>EHR vendors vary widely in retry behavior when submitting to an IIS, from a few retries before giving up to resending the same message 10,000-20,000 times, including messages the IIS already rejected for data quality reasons. Is there guidance on appropriate HL7 retry logic?</h3>
+<p class="mini">Asked 1× · 2026 · VXU, ACK · Answered · Related: Acknowledgement &amp; Error Handling; MSA-1; ERR-4</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no detailed broad-exchange standard yet, and AIRA is considering adding one. Suggested language: manage automatic retransmission at the destination/interface level rather than per queued message. When a transport/connectivity failure prevents receipt of an application ACK, the sender should keep the message, temporarily suspend or throttle submissions to that destination, and retry transient failures at progressively longer intervals (exponential backoff) within reasonable limits. Configuration, authentication or certificate failures should be treated as needing investigation, not continued retry. Queued messages may resume once connectivity is restored.</p>
+<p>The IZ Gateway has its own retry strategy guidance. AIRA's updated IIS Security Guidance includes a business-continuity recommendation that partners queue submissions (e.g., VXUs) until an application-level ACK is received, optionally with exponential backoff. That guidance covers outages, not data quality rejections.</p>
+<p>Resending a message that was already rejected only produces the same ACK. AIRA's 2015 ACK guidance and the 2026 ACK TAB cover this: if the IIS returns at least one ERR segment with severity "E", the sender must fix the problem before resubmitting. The IIS can point vendors to those documents.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

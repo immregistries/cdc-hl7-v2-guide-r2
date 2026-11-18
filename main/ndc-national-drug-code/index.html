@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4.6.2.3 NDC - National Drug Code · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="ndc-national-drug-code">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../immunization-information/index.html">4.6 Immunization Information</a> <span>›</span> <a href="../vaccine-product-and-administration-codes/index.html">4.6.2 Vaccine Product and Administration Codes</a></nav>
 <header class="card-head"><h1><span class="num">4.6.2.3</span> NDC - National Drug Code</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-mirow-im-02"><span class="sev">Note</span> MIROW guide Immunization Information System Inventory Management Operations (P701, BR701, BR702, chapter 7 - NDC supremacy, and finding the NDC from the lot number): Reworded. The guide keeps CVX as the canonical code and treats NDC as a SHOULD for administered doses, valuable for traceability and reconciliation. That fits MIROW&#x27;s view that the IIS can derive the NDC behind the scenes. The guide accepts unit-of-use as well as unit-of-sale NDCs. An IIS that receives a unit-of-use NDC (the vial or syringe) still has to reach the unit-of-sale NDC for inventory, which MIROW does through the lot number. The guide doesn&#x27;t say this, but it is IIS processing.<div class="evidence"><div class="ev-tags"><span>Reworded</span></div><div class="ev"><span class="ev-k">Best practice</span> Inventory is managed by NDC, because VFC and VTrckS require it. The NDC used is the one received in the shipment file, from the outside of the package (unit of sale). Providers rarely record the NDC when they give a dose. The recommended way for the IIS to find the NDC of an administered dose is from its lot number, which was linked to an NDC when the shipment arrived. Mapping from CVX and MVX without the lot number is not a best practice, and asking providers to record the NDC by hand is not suggested.</div></div><p class="mini"><a href="../mirow/inventory-management-operations/index.html#mirow-im-02">See the MIROW comparison</a></p><a class="f-id" href="../quality/index.html#qf-mirow-im-02">qf-mirow-im-02</a></li></ul></details></aside>
 <div class="narrative"><p>The National Drug Code (NDC) is maintained by the FDA in collaboration with manufacturers and is designed to support drug manufacturing, distribution, and product identification. In immunization workflows, NDC identifies the specific vaccine product and packaging associated with an administered dose. While NDC provides important product-level detail and traceability, it is not intended to serve as the primary representation of a patient's immunization history.</p>
 <p>NDCs are expected to change over time as products are introduced, reformulated, repackaged, or retired. This cycling of NDC values reflects the needs of the pharmaceutical supply chain rather than long-term clinical documentation. In contrast, CVX is designed to persist across the lifetime of the patient and to support longitudinal immunization histories, evaluation, and forecasting. For this reason, NDC complements CVX but does not replace it.</p></div>
@@ -59,8 +59,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

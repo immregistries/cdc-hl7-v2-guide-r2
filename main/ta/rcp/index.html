@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: RCP Response Control Parameter · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · segment</p>
+<h1>RCP Response Control Parameter</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">5 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>RCP questions all concern RCP-2 (Quantity Limited Request): how many candidate patients a querying system should request, how an IIS should combine RCP-2 with its own maximum, and how the limit interacts with Z31, Z32 and Z33 responses and the too-many (TM) status. A related question asks whether a Z44 query can receive a Z31 list given how the IG constrains RCP-2.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (2)</summary><ul><li>Recommend a default RCP-2 value or range for Z31 candidate lists.</li><li>State explicitly whether Z31 is a valid response to Z44 (and correct the &quot;X&quot; usage on RCP-2 for Z44).</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">RCP-2 Quantity Limited Request</a> <span class="mini">5</span></li></ul>
+<h2 id="g-0">RCP-2 Quantity Limited Request</h2><section class="ta-q r-unassessed" id="ta-q10-016">
+<h3>When returning a Z31 list of candidates for a multiple-match query, is there a limit on how many patients (PIDs) should be returned?</h3>
+<p class="mini">Asked 1× · 2021 · QBP/RSP · Answered · Fields: <a href="../../structure/segments/rcp/index.html#f2">RCP-2</a> · Related: Query &amp; Response Behavior, PID</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The limit is two-fold: the querying system can (should) specify the maximum number of matches it wants in RCP-2, and the IIS can set its own maximum for policy reasons (not explicitly messaged). Return no more than the smaller of the two; if more matches exist, respond with "too many" candidates. E.g., IIS max 3 and requester asks 5: return up to 3; IIS max 3 and requester asks 2: return up to 2.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q25-018">
+<h3>If the query&#x27;s RCP quantity limit is 2 or more, should the IIS return a Z32 regardless of how many patients match?</h3>
+<p class="mini">Asked 1× · 2023 · QBP/RSP · No answer recorded · Fields: <a href="../../structure/segments/rcp/index.html#f2">RCP-2</a> · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q17-006">
+<h3>What is a reasonable value for an EHR to send in RCP-2 as the maximum number of Z31 candidates, and is there IIS data to help choose it?</h3>
+<p class="mini">Asked 1× · 2022 · QBP/RSP · Partly answered · Fields: <a href="../../structure/segments/rcp/index.html#f2">RCP-2</a> · Related: Query &amp; Response Behavior, Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no consensus-based national recommendation, and the AIRA Functional Guidance for Query-Response does not specify a number. RCP-2 is set by the querying system to indicate the maximum number of potential matches the IIS should return; the IIS may also have its own internal limit, and the lower of the two should apply. Values of 10 and 30 have been seen in practice but are probably too high for busy clinic staff; several reviewers felt 10 is likely too many and 5 seems reasonable. One clinical perspective: if candidates are returned with equal likelihood, limit to a smaller number (around 5); if likelihood scores are returned, the cutoff could instead be based on match likelihood (e.g., 90% or greater). The right number depends heavily on how well each IIS matches records, both in consolidating histories and in responding to queries, which varies by IIS, so a universal recommendation is difficult. The question was taken to the May 2022 HL7 Immunization User Group for a poll of IIS on their maximum multiple-match return count and to a later community panel on query functionality.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q21-024">
+<h3>How should an IIS handle too-many (TM) results depending on RCP-2? (An IIS returned a Z32 with QAK-2 = TM when RCP-2 = 1, a Z31 with candidates but QAK-2 = TM when RCP-2 = 2, and a Z31 with three candidates when RCP-2 = 5.)</h3>
+<p class="mini">Asked 1× · 2022 · QBP/RSP · Answered · Fields: <a href="../../structure/segments/rcp/index.html#f2">RCP-2</a> · Related: QAK-2, MSH-21</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IIS Functional Guide Vol. 1 (Query and Response), section 7.5, says the IIS should honor the lower of its own maximum-returned policy and the quantity requested in RCP-2. When a too-many condition is reached the IIS should not list possible matches; the CDC IG (Chapter 6, response to different outcomes table) indicates returning a Z33 with QAK-2 = TM.</p>
+<p>Applied to the examples: (1) RCP-2 = 1 returned a Z32 profile with TM status, which is inconsistent; Z32 means a single patient was found and returned, so it should be either a Z33 with TM or a Z32 with a full record. (2) RCP-2 = 2 returned a list of candidates (Z31) while also indicating TM; if there were only two matches within the threshold the list is correct, but the TM status is inconsistent. (3) RCP-2 = 5 was consistent but had several message-structure problems, mostly missing data. Use the NIST IZ Tool to check the format of response messages.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q12-013">
+<h3>Can an IIS return a Z31 (list of candidates) for a Z44 query? The IG appears to &quot;X&quot; out RCP-2 for Z44.</h3>
+<p class="mini">Asked 1× · 2021 · QBP/RSP · Partly answered · Fields: <a href="../../structure/segments/rcp/index.html#f2">RCP-2</a> · Related: MSH-21, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Per the IG as written, a Z44 cannot return a Z31 profile. However, NIST later clarified that "X" was not an appropriate way to define that constraint and issued a clarification (contents not captured in the record).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

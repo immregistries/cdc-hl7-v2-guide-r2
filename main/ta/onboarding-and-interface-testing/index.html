@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Onboarding &amp; Interface Testing · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Onboarding &amp; Interface Testing</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">26 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions in this section cover how IIS onboard submitting and querying partners, how they design and modernize their onboarding processes and documentation, and how interfaces are tested (including by AIRA's AART assessment tool and through intermediaries such as HIEs and the IZ Gateway). Recurring themes include onboarding VXU and QBP together versus separately, legacy (historical) data loads, security hygiene for test and inactive interfaces, the need for automated (not manual) processing during testing, and where to find sample test messages and training. Several questions come from non-HL7 senders (spreadsheets/CSV, employee health, school districts, NHSN) asking how to get data into an IIS.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (3)</summary><ul><li>The IG does not address identification of individual querying sites in QBP (only MSH-level identifiers) or registration expectations for query-only facilities; site-level tracking is recommended by Security Guidance but not specified (raised for SISC/IGEG).</li><li>Consider clarifying standard terminology for historical/legacy data submission methods (single-patient protocol vs. HL7 batch file vs. full history per VXU).</li><li>Consider guidance on implementing delete/update messaging (MSH-10, ORC-3, RXA-21, RXA-22) for senders moving from flat files.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">Onboarding Process Design &amp; Documentation</a> <span class="mini">3</span></li><li><a href="#g-1">Query (QBP/RSP) Onboarding</a> <span class="mini">5</span></li><li><a href="#g-2">Legacy (Historical) Data Loads</a> <span class="mini">2</span></li><li><a href="#g-3">Interface Lifecycle &amp; Security (Test Credentials, Inactive Interfaces)</a> <span class="mini">2</span></li><li><a href="#g-4">AIRA AART / Measurement &amp; Improvement Testing</a> <span class="mini">3</span></li><li><a href="#g-5">Test Data, Sample Messages &amp; Test Tools</a> <span class="mini">3</span></li><li><a href="#g-6">Intermediaries &amp; Multi-Jurisdiction Connections (HIE, IZ Gateway)</a> <span class="mini">5</span></li><li><a href="#g-7">Non-HL7 and Non-Traditional Senders</a> <span class="mini">3</span></li></ul>
+<h2 id="g-0">Onboarding Process Design &amp; Documentation</h2><section class="ta-q r-unassessed" id="ta-q12-026">
+<h3>A jurisdiction needs guidance on its HL7 interface onboarding process from start to end and help developing onboarding documentation. What should it put in place?</h3>
+<p class="mini">Asked 1× · 2021 · general · Partly answered · Related: Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA worked with the jurisdiction and its vendor to develop the onboarding process and documentation using AIRA's onboarding templates: Data Exchange Questionnaire, HL7 Implementation Guide (local profile, developed in IGAMT), Onboarding Process Guide, Project Tracking Tool, Readiness Checklist and Registration Form, all of which were implemented, along with staff training. Final recommendations were provided in AIRA's Best Practices Alignment Analysis.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-004">
+<h3>We are planning to onboard trading partners using the CDC SOAP WSDL. Which IIS have a strong onboarding process for this that we could learn from?</h3>
+<p class="mini">Asked 2× · 2015 · general · No answer recorded · Related: Transport/Connectivity</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q06-009">
+<h3>What training and documents should new IIS staff use to learn HL7 and data exchange onboarding requirements?</h3>
+<p class="mini">Asked 1× · 2020 · general · Answered · Related: see also the HL7 training resources entry in the &quot;Other&quot; section (Q40-002)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Start with the Informatics Academy courses Fundamentals of IIS and Advanced HL7 for IIS, then review AIRA's Onboarding Consensus-Based Recommendations guide. AIRA was also developing onboarding training materials to share later.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">Query (QBP/RSP) Onboarding</h2><section class="ta-q r-unassessed" id="ta-q09-012">
+<h3>When an IIS adds bidirectional query, is onboarding needed again for all senders who already submit VXUs? Is the middle of the COVID response a good time to implement?</h3>
+<p class="mini">Asked 1× · 2021 · QBP/RSP · Answered · Related: Bidirectional Exchange</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Some IIS have an additional onboarding testing step for organizations using query, but it is very different from VXU onboarding: there is a large need to check data coming into the IIS and much less need to check data going out. AIRA can provide more detail as the IIS progresses. As for timing, query will be useful as soon as it is available; it may not be critical in a given month for people to get their vaccination history out, but it will be valuable going forward.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q25-001">
+<h3>Does AIRA have a query-specific (QBP) onboarding form or questionnaire, similar to its VXU Onboarding Questionnaire?</h3>
+<p class="mini">Asked 1× · 2023 · QBP/general · Answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA has not developed query-specific onboarding documentation. Onboarding best practice is to onboard VXU and QBP messaging at the same time, and when that practice is followed, all of the questions a provider needs to answer are already contained in the AIRA Onboarding Questionnaire. The templated Onboarding Questionnaire does not include all of the query-related questions an IIS might ask on a separate query form, but it is designed to be customized by each IIS, so adding useful query-related questions to it is consistent with best practice. If the IIS onboards VXU and QBP interfaces separately, merging the questions may make less sense and the IIS can instead adapt questions from the questionnaire to its own query form.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-027">
+<h3>Which query profiles (Z44, Z34) should be required for onboarding, and what does MU3 require?</h3>
+<p class="mini">Asked 1× · 2017 · QBP · Answered · Related: QPD-1; Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>MU3 requires Z44. The IIS will have to decide which query it requires and/or supports when an EHR does not support Z44 (e.g., a non-MU participant).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q38-012">
+<h3>Some IIS do not require facilities that only send QBP queries to register individually; large organizations register one facility ID and any number of sub-locations query under it without tracking. Is this common, should it be discouraged, and should onboarding track individual facilities even for QBP-only access?</h3>
+<p class="mini">Asked 1× · 2025 · QBP · Answered · Related: MSH-4; Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no national requirement in the IG that QBP-only facilities be registered individually, but the Security Guidance recommends tracking queries to the site level for audit and breach response. HL7 v2 makes this difficult for QBP because identifiers are limited to MSH fields, and keeping them consistent with VXU practice is messy. In practice state policy and information sharing agreements govern this; some states require facility-level identification while others allow parent-level credentials if the parent assumes responsibility, which is beyond what the IG specifies. The practice creates a governance blind spot when no one knows who is querying under a shared ID, and should be addressed. AIRA planned to raise it at SISC and flag it to IGEG as a gap (as part of an open work item on identifying organizations).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q22-004">
+<h3>An IIS tests VXU interfaces first in production (with data held/queued until validation), and only after go-live tests query using real data. Is it possible to test VXU and query together during the testing phase, and if so how is that set up?</h3>
+<p class="mini">Asked 1× · 2023 · VXU/QBP/RSP · Answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The usual approach to testing simultaneously is for the provider to query for patients previously submitted via VXU. Whether that works depends on how the IIS's pre-production (queued) setting handles a QBP: will it error, or return an RSP, and if so from queued data or all stored data?</p>
+<p>If the pre-production setting returns an RSP, identify a set of patients for providers to query during testing: test patients (if test data can be stored in production and the provider is willing to query them), patients previously entered manually in the IIS, or, if the IIS answers queries from queued VXU data, the patients the provider just submitted.</p>
+<p>If the pre-production setting does not return a valid RSP, query cannot be tested alongside VXU, and testing query after VXU go-live is a good practice. It is common to add query to a live interface and test it in production, which also allows clinical staff to confirm the RSP returns accurate data. Consider collecting query setup information up front during onboarding/registration so query testing can begin right after VXU go-live.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">Legacy (Historical) Data Loads</h2><section class="ta-q r-unassessed" id="ta-q26-013">
+<h3>Why does the onboarding SOP template include legacy (historical) data submission as a requirement, and how do IIS get legacy data from EHRs (e.g., beyond a 90-day retrigger window) without receiving full histories with every new VXU?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Related: Transport/Connectivity</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Legacy data loads improve IIS data saturation, and an IIS is most valuable when fully populated. Some jurisdictions (e.g., opt-in states) have policies that prevent legacy loads and should remove the step from their customized SOP. AIRA's guide "Importing Legacy Data to Improve IIS Saturation" (based on a survey of 35 jurisdictions and interviews with IIS and EHR vendors) recommends offering several submission methods to fit different EHR capabilities. Sending a full history with each new VXU is one form of the HL7 single-patient approach. Others include a batch HL7 flat file, which one large EHR vendor prefers for moving large volumes of patient and vaccination data. For the 90-day limitation, the IIS could submit a community information request.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q22-008">
+<h3>During onboarding an IIS asks providers how they will send historical data: (a) HL7 real-time batch (single-patient protocol using the real-time interface), (b) HL7 batch file (2.5.1 batch specification), or (c) full immunization history with each new VXU. Is this terminology accurate/standard, and which option would a provider choose if sending real-time via the SOAP service?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Related: Transport/Connectivity</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>See AIRA's guide "Importing Legacy Data to Improve IIS Saturation", which covers all three methods. For (a), page 5 describes HL7 single-patient protocol and three approaches to it; if the intent is sending legacy data as individual messages through the interface, the word "batch" should be removed, whereas if it means loading an HL7 batch file of single-patient messages, clarify that. For (b), "HL7 batch" is accurate, but page 8 describes several working definitions of "batch", so describe exactly what the IIS supports. For (c), the phrasing is correct (see page 7). Transport (e.g., SOAP) is separate from these methods and varies by IIS; a provider sending via its existing live SOAP interface would be using HL7 single-patient protocol, most closely option (a).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">Interface Lifecycle &amp; Security (Test Credentials, Inactive Interfaces)</h2><section class="ta-q r-unassessed" id="ta-q26-012">
+<h3>The AIRA onboarding SOP template says to disable test interface credentials after a provider goes live in production. Why, when keeping a dual test/production connection makes later upgrades, new vaccine testing, and retesting easier?</h3>
+<p class="mini">Asked 1× · 2023 · general · Answered · Related: Transport/Connectivity</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It is a general security practice: IIS should not keep open access points with no immediate use. Most providers stay live and do not use the test connection again, and interface accounts are often exempt from password expiration or inactivity deactivation policies, so test interfaces that are never disabled can be a security risk. The SOP is a template. Jurisdictions should follow their own security policies, and if those support keeping test connections (with monitoring and credentials separated by environment), the SOP should be customized.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q26-011">
+<h3>Is there guidance on production HL7 interfaces that are not sending any data? Should there be a policy for checking that connected sites are sending data, and a timeline for disabling an interface when a provider stops sending?</h3>
+<p class="mini">Asked 1× · 2023 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No formal guidance exists, but there are several considerations. First, find the root cause. Is something blocking messages from reaching the IIS, has the facility closed or changed its practice, or does it only use the interface occasionally (e.g., yearly flu clinics)? Collecting expected volume and vaccine types at onboarding gives a baseline for these decisions. Second, check jurisdictional security policies (e.g., the state privacy/security office) that govern access, inactive accounts and credential expiration, and see whether they cover interface accounts or should be extended to them. Third, use available levers to get the provider sending again, such as state reporting requirements, and warn the provider that the connection may be disabled, which would leave direct data entry as the only way to meet reporting requirements.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">AIRA AART / Measurement &amp; Improvement Testing</h2><section class="ta-q r-unassessed" id="ta-q33-019">
+<h3>What does connecting (or reconnecting) an IIS test environment to AIRA&#x27;s AART assessment tool involve, and what information and level of effort are required from the program and IT?</h3>
+<p class="mini">Asked 1× · 2024 · VXU/QBP · Answered · Related: MSH-4, MSH-6, MSH-11, MSH-22, RXA-11</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Step 1 is providing connection information for the IIS test environment: the web services endpoint URL; web services credentials (username, password and facility ID); and the HL7 identifier values the jurisdiction requires in test messages for MSH-4, MSH-6, MSH-11, MSH-22 and RXA-11.4. Typically the IIS creates a fake organization/provider in its test environment (e.g., "AIRA AART") and generates credentials for it, much like onboarding a new provider, except no real data is sent and the connection is used only for Measurement and Improvement testing. Step 2 is a connectivity test in which AIRA configures AART and attempts to connect; troubleshooting may require IIS, IT or vendor staff and can take minutes to a couple of hours. Note that AART assessment relies on the ACK: an interface that always returns a positive ACK (e.g., through an HIE) cannot be meaningfully assessed for submission, and when queries go to a separate interface, VXUs must be processed before the queries are run.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q15-012">
+<h3>AART test VXUs sent different patients (different name, DOB, etc.) with the same PID-3 patient ID from the same organization, which sends them to the IIS&#x27;s ambiguous-ID queue for manual resolution. Is this intentional, and should IIS staff resolve these records?</h3>
+<p class="mini">Asked 1× · 2022 · VXU/QBP · Answered · Related: PID-3; Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AART test messages are contrived and normally try not to reuse MRNs, but sometimes the same MRN is used for two different patients intentionally to see how the IIS reacts. AART is not trying to get its data accepted; it is probing system behavior, and some test messages contain problems that are not critical for passing the functional tests. IIS staff should not spend resources on these; it is fine if such records stay in the ambiguous-ID queue indefinitely.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q31-001">
+<h3>During AART HL7 testing (including CDS testing), an IIS accepted a VXU with a historical HepA dose but the dose did not appear in the subsequent Z44 query response. Is manually adding the vaccination so the query response can be tested acceptable?</h3>
+<p class="mini">Asked 1× · 2024 · VXU/QBP/RSP · Answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. For all HL7 testing, including CDS testing, the IIS is expected to add records automatically from the submitted VXU messages; manual intervention to add or modify a record does not meet the testing requirements. Some flexibility is allowed for the IIS to run normal automated processes such as overnight jobs (e.g., deduplication) before the query is sent, but not manual entry. Practically, CDS testing involves around 900 test cases, so manual entry would not be feasible anyway. A small set of "sanity check" test cases can be run first to confirm the IIS is returning submitted doses before re-running the full CDS test set.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-5">Test Data, Sample Messages &amp; Test Tools</h2><section class="ta-q r-unassessed" id="ta-q30-007">
+<h3>Are there sample HL7 test messages/test cases (with fake data, good and bad) that an IIS can use to test a new interface or give to providers for interface testing?</h3>
+<p class="mini">Asked 2× · 2024–2025 · VXU/ACK/QBP · Answered · Related: Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Two responses were given: - For an IIS wanting test cases to give providers (2024), AIRA provided exports from the back end of AART containing test cases from two past submission assessment reports for that IIS: the VXU requests and the ACK results the IIS returned, plus a worksheet of query test cases. These could serve as sample test cases for providers. - For an IIS testing a new HL7 interface (2025), AIRA generated sample VXU messages via the AIRA Sandbox from its test sets (Submission and Acknowledgement, DQI, NIST 2014, NIST 2015, Good Messages and Bad Messages), downloaded them, split them into good and bad VXU message files, and provided them.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q24-023">
+<h3>Is there a tool that randomizes specific PID and NK1 fields in VXU messages, and how many messages can it process?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Partly answered · Related: PID; NK1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA did not point to a randomizer, but it offers already-generated synthetic VXU test data at https://florence.immregistries.org/#generatedData and asked whether the random data was for testing.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q18-009">
+<h3>A state-run scheduling system moving from flat files to HL7 VXU needs help implementing DELETE and UPDATE messages, including populating fields such as MSH-10, ORC-3 and RXA-22 that play a role in deletions and record creation. Can AIRA help?</h3>
+<p class="mini">Asked 1× · 2022 · VXU · No answer recorded · Related: RXA-21, MSH-10, ORC-3, RXA-22</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-6">Intermediaries &amp; Multi-Jurisdiction Connections (HIE, IZ Gateway)</h2><section class="ta-q r-unassessed" id="ta-q20-021">
+<h3>When an HIE sits between EHRs and the IIS, what does AIRA validation test, and can the HIE continue to handle onboarding (validating messages, working with EHR vendors, distributing site IDs) as long as it does not modify messages?</h3>
+<p class="mini">Asked 1× · 2022 · VXU/QBP · Answered · Related: Transport/Connectivity; Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA validation is conducted on whatever endpoint/interface the IIS designates as the official location for submitting updates and queries. AIRA has no requirements on the IIS architecture or how an HIE integrates with the IIS; it only validates that the state (or an HIE on the state's behalf) offers an HL7 endpoint that follows national standards. In practice this usually means the HIE passes messages through to the IIS as-is, but other arrangements may be acceptable as long as submitting systems can connect using current standards and interact normally without modification. AIRA has best practice guidance on streamlining onboarding, but how onboarding tasks and staff are organized is for the HIE and state to negotiate.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q33-011">
+<h3>IZ Gateway began flagging messages in its onboarding (test) environment that appeared to contain PHI/PII, including a long-used obviously fake vendor test patient. Why is IZ Gateway inspecting test message content, and what can a vendor do when its test patient is flagged?</h3>
+<p class="mini">Asked 1× · 2024 · general · Answered · Related: Transport/Connectivity</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Policy documents IIS have signed prohibit PHI/PII from passing through the IZ Gateway onboarding environment, yet several IIS were pushing real data through it (for example, pre-production environments with live provider connections that trigger IIS-to-IIS exchange). That exposed both the IZ Gateway team and receiving IIS, whose test environments are not secured like production, to PHI. The onboarding environment, unlike production, allows staff to view messages to support testing and HL7 standardization during go-live. CDC therefore instituted detection and eventually rejection of apparent PHI/PII in onboarding. Determining test data versus real data is imperfect; vendors whose fabricated test patients are flagged can ask the IZ Gateway team to declare those patients known test patients, and should consider making test data look less like real PHI. AIRA would pass the feedback on communication and timing to the IZ Gateway team.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q45-009">
+<h3>An organization that helps pharmacies and long-term care facilities identify overdue vaccines via QBP/RSP and VXU with many state IIS finds onboarding varies widely and some jurisdictions are slow or unresponsive. Can HL7 2.5.1 onboarding be streamlined and standardized across IIS?</h3>
+<p class="mini">Asked 1× · 2026 · VXU/QBP/RSP · Partly answered · Related: Bidirectional Exchange</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA suggested connecting with the CDC IZ Gateway team to see whether the organization is a candidate for onboarding through the IZ Gateway, and shared AIRA resources including pharmacy-related guidance and onboarding materials in the AIRA repository.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q23-014">
+<h3>A national program (e.g., NHSN collecting nursing home data) may report immunizations to state IIS, ideally through a single connection routed by patient address. Where are the specifications for immunization reporting, and can IIS be reached through a single shared connection?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Related: Transport/Connectivity</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The HL7 v2.5.1 immunization IG is at https://www.cdc.gov/vaccines/programs/iis/technical-guidance/hl7.html. For a quicker introduction, the NIST IZ test suite (https://hl7v2-iz-r1-5-testing.nist.gov/iztool/#/cf) captures the guide's requirements and has good example messages. For one connection that routes to multiple IIS, the IZ Gateway is the relevant national infrastructure. In a follow-up call AIRA covered the technical side of connecting to IIS, and the program was pointed to the VA's IIS connection process as a model to replicate.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q07-020">
+<h3>What is the process for putting an immunization interface into production so that immunization records are sent to CDC?</h3>
+<p class="mini">Asked 1× · 2021 · general · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Immunization Information Systems are run by states and local jurisdictions. Providers using the software need to contact their local jurisdiction's IIS about onboarding and integration steps. CDC doesn't normally accept immunization records directly; they go to the local IIS first.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-7">Non-HL7 and Non-Traditional Senders</h2><section class="ta-q r-unassessed" id="ta-q06-030">
+<h3>Organizations whose employee-health vaccinations are recorded in non-HL7 applications ask to send COVID-19 doses by spreadsheet. Should the IIS require HL7, and what are other states doing?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Other jurisdictions face the same issue. Prioritized options: (1) employee health enters data into the hospital EHR, which likely already feeds the IIS; (2) employee health enters doses in the IIS user interface; (3) employee health builds and tests an HL7 interface, though this is likely unreasonable given their time/expertise and IIS onboarding capacity; (4) explore a locally installed tool that converts an extracted tab-delimited file of identified data (using the CVRS identified specification for a uniform extract) into HL7.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q08-020">
+<h3>Providers are asking an IIS to accept CSV files instead of HL7 for COVID-19 data. Has any jurisdiction built an interface that converts CSV to HL7 VXU that it could share?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Partly answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA had started building a CSV-to-HL7 converter based on the CVRS file format but shelved it when no IIS asked for it. It could be revived and adapted to the kinds of CSV files the IIS is receiving.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q42-016">
+<h3>Have any jurisdictions established an HL7 connection with a school district (submission and/or query/response)? What barriers arose, were additional legal agreements needed, how was FERPA consent handled, and why have others not attempted it?</h3>
+<p class="mini">Asked 1× · 2026 · VXU/QBP · No answer recorded · Related: Bidirectional Exchange</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: ORC Common Order · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · segment</p>
+<h1>ORC Common Order</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">16 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions about ORC fall into three groups: message structure (how ORC/RXA order groups pair, how forecasts and patient-level observations are grouped in VXU and RSP), ORC-3 Filler Order Number (what to put in it, especially in RSP, its EI components, and whether it is reliable for matching updates), and ORC-12 Ordering Provider (local requirements for an NPI, standing orders, pharmacy prescribers, and what to return in RSP). Recurring themes are the looseness of the 2.5.1 IG on grouping, the gap between ORC-3's intent and actual EHR/IIS use, and the cost of making fields like ORC-12 required.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (6)</summary><ul><li>Add a conformance statement that all forecasts in Z42 are grouped under a single ORC/RXA; fix examples that mix history with forecasts.</li><li>State whether multiple patient-level observations may share one ORC/RXA order group, and reconcile VXU (single CVX 998 group) and RSP (one group per observation) guidance.</li><li>Clarify ORC-3 semantics in RSP (IIS-assigned ID) versus VXU, and define/verify its use for updates and deletes.</li><li>Address how ORC-12 is populated (or left empty) for standing orders; advise reserving R usage for elements essential to IIS business functions.</li><li>Consider whether the national IG should reflect real-world tolerance for a missing ORC and for MSH-15/16/21 (which have defaults).</li><li>Define use of ORC-28 for dose-level confidentiality/sharing protection.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">ORC Segment / ORC-RXA Order Group Structure</a> <span class="mini">6</span></li><li><a href="#g-1">ORC-3 Filler Order Number</a> <span class="mini">4</span></li><li><a href="#g-2">ORC-12 Ordering Provider</a> <span class="mini">4</span></li><li><a href="#g-3">ORC-14 Call Back Phone Number</a> <span class="mini">1</span></li><li><a href="#g-4">ORC-28 Confidentiality Code</a> <span class="mini">1</span></li></ul>
+<h2 id="g-0">ORC Segment / ORC-RXA Order Group Structure</h2><section class="ta-q r-unassessed" id="ta-q25-025">
+<h3>The IG says &quot;each RXA must be associated with one ORC&quot;. Does &quot;one&quot; mean a single ORC per message, or that each RXA has its own ORC?</h3>
+<p class="mini">Asked 1× · 2023 · VXU/RSP · Answered · Related: RXA; Message Structure &amp; Cardinality (IG p. 255)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It means every RXA must be preceded by its own ORC. In HL7 2.3.1 the ORC was optional and often not sent, but in 2.5.1 it is required. A message with five vaccinations needs five ORC/RXA pairs, even if the vaccinations are historical.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-085">
+<h3>Should an ORC segment be included for the RXA used for forecasting in a response?</h3>
+<p class="mini">Asked 1× · 2018 · RSP · No answer recorded · Related: RXA; Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q25-024">
+<h3>In a Z42 response, may an IIS send a separate ORC/RXA group for each recommended (forecast) vaccine, or must all forecasts be grouped under one ORC/RXA? A vendor/EHR says separate groups are out of spec, citing the CDC IG example.</h3>
+<p class="mini">Asked 3× · 2023 · RSP · Answered · Related: RXA, OBX-4; Message Structure &amp; Cardinality</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The current HL7 2.5.1 specification allows recommendations to be grouped under one ORC/RXA or split across several, so the IIS is on standard and the EHR should accept it. Many IIS return RSPs this way, NIST does not flag it, and the national IG has no conformance rule on it. The specification is too loose for CDS recommendations, though. This is on the gap list for the next IG, and new standards will specify a single ORC/RXA for forecasts (historical and administered doses still each get their own ORC/RXA), which matches most IIS today. Best practice is therefore to group all forecasts under one ORC/RXA; the IIS should adopt this as a scheduled improvement, not an urgent bug fix.</p>
+<p>When consolidating forecasts, use OBX-4 (sub-ID) carefully to group the OBXs for each vaccine group (e.g., all HepA forecast OBXs together, then all HepB). Tell EHRs and providers before making the change, since some may expect one forecast per ORC/RXA. Vendors may assume a single ORC/RXA because the NIST test examples use it, but NIST certification does not cover every valid layout.</p>
+<p>IG examples are non-binding and have known issues (the cited example has only forecasts and no history). The NIST IZ tool is the authoritative measure, and an IIS whose responses pass it completely can pass AART Query/Response validation. In one case AIRA also noted unrelated NIST errors in the IIS's RSPs that should be fixed for full alignment. See AIRA's <em>Guidance on Detailed Message Structure and the Use of Specific LOINC Codes</em> (message structure guidance v1.1), which sets one ORC/RXA for all forecasted vaccines as the best practice.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q21-023">
+<h3>In a VXU, may multiple serological evidence of immunity observations (e.g., LOINC 75505-8 with rubella and mumps SNOMED codes, plus effective dates) be grouped under a single ORC/RXA with CVX 998 using OBX-4 sub-IDs? The receiving IIS expects each event in its own ORC/RXA and is rejecting these messages.</h3>
+<p class="mini">Asked 2× · 2022 · VXU · Answered · Related: RXA-5, OBX-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The <em>Guidance on Detailed Message Structure and Use of Specific LOINC Codes</em> indicates that the Patient Observation Order segment group (the CVX 998 ORC/RXA carrying patient-level observations) is expected to appear only once in a message (cardinality 0..1, see the summary table on page 12). Grouping multiple patient observations as OBX segments under that single ORC/RXA is therefore the expected structure, and IIS should accept it rather than reject it. AIRA asked whether there is a business or programmatic reason for expecting separate ORC/RXA groups for each event.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q46-007">
+<h3>In a Z32/Z42 response, when a patient has multiple patient-level comments sent as OBX (e.g., OBX-3 30945-0 Vaccination contraindication), is a separate ORC/RXA required for each, or can all be listed under one ORC/RXA?</h3>
+<p class="mini">Asked 1× · 2026 · RSP · Answered · Related: RXA, OBX-3; Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The best guidance is AIRA's recent TAB on CDS in RSP, which covers "non-CDS order groups" on pages 4-5. The graphic on page 4 places these order groups after the vaccination history and before the forecast and shows multiple order groups; page 5 uses the plural, indicating they should not all be in a single ORC/RXA group. Some comments could perhaps be co-located under one ORC/RXA, but this is not explicitly addressed, so one ORC/RXA order group per comment is the best approach.</p></div><p class="ta-flag"><strong>Flagged when consolidated:</strong> This RSP guidance (one order group per patient-level observation, 2026) differs from the VXU guidance in the serology entry above (single CVX 998 Patient Observation Order group, cardinality 0..1, 2022). Confirm whether the difference between VXU and RSP structure is intended and reconcile in the IG.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q29-027">
+<h3>A local IG changes ORC usage from R to RE (and MSH-15, MSH-16 and MSH-21 from R to RE). How should these deviations from the national IG be viewed?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Answered · Related: MSH-15, MSH-16, MSH-21; Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>For ORC, this probably reflects reality. ORC carries no truly mission-critical information, and the IIS would probably rather keep a good vaccination event than reject it for a missing ORC. The vendor may also have many legacy partners that do not send it. Many IIS may be in the same position while still documenting ORC as R. MSH-15, MSH-16 and MSH-21 are probably the same case of documenting how processing really works. These fields have explicit defaults in the national IG, so if a sender does not populate them the receiver can assume the proper value.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">ORC-3 Filler Order Number</h2><section class="ta-q r-unassessed" id="ta-q01-076">
+<h3>What should an IIS put in ORC-3 when returning vaccinations in an RSP (Z32/Z42)? Should it use its own identifier and assigning authority, what if the provider&#x27;s immunization ID is not known, and why does AART flag a missing ORC-3.2/ORC-3.3?</h3>
+<p class="mini">Asked 5× · 2016–2021 · RSP · Answered · Fields: <a href="../../structure/segments/orc/index.html#f3">ORC-3</a> · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>ORC-3 must be valued with the IIS's own stable, unique identifier for the vaccination record, along with an assigning authority; using the IIS's own namespace (e.g., a short IIS code) is acceptable. The Z22 rule that for historical immunizations the sending system SHALL assign an identifier as if it were administered by its own organization applies in the same spirit. An example that passed NIST validation:</p>
+<p>`ORC|RE||197023^VTA||||||||||||||NISTEHRFAC^NISTEHRFacility^HL70362`</p>
+<p>The definition does not really differ for a Z32, mainly because there are no business rules tied to this field for the receiver; EHRs are unlikely to look at it and match IIS vaccinations to their own using vaccine code and dates instead. Future guides may define it better, but a stable unique ID will work for current and likely future guidance.</p>
+<p>On the AART errors: ORC-3 is an EI data type, so one of ORC-3.2 (namespace ID) or ORC-3.3 (universal ID) must accompany the identifier. An earlier (2019) response referred the IIS to the HL7 FAQ on populating ORC-3 in RSP messages along with these EI requirements.</p>
+<p>Earlier questions (2016, 2020) asking how to implement ORC-3 in query responses, and what to return when the provider's immunization ID is not known, had no answer recorded; the guidance above (send the IIS's own ID) covers them.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-003">
+<h3>Are ORC-3.2 (namespace ID) and ORC-3.3 (universal ID) required?</h3>
+<p class="mini">Asked 2× · 2019–2020 · VXU · Answered · Fields: <a href="../../structure/segments/orc/index.html#f3">ORC-3</a></p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>ORC-3 (Filler Order Number) is an EI data type. Under the EI definition, component 2 (namespace ID) is required unless OIDs are used, so ORC-3.2 is required if not using OIDs (in which case ORC-3.3 carries the universal ID). Local implementation guides may also specify use of order numbers.</p>
+<p>A separate question about ORC-3.3 (2019) had no answer recorded.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-074">
+<h3>How should an IIS use ORC-3? Should it use ORC-3 to match incoming immunizations to existing ones and update the existing record (even if vaccine or date differs), or is the delete/add approach preferred?</h3>
+<p class="mini">Asked 2× · 2019–2021 · VXU · Answered · Fields: <a href="../../structure/segments/orc/index.html#f3">ORC-3</a> · Related: RXA-21; Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The jury is still out on how trustworthy ORC-3 is for matching. Matching across disparate systems solely on IDs is risky; a "trust with verification" approach is preferred. The 2.5.1 IG introduced and requires the field but without data on its reliability; the MIROW vaccination event matching guide does not reference it, and there are no guidance documents on using it for matching. AART ad hoc testing around 2015-2016 sent a record with action code A, then an update with the same ORC-3 changing the vaccine group (HepA to HepB) with action code U, and found no (maybe one) IIS used the value.</p>
+<p>Recommendation: start collecting ORC-3.1, the namespace ID (ORC-3.2) and the RXA-21 action code without changing processes, then analyze a month or two of data to assess trustworthiness overall, by submitting system (e.g., major EHR platforms, pharmacy stacks) and by organization/facility, before deciding next steps. The intent is that ORC-3 supports updates/deletes, and many EHRs likely implement it properly, but EHRs have not been tested on it and IIS were not built to use it, so it must be verified before relying on it.</p>
+<p>An earlier general question (2019) "how does ORC-3 work and how should IIS use it?" had no answer recorded; the guidance above covers it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q27-009">
+<h3>A provider being onboarded is not sending ORC-3. The local IG lists it as required, but the IIS has never really used it. Should the IIS still require it?</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Fields: <a href="../../structure/segments/orc/index.html#f3">ORC-3</a> · Related: Data Quality &amp; Validation; Onboarding &amp; Interface Testing</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>ORC-3 Filler Order Number is a required field, so certified EHR systems must always send it with both administered and historical vaccinations. If a site does not send it, the IIS must decide how critical the field is to its operations; it may choose to accept the data without it but follow up and strongly recommend that the site send it. Also look closely at how the site implements other fields: problems constructing one field may indicate more serious issues elsewhere. The priority should be the highest data quality starting with the most critical fields. ORC-3's criticality is unclear, since many IIS ignore the field and there is limited information about what EHRs put in it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">ORC-12 Ordering Provider</h2><section class="ta-q r-unassessed" id="ta-q01-006">
+<h3>ORC-10, ORC-12 and RXA-10 are XCN data types and many EHRs send both an ID and a name. If an IIS asks senders to choose one (ID with assigning authority, or name), which is more valuable? Or should the IIS accept the name when both are sent?</h3>
+<p class="mini">Asked 1× · 2015 · VXU · No answer recorded · Fields: <a href="../../structure/segments/orc/index.html#f12">ORC-12</a> · Related: ORC-10, RXA-10</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q08-021">
+<h3>Can an IIS require an ordering provider NPI in ORC-12 for every administered dose (rejecting with MSA-1 = AE, ERR `ORC^1^12`, 101 Required field missing, &quot;NPI number is missing&quot;)? Why would an IIS do this, and how should EHRs handle standing orders where there is no specific ordering provider?</h3>
+<p class="mini">Asked 3× · 2021 · VXU/ACK · Answered · Fields: <a href="../../structure/segments/orc/index.html#f12">ORC-12</a> · Related: ERR, MSA-1, RXA-9; Local Profiles &amp; Jurisdictional Constraints; Acknowledgement &amp; Error Handling</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IIS effectively requires ORC-12.1 (ordering provider ID) to contain an NPI, with ORC-12.9 = NPI, for administered doses (RXA-9 = 00). From a pure HL7 standpoint this follows the v2 constrainable model: the IIS constrained a C(R/RE)/RE element to R for administered doses, which is a valid constraint, so the EHR has to meet it.</p>
+<p>In practice it causes problems. Standing orders (which cover nearly all childhood vaccines) are an organizational workflow, not an order by a specific person, so picking an arbitrary provider's NPI isn't factual, and standing orders don't have NPIs. It's like making middle name required: valid HL7, but not everyone can meet it.</p>
+<p>AIRA's view: requiring a field makes it as important as the vaccination event itself (date and vaccine code). Work with HIMSS on the Immunization Integration Program found that EHRs and providers rarely look at ACKs or correct rejected submissions. So if the IIS doesn't heavily use a data element, or could still function receiving it less than 100% of the time, it should be RE, not R, to avoid losing vaccination events. Is it better to know about the vaccination without an ordering provider, or never know about it because the missing field caused a rejection? AIRA's role is to help remove local requirements that are unnecessary or arbitrary, and vendors are encouraged to keep raising such cases, since other IIS have dropped outdated local requirements after discussion.</p>
+<p>The IIS's position: it cannot relax the requirement because its Medicaid office requires the IIS to report this information; it has required the NPI of the medical authority since 2015 for data completeness and accountability, validates submitted NPIs against the NPI registry and rejects incorrect ones, and is unwilling to accept the data only part of the time because it believes that would increase erroneous submissions. Its solution for standing orders is for the physician who issued the standing orders to provide their NPI for the site to send.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q18-015">
+<h3>Which ORC field carries the provider NPI (ORC-17?), and should it be the parent organization NPI or each individual provider&#x27;s NPI?</h3>
+<p class="mini">Asked 1× · 2022 · VXU/RSP · Partly answered · Fields: <a href="../../structure/segments/orc/index.html#f12">ORC-12</a> · Related: ORC-17, RXA-11</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The fields for the ordering provider (the person, ORC-12) and the entering organization (the site, ORC-17) could carry an NPI. Using NPI is not a requirement to exchange data through the IZ Gateway for any use case (provider-to-IIS or IIS-to-IIS); if both endpoints want to use NPI that is possible but not required.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q16-016">
+<h3>When returning immunization history in an RSP, is it acceptable not to send ORC-10 (Entered By) and ORC-12 (Ordering Provider)?</h3>
+<p class="mini">Asked 1× · 2022 · RSP · Answered · Fields: <a href="../../structure/segments/orc/index.html#f12">ORC-12</a> · Related: ORC-10, RXA-9</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It depends on the profile. RSP^Z32: ORC-10 is RE (send if known, otherwise leave blank); ORC-12 is RE for administered vaccinations and O for historical. Latest guidance is that an IIS should probably represent all vaccinations it did not give directly as historical, even if reported to the IIS as administered, so leave ORC-12 blank if unknown; it is only required when the vaccination is represented as administered and the value is known. RSP^Z42: ORC-10 and ORC-12 are optional and need not be sent even if known.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">ORC-14 Call Back Phone Number</h2><section class="ta-q r-unassessed" id="ta-q01-030">
+<h3>Is ORC-14 (Call Back Phone Number) used by IIS?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Fields: <a href="../../structure/segments/orc/index.html#f14">ORC-14</a></p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">ORC-28 Confidentiality Code</h2><section class="ta-q r-unassessed" id="ta-q22-002">
+<h3>Is there a field or code to flag a vaccine-specific (not patient-level) sharing restriction, e.g., a vaccination a minor received without parental consent that should not be disclosed except to authorized users? Could ORC-28 Confidentiality Code be used?</h3>
+<p class="mini">Asked 1× · 2022 · VXU/RSP · Partly answered · Fields: <a href="../../structure/segments/orc/index.html#f28">ORC-28</a> · Related: Immunization Evidence (refusals, immunity, contraindications)</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>This came up years ago (e.g., for HPV) but was never resolved into a recommended method. AIRA suggested modeling it as "vaccine sharing protection" rather than "vaccine consent": consent speaks to who consented to vaccination, whereas the need is to protect a specific dose from being shared, which could apply more broadly (e.g., adults wanting certain vaccines protected). The patient and other vaccinations would still be shared; the IIS stores and uses the protected dose for public health but does not share it except with select authorized users.</p>
+<p>If a confidential dose needs to be communicated, ORC-28 Confidentiality Code is the appropriate field, though its use has not been defined for immunization messaging. The associated table is user-defined; the values in base HL7 are only an example set, so it can be extended with values that make sense for the jurisdiction and community.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

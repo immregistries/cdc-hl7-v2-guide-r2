@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: RXR Pharmacy/Treatment Route · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · segment</p>
+<h1>RXR Pharmacy/Treatment Route</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">20 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions about RXR concern whether and how the segment is returned in query responses, route coding in RXR-1 (the constrained NCIt-based value set versus HL7 Table 0162, legacy codes such as IN vs NS, and routes not in the list such as sublingual, intrauterine, G-tube, needle-free or "other"), and body site coding in RXR-2 (Table 0163 gaps for new administration sites such as JYNNEOS intradermal, oral vaccines, two-site administrations, and usage vs support status). The recurring theme is that the IG deliberately constrains route and site to immunization-relevant values, that RXR is RE (omit it entirely rather than send it empty or invalid), and that route/site are not critical to a complete immunization history.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (5)</summary><ul><li>State explicitly that HL7 0162 route codes are accepted only for backward compatibility, and that RXR should be omitted when no NCIt route code applies (e.g., &quot;Other&quot;).</li><li>Note in the route table that NS and IN are equivalent and indicate which is preferred.</li><li>Clarify the distinction between &quot;Support Status&quot; and field &quot;Usage&quot; in the IG.</li><li>Publish a table of valid RXR-1/RXR-2 combinations tied to BR-119.</li><li>Incorporate body site guidance for newer products (e.g., JYNNEOS scapula = RPC/LPC) and the rule that site is empty for oral route.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">RXR Segment (general)</a> <span class="mini">2</span></li><li><a href="#g-1">RXR-1 Route</a> <span class="mini">9</span></li><li><a href="#g-2">RXR-2 Administration Site</a> <span class="mini">9</span></li></ul>
+<h2 id="g-0">RXR Segment (general)</h2><section class="ta-q r-unassessed" id="ta-q14-021">
+<h3>Does the RXR segment (route and site) need to be returned in Z32/Z42 responses? The functional guide says SHALL while the implementation guide says RE, and a health system wants route and site returned to use for vaccine matching.</h3>
+<p class="mini">Asked 2× · 2021–2022 · RSP · Answered · Related: RXR-1, RXR-2; Version &amp; IG Interpretation; Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>RXR usage in the Z32 and Z42 RSP profiles is RE (IG p. 153), and this is consistent with the functional guide: RE means the system must send it if it is known, which corresponds to a SHALL support statement about system capability, not a requirement that it appear in every message. If the route is not known, no RXR segment should be sent; it is valid to send any immunization without an RXR. If known, route and site can be useful to clinicians and should be returned.</p>
+<p>Separate the HL7 question from vaccine matching: the MIROW best practice on vaccination-level deduplication (vaccine matching) does not use route or site to decide whether two vaccinations match; it relies on date, vaccine type, trade name, lot number, administered/historical, and compromised dose status. So while RXR should be returned, it may not be useful for vaccine matching, and these data may be less trustworthy and could cause false matches/non-matches. In AART Q3 testing, 49 of 53 IIS returned RXR-1 and 51 of 53 returned RXR-2.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q34-007">
+<h3>An IIS&#x27;s RSP started failing NIST conformance (Query Measure 3) after it began returning RXR segments. What is wrong?</h3>
+<p class="mini">Asked 1× · 2024 · RSP · Answered · Related: RXR-1, RXR-2</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Returning no RXR segment was fine, but once RXR is returned it must be populated per the HL7 specification. In this test case the VXU sent to the IIS had no route/site data, so the IIS had no RXR data to return and the RXR segment should not be present at all rather than being sent empty or improperly populated.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">RXR-1 Route</h2><section class="ta-q r-unassessed" id="ta-q04-033">
+<h3>Why doesn&#x27;t the IG support the full list of HL7 route codes?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f1">RXR-1</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IG constrains the base standard to only those route codes used in an immunization context. EHRs and IIS should implement these constraints, and they are important for interoperability.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-017">
+<h3>The IG says to use NCIt codes for route in RXR-1, but many vendors use HL7 Table 0162 codes (IM, ID, etc.). Is it acceptable for an IIS to send NCIt route codes in RSP messages?</h3>
+<p class="mini">Asked 1× · 2021 · RSP · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f1">RXR-1</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Yes. NCIt route codes are in the national guide, so EHRs should understand them and the IIS is fine to continue sending them. The history of why the route table uses NCIt while others do not is unclear; IIS pay little attention to it but EHRs ask about it often.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q24-015">
+<h3>When the route is &quot;OTH&quot; (Other), what should RXR-1 contain in an RSP? NIST expects an NCIt code, NCIt has no code for &quot;Other&quot;, sending `OTH^Other^HL70162` fails, and RXR-1 is R.</h3>
+<p class="mini">Asked 1× · 2023 · RSP/VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f1">RXR-1</a> · Related: RXR; Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The guide lists HL7 0162 values as a crosswalk for systems moving from the old values to the new ones. Only NCIt values may now be sent. Systems can keep accepting and processing HL7 0162 values, but should send only NCIt. The guide does not say so clearly, but if no NCIt value exists there is no route to send. RXR-1 is required, but the RXR segment is not. When RXR-1 cannot be valued, leave the RXR segment out.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-002">
+<h3>Does NS (nasal) replace IN (intranasal) in RXR-1, and can an IIS convert IN codes to NS?</h3>
+<p class="mini">Asked 2× · 2018–2019 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f1">RXR-1</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Per CDC feedback, NS and IN are equivalent route codes; they represent the same concept. The IIS can update its database so the same code represents both the old and new concepts.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q08-007">
+<h3>An EHR lets providers record &quot;Sublingual&quot; and &quot;Intranasal&quot; routes, which are not in the CDC IG route value set. Can intranasal be mapped to nasal and sublingual to oral or other?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f1">RXR-1</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The CDC IG route list reflects how immunizations are actually administered in the US. A much larger set exists for other medications, but the guide doesn't support those values because IIS never expect to receive them. Intranasal means the same as nasal, so code it as nasal. Sublingual means dissolved under the tongue, and no vaccine is indicated for that route. The best fix is to remove or adjust these options in the product so users can't pick values that could be confused with the correct ones. For data already recorded, intranasal can safely be recoded as nasal for vaccines normally given in the nose, and sublingual can safely be recoded as oral for vaccines normally given by mouth. Otherwise, don't report the route if the data looks wrong. Route isn't critical to a complete immunization history, and leaving it out is better than sending bad data.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q22-001">
+<h3>An EHR has a route of &quot;Intrauterine&quot; and a site of &quot;Intrauterine&quot;. Should the route be mapped to something other than OTH, and how should the site be sent when Table 0163 has no &quot;other&quot; value?</h3>
+<p class="mini">Asked 1× · 2022 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f1">RXR-1</a> · Related: RXR-2</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The IG purposefully constrains route of administration to values expected for vaccinations; many other medication routes exist but are not expected for immunizations, and new vaccination routes are added nationally when needed. Given current US vaccine products, intrauterine is not a valid route or site for vaccination, so this is most likely bad data (e.g., a wrong pick from an overly long list) rather than a mapping gap.</p>
+<p>Options for the IIS include: (1) reject the message, at the risk of losing the vaccination event; (2) accept the vaccination but not store the route and return a warning about the invalid route; (3) accept the vaccination, drop the route, and not issue a warning; or (4) accept all data including the illogical route and address it through data quality processes outside HL7 (e.g., provider data quality reports). In any case the value is not valid for vaccination events.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q46-006">
+<h3>Is G-tube (gastrostomy tube) a valid route of administration for immunizations, and is there an updated route code list?</h3>
+<p class="mini">Asked 1× · 2026 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f1">RXR-1</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>G-tube is an acceptable route for select vaccines in limited circumstances, notably rotavirus (per Immunize.org Ask the Experts). An IIS could add support for the code representing this route: in HL70162 it is "GTT" (Gastrostomy Tube), and the NCIt code appears to be C65040, though that should be confirmed. Because actual use should be very low, it may not be worth the effort; assess how often it may be reported and whether the data is needed. If the IIS does not add support, the provider could send GTT/C65040 and the IIS could disregard it in processing (perhaps returning an informational error that the route is not supported), or the provider could send "OTH" (other).</p></div><p class="ta-flag"><strong>Flagged when consolidated:</strong> Confirm the NCIt code for gastrostomy tube route (C65040 was stated as &quot;appears to be&quot;). Also note the suggestion to send &quot;OTH&quot; may conflict with the RXR-1 &quot;Other&quot; entry, which says only NCIt values may be sent and NCIt has no &quot;Other&quot; code.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q04-032">
+<h3>How should doses administered with a needle-free method be coded for route?</h3>
+<p class="mini">Asked 1× · 2020 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f1">RXR-1</a></p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Existing route codes cover any non-needle administration, just as they already do for nasal spray. Depending on the mechanism, percutaneous, subcutaneous, etc. might be appropriate.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-115">
+<h3>What is the impact of submitting an administered dose without a route (e.g., when site and route conflict, as for hemophilia patients)?</h3>
+<p class="mini">Asked 1× · 2019 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f1">RXR-1</a> · Related: RXR-2</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA tested IIS for this condition. Only one IIS rejected the message for a missing route, and only in its QA environment; in production the dose would be accepted.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">RXR-2 Administration Site</h2><section class="ta-q r-unassessed" id="ta-q32-001">
+<h3>Is RXR-2 (administration site) required? The CDC IG appears to list it as &quot;Required&quot;, while AIRA data validation guidance says required but may be empty. Should an IIS require it for new administrations and make it optional for historical?</h3>
+<p class="mini">Asked 1× · 2024 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f2">RXR-2</a> · Related: Version &amp; IG Interpretation; Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>RXR-2 has usage RE (Required, but may be empty) in the segment usage table of the HL7 2.5.1 Release 1.5 IG (page 129). Making it required would be a local requirement beyond the national IG, which may not be desirable for this element. The "Required" value seen elsewhere in the IG is from a different table whose column is "Support Status"; its footnote says support status indicates whether the field must be supported by the information system and messaged if known, not whether every message must contain it, which is indicated by the usage column. In short, support status is about whether the IIS should have a place to store the data; usage is about whether the sender must populate it or may leave it empty.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q17-007">
+<h3>Where can one find which combinations of body site (RXR-2) and route (RXR-1) are valid, per data quality rule AIRA-DV-BR-119 (site and route cannot contradict)?</h3>
+<p class="mini">Asked 1× · 2022 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f2">RXR-2</a> · Related: RXR-1; Data Quality &amp; Validation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The Immunization Action Coalition chart of vaccine administration route and site (https://www.immunize.org/catg.d/p3085.pdf) covers the majority of use cases. The caveat is that a clinician may intentionally deviate from it on a case-by-case basis (for example, chronic bleeding disorders as mentioned in the ACIP General Best Practice Guidelines). A provider consistently reporting doses out of alignment with the chart could indicate reporting errors or incorrect clinical practice.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-028">
+<h3>Could an &quot;Oral&quot; concept be added to HL7 Table 0163 (administration site) since some vaccines are given by mouth?</h3>
+<p class="mini">Asked 1× · 2021 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f2">RXR-2</a> · Related: RXR-1; Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Even if added to PHIN VADS it would not be in the IZ guide: when the route (RXR-1) is oral, the site (RXR-2) is to be left empty. A certified EHR should follow the guide; it can record both route and site internally, but when the route is oral it should report only the route, which may require custom programming. Adding the value nationally is unlikely because the install base is large and it would not improve data quality; it would only be worth it with evidence that many systems would benefit.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q21-004">
+<h3>What body site codes should be used for JYNNEOS (mpox) alternative administration sites, such as intradermal at the scapula / below the scapula?</h3>
+<p class="mini">Asked 2× · 2022–2025 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f2">RXR-2</a> · Related: RXR-1; Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Recommendations on body site codes for JYNNEOS were accepted at the Standards &amp; Interoperability Steering Committee (SISC), and AIRA planned to publish a document describing the agreed funding and body site codes. For the alternative scapula administration site, use right posterior chest (RPC) or left posterior chest (LPC). These codes come from the base HL7 v2.5 Body Site table (HL7 Table 0163). Jurisdictions should check whether these values are available in their dropdowns/value sets.</p>
+<p>A later (2025) question for data migration of doses recorded as "below scapula" was answered by pointing to the published document: AIRA's 2022 Mpox preferred select codes (2022_10_12_monkeypox_preferred_select_codes_final.pdf in the AIRA repository), which lists body site values for mpox vaccine administration including sites such as below the scapula.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q39-017">
+<h3>Nirsevimab (Beyfortus) may be given as two injections, creating apparent duplicate administrations. Could Table 0163 add a &quot;both&quot; site value (e.g., both thighs) so the dose can be recorded once?</h3>
+<p class="mini">Asked 1× · 2025 · VXU · Partly answered · Fields: <a href="../../structure/segments/rxr/index.html#f2">RXR-2</a> · Related: Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Early on it was understood that the two injections would be in two distinct body sites (e.g., left and right thigh), but this is not an absolute requirement. The injections must be at two different injection sites, which could be the same body site separated by at least one inch. So they may, but need not, be in different body sites, and a "both" body site value would not accurately cover all cases.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q22-017">
+<h3>Rabies immune globulin is infiltrated around the bite wound with any remainder given IM at a distant site. How should two administration sites be documented, and should IIS support two sites for one administration? (A sender tried &quot;wound&quot;, which is not valid.)</h3>
+<p class="mini">Asked 1× · 2023 · VXU · Answered · Fields: <a href="../../structure/segments/rxr/index.html#f2">RXR-2</a> · Related: RXR-1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There has been little community discussion on this. The IIS will never record 100% of what happens around a vaccination event; that is the role of the medical record. The IIS is designed for long-term storage of the essential vaccination history and a community-wide view of protection. Adding this level of detail would require a specific workflow and use case showing who would use the information and why, and would require both EHRs (which may not be able to send multiple sites) and IIS to change. The interim approach is to support a single administration site and work with senders accordingly; an IIS could add a local workaround value in its validation tables if needed. If a concrete use case emerges, it can be brought to the community.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-011">
+<h3>Do other IIS require Rho(D) immune globulin to be reported, and how do they capture its gluteus administration site when gluteus has been inactivated as a site for other vaccines?</h3>
+<p class="mini">Asked 1× · 2016 · VXU · No answer recorded · Fields: <a href="../../structure/segments/rxr/index.html#f2">RXR-2</a> · Related: RXA-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-092">
+<h3>Should an option for &quot;non-standard injection site&quot; be added to the administration site values?</h3>
+<p class="mini">Asked 1× · 2018 · VXU · No answer recorded · Fields: <a href="../../structure/segments/rxr/index.html#f2">RXR-2</a> · Related: Code Sets &amp; Vocabulary</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-093">
+<h3>What can an EHR do when an IIS rejects valid administration site codes?</h3>
+<p class="mini">Asked 1× · 2016 · VXU/ACK · Partly answered · Fields: <a href="../../structure/segments/rxr/index.html#f2">RXR-2</a> · Related: Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA followed up directly with the IIS involved, which provided historical context but agreed to reactivate the valid site codes it had been rejecting.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4.6.4.2 Submitter Correction Behavior · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="submitter-correction-behavior">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,19 +34,19 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../immunization-information/index.html">4.6 Immunization Information</a> <span>›</span> <a href="../updates-and-deletes/index.html">4.6.4 Updates and Deletes</a></nav>
 <header class="card-head"><h1><span class="num">4.6.4.2</span> Submitter Correction Behavior</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 notes</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-mirow-di-18"><span class="sev">Note</span> MIROW guide Decrementing Inventory via Electronic Data Exchange (Chapter 9 - Action codes and the vaccination ID): Guide adds. The guide provides that standard of practice. Submitters SHALL support A, U, and D, reuse the source record&#x27;s ORC-3, and use a delete and add only when an identifying field changes. IIS treat source and ORC-3 as high-confidence evidence while still matching.<div class="evidence"><div class="ev-tags"><span>Guide adds</span></div><div class="ev"><span class="ev-k">Best practice</span> (In 2016 MIROW found that best practice for action codes was not documented, that many EHRs send only &quot;A&quot;, and that it was not known whether ORC-3 was populated reliably. It recommended examining both &quot;in more depth in the future to develop a standard of practice&quot;.)</div></div><p class="mini"><a href="../mirow/decrementing-inventory/index.html#mirow-di-18">See the MIROW comparison</a></p><a class="f-id" href="../quality/index.html#qf-mirow-di-18">qf-mirow-di-18</a></li><li class="finding sev-note" id="qf-no-actor-920dffe0"><span class="sev">Note</span> <a class="f-loc" href="#submitter-correction-behavior--s5">Statement s5</a> Its subject is &quot;Delete&quot;, not a system or party, so it is unclear who must comply. Naming the responsible party (for example, &quot;Submitting systems SHALL …&quot; or &quot;IIS SHALL …&quot;) makes the requirement testable.<a class="f-id" href="../quality/index.html#qf-no-actor-920dffe0">qf-no-actor-920dffe0</a></li></ul></details></aside>
 <div class="narrative"><p>An update refers to the same source record and carries the same <a class="sref" href="../structure/segments/orc/index.html#f3" title="Filler Order Number">ORC-3</a>. A delete also refers to the original source record and carries the <a class="sref" href="../structure/segments/orc/index.html#f3" title="Filler Order Number">ORC-3</a> and identifying field values previously submitted for that record. When a rechart creates a replacement source record, the replacement add carries the identifier assigned to the replacement record.</p>
 <p>Changes to fields outside the identifying fields list can be sent as updates. The correction message can include other current vaccination information even when those additional fields did not trigger the correction.</p></div>
 
-<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="submitter-correction-behavior--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL support sending adds (A), updates (U), and deletes (D) for vaccination records.</span><span class="s-meta"><a class="s-id" href="#submitter-correction-behavior--s1" title="Link to this statement">s1</a></span></li><li id="submitter-correction-behavior--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">When any identifying field changes, submitting systems SHALL send a delete followed by an add containing the corrected vaccination information.</span><span class="s-meta"><a class="s-id" href="#submitter-correction-behavior--s2" title="Link to this statement">s2</a></span></li><li id="submitter-correction-behavior--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">When only non-identifying field data changes, submitting systems SHALL send an update.</span><span class="s-meta"><a class="s-id" href="#submitter-correction-behavior--s3" title="Link to this statement">s3</a></span></li><li id="submitter-correction-behavior--s4"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL reuse the source record’s <a class="sref" href="../structure/segments/orc/index.html#f3" title="Filler Order Number">ORC-3</a> in every update or delete that refers to that record.</span><span class="s-meta"><a class="s-id" href="#submitter-correction-behavior--s4" title="Link to this statement">s4</a></span></li><li id="submitter-correction-behavior--s5"><span class="verb verb-shall">SHALL</span><span class="s-text">A delete SHALL carry the identifying field values previously submitted for the source record being deleted.</span><span class="s-meta"><a class="s-flag sev-note" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#submitter-correction-behavior--s5" title="Link to this statement">s5</a></span></li></ol></section>
+<section class="statements" aria-labelledby="st-h"><h2 id="st-h">Conformance statements</h2><ol><li id="submitter-correction-behavior--s1"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL support sending adds (A), updates (U), and deletes (D) for vaccination records.</span><span class="s-meta"><a class="s-id" href="#submitter-correction-behavior--s1" title="Link to this statement">s1</a></span></li><li id="submitter-correction-behavior--s2"><span class="verb verb-shall">SHALL</span><span class="s-text">When any identifying field changes, submitting systems SHALL send a delete followed by an add containing the corrected vaccination information.</span><span class="s-meta"><a class="s-id" href="#submitter-correction-behavior--s2" title="Link to this statement">s2</a></span></li><li id="submitter-correction-behavior--s3"><span class="verb verb-shall">SHALL</span><span class="s-text">When only non-identifying field data changes, submitting systems SHALL send an update.</span><span class="s-meta"><a class="s-id" href="#submitter-correction-behavior--s3" title="Link to this statement">s3</a></span></li><li id="submitter-correction-behavior--s4"><span class="verb verb-shall">SHALL</span><span class="s-text">Submitting systems SHALL reuse the source record’s <a class="sref" href="../structure/segments/orc/index.html#f3" title="Filler Order Number">ORC-3</a> in every update or delete that refers to that record.</span><span class="s-meta"><a class="s-id" href="#submitter-correction-behavior--s4" title="Link to this statement">s4</a></span></li><li id="submitter-correction-behavior--s5"><span class="verb verb-shall">SHALL</span><span class="s-text">A delete SHALL carry the identifying field values previously submitted for the source record being deleted.</span><span class="s-meta"><a class="s-flag sev-note author-only" href="#findings" title="This statement has a quality finding">⚑</a><a class="s-id" href="#submitter-correction-behavior--s5" title="Link to this statement">s5</a></span></li></ol></section>
 
 <section class="xref" aria-labelledby="xref-h"><details>
 <summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">1 field · from the IGAMT export</span></summary>
 <p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
-conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+conformance statements that test it.<span class="author-only"> <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</span></p>
 <div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
 <tbody><tr><th scope="row"><a href="../structure/segments/orc/index.html#f3"><code>ORC-3</code></a><div class="mini">Filler Order Number</div></th><td><div class="u-row"><span class="u">R [1..1] EI_IZ01</span> <span class="u-where">Z22 ORC_IZ01, Z32 ORC_IZ01, Z42 ORC_IZ02</span></div></td><td><span class="mini">—</span></td><td><abbr class="cs" title="Z22: If at least one occurrence of ORDER.RXA-20 (Completion Status) contains one of the values in the list: [&#x27;NA&#x27;,&#x27;RE&#x27;] (Case Sensitive) then at least one occurrence of ORDER.ORC-3.1 (Entity Identifier) shall contain the value &#x27;9999&#x27; (Case Sensitive).">IZ-45</abbr></td></tr></tbody></table></div></details></section>
 
@@ -64,8 +64,8 @@ conformance statements that test it. <a href="../quality/igamt/index.html">How t
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

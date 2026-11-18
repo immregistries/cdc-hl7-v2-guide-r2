@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Acknowledgement &amp; Error Handling · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Acknowledgement &amp; Error Handling</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">23 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions in this section concern how an IIS should build and populate ACK (Z23) messages: overall ACK formatting, how MSA-1 and ERR-4 severity should signal rejection versus acceptance, and how to handle partially valid messages. Recurring themes are the meaning of ERR-4 = E (the submitter must correct and resubmit), not rejecting valid-but-unused data, how much to "nag" with warnings, AART assessment findings about ACKs, and which response (ACK vs RSP) to use for problem queries. Several questions were logged without answers.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (4)</summary><ul><li>State explicitly that receivers must not reject or raise errors on optional/unsupported OBX observations (e.g., dose-level funding source) and should ignore data they do not use.</li><li>Clarify when a Z23 ACK versus a Z33 RSP is expected for query parsing and validation failures.</li><li>Document expected IIS response time for synchronous VXU/QBP exchanges.</li><li>Consider documenting partial-acceptance semantics (keep good data vs. all-or-none) and ACK retention expectations, which were asked about but not covered.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">ACK Format and National Guidance</a> <span class="mini">3</span></li><li><a href="#g-1">AART Assessment Findings on ACKs</a> <span class="mini">1</span></li><li><a href="#g-2">Error Severity and When to Reject</a> <span class="mini">7</span></li><li><a href="#g-3">Warnings and Informational Messages</a> <span class="mini">3</span></li><li><a href="#g-4">Errors for Query Messages</a> <span class="mini">3</span></li><li><a href="#g-5">Malformed Messages, Authentication and Transport-Level Errors</a> <span class="mini">2</span></li><li><a href="#g-6">ACK Timing, Batching and Retention</a> <span class="mini">4</span></li></ul>
+<h2 id="g-0">ACK Format and National Guidance</h2><section class="ta-q r-unassessed" id="ta-q02-003">
+<h3>How should an IIS format its ACK messages (MSA/ERR) to meet national guidance, report errors such as missing mandatory fields, and pass AART assessments? What is needed to improve an IIS&#x27;s ACKs?</h3>
+<p class="mini">Asked 4× · 2016–2024 · ACK · Partly answered · Related: MSA, ERR, MSA-1</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA answered questions on ACK formatting and pointed to these references: "Guidance for HL7 Acknowledgement Messages to Support Interoperability", the "National Set of Error Codes", and "Measures and Tests for Assessment - Data Quality Incoming/Ongoing" in the AIRA repository. (Earlier askings in 2016, 2018 and 2023 have no recorded answer.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q46-009">
+<h3>How should an IIS properly implement errors and warnings in HL7 acknowledgements?</h3>
+<p class="mini">Asked 1× · 2026 · ACK · No answer recorded · Related: ERR-4, MSA-1</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-106">
+<h3>An IIS had several clarification questions about acknowledgements (details not recorded).</h3>
+<p class="mini">Asked 1× · 2018 · ACK · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">AART Assessment Findings on ACKs</h2><section class="ta-q r-unassessed" id="ta-q11-016">
+<h3>Why does an IIS fail AART Submission Assessment Measure 13 when the test message was not accepted, and how does its ACK differ from one that passed?</h3>
+<p class="mini">Asked 1× · 2021 · ACK · Answered · Related: MSA-1, ERR-4, Conformance Testing &amp; Validation Tools</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Measure 13 has two components: (1) the ACK must indicate there is a problem with the message and must conform to the implementation guide (validated with NIST), and (2) the ACK must have MSA-1 = AE and at least one ERR segment with ERR-4 (severity) = E. In this case both test case ACKs did not conform to the standard according to NIST. The test details screen in AART shows, at the bottom, why the ACK did not meet standards, which can be used to improve the acknowledgement.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">Error Severity and When to Reject</h2><section class="ta-q r-unassessed" id="ta-q02-033">
+<h3>What do R and RE usage mean for a receiving system? Must an IIS reject all messages with R (required) violations?</h3>
+<p class="mini">Asked 1× · 2017 · VXU/ACK · Answered · Related: ERR-4, Version &amp; IG Interpretation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. The IIS must raise an error, but it can declare how severe the error is through ERR-4 (and need not reject the message).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q06-007">
+<h3>When part of a VXU is invalid (e.g., a bad RXA-3 administration date or RXA-5 CVX/NDC, or one of several immunizations is bad) but the patient is valid, should the IIS reject the whole message or accept the good data, and should it return AE with W or E severity?</h3>
+<p class="mini">Asked 3× · 2020–2024 · VXU/ACK · Answered · Related: RXA-3, RXA-5, RXA, MSA-1, ERR-4</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Earlier guidance (2020): You can store whatever information in the message is good while still rejecting the bad part for correction and resubmission: map the patient and return AE with E-severity ERR for the RXA errors. AE plus E tells the EHR the errors must be corrected and resubmitted. On resubmission the patient will come again, but this approach stores as much good data as possible and IIS should be deduplicating anyway. For example, if a message has five vaccination events and one is bad, store the patient and the four good immunizations, and reject the bad one with AE + E; the EHR may resubmit all five, which should not be a problem for the IIS.</p>
+<p>Later guidance (2024): If the IIS receives a vaccination it cannot accept, it should return ERR-4 = E identifying the specific problem. E means the submitter must correct the problem and resubmit the entire message. The IIS may accept all or none of the data in the original message according to its own processing rules and operational needs. Even if the IIS keeps some of the data, the submitter should assume none was accepted and resubmit the whole corrected message so nothing is lost. This is documented in AIRA's "Guidance for HL7 Acknowledgement Messages to Support Interoperability".</p>
+<p>The two answers are consistent on AE + E severity; the later answer adds that keeping partial data is at the IIS's discretion and that the submitter should resubmit everything.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-016">
+<h3>Aligning a local IG with the national IG may increase message failures. Should an IIS reject a message that has a valid immunization date and vaccine code but has, for example, a manufacturer code (RXA-17) error or a VIS date error?</h3>
+<p class="mini">Asked 1× · 2016 · VXU/ACK · No answer recorded · Related: Local Profiles &amp; Jurisdictional Constraints, RXA-17, OBX-5</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q07-004">
+<h3>Vendors ask an IIS to return ACK errors when COVID-19 data elements that CDC requires (e.g., sex, race) are missing, even though the IIS doesn&#x27;t normally require them. Is an IIS expected to return ACK errors for these elements?</h3>
+<p class="mini">Asked 1× · 2020 · ACK/VXU · Answered · Related: MSA-1, ERR</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. IIS shouldn't change their ACK behavior for COVID vaccination events compared with non-COVID events. Every element the IIS reports to CDC has an option for Unknown (or blank), so the IIS can still report to CDC when a submitter leaves those elements empty.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-001">
+<h3>An IIS returns MSA-1 = AE with ERR-3 = 207^Application internal error^HL70357 (&quot;Internal error prevented the completion of this request - Message Rejected&quot;) for a fully populated administered-vaccine VXU. What causes it and how should it be handled?</h3>
+<p class="mini">Asked 1× · 2021 · VXU/ACK · Partly answered · Related: OBX-3, OBX-5, ERR-3</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Through trial and error AIRA found that removing the OBX segment that reports the dose-level vaccine funding source caused the message to be accepted, so that OBX appeared to trigger the internal error. An IIS should be able to accept a message with this OBX present even if it does not use that data; unwanted data should simply be ignored rather than causing the message to be rejected. Because the same OBX is used in many test cases, this defect affected results across several assessment content areas (Submission and Data Quality Incoming). The IIS forwarded the finding to its vendor, but a fix had not been confirmed at the time of the record.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q33-008">
+<h3>When RXA-5 is an NDC the IIS does not recognize, the IIS returns only warning-level ERRs (e.g., &quot;vaccination cvx code is missing&quot;, &quot;ndc code is unrecognized&quot;; no ERR-4 = E), so the message appears accepted, but a later query shows the vaccination was not stored (only a CVX 999 unknown dose). Is this correct?</h3>
+<p class="mini">Asked 1× · 2024 · VXU/ACK/RSP · Answered · Related: RXA-5, ERR-4</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>No. If vaccination events are being lost while the EHR is told the message was accepted, the ACK is misleading; an IIS that cannot store a vaccination event should indicate that with an error-level (ERR-4 = E) response so the sender corrects and resubmits. AIRA found this behavior came from a configuration of the vendor's test endpoint that did not match how any of its IIS clients are configured, and asked the vendor to reconfigure the endpoint to behave like an IIS would. After reconfiguration, the false-positive test results were resolved.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q30-009">
+<h3>The IIS accepts serology observations but not a particular (valid) serology code it received. How should it respond? Is it valid to acknowledge the message was understood but not store the data?</h3>
+<p class="mini">Asked 1× · 2024 · VXU/ACK · Answered · Related: ERR-4, ERR-5, OBX-5</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Do not tell a site that sent a valid code to correct and resend its message. To stay conformant, the most the IIS should do is return an informational result (severity I) saying the serology is good information but will not be saved. It is valid for the IIS to acknowledge it understood the message and not store that data.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-3">Warnings and Informational Messages</h2><section class="ta-q r-unassessed" id="ta-q19-022">
+<h3>Should an IIS return informational warnings in the ACK telling submitters which fields of a demographic-only update (ADT or VXU) were or were not applied, given that most submitters ignore informational warnings?</h3>
+<p class="mini">Asked 1× · 2022 · ACK/ADT/VXU · Partly answered · Related: ERR, ERR-4</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Informational ERR segments are indeed likely not to be read, though that doesn't mean you shouldn't send them. Current best practices for both patient and vaccination data require the IIS to decide how received data is integrated into the official patient record, so a submitter cannot be assured that any accepted update will change the official record (e.g., historical vaccinations may be ignored, or the IIS may prefer a name spelling from vital records over the EHR's). Furthermore, ADT is a "broadcast all, take what you need" exchange: the default expectation is that receivers take what is useful and silently ignore everything else. AIRA asked for a concrete example of a field the IIS would not update to give more specific direction.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q08-018">
+<h3>An IIS silently ignores data sent in fields it has constrained to X (not supported) rather than returning a warning in the ACK. Are there scenarios where a warning would be helpful?</h3>
+<p class="mini">Asked 1× · 2021 · ACK · Answered · Related: Local Profiles &amp; Jurisdictional Constraints</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>In general it would be rare to warn about this. A site should only nag when it matters for data quality and the IIS's business functions. Too much nagging about unimportant things trains people to ignore warnings, and that applies to HL7 ACKs too. HL7 doesn't require an ACK to document every difference in expectations.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-071">
+<h3>When a submitted vaccination already exists in the IIS, what should the ACK say?</h3>
+<p class="mini">Asked 1× · 2017 · ACK · Partly answered · Related: Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The ACK should be helpful but should not include too much. The specific decision is for the IIS program to make.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-4">Errors for Query Messages</h2><section class="ta-q r-unassessed" id="ta-q17-005">
+<h3>When an IIS receives a QBP with problems, should it return a Z23 ACK or a Z33 RSP? (Options: (1) Z23 for parsing/validation issues, Z33 for IIS-side errors and no results; (2) Z23 only when the query cannot be parsed, Z33 for everything else; (3) Z33 for everything.)</h3>
+<p class="mini">Asked 1× · 2022 · QBP/RSP/ACK · Answered · Related: MSH-21, ERR, Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Figure 40 of the CDC IG (query response decision flow) corresponds to option 1. Option 3 is not correct per that diagram. However the decision is not very critical: either option 1 or 2 should work, as long as the ERR segment clearly explains why a matching result cannot be returned. EHRs generally do not distinguish much between a Z23 and a Z33; they treat both as a negative match indication.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-021">
+<h3>How should an IIS reject a query message when the query is not supported?</h3>
+<p class="mini">Asked 1× · 2017 · ACK/QBP · No answer recorded · Related: MSA-1, ERR</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-050">
+<h3>How should hierarchical error handling work for query messages?</h3>
+<p class="mini">Asked 1× · 2016 · QBP/ACK/RSP · No answer recorded · Related: ERR</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-5">Malformed Messages, Authentication and Transport-Level Errors</h2><section class="ta-q r-unassessed" id="ta-q03-014">
+<h3>How should an IIS respond when the incoming HL7 message is malformed?</h3>
+<p class="mini">Asked 1× · 2018 · ACK · No answer recorded · Related: MSA-1, ERR</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-068">
+<h3>How should authentication errors be returned?</h3>
+<p class="mini">Asked 1× · 2017 · ACK · Answered · Related: Transport/Connectivity, MSH-4</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>If the error is in a parameter of the CDC WSDL (e.g., credentials), the CDC WSDL's SecurityFault should be returned. If the error is in the HL7 content, it should be returned as an HL7 error (e.g., MSH-4 is invalid).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-6">ACK Timing, Batching and Retention</h2><section class="ta-q r-unassessed" id="ta-q01-087">
+<h3>Do most IIS process messages and return the ACK in real time or offline?</h3>
+<p class="mini">Asked 1× · 2016 · VXU/ACK · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-030">
+<h3>An IIS improving response time is considering skipping address validation, which adds about 200 ms per VXU. Is that tradeoff worthwhile?</h3>
+<p class="mini">Asked 1× · 2021 · VXU/ACK · Answered · Related: Transport/Connectivity, PID-11</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>Once response time is around 1-2 seconds, optimization should shift from reducing response time to (1) maximizing total throughput (e.g., multiple servers), even if individual responses are slightly slower, and (2) returning as much information as possible in the ACK. It is better to return the final disposition and any problems found after 2 seconds than to respond in 0.5 seconds saying the message was received but not fully processed. For this IIS, a 200 ms wait was worth it if address quality issues can be reported back in the ACK. (AIRA testing checks that IIS respond in under 5 seconds; formal documented guidance was not identified.)</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q02-072">
+<h3>How should an IIS acknowledge batches of messages?</h3>
+<p class="mini">Asked 1× · 2017 · ACK · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>The current standard does not support acknowledging groups of messages.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q03-112">
+<h3>How long should Z23/Z33 acknowledgement messages and Z42 history responses be retained?</h3>
+<p class="mini">Asked 1× · 2019 · ACK/RSP · No answer recorded</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>

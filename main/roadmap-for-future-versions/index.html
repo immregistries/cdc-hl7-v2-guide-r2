@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>6.3 Roadmap for Future Versions · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="roadmap-for-future-versions">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../preparing-for-version-updates/index.html">6 Preparing for Version Updates</a></nav>
 <header class="card-head"><h1><span class="num">6.3</span> Roadmap for Future Versions</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-note" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-note author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">1 note</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-note" id="qf-tab-flu-07"><span class="sev">Note</span> TAB Submission of Self-Administered FluMist Vaccine to IIS (Expected Interface Specifications): Partly covered. After this guide is published, the TAB&#x27;s reference to Release 1.5 is out of date. Its open question (general guidance for self- or caregiver-administered vaccines) is the one in tab-flu-01.<div class="evidence"><div class="ev-tags"><span>Partly covered</span><span>Action: CDC decision</span></div><div class="ev"><span class="ev-k">TAB</span> Fields not listed are populated according to the National IG Release 1.5 and Addendum. Out of scope: new code values or messaging constructs; community experience may lead to guidance for self- or caregiver-administered vaccines.</div><div class="ev"><span class="ev-k">Recommendation</span> Ask AIRA to point the TAB&#x27;s next seasonal update at this guide, and list self- or caregiver-administered vaccines among the topics for future work in 6.4 if tab-flu-01 is not settled in this release.</div></div><p class="mini"><a href="../tabs/self-administered-flumist/index.html#tab-flu-07">See the TAB comparison</a></p><a class="f-id" href="../quality/index.html#qf-tab-flu-07">qf-tab-flu-07</a></li></ul></details></aside>
 <div class="narrative"><p>The HL7 v2.5.1 Implementation Guide for Immunization Messaging has been updated based on lessons learned over the past decade, incorporating many community-identified updates. However, not all proposed changes could be included in this release. Larger topics, such as consent management and clinical trial reporting, were deferred due to time constraints. As such, this guide should be seen as an iterative update rather than a final product. Future versions will incorporate additional functionality and improvements, ensuring the guide evolves alongside community needs and technological advancements. Work on the next version will begin as this guide nears completion, with no specific timeline currently set.</p>
 <p>In addition to periodic updates to this guide, new standards outside of HL7 v2 may be developed to address emerging needs. For example, the development of new FHIR Implementation Guides is already underway to support additional functionality. Non-immunization-related data, such as occupation, immigration status, and other medical or programmatic details, may not fit well within the scope of this guide. Instead, such data may be more appropriately handled in separate standards tailored to those specific needs. This guide remains focused on its primary mission: supporting the accurate reporting and querying of immunization data to build a complete immunization history.</p></div>
@@ -59,8 +59,8 @@
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

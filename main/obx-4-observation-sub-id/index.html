@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-edition="draft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4.4.2.4 OBX-4 Observation Sub-ID · CDC HL7 v2 Guide (Release 2)</title>
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script>try{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}catch(e){}</script>
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
 </head>
 <body class="card-page" data-root="../" data-card="obx-4-observation-sub-id">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,9 +19,9 @@
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="../contents/index.html">Contents</a>
-    <a href="../quality/index.html">Quality review</a>
     <a href="../glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    <span class="author-only"><a href="../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
   </nav>
 </header>
 <div class="layout">
@@ -34,9 +34,9 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../data-standardization-and-integration/index.html">4 Data Standardization and Integration</a> <span>›</span> <a href="../loinc-in-observation-segments/index.html">4.4 LOINC in Observation Segments</a> <span>›</span> <a href="../obx-segment-mechanics-and-field-usage/index.html">4.4.2 OBX Segment Mechanics and Field Usage</a></nav>
 <header class="card-head"><h1><span class="num">4.4.2.4</span> OBX-4 Observation Sub-ID</h1>
 <button type="button" class="permalink" data-copy="" title="Copy the permanent link to this section">Copy link</button></header>
-<aside class="findings sev-warning" id="findings" aria-label="Quality review findings">
+<aside class="findings sev-warning author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">2 warnings · 2 notes</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul><li class="finding sev-warning" id="qf-verb-in-prose-57892e01"><span class="sev">Warning</span> Narrative uses the conformance verbs SHOULD, SHOULD NOT. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>OBX-4 is used to associate related OBX segments that collectively describe a single logical concept. By default, OBX-4 SHOULD be unique for each OBX segment and SHOULD NOT be reused unless the OBX segments are intended to be interpreted together.</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-57892e01">qf-verb-in-prose-57892e01</a></li><li class="finding sev-warning" id="qf-verb-in-prose-72f591e1"><span class="sev">Warning</span> Narrative uses the conformance verbs SHALL, SHOULD. Move the requirement to a conformance statement, or use lowercase wording if it is not a requirement.<blockquote>When OBX-4 is used to group observations, the shared value SHALL be unique within the set of OBX segments under a given ORC/RXA and the related OBX segments SHOULD appear sequentially. Systems (including IIS, submitting, and querying systems) SHALL support both grouped and ungrouped OBX-4 usage and…</blockquote><a class="f-id" href="../quality/index.html#qf-verb-in-prose-72f591e1">qf-verb-in-prose-72f591e1</a></li><li class="finding sev-note" id="qf-sisc-msl-11"><span class="sev">Note</span> SISC guidance Guidance on Detailed Message Structure and the Use of Specific LOINC Codes (Structure of the VXU (Z22) message; Z32; Z42): Reworded. The guide uses OBX-4 for the same purposes, but for VIS it says submitting systems SHOULD populate OBX-4 and IIS SHOULD use it when present, which is weaker than &quot;must&quot;.<div class="evidence"><div class="ev-tags"><span>Reworded</span><span>Action: Narrative</span></div><div class="ev"><span class="ev-k">Guidance</span> Related OBX segments must be linked with the same sub-ID in OBX-4: the observations about one VIS, and the observations in one evaluation or one forecast set.</div><div class="ev"><span class="ev-k">Recommendation</span> Confirm that SHOULD for VIS linking is intended, since the guidance (and Release 1.5) required it.</div></div><p class="mini"><a href="../sisc/message-structure-and-loinc-codes/index.html#sisc-msl-11">See the SISC guidance comparison</a></p><a class="f-id" href="../quality/index.html#qf-sisc-msl-11">qf-sisc-msl-11</a></li><li class="finding sev-note" id="qf-tab-cds-06"><span class="sev">Note</span> TAB CDS in RSP Alignment (Evaluation observations): In narrative only. For forecasts, OBX-4 linking is a statement (4.7.8.1 s2). For evaluations, the guide says only that shared OBX-4 values group &quot;related evaluation or recommendation observations&quot; (4.4.2.4), with no SHALL.<div class="evidence"><div class="ev-tags"><span>In narrative only</span><span>Action: Narrative</span></div><div class="ev"><span class="ev-k">TAB</span> Evaluation information SHALL be communicated with OBX segments using the LOINC codes in Table 2, and the observations SHALL be linked by an identical value in OBX-4.</div><div class="ev"><span class="ev-k">Recommendation</span> Add to 4.7.7: &quot;The OBX segments of each evaluated group SHALL share an OBX-4 value.&quot;</div></div><p class="mini"><a href="../tabs/cds-in-rsp-alignment/index.html#tab-cds-06">See the TAB comparison</a></p><a class="f-id" href="../quality/index.html#qf-tab-cds-06">qf-tab-cds-06</a></li></ul></details></aside>
 <div class="narrative"><p><a class="sref" href="../structure/segments/obx/index.html#f4" title="Observation Sub-ID">OBX-4</a> is used to associate related OBX segments that collectively describe a single logical concept. By default, <a class="sref" href="../structure/segments/obx/index.html#f4" title="Observation Sub-ID">OBX-4</a> SHOULD be unique for each OBX segment and SHOULD NOT be reused unless the OBX segments are intended to be interpreted together.</p>
 <p>Shared <a class="sref" href="../structure/segments/obx/index.html#f4" title="Observation Sub-ID">OBX-4</a> values are used in specific, well-defined situations, including:</p>
@@ -49,7 +49,7 @@
 <section class="xref" aria-labelledby="xref-h"><details>
 <summary><h2 id="xref-h">Message structure for the fields on this page</h2> <span class="mini">1 field · from the IGAMT export</span></summary>
 <p class="mini">Usage, cardinality, and data type of each field in each message profile, the value sets that govern its code, and the
-conformance statements that test it. <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</p>
+conformance statements that test it.<span class="author-only"> <a href="../quality/igamt/index.html">How the narrative compares with these profiles</a>.</span></p>
 <div class="table-wrap"><table class="xref-table"><thead><tr><th>Field</th><th>Usage [cardinality] data type: where</th><th>Value sets</th><th>Constraints</th></tr></thead>
 <tbody><tr><th scope="row"><a href="../structure/segments/obx/index.html#f4"><code>OBX-4</code></a><div class="mini">Observation Sub-ID</div></th><td><div class="u-row"><span class="u">R [1..1] NM</span> <span class="u-where">Z22 OBX_IZ01_COCON9-9_5-9_5_1_69a6e3c65a4cb90006fe8a17, Z32 OBX_IZ02_COCON12-12_4-12_4_1_69a6e3c65a4cb90006fe8a18, Z42 OBX_IZ03_COCON8-8_4-8_4_1_69a6e3c65a4cb90006fe8a15</span></div></td><td><span class="mini">—</span></td><td><abbr class="cs" title="Z22.ORDER: If RXA-20 is valued &#x27;CP&#x27; or &#x27;PA&#x27; and the first occurrence of RXA-9.1 is valued &#x27;00&#x27; and RXA-5.1 is valued with a CVX code from table PHVS_VISVaccines_IIS (See Appendix A) then for each vaccine information statement that was shared there SHALL be:[one OBX segment with OBX-3.1 valued &#x27;69764-9&#x27; (bar coded) and one OBX with OBX-3.1 valued &#x27;29769-7&#x27; (presentation or delivery date) associated. Both OBX shall have the same value in OBX-4] OR [one OBX segment with OBX-3.1 valued &#x27;30956-7&#x27; (vaccine type) and one OBX segment with OBX-3.1 valued &#x27;29768-9&#x27; (version date) and one OBX with OBX-3.1 valued &#x27;29769-7&#x27; (presentation or delivery date) associated. All three OBX shall have the same value in OBX-4]">IZ-24</abbr> <abbr class="cs" title="OBX_IZ01: OBX-4 (Observation Sub-ID) shall contain a positive integer.">IZ-44</abbr></td></tr></tbody></table></div></details></section>
 
@@ -67,8 +67,8 @@ conformance statements that test it. <a href="../quality/igamt/index.html">How t
 <footer class="site-footer">
   <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
   Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
-  <p class="build">Built 2026-11-17 19:38 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit cc46130.
-  <a href="../about/index.html">How this guide works</a> · <a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="../assets/nav.js"></script>

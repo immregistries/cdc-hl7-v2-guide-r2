@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-edition="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA questions: Bidirectional Exchange · CDC HL7 v2 Guide (Release 2)</title>
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>(function(){var d=document.documentElement;try{var t=JSON.parse(localStorage.getItem("content-guide-token:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null'),a=JSON.parse(localStorage.getItem("guide-author:https://informatics.immregistries.org/hub:cdc-hl7-v2-guide-r2")||'null');if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')}}catch(e){}})();</script>
+</head>
+<body class="" data-root="../../" data-card="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-bar" role="note"><strong>DRAFT</strong> · Draft for review. Not for implementation.</div>
+<header class="topbar">
+  <button class="tree-toggle" type="button" aria-controls="tree" aria-expanded="false" title="Contents">☰</button>
+  <a class="brand" href="../../index.html">
+    <span class="publishers">CDC · AIRA</span>
+    <span class="guide-name">CDC HL7 v2 Guide (Release 2)</span>
+  </a>
+  <nav class="toplinks" aria-label="Guide">
+    <a href="../../contents/index.html">Contents</a>
+    <a href="../../glossary/index.html">Glossary</a>
+    <span class="author-only"><a href="../../quality/index.html">Quality review</a></span>
+    <button class="view-toggle" type="button" aria-pressed="false">Author view</button>
+  </nav>
+</header>
+<div class="layout">
+  <nav class="tree" id="tree" aria-label="Table of contents">
+    <div class="tree-filter"><input type="search" placeholder="Filter: title, field, code (e.g. RXA-20 RE)" aria-label="Filter the contents by title, field, code, or term"><p class="filter-status" aria-live="polite"></p></div>
+    <div class="tree-body"><a href="../../contents/index.html">Table of contents</a></div>
+  </nav>
+  <main id="main" tabindex="-1">
+<article class="page tabs ta">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../ta/index.html">TA Questions</a></nav>
+<p class="eyebrow">TA questions · topic</p>
+<h1>Bidirectional Exchange</h1>
+<p class="callout">Working analysis for the authors, from questions asked of AIRA's technical assistance service. Not part of the guide.</p>
+<p class="stats">6 questions. Findings: <span class="mini">none</span><br><span class="mini">Not yet assessed</span></p>
+
+<h2>What was asked</h2>
+<div class="ta-overview"><p>Questions in this section ask what "bidirectional" exchange means, how an IIS should start returning data to providers (HL7 v2 QBP/RSP versus CCD push or other mechanisms), where query capability should live (IIS or HIE), and how data flowing back to EHRs interacts with reconciliation and with patient-supplied updates. A recurring theme is that the HL7 v2 QBP/RSP query model is the nationally certified, recommended path, and that EHR-side reconciliation should not depend on optional response elements such as lot number.</p></div>
+<details><summary>IG clarifications suggested when the TA records were consolidated (1)</summary><ul><li>No ig_notes were recorded for this section. Possible clarifications: define &quot;bidirectional exchange&quot; formally; state that RSP lot number is optional (RE/O) and that receivers should not depend on it for reconciliation; and note that IIS are not required by HL7 to overwrite stored data with newly received data.</li></ul></details>
+<ul class="ta-toc"><li><a href="#g-0">Definition and Scope</a> <span class="mini">2</span></li><li><a href="#g-1">Choosing an Approach: HL7 v2 Query vs CCD and Other Options</a> <span class="mini">2</span></li><li><a href="#g-2">Reconciliation and Data Flowing Back to Providers</a> <span class="mini">2</span></li></ul>
+<h2 id="g-0">Definition and Scope</h2><section class="ta-q r-unassessed" id="ta-q02-042">
+<h3>What is the definition of bidirectional exchange?</h3>
+<p class="mini">Asked 1× · 2017 · VXU/QBP · Answered</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>There is no official definition. Meaningful Use Stage 3 (MU3) considers it to be an EHR's capability to both submit (VXU) and query (QBP).</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q01-052">
+<h3>How should bidirectional interfacing be implemented, and how should facilities be coded in messages?</h3>
+<p class="mini">Asked 1× · 2016 · QBP/RSP · No answer recorded · Related: MSH-4, RXA-11</p>
+<div class="ta-grid"><div><p class="ta-answer mini">No answer recorded.</p></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-1">Choosing an Approach: HL7 v2 Query vs CCD and Other Options</h2><section class="ta-q r-unassessed" id="ta-q08-025">
+<h3>Should an IIS return immunization data to practices using CCDs (pushed to sites, or returned from a query) instead of implementing true HL7 v2 QBP/RSP bidirectional exchange?</h3>
+<p class="mini">Asked 2× · 2021 · QBP/RSP · Answered · Related: Query &amp; Response Behavior</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>AIRA recommends going directly to a true bidirectional, immediate-response HL7 v2 QBP/RSP interface, the current national guide. EHRs have been certified to do this, so they should be able to use it immediately. AIRA was not aware of any IIS sending back CCDs and had not seen questions or experience with them. AIRA can help with documentation on the standards, testing tools, a reference implementation, example code and measurement reports.</p>
+<p>Technically an IIS could create a CCD containing immunization information and send it to an EHR. However, this is not a typical way to share immunization data across the community, and it would mean onboarding with a new, atypical standard. Questions to answer first: - Can the EHRs actually accept and use a CCD? Their ability to read and use CCD content is limited, and often they only display it. - How standardized does the CCD need to be? - How would it be transported, for example through an existing HIE conduit? - What would trigger sending one?</p>
+<p>The HL7 v2 query model is a "pull": any authorized EHR can query any patient. A CCD is a "push", so the IIS would have to decide which EHR gets each update (probably only those that submitted a vaccination) or build a request mechanism. CCD is an HL7 v3 standard. v3 interfaces typically take about three times longer to implement than v2, and the community has largely moved away from it. Implementing the HL7 v2 query interface would probably be faster. Even a query interface that only supports querying by MRN would be quick to set up and very valuable to providers. Sending flat files back to clinics is another, simpler option.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q09-011">
+<h3>An IIS has two HIEs (a statewide HIE and an in-house HIE created for COVID). Where should bidirectional query capability be implemented: in either one, or both?</h3>
+<p class="mini">Asked 1× · 2021 · QBP/RSP · Answered · Related: Transport/Connectivity</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>From the outside, either would work, as long as the one used provides a real-time view of the patient's immunization record and evaluation/forecast. Nearly all IIS have implemented query directly, but at least one uses its HIE to handle query requests.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><h2 id="g-2">Reconciliation and Data Flowing Back to Providers</h2><section class="ta-q r-unassessed" id="ta-q13-028">
+<h3>Is there guidance on how an EHR should automatically deduplicate/reconcile vaccines (e.g., COVID) received from the IIS, when the EHR&#x27;s logic relies heavily on lot number?</h3>
+<p class="mini">Asked 1× · 2021 · RSP · Answered · Related: RXA-15, Patient Matching &amp; Deduplication</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>IIS must auto-reconcile everything. They should use the best practice guide "Vaccination Level Deduplication in Immunization Information Systems" (2006; the methodology is still sound), in whole or in part, for every transaction. It is unclear how much of it applies directly to an EHR.</p>
+<p>A caution about logic that hinges on lot number: the query response profile used for Meaningful Use does not require the IIS to return lot number even when it has it. Lot number is optional. Nearly all IIS return it, but not all do, so EHR reconciliation should not depend on it.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section><section class="ta-q r-unassessed" id="ta-q18-005">
+<h3>Providers resending older demographic or vaccination data are overwriting patient-portal updates in the IIS. Could the IIS push updated patient information to providers in an HL7 message, has any jurisdiction done this, and is there another way to keep patient-supplied updates from being overwritten?</h3>
+<p class="mini">Asked 1× · 2022 · VXU · Answered · Related: Patient Matching &amp; Deduplication, Data Quality &amp; Validation</p>
+<div class="ta-grid"><div><div class="ta-answer"><p class="ta-k">Answer given</p><p>It helps to separate patient-level data from immunization-level data. One jurisdiction is known to push updates for vaccination events. Providers may be interested in immunization-level updates. They are much less interested in demographic updates, because they rarely rely on the IIS for current demographics, so pushing demographic updates may have little value.</p>
+<p>The other option is to adjust the IIS business rules for accepting demographic data. If the IIS believes the consumer-supplied data on file is better than provider data, it is well within its rights to keep it. No HL7 rule requires an IIS to overwrite existing data with newly received data.</p></div></div>
+<div class="ta-assess"><p class="ta-k">Can the guide answer it?</p><span class="mini">Not yet assessed against the guide.</span></div></div>
+</section>
+</article>
+
+  </main>
+</div>
+<footer class="site-footer">
+  <p><strong>DRAFT</strong> — HL7 Version 2.5.1 Implementation Guide for Immunization Messaging, Release 2. A joint publication of the
+  Centers for Disease Control and Prevention and the American Immunization Registry Association. Draft for review. Not for implementation.</p>
+  <p class="build">Built 2026-11-18 11:42 UTC from narrative draft <code>NationalIG_Draft_11042026.docx</code>, commit aa7e929.
+  <span class="author-only"><a href="../../about/index.html">How this guide is made</a> · </span><a href="https://github.com/immregistries/cdc-hl7-v2-guide-r2">Source on GitHub</a>.</p>
+</footer>
+<dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
+<script src="../../assets/nav.js"></script>
+<script src="../../assets/site.js"></script>
+
+</body>
+</html>
