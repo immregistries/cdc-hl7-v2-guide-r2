@@ -21,6 +21,7 @@ from collections import defaultdict
 
 from guidecards import write_text
 from structure_index import FIELD_RE, PROFILE_ORDER, Model
+import view
 
 COCON_RE = re.compile(r"^(?P<base>[A-Z0-9]+_[A-Z0-9]+)_COCON.*_(?P<msg>[0-9a-f]{24})$")
 USAGE_HELP = {"R": "Required", "RE": "Required, may be empty", "O": "Optional", "C": "Conditional", "X": "Not supported",
@@ -493,8 +494,8 @@ with their value type (OBX-2) and value set (OBX-5). Applies at {loc}. A table a
 <h1><span class="num">7</span> Message Infrastructure</h1>
 <p>This chapter is generated from the IGAMT conformance export{f' (<code>{esc(export.group(1))}</code>)' if export else ''}. IGAMT is the
 authoritative source for message structure: corrections are made there and appear here with the next export. Sections of the guide that
-mention a field, profile, or value set link to these pages, and each segment page lists the sections that discuss its fields.
-The <a href="{root}quality/igamt/index.html">narrative and IGAMT comparison</a> lists where the two disagree.</p>
+mention a field, profile, or value set link to these pages, and each segment page lists the sections that discuss its fields.{view.author(
+f' The <a href="{root}quality/igamt/index.html">narrative and IGAMT comparison</a> lists where the two disagree.', "span")}</p>
 {gen_panel}
 <nav class="page-toc" aria-label="On this page"><ol><li><a href="#profiles">Message profiles ({len(profiles)})</a></li>
 <li><a href="#segments">Segments ({len(names)})</a></li><li><a href="#coconstraints">OBX co-constraints</a></li>

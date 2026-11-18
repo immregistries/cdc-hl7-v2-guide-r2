@@ -11,8 +11,11 @@
 The guide is published as a website: a navigable tree of short, focused
 sections ("cards"), followed by the message conformance profiles, segments,
 data types, and value sets. Each card has a permanent link and can be commented
-on. Quality findings from automated and editorial review appear alongside the
-text, so reviewers can see and respond to them in context.
+on. Quality findings from automated and editorial review, and the comparisons
+with other documents, appear alongside the text in an **author view**, shown only
+to the guide's authors (confirmed through InteropHub sign-in); readers see the
+guide alone. A release build leaves the author material out entirely. See
+[docs/architecture.md](docs/architecture.md#reader-and-author-views).
 
 ## How the guide is built
 

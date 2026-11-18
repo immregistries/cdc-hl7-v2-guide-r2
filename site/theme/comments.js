@@ -16,6 +16,7 @@
   var key = cfg.document;
   var tokenKey = "content-guide-token:" + hub + ":" + key;
   var authKey = "content-guide-signin:" + hub + ":" + key;
+  var authorKey = "guide-author:" + hub + ":" + key;  // read by the script in <head> (tools/build_site.py view_script)
   var auth = readJson(localStorage, tokenKey);
   var info = null;
   var threads = [];
@@ -31,6 +32,23 @@
   function writeJson(store, k, v) {
     try { if (v === null) store.removeItem(k); else store.setItem(k, JSON.stringify(v)); } catch (e) { /* storage off */ }
   }
+  // ------------------------------------------------------------------ author view
+  // InteropHub says whether the signed-in person is an author of this guide (permissions.isAuthor: can edit the topic,
+  // the same check that lets them dispose of and close comments). Cached with the sign-in's expiry, so the next page
+  // can show the author view before it is drawn. The author edition (--edition author) always shows it.
+  function setAuthor(isAuthor) {
+    var d = document.documentElement;
+    if (d.getAttribute("data-edition") !== "draft") return;
+    writeJson(localStorage, authorKey, isAuthor && auth ? { isAuthor: true, expiresAt: auth.expiresAt } : null);
+    var was = d.classList.contains("is-author");
+    if (isAuthor === was) return;
+    d.classList.toggle("is-author", isAuthor);
+    var reader = false;
+    try { reader = localStorage.getItem("guide-view") === "reader"; } catch (e) { /* storage off */ }
+    d.classList.toggle("author-view", isAuthor && !reader);
+    document.dispatchEvent(new Event("guide-author"));
+  }
+
   function signedIn() {
     if (auth && auth.accessToken && Date.parse(auth.expiresAt) > Date.now()) return true;
     if (auth) { auth = null; writeJson(localStorage, tokenKey, null); }
@@ -46,6 +64,7 @@
     }).then(function (r) {
       if (r.status === 401 && opts.token !== false) {
         auth = null; writeJson(localStorage, tokenKey, null);
+        setAuthor(false);
         throw { signin: true, message: "Sign in to see and add comments." };
       }
       if (r.status === 204) return null;
@@ -108,6 +127,7 @@
     request("/api/guide/token", { method: "DELETE" }).catch(function () {}).then(function () {
       auth = null; writeJson(localStorage, tokenKey, null);
       threads = []; info = null;
+      setAuthor(false);
       if (switchAccount) beginSignIn(true); else render();
     });
   }
@@ -147,6 +167,7 @@
     }).then(function (d) {
       if (!d) return;
       info = d;
+      setAuthor(!!(d.permissions && d.permissions.isAuthor));
       if (!d.permissions || !d.permissions.canView) { threads = []; return; }
       return request(api + "/comments" + (showClosed ? "?state=all" : "")).then(function (r) {
         threads = r.comments || [];

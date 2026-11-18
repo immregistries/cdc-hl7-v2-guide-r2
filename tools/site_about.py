@@ -1,4 +1,4 @@
-"""The "How this guide works" page (about/index.html): a walk-through for CDC, reviewers, and readers."""
+"""The "How this guide is made" page (about/index.html): a walk-through for the authors. Author view only."""
 
 from __future__ import annotations
 
@@ -18,14 +18,15 @@ def page(root: str, guide: dict, stats: dict, by_id: dict) -> str:
 
     s = stats
     return f"""<article class="page about">
-<p class="eyebrow">About this draft</p>
-<h1>How this guide works</h1>
+<p class="eyebrow">For the authors</p>
+<h1>How this guide is made</h1>
 <p class="lede">This website is a working draft of the {esc(guide['title'])}, {esc(guide['release'])}, a joint publication of
 CDC and AIRA. It presents the same content as the Word draft and the IGAMT conformance profiles. The content is split into short
 sections that link to each other, and quality checks run on every change. This page walks through what the site does and how
-it is built.</p>
+it is built. It is part of the <a href="#views">author view</a>: readers see the guide only.</p>
 
 <nav class="page-toc" aria-label="On this page"><ol>
+<li><a href="#views">The author view and the reader view</a></li>
 <li><a href="#finding">Finding your way</a></li>
 <li><a href="#section">Reading a section</a></li>
 <li><a href="#structure">Message structure (chapter 7)</a></li>
@@ -35,6 +36,23 @@ it is built.</p>
 <li><a href="#built">How it is built, and what is authoritative</a></li>
 <li><a href="#next">What comes next</a></li>
 </ol></nav>
+
+<section id="views"><h2>The author view and the reader view</h2>
+<p>The guide is written for readers. Everything about how it is made (the quality findings, the comparisons with Release 1.5,
+IGAMT, the TABs, the SISC guidance, the MIROW documents, and the TA questions, the proposed analyses, and this page) is for the
+authors, and appears only in the <strong>author view</strong>. None of it is secret: it is public on GitHub. It is hidden because
+readers do not need it.</p>
+<ul>
+<li><strong>Who sees it.</strong> The author view turns on when you sign in (in any Comments panel) and InteropHub confirms you
+are an author of this guide: an editor of the <a href="{esc(guide.get('interophub_topic', '#'))}">InteropHub topic</a>, the same
+people who can record dispositions and close comments. Everyone else sees the reader view, with no switch and no mention of it.</li>
+<li><strong>Switching.</strong> Authors get a <strong>Reader view</strong> / <strong>Author view</strong> button at the top
+right, to see the guide as readers do. The choice is remembered.</li>
+<li><strong>What changes.</strong> In the reader view, the findings panels and ⚑ marks, the counts in the contents, the panels
+linking to the comparisons, the example checks, and this lower part of the contents are hidden.</li>
+<li><strong>Releases.</strong> A formal release is built without any of this (<code>build_site.py --edition release</code>).</li>
+</ul>
+</section>
 
 <section id="finding"><h2>Finding your way</h2>
 <ul>
@@ -72,7 +90,7 @@ the contents by it.</li>
 </ol>
 <p>{s['cards']} sections hold {s['statements']} conformance statements. Many requirements were written as plain paragraphs in the
 Word draft. They are shown as numbered statements here, with their wording unchanged, and each section where this was done says
-so in its quality notes.</p>
+so in its quality findings.</p>
 </section>
 
 <section id="structure"><h2>Message structure (chapter 7)</h2>
@@ -121,8 +139,8 @@ close the thread. The same comments are available in InteropHub, and links from 
 <section id="quality"><h2>Quality review</h2>
 <p>Automated checks and an editorial review run on every change. Their results, called <strong>findings</strong>, appear in a
 panel at the top of the section they concern, and in the <a href="{root}quality/index.html">Quality review</a> list
-({s['findings']} findings now). They are for the authors and reviewers. They are not part of the guide, and
-<strong>Hide findings</strong> (top right) turns them off for reading.</p>
+({s['findings']} findings now). They are for the authors and are not part of the guide; <strong>Reader view</strong>
+(top right) hides them.</p>
 <ul>
 <li><strong>Severity:</strong> <em>issue</em> (likely wrong), <em>warning</em> (inconsistent or unclear), <em>note</em> (worth
 considering).</li>

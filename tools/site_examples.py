@@ -10,6 +10,7 @@ from __future__ import annotations
 import html
 
 import hl7msg
+import view
 from structure_index import Model
 
 NEEDS_INPUT = ("Question", "Need help", "Not sure what was envisioned")
@@ -78,7 +79,7 @@ class Renderer:
         legend = ' <span class="mini">Highlighted: what this example shows; marked fields differ from the base message.</span>' if base else ""
         text = esc(m["message"])
         return (f'{label}<div class="hl7-wrap"><button type="button" class="hl7-copy" data-text="{text}">Copy</button>'
-                f'<pre class="hl7" tabindex="0">{"".join(lines)}</pre></div>{legend}{check}')
+                f'<pre class="hl7" tabindex="0">{"".join(lines)}</pre></div>{legend}{view.author(check)}')
 
     def example_html(self, ex: dict, root: str, by_id: dict, current_card: str | None = None) -> str:
         self.root = root
@@ -91,7 +92,7 @@ class Renderer:
         if ex.get("kind") == "base":
             chips.append('<span class="chip">base message</span>')
         if status in NEEDS_INPUT:
-            chips.append(f'<span class="chip warn" title="Status in CDC\'s example list">{esc(status)}</span>')
+            chips.append(view.author(f'<span class="chip warn" title="Status in CDC\'s example list">{esc(status)}</span>', "span"))
         notes = "".join(f"<p>{esc(n)}</p>" for n in ex.get("notes", []))
         msgs = "".join(self.message_html(ex, k, m) for k, m in enumerate(ex["messages"]))
         others = [by_id[c] for c in ex.get("cards", []) if c in by_id and c != current_card]
@@ -121,6 +122,11 @@ class Renderer:
         rows_by = {r["row"]: r for r in list_meta.get("rows", [])}
         missing = [rows_by[n] for n in list_meta.get("unmatched_rows", []) if n in rows_by]
         parts = []
+        # the check results and CDC's list status are for the authors: shown in the author view only, left out of a release
+        checks_th = "" if view.release() else '<th class="author-only">Checks</th>'
+
+        def checks_td(text):
+            return "" if view.release() else f'<td class="n author-only">{text}</td>'
         for g in order:
             if g not in groups:
                 continue
@@ -133,12 +139,12 @@ class Renderer:
                                   for c in ex.get("cards", []) if c in by_id)
                 lis.append(f'<tr id="ex-{esc(ex["id"])}"><td><a href="{root}{ex["cards"][0]}/index.html#ex-{esc(ex["id"])}">{esc(ex["title"])}</a>'
                            if ex.get("cards") and ex["cards"][0] in by_id else f'<tr><td>{esc(ex["title"])}')
-                lis[-1] += (f'</td><td>{esc(ex.get("profile") or "")}</td><td>{cards}</td>'
-                            f'<td>{"<span class=chip>" + str(len(ex["messages"])) + " msgs</span>" if ex.get("kind") == "sequence" else ""}'
-                            f'{"<span class=\'chip warn\'>" + esc(status) + "</span>" if status in NEEDS_INPUT else ""}</td>'
-                            f'<td class="n">{"✓" if not n else "⚠ " + str(n)}</td></tr>')
+                warn = view.author(f'<span class="chip warn">{esc(status)}</span>', "span") if status in NEEDS_INPUT else ""
+                msgs = f'<span class="chip">{len(ex["messages"])} msgs</span>' if ex.get("kind") == "sequence" else ""
+                lis[-1] += (f'</td><td>{esc(ex.get("profile") or "")}</td><td>{cards}</td><td>{msgs}{warn}</td>'
+                            + checks_td("✓" if not n else "⚠ " + str(n)) + "</tr>")
             parts.append(f'<section><h2>{esc(g)}</h2><div class="table-wrap"><table class="model"><thead><tr><th>Example</th><th>Profile</th>'
-                         f'<th>Shown on</th><th>Status</th><th>Checks</th></tr></thead><tbody>{"".join(lis)}</tbody></table></div></section>')
+                         f'<th>Shown on</th><th>Messages</th>{checks_th}</tr></thead><tbody>{"".join(lis)}</tbody></table></div></section>')
         miss = "".join(f"<li><strong>{esc(r['item'])}</strong>: {esc(r['example'])} <span class='mini'>({esc(r['sub_section'])}; {esc(r['status'])})</span></li>"
                        for r in missing)
         return f"""<article class="page model-page">
@@ -148,8 +154,9 @@ class Renderer:
 Examples drafted as clips (only the segments that matter) are completed from a base message, so that every example is a whole
 message. Each one is checked against the IGAMT profiles on every build: segments, required and unsupported fields, codes,
 date and time formats, conformance statements, and OBX co-constraints.</p>
-<p class="stats">{total} examples · {clean} with no problems of their own · {needs} still marked as needing input in CDC's list ·
-{len(missing)} requested in the list but not drafted yet.</p>
+<p class="stats">{total} examples{view.author(
+    f" · {clean} with no problems of their own · {needs} still marked as needing input in CDC's list · "
+    f"{len(missing)} requested in the list but not drafted yet", "span")}.</p>
 {''.join(parts)}
-{f'<section><h2>Requested but not drafted yet</h2><ul>{miss}</ul></section>' if miss else ''}
+{view.author(f'<section><h2>Requested but not drafted yet</h2><ul>{miss}</ul></section>' if miss else '')}
 </article>"""

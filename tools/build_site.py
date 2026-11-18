@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Build the guide website from committed content.
 
-    python tools/build_site.py                  # writes output/site/
+    python tools/build_site.py                      # writes output/site/
     python tools/build_site.py --out somewhere
+    python tools/build_site.py --edition author     # author view always on (local preview)
+    python tools/build_site.py --edition release    # no author material at all (formal releases)
 
 Each card becomes a page at <card-id>/index.html. The left navigation tree is
-drawn from assets/nav.js. Quality findings (tools/check_cards.py) appear on the
-pages they concern and in the Quality review page. Needs PyYAML only.
+drawn from assets/nav.js. Quality findings (tools/check_cards.py) appear, in the
+author view only, on the pages they concern and in the Quality review page; see
+tools/view.py for the reader and author views. Needs PyYAML only.
 """
 
 from __future__ import annotations
@@ -36,6 +39,7 @@ import ta_review  # noqa: E402
 import site_err5  # noqa: E402
 import site_proposals  # noqa: E402
 import site_r15  # noqa: E402
+import view  # noqa: E402
 from structure_index import FIELD_RE, Model  # noqa: E402
 from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
 
@@ -103,22 +107,46 @@ def review_html(root: str, guide: dict, review: dict | None) -> tuple[str, str]:
     return panel, scripts
 
 
+def view_script(guide: dict) -> str:
+    """Runs before the page is drawn, so the author view appears without a flash. Draft edition: on only while the
+    InteropHub sign-in that comments.js stored is unexpired and InteropHub said (cached by comments.js) that this person
+    is an author. Author edition: always on. Either way the person's choice of the reader view is kept."""
+    if view.release():
+        return ""
+    keep_reader = "if(localStorage.getItem('guide-view')!=='reader')d.classList.add('author-view')"
+    if view.edition() == "author":
+        return f"<script>(function(){{var d=document.documentElement;d.classList.add('is-author');try{{{keep_reader}}}catch(e){{d.classList.add('author-view')}}}})();</script>"
+    settings = comments_settings(guide)
+    if not settings:
+        return ""  # no InteropHub, so no way to confirm an author: the reader view only
+    hub, key = settings["hub"].rstrip("/"), settings["document"]
+    tk, ak = json.dumps(f"content-guide-token:{hub}:{key}"), json.dumps(f"guide-author:{hub}:{key}")
+    return ("<script>(function(){var d=document.documentElement;try{"
+            f"var t=JSON.parse(localStorage.getItem({tk})||'null'),a=JSON.parse(localStorage.getItem({ak})||'null');"
+            "if(t&&a&&a.isAuthor&&a.expiresAt===t.expiresAt&&Date.parse(t.expiresAt)>Date.now()){d.classList.add('is-author');"
+            f"{keep_reader}}}"
+            "}catch(e){}})();</script>")
+
+
 def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id: str = "", page_class: str = "",
-          review: dict | None = None) -> str:
+          review: dict | None = None, author_page: bool = False) -> str:
+    """A page. author_page: a page of author material (kept out of search engines; linked only from the author view)."""
     status = esc(guide.get("status", "Draft"))
     if review is None and page_class == "home":
         # the home page shows no panel but routes InteropHub comment links (#comment-<id>)
         review = {"anchor": "home", "title": "Home", "panel": False}
     panel, review_scripts = review_html(root, guide, review)
+    robots = '<meta name="robots" content="noindex">\n' if author_page else ""
+    toggle = "" if view.release() else '<button class="view-toggle" type="button" aria-pressed="false">Author view</button>'
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" data-edition="{view.edition()}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title)} · {esc(guide['short_title'])}</title>
+{robots}<title>{esc(title)} · {esc(guide['short_title'])}</title>
 <link rel="stylesheet" href="{root}assets/tokens.css">
 <link rel="stylesheet" href="{root}assets/site.css">
-<script>try{{if(localStorage.getItem('guide-hide-findings')==='1')document.documentElement.classList.add('hide-findings')}}catch(e){{}}</script>
+{view_script(guide)}
 </head>
 <body class="{page_class}" data-root="{root}" data-card="{esc(card_id)}">
 <a class="skip" href="#main">Skip to content</a>
@@ -131,9 +159,9 @@ def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id
   </a>
   <nav class="toplinks" aria-label="Guide">
     <a href="{root}contents/index.html">Contents</a>
-    <a href="{root}quality/index.html">Quality review</a>
     <a href="{root}glossary/index.html">Glossary</a>
-    <button class="findings-toggle" type="button" aria-pressed="false">Hide findings</button>
+    {view.author(f'<a href="{root}quality/index.html">Quality review</a>', "span")}
+    {toggle}
   </nav>
 </header>
 <div class="layout">
@@ -150,7 +178,7 @@ def shell(*, root: str, title: str, body: str, guide: dict, build: dict, card_id
   <p><strong>{status.upper()}</strong> — {esc(guide['title'])}, {esc(guide['release'])}. A joint publication of the
   {' and the '.join(esc(p['name']) for p in guide['publishers'])}. {esc(guide.get('status_note', ''))}</p>
   <p class="build">Built {esc(build['date'])} from narrative draft <code>{esc(build['source'])}</code>{esc(build['commit'])}.
-  <a href="{root}about/index.html">How this guide works</a> · <a href="{esc(guide['repository'])}">Source on GitHub</a>.</p>
+  {view.author(f'<a href="{root}about/index.html">How this guide is made</a> · ', "span")}<a href="{esc(guide['repository'])}">Source on GitHub</a>.</p>
 </footer>
 <dialog class="lightbox" aria-label="Figure"><form method="dialog"><button class="close" aria-label="Close">×</button></form><img alt=""><p class="lb-caption"></p></dialog>
 <script src="{root}assets/nav.js"></script>
@@ -172,7 +200,7 @@ def review_evidence(ev: dict, root: str) -> str:
 
 
 def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
-    if not items:
+    if not items or view.release():
         return ""
     sev = Counter(i["severity"] for i in items)
     summary = " · ".join(f"{sev[s]} {SEV_LABEL[s].lower()}{'s' if sev[s] != 1 else ''}" for s in ("issue", "warning", "note") if sev[s])
@@ -200,9 +228,9 @@ def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
             f'<span class="sev">{SEV_LABEL[i["severity"]]}</span>{where} {esc(i["message"])}{evidence}{disp}'
             f'<a class="f-id" href="{root}quality/index.html#{esc(i["id"])}">{esc(i["id"])}</a></li>'
         )
-    return f"""<aside class="findings sev-{worst}" id="findings" aria-label="Quality review findings">
+    return f"""<aside class="findings sev-{worst} author-only" id="findings" aria-label="Quality review findings">
 <details open><summary><span class="f-title">Quality review</span> <span class="f-count">{summary}</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors and reviewers. Not part of the guide.</p>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
 <ul>{''.join(lis)}</ul></details></aside>"""
 
 
@@ -213,9 +241,9 @@ def statements_html(card, flagged: dict) -> str:
     for s in card.statements:
         verb = s.get("verb", "")
         flag = ""
-        if s["id"] in flagged:
+        if s["id"] in flagged and not view.release():
             sev = flagged[s["id"]]
-            flag = f'<a class="s-flag sev-{sev}" href="#findings" title="This statement has a quality finding">⚑</a>'
+            flag = f'<a class="s-flag sev-{sev} author-only" href="#findings" title="This statement has a quality finding">⚑</a>'
         short = s["id"].rsplit("--", 1)[-1]
         lis.append(
             f'<li id="{esc(s["id"])}"><span class="verb verb-{VERB_CLASS.get(verb, "may")}">{esc(verb)}</span>'
@@ -288,7 +316,9 @@ def git_commit() -> str:
     return f", commit {sha[:7]}" if sha else ""
 
 
-def build(out: Path) -> dict:
+def build(out: Path, edition: str = "draft") -> dict:
+    view.set_edition(edition)
+    release = view.release()
     guide = read_yaml(DATA_DIR / "guide.yml", {})
     source = (read_yaml(CARDS_DIR / META / "source.yml", {}) or {}).get("narrative_docx", {})
     build_info = {
@@ -300,8 +330,8 @@ def build(out: Path) -> dict:
     xref = (structure or {}).get("xref", {})
     cards = list(walk(roots))
     by_id = {c.id: c for c in cards}
-    ta_data = ta_review.load(REPO, by_id)  # local builds only: the TA records are never committed
-    findings = findings + ta_review.findings(ta_data)
+    ta_data = None if release else ta_review.load(REPO, by_id)
+    findings = [] if release else findings + ta_review.findings(ta_data)
     by_card = defaultdict(list)
     general = []
     for f in findings:
@@ -376,21 +406,21 @@ def build(out: Path) -> dict:
     if err5:
         extra.append({"i": "err5-codes", "t": "National ERR-5 Application Error Codes", "n": "D", "p": "err5-codes/index.html",
                       "f": [0, 0, 0], "k": ["ERR-5", "HL70533", "error code", "application error"]})
-    # below the line: about the draft and the review tools (not part of the guide)
-    meta = [
-        {"i": "about", "t": "How this guide works", "n": "", "p": "about/index.html", "f": [0, 0, 0]},
+    # below the line, in the author view only: how the guide is made, and the review tools (not part of the guide)
+    meta = [] if release else [
+        {"i": "about", "t": "How this guide is made", "n": "", "p": "about/index.html", "f": [0, 0, 0]},
         {"i": "quality", "t": "Quality Review", "n": "", "p": "quality/index.html",
          "f": [sum(f["severity"] == s for f in findings) for s in ("issue", "warning", "note")]},
     ]
-    r15 = site_r15.load(REPO, by_id)
+    r15 = None if release else site_r15.load(REPO, by_id)
     if r15:  # first under Quality Review
         meta.append({"i": "r15", "t": "Changes from Release 1.5", "n": "", "p": "r15/index.html", "f": [0, 0, 0],
                      "k": ["Release 1.5", "2018", "NIST", "changes"]})
-    if structure:
+    if structure and not release:
         cmp_f = [f for f in findings if f["category"] in ("igamt", "igamt-export")]
         meta.append({"i": "quality-igamt", "t": "Narrative vs IGAMT", "n": "", "p": "quality/igamt/index.html",
                      "f": [sum(f["severity"] == s for f in cmp_f) for s in ("issue", "warning", "note")]})
-    review_sets = tab_review.load_all(REPO, by_id)
+    review_sets = {} if release else tab_review.load_all(REPO, by_id)
     tab_data, sisc_data, mirow_data = review_sets.get("tab"), review_sets.get("sisc"), review_sets.get("mirow")
     tab_anchors = {}
     for key, data in review_sets.items():
@@ -398,7 +428,8 @@ def build(out: Path) -> dict:
         set_nav, set_anchors = tab_review.build_pages(
             out, REPO, data, by_id,
             lambda path, title, body, anchor, root: write_text(path, shell(root=root, title=title, body=body, guide=guide, build=build_info,
-                                                                           card_id=anchor, review={"anchor": anchor, "title": title})))
+                                                                           card_id=anchor, review={"anchor": anchor, "title": title},
+                                                                           author_page=True)))
         tab_anchors.update(set_anchors)
         set_f = [f for f in findings if f["category"] == key]
         meta.append({"i": "tabs" if key == "tab" else coll.out_dir, "t": coll.title, "n": "", "p": f"{coll.out_dir}/index.html",
@@ -406,22 +437,27 @@ def build(out: Path) -> dict:
     if ta_data:
         ta_nav, ta_anchors = ta_review.build_pages(
             out, ta_data, by_id,
-            lambda path, title, body, root: write_text(path, shell(root=root, title=title, body=body, guide=guide, build=build_info)))
+            lambda path, title, body, root: write_text(path, shell(root=root, title=title, body=body, guide=guide, build=build_info,
+                                                                   author_page=True)))
         tab_anchors.update(ta_anchors)
         ta_f = [f for f in findings if f["category"] == ta_review.KEY]
         meta.append({"i": ta_review.OUT_DIR, "t": ta_review.TITLE, "n": "", "p": f"{ta_review.OUT_DIR}/index.html",
                      "f": [sum(f["severity"] == s for f in ta_f) for s in ("issue", "warning", "note")], "c": ta_nav})
-    proposals = site_proposals.load(REPO)
+    proposals = None if release else site_proposals.load(REPO)
     if proposals:
         meta.append({"i": "proposals", "t": "Proposed Analyses", "n": "", "p": "quality/proposals/index.html", "f": [0, 0, 0]})
-    page_anchors = {"quality": "quality/index.html", "quality-igamt": "quality/igamt/index.html", **tab_anchors,
-                    "glossary": "glossary/index.html", "resources": "resources/index.html", "examples": "examples/index.html",
+    page_anchors = {"glossary": "glossary/index.html", "resources": "resources/index.html", "examples": "examples/index.html",
                     **structure_anchors}
-    page_anchors["about"] = "about/index.html"
-    page_anchors["err5-codes"] = "err5-codes/index.html"
-    if proposals:
-        page_anchors["proposals"] = "quality/proposals/index.html"
-    page_anchors["r15"] = "r15/index.html"
+    if err5:
+        page_anchors["err5-codes"] = "err5-codes/index.html"
+    if not release:
+        page_anchors.update({"quality": "quality/index.html", "about": "about/index.html", **tab_anchors})
+        if structure:
+            page_anchors["quality-igamt"] = "quality/igamt/index.html"
+        if proposals:
+            page_anchors["proposals"] = "quality/proposals/index.html"
+        if r15:
+            page_anchors["r15"] = "r15/index.html"
     nav = {"nodes": [node(r) for r in roots], "extra": extra, "meta": meta, "anchors": page_anchors}
     write_text(out / "assets" / "nav.js", "window.GUIDE_NAV=" + json.dumps(nav, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
@@ -490,7 +526,7 @@ def build(out: Path) -> dict:
 {tables_html(c)}
 {refs_html}
 {site_err5.card_panel(c.id, err5, root)}
-{tab_review.card_panel(c.id, tab_data, root)}{tab_review.card_panel(c.id, sisc_data, root)}{tab_review.card_panel(c.id, mirow_data, root)}{ta_review.card_panel(c.id, ta_data, root)}
+{view.author(tab_review.card_panel(c.id, tab_data, root) + tab_review.card_panel(c.id, sisc_data, root) + tab_review.card_panel(c.id, mirow_data, root) + ta_review.card_panel(c.id, ta_data, root))}
 {children_html}
 {terms_html(card_terms.get(c.id, []))}
 {pager}
@@ -527,11 +563,10 @@ def build(out: Path) -> dict:
 <p class="publishers-line">A joint publication of the {' and the '.join(esc(p['name']) for p in guide['publishers'])}</p>
 <div class="intro">{minimd.render(guide.get('intro', ''))}</div>
 <p><a class="button" href="{roots[0].id}/index.html">Start reading</a> <a class="button secondary" href="contents/index.html">Table of contents</a>
-<a class="button secondary" href="about/index.html">How this guide works</a></p>
-<p class="new-here">New to this draft? <a href="about/index.html">How this guide works</a> walks through the contents filter,
-sections and conformance statements, the generated message structure, example messages, commenting, and the quality review.</p>
-<p class="stats">{len(cards)} sections · {total_st} conformance statements · <a href="quality/index.html">{len(findings)} quality findings</a>
-({sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes)</p>
+{view.author('<a class="button secondary" href="about/index.html">How this guide is made</a>', "span")}</p>
+<p class="stats">{len(cards)} sections · {total_st} conformance statements{view.author(
+        f' · <a href="quality/index.html">{len(findings)} quality findings</a> ({sev_all["issue"]} issues, {sev_all["warning"]} warnings, '
+        f'{sev_all["note"]} notes)', "span")}</p>
 </section>
 <section class="chapters"><h2>Chapters</h2><ol class="chapter-list">{''.join(chapters)}</ol></section>"""
     write_text(out / "index.html", shell(root="", title="Home", body=landing, guide=guide, build=build_info, page_class="home"))
@@ -553,7 +588,63 @@ sections and conformance statements, the generated message structure, example me
 <li><a href="../resources/index.html"><span class="num">C</span> Resources</a></li></ol></article>"""
     write_text(out / "contents" / "index.html", shell(root="../", title="Contents", body=contents, guide=guide, build=build_info))
 
-    # ---------------------------------------------------------------- quality
+    # ---------------------------------------------------------------- author pages (not in a release)
+    if not release:
+        write_author_pages(out, guide=guide, build_info=build_info, findings=findings, by_id=by_id, structure=structure,
+                           cards=cards, examples=examples, ex_data=ex_data, proposals=proposals, r15=r15)
+
+    # ---------------------------------------------------------------- glossary and resources
+    gl = read_yaml(DATA_DIR / "glossary.yml", {}) or {}
+    parts = [f"<article class='page'><h1>Glossary and Abbreviations</h1>{minimd.render(gl.get('intro', ''))}"]
+    for g in gl.get("groups", []):
+        parts.append(f"<h2>{esc(g['name'])}</h2><dl class='terms'>")
+        for e in g.get("entries", []):
+            anchor = "term-" + re.sub(r"[^a-z0-9]+", "-", e["term"].lower()).strip("-")
+            parts.append(f"<dt id='{anchor}'>{esc(e['term'])}</dt><dd>{minimd.render(e['definition'])}</dd>")
+        parts.append("</dl>")
+    parts.append("</article>")
+    write_text(out / "glossary" / "index.html", shell(root="../", title="Glossary", body="".join(parts), guide=guide, build=build_info,
+                                                       review={"anchor": "glossary", "title": "Glossary and Abbreviations"}))
+
+    rd = read_yaml(DATA_DIR / "references.yml", {}) or {}
+    lis, current_group = [], None
+    for r in rd.get("references", []):
+        if r.get("group") != current_group:
+            current_group = r.get("group")
+            g = next((x for x in rd.get("groups", []) if x["name"] == current_group), {})
+            lis.append(f"</ol><h2>{esc(current_group)}</h2><p>{esc(g.get('description', ''))}</p><ol class='refs'>")
+        title = f'<a href="{esc(r["url"])}" rel="noopener" target="_blank">{esc(r["title"])}</a>' if r.get("url") else esc(r["title"])
+        lis.append(f'<li id="ref-{r["number"]}" value="{r["number"]}">{title}<p>{esc(r.get("description", ""))}</p></li>')
+    resources = f"<article class='page'><h1>Resources</h1>{minimd.render(rd.get('intro', ''))}<ol class='refs'>{''.join(lis)}</ol></article>"
+    write_text(out / "resources" / "index.html", shell(root="../", title="Resources", body=resources, guide=guide, build=build_info,
+                                                        review={"anchor": "resources", "title": "Resources"}))
+
+    # ---------------------------------------------------------------- placeholders
+    if st is None:
+        write_text(out / "structure" / "index.html", shell(root="../", title="Message Infrastructure", guide=guide, build=build_info, body="<article class='page'><h1>Message Infrastructure</h1><p class='empty'>Generated when model/ is present.</p></article>"))
+    ex_body = (ex_renderer.index_page(examples, ex_data.get("list", {}), by_id, "../") if examples else
+               "<article class='page'><h1><span class='num'>A</span> Example Messages</h1><p class='empty'>No examples yet.</p></article>")
+    write_text(out / "examples" / "index.html", shell(root="../", title="Example Messages", guide=guide, build=build_info, body=ex_body,
+                                                       review={"anchor": "examples", "title": "Example Messages"}))
+    if err5:
+        write_text(out / "err5-codes" / "index.html",
+                   shell(root="../", title="National ERR-5 Application Error Codes", guide=guide, build=build_info, card_id="err5-codes",
+                         body=site_err5.page(err5, "../", by_id),
+                         review={"anchor": "err5-codes", "title": "National ERR-5 Application Error Codes"}))
+
+    (out / ".nojekyll").write_text("", encoding="utf-8")
+    return {"cards": len(cards), "findings": len(findings), "out": out}
+
+
+
+def write_author_pages(out: Path, *, guide: dict, build_info: dict, findings: list[dict], by_id: dict, structure: dict | None,
+                       cards: list, examples: list, ex_data: dict, proposals, r15) -> None:
+    """The pages of author material: the quality review, the IGAMT comparison, how the guide is made, the proposed
+    analyses, and the changes from Release 1.5. (The TAB, SISC, MIROW, and TA pages are written with the nav data.)"""
+    def shell_(**kw):
+        return shell(guide=guide, build=build_info, author_page=True, **kw)
+
+    sev_all = Counter(f["severity"] for f in findings)
     by_rule = Counter(f["rule"] for f in findings)
     rule_sev = {}
     for f in findings:
@@ -611,7 +702,7 @@ proposed for this draft, such as alignment with the MIROW best practice guides a
 <p class="stats">{len(findings)} findings: {sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes.</p>
 <table class="rules"><thead><tr><th>Check</th><th>What it looks for</th><th>Count</th></tr></thead><tbody>{rows}</tbody></table>
 {''.join(sections)}</article>"""
-    write_text(out / "quality" / "index.html", shell(root="../", title="Quality review", body=quality, guide=guide, build=build_info,
+    write_text(out / "quality" / "index.html", shell_(root="../", title="Quality review", body=quality,
                                                      review={"anchor": "quality", "title": "Quality review"}))
     write_text(out / "quality" / "findings.csv", site_igamt.findings_csv(findings, by_id, guide.get("site", "")))
     if structure:
@@ -619,79 +710,41 @@ proposed for this draft, such as alignment with the MIROW best practice guides a
         page = site_igamt.comparison_page(structure, findings, by_id, "../../",
                                           {"narrative": build_info["source"], "igamt": model_src.get("export", "unknown")})
         write_text(out / "quality" / "igamt" / "index.html",
-                   shell(root="../../", title="Narrative and IGAMT comparison", body=page, guide=guide, build=build_info,
+                   shell_(root="../../", title="Narrative and IGAMT comparison", body=page,
                          review={"anchor": "quality-igamt", "title": "Narrative and IGAMT comparison",
                                  "targets": site_igamt.review_targets(structure)}))
 
-    # ---------------------------------------------------------------- glossary and resources
-    gl = read_yaml(DATA_DIR / "glossary.yml", {}) or {}
-    parts = [f"<article class='page'><h1>Glossary and Abbreviations</h1>{minimd.render(gl.get('intro', ''))}"]
-    for g in gl.get("groups", []):
-        parts.append(f"<h2>{esc(g['name'])}</h2><dl class='terms'>")
-        for e in g.get("entries", []):
-            anchor = "term-" + re.sub(r"[^a-z0-9]+", "-", e["term"].lower()).strip("-")
-            parts.append(f"<dt id='{anchor}'>{esc(e['term'])}</dt><dd>{minimd.render(e['definition'])}</dd>")
-        parts.append("</dl>")
-    parts.append("</article>")
-    write_text(out / "glossary" / "index.html", shell(root="../", title="Glossary", body="".join(parts), guide=guide, build=build_info,
-                                                       review={"anchor": "glossary", "title": "Glossary and Abbreviations"}))
-
-    rd = read_yaml(DATA_DIR / "references.yml", {}) or {}
-    lis, current_group = [], None
-    for r in rd.get("references", []):
-        if r.get("group") != current_group:
-            current_group = r.get("group")
-            g = next((x for x in rd.get("groups", []) if x["name"] == current_group), {})
-            lis.append(f"</ol><h2>{esc(current_group)}</h2><p>{esc(g.get('description', ''))}</p><ol class='refs'>")
-        title = f'<a href="{esc(r["url"])}" rel="noopener" target="_blank">{esc(r["title"])}</a>' if r.get("url") else esc(r["title"])
-        lis.append(f'<li id="ref-{r["number"]}" value="{r["number"]}">{title}<p>{esc(r.get("description", ""))}</p></li>')
-    resources = f"<article class='page'><h1>Resources</h1>{minimd.render(rd.get('intro', ''))}<ol class='refs'>{''.join(lis)}</ol></article>"
-    write_text(out / "resources" / "index.html", shell(root="../", title="Resources", body=resources, guide=guide, build=build_info,
-                                                        review={"anchor": "resources", "title": "Resources"}))
-
-    # ---------------------------------------------------------------- placeholders
-    if st is None:
-        write_text(out / "structure" / "index.html", shell(root="../", title="Message Infrastructure", guide=guide, build=build_info, body="<article class='page'><h1>Message Infrastructure</h1><p class='empty'>Generated when model/ is present.</p></article>"))
     stats = {"cards": len(cards), "statements": sum(len(c.statements) for c in cards),
              "profiles": len((structure or {}).get("profiles", [])) or 8,
              "value_sets": ((structure or {}).get("stats") or {}).get("value_sets", 0),
              "examples": len(examples),
              "examples_clean": sum(1 for ex in examples if all(not r.get("problems") for r in ex_data.get("results", {}).get(ex["id"], []))),
              "findings": len(findings)}
-    write_text(out / "about" / "index.html", shell(root="../", title="How this guide works", guide=guide, build=build_info, card_id="about",
+    write_text(out / "about" / "index.html", shell_(root="../", title="How this guide is made", card_id="about",
                                                     body=site_about.page("../", guide, stats, by_id),
-                                                    review={"anchor": "about", "title": "How this guide works"}))
-    ex_body = (ex_renderer.index_page(examples, ex_data.get("list", {}), by_id, "../") if examples else
-               "<article class='page'><h1><span class='num'>A</span> Example Messages</h1><p class='empty'>No examples yet.</p></article>")
-    write_text(out / "examples" / "index.html", shell(root="../", title="Example Messages", guide=guide, build=build_info, body=ex_body,
-                                                       review={"anchor": "examples", "title": "Example Messages"}))
-    if err5:
-        write_text(out / "err5-codes" / "index.html",
-                   shell(root="../", title="National ERR-5 Application Error Codes", guide=guide, build=build_info, card_id="err5-codes",
-                         body=site_err5.page(err5, "../", by_id),
-                         review={"anchor": "err5-codes", "title": "National ERR-5 Application Error Codes"}))
+                                                    review={"anchor": "about", "title": "How this guide is made"}))
 
     if proposals:
         write_text(out / "quality" / "proposals" / "index.html",
-                   shell(root="../../", title="Proposed Analyses", guide=guide, build=build_info, card_id="proposals",
+                   shell_(root="../../", title="Proposed Analyses", card_id="proposals",
                          body=site_proposals.page(proposals, "../../", by_id),
                          review={"anchor": "proposals", "title": "Proposed Analyses",
                                  "targets": site_proposals.review_targets(proposals)}))
     if r15:
-        site_r15.build_page(out, r15, lambda path, body: write_text(path, shell(
-            root="../", title="Changes from Release 1.5", guide=guide, build=build_info, card_id="r15", body=body,
+        site_r15.build_page(out, r15, lambda path, body: write_text(path, shell_(
+            root="../", title="Changes from Release 1.5", card_id="r15", body=body,
             review={"anchor": "r15", "title": "Changes from Release 1.5"})))
-
-    (out / ".nojekyll").write_text("", encoding="utf-8")
-    return {"cards": len(cards), "findings": len(findings), "out": out}
 
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--out", type=Path, default=REPO / "output" / "site")
+    parser.add_argument("--edition", choices=view.EDITIONS, default="draft",
+                        help="draft: author view for InteropHub-confirmed authors (default); author: always on; release: none")
     args = parser.parse_args(argv)
-    result = build(args.out)
-    print(f"Built {result['cards']} card pages with {result['findings']} findings: {result['out'] / 'index.html'}")
+    result = build(args.out, args.edition)
+    print(f"Built the {args.edition} edition: {result['cards']} card pages with {result['findings']} findings: "
+          f"{result['out'] / 'index.html'}")
     return 0
 
 

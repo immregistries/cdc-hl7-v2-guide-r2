@@ -29,10 +29,15 @@ code { font-family: var(--guide-mono); font-size: .9em; }
 .toplinks { margin-left: auto; display: flex; align-items: center; gap: 18px; font-size: .92rem; }
 .toplinks a { color: #fff; text-decoration: none; }
 .toplinks a:hover { text-decoration: underline; color: #fff; }
-.findings-toggle, .tree-toggle, .permalink {
+.view-toggle, .tree-toggle, .permalink {
   font: inherit; font-size: .85rem; cursor: pointer; border-radius: 4px;
 }
-.findings-toggle { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.6); padding: 3px 10px; }
+.view-toggle { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.6); padding: 3px 10px; }
+
+/* ---------------------------------------------------------------- reader and author views (tools/view.py)
+   Author material is shown only in the author view; the switch only to authors (set before drawing; see view_script). */
+html:not(.author-view) .author-only { display: none !important; }
+html:not(.is-author) .view-toggle { display: none; }
 .tree-toggle { display: none; background: transparent; color: #fff; border: 0; font-size: 1.4rem; padding: 0 6px; }
 
 /* ---------------------------------------------------------------- layout */
@@ -66,7 +71,6 @@ main:focus { outline: none; }
 .tree .badge { flex: 0 0 auto; font-size: .68rem; border-radius: 8px; padding: 0 5px; margin: 4px 4px 0 0; color: #fff; height: 15px; line-height: 15px; }
 .tree .badge.sev-issue { background: var(--finding-issue); }
 .tree .badge.sev-warning { background: var(--finding-warning); }
-.hide-findings .tree .badge { display: none; }
 .tree .sep { border-top: 1px solid var(--guide-border); margin: 10px 4px; }
 .tree li.hidden { display: none; }
 
@@ -107,7 +111,6 @@ h3 { color: var(--guide-navy); margin: 18px 0 6px; }
 .s-flag.sev-issue { color: var(--finding-issue); }
 .s-flag.sev-warning { color: var(--finding-warning); }
 .s-flag.sev-note { color: var(--finding-note); }
-.hide-findings .s-flag { display: none; }
 
 /* figures and tables */
 .figures { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
@@ -165,7 +168,6 @@ dl.terms dd p { margin: 0 0 6px; }
 .finding .f-id { display: block; font-family: var(--guide-mono); font-size: .72rem; color: var(--guide-muted); text-decoration: none; margin-top: 2px; }
 .finding .f-loc { font-weight: 600; }
 .f-disp { margin: 4px 0 0; font-size: .82rem; }
-.hide-findings .findings { display: none; }
 
 /* home, contents, quality */
 .hero { max-width: 880px; }
@@ -280,7 +282,7 @@ ul.cols li { break-inside: avoid; }
   .card-head { flex-direction: column; gap: 6px; }
 }
 @media print {
-  .topbar, .tree, .draft-bar, .pager, .permalink, .findings-toggle { display: none !important; }
+  .topbar, .tree, .draft-bar, .pager, .permalink, .view-toggle { display: none !important; }
   .layout { display: block; }
   .card { border: 0; }
 }
