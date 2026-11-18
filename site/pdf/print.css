@@ -1,0 +1,137 @@
+/* Print styles for the PDF edition (tools/build_pdf.py). Colors follow site/theme/tokens.css. */
+@page { size: Letter; margin: 0.8in 0.75in 0.75in 0.75in; }
+@page :first { margin: 0; }
+
+:root {
+  --navy: #002058; --blue: #0050b0; --blue-light: #d8e8f0; --blue-pale: #eef5fa;
+  --text: #1b2733; --muted: #5a6b7b; --border: #c9d6e2;
+  --shall: #002058; --shall-not: #b3261e; --should: #0050b0; --should-not: #b06000; --may: #5a6b7b;
+}
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; font-size: 9.6pt; line-height: 1.42; color: var(--text); margin: 0; }
+a { color: var(--blue); text-decoration: none; }
+code, pre, .code { font-family: Consolas, "Cascadia Mono", "DejaVu Sans Mono", monospace; font-size: 0.92em; }
+p { margin: 0 0 6pt; orphans: 3; widows: 3; }
+ul, ol { margin: 0 0 6pt; padding-left: 16pt; }
+li { margin-bottom: 2pt; }
+.mini { font-size: 8pt; color: var(--muted); }
+.num { color: var(--blue); margin-right: 4pt; }
+
+/* ---------------------------------------------------------------- cover and front matter */
+.cover { height: 11in; padding: 1.6in 1in 1in; background: var(--navy); color: #fff; position: relative; break-after: page; }
+.cover a { color: #b9dcff; }
+.cover-status { display: inline-block; background: #f8b858; color: var(--navy); font-weight: 700; letter-spacing: .12em; padding: 3pt 10pt; font-size: 10pt; }
+.cover-eyebrow { margin-top: 28pt; font-size: 13pt; color: #78e0e8; letter-spacing: .04em; }
+.cover .cover-title { color: #fff; font-size: 30pt; line-height: 1.15; margin: 8pt 0 18pt; font-weight: 600; }
+.cover-pubs { font-size: 12pt; color: #d8e8f0; }
+.cover-note { position: absolute; left: 1in; right: 1in; bottom: 1in; font-size: 9.5pt; color: #d8e8f0; border-top: 1px solid #3a5a8a; padding-top: 12pt; }
+.front { break-after: page; }
+.front-h { font-size: 17pt; color: var(--navy); margin: 0 0 12pt; border-bottom: 2px solid var(--navy); padding-bottom: 4pt; }
+.front li { margin-bottom: 5pt; }
+.toc { list-style: none; padding: 0; margin: 0; }
+.toc li { margin: 0; }
+.toc a { display: flex; align-items: baseline; color: var(--text); }
+.toc .toc-title { flex: 1; display: flex; overflow: hidden; }
+.toc .toc-title::after { content: ""; flex: 1; border-bottom: 1px dotted #9aa8b6; margin: 0 4pt 3pt; }
+.toc .pg { min-width: 22pt; text-align: right; }
+.toc .toc-num { color: var(--blue); }
+.toc-l1 { font-weight: 600; font-size: 10.5pt; margin-top: 7pt !important; color: var(--navy); }
+.toc-l1 .toc-num { min-width: 22pt; }
+.toc-l2 { font-size: 9pt; padding-left: 22pt; }
+.toc-l2 .toc-num { min-width: 36pt; }
+
+/* ---------------------------------------------------------------- headings */
+h1, h2, h3, h4, h5 { color: var(--navy); break-after: avoid; page-break-after: avoid; line-height: 1.25; }
+h1 a.web, h2 a.web, h3 a.web, h4 a.web, h5 a.web { color: inherit; }
+.chapter-start { break-before: page; }
+h1.chapter { font-size: 22pt; margin: 0 0 14pt; padding-bottom: 6pt; border-bottom: 3px solid var(--navy); }
+h1.chapter .num { display: block; font-size: 11pt; letter-spacing: .08em; color: var(--blue); margin-bottom: 2pt; }
+h1.chapter .num::before { content: "CHAPTER "; }
+#app-examples .num::before, #app-glossary .num::before, #app-resources .num::before, #app-err5 .num::before, #app-value-sets .num::before { content: "APPENDIX "; }
+h2.d2 { font-size: 14pt; margin: 18pt 0 6pt; padding-bottom: 2pt; border-bottom: 1px solid var(--border); }
+h3.d3 { font-size: 11.5pt; margin: 14pt 0 4pt; }
+h4.d4 { font-size: 10.2pt; margin: 11pt 0 3pt; }
+h5.d5 { font-size: 9.6pt; margin: 9pt 0 3pt; font-style: italic; }
+.page-break { break-before: page; }
+.empty { color: var(--muted); font-style: italic; }
+
+/* ---------------------------------------------------------------- narrative */
+.narrative table, .table-wrap table, table.model { border-collapse: collapse; width: 100%; margin: 4pt 0 8pt; font-size: 8.4pt; }
+th, td { border: 1px solid var(--border); padding: 2pt 4pt; vertical-align: top; text-align: left; }
+thead th { background: var(--blue-pale); color: var(--navy); }
+thead { display: table-header-group; }
+tr { break-inside: avoid; }
+.nowrap { white-space: nowrap; }
+td.n { text-align: right; }
+.table-caption, .tbl-h { font-weight: 600; color: var(--navy); margin: 8pt 0 2pt; font-size: 8.8pt; break-after: avoid; }
+blockquote { margin: 4pt 0 6pt 10pt; padding-left: 8pt; border-left: 3px solid var(--border); color: var(--muted); }
+
+/* key terms */
+dl.terms { margin: 4pt 0 8pt; }
+dl.terms dt { font-weight: 600; color: var(--navy); break-after: avoid; margin-top: 4pt; }
+dl.terms dd { margin: 0 0 3pt 14pt; }
+.key-terms h3 { font-size: 10pt; margin: 8pt 0 2pt; }
+
+/* conformance statements */
+.statements { margin: 6pt 0 10pt; border-left: 3px solid var(--navy); background: #f7fafc; padding: 4pt 8pt 2pt; }
+.st-h { font-size: 7.8pt; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--navy); margin: 2pt 0 4pt; break-after: avoid; }
+.statements ol { list-style: none; padding: 0; margin: 0 0 3pt; }
+.statements li { display: grid; grid-template-columns: 20pt 1fr; column-gap: 4pt; break-inside: avoid; margin-bottom: 4pt; }
+.statements .s-id { color: var(--muted); font-size: 8pt; padding-top: 1pt; grid-row: span 2; }
+.statements .verb { font-weight: 700; font-size: 8pt; letter-spacing: .03em; }
+.statements li > .verb { grid-column: 2; }
+.statements li { display: block; padding-left: 22pt; text-indent: -22pt; }
+.statements .s-id { display: inline-block; width: 22pt; text-indent: 0; }
+.verb-shall { color: var(--shall); } .verb-shall-not { color: var(--shall-not); } .verb-should { color: var(--should); }
+.verb-should-not { color: var(--should-not); } .verb-may { color: var(--may); }
+
+/* figures */
+figure { margin: 8pt 0 10pt; break-inside: avoid; text-align: center; }
+figure img { max-width: 100%; max-height: 7.6in; }
+figcaption { font-size: 8.4pt; color: var(--muted); margin-top: 3pt; text-align: left; }
+
+/* pointers to examples, resources */
+.see-box { margin: 4pt 0 8pt; padding: 3pt 8pt; background: var(--blue-pale); font-size: 8.6pt; break-inside: avoid; }
+.see-box ul { list-style: none; padding: 0; margin: 0 0 2pt; }
+.pg-list .pg::before, .see-box .pg::before, dd .pg::before, .example .pg::before { content: ", p. "; color: var(--muted); }
+.pg:empty::before { content: none !important; }
+
+/* ---------------------------------------------------------------- chapter 7 */
+h4.flavor-h { font-size: 9.6pt; margin: 9pt 0 1pt; font-family: Consolas, monospace; }
+table.fields td:nth-child(2) { width: 30%; }
+tr.grp td { background: #f2f5f8; }
+tr.slice td { background: #fbfcfd; }
+.facts { font-size: 8.8pt; }
+h3.dt-h { font-size: 10.2pt; }
+
+/* ---------------------------------------------------------------- examples */
+.example { margin: 6pt 0 12pt; }
+.ex-h { font-size: 9.8pt; margin: 10pt 0 2pt; color: var(--navy); }
+.ex-h .num { min-width: 30pt; display: inline-block; }
+.ex-label { font-weight: 600; font-size: 8.6pt; margin: 6pt 0 2pt; }
+pre.hl7 { font-size: 7.4pt; line-height: 1.32; background: #f6f8fa; border: 1px solid var(--border); padding: 4pt 6pt; margin: 2pt 0 4pt;
+  white-space: pre-wrap; word-break: break-all; }
+pre.hl7 .seg { display: block; padding-left: 14pt; text-indent: -14pt; break-inside: avoid; }
+
+/* ---------------------------------------------------------------- appendices */
+.ref { margin-bottom: 7pt; padding-left: 26pt; text-indent: -26pt; break-inside: avoid; }
+.ref-n { display: inline-block; width: 26pt; text-indent: 0; color: var(--muted); }
+.ref .url { font-size: 8pt; word-break: break-all; }
+.err5-page table { border-collapse: collapse; width: 100%; font-size: 8.2pt; margin: 4pt 0 8pt; }
+.err5-page td.code { white-space: nowrap; }
+.err5-page td p { margin: 1pt 0 0; }
+.err5-page .callout { background: #fff4d6; padding: 4pt 8pt; }
+.err5-status { font-size: 7.4pt; color: #b06000; margin-left: 4pt; }
+.err5-ig.no { color: var(--muted); }
+.vs { margin: 4pt 0 10pt; }
+.vs-h { font-size: 9.8pt; margin: 10pt 0 1pt; font-family: Consolas, monospace; break-after: avoid; }
+.vs-name { font-family: "Segoe UI", Arial, sans-serif; font-weight: 400; color: var(--text); }
+.vs-desc { font-size: 8.6pt; }
+.vs .mini { break-after: avoid; }
+.omitted { font-size: 8.6pt; font-style: italic; color: var(--muted); }
+table.codes { font-size: 7.8pt; }
+table.codes td.code { white-space: nowrap; font-family: Consolas, monospace; }
+table.vs-index { font-size: 7.8pt; }
+table.vs-index td { padding: 1pt 4pt; }
+table.codes td { padding: 1pt 4pt; }
