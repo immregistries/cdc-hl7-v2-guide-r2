@@ -421,7 +421,9 @@
   // ------------------------------------------------------------------ start
   finishSignIn().then(function () {
     var params = new URL(location.href).searchParams;
-    if (params.get("interophub") === "signin" && !signedIn() && !body.classList.contains("home")) { beginSignIn(false); return; }
+    // Any page, the home page included: the sign-in link InteropHub hands out is <site>/?interophub=signin. Sign-in
+    // returns to this same URL (hash kept), so a #comment-<id> link on the home page is still routed afterwards.
+    if (params.get("interophub") === "signin" && !signedIn()) { beginSignIn(false); return; }
     return route().then(function (routed) {
       if (routed) return;
       try { badges(JSON.parse(sessionStorage.getItem("guide-comment-index:" + key) || "null")); } catch (e) { /* ignore */ }
