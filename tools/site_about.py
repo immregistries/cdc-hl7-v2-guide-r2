@@ -17,6 +17,10 @@ def page(root: str, guide: dict, stats: dict, by_id: dict) -> str:
         return f'<a href="{root}{c.id}/index.html{anchor}">{esc(label or (c.number + " " + c.title))}</a>'
 
     s = stats
+    shown = s.get("examples") is not None  # data/guide.yml examples.show
+
+    def ex(html_: str) -> str:
+        return html_ if shown else ""
     return f"""<article class="page about">
 <p class="eyebrow">For the authors</p>
 <h1>How this guide is made</h1>
@@ -30,7 +34,7 @@ it is built. It is part of the <a href="#views">author view</a>: readers see the
 <li><a href="#finding">Finding your way</a></li>
 <li><a href="#section">Reading a section</a></li>
 <li><a href="#structure">Message structure (chapter 7)</a></li>
-<li><a href="#examples">Example messages (appendix A)</a></li>
+{ex('<li><a href="#examples">Example messages (appendix A)</a></li>')}
 <li><a href="#comments">Commenting</a></li>
 <li><a href="#quality">Quality review</a></li>
 <li><a href="#built">How it is built, and what is authoritative</a></li>
@@ -49,7 +53,7 @@ people who can record dispositions and close comments. Everyone else sees the re
 <li><strong>Switching.</strong> Authors get a <strong>Reader view</strong> / <strong>Author view</strong> button at the top
 right, to see the guide as readers do. The choice is remembered.</li>
 <li><strong>What changes.</strong> In the reader view, the findings panels and ⚑ marks, the counts in the contents, the panels
-linking to the comparisons, the example checks, and this lower part of the contents are hidden.</li>
+linking to the comparisons,{ex(" the example checks,")} and this lower part of the contents are hidden.</li>
 <li><strong>Releases.</strong> A formal release is built without any of this (<code>build_site.py --edition release</code>).</li>
 </ul>
 </section>
@@ -57,7 +61,7 @@ linking to the comparisons, the example checks, and this lower part of the conte
 <section id="finding"><h2>Finding your way</h2>
 <ul>
 <li><strong>The contents</strong> on the left show the whole guide as a tree: chapters 1–6 (the narrative), chapter 7 (message
-structure, generated from IGAMT), and appendices A–C. It opens to where you are. On a phone, it is behind the ☰ button.</li>
+structure, generated from IGAMT), and the appendices. It opens to where you are. On a phone, it is behind the ☰ button.</li>
 <li><strong>The filter</strong> at the top of the contents narrows the tree to the sections that match. It is not a full-text
 search. It matches section titles and each section's <em>filter terms</em>:
 <ul>
@@ -81,7 +85,7 @@ not change when sections are renumbered or retitled, so links in email, minutes,
 <li><strong>Narrative:</strong> the explanation, in a few paragraphs.</li>
 <li><strong>Conformance statements:</strong> the requirements, one per line, each with its verb (SHALL, SHOULD, MAY, …) as a
 colored label and its own number and link.</li>
-<li><strong>Examples:</strong> complete example messages that illustrate the section (see below).</li>
+{ex('<li><strong>Examples:</strong> complete example messages that illustrate the section (see below).</li>')}
 <li><strong>Message structure for the fields on this page:</strong> a collapsible table showing, for every field the section
 mentions, its usage and cardinality in each message profile, the value sets that govern its codes, and the conformance statements
 that test it. You don't have to leave the page to check what the profiles say.</li>
@@ -108,7 +112,7 @@ each is bound).</li>
 </ul>
 </section>
 
-<section id="examples"><h2>Example messages (appendix A)</h2>
+{ex(f"""<section id="examples"><h2>Example messages (appendix A)</h2>
 <p><a href="{root}examples/index.html">{s['examples']} examples</a> from CDC's example list appear on the sections they illustrate.
 See {card('required-data-elements', 'Refusal: Required Data Elements')}.</p>
 <ul>
@@ -120,7 +124,7 @@ message are marked. Hover over any field to see its position and name.</li>
 unsupported fields, codes, date/time formats, conformance statements, and co-constraints. The results are shown under each message.
 {s['examples_clean']} of {s['examples']} currently have no problems of their own.</li>
 </ul>
-</section>
+</section>""")}
 
 <section id="comments"><h2>Commenting</h2>
 <p>Every page ends with a <strong>Comments</strong> panel. Comments are stored in InteropHub, on the
@@ -128,7 +132,8 @@ unsupported fields, codes, date/time formats, conformance statements, and co-con
 to read and add comments. One sign-in covers the whole site.</p>
 <ul>
 <li>A comment belongs to the section. Use <em>About</em> to say whether it concerns the whole section, a specific conformance
-statement, a figure, or an example.</li>
+statement, a figure{ex(", or an example")}. To comment on one quality finding, use the <em>Comment</em> link under
+it.</li>
 <li>Reply to a comment to discuss it. Edit or withdraw your own comments.</li>
 <li>Editors of the topic can record a <strong>disposition</strong> (Persuasive, Not Persuasive, …) with a change note, and
 close the thread. The same comments are available in InteropHub, and links from InteropHub open the right section.</li>
@@ -139,17 +144,23 @@ close the thread. The same comments are available in InteropHub, and links from 
 <section id="quality"><h2>Quality review</h2>
 <p>Automated checks and an editorial review run on every change. Their results, called <strong>findings</strong>, appear in a
 panel at the top of the section they concern, and in the <a href="{root}quality/index.html">Quality review</a> list
-({s['findings']} findings now). They are for the authors and are not part of the guide; <strong>Reader view</strong>
+({s['findings']} open findings now). They are for the authors and are not part of the guide; <strong>Reader view</strong>
 (top right) hides them.</p>
 <ul>
 <li><strong>Severity:</strong> <em>issue</em> (likely wrong), <em>warning</em> (inconsistent or unclear), <em>note</em> (worth
 considering).</li>
 <li><strong>What is checked:</strong> structure and length of sections, conformance language (verbs in narrative, statements
-without a responsible party, compound requirements), figures, references and glossary pointers, the example messages, and the
+without a responsible party, compound requirements), figures, references and glossary pointers,{ex(" the example messages,")} and the
 narrative against the IGAMT profiles.</li>
 <li><strong><a href="{root}quality/igamt/index.html">Narrative vs IGAMT</a></strong> compares what the text says about fields,
 codes, and observations with the conformance profiles. It answers the review comments in the Word draft that asked for this
 check, and it lists change requests for IGAMT. Each of its findings needs CDC's verification before anything is changed.</li>
+<li><strong>Commenting on one finding.</strong> Under each finding is a <em>Comment</em> link: a comment there is about that
+finding alone, and it is shown with the finding wherever it is listed.</li>
+<li><strong>Deferred and waived.</strong> A finding can be <em>waived</em> (the text is intended as written) or <em>deferred</em>
+(to be fixed in the next version), each with a reason, in <code>quality/dispositions.yml</code>. Either way it is no longer counted
+as open, and it is listed on the <a href="{root}quality/decided/index.html">Deferred and Waived</a> page. The deferred list is the
+record of issues for the next version.</li>
 <li>Every finding has a permanent ID. All findings can be downloaded as a spreadsheet:
 <a href="{root}quality/findings.csv">findings.csv</a>.</li>
 </ul>
@@ -162,8 +173,8 @@ check, and it lists change requests for IGAMT. Each of its findings needs CDC's 
 statement IDs stay the same from one draft to the next.</td></tr>
 <tr><td>Message structure (chapter 7)</td><td>IGAMT, the authoritative source for structure</td><td>Read from the IGAMT export. Corrections
 are made in IGAMT and appear here with the next export. Nothing in chapter 7 is edited by hand.</td></tr>
-<tr><td>Example messages (appendix A)</td><td>CDC's example list and the drafted samples</td><td>Imported, completed into whole messages,
-and checked against the profiles.</td></tr>
+{ex("""<tr><td>Example messages (appendix A)</td><td>CDC's example list and the drafted samples</td><td>Imported, completed into whole messages,
+and checked against the profiles.</td></tr>""")}
 </tbody></table></div>
 <p>The converted content and the tools are public on <a href="{esc(guide['repository'])}">GitHub</a>. The Word draft, the IGAMT
 export, and the example files themselves are not published. The footer of each page shows which draft and which build it

@@ -168,6 +168,17 @@ dl.terms dd p { margin: 0 0 6px; }
 .finding .f-id { display: block; font-family: var(--guide-mono); font-size: .72rem; color: var(--guide-muted); text-decoration: none; margin-top: 2px; }
 .finding .f-loc { font-weight: 600; }
 .f-disp { margin: 4px 0 0; font-size: .82rem; }
+.findings.sev-none { border-left-color: var(--guide-border); background: #fafafa; }
+.findings .f-closed { margin: 0 14px 10px; }
+.findings .f-closed summary { padding: 4px 0; font-weight: 400; font-size: .85rem; color: var(--guide-muted); }
+.findings .f-closed ul { padding: 0; }
+/* comments on one finding (comments.js) */
+.f-comments { margin-top: 3px; }
+.f-comments .f-c-toggle { font-size: .78rem; }
+.f-comments .f-c-toggle::before { content: "💬 "; text-decoration: none; display: inline-block; }
+.f-comments .f-c-toggle.open { font-weight: 600; }
+.f-comments .c-list { margin: 4px 0 0 12px; padding-left: 10px; border-left: 2px solid var(--guide-border); }
+.f-comments .c-thread { padding: 8px 0 4px; font-size: .88rem; }
 
 /* home, contents, quality */
 .hero { max-width: 880px; }

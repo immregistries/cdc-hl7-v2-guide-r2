@@ -94,8 +94,9 @@ python -m unittest discover -s tests
 | Quality checks | Structure, conformance language, figures, references, and the narrative/IGAMT comparison ([report](https://immregistries.github.io/cdc-hl7-v2-guide-r2/main/quality/igamt/)) |
 | Structured chapter (IGAMT) | Chapter 7 generated: 8 profiles, segments and flavors, data types, value sets, OBX co-constraints; linked from the narrative |
 | Website | Published from `main` on every push |
-| Card comments (InteropHub) | Open on topic 52 ([how it works](docs/comments.md)) |
-| Example messages | 81 examples on 50 sections, assembled into whole messages and checked against the IGAMT profiles ([Appendix A](https://immregistries.github.io/cdc-hl7-v2-guide-r2/main/examples/)) |
+| Card comments (InteropHub) | Open on topic 52 ([how it works](docs/comments.md)), on a section, a statement, or one quality finding |
+| Deferred and waived findings | Recorded in `quality/dispositions.yml`; not counted as open; listed on their own page |
+| Example messages | 81 examples on 50 sections, assembled into whole messages and checked against the IGAMT profiles. Hidden for now at CDC's request (`examples.show` in `data/guide.yml`) |
 | PDF edition | Prototype (`tools/build_pdf.py`): reader content reorganized for print; sent to CDC for review |
 | Ballot document (Word) | Planned |
 

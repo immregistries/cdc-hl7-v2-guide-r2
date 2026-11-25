@@ -12,8 +12,15 @@ Reviewers comment on the draft through [InteropHub](https://informatics.immregis
   `n` = statement `sn`; `900 + k` = the k-th figure), with the statement text or figure caption as the snippet.
 - **Generated pages have anchors too:** `structure` (chapter 7), `structure-z22` (profile),
   `structure-seg-rxa` (segment), `structure-flavor-<flavor>`, `structure-dt-<type>`,
-  `structure-vs-<value-set>`, `structure-cocon-z22`, `quality`, `quality-igamt` (where a comment can be
-  about one reviewed finding), `glossary`, and `resources`.
+  `structure-vs-<value-set>`, `structure-cocon-z22`, `quality`, `quality-decided`, `quality-igamt`,
+  `glossary`, and `resources`.
+- **Each quality finding is an anchor of its own:** its finding ID, for example `qf-long-card-706afb98`
+  (author view). Finding IDs stay the same from one build to the next, so the comment stays with the
+  finding. The *Comment* link under a finding shows its threads and a form, wherever the finding is
+  listed (the section's findings panel, the Quality review, Deferred and Waived, chapter 7 pages). The
+  snippet is the finding ID and the start of its message. Links from InteropHub to such a comment are
+  routed through `quality/finding-pages.json`. Asking for a finding to be waived or deferred is done
+  by commenting on it; the decision is recorded in `quality/dispositions.yml`.
 - **Sign-in** uses the InteropHub sign-in shared by AIRA guides (PKCE, app `topic-reference`). One sign-in
   covers every page. Reading comments also requires sign-in.
 - **Authors** (people who can edit topic 52) can record a disposition (Persuasive, Not Persuasive, and so

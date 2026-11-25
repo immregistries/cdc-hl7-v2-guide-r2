@@ -9,7 +9,7 @@ import html
 from pathlib import Path
 
 import minimd
-from guidecards import read_yaml
+from guidecards import examples_shown, read_yaml
 
 SOURCE = Path("quality") / "proposed-analyses.yml"
 
@@ -47,7 +47,8 @@ def page(data: dict, root: str, by_id: dict) -> str:
             title = f'<a href="{root}{esc(c["link"])}">{title}</a>'
         return f"<li><strong>{title}</strong>: {esc(c['text'])}</li>"
 
-    current = "".join(current_item(c) for c in data.get("current", []))
+    current = "".join(current_item(c) for c in data.get("current", [])
+                      if examples_shown() or not str(c.get("link", "")).startswith("examples/"))
 
     proposals = data.get("proposals", [])
     number = {p["id"]: n for n, p in enumerate(proposals, 1)}

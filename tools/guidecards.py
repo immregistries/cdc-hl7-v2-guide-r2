@@ -134,6 +134,13 @@ def read_yaml(path: Path, default=None):
     return default if data is None else data
 
 
+def examples_shown(data_dir: Path = DATA_DIR) -> bool:
+    """The build switch for the example messages (data/guide.yml examples.show). When off, the examples are left out of
+    the site, the PDF, and the quality checks (their findings and counts); examples/ and the tools are unchanged."""
+    guide = read_yaml(data_dir / "guide.yml", {}) or {}
+    return bool((guide.get("examples") or {}).get("show", True))
+
+
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="\n") as f:
