@@ -23,7 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from guidecards import (  # noqa: E402
-    CARDS_DIR, DATA_DIR, META, REPO, find_verbs, load_tree, norm_title, read_yaml, subject_of, walk, write_text,
+    CARDS_DIR, DATA_DIR, META, REPO, examples_shown, find_verbs, load_tree, norm_title, read_yaml, subject_of, walk, write_text,
 )
 import compare_structure  # noqa: E402
 import example_checks  # noqa: E402
@@ -98,6 +98,40 @@ def unresolved_part(target: str, titles: list[str]) -> str:
     rest = re.sub(r"\b(and|or|the|in|section|sections|both|also|see)\b|[,;()]", " ", rest, flags=re.I)
     rest = " ".join(rest.split())
     return rest if re.search(r"[A-Z]", rest) else ""
+
+
+# Decisions that close a finding without a change to the text (quality/dispositions.yml). Both take the finding out
+# of the open counts, so the open count can reach zero; both stay listed, with their reasons, on the Deferred and Waived page.
+DISPOSITIONS = {
+    "deferred": "Deferred: to be fixed in the next version",
+    "waived": "Waived: the text is intended as written",
+}
+
+
+def read_dispositions(quality_dir: Path) -> dict:
+    """quality/dispositions.yml, checked: each entry needs a known status and a reason."""
+    data = read_yaml(quality_dir / "dispositions.yml", {}) or {}
+    for fid, d in data.items():
+        if not isinstance(d, dict) or d.get("status") not in DISPOSITIONS or not str(d.get("reason") or "").strip():
+            raise SystemExit(f"quality/dispositions.yml: {fid} needs status ({' or '.join(DISPOSITIONS)}) and a reason")
+    # YAML reads 2026-11-25 as a date; keep every value as text
+    return {fid: {k: str(v) for k, v in d.items() if v is not None} for fid, d in data.items()}
+
+
+def apply_dispositions(items: list[dict], quality_dir: Path) -> dict:
+    """Attach each recorded disposition to its finding. Returns the dispositions whose finding is not in this build
+    (its text changed or was fixed, or its check is switched off), by finding id."""
+    dispositions = read_dispositions(quality_dir)
+    ids = set()
+    for item in items:
+        ids.add(item["id"])
+        if item["id"] in dispositions:
+            item["disposition"] = dispositions[item["id"]]
+    return {k: v for k, v in dispositions.items() if k not in ids}
+
+
+def is_open(item: dict) -> bool:
+    return (item.get("disposition") or {}).get("status") not in DISPOSITIONS
 
 
 def run_checks(cards_dir: Path, data_dir: Path, quality_dir: Path, model_dir: Path | None = MODEL_DIR) -> tuple[list, list[dict]]:
@@ -297,7 +331,8 @@ def run_checks_full(cards_dir: Path, data_dir: Path, quality_dir: Path, model_di
 
     # ---------------------------------------------------------------- narrative vs IGAMT structure
     structure = compare_structure.run(cards, model_dir, quality_dir, f, config) if model_dir else None
-    examples = example_checks.run(cards, cards_dir.parent / "examples", model_dir, f, config) if model_dir else None
+    examples = (example_checks.run(cards, cards_dir.parent / "examples", model_dir, f, config)
+                if model_dir and examples_shown(data_dir) else None)
     if structure is not None and examples is not None:
         structure["examples"] = examples
 
@@ -313,23 +348,24 @@ def run_checks_full(cards_dir: Path, data_dir: Path, quality_dir: Path, model_di
         f.items.extend(tab_review.findings(data))
 
     # ---------------------------------------------------------------- dispositions
-    dispositions = read_yaml(quality_dir / "dispositions.yml", {}) or {}
-    for item in f.items:
-        if item["id"] in dispositions:
-            item["disposition"] = dispositions[item["id"]]
+    apply_dispositions(f.items, quality_dir)
     seen = Counter(i["id"] for i in f.items)
     if any(v > 1 for v in seen.values()):
         raise SystemExit(f"Duplicate finding IDs: {[k for k, v in seen.items() if v > 1]}")
     return roots, f.items, structure
 
 
-def write_report(roots, findings: list[dict], path: Path) -> None:
+def write_report(roots, all_findings: list[dict], path: Path, stale: dict | None = None) -> None:
     cards = {c.id: c for c in walk(roots)}
+    findings = [i for i in all_findings if is_open(i)]
+    closed = [i for i in all_findings if not is_open(i)]
     by_sev = Counter(i["severity"] for i in findings)
     by_rule = Counter(i["rule"] for i in findings)
+    by_disp = Counter(i["disposition"]["status"] for i in closed)
     lines = [
         "# Quality findings", "",
-        f"{len(findings)} findings: " + ", ".join(f"{by_sev[s]} {s}{'s' if by_sev[s] != 1 else ''}" for s in SEVERITIES),
+        f"{len(findings)} open findings: " + ", ".join(f"{by_sev[s]} {s}{'s' if by_sev[s] != 1 else ''}" for s in SEVERITIES)
+        + f". Not counted: {by_disp['deferred']} deferred, {by_disp['waived']} waived (quality/dispositions.yml).",
         "", "| Rule | Category | Count |", "|---|---|---:|",
     ]
     rule_cat = {i["rule"]: i["category"] for i in findings}
@@ -357,6 +393,18 @@ def write_report(roots, findings: list[dict], path: Path) -> None:
                 lines.append(f"  > XML: {ev['xml']}")
             elif "actors" in ev:
                 lines.append("  " + "; ".join(f"{k} ({v})" for k, v in ev["actors"].items()))
+    for status, label in DISPOSITIONS.items():
+        items = [i for i in closed if i["disposition"]["status"] == status]
+        if items:
+            lines += ["", f"## {label}", ""]
+            for i in sorted(items, key=lambda i: i["id"]):
+                d = i["disposition"]
+                where = f" — {cards[i['card']].number} {cards[i['card']].title}" if i.get("card") in cards else ""
+                lines.append(f"- **{i['severity']}** `{i['id']}`{where}: {i['message']}")
+                lines.append(f"  Reason: {d['reason']}" + (f" ({d['by']}, {d['date']})" if d.get("by") and d.get("date") else ""))
+    if stale:
+        lines += ["", "## Dispositions whose finding is not in this build", ""]
+        lines += [f"- `{k}` ({v['status']}): {v['reason']}" for k, v in sorted(stale.items())]
     write_text(path, "\n".join(lines) + "\n")
 
 
@@ -371,9 +419,14 @@ def main(argv=None) -> int:
     write_text(args.out / "findings.json", json.dumps(findings, indent=2, ensure_ascii=False) + "\n")
     if structure:
         write_text(args.out / "igamt.json", json.dumps(structure, indent=1, ensure_ascii=False) + "\n")
-    write_report(roots, findings, args.out / "report.md")
-    sev = Counter(i["severity"] for i in findings)
-    print(f"{len(findings)} findings ({', '.join(f'{sev[s]} {s}' for s in SEVERITIES)}). Report: {args.out / 'report.md'}")
+    stale = apply_dispositions(findings, QUALITY_DIR)
+    write_report(roots, findings, args.out / "report.md", stale)
+    open_ = [i for i in findings if is_open(i)]
+    sev = Counter(i["severity"] for i in open_)
+    print(f"{len(open_)} open findings ({', '.join(f'{sev[s]} {s}' for s in SEVERITIES)}), "
+          f"{len(findings) - len(open_)} deferred or waived. Report: {args.out / 'report.md'}")
+    if stale:
+        print(f"{len(stale)} disposition(s) match no finding in this build: {', '.join(sorted(stale))}")
     return 0
 
 

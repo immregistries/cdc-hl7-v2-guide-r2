@@ -41,7 +41,7 @@ import site_proposals  # noqa: E402
 import site_r15  # noqa: E402
 import view  # noqa: E402
 from structure_index import FIELD_RE, Model  # noqa: E402
-from guidecards import CARDS_DIR, DATA_DIR, META, REPO, read_yaml, walk, write_text  # noqa: E402
+from guidecards import CARDS_DIR, DATA_DIR, META, REPO, examples_shown, read_yaml, walk, write_text  # noqa: E402
 
 SITE_SRC = REPO / "site"
 SEV_LABEL = {"issue": "Issue", "warning": "Warning", "note": "Note"}
@@ -199,12 +199,38 @@ def review_evidence(ev: dict, root: str) -> str:
     return tab_review.evidence_with_link(ev, root)
 
 
+def disposition_html(d: dict | None) -> str:
+    if not d:
+        return ""
+    who = ", ".join(x for x in (str(d.get("by") or ""), str(d.get("date") or "")) if x)
+    return (f'<p class="f-disp"><strong>{esc(d.get("status", "").capitalize())}.</strong> {esc(d.get("reason", ""))}'
+            + (f' <span class="mini">({esc(who)})</span>' if who else "") + "</p>")
+
+
 def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
+    """The quality findings on a page: the open ones, then (folded) those deferred or waived."""
     if not items or view.release():
         return ""
-    sev = Counter(i["severity"] for i in items)
-    summary = " · ".join(f"{sev[s]} {SEV_LABEL[s].lower()}{'s' if sev[s] != 1 else ''}" for s in ("issue", "warning", "note") if sev[s])
-    worst = next(s for s in ("issue", "warning", "note") if sev[s])
+    open_ = [i for i in items if check_cards.is_open(i)]
+    closed = [i for i in items if not check_cards.is_open(i)]
+    sev = Counter(i["severity"] for i in open_)
+    parts = [f"{sev[s]} {SEV_LABEL[s].lower()}{'s' if sev[s] != 1 else ''}" for s in ("issue", "warning", "note") if sev[s]]
+    disp = Counter(i["disposition"]["status"] for i in closed)
+    parts += [f"{n} {k}" for k, n in sorted(disp.items())]
+    summary = " · ".join(parts)
+    worst = next((s for s in ("issue", "warning", "note") if sev[s]), "none")
+    closed_html = ""
+    if closed:
+        closed_html = (f'<details class="f-closed"><summary>Deferred or waived ({len(closed)})</summary>'
+                       f'<ul>{"".join(finding_lis(closed, root, anchors))}</ul>'
+                       f'<p class="mini"><a href="{root}quality/decided/index.html">All deferred and waived findings</a></p></details>')
+    return f"""<aside class="findings sev-{worst} author-only" id="findings" aria-label="Quality review findings">
+<details open><summary><span class="f-title">Quality review</span> <span class="f-count">{summary}</span></summary>
+<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
+<ul>{''.join(finding_lis(open_, root, anchors))}</ul>{closed_html}</details></aside>"""
+
+
+def finding_lis(items: list[dict], root: str, anchors: dict) -> list[str]:
     lis = []
     for i in sorted(items, key=lambda x: (("issue", "warning", "note").index(x["severity"]), x["id"])):
         where = ""
@@ -219,19 +245,13 @@ def findings_panel(items: list[dict], root: str, anchors: dict) -> str:
             evidence += review_evidence(ev, root)
         elif any(k in ev for k in ("narrative", "xml", "recommendation", "variants")):
             evidence += site_igamt.evidence_html(ev)
-        disp = ""
-        if i.get("disposition"):
-            d = i["disposition"]
-            disp = f'<p class="f-disp">Decision: <strong>{esc(d.get("status", ""))}</strong> {esc(d.get("note", ""))}</p>'
+        listed = "quality/index.html" if check_cards.is_open(i) else "quality/decided/index.html"
         lis.append(
             f'<li class="finding sev-{i["severity"]}" id="{esc(i["id"])}">'
-            f'<span class="sev">{SEV_LABEL[i["severity"]]}</span>{where} {esc(i["message"])}{evidence}{disp}'
-            f'<a class="f-id" href="{root}quality/index.html#{esc(i["id"])}">{esc(i["id"])}</a></li>'
+            f'<span class="sev">{SEV_LABEL[i["severity"]]}</span>{where} {esc(i["message"])}{evidence}{disposition_html(i.get("disposition"))}'
+            f'<a class="f-id" href="{root}{listed}#{esc(i["id"])}">{esc(i["id"])}</a></li>'
         )
-    return f"""<aside class="findings sev-{worst} author-only" id="findings" aria-label="Quality review findings">
-<details open><summary><span class="f-title">Quality review</span> <span class="f-count">{summary}</span></summary>
-<p class="f-help">Findings from automated and editorial checks, for the authors. Not part of the guide.</p>
-<ul>{''.join(lis)}</ul></details></aside>"""
+    return lis
 
 
 def statements_html(card, flagged: dict) -> str:
@@ -331,10 +351,14 @@ def build(out: Path, edition: str = "draft") -> dict:
     cards = list(walk(roots))
     by_id = {c.id: c for c in cards}
     ta_data = None if release else ta_review.load(REPO, by_id)
-    findings = [] if release else findings + ta_review.findings(ta_data)
+    all_findings = [] if release else findings + ta_review.findings(ta_data)
+    stale = check_cards.apply_dispositions(all_findings, REPO / "quality") if not release else {}
+    # open findings are counted and listed; deferred and waived ones are listed on their own page (and folded on each page)
+    findings = [f for f in all_findings if check_cards.is_open(f)]
+    show_examples = examples_shown()
     by_card = defaultdict(list)
     general = []
-    for f in findings:
+    for f in all_findings:
         (by_card[f["card"]] if f.get("card") in by_id else general).append(f)
     refs = (read_yaml(DATA_DIR / "references.yml", {}) or {}).get("references", [])
     ref_by_num = {r["number"]: r for r in refs}
@@ -362,7 +386,7 @@ def build(out: Path, edition: str = "draft") -> dict:
             out, Model(REPO / "model"),
             shell=lambda root, title, body, anchor=None: shell(root=root, title=title, body=body, guide=guide, build=build_info, page_class="model",
                                                                review={"anchor": anchor, "title": title} if anchor else None),
-            findings_panel=findings_panel, field_cards=field_cards, profile_cards=profile_cards, findings=findings, by_id=by_id)
+            findings_panel=findings_panel, field_cards=field_cards, profile_cards=profile_cards, findings=all_findings, by_id=by_id)
 
     # ---------------------------------------------------------------- examples
     ex_data = (structure or {}).get("examples") or {}
@@ -377,7 +401,7 @@ def build(out: Path, edition: str = "draft") -> dict:
 
     # ---------------------------------------------------------------- nav data
     def counts(c):
-        sev = Counter(f["severity"] for f in by_card.get(c.id, []))
+        sev = Counter(f["severity"] for f in by_card.get(c.id, []) if check_cards.is_open(f))
         return [sev["issue"], sev["warning"], sev["note"]]
 
     curated = filter_terms.load_curated()
@@ -398,7 +422,7 @@ def build(out: Path, edition: str = "draft") -> dict:
     extra = [
         {"i": "structure", "t": "Message Infrastructure", "n": str(len(roots) + 1), "p": "structure/index.html", "f": [0, 0, 0],
          **({"c": structure_nav} if structure_nav else {})},
-        {"i": "examples", "t": "Example Messages", "n": "A", "p": "examples/index.html", "f": [0, 0, 0]},
+        *([{"i": "examples", "t": "Example Messages", "n": "A", "p": "examples/index.html", "f": [0, 0, 0]}] if show_examples else []),
         {"i": "glossary", "t": "Glossary and Abbreviations", "n": "B", "p": "glossary/index.html", "f": [0, 0, 0]},
         {"i": "resources", "t": "Resources", "n": "C", "p": "resources/index.html", "f": [0, 0, 0]},
     ]
@@ -411,6 +435,7 @@ def build(out: Path, edition: str = "draft") -> dict:
         {"i": "about", "t": "How this guide is made", "n": "", "p": "about/index.html", "f": [0, 0, 0]},
         {"i": "quality", "t": "Quality Review", "n": "", "p": "quality/index.html",
          "f": [sum(f["severity"] == s for f in findings) for s in ("issue", "warning", "note")]},
+        {"i": "quality-decided", "t": "Deferred and Waived", "n": "", "p": "quality/decided/index.html", "f": [0, 0, 0]},
     ]
     r15 = None if release else site_r15.load(REPO, by_id)
     if r15:  # first under Quality Review
@@ -446,12 +471,14 @@ def build(out: Path, edition: str = "draft") -> dict:
     proposals = None if release else site_proposals.load(REPO)
     if proposals:
         meta.append({"i": "proposals", "t": "Proposed Analyses", "n": "", "p": "quality/proposals/index.html", "f": [0, 0, 0]})
-    page_anchors = {"glossary": "glossary/index.html", "resources": "resources/index.html", "examples": "examples/index.html",
-                    **structure_anchors}
+    page_anchors = {"glossary": "glossary/index.html", "resources": "resources/index.html", **structure_anchors}
+    if show_examples:
+        page_anchors["examples"] = "examples/index.html"
     if err5:
         page_anchors["err5-codes"] = "err5-codes/index.html"
     if not release:
-        page_anchors.update({"quality": "quality/index.html", "about": "about/index.html", **tab_anchors})
+        page_anchors.update({"quality": "quality/index.html", "quality-decided": "quality/decided/index.html",
+                             "about": "about/index.html", **tab_anchors})
         if structure:
             page_anchors["quality-igamt"] = "quality/igamt/index.html"
         if proposals:
@@ -481,7 +508,7 @@ def build(out: Path, edition: str = "draft") -> dict:
         anchors.update({f"ex-{ex['id']}": "Example" for ex in ex_by_card.get(c.id, [])})
         flagged = {}
         for f in items:
-            if f.get("location") in anchors and f.get("location", "").count("--"):
+            if f.get("location") in anchors and f.get("location", "").count("--") and check_cards.is_open(f):
                 cur = flagged.get(f["location"])
                 if cur is None or ("issue", "warning", "note").index(f["severity"]) < ("issue", "warning", "note").index(cur):
                     flagged[f["location"]] = f["severity"]
@@ -565,7 +592,7 @@ def build(out: Path, edition: str = "draft") -> dict:
 <p><a class="button" href="{roots[0].id}/index.html">Start reading</a> <a class="button secondary" href="contents/index.html">Table of contents</a>
 {view.author('<a class="button secondary" href="about/index.html">How this guide is made</a>', "span")}</p>
 <p class="stats">{len(cards)} sections · {total_st} conformance statements{view.author(
-        f' · <a href="quality/index.html">{len(findings)} quality findings</a> ({sev_all["issue"]} issues, {sev_all["warning"]} warnings, '
+        f' · <a href="quality/index.html">{len(findings)} open quality findings</a> ({sev_all["issue"]} issues, {sev_all["warning"]} warnings, '
         f'{sev_all["note"]} notes)', "span")}</p>
 </section>
 <section class="chapters"><h2>Chapters</h2><ol class="chapter-list">{''.join(chapters)}</ol></section>"""
@@ -583,15 +610,16 @@ def build(out: Path, edition: str = "draft") -> dict:
     contents = f"""<article class="page"><h1>Table of contents</h1>
 <ol class="toc">{toc(roots)}
 <li><a href="../structure/index.html"><span class="num">{len(roots) + 1}</span> Message Infrastructure</a> <span class="mini">generated from IGAMT</span></li>
-<li><a href="../examples/index.html"><span class="num">A</span> Example Messages</a> <span class="mini">{len(examples)} examples</span></li>
+{f'<li><a href="../examples/index.html"><span class="num">A</span> Example Messages</a> <span class="mini">{len(examples)} examples</span></li>' if show_examples else ''}
 <li><a href="../glossary/index.html"><span class="num">B</span> Glossary and Abbreviations</a></li>
 <li><a href="../resources/index.html"><span class="num">C</span> Resources</a></li></ol></article>"""
     write_text(out / "contents" / "index.html", shell(root="../", title="Contents", body=contents, guide=guide, build=build_info))
 
     # ---------------------------------------------------------------- author pages (not in a release)
     if not release:
-        write_author_pages(out, guide=guide, build_info=build_info, findings=findings, by_id=by_id, structure=structure,
-                           cards=cards, examples=examples, ex_data=ex_data, proposals=proposals, r15=r15)
+        write_author_pages(out, guide=guide, build_info=build_info, findings=findings, all_findings=all_findings, stale=stale,
+                           by_id=by_id, structure=structure, cards=cards, examples=examples if show_examples else None,
+                           ex_data=ex_data, proposals=proposals, r15=r15)
 
     # ---------------------------------------------------------------- glossary and resources
     gl = read_yaml(DATA_DIR / "glossary.yml", {}) or {}
@@ -622,10 +650,11 @@ def build(out: Path, edition: str = "draft") -> dict:
     # ---------------------------------------------------------------- placeholders
     if st is None:
         write_text(out / "structure" / "index.html", shell(root="../", title="Message Infrastructure", guide=guide, build=build_info, body="<article class='page'><h1>Message Infrastructure</h1><p class='empty'>Generated when model/ is present.</p></article>"))
-    ex_body = (ex_renderer.index_page(examples, ex_data.get("list", {}), by_id, "../") if examples else
-               "<article class='page'><h1><span class='num'>A</span> Example Messages</h1><p class='empty'>No examples yet.</p></article>")
-    write_text(out / "examples" / "index.html", shell(root="../", title="Example Messages", guide=guide, build=build_info, body=ex_body,
-                                                       review={"anchor": "examples", "title": "Example Messages"}))
+    if show_examples:
+        ex_body = (ex_renderer.index_page(examples, ex_data.get("list", {}), by_id, "../") if examples else
+                   "<article class='page'><h1><span class='num'>A</span> Example Messages</h1><p class='empty'>No examples yet.</p></article>")
+        write_text(out / "examples" / "index.html", shell(root="../", title="Example Messages", guide=guide, build=build_info, body=ex_body,
+                                                           review={"anchor": "examples", "title": "Example Messages"}))
     if err5:
         write_text(out / "err5-codes" / "index.html",
                    shell(root="../", title="National ERR-5 Application Error Codes", guide=guide, build=build_info, card_id="err5-codes",
@@ -633,16 +662,70 @@ def build(out: Path, edition: str = "draft") -> dict:
                          review={"anchor": "err5-codes", "title": "National ERR-5 Application Error Codes"}))
 
     (out / ".nojekyll").write_text("", encoding="utf-8")
-    return {"cards": len(cards), "findings": len(findings), "out": out}
+    return {"cards": len(cards), "findings": len(findings), "closed": len(all_findings) - len(findings), "out": out}
 
 
 
-def write_author_pages(out: Path, *, guide: dict, build_info: dict, findings: list[dict], by_id: dict, structure: dict | None,
-                       cards: list, examples: list, ex_data: dict, proposals, r15) -> None:
-    """The pages of author material: the quality review, the IGAMT comparison, how the guide is made, the proposed
-    analyses, and the changes from Release 1.5. (The TAB, SISC, MIROW, and TA pages are written with the nav data.)"""
+def decided_page(all_findings: list[dict], stale: dict, by_id: dict, root: str) -> str:
+    """Deferred and waived findings, with their reasons: the deferred list is the record of issues for the next version."""
+    closed = [f for f in all_findings if not check_cards.is_open(f)]
+    sections = []
+    intro = {
+        "deferred": "To be fixed in the next version of the guide. This list is the record of those issues.",
+        "waived": "The text is intended as written, so no change will be made.",
+    }
+    for status, label in check_cards.DISPOSITIONS.items():
+        items = sorted((f for f in closed if f["disposition"]["status"] == status),
+                       key=lambda x: ([int(p) if p.isdigit() else 0 for p in by_id[x["card"]].number.split(".")] if x.get("card") in by_id else [9999], x["id"]))
+        lis = []
+        for f in items:
+            where = ""
+            if f.get("card") in by_id:
+                c = by_id[f["card"]]
+                where = f'<a href="{root}{c.id}/index.html#{esc(f["id"])}">{esc(c.number)} {esc(c.title)}</a>: '
+            elif (f.get("location") or "").startswith("model:"):
+                where = f'<code class="mini">{esc(f["location"][6:])}</code> '
+            lis.append(f'<li class="finding sev-{f["severity"]}" id="{esc(f["id"])}"><span class="sev">{SEV_LABEL[f["severity"]]}</span> '
+                       f'{where}{esc(f["message"])}{disposition_html(f["disposition"])}<span class="f-id">{esc(f["id"])}</span></li>')
+        title = "Deferred" if status == "deferred" else "Waived"
+        sections.append(f'<section id="{status}"><h2>{title} <span class="mini">{len(items)}</span></h2><p>{esc(intro[status])}</p>'
+                        + (f'<ul class="finding-list">{"".join(lis)}</ul>' if lis else '<p class="empty">None yet.</p>') + "</section>")
+    if stale:
+        lis = "".join(f'<li><code>{esc(k)}</code> ({esc(v["status"])}): {esc(v["reason"])}</li>' for k, v in sorted(stale.items()))
+        sections.append('<section id="not-found"><h2>Decisions whose finding is not in this build</h2>'
+                        '<p>The text the finding was about has changed or been fixed, or its check is switched off. '
+                        f'These entries in <code>quality/dispositions.yml</code> can be reviewed and removed.</p><ul>{lis}</ul></section>')
+    n_def = sum(f["disposition"]["status"] == "deferred" for f in closed)
+    return f"""<article class="page quality"><h1>Deferred and waived findings</h1>
+<p>A quality finding can be closed without a change to the text in two ways. It can be <strong>waived</strong>, when the text
+is intended as written, or <strong>deferred</strong>, when it will be fixed in the next version. Either way it no longer
+counts as open, so the open counts on the <a href="{root}quality/index.html">Quality review</a> can reach zero. Each one stays
+listed here with its reason.</p>
+<p>To ask for a finding to be waived or deferred, comment on the finding (the <em>Comment</em> link under it) and say which
+and why. The authors record the decision in <code>quality/dispositions.yml</code>, and it stays attached to the finding from
+one build to the next.</p>
+<p class="stats">{n_def} deferred · {len(closed) - n_def} waived</p>
+{''.join(sections)}</article>"""
+
+
+def write_author_pages(out: Path, *, guide: dict, build_info: dict, findings: list[dict], all_findings: list[dict], stale: dict,
+                       by_id: dict, structure: dict | None, cards: list, examples: list | None, ex_data: dict, proposals, r15) -> None:
+    """The pages of author material: the quality review, the deferred and waived findings, the IGAMT comparison, how the
+    guide is made, the proposed analyses, and the changes from Release 1.5. (The TAB, SISC, MIROW, and TA pages are
+    written with the nav data.) findings: the open ones; all_findings: with the deferred and waived ones.
+    examples: None when the examples are hidden."""
     def shell_(**kw):
         return shell(guide=guide, build=build_info, author_page=True, **kw)
+
+    write_text(out / "quality" / "decided" / "index.html",
+               shell_(root="../../", title="Deferred and waived findings", card_id="quality-decided",
+                      body=decided_page(all_findings, stale, by_id, "../../"),
+                      review={"anchor": "quality-decided", "title": "Deferred and waived findings"}))
+    n_closed = len(all_findings) - len(findings)
+    # where each finding is listed, for links from InteropHub to a comment on one finding (comments.js route())
+    pages = {f["id"]: (f"{f['card']}/index.html" if f.get("card") in by_id else
+                       "quality/index.html" if check_cards.is_open(f) else "quality/decided/index.html") for f in all_findings}
+    write_text(out / "quality" / "finding-pages.json", json.dumps(pages, separators=(",", ":")) + "\n")
 
     sev_all = Counter(f["severity"] for f in findings)
     by_rule = Counter(f["rule"] for f in findings)
@@ -683,8 +766,12 @@ def write_author_pages(out: Path, *, guide: dict, build_info: dict, findings: li
     quality = f"""<article class="page quality"><h1>Quality review</h1>
 <p>These findings come from automated checks run on every build, and from editorial review. They point to places where the
 draft may be unclear, inconsistent, or hard to use, for the authors to consider. Each finding has a permanent ID, and it
-also appears on the section it concerns. The example messages are checked against the IGAMT profiles too. A check
-for duplication across sections will be added in a later build.</p>
+also appears on the section it concerns, and each can be commented on by itself (the <em>Comment</em> link under it).{
+" The example messages are checked against the IGAMT profiles too." if examples is not None else ""} A check for
+duplication across sections will be added in a later build.</p>
+<p class="callout"><a href="decided/index.html"><strong>Deferred and Waived</strong></a>: {n_closed} finding{"s" if n_closed != 1 else ""}
+closed without a change to the text, each with its reason. Deferred findings are the record of issues for the next version.
+They are not counted below.</p>
 <p class="callout"><a href="../r15/index.html"><strong>Changes from Release 1.5</strong></a>: what changed from the 2018
 guide, element by element in the conformance profiles and item by item in the narrative and field notes, with what was not
 carried forward.</p>
@@ -699,12 +786,12 @@ documents published before the TABs.</p>
 connect with the guide, principle by principle: does the guide carry what each practice needs, and say the same thing?</p>
 <p class="callout"><a href="proposals/index.html"><strong>Proposed Analyses</strong></a>: further comparisons and checks
 proposed for this draft, such as alignment with the MIROW best practice guides and a trace from Release 1.5, for CDC to consider.</p>
-<p class="stats">{len(findings)} findings: {sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes.</p>
+<p class="stats">{len(findings)} open findings: {sev_all['issue']} issues, {sev_all['warning']} warnings, {sev_all['note']} notes.</p>
 <table class="rules"><thead><tr><th>Check</th><th>What it looks for</th><th>Count</th></tr></thead><tbody>{rows}</tbody></table>
 {''.join(sections)}</article>"""
     write_text(out / "quality" / "index.html", shell_(root="../", title="Quality review", body=quality,
                                                      review={"anchor": "quality", "title": "Quality review"}))
-    write_text(out / "quality" / "findings.csv", site_igamt.findings_csv(findings, by_id, guide.get("site", "")))
+    write_text(out / "quality" / "findings.csv", site_igamt.findings_csv(all_findings, by_id, guide.get("site", "")))
     if structure:
         model_src = read_yaml(REPO / "model" / "source.yml", {}) or {}
         page = site_igamt.comparison_page(structure, findings, by_id, "../../",
@@ -717,8 +804,8 @@ proposed for this draft, such as alignment with the MIROW best practice guides a
     stats = {"cards": len(cards), "statements": sum(len(c.statements) for c in cards),
              "profiles": len((structure or {}).get("profiles", [])) or 8,
              "value_sets": ((structure or {}).get("stats") or {}).get("value_sets", 0),
-             "examples": len(examples),
-             "examples_clean": sum(1 for ex in examples if all(not r.get("problems") for r in ex_data.get("results", {}).get(ex["id"], []))),
+             "examples": None if examples is None else len(examples),
+             "examples_clean": sum(1 for ex in examples or [] if all(not r.get("problems") for r in ex_data.get("results", {}).get(ex["id"], []))),
              "findings": len(findings)}
     write_text(out / "about" / "index.html", shell_(root="../", title="How this guide is made", card_id="about",
                                                     body=site_about.page("../", guide, stats, by_id),
@@ -743,7 +830,8 @@ def main(argv=None) -> int:
                         help="draft: author view for InteropHub-confirmed authors (default); author: always on; release: none")
     args = parser.parse_args(argv)
     result = build(args.out, args.edition)
-    print(f"Built the {args.edition} edition: {result['cards']} card pages with {result['findings']} findings: "
+    print(f"Built the {args.edition} edition: {result['cards']} card pages with {result['findings']} open findings "
+          f"({result['closed']} deferred or waived): "
           f"{result['out'] / 'index.html'}")
     return 0
 

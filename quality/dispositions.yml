@@ -1,9 +1,16 @@
-# Decisions on quality findings, by finding id. A disposition stays attached to
-# its finding across builds.
+# Decisions on quality findings, by finding id. A finding's id comes from its check and
+# location, so a decision stays attached to its finding from one build to the next (if the
+# text the finding is about changes, the finding gets a new id and this entry is reported
+# as not found in the build).
+#
+# Two decisions take a finding out of the open counts. Both stay listed, with the reason,
+# on the site's "Deferred and Waived" page (quality/decided/):
+#   waived    the text is intended as written; no change
+#   deferred  to be fixed in the next version (the deferred list is the record of those issues)
 #
 #   qf-...:
-#     status: accepted | cdc-to-decide | wont-fix | not-an-issue
-#     note: short reason
+#     status: waived | deferred
+#     reason: why (required)
 #     by: name or role
 #     date: YYYY-MM-DD
 {}

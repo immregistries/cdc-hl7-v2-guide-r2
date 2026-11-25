@@ -228,4 +228,17 @@
       });
     }
   });
+
+  // ------------------------------------------------------------ a link to something inside a folded section opens it
+  // (for example a deferred finding, or a finding in a long list on the Quality review)
+  function reveal() {
+    if (location.hash.length < 2) return;
+    var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (!t) return;
+    var folded = false;
+    for (var p = t.parentElement; p; p = p.parentElement) if (p.tagName === "DETAILS" && !p.open) { p.open = true; folded = true; }
+    if (folded) t.scrollIntoView();
+  }
+  reveal();
+  window.addEventListener("hashchange", reveal);
 })();

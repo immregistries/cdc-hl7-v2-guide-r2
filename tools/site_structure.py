@@ -533,6 +533,8 @@ f' The <a href="{root}quality/igamt/index.html">narrative and IGAMT comparison</
 
 
 def _counts(items):
+    """Open findings by severity (deferred and waived ones are not counted)."""
+    items = [f for f in items if (f.get("disposition") or {}).get("status") not in ("deferred", "waived")]
     return [sum(f["severity"] == s for f in items) for s in ("issue", "warning", "note")]
 
 

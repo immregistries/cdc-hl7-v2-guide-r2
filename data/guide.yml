@@ -18,6 +18,10 @@ comments:
   enabled: true
   hub: https://informatics.immregistries.org/hub
   document: cdc-hl7-v2-guide-r2
+# The example messages (Appendix A, the examples on each section, and their checks in the quality review).
+# Hidden for now at CDC's request (11/24/2026); set show: true to bring them back. examples/ is kept either way.
+examples:
+  show: false
 intro: |
   This is a working draft of the next national HL7 Version 2.5.1 implementation
   guide for immunization messaging. It is organized as short sections, each

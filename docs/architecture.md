@@ -70,7 +70,14 @@ then by the most similar text; new statements take the next unused number.
 - a message;
 - evidence.
 
-Decisions on findings are recorded in `quality/dispositions.yml`, and findings
+Decisions on findings are recorded in `quality/dispositions.yml`: a finding can be
+**waived** (the text is intended as written) or **deferred** (to be fixed in the next
+version), each with a reason. Both take the finding out of the open counts, so they can
+reach zero, and both are listed on the site's Deferred and Waived page
+(`quality/decided/`); the deferred list is the record of issues for the next version.
+The IDs were checked to be stable from one build to the next (every ID from the
+17 Nov 2026 build was unchanged on 25 Nov), which is what lets a decision, and a
+comment on a finding, stay attached to it. Findings
 that only a reviewer can spot go in `quality/manual-findings.yml`. Later stages
 add narrative-to-structure conflict checks, duplication, links, and example
 validation.
@@ -130,6 +137,10 @@ link to these pages, and each segment page lists the sections that discuss its f
 findings appear on the page they concern. The site test fails on any broken internal link.
 
 ## Example messages
+
+The examples are hidden for now at CDC's request: `examples.show: false` in `data/guide.yml`
+leaves them out of the site, the PDF, and the quality checks (their findings and counts).
+Set it to `true` to bring them back; `examples/` and the tools are unchanged.
 
 `tools/import_examples.py` reads CDC's example list (xlsx) and the drafted samples (docx), both kept
 local, and writes one file per example to `examples/`. Each example is matched to its row in the list

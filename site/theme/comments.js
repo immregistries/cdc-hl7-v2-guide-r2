@@ -5,7 +5,8 @@
  *   targets  what a comment can be "about" on this page: [{i: 0, label: "Whole section"}, {i: 3, label: "Statement s3", snippet}]
  * A comment is stored as {anchor, blockIndex: target i, snippet}. Sign-in is the InteropHub
  * PKCE flow used by the AIRA guide template (app_code topic-reference), so one sign-in covers
- * every page of the site. Reading comments also requires sign-in.
+ * every page of the site. Reading comments also requires sign-in. A quality finding (li.finding, author view) is an
+ * anchor of its own, its finding ID: see findings() below.
  * No dependencies. All user text is inserted with textContent.
  */
 (function () {
@@ -309,7 +310,7 @@
 
   // ------------------------------------------------------------------ forms and actions
   function textarea(value) {
-    var t = el("textarea"); t.rows = 4; t.value = value || ""; t.maxLength = 10000; return t;
+    var t = el("textarea"); t.rows = 4; t.value = value || ""; t.maxLength = 4000; return t;
   }
   function newForm() {
     var f = el("form", "c-form");
@@ -335,7 +336,75 @@
       var t = (cfg.targets || []).filter(function (x) { return x.i === i; })[0];
       submit.disabled = true;
       act(request(api + "/comments", { method: "POST", body: {
-        anchor: cfg.anchor, blockIndex: i, snippet: (t && t.snippet) || cfg.title || "", text: text } }));
+        anchor: cfg.anchor, blockIndex: i, snippet: clip((t && t.snippet) || cfg.title || ""), text: text } }));
+    });
+    return f;
+  }
+  function clip(s) {  // InteropHub keeps at most 120 characters of snippet
+    s = String(s || "").replace(/\s+/g, " ").trim();
+    return s.length > 120 ? s.slice(0, 119) + "…" : s;
+  }
+
+  // ------------------------------------------------------------------ comments on one quality finding
+  // A finding (li.finding with a qf-… id, author view) is a comment anchor of its own: its finding ID, which stays the
+  // same from one build to the next. Its threads are shown under the finding wherever it is listed (the section's
+  // findings panel, the Quality review, Deferred and Waived, chapter 7 pages), not in the page's Comments panel.
+  var openFindings = {};
+  function findingEls() {
+    return Array.prototype.slice.call(document.querySelectorAll("li.finding[id^='qf-']"));
+  }
+  function findings() {
+    var hash = location.hash.indexOf("#comment-") === 0 ? Number(location.hash.slice(9)) : 0;
+    findingEls().forEach(function (li) {
+      var fid = li.id;
+      var old = li.querySelector(":scope > .f-comments"); if (old) old.remove();
+      var box = el("div", "f-comments");
+      var mine = threads.filter(function (t) { return t.anchor === fid && !t.deleted; });
+      var nOpen = mine.filter(function (t) { return t.state === "OPEN"; }).length;
+      if (hash && mine.some(function (t) { return t.id === hash || (t.replies || []).some(function (r) { return r.id === hash; }); })) {
+        openFindings[fid] = true;
+      }
+      var label = mine.length ? "Comments (" + mine.length + (nOpen ? ", " + nOpen + " open" : "") + ")" : "Comment";
+      var toggle = button(label, "c-link f-c-toggle" + (nOpen ? " open" : ""), function () {
+        if (!signedIn()) { beginSignIn(false); return; }
+        openFindings[fid] = !openFindings[fid];
+        findings();
+      });
+      toggle.setAttribute("aria-expanded", openFindings[fid] ? "true" : "false");
+      box.appendChild(toggle);
+      if (openFindings[fid] && signedIn() && info) {
+        var list = el("div", "c-list");
+        mine.sort(function (a, b) { return a.createdAt < b.createdAt ? -1 : 1; });
+        mine.forEach(function (t) { list.appendChild(threadEl(t)); });
+        box.appendChild(list);
+        if (info.permissions && info.permissions.canComment) box.appendChild(findingForm(li));
+      }
+      li.appendChild(box);
+    });
+    if (hash) {
+      var target = document.getElementById("comment-" + hash);
+      if (target && target.closest(".f-comments")) {
+        for (var p = target.parentElement; p; p = p.parentElement) if (p.tagName === "DETAILS") p.open = true;
+        target.classList.add("c-target"); target.scrollIntoView({ block: "center" });
+      }
+    }
+  }
+  function findingForm(li) {
+    var f = el("form", "c-form inline");
+    var ta = textarea(); ta.setAttribute("aria-label", "Comment on this finding");
+    ta.placeholder = "Your comment on this finding. To ask for it to be waived or deferred, say which and why.";
+    f.appendChild(ta);
+    var row = el("div", "c-actions");
+    var s = el("button", "c-btn primary", "Post comment"); s.type = "submit"; row.appendChild(s);
+    f.appendChild(row);
+    var msg = li.cloneNode(true);
+    msg.querySelectorAll(".sev, .f-comments, blockquote, .f-id, .f-disp, details, a.f-loc").forEach(function (x) { x.remove(); });
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var text = ta.value.trim(); if (!text) return;
+      s.disabled = true;
+      act(request(api + "/comments", { method: "POST", body: {
+        anchor: li.id, blockIndex: 0, snippet: clip(li.id + ": " + msg.textContent), text: text } }));
     });
     return f;
   }
@@ -395,8 +464,8 @@
     });
   }
   function refresh() {
-    return load().then(function () { render(); badges(index(threads)); }).catch(function (e) {
-      render(); status((e && e.message) || "Comments could not be loaded.");
+    return load().then(function () { render(); findings(); badges(index(threads)); }).catch(function (e) {
+      render(); findings(); status((e && e.message) || "Comments could not be loaded.");
     });
   }
 
@@ -413,6 +482,13 @@
         return x.id === id || (x.replies || []).some(function (y) { return y.id === id; });
       })[0];
       if (!t) return false;
+      if (/^qf-/.test(t.anchor) && !anchors[t.anchor]) {  // a comment on one quality finding: go to the page that lists it
+        return fetch("quality/finding-pages.json").then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
+          .then(function (pages) {
+            location.replace((pages[t.anchor] || "quality/index.html") + "#" + hash);
+            return true;
+          });
+      }
       location.replace((anchors[t.anchor] || t.anchor + "/index.html") + "#" + hash);
       return true;
     }).catch(function () { return false; });
@@ -428,6 +504,7 @@
       if (routed) return;
       try { badges(JSON.parse(sessionStorage.getItem("guide-comment-index:" + key) || "null")); } catch (e) { /* ignore */ }
       if (panel) render();
+      findings();
       if (signedIn()) refresh();
     });
   });

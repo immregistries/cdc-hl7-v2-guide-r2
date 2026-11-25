@@ -167,15 +167,15 @@ class Builder:
         return f"""<section class="front" id="about-pdf">
 <h2 class="front-h">About this PDF edition</h2>
 <p>This PDF has the same content as the website edition of the guide: {len(self.cards)} sections with {n_st} conformance
-statements, the message infrastructure generated from the IGAMT conformance export, {len(self.examples)} example messages, and
+statements, the message infrastructure generated from the IGAMT conformance export,{f" {len(self.examples)} example messages," if self.examples else ""} and
 the appendices. It is arranged to be read in order:</p>
 <ul>
 <li><strong>Conformance statements</strong> follow the explanation in each section, numbered s1, s2, ... as on the website.
 To refer to one, give the section number and the statement number, for example <em>4.2.1 s3</em>. Section numbers can change
 between drafts; the web address of each section does not. Each section heading links to its page on the website.</li>
-<li><strong>Example messages</strong> are collected in Appendix A. A section that has examples lists them by number and page.
+{"" if not self.examples else """<li><strong>Example messages</strong> are collected in Appendix A. A section that has examples lists them by number and page.
 Most examples show only the segments they are about; the rest of the message is one of the base messages printed at the start
-of the appendix.</li>
+of the appendix.</li>"""}
 <li><strong>Field references</strong> such as RXA-20, profile codes such as Z22, and value set names are links to chapter 7
 and Appendix E.</li>
 <li><strong>Chapter 7</strong> is organized by message profile, then by segment in message order. Where a segment has more
@@ -629,7 +629,8 @@ CVX, MVX, and NDC, and very long tables, are described there without their codes
         self.number_examples()
         chapters = "\n".join(self.card_html(r) for r in self.roots)
         ch7 = self.chapter7() if self.model else ""
-        apps = [self.appendix_a(), self.appendix_b(), self.appendix_c(), self.appendix_d(), self.appendix_e() if self.model else ""]
+        # Appendix A is left out while the examples are hidden (data/guide.yml examples.show); B-E keep their letters
+        apps = [self.appendix_a() if self.examples else "", self.appendix_b(), self.appendix_c(), self.appendix_d(), self.appendix_e() if self.model else ""]
         body = "\n".join([chapters, ch7, *apps])
         css = (PDF_SRC / "print.css").read_text(encoding="utf-8")
         return f"""<!doctype html>
